@@ -1,0 +1,9 @@
+#coord_bar{
+	position: absolute;
+	z-index: 1000;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 8%;
+	margin-top: 92%;
+	color: #fff;
+}
