@@ -1,7 +1,7 @@
 var onDeviceReady = function() {
 	
 	var localFileName = 'tiles-ign.mbtiles';
-    var remoteFile = 'lien_to_remote_file';
+    var remoteFile = 'http://cg44.makina-corpus.net/tmp/POSOW-19.04.2012.mbtiles';
 	
     
 	resizeMap();
@@ -11,8 +11,8 @@ var onDeviceReady = function() {
 
 		resizeMap();
 	});
-	// verifyingMap(localFileName, remoteFile);
-	buildMap();
+	verifyingMap(localFileName, remoteFile);
+	//buildMap();
 
 };
 
@@ -62,26 +62,36 @@ function buildMap() {
 
 				mbTilesPlugin.getMinZoom(function(result) {
 					console.log("getMinZoom --" + result + "--");
-					var map = new L.Map("map", {
-						center : [43.2803905,5.405139],//tozeur
-						
-						zoom : 13,
-						attributionControl: false
-						
+
+					mbTilesPlugin.getMetadata(function(result)
+				    {
+						console.log("getMetadata");
+
+						var metadatacenter = result.center;
+
+						var res = metadatacenter.split(",");
+
+						var map = new L.Map("map", {
+							center : [res[0],res[1]],//tozeur
+							
+							zoom : res[2],
+							attributionControl: false
+							
+						});
+						console.log("MBTilesPlugin");
+						var layer = new L.TileLayer.MBTilesPlugin(mbTilesPlugin,{
+							tms:true,
+							zoom: result.min_zoom,
+							maxZoom : result.max_zoom,
+							zoomOffset:0
+						}, function(temp) {
+							console.log("TileLayer initalized");
+							console.log(temp);
+							map.addLayer(temp);
+							console.log("TileLayer initalized2");
+						});
+						console.log("MAP CENTER POINT " + JSON.stringify(map.latLngToLayerPoint(new L.LatLng(38.89611,-77.035446))));
 					});
-					console.log("MBTilesPlugin");
-					var layer = new L.TileLayer.MBTilesPlugin(mbTilesPlugin,{
-						tms:true,
-						zoom: result.min_zoom,
-						maxZoom : result.max_zoom,
-						zoomOffset:0
-					}, function(temp) {
-						console.log("TileLayer initalized");
-						console.log(temp);
-						map.addLayer(temp);
-						console.log("TileLayer initalized2");
-					});
-					console.log("MAP CENTER POINT " + JSON.stringify(map.latLngToLayerPoint(new L.LatLng(38.89611,-77.035446))));
 				}, function(e) {
 					console.log("err : " + JSON.stringify(e));
 				});
@@ -98,39 +108,61 @@ function verifyingMap(localFileName, remoteFile){
 	
 	var fs;				// file system object
 	var ft;				// TileTransfer object
-	
+	var type = "db";
+
+	console.log("verifyMap");
+
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
 		console.log('file system retrieved.');
 		fs = fileSystem;
 
-		// check to see if files already exists
-		var file = fs.root.getFile(localFileName, {create: false}, function () {
-			// file exists
-			console.log('exists');
+		var mbTilesPlugin = new MBTilesPlugin();
+		console.log("after MBTilesPlugin ");
+		mbTilesPlugin.getDirectoryWorking({type: type} , function(r) {
+			console.log("getDirectoryWorking Verify : " + r.directory_working);
+			var absoluteLocalFileName = r.directory_working + localFileName;
 
+			console.log(absoluteLocalFileName);
+			// check to see if files already exists
+			var file = fs.root.getFile(absoluteLocalFileName, null, function (fileEntry) {
+				// file exists
+				console.log('exists, or not...');
+				console.log(fileEntry);
 
-			buildMap();
-		}, function () {
-			// file does not exist
-			console.log('does not exist');
-
-
-			console.log('downloading sqlite file...');
-			ft = new FileTransfer();
-			ft.download(remoteFile, localFileName, function (entry) {
-				console.log('download complete: ' + entry.fullPath);
 				buildMap();
+			}, function () {
+				// file does not exist
+				console.log('does not exist');
 
-			}, function (error) {
-				console.log('error with download', error);
-				navigator.notification.confirm(
-				        'You are the winner!',  // message
-				        onConfirm(button),              // callback to invoke with index of button pressed
-				        'Game Over',            // title
-				        'Retry,Cancel'          // buttonLabels
-				    );
+
+				console.log('downloading sqlite file...');
+				ft = new FileTransfer();
+				ft.onprogress = function(progressEvent) {
+				    if (progressEvent.lengthComputable) {
+				      //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+				      console.log(progressEvent.loaded / progressEvent.total);
+				    } else {
+				      //loadingStatus.increment();
+				      console.log("+1");
+				    }
+				};
+				ft.download(remoteFile, absoluteLocalFileName, function (entry) {
+					console.log('download complete: ' + entry.fullPath);
+					buildMap();
+
+				}, function (error) {
+					console.log('error with download', error);
+					navigator.notification.confirm(
+					        'You are the winner!',  // message
+					        onConfirm(button),              // callback to invoke with index of button pressed
+					        'Game Over',            // title
+					        'Retry,Cancel'          // buttonLabels
+					    );
+				});
 			});
+
 		});
+
 	});
 	
 	function onConfirm(button){
@@ -145,7 +177,5 @@ function verifyingMap(localFileName, remoteFile){
 		console.log('You selected button');
 
 	}
-	
-	
 	
 }
