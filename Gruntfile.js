@@ -165,6 +165,14 @@ module.exports = function (grunt) {
       }
     },
 
+    less: {
+        dist: {
+            files: {
+                '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.less'
+            }
+        }
+    },
+
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -276,7 +284,8 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp}',
             'fonts/*',
             'config.xml',
-            'res/*'
+            'res/',
+            'scripts/{,*/}*.js',
           ]
         }, {
           expand: true,
@@ -287,8 +296,8 @@ module.exports = function (grunt) {
       },
       styles: {
         expand: true,
-        cwd: '<%= yeoman.app %>/styles',
-        dest: '.tmp/styles/',
+        cwd: '.tmp/styles',
+        dest: '<%= yeoman.dist %>/styles/',
         src: '{,*/}*.css'
       }
     },
@@ -375,18 +384,19 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'bowerInstall',
-    'useminPrepare',
+    'less',
+    // 'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
-    'concat',
-    'ngmin',
+    // 'autoprefixer',
+    // 'concat',
+    // 'ngmin',
     'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin',
-    'htmlmin'
+    // 'cdnify',
+    // 'cssmin',
+    // 'uglify',
+    // 'rev',
+    // 'usemin',
+    // 'htmlmin'
   ]);
 
   grunt.registerTask('default', [
