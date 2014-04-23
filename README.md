@@ -74,36 +74,73 @@ AndroidManifest.xml build.xml CordovaLib libs platform_www project.properties sr
 Cordova has generated lot of files, and your source code lives now in `assets` directory.
 
 
+iOS
+---
+
+### Requirements
+
+- XCode
+- ant (version ?)
+
+You are ready to build your first iOS project !
+
+```
+$ pwd
+/home/toto/cordova_root/geotrek_dir
+$ cordova platform add ios
+$ ls platforms
+ios
+$ ls platforms/ios
+CordovaLib cordova geotrek-mobile.xcodeproj www build geotrek-mobile platform_www
+```
+
+Cordova has generated lot of files, and your source code lives now in `www` directory.
+
+
 BUILDING CORDOVA PROJECT
 ========================
+
+Android
+-------
 
 To build it, 2 choices :
 
 From cordova cli
-----------------
 ```
 cordova build android
 ```
 
 From Android Studio
--------------------
 - 'Open/Import project' (on first time, choose 'Import Project', select `/home/toto/cordova_root` dir, and next/next/.../finish).
 - 'Build/Rebuild Project'
+
+iOS
+---
+
+From cordova cli
+```
+cordova build ios
+```
+
+From XCode
+- Open geotrek-mobile.xcodeproj with XCode.
+- Just do 'Play', it will compile and run.
 
 
 RUNNING CORDOVA PROJECT
 =======================
 
+Android
+-------
+
 You also have 2 choices to run cordova project.
 
 From cordova cli
-----------------
 ```
 cordova run android
 ```
 
 From Android Studio
--------------------
 - 'Run/Run'
 
 
@@ -117,6 +154,12 @@ The Android SDK Manager appears, and you just have to choose some "System Image"
 
 Note: You can also use Android Studio
 - 'Tools/Android/SDK Manager'
+
+iOS
+---
+
+From XCode :
+- You can connect an iOS device or use emulators that come with XCode.
 
 
 CORDOVA SOURCE CODE DEVELOPMENT
