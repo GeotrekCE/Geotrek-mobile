@@ -1,13 +1,24 @@
 'use strict';
 
-angular.module('geotrekMobileControllers', [])
-  .controller('TrekListController', function ($scope, $http) {
+
+angular.module('geotrekMobileControllers', ['leaflet-directive'])
+.controller('TrekListController', function ($scope, $http) {
     $scope.description = 'Trek List !';
 
     $http.get('trek.geojson').success(function(data) {
       $scope.treks = data.features.splice(0, 10);
     });
   })
-  .controller('MapController', function ($scope) {
+.controller('TrekController', function ($scope, $routeParams) {
+    $scope.description = 'Trek detail !';
+    console.log($routeParams);
+})
+.controller('MapController', function ($scope) {
     $scope.description = 'Global Map !';
-  });
+
+    angular.extend($scope, {
+        defaults: {
+            scrollWheelZoom: false
+        }
+    });
+});

@@ -11,6 +11,10 @@ geotrekApp.config(['$routeProvider', function($routeProvider) {
       templateUrl : 'views/trek_list.html',
       controller: 'TrekListController'
     }).
+    when('/trek/:trekid', {
+      templateUrl : 'views/trek_detail.html',
+      controller: 'TrekController'
+    }).
     when('/map', {
       templateUrl : 'views/global_map.html',
       controller: 'MapController'
@@ -18,4 +22,5 @@ geotrekApp.config(['$routeProvider', function($routeProvider) {
     otherwise({
         redirectTo : '/'
     });
+
 }]);
