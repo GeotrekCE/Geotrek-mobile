@@ -21,16 +21,11 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: {
       // configurable paths
-      app: require('./bower.json').appPath || 'app',
-      dist: 'www'
+      app: 'app'
     },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
-      bower: {
-        files: ['bower.json'],
-        tasks: ['bowerInstall']
-      },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
@@ -44,7 +39,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
-        tasks: ['newer:less:dist','newer:copy:styles']
+        tasks: ['newer:less:dist']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -55,7 +50,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
+          '<%= yeoman.app %>/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -87,11 +82,6 @@ module.exports = function (grunt) {
             '<%= yeoman.app %>'
           ]
         }
-      },
-      dist: {
-        options: {
-          base: '<%= yeoman.dist %>'
-        }
       }
     },
 
@@ -113,33 +103,10 @@ module.exports = function (grunt) {
       }
     },
 
-    // Empties folders to start fresh
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
-        }]
-      },
-      server: '.tmp'
-    },
-
-    // Automatically inject Bower components into the app
-    bowerInstall: {
-      app: {
-        src: ['<%= yeoman.app %>/index.html'],
-        ignorePath: '<%= yeoman.app %>/'
-      }
-    },
-
     less: {
       dist: {
         files: {
-          '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.less'
+          '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.less'
         }
       }
     },
@@ -150,7 +117,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.app %>/images'
         }]
       }
     },
@@ -161,69 +128,15 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.app %>/images'
         }]
       }
     },
 
-    // ngmin tries to make the code safe for minification automatically by
-    // using the Angular long form for dependency injection. It doesn't work on
-    // things like resolve or inject so those have to be done manually.
-    ngmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
-        }]
-      }
-    },
-
-    // Copies remaining files to places other tasks can use
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
-            'fonts/*',
-            'config.xml',
-            'res/',
-            'scripts/{,*/}*.js',
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }]
-      },
-      styles: {
-        expand: true,
-        cwd: '.tmp/styles',
-        dest: '<%= yeoman.dist %>/styles/',
-        src: '{,*/}*.css'
-      }
-    },
-
+    
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-        'copy:styles'
-      ],
-      test: [
-        'copy:styles'
-      ],
       dist: [
-        'copy:styles',
         'imagemin',
         'svgmin'
       ]
@@ -245,9 +158,6 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
-      'bowerInstall',
-      'concurrent:server',
       'connect:livereload',
       'watch'
     ]);
@@ -259,18 +169,13 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
     'connect:test',
     'karma'
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
-    'bowerInstall',
     'less',
-    'concurrent:dist',
-    'copy:dist',
+    'concurrent:dist'
   ]);
 
   grunt.registerTask('default', [
