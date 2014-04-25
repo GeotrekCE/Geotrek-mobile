@@ -1,0 +1,27 @@
+.trek-list {
+	padding: 0;
+
+	li {
+		list-style: none;
+	}
+}
+
+.trek-list__item {
+	position: relative;
+	
+	.wrapper {
+		display: block;
+		background: @grayLighter;
+		padding: 10px;
+	}
+
+	& + & {
+		border-top: 1px solid @grayLight;
+	}
+}
+
+.trek-list__item__detail-bt {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
