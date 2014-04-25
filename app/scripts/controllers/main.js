@@ -2,15 +2,16 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-.controller('TrekListController', function ($scope, $http) {
+.controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
-    $http.get('trek.geojson').success(function(data) {
-      $scope.treks = data.features.splice(0, 10);
+    TreksData.query().success(function(data) {
+       $scope.treks = data.features.splice(0, 10); 
     });
   })
-.controller('TrekController', function ($scope, $routeParams) {
+.controller('TrekController', function ($scope, $routeParams, TreksData) {
     $scope.description = 'Trek detail !';
+    TreksData.text()
     console.log($routeParams);
 })
 .controller('MapController', function ($scope) {

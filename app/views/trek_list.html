@@ -5,14 +5,18 @@
 <div class="content">
     {{ description }}
 
-    <ul class="treks">
-        <li ng-repeat="trek in treks">
-            <h3>{{ trek.properties.name }}</h3>
-            <p ng-repeat-start="district in trek.properties.districts">
-                {{ district.name.join(', ') }}
-            </p>
-            <p ng-repeat-end></p>
-            <p>Communes : {{ trek.properties.cities.0.name }}</p>
+    <ul class="trek-list">
+        <li ng-repeat="trek in treks" class="trek-list__item">
+            <a href="" class="wrapper">
+                <img class="thumbnail" src=""/>
+                <h3>{{ trek.properties.name }}</h3>
+                <p ng-repeat-start="district in trek.properties.districts">
+                    {{ district.name.join(', ') }}
+                </p>
+                <p ng-repeat-end></p>
+                <p>Communes : {{ trek.properties.cities.0.name }}</p>
+            </a>
+            <a href="#/trek/{{trek.id}}" class="trek-list__item__detail-bt">Details</a>
         </li>
     </ul>
 </div>
