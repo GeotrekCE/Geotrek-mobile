@@ -11,7 +11,7 @@ geotrekApp.config(['$routeProvider', function($routeProvider) {
       templateUrl : 'views/trek_list.html',
       controller: 'TrekListController'
     }).
-    when('/trek/:trekid', {
+    when('/trek/:trekId', {
       templateUrl : 'views/trek_detail.html',
       controller: 'TrekController'
     }).

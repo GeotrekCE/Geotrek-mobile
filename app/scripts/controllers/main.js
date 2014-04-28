@@ -5,14 +5,15 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 .controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
-    TreksData.query().success(function(data) {
-       $scope.treks = data.features.splice(0, 10); 
-    });
-  })
+    $scope.treks = TreksData.query();
+})
 .controller('TrekController', function ($scope, $routeParams, TreksData) {
     $scope.description = 'Trek detail !';
-    TreksData.text()
     console.log($routeParams);
+
+    $scope.treks = TreksData.query();
+
+    $scope.trekId = $routeParams.trekId;
 })
 .controller('MapController', function ($scope) {
     $scope.description = 'Global Map !';
