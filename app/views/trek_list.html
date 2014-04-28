@@ -6,7 +6,7 @@
     {{ description }}
 
     <ul class="trek-list">
-        <li ng-repeat="trek in treks" class="trek-list__item">
+        <li ng-repeat="trek in treks | orderBy:orderProp" class="trek-list__item">
             <a href="" class="wrapper">
                 <img class="thumbnail" src=""/>
                 <h3>{{ trek.properties.name }}</h3>
