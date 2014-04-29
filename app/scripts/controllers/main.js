@@ -5,7 +5,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 .controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
-    $scope.treks = TreksData.query();
+    TreksData.getTreksData().then(function(treks) {
+        $scope.treks = treks;
+    });
 
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
@@ -14,7 +16,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     $scope.description = 'Trek detail !';
     console.log($routeParams);
 
-    $scope.treks = TreksData.query();
+    TreksData.getTreksData().then(function(treks) {
+        $scope.treks = treks;
+    });
 
     $scope.trekId = $routeParams.trekId;
 })
