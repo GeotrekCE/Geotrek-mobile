@@ -3,13 +3,14 @@
 
 <div class="content">
     {{ description }}
-	<div class="trek" ng-repeat="trek in treks | filter:{id: trekId}">
-		<img class="thumbnail" src=""/>
+	<div class="trek">
 		<h3>{{ trek.properties.name }}</h3>
-		<p ng-repeat-start="district in trek.properties.districts">
+		<p class="teaser" ng-bind-html="teaser">
+			<p>{{ object.properties.ambiance }}</p>
+		</p>
+		<p ng-repeat="district in trek.properties.districts">
 		    {{ district.name.join(', ') }}
 		</p>
-		<p ng-repeat-end></p>
 		<p>Communes : {{ trek.properties.cities.0.name }}</p>
 	</div>
 </div>

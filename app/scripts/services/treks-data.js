@@ -9,7 +9,7 @@ angular.module('geotrekMobileServices', ['ngResource'])
             REMOTE_FILE = 'http://rando.makina-corpus.net/fr/filesapi/trek/trek.geojson';
 
         return {
-            getTreksData: function() {
+            getTreks: function() {
                 var requests = $resource(CACHED_FILE, {}, {
                     query: {
                         method: 'GET',
@@ -78,6 +78,21 @@ angular.module('geotrekMobileServices', ['ngResource'])
                     });
 
                 return deferred.promise;
+            },
+            getTrek: function(_trekId) {
+                var trekId = parseInt(_trekId);
+                var trek;
+
+                return this.getTreks().then(function(treks) {
+                    angular.forEach(treks, function(_trek) {
+                        if (_trek.id === trekId) {
+                            trek = _trek;
+                            return;
+                        }
+                    });
+
+                    return trek;
+                });
             }
         };
     });
