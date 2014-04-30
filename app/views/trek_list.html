@@ -5,8 +5,31 @@
 <div class="content">
     {{ description }}
 
+    <h3>Filters :</h3>
+    
+    <h4>Difficulty :</h4>
+    <select ng-model="difficulty.properties.difficulty.id">
+        <option value="1">Facile</option>
+        <option value="2">Moyen</option>
+        <option value="3">Difficile</option>
+    </select>
+
+    <h4>Duration :</h4>
+    <select ng-model="durationValues">
+        <option value="4"><2H30</option>
+        <option value="10">1/2</option>
+        <option value="10.1">Journée</option>
+    </select>
+
+    <h4>Altitude :</h4>
+    <select ng-model="altitude.properties.max_elevation">
+        <option value="300">< 300m</option>
+        <option value="600">600m</option>
+        <option value="1000">>1000m</option>
+    </select>
+
     <ul class="trek-list">
-        <li ng-repeat="trek in treks | orderBy:orderProp" class="trek-list__item">
+        <li ng-repeat="trek in treks | durationFilter" class="trek-list__item">
             <a href="" class="wrapper">
                 <img class="thumbnail" src=""/>
                 <h3>{{ trek.properties.name }}</h3>

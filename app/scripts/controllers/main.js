@@ -2,6 +2,14 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
+.filter('durationFilter', function() {
+    return function(actual) {
+        console.log(actual);
+        // console.log(expected);
+        // if (actual.properties.duration) {};
+        return actual;
+    };
+})
 .controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
