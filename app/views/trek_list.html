@@ -7,27 +7,23 @@
 
     <h3>Filters :</h3>
     
-    <h4>Difficulty :</h4>
-    <select ng-model="difficulty.properties.difficulty.id">
-        <option value="1">Facile</option>
-        <option value="2">Moyen</option>
-        <option value="3">Difficile</option>
-    </select>
+   <!--  <h4>Difficulty :</h4>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="'{{ difficulty.value }}'" uncheckable>{{ difficulty.name }}</button>
+    </div>
 
     <h4>Duration :</h4>
     <div class="bt-group">
-        <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="durationsFilters.value" btn-radio="'{{ duration.value }}'" uncheckable>{{ duration.name }}</button>
+        <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="'{{ duration.value }}'" uncheckable>{{ duration.name }}</button>
     </div>
 
     <h4>Altitude :</h4>
-    <select ng-model="altitude.properties.max_elevation">
-        <option value="300">< 300m</option>
-        <option value="600">600m</option>
-        <option value="1000">>1000m</option>
-    </select>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="'{{ elevation.value }}'" uncheckable>{{ elevation.name }}</button>
+    </div> -->
 
     <ul class="trek-list">
-        <li ng-repeat="trek in treks | filter:durationFilter" class="trek-list__item">
+        <li ng-repeat="trek in treks | filter:filterTreks" class="trek-list__item">
             <a href="" class="wrapper">
                 <img class="thumbnail" src=""/>
                 <h3>{{ trek.properties.name }}</h3>
