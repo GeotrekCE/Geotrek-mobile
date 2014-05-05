@@ -26,6 +26,10 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         { value: '10.1', name: 'Journée' }
     ];
 
+    $scope.durationsFilters = {
+        value: undefined
+    };
+
     $scope.elevation = [
         { value: '300', name: '300m' },
         { value: '600', name: '600m' },
@@ -33,11 +37,11 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     ];
 
     $scope.durationFilter = function (trek) {
-        if (angular.isUndefined($scope.duration) || $scope.duration === null) {
+        if (angular.isUndefined($scope.durationsFilters.value) || $scope.durationsFilters.value === null) {
             return true;
         };
 
-        if (trek.properties.duration <= $scope.duration) {
+        if (trek.properties.duration <= $scope.durationsFilters.value) {
             return true;
         } else {
             return false;

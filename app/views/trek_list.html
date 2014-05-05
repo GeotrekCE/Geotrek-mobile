@@ -16,9 +16,7 @@
 
     <h4>Duration :</h4>
     <div class="bt-group">
-        <button class="bt-group__bt" ng-model="duration" btn-radio="'4'" uncheckable>2H30</button>
-        <button class="bt-group__bt" ng-model="duration" btn-radio="'10'" uncheckable>1/2</button>
-        <button class="bt-group__bt" ng-model="duration" btn-radio="'10.1'" uncheckable>Journée</button>
+        <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="durationsFilters.value" btn-radio="'{{ duration.value }}'" uncheckable>{{ duration.name }}</button>
     </div>
 
     <h4>Altitude :</h4>
