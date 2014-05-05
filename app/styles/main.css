@@ -25,3 +25,6 @@
   right: 10px;
   bottom: 10px;
 }
+.bt-group__bt.active {
+  background: #333333;
+}

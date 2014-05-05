@@ -32,10 +32,8 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         { value: '1000', name: '1000m' }
     ];
 
-    $scope.duration;
-
     $scope.durationFilter = function (trek) {
-        if (angular.isUndefined($scope.duration)) {
+        if (angular.isUndefined($scope.duration) || $scope.duration === null) {
             return true;
         };
 
@@ -45,16 +43,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             return false;
         }
     }
-
-    $scope.singleModel = 1;
-
-    $scope.radioModel = 'Middle';
-
-    $scope.checkModel = {
-        left: false,
-        middle: true,
-        right: false
-    };
 })
 .controller('TrekController', function ($scope, $routeParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';

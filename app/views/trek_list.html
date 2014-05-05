@@ -15,15 +15,10 @@
     </select>
 
     <h4>Duration :</h4>
-        <button ng-click="duration=4"><2H30</button>
-        <button ng-click="duration=10">1/2</button>
-        <button ng-click="duration=10.1">Journée</button>
-
-    <h4>Duration :</h4>
-    <div class="btn-group">
-        <button class="filters__bt" ng-model="radioModel" btn-radio="'4'" uncheckable>2H30</button>
-        <button class="filters__bt" ng-model="radioModel" btn-radio="'10'" uncheckable>1/2</button>
-        <button class="filters__bt" ng-model="radioModel" btn-radio="'10.1'" uncheckable>Journée</button>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-model="duration" btn-radio="'4'" uncheckable>2H30</button>
+        <button class="bt-group__bt" ng-model="duration" btn-radio="'10'" uncheckable>1/2</button>
+        <button class="bt-group__bt" ng-model="duration" btn-radio="'10.1'" uncheckable>Journée</button>
     </div>
 
     <h4>Altitude :</h4>
