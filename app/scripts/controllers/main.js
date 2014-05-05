@@ -45,6 +45,16 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             return false;
         }
     }
+
+    $scope.singleModel = 1;
+
+    $scope.radioModel = 'Middle';
+
+    $scope.checkModel = {
+        left: false,
+        middle: true,
+        right: false
+    };
 })
 .controller('TrekController', function ($scope, $routeParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';

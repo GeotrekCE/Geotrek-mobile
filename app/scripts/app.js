@@ -1,6 +1,6 @@
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp', ['ngRoute', 'ngResource', 'geotrekMobileControllers', 'geotrekMobileServices']);
+var geotrekApp = angular.module('geotrekMobileApp', ['ngRoute', 'ngResource', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices']);
 
 geotrekApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
