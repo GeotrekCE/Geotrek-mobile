@@ -2,14 +2,6 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-.filter('durationFilter', function() {
-    return function(actual) {
-        console.log(actual);
-        // console.log(expected);
-        // if (actual.properties.duration) {};
-        return actual;
-    };
-})
 .controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
@@ -19,6 +11,40 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
+
+
+    // Filters
+    $scope.difficulty = [
+        { value: '1', name: 'Facile' },
+        { value: '2', name: 'Moyen' },
+        { value: '3', name: 'Difficile' }
+    ];
+
+    $scope.durations = [
+        { value: '4', name: '2H30' },
+        { value: '10', name: '1/2' },
+        { value: '10.1', name: 'Journée' }
+    ];
+
+    $scope.elevation = [
+        { value: '300', name: '300m' },
+        { value: '600', name: '600m' },
+        { value: '1000', name: '1000m' }
+    ];
+
+    $scope.duration;
+
+    $scope.durationFilter = function (trek) {
+        if (angular.isUndefined($scope.duration)) {
+            return true;
+        };
+
+        if (trek.properties.duration <= $scope.duration) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 })
 .controller('TrekController', function ($scope, $routeParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';

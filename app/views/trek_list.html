@@ -20,6 +20,9 @@
         <option value="10">1/2</option>
         <option value="10.1">Journée</option>
     </select>
+        <button ng-click="duration=4"><2H30</button>
+        <button ng-click="duration=10">1/2</button>
+        <button ng-click="duration=10.1">Journée</button>
 
     <h4>Altitude :</h4>
     <select ng-model="altitude.properties.max_elevation">
@@ -29,7 +32,7 @@
     </select>
 
     <ul class="trek-list">
-        <li ng-repeat="trek in treks | durationFilter" class="trek-list__item">
+        <li ng-repeat="trek in treks | filter:durationFilter" class="trek-list__item">
             <a href="" class="wrapper">
                 <img class="thumbnail" src=""/>
                 <h3>{{ trek.properties.name }}</h3>
@@ -37,6 +40,7 @@
                     {{ district.name.join(', ') }}
                 </p>
                 <p>Communes : {{ trek.properties.cities.0.name }}</p>
+                <span>{{ trek.properties.duration }}</span>
             </a>
             <a href="#/trek/{{trek.id}}" class="trek-list__item__detail-bt">Details</a>
         </li>
