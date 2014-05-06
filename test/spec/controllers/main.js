@@ -1,22 +1,52 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
-
-  // load the controller's module
-  beforeEach(module('geotrekMobileApp'));
-
-  var MainCtrl,
-    scope;
-
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
+describe('geotrekMobileApp controllers', function() {
+    // 'test values would not match the responses exactly' we use this to solve the problem
+    beforeEach(function(){
+        this.addMatchers({
+            toEqualData: function(expected) {
+                return angular.equals(this.actual, expected);
+            }
+        });
     });
-  }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
+    // load modules
+    beforeEach(module('geotrekMobileControllers'));
+    beforeEach(module('geotrekMobileServices'));
+    
+    describe('TrekListController', function () {
+        var trekListController,
+            scope,
+            $httpBackend;
+
+        // Initialize the controller, a mock scope and $http service
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET('trek.geojson?method=GET&url=trek.geojson').
+                respond({
+                    "crs": {},
+                    "features": [{
+                        geometry: {},
+                        id: 903944,
+                        properties: {},
+                        type: "Feature"  
+                    }]
+                });
+
+            scope = $rootScope.$new();
+            trekListController = $controller('TrekListController', {$scope: scope});
+        }));
+
+        it('should create "treks" model fetched from xhr', function() {
+            expect(scope.treks).toBeUndefined();
+            $httpBackend.flush();
+     
+            expect(scope.treks).toEqualData([{
+                geometry: {},
+                id: 903944,
+                properties: {},
+                type: "Feature"   
+            }]);
+        });
+    });
 });

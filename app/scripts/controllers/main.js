@@ -51,18 +51,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             return false;
         }
     }
-
-    $scope.durationFilter = function (trek) {
-        if (angular.isUndefined($scope.activeFilters.duration) || $scope.activeFilters.duration === null) {
-            return true;
-        }
-
-        if (trek.properties.duration <= $scope.activeFilters.duration) {
-            return true;
-        } else {
-            return false;
-        }
-    };
 })
 .controller('TrekController', function ($scope, $routeParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';
