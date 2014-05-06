@@ -5,16 +5,33 @@
 <div class="content">
     {{ description }}
 
+    <h3>Filters :</h3>
+    
+    <h4>Difficulty :</h4>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
+    </div>
+
+    <h4>Duration :</h4>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
+    </div>
+
+    <h4>Altitude :</h4>
+    <div class="bt-group">
+        <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
+    </div>
+
     <ul class="trek-list">
-        <li ng-repeat="trek in treks" class="trek-list__item">
+        <li ng-repeat="trek in treks | filter:filterTreks" class="trek-list__item">
             <a href="" class="wrapper">
                 <img class="thumbnail" src=""/>
                 <h3>{{ trek.properties.name }}</h3>
-                <p ng-repeat-start="district in trek.properties.districts">
+                <p ng-repeat="district in trek.properties.districts">
                     {{ district.name.join(', ') }}
                 </p>
-                <p ng-repeat-end></p>
                 <p>Communes : {{ trek.properties.cities.0.name }}</p>
+                <span>{{ trek.properties.duration }}</span>
             </a>
             <a href="#/trek/{{trek.id}}" class="trek-list__item__detail-bt">Details</a>
         </li>
