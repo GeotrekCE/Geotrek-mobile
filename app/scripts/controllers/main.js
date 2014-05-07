@@ -2,16 +2,8 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-.controller('TrekListController', function ($scope, TreksData, TreksFilters) {
-    $scope.description = 'Trek List !';
 
-    TreksData.getTreks().then(function(treks) {
-        $scope.treks = treks;
-    });
-
-    // Default ordering is already alphabetical, so we comment this line
-    // $scope.orderProp = 'properties.name';
-
+.controller('TrekController', function ($scope, TreksData, TreksFilters) {
 
     // Filters
     $scope.difficulties = TreksFilters.difficulties;
@@ -20,8 +12,8 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
     $scope.activeFilters = {
         difficulty: undefined,
-        duration: undefined,
-        elevation: undefined
+        duration:   undefined,
+        elevation:  undefined
     };
 
     $scope.filterTreks = function (trek) {
@@ -62,47 +54,8 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 
-
-    // Filters
-    $scope.difficulties = TreksFilters.difficulties;
-    $scope.durations    = TreksFilters.durations;
-    $scope.elevations   = TreksFilters.elevations;
-
-    $scope.activeFilters = {
-        difficulty: undefined,
-        duration: undefined,
-        elevation: undefined
-    };
-
-    $scope.filterTreks = function (trek) {
-        if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.difficulties, 'difficulty') &&
-            filterTrekWithFilter(trek.properties.duration, $scope.durations, 'duration') &&
-            filterTrekWithFilter(trek.properties.ascent, $scope.elevations, 'elevation')) {
-            return true;
-        }
-        return false;
-    };
-
-    function filterTrekWithFilter(trekValue, category, property) {
-        // console.log(trekValue);
-        // console.log($scope.activeFilters[property]);
-        
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (trekValue === undefined ||
-            angular.isUndefined($scope.activeFilters[property]) ||
-            $scope.activeFilters[property] === null) {
-            return true;
-        }
-
-        if (trekValue <= $scope.activeFilters[property]) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 })
-.controller('TrekController', function ($scope, $stateParams, TreksData, $sce) {
+.controller('TrekDetailController', function ($scope, $stateParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';
     console.log($stateParams);
 

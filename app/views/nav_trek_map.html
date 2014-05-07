@@ -1,8 +1,36 @@
+<nav id="global-filters">
+    <h1>Filtre global</h1>
+    <ul>
+        <li>Filtre</li>
+        <li>Zone de recherche</li>
+        <li>Online/Offline</li>
+    </ul>
+</nav>
 
+<aside>
+	<h3>Filters :</h3>
+
+	<h4>Difficulty :</h4>
+	<div class="bt-group">
+	    <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
+	</div>
+
+	<h4>Duration :</h4>
+	<div class="bt-group">
+	    <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
+	</div>
+
+	<h4>Altitude :</h4>
+	<div class="bt-group">
+	    <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
+	</div>
+</aside>
 
 <nav id="menu">
     <ul>
         <li><a href="#/">Trek List</a></li>
-        <li><a href="#/map">Global Map</a></li>
+        <li><a ui-sref="home.map">Global Map</a></li>
     </ul>
 </nav>
+
+<div ui-view></div>

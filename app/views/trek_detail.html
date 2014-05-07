@@ -1,8 +1,8 @@
-
-<nav ng-include="'views/nav_header.html'"></nav>
-
 <div class="content">
     {{ description }}
+
+    <a ui-sref="^" class="back-bt">Retour</a>
+
 	<div class="trek">
 		<h3>{{ trek.properties.name }}</h3>
 		<p class="teaser" ng-bind-html="teaser">
@@ -13,6 +13,6 @@
 		</p>
 		<p>Communes : {{ trek.properties.cities.0.name }}</p>
 
-		<a href="#/map/{{trek.id}}" class="trek-bt">Carte de l'itinéraire</a>
+		<a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-bt">Carte de l'itinéraire</a>
 	</div>
 </div>

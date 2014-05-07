@@ -7,27 +7,28 @@ geotrekApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/trek');
 
     $stateProvider
-    .state('trek', {
-        url: '/trek',
-        abstract: true,
-        template: '<div ui-view></div>'
-    })
-    .state('trek.list', {
+    .state('home', {
         url: '',
+        abstract: true,
+        templateUrl: 'views/nav_trek_map.html',
+        controller: 'TrekController'
+    })
+    .state('home.trek', {
+        url: '/trek',
         templateUrl : 'views/trek_list.html',
         controller: 'TrekListController'
     })
-    .state('trek.detail', {
+    .state('home.trek.detail', {
         url:'/:trekId',
         templateUrl : 'views/trek_detail.html',
-        controller: 'TrekController'
+        controller: 'TrekDetailController'
     })
-    .state('map', {
+    .state('home.map', {
         url:'/map',
         templateUrl : 'views/global_map.html',
         controller: 'MapController'
     })
-    .state('map.trek', {
+    .state('home.map.trek', {
         url:'/:trekId',
         templateUrl : 'views/global_map.html',
         controller: 'MapController'
