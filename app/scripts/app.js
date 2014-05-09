@@ -1,6 +1,15 @@
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp', ['ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices']);
+var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices']);
+
+geotrekApp.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+        if(window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
+    });
+})
 
 geotrekApp.config(function($stateProvider, $urlRouterProvider) {
 
