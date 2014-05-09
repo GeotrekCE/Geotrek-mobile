@@ -3,7 +3,7 @@
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
-.controller('TrekController', function ($scope, TreksData, TreksFilters) {
+.controller('TrekController', function ($scope, TreksFilters) {
 
     // Filters
     $scope.difficulties = TreksFilters.difficulties;
@@ -44,7 +44,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         }
     }
 })
-.controller('TrekListController', function ($scope, TreksData, TreksFilters) {
+.controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
     TreksData.getTreks().then(function(treks) {
