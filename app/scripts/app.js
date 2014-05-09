@@ -1,15 +1,19 @@
+/*global StatusBar*/
+
 'use strict';
 
 var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices']);
 
-geotrekApp.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-        if(window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
-        }
-    });
-})
+// Wait for 'deviceready' Cordova event
+window.ionic.Platform.ready(function() {
+    if(window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+    }
+
+    // Now launch the app
+    angular.bootstrap(document, ['geotrekMobileApp']);
+});
 
 geotrekApp.config(function($stateProvider, $urlRouterProvider) {
 
