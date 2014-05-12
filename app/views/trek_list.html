@@ -1,20 +1,16 @@
-<div class="content">
-    {{ description }}
-
-    <ul class="trek-list">
-        <li ng-repeat="trek in treks | filter:filterTreks" class="trek-list__item">
-            <a ui-sref="home.map.trek({ trekId: trek.id })" class="wrapper">
-                <img class="thumbnail" src=""/>
-                <h3>{{ trek.properties.name }}</h3>
-                <p ng-repeat="district in trek.properties.districts">
-                    {{ district.name.join(', ') }}
-                </p>
-                <p>Communes : {{ trek.properties.cities.0.name }}</p>
-                <span>{{ trek.properties.duration }}</span>
-            </a>
-            <a ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item__detail-bt">Details</a>
-        </li>
-    </ul>
-</div>
+<ion-list>
+    <ion-item ng-repeat="trek in treks | filter:filterTreks">
+        <a ui-sref="home.map.trek({ trekId: trek.id })" class="wrapper">
+            <img class="thumbnail" src=""/>
+            <h3>{{ trek.properties.name }}</h3>
+            <p ng-repeat="district in trek.properties.districts">
+                {{ district.name.join(', ') }}
+            </p>
+            <p>Communes : {{ trek.properties.cities.0.name }}</p>
+            <span>{{ trek.properties.duration }}</span>
+        </a>
+        <a ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item__detail-bt">Details</a>
+    </ion-item>
+</ion-list>
 
 <div ui-view></div>

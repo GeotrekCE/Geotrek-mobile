@@ -1,36 +1,49 @@
-<nav id="global-filters">
-    <h1>Filtre global</h1>
-    <ul>
-        <li>Filtre</li>
-        <li>Zone de recherche</li>
-        <li>Online/Offline</li>
-    </ul>
-</nav>
+<ion-side-menus>
+    <!-- Center content -->
+    <ion-side-menu-content>
+        <ion-header-bar class="bar-dark">
+            <button class="button button-icon" ng-click="toggleProjects()">
+                <i class="icon ion-navicon"></i>
+            </button>
+            <h1 class="title">Treks</h1>
+            <button class="button button-icon" ng-click="newTask()">
+                <i class="icon ion-compose"></i>
+            </button>
+        </ion-header-bar>
 
-<aside>
-	<h3>Filters :</h3>
+        <ion-header-bar class="bar-subheader">
+            <div class="button-bar">
+                <a class="button" href="#/">Itinéraires</a>
+                <a class="button" ui-sref="home.map">Carte</a>
+            </div>
+        </ion-header-bar>
 
-	<h4>Difficulty :</h4>
-	<div class="bt-group">
-	    <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
-	</div>
+        <ion-content>
+            <div ui-view></div>
+        </ion-content>
+    </ion-side-menu-content>
 
-	<h4>Duration :</h4>
-	<div class="bt-group">
-	    <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
-	</div>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Filtre global</h1>
+        </ion-header-bar>
 
-	<h4>Altitude :</h4>
-	<div class="bt-group">
-	    <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
-	</div>
-</aside>
+        <ion-content scroll="false">
+            <h4>Difficulty :</h4>
+            <div class="bt-group">
+                <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
+            </div>
 
-<nav id="menu">
-    <ul>
-        <li><a href="#/">Trek List</a></li>
-        <li><a ui-sref="home.map">Global Map</a></li>
-    </ul>
-</nav>
+            <h4>Duration :</h4>
+            <div class="bt-group">
+                <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
+            </div>
 
-<div ui-view></div>
+            <h4>Altitude :</h4>
+            <div class="bt-group">
+                <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
+            </div>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
