@@ -11,12 +11,12 @@
 	
 	.wrapper {
 		display: block;
-		background: @grayLighter;
+		background: $grayLighter;
 		padding: 10px;
 	}
 
 	& + & {
-		border-top: 1px solid @grayLight;
+		border-top: 1px solid $grayLight;
 	}
 }
 

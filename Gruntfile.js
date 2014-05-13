@@ -38,8 +38,8 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
-        tasks: ['less:dist']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.scss'],
+        tasks: ['sass:dist']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -103,10 +103,13 @@ module.exports = function (grunt) {
       }
     },
 
-    less: {
+    sass: {
       dist: {
+        options: {
+          loadPath: 'bower_components'
+        },
         files: {
-          '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.less'
+          '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.scss'
         }
       }
     },
@@ -174,7 +177,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'less',
+    'sass',
     'concurrent:dist'
   ]);
 

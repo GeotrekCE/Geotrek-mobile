@@ -5,13 +5,13 @@
 
 // Grays
 // -------------------------
-@black:                 #000;
-@grayDarker:            #222;
-@grayDark:              #333;
-@gray:                  #555;
-@grayLight:             #999;
-@grayLighter:           #eee;
-@white:                 #fff;
+$black:                 #000;
+$grayDarker:            #222;
+$grayDark:              #333;
+$gray:                  #555;
+$grayLight:             #999;
+$grayLighter:           #eee;
+$white:                 #fff;
 
 
 
@@ -20,7 +20,8 @@
 // Imports
 // --------------------------------------------------
 
-@import "vendor/lesshat";
+@import "bourbon/dist/_bourbon";
+@import "ionic/scss/ionic";
 
 
 
@@ -29,7 +30,7 @@
 // Global styles
 // --------------------------------------------------
 * {
-  .box-sizing(border-box);
+  @include box-sizing(border-box);
 }
 
 
@@ -46,7 +47,7 @@
 
 .bt-group__bt {
 	&.active {
-		background: @grayDark;
+		background: $grayDark;
 	}
 }
 
