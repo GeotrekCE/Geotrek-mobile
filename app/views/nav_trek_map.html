@@ -1,32 +1,30 @@
 <ion-side-menus>
     <!-- Center content -->
     <ion-side-menu-content>
-        <ion-header-bar class="bar-dark">
-            <button class="button button-icon" ng-click="toggleProjects()">
-                <i class="icon ion-navicon"></i>
+        <ion-header-bar class="bar-balanced">
+            <button class="button button-icon" menu-toggle="left">
+                <i class="icon ion-levels"></i>
             </button>
             <h1 class="title">Treks</h1>
             <button class="button button-icon" ng-click="newTask()">
-                <i class="icon ion-compose"></i>
+                <i class="icon ion-android-more"></i>
             </button>
         </ion-header-bar>
 
         <ion-header-bar class="bar-subheader">
             <div class="button-bar">
-                <a class="button" href="#/">Itinéraires</a>
-                <a class="button" ui-sref="home.map">Carte</a>
+                <a class="button" ui-sref="home.trek" ui-sref-active="active">Itinéraires</a>
+                <a class="button" ui-sref="home.map" ui-sref-active="active">Carte</a>
             </div>
         </ion-header-bar>
 
-        <ion-content>
-            <div ui-view></div>
-        </ion-content>
+        <ui-view></ui-view>
     </ion-side-menu-content>
 
     <!-- Left menu -->
     <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
-            <h1 class="title">Filtre global</h1>
+            <h1 class="title">Filtre</h1>
         </ion-header-bar>
 
         <ion-content scroll="false">
