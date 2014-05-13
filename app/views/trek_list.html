@@ -5,7 +5,7 @@
             <h3>{{ trek.properties.name }}</h3>
             <p ng-repeat="district in trek.properties.districts">{{ district.name }} {{$last ? '' : ', '}} </p>
             <p>Communes : {{ trek.properties.cities.0.name }}</p>
-            <a ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item__detail-bt">Details</a>
+            <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt">Details</a>
         </ion-item>
     </ion-list>
 </ion-content>
