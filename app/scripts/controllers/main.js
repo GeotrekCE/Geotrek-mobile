@@ -26,9 +26,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     };
 
     function filterTrekWithFilter(trekValue, category, property) {
-        // console.log(trekValue);
-        // console.log($scope.activeFilters[property]);
-        
         // Trek considered as matching if filter not set or if
         // property is empty.
         if (trekValue === undefined ||
@@ -55,7 +52,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     // $scope.orderProp = 'properties.name';
 
 })
-.controller('TrekDetailController', function ($scope, $stateParams, TreksData, $sce) {
+.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, TreksData, $sce) {
     $scope.description = 'Trek detail !';
     console.log($stateParams);
 
@@ -65,6 +62,19 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     });
 
     $scope.trekId = $stateParams.trekId;
+
+    $ionicModal.fromTemplateUrl('views/trek_detail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+        $scope.modal.show();
+    });
+    
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
 })
 .controller('MapController', function ($scope) {
     $scope.description = 'Global Map !';
