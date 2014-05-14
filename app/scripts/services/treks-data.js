@@ -64,7 +64,7 @@ services.factory('TreksData', function ($resource, $rootScope, $window, $q, File
                     meta = results[1];
 
                     var data = angular.fromJson(file);
-                    deferred.resolve(data.features.splice(0, 10));
+                    deferred.resolve(data);
                 },
                 function(error) { // No local file found
                     console.log(error);
@@ -82,7 +82,7 @@ services.factory('TreksData', function ($resource, $rootScope, $window, $q, File
                                 console.log(error);
                             });
 
-                            deferred.resolve(data.features.splice(0, 10));
+                            deferred.resolve(data);
                         }).catch(function(error) {
                             // Can't load local nor server file,
                             // display error message
@@ -154,7 +154,7 @@ services.service('WebFiles', function ($window, $q, $resource) {
     };
 
     this.read = function(filename) {
-        return $q.all([requests.query({ url: filename, method: 'GET' }).$promise, "2014-05-12T13:51:58.000Z"]);
+        return $q.all([requests.query({ url: filename, method: 'GET' }).$promise, '2014-05-12T13:51:58.000Z']);
     };
 
     this.remove = function(filename) {

@@ -3,7 +3,7 @@
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
-.controller('TrekController', function ($scope, TreksFilters) {
+.controller('TrekController', function ($scope, TreksFilters, TreksData) {
 
     // Filters
     $scope.difficulties = TreksFilters.difficulties;
@@ -40,13 +40,18 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             return false;
         }
     }
+
+    TreksData.getTreks().then(function(treks) {
+        $scope.treks = treks;
+        $scope.$broadcast('OnTreksLoaded');
+    });
 })
 .controller('TrekListController', function ($scope, TreksData) {
     $scope.description = 'Trek List !';
 
-    TreksData.getTreks().then(function(treks) {
-        $scope.treks = treks;
-    });
+    // TreksData.getTreks().then(function(treks) {
+    //     $scope.treks = treks;
+    // });
 
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
@@ -80,8 +85,31 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     $scope.description = 'Global Map !';
 
     angular.extend($scope, {
+        center: {
+            lat: 44.2,
+            lng: 5.77,
+            zoom: 6
+        },
         defaults: {
             scrollWheelZoom: false
         }
+    });
+
+    $scope.$on('OnTreksLoaded', function() {
+        console.log($scope.treks);
+
+        angular.extend($scope, {
+            geojson: {
+                data: $scope.treks,
+                style: {
+                    fillColor: "green",
+                    weight: 2,
+                    opacity: 1,
+                    color: 'black',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                }
+            }
+        });
     });
 });

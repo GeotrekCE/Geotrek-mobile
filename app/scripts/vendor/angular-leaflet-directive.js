@@ -106,25 +106,11 @@
     'leafletMapDefaults',
     'leafletHelpers',
     'leafletBoundsHelpers',
-    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers) {
+    'leafletEvents',
+    function ($log, $q, $location, leafletMapDefaults, leafletHelpers, leafletBoundsHelpers, leafletEvents) {
       var isDefined = leafletHelpers.isDefined, isNumber = leafletHelpers.isNumber, isSameCenterOnMap = leafletHelpers.isSameCenterOnMap, safeApply = leafletHelpers.safeApply, isValidCenter = leafletHelpers.isValidCenter, isEmpty = leafletHelpers.isEmpty, isUndefinedOrEmpty = leafletHelpers.isUndefinedOrEmpty;
       var shouldInitializeMapWithBounds = function (bounds, center) {
         return isDefined(bounds) && !isEmpty(bounds) && isUndefinedOrEmpty(center);
-      };
-      var notifyCenterChangedToBounds = function (scope) {
-        scope.$broadcast('boundsChanged');
-      };
-      var notifyCenterUrlHashChanged = function (scope, map, attrs) {
-        if (!isDefined(attrs.urlHashCenter)) {
-          return;
-        }
-        var center = map.getCenter();
-        var centerUrlHash = center.lat.toFixed(4) + ':' + center.lng.toFixed(4) + ':' + map.getZoom();
-        var search = $location.search();
-        if (!isDefined(search.c) || search.c !== centerUrlHash) {
-          //$log.debug("notified new center...");
-          scope.$emit('centerUrlHash', centerUrlHash);
-        }
       };
       var _leafletCenter;
       return {
@@ -259,7 +245,7 @@
                 center.lat,
                 center.lng
               ], center.zoom);
-              notifyCenterChangedToBounds(leafletScope, map);
+              leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
             }, true);
             map.whenReady(function () {
               mapReady = true;
@@ -267,7 +253,7 @@
             map.on('moveend', function () {
               // Resolve the center after the first map position
               _leafletCenter.resolve();
-              notifyCenterUrlHashChanged(leafletScope, map, attrs);
+              leafletEvents.notifyCenterUrlHashChanged(leafletScope, map, attrs, $location.search());
               //$log.debug("updated center on map...");
               if (isSameCenterOnMap(centerModel, map)) {
                 //$log.debug("same center in model, no need to update again.");
@@ -281,7 +267,7 @@
                   zoom: map.getZoom(),
                   autoDiscover: false
                 };
-                notifyCenterChangedToBounds(leafletScope, map);
+                leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
               });
             });
             if (centerModel.autoDiscover === true) {
@@ -292,13 +278,13 @@
                     centerModel.lat,
                     centerModel.lng
                   ], centerModel.zoom);
-                  notifyCenterChangedToBounds(leafletScope, map);
+                  leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
                 } else {
                   map.setView([
                     defaults.center.lat,
                     defaults.center.lng
                   ], defaults.center.zoom);
-                  notifyCenterChangedToBounds(leafletScope, map);
+                  leafletEvents.notifyCenterChangedToBounds(leafletScope, map);
                 }
               });
             }
@@ -665,7 +651,7 @@
             leafletScope.$on('boundsChanged', function (event) {
               var scope = event.currentScope;
               var bounds = map.getBounds();
-              $log.debug('updated map bounds...', bounds);
+              //$log.debug('updated map bounds...', bounds);
               if (emptyBounds(bounds)) {
                 return;
               }
@@ -680,19 +666,19 @@
                   }
                 };
               if (!angular.equals(scope.bounds, newScopeBounds)) {
-                $log.debug('Need to update scope bounds.');
+                //$log.debug('Need to update scope bounds.');
                 scope.bounds = newScopeBounds;
               }
             });
             leafletScope.$watch('bounds', function (bounds) {
-              $log.debug('updated bounds...', bounds);
+              //$log.debug('updated bounds...', bounds);
               if (!isDefined(bounds)) {
                 $log.error('[AngularJS - Leaflet] Invalid bounds');
                 return;
               }
               var leafletBounds = createLeafletBounds(bounds);
               if (leafletBounds && !map.getBounds().equals(leafletBounds)) {
-                $log.debug('Need to update map bounds.');
+                //$log.debug('Need to update map bounds.');
                 map.fitBounds(leafletBounds);
               }
             }, true);
@@ -1214,6 +1200,11 @@
           if (isDefined(d.markerZoomAnimation)) {
             mapDefaults.markerZoomAnimation = d.markerZoomAnimation;
           }
+          if (d.map) {
+            for (var option in d.map) {
+              mapDefaults[option] = d.map[option];
+            }
+          }
           return mapDefaults;
         },
         setDefaults: function (userDefaults, scopeId) {
@@ -1254,6 +1245,9 @@
             }
             if (isDefined(userDefaults.worldCopyJump)) {
               newDefaults.worldCopyJump = userDefaults.worldCopyJump;
+            }
+            if (isDefined(userDefaults.map)) {
+              newDefaults.map = userDefaults.map;
             }
           }
           var mapId = obtainEffectiveMapId(defaults, scopeId);
@@ -1456,6 +1450,20 @@
         },
         getAvailableMarkerEvents: _getAvailableMarkerEvents,
         getAvailablePathEvents: _getAvailablePathEvents,
+        notifyCenterChangedToBounds: function (scope) {
+          scope.$broadcast('boundsChanged');
+        },
+        notifyCenterUrlHashChanged: function (scope, map, attrs, search) {
+          if (!isDefined(attrs.urlHashCenter)) {
+            return;
+          }
+          var center = map.getCenter();
+          var centerUrlHash = center.lat.toFixed(4) + ':' + center.lng.toFixed(4) + ':' + map.getZoom();
+          if (!isDefined(search.c) || search.c !== centerUrlHash) {
+            //$log.debug("notified new center...");
+            scope.$emit('centerUrlHash', centerUrlHash);
+          }
+        },
         bindMarkerEvents: function (marker, name, markerData, leafletScope) {
           var markerEvents = [];
           var i;
@@ -1771,6 +1779,20 @@
               return new L.BingLayer(params.key, params.options);
             }
           },
+          heatmap: {
+            mustHaveUrl: false,
+            mustHaveData: true,
+            createLayer: function (params) {
+              if (!Helpers.HeatMapLayerPlugin.isLoaded()) {
+                return;
+              }
+              var layer = new L.TileLayer.WebGLHeatMap(params.options);
+              if (isDefined(params.data)) {
+                layer.setData(params.data);
+              }
+              return layer;
+            }
+          },
           yandex: {
             mustHaveUrl: false,
             createLayer: function (params) {
@@ -1801,6 +1823,10 @@
         // Check if the layer must have an URL
         if (layerTypes[layerDefinition.type].mustHaveUrl && !isString(layerDefinition.url)) {
           $log.error('[AngularJS - Leaflet] A base layer must have an url');
+          return false;
+        }
+        if (layerTypes[layerDefinition.type].mustHaveData && !isDefined(layerDefinition.data)) {
+          $log.error('[AngularJS - Leaflet] The base layer must have a "data" array attribute');
           return false;
         }
         if (layerTypes[layerDefinition.type].mustHaveLayer && !isDefined(layerDefinition.layer)) {
@@ -1835,6 +1861,7 @@
           }
           var params = {
               url: layerDefinition.url,
+              data: layerDefinition.data,
               options: layerDefinition.layerOptions,
               layer: layerDefinition.layer,
               type: layerDefinition.layerType,
@@ -2738,6 +2765,11 @@
         ChinaLayerPlugin: {
           isLoaded: function () {
             return angular.isDefined(L.tileLayer.chinaProvider);
+          }
+        },
+        HeatMapLayerPlugin: {
+          isLoaded: function () {
+            return angular.isDefined(L.TileLayer.WebGLHeatMap);
           }
         },
         BingLayerPlugin: {
