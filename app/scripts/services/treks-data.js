@@ -96,7 +96,7 @@ services.factory('TreksData', function ($resource, $rootScope, $window, $q, File
             var trek;
 
             return this.getTreks().then(function(treks) {
-                angular.forEach(treks, function(_trek) {
+                angular.forEach(treks.features, function(_trek) {
                     if (_trek.id === trekId) {
                         trek = _trek;
                         return;

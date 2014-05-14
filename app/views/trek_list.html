@@ -1,6 +1,6 @@
 <ion-content>
     <ion-list>
-        <ion-item ng-repeat="trek in treks | filter:filterTreks" ui-sref="home.map.trek({ trekId: trek.id })" class="item-thumbnail-left">
+        <ion-item ng-repeat="trek in treks.features | filter:filterTreks" ui-sref="home.map.trek({ trekId: trek.id })" class="item-thumbnail-left">
             <img class="thumbnail" src="img.jpg"/>
             <h3>{{ trek.properties.name }}</h3>
             <p ng-repeat="district in trek.properties.districts">{{ district.name }} {{$last ? '' : ', '}} </p>

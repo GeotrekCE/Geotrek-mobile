@@ -86,18 +86,26 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
     angular.extend($scope, {
         center: {
-            lat: 44.2,
-            lng: 5.77,
-            zoom: 6
+            lat: 44.8,
+            lng: 6.2,
+            zoom: 9
         },
         defaults: {
-            scrollWheelZoom: false
+            scrollWheelZoom: false,
+            zoomControl: false // Not needed on Android/iOS modern devices
         }
     });
 
-    $scope.$on('OnTreksLoaded', function() {
-        console.log($scope.treks);
+    if (angular.isDefined($scope.treks)) {
+        showTreks();
+    } else {
+        $scope.$on('OnTreksLoaded', function() {
+            showTreks();
+        });
+    }
 
+
+    function showTreks() {
         angular.extend($scope, {
             geojson: {
                 data: $scope.treks,
@@ -111,5 +119,5 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
                 }
             }
         });
-    });
+    }
 });
