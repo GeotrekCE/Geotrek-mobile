@@ -3,7 +3,7 @@
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
-.controller('TrekController', function ($scope, TreksFilters, TreksData) {
+.controller('TrekController', function ($scope, $state, TreksFilters, TreksData) {
 
     // Define filters from service to the scope
     $scope.difficulties = TreksFilters.difficulties;
@@ -48,6 +48,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.treks = treks;
         $scope.$broadcast('OnTreksLoaded');
     });
+
+    // Give access to state data to our View for active state
+    $scope.$state = $state;
 })
 .controller('TrekListController', function ($scope, TreksData) {
     // Default ordering is already alphabetical, so we comment this line

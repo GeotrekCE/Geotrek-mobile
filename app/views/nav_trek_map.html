@@ -14,7 +14,7 @@
         <ion-header-bar class="bar-subheader">
             <div class="button-bar">
                 <a class="button" ui-sref="home.trek" ui-sref-active="active">Itinéraires</a>
-                <a class="button" ui-sref="home.map" ui-sref-active="active">Carte</a>
+                <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">Carte</a>
             </div>
         </ion-header-bar>
 
