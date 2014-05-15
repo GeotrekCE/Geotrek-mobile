@@ -32,18 +32,17 @@ geotrekApp.config(function($stateProvider, $urlRouterProvider) {
         controller: 'TrekListController'
     })
     .state('home.trek.detail', {
-        url:'/:trekId',
+        url: '/:trekId',
         controller: 'TrekDetailController'
     })
     .state('home.map', {
-        url:'/map',
+        url: '/map',
         templateUrl : 'views/global_map.html',
         controller: 'MapController'
     })
     .state('home.map.trek', {
-        url:'/:trekId',
-        templateUrl : 'views/global_map.html',
-        controller: 'MapController'
+        url: '/:trekId',
+        controller: 'MapControllerDetail'
     });
 
 });

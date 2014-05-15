@@ -5,17 +5,19 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
 .controller('TrekController', function ($scope, TreksFilters, TreksData) {
 
-    // Filters
+    // Define filters from service to the scope
     $scope.difficulties = TreksFilters.difficulties;
     $scope.durations    = TreksFilters.durations;
     $scope.elevations   = TreksFilters.elevations;
 
+    // Prepare an empty object to store currently selected filters
     $scope.activeFilters = {
         difficulty: undefined,
         duration:   undefined,
         elevation:  undefined
     };
 
+    // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
         if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.difficulties, 'difficulty') &&
             filterTrekWithFilter(trek.properties.duration, $scope.durations, 'duration') &&
@@ -41,33 +43,30 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         }
     }
 
+    // Load treks and tell the child scopes when it's ready
     TreksData.getTreks().then(function(treks) {
         $scope.treks = treks;
         $scope.$broadcast('OnTreksLoaded');
     });
 })
 .controller('TrekListController', function ($scope, TreksData) {
-    $scope.description = 'Trek List !';
-
-    // TreksData.getTreks().then(function(treks) {
-    //     $scope.treks = treks;
-    // });
-
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
-
 })
 .controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, TreksData, $sce) {
-    $scope.description = 'Trek detail !';
     console.log($stateParams);
-
+    
+    $scope.trekId = $stateParams.trekId;
+    
+    // Get current trek data from the treks file
     TreksData.getTrek($stateParams.trekId).then(function(trek) {
         $scope.trek = trek;
+
+        // We need to declare our json HTML data as safe using $sce
         $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     });
 
-    $scope.trekId = $stateParams.trekId;
-
+    // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/trek_detail.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -81,9 +80,8 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.modal.remove();
     });
 })
-.controller('MapController', function ($scope) {
-    $scope.description = 'Global Map !';
-
+.controller('MapController', function ($scope, leafletData) {
+    // Set default Leaflet map params
     angular.extend($scope, {
         center: {
             lat: 44.8,
@@ -96,15 +94,13 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         }
     });
 
-    if (angular.isDefined($scope.treks)) {
+    if (angular.isDefined($scope.treks)) { // If treks data are already loaded
         showTreks();
-    } else {
-        $scope.$on('OnTreksLoaded', function() {
-            showTreks();
-        });
+    } else { // Data not yet loaded, wait for loading, then display treks on map
+        $scope.$on('OnTreksLoaded', showTreks);
     }
 
-
+    // Add treks geojson to the map
     function showTreks() {
         angular.extend($scope, {
             geojson: {
@@ -120,4 +116,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             }
         });
     }
+})
+.controller('MapControllerDetail', function ($scope, $stateParams) {
+    console.log($stateParams);
 });
