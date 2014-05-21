@@ -103,11 +103,17 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.$on('OnTreksLoaded', showTreks);
     }
 
+    // Watch for changes on filters, then reload the treks to keep them synced
+    $scope.$watchCollection('activeFilters', function(newValue, oldValue) {
+        showTreks();
+    });
+
     // Add treks geojson to the map
     function showTreks() {
         angular.extend($scope, {
             geojson: {
                 data: $scope.treks,
+                filter: $scope.filterTreks,
                 style: {
                     fillColor: "green",
                     weight: 2,
