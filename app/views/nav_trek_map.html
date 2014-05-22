@@ -1,11 +1,14 @@
 <ion-side-menus>
     <!-- Center content -->
     <ion-side-menu-content>
-        <ion-header-bar class="bar-balanced">
+        <ion-header-bar class="bar-balanced item-input-inset">
             <button class="button button-icon" menu-toggle="left">
                 <i class="icon ion-levels"></i>
             </button>
-            <h1 class="title">Treks</h1>
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search" placeholder="Search" ng-model="activeFilters.search">
+            </label>
             <button class="button button-icon" ng-click="newTask()">
                 <i class="icon ion-android-more"></i>
             </button>
@@ -30,17 +33,17 @@
         <ion-content scroll="false">
             <h4>Difficulty :</h4>
             <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="difficulty in difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
+                <button class="bt-group__bt" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
             </div>
 
             <h4>Duration :</h4>
             <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="duration in durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
+                <button class="bt-group__bt" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
             </div>
 
             <h4>Altitude :</h4>
             <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="elevation in elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
+                <button class="bt-group__bt" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
             </div>
         </ion-content>
     </ion-side-menu>

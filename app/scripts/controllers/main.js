@@ -2,32 +2,34 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-
 .controller('TrekController', function ($scope, $state, TreksFilters, TreksData) {
 
-    // Define filters from service to the scope
-    $scope.difficulties = TreksFilters.difficulties;
-    $scope.durations    = TreksFilters.durations;
-    $scope.elevations   = TreksFilters.elevations;
+    // Define filters from service to the scope for the view
+    $scope.filtersData = {
+        difficulties : TreksFilters.difficulties,
+        durations    : TreksFilters.durations,
+        elevations   : TreksFilters.elevations,
+    };
 
     // Prepare an empty object to store currently selected filters
     $scope.activeFilters = {
         difficulty: undefined,
         duration:   undefined,
-        elevation:  undefined
+        elevation:  undefined,
+        search: '',
     };
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
-        if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.difficulties, 'difficulty') &&
-            filterTrekWithFilter(trek.properties.duration, $scope.durations, 'duration') &&
-            filterTrekWithFilter(trek.properties.ascent, $scope.elevations, 'elevation')) {
+        if (filterTrekWithFilter(trek.properties.difficulty.id, 'difficulty') &&
+            filterTrekWithFilter(trek.properties.duration, 'duration') &&
+            filterTrekWithFilter(trek.properties.ascent, 'elevation')) {
             return true;
         }
         return false;
     };
 
-    function filterTrekWithFilter(trekValue, category, property) {
+    function filterTrekWithFilter(trekValue, property) {
         // Trek considered as matching if filter not set or if
         // property is empty.
         if (trekValue === undefined ||
@@ -42,6 +44,11 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             return false;
         }
     }
+
+    // Watch for changes on filters, then reload the treks to keep them synced
+    $scope.$watchCollection('activeFilters', function() {
+        $scope.$broadcast('OnFilter');
+    });
 
     // Load treks and tell the child scopes when it's ready
     TreksData.getTreks().then(function(treks) {
@@ -83,7 +90,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.modal.remove();
     });
 })
-.controller('MapController', function ($scope, leafletData) {
+.controller('MapController', function ($scope, leafletData, filterFilter) {
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
@@ -103,16 +110,17 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.$on('OnTreksLoaded', showTreks);
     }
 
-    // Watch for changes on filters, then reload the treks to keep them synced
-    $scope.$watchCollection('activeFilters', function(newValue, oldValue) {
-        showTreks();
+    $scope.$on('OnFilter', function() {
+        if (angular.isDefined($scope.treks)) {
+            showTreks();
+        }
     });
 
     // Add treks geojson to the map
     function showTreks() {
         angular.extend($scope, {
             geojson: {
-                data: $scope.treks,
+                data: filterFilter($scope.treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
                 style: {
                     fillColor: "green",
@@ -123,7 +131,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
                     fillOpacity: 0.7
                 }
             }
-        });
+        }); 
     }
 })
 .controller('MapControllerDetail', function ($scope, $stateParams) {
