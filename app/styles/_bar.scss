@@ -1,0 +1,33 @@
+.bar-dark {
+	padding: 0;
+
+  .button {
+  	border: none;
+
+  	&.activated {
+  		background: transparentize($green, 0.4);
+  	}
+
+  	&.active,
+  	&.activated {
+  		box-shadow: inset 0 -4px 0 $green;
+  		color: white;
+  	}
+
+  	&:after {
+  		display: none;
+  	}
+  }
+}
+
+.bar-subheader .button-bar > .button {
+	min-height: $button-bar-button-height - 1 + 12;
+	line-height: $button-bar-button-height + 12;
+
+  &:first-child {
+    border-radius: 0;
+  }
+  &:last-child {
+    border-radius: 0;
+  }
+}

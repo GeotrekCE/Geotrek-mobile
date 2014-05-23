@@ -1,20 +1,30 @@
 <ion-side-menus>
     <!-- Center content -->
     <ion-side-menu-content>
-        <ion-header-bar class="bar-balanced item-input-inset">
+        <ion-header-bar class="bar-light item-input-inset" ng-switch on="showSearch.search">
             <button class="button button-icon" menu-toggle="left">
                 <i class="icon ion-levels"></i>
             </button>
-            <label class="item-input-wrapper">
-                <i class="icon ion-ios7-search placeholder-icon"></i>
-                <input type="search" placeholder="Search" ng-model="activeFilters.search">
-            </label>
-            <button class="button button-icon" ng-click="newTask()">
-                <i class="icon ion-android-more"></i>
-            </button>
+            <div class="item-input-wrapper" ng-switch-when="1">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios7-search placeholder-icon"></i>
+                    <input type="search" placeholder="Search" ng-model="activeFilters.search">
+                </label>
+                <button class="button button-clear" ng-click="showSearch.search=0">
+                    Cancel
+                </button>
+            </div>
+            <div class="buttons pull-right" ng-switch-default>
+                <button class="button button-icon" ng-click="showSearch.search=1">
+                    <i class="icon ion-search"></i>
+                </button>
+                <button class="button button-icon" ng-click="newTask()">
+                    <i class="icon ion-android-more"></i>
+                </button>
+            </div>
         </ion-header-bar>
 
-        <ion-header-bar class="bar-subheader">
+        <ion-header-bar class="bar-subheader bar-dark">
             <div class="button-bar">
                 <a class="button" ui-sref="home.trek" ui-sref-active="active">Itinéraires</a>
                 <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">Carte</a>

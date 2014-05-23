@@ -58,6 +58,11 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
     // Give access to state data to our View for active state
     $scope.$state = $state;
+
+    // Show search input or not
+    $scope.showSearch = {
+        search : 0
+    }
 })
 .controller('TrekListController', function ($scope, TreksData) {
     // Default ordering is already alphabetical, so we comment this line
