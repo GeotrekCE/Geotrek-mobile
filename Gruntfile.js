@@ -41,6 +41,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.scss'],
         tasks: ['sass:dist']
       },
+      ionic: {
+        files: ['<%= yeoman.app %>/styles/custom_ionic.scss'],
+        tasks: ['sass:ionic']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -61,7 +65,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -106,10 +110,20 @@ module.exports = function (grunt) {
     sass: {
       dist: {
         options: {
-          loadPath: 'bower_components'
+          loadPath: 'bower_components'//,
+          // sourcemap: true
         },
         files: {
           '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.scss'
+        }
+      },
+      ionic: {
+        options: {
+          loadPath: 'bower_components'//,
+          // sourcemap: true
+        },
+        files: {
+          '<%= yeoman.app %>/styles/ionic.css': '<%= yeoman.app %>/styles/custom_ionic.scss'
         }
       }
     },

@@ -5,7 +5,7 @@
 
 // Grays
 // -------------------------
-$black:                 #000;
+
 $grayDarker:            #222;
 $grayDark:              #333;
 $gray:                  #555;
@@ -13,7 +13,17 @@ $grayLight:             #999;
 $grayLighter:           #eee;
 $white:                 #fff;
 
+$green: 				#ABD76A;
 
+
+// Ionic overrides
+// -------------------------
+$dark:                            #494645;
+
+$bar-dark-text:					  #868383;
+$bar-dark-border:				  transparent;
+$bar-dark-active-bg:              transparent;
+$bar-dark-active-border:          transparent;
 
 
 //
@@ -21,7 +31,7 @@ $white:                 #fff;
 // --------------------------------------------------
 
 @import "bourbon/dist/_bourbon";
-@import "ionic/scss/ionic";
+@import "ionic/scss/_variables";
 
 
 
@@ -29,9 +39,6 @@ $white:                 #fff;
 //
 // Global styles
 // --------------------------------------------------
-* {
-  @include box-sizing(border-box);
-}
 
 
 
@@ -39,6 +46,7 @@ $white:                 #fff;
 // Partials imports
 // -------------------------
 @import "_trek-list";
+@import "_bar";
 
 // Filters
 .bt-group {
@@ -61,5 +69,8 @@ $white:                 #fff;
 }
 
 .bar .button.button-icon .ion-android-more:before {
-	font-size: 24px;
+	font-size: 22px;
+	line-height: 34px;
+	padding-right: 7px;
+	padding-left: 7px;
 }
