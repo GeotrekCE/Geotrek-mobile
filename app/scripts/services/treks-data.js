@@ -117,19 +117,19 @@ services.factory('TreksData', function ($resource, $rootScope, $window, $q, File
 
 services.value('TreksFilters', {
     difficulties : [
-        { value: 1, name: 'Facile' },
-        { value: 2, name: 'Moyen' },
-        { value: 3, name: 'Difficile' }
+        { value: 1, name: 'Facile', icon: 'icon-geotrek-difficulty1' },
+        { value: 2, name: 'Moyen', icon: 'icon-geotrek-difficulty2' },
+        { value: 3, name: 'Difficile', icon: 'icon-geotrek-difficulty2' }
     ],
     durations : [
-        { value: 2.5, name: '<2H30' },
-        { value: 4, name: '1/2' },
-        { value: 8, name: 'Journée' }
+        { value: 2.5, name: '<2H30', icon: 'icon-geotrek-difficulty2' },
+        { value: 4, name: '1/2', icon: 'icon-geotrek-difficulty2' },
+        { value: 8, name: 'Journée', icon: 'icon-geotrek-difficulty2' }
     ],
     elevations : [
-        { value: 300, name: '300m' },
-        { value: 600, name: '600m' },
-        { value: 1000, name: '1000m' }
+        { value: 300, name: '300m', icon: 'icon-geotrek-level1' },
+        { value: 600, name: '600m', icon: 'icon-geotrek-level1' },
+        { value: 1000, name: '1000m', icon: 'icon-geotrek-level1' }
     ]
 });
 

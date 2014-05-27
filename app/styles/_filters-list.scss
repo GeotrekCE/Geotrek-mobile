@@ -1,0 +1,35 @@
+.filters-list {
+	padding: 0;
+	color: white;
+
+	li {
+		list-style: none;
+	}
+}
+
+	.filters-list__item {
+		margin: 10px;
+		padding-top: 10px;
+
+		& + & {
+			border-top: 1px solid white;
+		}
+	}
+
+	.filters-list__bt {
+		color: white;
+		line-height: 27px;
+		padding: 0;
+
+		&:before {
+			font-size: 55px;
+		}
+
+		& + & {
+			margin-left: 6px;
+		}
+
+		&:hover {
+			color: white;
+		}
+	}

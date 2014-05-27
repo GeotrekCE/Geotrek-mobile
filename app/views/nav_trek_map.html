@@ -36,25 +36,20 @@
 
     <!-- Left menu -->
     <ion-side-menu side="left" width="200">
-        <ion-header-bar class="bar-dark">
-            <h1 class="title">Filtre</h1>
-        </ion-header-bar>
-
         <ion-content scroll="false">
-            <h4>Difficulty :</h4>
-            <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
-            </div>
+            <ul class="filters-list">
+                <li class="filters-list__item">
+                    <button class="filters-list__bt button button-icon icon-top {{ difficulty.icon }}" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>{{ difficulty.name }}</button>
+                </li>
 
-            <h4>Duration :</h4>
-            <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
-            </div>
+                <li class="filters-list__item">
+                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>{{ duration.name }}</button>
+                </li>
 
-            <h4>Altitude :</h4>
-            <div class="bt-group">
-                <button class="bt-group__bt" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
-            </div>
+                <li class="filters-list__item">
+                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>{{ elevation.name }}</button>
+                </li>
+            </ul>
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>
