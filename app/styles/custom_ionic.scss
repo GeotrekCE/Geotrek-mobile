@@ -18,3 +18,7 @@ $bar-dark-active-border:          transparent;
 // --------------------------------------------------
 
 @import "ionic/scss/ionic";
+
+.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+	margin-top: 1px!important;
+}

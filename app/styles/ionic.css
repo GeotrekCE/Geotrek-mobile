@@ -7257,3 +7257,6 @@ a.button {
 .platform-android2:not(.enable-transitions) * {
   -webkit-transition: none !important;
   transition: none !important; }
+
+.platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+  margin-top: 1px !important; }
