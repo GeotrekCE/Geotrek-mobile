@@ -130,6 +130,15 @@ services.value('TreksFilters', {
         { value: 300, name: '300m', icon: 'icon-geotrek-level1' },
         { value: 600, name: '600m', icon: 'icon-geotrek-level1' },
         { value: 1000, name: '1000m', icon: 'icon-geotrek-level1' }
+    ],
+    themes : [
+        { value: 'walk', name: 'Marche', icon: 'icon-geotrek-level1' },
+        { value: 'walk', name: 'Marche', icon: 'icon-geotrek-level1' },
+    ],
+    communes : [
+        { value: 'Pompertuzat', name: 'Pompertuzat' },
+        { value: 'Pompertuzat', name: 'Pompertuzat' },
+        { value: 'Pompertuzat', name: 'Pompertuzat' }
     ]
 });
 

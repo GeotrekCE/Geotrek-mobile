@@ -65,6 +65,15 @@ $bar-dark-active-border:          transparent;
 
 .menu-left {
 	background: $greenDarker;
+
+	.scroll-content {
+		padding: 0 10px;
+	}
+
+	.button-block {
+		border-radius: 5px;
+		font-size: 14px;
+	}
 }
 
 .bar .button.button-icon .ion-android-more:before {
@@ -79,6 +88,14 @@ $bar-dark-active-border:          transparent;
 		font-size: 46px;
 		margin-top: 6px;
 		margin-bottom: 3px;
+	}
+}
+
+.icon-geotrek-level1 {
+	line-height: 10px;
+
+	&:before {
+		font-size: 52px;
 	}
 }
 

@@ -4,11 +4,29 @@
 
 	li {
 		list-style: none;
+		text-align: center;
+	}
+
+	.item-select {
+		min-height: 30px;
+
+		&:after {
+			color: white;
+		}
+
+		select {
+			border: 1px solid white;
+			max-width: 100%;
+			width: 100%;
+			padding: 4px 45px 5px 15px;
+			color: white;
+			direction: ltr;
+		}
 	}
 }
 
 	.filters-list__item {
-		margin: 10px;
+		margin: 10px 0;
 		padding-top: 10px;
 
 		& + & {
@@ -20,6 +38,8 @@
 		color: white;
 		line-height: 27px;
 		padding: 0;
+		font-size: 13px;
+		width: 56px;
 
 		&:before {
 			font-size: 55px;

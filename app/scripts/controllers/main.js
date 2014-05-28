@@ -9,6 +9,8 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         difficulties : TreksFilters.difficulties,
         durations    : TreksFilters.durations,
         elevations   : TreksFilters.elevations,
+        themes       : TreksFilters.themes,
+        communes     : TreksFilters.communes
     };
 
     // Prepare an empty object to store currently selected filters
@@ -16,8 +18,18 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         difficulty: undefined,
         duration:   undefined,
         elevation:  undefined,
-        search: '',
+        theme: undefined,
+        commune: null,
+        search: ''
     };
+
+    // Give access to state data to our View for active state
+    $scope.$state = $state;
+
+    // Show search input or not
+    $scope.showSearch = {
+        search : 0 // Hidden by default
+    }
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
@@ -28,6 +40,17 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         }
         return false;
     };
+
+    $scope.resetFilters = function () {
+        $scope.activeFilters = {
+            difficulty: undefined,
+            duration:   undefined,
+            elevation:  undefined,
+            theme: undefined,
+            commune: null,
+            search: ''
+        };
+    }
 
     function filterTrekWithFilter(trekValue, property) {
         // Trek considered as matching if filter not set or if
@@ -55,14 +78,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         $scope.treks = treks;
         $scope.$broadcast('OnTreksLoaded');
     });
-
-    // Give access to state data to our View for active state
-    $scope.$state = $state;
-
-    // Show search input or not
-    $scope.showSearch = {
-        search : 0
-    }
 })
 .controller('TrekListController', function ($scope, TreksData) {
     // Default ordering is already alphabetical, so we comment this line
