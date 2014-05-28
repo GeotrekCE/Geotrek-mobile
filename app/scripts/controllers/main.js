@@ -33,9 +33,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
-        if (filterTrekWithFilter(trek.properties.difficulty.id, 'difficulty') &&
-            filterTrekWithFilter(trek.properties.duration, 'duration') &&
-            filterTrekWithFilter(trek.properties.ascent, 'elevation')) {
+        if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
+            filterTrekWithFilter(trek.properties.duration, $scope.activeFilters.duration) &&
+            filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation)) {
             return true;
         }
         return false;
@@ -52,16 +52,16 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         };
     }
 
-    function filterTrekWithFilter(trekValue, property) {
+    function filterTrekWithFilter(trekValue, filter) {
         // Trek considered as matching if filter not set or if
         // property is empty.
         if (trekValue === undefined ||
-            angular.isUndefined($scope.activeFilters[property]) ||
-            $scope.activeFilters[property] === null) {
+            angular.isUndefined(filter) ||
+            filter === null) {
             return true;
         }
 
-        if (trekValue <= $scope.activeFilters[property]) {
+        if (trekValue <= filter) {
             return true;
         } else {
             return false;
@@ -85,7 +85,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
 })
 .controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, TreksData, $sce) {
     console.log($stateParams);
-    
+
     $scope.trekId = $stateParams.trekId;
     
     // Get current trek data from the treks file
