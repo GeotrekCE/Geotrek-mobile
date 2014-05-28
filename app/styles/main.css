@@ -101,11 +101,15 @@
     border-radius: 5px;
     font-size: 14px; }
 
-.bar .button.button-icon .ion-android-more:before {
+.bar .button.button-icon [class*="ion-android"]:before {
+  font-size: 22px; }
+.bar .button.button-icon [class*="ion-android"].ion-android-more:before {
   font-size: 22px;
   line-height: 34px;
   padding-right: 7px;
   padding-left: 7px; }
+.bar .button.button-icon [class*="ion-android"].ion-android-arrow-back:before {
+  font-size: 14px; }
 
 .icon-geotrek-difficulty2:before {
   font-size: 46px;

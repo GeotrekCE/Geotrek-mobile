@@ -2,7 +2,11 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-.controller('TrekController', function ($scope, $state, TreksFilters, TreksData) {
+.controller('TrekController', function ($scope, $state, $window, TreksFilters, TreksData) {
+
+    // Define utils variables for specific device behaviours
+    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] == "browser";
+    $scope.isIOS = $window.ionic.Platform.isIOS();
 
     // Define filters from service to the scope for the view
     $scope.filtersData = {
@@ -29,7 +33,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     // Show search input or not
     $scope.showSearch = {
         search : 0 // Hidden by default
-    }
+    };
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
@@ -50,7 +54,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             commune: null,
             search: ''
         };
-    }
+    };
 
     function filterTrekWithFilter(trekValue, filter) {
         // Trek considered as matching if filter not set or if
