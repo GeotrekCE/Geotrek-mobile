@@ -4,6 +4,14 @@
     <ion-header-bar class="bar-secondary">
         <a class="button button-clear button-positive" ui-sref="^">Cancel</a>
         <h1 class="title">{{ trek.properties.name }}</h1>
+        <div class="buttons pull-right">
+            <button class="button button-icon" ng-click="newTask()">
+                <i class="icon ion-android-forums"></i>
+            </button>
+            <button class="button button-icon" ng-click="newTask()">
+                <i class="icon ion-android-share"></i>
+            </button>
+        </div>
     </ion-header-bar>
 
     <!-- Modal content area -->

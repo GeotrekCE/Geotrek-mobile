@@ -1,27 +1,18 @@
 .trek-list {
-	padding: 0;
-
-	li {
-		list-style: none;
-	}
+	display: block; // Fix ionic bug on Android 4.1 (list-item won't display on full width)
 }
 
 .trek-list__item {
-	position: relative;
-	
-	.wrapper {
-		display: block;
-		background: $grayLighter;
-		padding: 10px;
-	}
-
-	& + & {
-		border-top: 1px solid $grayLight;
+	.departure {
+		color: $greenDarker;
+		margin-bottom: 0;
 	}
 }
 
 .trek-list__item__detail-bt {
 	position: absolute;
-	right: 10px;
+	right: 5px;
 	bottom: 10px;
+	color: $dark;
+	text-decoration: none;
 }

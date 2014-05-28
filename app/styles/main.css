@@ -13,23 +13,18 @@
   flex: 1 0; }
 
 .trek-list {
-  padding: 0; }
-  .trek-list li {
-    list-style: none; }
+  display: block; }
 
-.trek-list__item {
-  position: relative; }
-  .trek-list__item .wrapper {
-    display: block;
-    background: #eeeeee;
-    padding: 10px; }
-  .trek-list__item + .trek-list__item {
-    border-top: 1px solid #999999; }
+.trek-list__item .departure {
+  color: #7da013;
+  margin-bottom: 0; }
 
 .trek-list__item__detail-bt {
   position: absolute;
-  right: 10px;
-  bottom: 10px; }
+  right: 5px;
+  bottom: 10px;
+  color: #494645;
+  text-decoration: none; }
 
 .filters-list {
   padding: 0;
@@ -95,6 +90,9 @@
   width: 100%;
   height: 100%; }
 
+.main-container {
+  overflow: hidden; }
+
 .menu-left {
   background: #7da013; }
   .menu-left .scroll-content {
@@ -118,6 +116,12 @@
   line-height: 10px; }
   .icon-geotrek-level1:before {
     font-size: 52px; }
+
+.platform-ios .ion-android-forums:before {
+  content: "\f16b"; }
+
+.platform-ios .ion-android-share:before {
+  content: "\f1f2"; }
 
 @font-face {
   font-family: "geotrek-mobile";

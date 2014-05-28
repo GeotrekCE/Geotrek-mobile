@@ -1,11 +1,11 @@
 <ion-content>
-    <ion-list>
-        <ion-item ng-repeat="trek in treks.features | filter:filterTreks | filter:activeFilters.search" ui-sref="home.map.trek({ trekId: trek.id })" class="item-thumbnail-left">
+    <ion-list class="trek-list">
+        <ion-item ng-repeat="trek in treks.features | filter:filterTreks | filter:activeFilters.search" ui-sref="home.map.trek({ trekId: trek.id })" class="trek-list__item item-thumbnail-left">
             <img class="thumbnail" src="img.jpg"/>
             <h3>{{ trek.properties.name }}</h3>
-            <p ng-repeat="district in trek.properties.districts">{{ district.name }} {{$last ? '' : ', '}} </p>
-            <p>Communes : {{ trek.properties.cities.0.name }}</p>
-            <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt">Details</a>
+            <p class="departure">Départ : {{ trek.properties.departure }}</p>
+            <p>{{ trek.properties.difficulty.label }} - {{ trek.properties.duration_pretty }}</p>
+            <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon ion-ios7-information"></a>
         </ion-item>
     </ion-list>
 </ion-content>

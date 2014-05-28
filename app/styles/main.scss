@@ -63,6 +63,10 @@ $bar-dark-active-border:          transparent;
 	height: 100%;
 }
 
+.main-container {
+	overflow: hidden; // Fix ionic bug (horizontal scroll when sidebar is open)
+}
+
 .menu-left {
 	background: $greenDarker;
 
@@ -75,6 +79,10 @@ $bar-dark-active-border:          transparent;
 		font-size: 14px;
 	}
 }
+
+//
+// Icons specific fixes
+// --------------------------------------------------
 
 .bar .button.button-icon .ion-android-more:before {
 	font-size: 22px;
@@ -96,6 +104,22 @@ $bar-dark-active-border:          transparent;
 
 	&:before {
 		font-size: 52px;
+	}
+}
+
+.ion-android-forums {
+	.platform-ios & { // Switch to iOS icon
+		&:before {
+			content: "\f16b";
+		}
+	}
+}
+
+.ion-android-share {
+	.platform-ios & { // Switch to iOS icon
+		&:before {
+			content: "\f1f2";
+		}
 	}
 }
 
