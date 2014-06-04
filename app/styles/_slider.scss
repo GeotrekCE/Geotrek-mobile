@@ -1,0 +1,19 @@
+.slider {
+	padding-bottom: 20px;
+}
+
+	.slider-slides {
+		text-align: center;
+
+		img {
+			max-width: 100%;
+		}
+	}
+
+	.slider-legend {
+		color: $highlight-text-color;
+	}
+
+	.slider-pager {
+		bottom: 5px;
+	}

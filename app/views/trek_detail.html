@@ -3,10 +3,10 @@
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
         <a ng-if="isIOS" class="button button-clear button-positive" ui-sref="^">Cancel</a>
-        <button ng-if="isAndroid" class="button button-icon" ng-click="newTask()">
+        <button ng-if="isAndroid" class="button button-back button-icon" ui-sref="^">
             <i class="icon ion-android-arrow-back"></i>
+            {{ trek.properties.name }}
         </button>
-        <h1 class="title">{{ trek.properties.name }}</h1>
         <div class="buttons pull-right">
             <button class="button button-icon" ng-click="newTask()">
                 <i class="icon ion-android-forums"></i>
@@ -20,8 +20,25 @@
     <!-- Modal content area -->
     <ion-content>
 
-        <div class="trek">
-            <h3>{{ trek.properties.name }}</h3>
+        <div class="trek-detail padding">
+            <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
+
+            <ion-slide-box show-pager="true" disable-scroll="false">
+                <ion-slide>
+                    <img src="http://1.bp.blogspot.com/-kXS3MLcpTPw/T4rZBW2p8DI/AAAAAAAABqI/tR5aiO4Cj58/s1600/cows2.jpg">
+                    <span class="slider-legend">Test légende</span>
+                </ion-slide>
+                <ion-slide>
+                    <img src="http://i677.photobucket.com/albums/vv137/smileytrucker/cow-toy-car-stuck-head-1259518194w.jpg">
+                    <span class="slider-legend">Test légende</span>
+                </ion-slide>
+                <ion-slide>
+                    <img src="http://farm6.staticflickr.com/5226/5663664227_ba5e573930_z.jpg">
+                    <span class="slider-legend">Test légende</span>
+                </ion-slide>
+            </ion-slide-box>
+
+            <h2 class="trek-detail__section-title">Description</h2>
             <p class="teaser" ng-bind-html="teaser">
                 <p>{{ object.properties.ambiance }}</p>
             </p>
