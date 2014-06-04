@@ -40,28 +40,28 @@
             <ul class="filters-list">
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>
-                        <img src="images/{{ difficulty.icon }}">
+                        <img ng-src="images/{{ difficulty.icon }}">
                         {{ difficulty.name }}
                     </button>
                 </li>
 
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>
-                        <img src="images/{{ duration.icon }}">
+                        <img ng-src="images/{{ duration.icon }}">
                         {{ duration.name }}
                     </button>
                 </li>
 
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>
-                        <img src="images/{{ elevation.icon }}">
+                        <img ng-src="images/{{ elevation.icon }}">
                         {{ elevation.name }}
                     </button>
                 </li>
 
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top {{ themes.icon }}" ng-repeat="themes in filtersData.themes" ng-model="activeFilters.theme" btn-radio="{{ themes.value }}" uncheckable>
-                        <img src="images/{{ themes.icon }}">
+                        <img ng-src="images/{{ themes.icon }}">
                         {{ themes.name }}
                     </button>
                 </li>
