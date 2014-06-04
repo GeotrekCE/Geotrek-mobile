@@ -1,0 +1,39 @@
+.trek-detail {
+	.list {
+		.item {
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+			font-size: $font-size-base;
+			padding: 15px 0;
+
+			&:first-child {
+				border-top: none;
+			}
+		}
+	}
+}
+
+.trek-detail__title {
+	font-size: $font-size-large;
+}
+
+.trek-detail__section-title {
+	background: $highlight-text-color;
+	color: white;
+	font-size: $font-size-base;
+	display: inline-block;
+	padding: 10px;
+	padding-left: 10px;
+	margin-left: -10px;
+	min-width: 130px;
+}
+
+.trek-detail__back-bt {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	color: $base-color;
+	text-decoration: none;
+	z-index: 10;
+}

@@ -30,9 +30,16 @@
             </p>
             <p>Communes : {{ trek.properties.cities.0.name }}</p>
 
-            <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-bt">Carte de l'itinéraire</a>
+            <h2 class="trek-detail__section-title">En chemin</h2>
+            <ul class="list">
+            <li class="item" ng-repeat="poi in trek.properties.pois">
+                {{ poi.name }}
+            </li>
+            </ul>
         </div>
 
     </ion-content>
+
+    <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon icon ion-map"></a>
 
 </div>
