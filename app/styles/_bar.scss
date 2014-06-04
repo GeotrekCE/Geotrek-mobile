@@ -1,33 +1,51 @@
 .bar-dark {
-	padding: 0;
+  padding: 0;
 
   .button {
-  	border: none;
+    border: none;
+    background: $tabs-color;
 
-  	&.activated {
-  		background: transparentize($green, 0.4);
-  	}
+    &.activated {
+      background: transparentize($primaryColor, 0.4);
+    }
 
-  	&.active,
-  	&.activated {
-  		box-shadow: inset 0 -4px 0 $green;
-  		color: white;
-  	}
+    &.active {
+      background: $tabs-color;
+    }
 
-  	&:after {
-  		display: none;
-  	}
+    &.active,
+    &.activated {
+      box-shadow: inset 0 -4px 0 $tabs-border-color;
+      color: white;
+    }
+
+    &:after {
+      display: none;
+    }
   }
 }
 
 .bar-subheader .button-bar > .button {
-	min-height: $button-bar-button-height - 1 + 12;
-	line-height: $button-bar-button-height + 12;
+  min-height: $button-bar-button-height - 1 + 12;
+  line-height: $button-bar-button-height + 12;
 
   &:first-child {
     border-radius: 0;
   }
   &:last-child {
     border-radius: 0;
+  }
+}
+
+.bar-secondary {
+  .button-back {
+    white-space: nowrap;
+    overflow: hidden;
+    color: $highlight-text-color;
+    padding-right: 91px;
+  }
+
+  i {
+    color: $icon-bt-color;
   }
 }

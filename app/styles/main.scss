@@ -31,6 +31,8 @@ $bar-dark-active-border:          transparent;
 // Imports
 // --------------------------------------------------
 
+@import "_variables_default";
+// @import "_variables_ecrins";
 @import "bourbon/dist/_bourbon";
 @import "ionic/scss/_variables";
 @import "ionic/scss/_mixins";
@@ -54,6 +56,7 @@ $bar-dark-active-border:          transparent;
 // -------------------------
 @import "_trek-list";
 @import "_filters-list";
+@import "_trek-detail";
 @import "_buttons";
 @import "_slider";
 @import "_bar";
@@ -70,7 +73,7 @@ $bar-dark-active-border:          transparent;
 }
 
 .menu-left {
-	background: $greenDarker;
+	background: $secondaryColor;
 
 	.scroll-content {
 		padding: 0 10px;
@@ -85,6 +88,11 @@ $bar-dark-active-border:          transparent;
 //
 // Icons specific fixes
 // --------------------------------------------------
+
+.bar .button.button-logo {
+	padding-top: 2px;
+	margin-left: -32px;
+}
 
 .bar .button.button-icon [class*="ion-android"] {
 	&:before {
@@ -105,9 +113,8 @@ $bar-dark-active-border:          transparent;
 
 .icon-geotrek-difficulty2 {
 	&:before {
-		font-size: 46px;
+		font-size: 34px;
 		margin-top: 6px;
-		margin-bottom: 3px;
 	}
 }
 
