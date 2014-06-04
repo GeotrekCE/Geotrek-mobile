@@ -122,7 +122,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 })
-.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, TreksData, $sce) {
+.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, TreksData, SocialSharing) {
     console.log($stateParams);
 
     $scope.trekId = $stateParams.trekId;
@@ -148,6 +148,10 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     $scope.$on('$destroy', function() {
         $scope.modal.remove();
     });
+
+    $scope.share = function(message) {
+        SocialSharing.share(message);
+    }
 })
 .controller('MapController', function ($scope, leafletData, filterFilter) {
     // Set default Leaflet map params

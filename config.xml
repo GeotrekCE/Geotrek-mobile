@@ -17,4 +17,14 @@
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature> -->
     <preference name="useBrowserHistory" value="true" />
+
+    <!-- for iOS -->
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+    </feature>
+
+    <!-- for Android -->
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
 </widget>
