@@ -36,18 +36,18 @@
 
 	.filters-list__bt {
 		color: white;
-		line-height: 27px;
+		line-height: 20px;
 		padding: 0;
 		font-size: 13px;
 		width: 56px;
 
 		&:before {
-			font-size: 55px;
+			font-size: 40px;
 		}
 
-		& + & {
-			margin-left: 6px;
-		}
+		// & + & {
+		// 	margin-left: 6px;
+		// }
 
 		&:hover {
 			color: white;
