@@ -2,7 +2,7 @@
 
 
 angular.module('geotrekMobileControllers', ['leaflet-directive'])
-.controller('TrekController', function ($scope, $state, $window, TreksFilters, TreksData) {
+.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, TreksFilters, TreksData, StaticPages) {
 
     // Define utils variables for specific device behaviours
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] == "browser";
@@ -56,6 +56,22 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         };
     };
 
+    // Triggered on a button click, or some other target
+    $scope.showMore = function () {
+        // Show the action sheet
+        $ionicActionSheet.show({
+            buttons: $scope.staticPages,
+            cancel: function() {
+
+            },
+            buttonClicked: function(index) {
+                createModal($scope.staticPages[index].text);
+
+                return true;
+            }
+        });
+    };
+
     function filterTrekWithFilter(trekValue, filter) {
         // Trek considered as matching if filter not set or if
         // property is empty.
@@ -72,6 +88,20 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         }
     }
 
+    function createModal(template) {
+        // Display the modal (this is the entire view here)
+        var modal = $ionicModal.fromTemplate(template, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+        modal.show();
+        
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+    }
+
     // Watch for changes on filters, then reload the treks to keep them synced
     $scope.$watchCollection('activeFilters', function() {
         $scope.$broadcast('OnFilter');
@@ -81,6 +111,11 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     TreksData.getTreks().then(function(treks) {
         $scope.treks = treks;
         $scope.$broadcast('OnTreksLoaded');
+    });
+
+    // Load static pages
+    StaticPages.getStaticPages().then(function(pages) {
+        $scope.staticPages = pages;
     });
 })
 .controller('TrekListController', function ($scope, TreksData) {

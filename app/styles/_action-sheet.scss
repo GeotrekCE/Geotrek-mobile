@@ -1,0 +1,45 @@
+.platform-android, .platform-browser {
+	.action-sheet {
+		box-shadow: 0 0 8px rgba(0,0,0,0.5);
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.action-sheet-backdrop.active {
+		background-color: transparent;
+
+		&.ng-animate.active-add .action-sheet-wrapper {
+			@include animation-name(scaleIn);
+			@include animation-duration(250ms);
+			@include animation-timing-function(ease-in-out);
+			@include animation-fill-mode(both);
+		}
+	}
+
+	.action-sheet-backdrop.ng-animate.active-remove .action-sheet-wrapper {
+		@include animation-name(scaleOut);
+		@include animation-duration(250ms);
+		@include animation-timing-function(ease-in-out);
+		@include animation-fill-mode(both);
+	}
+
+	.action-sheet-wrapper {
+		top: $bar-height;
+		right: 5px;
+		bottom: auto;
+		width: auto;
+		display: block;
+		@include translate3d(0, 0, 0);
+		@include transition(none);
+	}
+
+	.action-sheet-group {
+		margin-bottom: 0;
+		border-radius: 0;
+
+		.button {
+			padding: 1px 15px;
+			color: $base-color;
+		}
+	}
+}

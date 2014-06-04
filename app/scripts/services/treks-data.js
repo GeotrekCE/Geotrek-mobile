@@ -144,6 +144,29 @@ services.value('TreksFilters', {
 });
 
 
+/**
+ * Service that gives treks filters
+ */
+
+services.factory('StaticPages', function ($resource, $rootScope, $window, $q, Files) {
+    return {
+        getStaticPages: function() {
+            var deferred = $q.defer();
+            var pages = [
+                { text: 'Page statique A' },
+                { text: 'Page statique B' },
+                { text: 'Page statique C' },
+                { text: 'Page statique D' }
+            ];
+
+            deferred.resolve(pages);
+
+            return deferred.promise;
+        }
+    };
+});
+
+
 
 /**
  * Cordova File API Service
