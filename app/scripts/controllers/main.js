@@ -56,6 +56,11 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         };
     };
 
+    $scope.cancelBtHandler = function () {
+        $scope.showSearch.search = 0;
+        $scope.activeFilters.search = '';
+    }
+
     // Triggered on a button click, or some other target
     $scope.showMore = function () {
         // Show the action sheet
