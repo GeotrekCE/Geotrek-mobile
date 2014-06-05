@@ -1,9 +1,8 @@
 <ion-side-menus class="main-container">
     <!-- Center content -->
     <ion-side-menu-content>
-        <ion-header-bar class="bar-light item-input-inset" ng-switch on="showSearch.search">
-            <button class="button button-icon button-logo" menu-toggle="left">
-                <i class="icon ion-navicon"><img src="images/logo_pn.svg" width="30"></i>
+        <ion-header-bar class="bar-main bar-light item-input-inset" ng-switch on="showSearch.search">
+            <button class="button button-icon icon ion-navicon button-logo" menu-toggle="left">
             </button>
             <div class="flex-wrapper" ng-switch-when="1">
                 <label class="item-input-wrapper">
@@ -39,30 +38,26 @@
         <ion-content scroll="false">
             <ul class="filters-list">
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" uncheckable>
-                        <img ng-src="images/{{ difficulty.icon }}">
-                        {{ difficulty.name }}
+                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" style="background-image: url(images/{{ difficulty.icon }});" uncheckable>
+                        <span>{{ difficulty.name }}</span>
                     </button>
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" uncheckable>
-                        <img ng-src="images/{{ duration.icon }}">
-                        {{ duration.name }}
+                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" style="background-image: url(images/{{ duration.icon }});" uncheckable>
+                        <span>{{ duration.name }}</span>
                     </button>
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" uncheckable>
-                        <img ng-src="images/{{ elevation.icon }}">
-                        {{ elevation.name }}
+                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" style="background-image: url(images/{{ elevation.icon }});" uncheckable>
+                        <span>{{ elevation.name }}</span>
                     </button>
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ themes.icon }}" ng-repeat="themes in filtersData.themes" ng-model="activeFilters.theme" btn-radio="{{ themes.value }}" uncheckable>
-                        <img ng-src="images/{{ themes.icon }}">
-                        {{ themes.name }}
+                    <button class="filters-list__bt button button-icon icon-top {{ themes.icon }}" ng-repeat="themes in filtersData.themes" ng-model="activeFilters.theme" btn-radio="{{ themes.value }}" style="background-image: url(images/{{ themes.icon }});" uncheckable>
+                        <span>{{ themes.name }}</span>
                     </button>
                 </li>
 

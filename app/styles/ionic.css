@@ -7260,3 +7260,28 @@ a.button {
 
 .platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
   margin-top: 1px !important; }
+
+@-webkit-keyframes scaleIn {
+  from {
+    -webkit-transform: scale(0);
+    opacity: 0; }
+
+  to {
+    -webkit-transform: scale(1);
+    opacity: 1; } }
+@-moz-keyframes scaleIn {
+  from {
+    -moz-transform: scale(0);
+    opacity: 0; }
+
+  to {
+    -moz-transform: scale(1);
+    opacity: 1; } }
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0; }
+
+  to {
+    transform: scale(1);
+    opacity: 1; } }

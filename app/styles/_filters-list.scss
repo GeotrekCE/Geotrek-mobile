@@ -35,11 +35,14 @@
 	}
 
 	.filters-list__bt {
+		position: relative;
 		color: white;
-		line-height: 20px;
 		padding: 0;
 		font-size: 13px;
 		width: 56px;
+		background-repeat: no-repeat;
+		background-position: left bottom;
+		margin-bottom: 20px;
 
 		&:before {
 			font-size: 40px;
@@ -51,5 +54,10 @@
 
 		&:hover {
 			color: white;
+		}
+
+		span {
+			position: relative;
+			top: 33px;
 		}
 	}

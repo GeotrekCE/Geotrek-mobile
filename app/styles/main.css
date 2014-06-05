@@ -51,15 +51,21 @@
     border-top: 1px solid white; }
 
 .filters-list__bt {
+  position: relative;
   color: white;
-  line-height: 20px;
   padding: 0;
   font-size: 13px;
-  width: 56px; }
+  width: 56px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  margin-bottom: 20px; }
   .filters-list__bt:before {
     font-size: 40px; }
   .filters-list__bt:hover {
     color: white; }
+  .filters-list__bt span {
+    position: relative;
+    top: 33px; }
 
 .trek-detail .list .item {
   border-left: none;
@@ -107,6 +113,12 @@
 
 .slider-pager {
   bottom: 5px; }
+
+.bar-main .flex-wrapper {
+  margin-left: 40px; }
+.bar-main .item-input-inset {
+  padding-top: 6px;
+  padding-bottom: 6px; }
 
 .bar-dark {
   padding: 0; }
@@ -182,7 +194,10 @@
   transform: translate3d(0, 0, 0);
   -webkit-transition: none;
   -moz-transition: none;
-  transition: none; }
+  transition: none;
+  -webkit-transform-origin: right top;
+  -moz-transform-origin: right top;
+  transform-origin: right top; }
 .platform-android .action-sheet-group, .platform-browser .action-sheet-group {
   margin-bottom: 0;
   border-radius: 0; }
@@ -206,8 +221,14 @@
     font-size: 14px; }
 
 .bar .button.button-logo {
-  padding-top: 2px;
-  margin-left: -32px; }
+  width: 45px;
+  background: url(../images/logo_pn.svg) top right no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  border: none; }
+  .bar .button.button-logo:before {
+    margin-left: -48px; }
 
 .bar .button.button-icon [class*="ion-android"]:before {
   font-size: 22px; }

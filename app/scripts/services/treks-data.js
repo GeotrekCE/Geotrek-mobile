@@ -268,6 +268,7 @@ services.factory('Files', function($window, $injector) {
 
 /**
  * Cordova social sharing API
+ * Angular wrapper for https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin/
  */
 
 services.factory('SocialSharing', function ($rootScope, $window) {

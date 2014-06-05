@@ -90,8 +90,16 @@ $bar-dark-active-border:          transparent;
 // --------------------------------------------------
 
 .bar .button.button-logo {
-	padding-top: 2px;
-	margin-left: -32px;
+	width: 45px;
+	background:url(../images/logo_pn.svg) top right no-repeat;
+	position: absolute;
+	top: 5px;
+	left: 0;
+	border: none;
+
+	&:before {
+		margin-left: -48px;
+	}
 }
 
 .bar .button.button-icon [class*="ion-android"] {

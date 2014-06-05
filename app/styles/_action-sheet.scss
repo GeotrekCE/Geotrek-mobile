@@ -31,6 +31,7 @@
 		display: block;
 		@include translate3d(0, 0, 0);
 		@include transition(none);
+		@include transform-origin(right, top);
 	}
 
 	.action-sheet-group {
