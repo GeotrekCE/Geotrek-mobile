@@ -39,9 +39,9 @@
 		color: white;
 		padding: 0;
 		font-size: 13px;
-		width: 56px;
+		min-width: 56px;
 		background-repeat: no-repeat;
-		background-position: left bottom;
+		background-position: center bottom;
 		margin-bottom: 20px;
 		border: none;
 
@@ -60,5 +60,9 @@
 		span {
 			position: relative;
 			top: 33px;
+		}
+
+		&.button-icon.activated, &.button-icon.active {
+			background-position: center bottom;
 		}
 	}

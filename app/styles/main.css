@@ -55,9 +55,9 @@
   color: white;
   padding: 0;
   font-size: 13px;
-  width: 56px;
+  min-width: 56px;
   background-repeat: no-repeat;
-  background-position: left bottom;
+  background-position: center bottom;
   margin-bottom: 20px;
   border: none; }
   .filters-list__bt:before {
@@ -67,6 +67,8 @@
   .filters-list__bt span {
     position: relative;
     top: 33px; }
+  .filters-list__bt.button-icon.activated, .filters-list__bt.button-icon.active {
+    background-position: center bottom; }
 
 .trek-detail .list .item {
   border-left: none;
