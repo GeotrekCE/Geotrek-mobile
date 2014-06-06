@@ -1,7 +1,25 @@
 'use strict';
 
 
-angular.module('geotrekMobileControllers', ['leaflet-directive'])
+angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loading-bar'])
+.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+}])
+.controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, TreksFilters, TreksData, StaticPages, cfpLoadingBar) {
+    // Load everything in a promise
+    $q.all([TreksData.getTreks(), StaticPages.getStaticPages()]).then(function(data) {
+        // Save data to rootScope for later use
+        console.log(data);
+
+        $rootScope.treks = data[0];
+        $rootScope.staticPages = data[1];
+
+        cfpLoadingBar.complete();
+
+        // Move on
+        $state.go('home.trek');
+    });
+})
 .controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, TreksFilters, TreksData, StaticPages) {
 
     // Define utils variables for specific device behaviours
@@ -22,9 +40,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
         difficulty: undefined,
         duration:   undefined,
         elevation:  undefined,
-        theme: undefined,
-        commune: null,
-        search: ''
+        theme:      undefined,
+        commune:    null,
+        search:     ''
     };
 
     // Give access to state data to our View for active state
@@ -50,9 +68,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
             difficulty: undefined,
             duration:   undefined,
             elevation:  undefined,
-            theme: undefined,
-            commune: null,
-            search: ''
+            theme:      undefined,
+            commune:    null,
+            search:     ''
         };
     };
 
@@ -110,17 +128,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     // Watch for changes on filters, then reload the treks to keep them synced
     $scope.$watchCollection('activeFilters', function() {
         $scope.$broadcast('OnFilter');
-    });
-
-    // Load treks and tell the child scopes when it's ready
-    TreksData.getTreks().then(function(treks) {
-        $scope.treks = treks;
-        $scope.$broadcast('OnTreksLoaded');
-    });
-
-    // Load static pages
-    StaticPages.getStaticPages().then(function(pages) {
-        $scope.staticPages = pages;
     });
 })
 .controller('TrekListController', function ($scope, TreksData) {

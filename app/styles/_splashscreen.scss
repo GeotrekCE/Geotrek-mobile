@@ -1,0 +1,11 @@
+.splashscreen {
+	background: url(../images/splash-screen.jpg) center top;
+}
+
+	.splashscreen__text {
+		position: absolute;
+		bottom: 20%;
+		left: 50%;
+		@include transform(translateX(-50%));
+		color: white;
+	}

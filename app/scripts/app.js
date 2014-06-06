@@ -20,6 +20,11 @@ geotrekApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/trek');
 
     $stateProvider
+    .state('preload', {
+        url: '',
+        templateUrl: 'views/preload.html',
+        controller: 'AssetsController'
+    })
     .state('home', {
         url: '',
         abstract: true,

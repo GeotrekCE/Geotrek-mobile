@@ -58,7 +58,8 @@
   width: 56px;
   background-repeat: no-repeat;
   background-position: left bottom;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  border: none; }
   .filters-list__bt:before {
     font-size: 40px; }
   .filters-list__bt:hover {
@@ -204,6 +205,18 @@
   .platform-android .action-sheet-group .button, .platform-browser .action-sheet-group .button {
     padding: 1px 15px;
     color: black; }
+
+.splashscreen {
+  background: url(../images/splash-screen.jpg) center top; }
+
+.splashscreen__text {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: white; }
 
 .leaflet-container {
   width: 100%;
