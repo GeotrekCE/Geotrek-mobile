@@ -155,7 +155,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive'])
     });
 
     $scope.share = function(message) {
-        SocialSharing.share(message);
+        SocialSharing.share($scope.trek.properties.name);
     }
 })
 .controller('MapController', function ($scope, leafletData, filterFilter) {
