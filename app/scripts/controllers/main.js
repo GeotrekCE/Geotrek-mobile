@@ -57,7 +57,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
     $scope.filterTreks = function (trek) {
         if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
             filterTrekWithFilter(trek.properties.duration, $scope.activeFilters.duration) &&
-            filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation)) {
+            filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation) &&
+            filterTrekWithThemes(trek.properties.themes, $scope.activeFilters.theme) &&
+            filterTrekWithCities(trek.properties.cities, $scope.activeFilters.commune)) {
             return true;
         }
         return false;
@@ -109,6 +111,45 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
         } else {
             return false;
         }
+    }
+
+    function filterTrekWithThemes(themesValues, value) {
+        var isMatching = false;
+        // Trek considered as matching if filter not set or if
+        // property is empty.
+        angular.forEach(themesValues, function(themeValue) {
+            if (themeValue.id === undefined ||
+                angular.isUndefined(value) ||
+                value === null) {
+                isMatching = true;
+            }
+
+            if (themeValue.id === value) {
+                isMatching = true;
+            }
+        });
+
+        return isMatching;
+    }
+
+    function filterTrekWithCities(citiesValues, value) {
+        var isMatching = false;
+        // Trek considered as matching if filter not set or if
+        // property is empty.
+        angular.forEach(citiesValues, function(cityValue) {
+            if (cityValue.code === undefined ||
+                angular.isUndefined(value) ||
+                value === null) {
+                isMatching = true;
+                return;
+            }
+
+            if (cityValue.code === value.value) {
+                isMatching = true;
+            }
+        });
+
+        return isMatching;
     }
 
     function createModal(template) {

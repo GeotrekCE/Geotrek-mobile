@@ -147,13 +147,13 @@ services.value('TreksFilters', {
         { value: 1000, name: '1000m', icon: 'deniv1.svg' }
     ],
     themes : [
-        { value: 'walk', name: 'Marche', icon: 'deniv1.svg' },
-        { value: 'walk', name: 'Marche', icon: 'deniv1.svg' },
+        { value: 8, name: 'Lac et glacier', icon: 'deniv1.svg' },
+        { value: 8, name: 'Lac et glacier', icon: 'deniv1.svg' },
     ],
     communes : [
-        { value: 'Pompertuzat', name: 'Pompertuzat' },
-        { value: 'Pompertuzat', name: 'Pompertuzat' },
-        { value: 'Pompertuzat', name: 'Pompertuzat' }
+        { value: '05064', name: 'La Chapelle-en-Valgaudémar' },
+        { value: '05064', name: 'La Chapelle-en-Valgaudémar' },
+        { value: '05064', name: 'La Chapelle-en-Valgaudémar' }
     ]
 });
 
