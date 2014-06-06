@@ -95,16 +95,30 @@ services.factory('TreksData', function ($resource, $rootScope, $window, $q, File
             var trekId = parseInt(_trekId);
             var trek;
 
-            return this.getTreks().then(function(treks) {
-                angular.forEach(treks.features, function(_trek) {
+            if (angular.isDefined($rootScope.treks)) {
+                var deferred = $q.defer();
+
+                angular.forEach($rootScope.treks.features, function(_trek) {
                     if (_trek.id === trekId) {
                         trek = _trek;
                         return;
                     }
                 });
 
-                return trek;
-            });
+                deferred.resolve(trek);
+                return deferred.promise;
+            } else {
+                return this.getTreks().then(function(treks) {
+                    angular.forEach(treks.features, function(_trek) {
+                        if (_trek.id === trekId) {
+                            trek = _trek;
+                            return;
+                        }
+                    });
+
+                    return trek;
+                });
+            }
         }
     };
 });
