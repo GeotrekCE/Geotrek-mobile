@@ -173,6 +173,7 @@ This project is generated using Yeoman (http://yeoman.io/)
 - npm (version > 1.2.10) : package manager to get `bower` and `grunt` Node.js scripts
 - bower (`npm install -g bower`) : package manager to manage project js dependencies
 - grunt (`npm install -g grunt-cli`)
+- sass (version > 3.3, we use bourbon lib on v4.0.1 : https://github.com/thoughtbot/bourbon/issues/419, https://github.com/thoughtbot/bourbon/issues/404)
 
     - `$ npm install`
     - `$ bower install`
