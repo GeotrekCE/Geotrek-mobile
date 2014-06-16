@@ -20,10 +20,10 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
         $state.go('home.trek');
     });
 })
-.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, TreksFilters, TreksData, StaticPages) {
+.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, TreksFilters) {
 
     // Define utils variables for specific device behaviours
-    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] == "browser";
+    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
     $scope.isIOS = $window.ionic.Platform.isIOS();
 
     // Define filters from service to the scope for the view
@@ -79,7 +79,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
     $scope.cancelBtHandler = function () {
         $scope.showSearch.search = 0;
         $scope.activeFilters.search = '';
-    }
+    };
 
     // Triggered on a button click, or some other target
     $scope.showMore = function () {
@@ -171,7 +171,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
         $scope.$broadcast('OnFilter');
     });
 })
-.controller('TrekListController', function ($scope, TreksData) {
+.controller('TrekListController', function () {
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 })
@@ -202,9 +202,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
         $scope.modal.remove();
     });
 
-    $scope.share = function(message) {
+    $scope.share = function() {
         SocialSharing.share($scope.trek.properties.name);
-    }
+    };
 })
 .controller('MapController', function ($scope, leafletData, filterFilter) {
     // Set default Leaflet map params
@@ -220,18 +220,6 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
         }
     });
 
-    if (angular.isDefined($scope.treks)) { // If treks data are already loaded
-        showTreks();
-    } else { // Data not yet loaded, wait for loading, then display treks on map
-        $scope.$on('OnTreksLoaded', showTreks);
-    }
-
-    $scope.$on('OnFilter', function() {
-        if (angular.isDefined($scope.treks)) {
-            showTreks();
-        }
-    });
-
     // Add treks geojson to the map
     function showTreks() {
         angular.extend($scope, {
@@ -239,7 +227,7 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
                 data: filterFilter($scope.treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
                 style: {
-                    fillColor: "green",
+                    fillColor: 'green',
                     weight: 2,
                     opacity: 1,
                     color: 'black',
@@ -247,8 +235,22 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
                     fillOpacity: 0.7
                 }
             }
-        }); 
+        });
     }
+
+    if (angular.isDefined($scope.treks)) { // If treks data are already loaded
+        showTreks();
+    } else { // Data not yet loaded, wait for loading, then display treks on map
+        $scope.$on('OnTreksLoaded', showTreks);
+    }
+
+    
+    $scope.$on('OnFilter', function() {
+        if (angular.isDefined($scope.treks)) {
+            showTreks();
+        }
+    });
+    
 })
 .controller('MapControllerDetail', function ($scope, $stateParams) {
     console.log($stateParams);
