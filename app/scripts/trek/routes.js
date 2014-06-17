@@ -179,13 +179,13 @@ geotrekApp.controller('TrekController', function ($scope, $state, $window, $ioni
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 })
-.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, TreksData, SocialSharing) {
+.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, SocialSharing) {
     console.log($stateParams);
 
     $scope.trekId = $stateParams.trekId;
 
     // Get current trek data from the treks file
-    TreksData.getTrek($stateParams.trekId).then(function(trek) {
+    treksFactory.getTrek($stateParams.trekId).then(function(trek) {
         $scope.trek = trek;
 
         // We need to declare our json HTML data as safe using $sce

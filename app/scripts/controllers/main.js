@@ -5,9 +5,9 @@ angular.module('geotrekMobileControllers', ['leaflet-directive', 'angular-loadin
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
 }])
-.controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, TreksFilters, TreksData, StaticPages, cfpLoadingBar) {
+.controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, TreksFilters, treksFactory, StaticPages, cfpLoadingBar) {
     // Load everything in a promise
-    $q.all([TreksData.getTreks(), StaticPages.getStaticPages()]).then(function(data) {
+    $q.all([treksFactory.getTreks(), StaticPages.getStaticPages()]).then(function(data) {
         // Save data to rootScope for later use
         console.log(data);
 
