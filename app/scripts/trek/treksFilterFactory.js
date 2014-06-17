@@ -6,7 +6,7 @@ var geotrekTreks = angular.module('geotrekTreks');
  * Service that gives treks filters
  */
 
-geotrekTreks.value('TreksFilters', {
+geotrekTreks.value('treksFilters', {
     difficulties : [
         { value: 1, name: 'Facile', icon: 'difficulty-1.svg' },
         { value: 2, name: 'Moyen', icon: 'difficulty-2.svg' },

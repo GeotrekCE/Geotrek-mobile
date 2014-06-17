@@ -2,7 +2,7 @@
 
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices', 'geotrekTreks']);
+var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices', 'geotrekTreks', 'geotrekMap']);
 
 // Wait for 'deviceready' Cordova event
 window.ionic.Platform.ready(function() {

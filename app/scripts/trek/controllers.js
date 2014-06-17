@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, TreksFilters) {
+geotrekTreks.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters) {
 
     // Define utils variables for specific device behaviours
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
@@ -10,11 +10,11 @@ geotrekTreks.controller('TrekController', function ($scope, $state, $window, $io
 
     // Define filters from service to the scope for the view
     $scope.filtersData = {
-        difficulties : TreksFilters.difficulties,
-        durations    : TreksFilters.durations,
-        elevations   : TreksFilters.elevations,
-        themes       : TreksFilters.themes,
-        communes     : TreksFilters.communes
+        difficulties : treksFilters.difficulties,
+        durations    : treksFilters.durations,
+        elevations   : treksFilters.elevations,
+        themes       : treksFilters.themes,
+        communes     : treksFilters.communes
     };
 
     // Prepare an empty object to store currently selected filters
