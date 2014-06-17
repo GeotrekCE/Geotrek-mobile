@@ -177,6 +177,7 @@ This project is generated using Yeoman (http://yeoman.io/)
 
     - `$ npm install`
     - `$ bower install`
+    - `$ grunt build`
     - `$ grunt serve`
     - look your browser
 
