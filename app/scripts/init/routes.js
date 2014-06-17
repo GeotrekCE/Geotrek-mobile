@@ -2,7 +2,7 @@
 
 var geotrekInit = angular.module('geotrekInit', ['leaflet-directive', 'angular-loading-bar']);
 
-geotrekInit.config(function($stateProvider, $urlRouterProvider) {
+geotrekInit.config(function($stateProvider) {
 
     $stateProvider
     .state('preload', {

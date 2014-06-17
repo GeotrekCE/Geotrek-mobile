@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks', []);
 
-geotrekTreks.config(function($stateProvider, $urlRouterProvider) {
+geotrekTreks.config(function($stateProvider) {
 
     $stateProvider
     .state('home', {
@@ -19,6 +19,5 @@ geotrekTreks.config(function($stateProvider, $urlRouterProvider) {
     .state('home.trek.detail', {
         url: '/:trekId',
         controller: 'TrekDetailController'
-    })
+    });
 });
-

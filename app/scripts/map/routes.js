@@ -2,7 +2,7 @@
 
 var geotrekMap = angular.module('geotrekMap', []);
 
-geotrekMap.config(function($stateProvider, $urlRouterProvider) {
+geotrekMap.config(function($stateProvider) {
 
     $stateProvider
     .state('home.map', {

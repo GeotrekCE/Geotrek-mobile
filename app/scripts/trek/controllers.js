@@ -187,4 +187,4 @@ geotrekTreks.controller('TrekController', function ($scope, $state, $window, $io
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name);
     };
-})
+});
