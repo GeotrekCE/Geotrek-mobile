@@ -110,11 +110,11 @@ module.exports = function (grunt) {
     sass: {
       dist: {
         options: {
-          loadPath: 'bower_components'//,
-          // sourcemap: true
+          loadPath: 'bower_components',
+          sourcemap: true
         },
         files: {
-          '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.scss'
+          '<%= yeoman.app %>/styles/geotrek-mobile.css': '<%= yeoman.app %>/styles/geotrek-mobile.scss'
         }
       },
       ionic: {
