@@ -1,11 +1,11 @@
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp');
+var geotrekTreks = angular.module('geotrekTreks');
 
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekApp.factory('treksFactory', function ($resource, $rootScope, $window, $q, Files) {
+geotrekTreks.factory('treksFactory', function ($resource, $rootScope, $window, $q, Files) {
     var CACHED_FILE = 'trek.geojson';
     //REMOTE_FILE = 'http://rando.makina-corpus.net/fr/filesapi/trek/trek.geojson';
 
