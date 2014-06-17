@@ -2,7 +2,7 @@
 
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileControllers', 'geotrekMobileServices', 'geotrekTreks', 'geotrekMap']);
+var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekMobileServices', 'geotrekTreks', 'geotrekMap', 'geotrekInit']);
 
 // Wait for 'deviceready' Cordova event
 window.ionic.Platform.ready(function() {
@@ -15,18 +15,11 @@ window.ionic.Platform.ready(function() {
     angular.bootstrap(document, ['geotrekMobileApp']);
 });
 
-geotrekApp.config(function($stateProvider, $urlRouterProvider) {
-
+geotrekApp.config(function($urlRouterProvider) {
     $urlRouterProvider.otherwise('/trek');
-
-    $stateProvider
-    .state('preload', {
-        url: '',
-        templateUrl: 'views/preload.html',
-        controller: 'AssetsController'
-    });
+    // Root url is defined in init module
 })
-.run(['$rootScope', function($rootScope) {
+.run(['$rootScope', '$state', function($rootScope) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
