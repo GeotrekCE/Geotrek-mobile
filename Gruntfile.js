@@ -159,6 +159,15 @@ module.exports = function (grunt) {
       ]
     },
 
+    shell: {
+      cordova: {
+        command: 'cd ../Geotrek-mobile; cordova build; cd -;'
+      },
+      runcordova: {
+        command: 'cd ../Geotrek-mobile; cordova run; cd -;'
+      }
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -199,5 +208,10 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('runcordova', [
+    'build',
+    'shell:runcordova'
   ]);
 };
