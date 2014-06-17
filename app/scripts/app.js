@@ -24,17 +24,7 @@ geotrekApp.config(function($stateProvider, $urlRouterProvider) {
         url: '',
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
-    })
-    .state('home.map', {
-        url: '/map',
-        templateUrl : 'views/global_map.html',
-        controller: 'MapController'
-    })
-    .state('home.map.trek', {
-        url: '/:trekId',
-        controller: 'MapControllerDetail'
     });
-
 })
 .run(['$rootScope', function($rootScope) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
