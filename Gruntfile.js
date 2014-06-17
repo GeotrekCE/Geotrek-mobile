@@ -161,10 +161,10 @@ module.exports = function (grunt) {
 
     shell: {
       cordova: {
-        command: 'cd ../Geotrek-mobile; cordova build; cd -;'
+        command: 'cd ../cordova-gen; cordova build; cd -;'
       },
       runcordova: {
-        command: 'cd ../Geotrek-mobile; cordova run; cd -;'
+        command: 'cd ../cordova-gen; cordova run; cd -;'
       }
     },
 
