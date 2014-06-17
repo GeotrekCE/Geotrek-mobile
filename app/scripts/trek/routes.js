@@ -4,8 +4,6 @@ var geotrekApp = angular.module('geotrekMobileApp');
 
 geotrekApp.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/trek');
-
     $stateProvider
     .state('home', {
         url: '',
@@ -179,7 +177,7 @@ geotrekApp.controller('TrekController', function ($scope, $state, $window, $ioni
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 })
-.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, SocialSharing) {
+.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, socialSharingService) {
     console.log($stateParams);
 
     $scope.trekId = $stateParams.trekId;
@@ -207,6 +205,6 @@ geotrekApp.controller('TrekController', function ($scope, $state, $window, $ioni
     });
 
     $scope.share = function() {
-        SocialSharing.share($scope.trek.properties.name);
+        socialSharingService.share($scope.trek.properties.name);
     };
 })
