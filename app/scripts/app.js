@@ -50,4 +50,17 @@ geotrekApp.config(function($stateProvider, $urlRouterProvider) {
         controller: 'MapControllerDetail'
     });
 
-});
+})
+.run(['$rootScope', function($rootScope) {
+    $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
+        if (!!window.cordova) {
+            if (error.message) {
+                console.error('$stateChangeError : ' + error.message);
+            } else {
+                console.error('$stateChangeError : ' + JSON.stringify(error));
+            }
+        } else {
+            console.error('$stateChangeError :', error);
+        }
+    });
+}]);
