@@ -2,12 +2,10 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, Files) {
+geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, Files, $cordovaFile) {
 
-    this.downloadTreks = function() {
-        var deferred = $q.defer();
-        deferred.resolve({});
-        return deferred.promise;
+    this.downloadTreks = function(url) {
+        return $cordovaFile.download(url, 'cdvfile://localhost/persistent/')
     };
 
     this.getTreks = function() {

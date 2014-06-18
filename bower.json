@@ -9,7 +9,8 @@
     "angular-ui-router": "~0.2.10",
     "angular-animate": "~1.2.16",
     "angular-sanitize": "~1.2.16",
-    "ionic": "1.0.0-beta.7"
+    "ionic": "1.0.0-beta.7",
+    "ngCordova": "~0.1.2-alpha"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
