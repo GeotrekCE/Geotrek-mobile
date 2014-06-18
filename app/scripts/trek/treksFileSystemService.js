@@ -4,6 +4,12 @@ var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, Files) {
 
+    this.downloadTreks = function() {
+        var deferred = $q.defer();
+        deferred.resolve({});
+        return deferred.promise;
+    };
+
     this.getTreks = function() {
         var deferred = $q.defer();
         deferred.resolve({});
