@@ -182,6 +182,15 @@ This project is generated using Yeoman (http://yeoman.io/)
     - look your browser
 
 
+GEOTREK-MOBILE REQUIREMENTS
+===========================
+
+Add cordova plugins to manipulate/transfert files
+```bash
+$ cordova plugin add org.apache.cordova.file@1.2.0
+$ cordova plugin add org.apache.cordova.file-transfer@0.4.4
+```
+
 CREDITS
 =======
 
