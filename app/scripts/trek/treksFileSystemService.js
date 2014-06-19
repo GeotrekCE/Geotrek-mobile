@@ -43,11 +43,4 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
         return defered.promise;
     };
 
-    this.getTrek = function(_trekId) {
-        var trekId = parseInt(_trekId),
-            deferred = $q.defer();
-        deferred.resolve(_trekId);
-        return deferred.promise;
-    };
-
 });
