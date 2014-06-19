@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, Files, $cordovaFile) {
+geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile) {
 
     var CDV_ROOT = 'cdvfile://localhost/persistent',
         DIR_NAME = 'geotrek',
@@ -14,7 +14,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
         return this.hasTreks()
         .then(function() {
             var deferred = $q.defer();
-            deferred.resolve('already downloaded');
+            deferred.resolve({message: 'already downloaded'});
             return deferred.promise;
         }, function() {
             // If not, let's go !!

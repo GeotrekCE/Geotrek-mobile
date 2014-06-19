@@ -12,7 +12,8 @@ geotrekInit.config(function($stateProvider) {
     });
 }).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, treksFactory, staticPagesFactory, cfpLoadingBar) {
     // Load everything in a promise
-    var url = "http://rando.ecrins-parcnational.fr/fr/files/api/trek/trek.geojson";
+    //var url = "http://rando.ecrins-parcnational.fr/fr/files/api/trek/trek.geojson";
+    var url = "http://rando.makina-corpus.net/fr/filesapi/trek/trek.geojson";
 
     var promises = [];
 
