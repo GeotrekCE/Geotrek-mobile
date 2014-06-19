@@ -27,9 +27,20 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
     }
 
     this.getTreks = function() {
-        var deferred = $q.defer();
-        deferred.resolve({});
-        return deferred.promise;
+
+        var filePath = DIR_NAME + "/" + TREK_FILENAME;
+        var defered = $q.defer();
+
+        $cordovaFile.readFile(filePath)
+        .then(
+            function(data) {
+                var jsonData = JSON.parse(data);
+                defered.resolve(jsonData);
+            },
+            defered.reject
+        );
+
+        return defered.promise;
     };
 
     this.getTrek = function(_trekId) {
