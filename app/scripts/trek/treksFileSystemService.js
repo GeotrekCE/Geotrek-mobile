@@ -14,7 +14,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
         return this.hasTreks()
         .then(function() {
             var deferred = $q.defer();
-            deferred.resolve({message: 'already downloaded'});
+            deferred.resolve({message: 'Treks already downloaded'});
             return deferred.promise;
         }, function() {
             // If not, let's go !!
