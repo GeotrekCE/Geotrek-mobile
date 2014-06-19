@@ -4,10 +4,27 @@ var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, Files, $cordovaFile) {
 
+    var CDV_ROOT = 'cdvfile://localhost/persistent',
+        DIR_NAME = 'geotrek',
+        TREK_FILENAME = 'trek.geojson',
+        TREKS_FILE_FULL_PATH = CDV_ROOT + '/' + DIR_NAME + '/' + TREK_FILENAME;
+
     this.downloadTreks = function(url) {
-        var filename = url.substr(url.lastIndexOf('/') + 1);
-        return $cordovaFile.downloadFile(url, 'cdvfile://localhost/persistent/geotrek/' + filename);
+        // Checking if treks are already downloaded
+        return this.hasTreks()
+        .then(function() {
+            var deferred = $q.defer();
+            deferred.resolve('already downloaded');
+            return deferred.promise;
+        }, function() {
+            // If not, let's go !!
+            return $cordovaFile.downloadFile(url, TREKS_FILE_FULL_PATH);
+        });
     };
+
+    this.hasTreks = function() {
+        return $cordovaFile.checkFile(DIR_NAME + '/' + TREK_FILENAME);
+    }
 
     this.getTreks = function() {
         var deferred = $q.defer();
