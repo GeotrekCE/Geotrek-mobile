@@ -2,11 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window', '$q', function ($resource, $rootScope, $window, $q) {
-
-    //var CACHED_FILE = 'trek.geojson';
-    var DOMAIN_NAME = 'http://rando.makina-corpus.net',
-        REMOTE_FILE = DOMAIN_NAME + '/fr/filesapi/trek/trek.geojson';
+geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window', '$q', 'settings', function ($resource, $rootScope, $window, $q, settings) {
 
     // We don't have to download Treks in Remote version, only for device offline mode
     this.downloadTreks = function(url) {
@@ -22,14 +18,14 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
         angular.forEach(copy.features, function(trek) {
             var currentTrekId = trek.id;
             angular.forEach(trek.properties.pictures, function(picture) {
-                picture.url = DOMAIN_NAME + picture.url;                
+                picture.url = settings.DOMAIN_NAME + picture.url;
             });
         });
         return copy;
     };
 
     this.getTreks = function() {
-        var requests = $resource(REMOTE_FILE, {}, {
+        var requests = $resource(settings.remote.TREK_REMOTE_FILE_URL, {}, {
                 query: {
                     method: 'GET',
                     cache: true

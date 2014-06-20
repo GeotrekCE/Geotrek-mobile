@@ -15,6 +15,15 @@ window.ionic.Platform.ready(function() {
     angular.bootstrap(document, ['geotrekMobileApp']);
 });
 
+geotrekApp.constant('settings', {
+    DOMAIN_NAME: 'http://rando.makina-corpus.net',
+    POI_FILE_NAME: 'pois.geojson',
+    remote: {
+        TREK_REMOTE_FILE_URL_BASE: 'http://rando.makina-corpus.net/fr/files/api/trek',
+        TREK_REMOTE_FILE_URL: 'http://rando.makina-corpus.net/fr/files/api/trek/trek.geojson'
+    }
+});
+
 geotrekApp.config(['$urlRouterProvider', '$compileProvider', function($urlRouterProvider, $compileProvider) {
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
