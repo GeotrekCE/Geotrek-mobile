@@ -157,7 +157,7 @@ geotrekTreks.controller('TrekController', function ($scope, $state, $window, $io
     // Default ordering is already alphabetical, so we comment this line
     // $scope.orderProp = 'properties.name';
 })
-.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, socialSharingService) {
+.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, poisFactory, socialSharingService) {
     console.log($stateParams);
 
     $scope.trekId = $stateParams.trekId;
@@ -168,6 +168,11 @@ geotrekTreks.controller('TrekController', function ($scope, $state, $window, $io
 
         // We need to declare our json HTML data as safe using $sce
         $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
+
+        return poisFactory.getPoisFromTrek($stateParams.trekId);
+    })
+    .then(function(pois) {
+        $scope.pois = pois;
     });
 
     // Display the modal (this is the entire view here)
