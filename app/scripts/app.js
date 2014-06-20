@@ -15,10 +15,14 @@ window.ionic.Platform.ready(function() {
     angular.bootstrap(document, ['geotrekMobileApp']);
 });
 
-geotrekApp.config(function($urlRouterProvider) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider', function($urlRouterProvider, $compileProvider) {
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
-})
+
+    // Add cdvfile to allowed protocols in ng-src directive
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
+
+}])
 .run(['$rootScope', '$state', function($rootScope) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
