@@ -29,6 +29,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
             return deferred.promise;
         }, function() {
             // If not, let's go !!
+            console.log('downloading ' + trekPoisURL + ' to ' + trekPoisFilepath);
             return $cordovaFile.downloadFile(trekPoisURL, trekPoisFilepath);
         });
     };

@@ -455,21 +455,19 @@ angular.module('ngCordova.plugins.file', [])
         return q.promise;
       },
 
-      writeFile: function (filePath) {
+      writeFile: function (filePath, data) {
         var q = $q.defer();
-
-        // Backward compatibility for previous function writeFile(dir, file)
-        if (arguments.length == 2) {
-            filePath = '/' + filePath + '/' + arguments[1];
-        }
 
         getFilesystem().then(
           function (filesystem) {
-            filesystem.root.getFile(filePath, {create: false},
+            filesystem.root.getFile(filePath, {create: true},
               function (fileEntry) {
                 fileEntry.createWriter(
                   function (fileWriter) {
-                    q.resolve(fileWriter);
+                    fileWriter.onwriteend = function(evt) {
+                      q.resolve(evt);
+                    }
+                    fileWriter.write(data);
                   },
                   function (error) {
                     q.reject(error);
