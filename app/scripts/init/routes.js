@@ -10,10 +10,10 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, treksFactory, poisFactory, staticPagesFactory, cfpLoadingBar) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, treksFactory, poisFactory, staticPagesFactory, cfpLoadingBar, settings) {
 
     //var url = "http://rando.ecrins-parcnational.fr/fr/files/api/trek/trek.geojson";
-    var url = "http://rando.makina-corpus.net/fr/files/api/trek/trek.geojson";
+    var url = settings.remote.TREK_REMOTE_FILE_URL;
 
     treksFactory.downloadTreks(url)
     .then(function() {

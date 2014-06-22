@@ -21,6 +21,16 @@ geotrekApp.constant('settings', {
     remote: {
         TREK_REMOTE_FILE_URL_BASE: 'http://rando.makina-corpus.net/fr/files/api/trek',
         TREK_REMOTE_FILE_URL: 'http://rando.makina-corpus.net/fr/files/api/trek/trek.geojson'
+    },
+    device: {
+        CDV_ROOT: 'cdvfile://localhost/persistent',
+        CDV_TREK_ROOT: 'cdvfile://localhost/persistent/geotrek/trek',
+        CDV_TREK_ROOT_FILE: 'cdvfile://localhost/persistent/geotrek/trek.geojson',
+        CDV_POI_ROOT: 'cdvfile://localhost/persistent/geotrek/poi',
+        RELATIVE_ROOT: 'geotrek',
+        RELATIVE_TREK_ROOT: 'geotrek/trek',
+        RELATIVE_TREK_ROOT_FILE: 'geotrek/trek.geojson',
+        RELATIVE_POI_ROOT: 'geotrek/poi',
     }
 });
 

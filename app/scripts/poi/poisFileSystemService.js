@@ -2,24 +2,14 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile) {
-
-    var DOMAIN_NAME = 'http://rando.makina-corpus.net',
-        REMOTE_FILE_URL = DOMAIN_NAME + '/fr/files/api/trek',
-        POI_FILE_NAME = 'pois.geojson',
-        CDV_ROOT = 'cdvfile://localhost/persistent',
-        GEOTREK_DIR = 'geotrek',
-        DIR_NAME = 'geotrek/trek',
-        POI_DIR_NAME = 'geotrek/poi',
-        POI_SUBDIR = 'poi',
-        POI_FILENAME = 'pois.geojson';
+geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings) {
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
-        return CDV_ROOT + '/' + DIR_NAME + '/' + trekId.toString() + '/' + POI_FILENAME;
+        return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
     };
 
     this._getPoisTrekRelativeURL = function(trekId) {
-        return DIR_NAME + '/' + trekId.toString() + '/' + POI_FILENAME;
+        return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
     };
 
     this.replaceImgURLs = function(poiData) {
@@ -32,20 +22,20 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
             var thumbnailUrl = poi.properties.thumbnail,
                 thFilename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
 
-            poi.properties.thumbnail = CDV_ROOT + '/' + GEOTREK_DIR + '/' + POI_SUBDIR + '/' + currentPoiId.toString() + '/' + thFilename;
+            poi.properties.thumbnail = settings.device.CDV_POI_ROOT + '/' + currentPoiId.toString() + '/' + thFilename;
 
             angular.forEach(poi.properties.pictures, function(picture) {
                 var pictureUrl = picture.url;
                 var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
 
-                picture.url = CDV_ROOT + '/' + GEOTREK_DIR + '/' + POI_SUBDIR + '/' + currentPoiId.toString() + '/' + filename;
+                picture.url = settings.device.CDV_POI_ROOT + '/' + currentPoiId.toString() + '/' + filename;
             });
         });
         return copy;
     };
 
     this.downloadPoisFromTrek = function(trekId) {
-        var trekPoisURL = REMOTE_FILE_URL + '/' + trekId + '/' + POI_FILE_NAME,
+        var trekPoisURL = settings.remote.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
             trekPoisFilepath = this._getPoisTrekAbsoluteURL(trekId),
             _this = this;
 
@@ -88,14 +78,14 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
 
                 var thumbnailUrl = poi.properties.thumbnail;
                 if (!!thumbnailUrl) {
-                    filename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPoiImage(currentPoiId, filename, DOMAIN_NAME + thumbnailUrl))
+                    var filename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
+                    promises.push(_this.downloadPoiImage(currentPoiId, filename, settings.DOMAIN_NAME + thumbnailUrl))
                 }
 
                 angular.forEach(poi.properties.pictures, function(picture) {
                     var pictureUrl = picture.url;
                     var picFilename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPoiImage(currentPoiId, picFilename, DOMAIN_NAME + pictureUrl));
+                    promises.push(_this.downloadPoiImage(currentPoiId, picFilename, settings.DOMAIN_NAME + pictureUrl));
                 });
             })
 
@@ -104,14 +94,14 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     };
 
     this.downloadPoiImage = function(poiId, pictureName, url) {
-        return $cordovaFile.checkFile(POI_DIR_NAME + '/' + poiId + '/' + pictureName)
+        return $cordovaFile.checkFile(settings.device.RELATIVE_POI_ROOT + '/' + poiId + '/' + pictureName)
         .then(function() {
             var deferred = $q.defer();
             deferred.resolve({message: 'picture ' + pictureName + ' already present'});
             return deferred.promise;
             // picture already present, not downloading it
         }, function() {
-            var path = CDV_ROOT + '/' + GEOTREK_DIR + '/' + POI_SUBDIR + '/' + poiId.toString() + '/' + pictureName;
+            var path = settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + pictureName;
             console.log('downloading ' + url + ' to ' + path);
             return $cordovaFile.downloadFile(url, path);
         });

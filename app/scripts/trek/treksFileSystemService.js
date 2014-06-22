@@ -2,17 +2,10 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile) {
-
-    var CDV_ROOT = 'cdvfile://localhost/persistent',
-        DIR_NAME = 'geotrek',
-        TREK_FILENAME = 'trek.geojson',
-        TREKS_FILE_FULL_PATH = CDV_ROOT + '/' + DIR_NAME + '/' + TREK_FILENAME,
-        TREK_SUBDIR = 'trek',
-        DOMAIN_NAME = 'http://rando.makina-corpus.net';
+geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings) {
 
     this.getTrekSubdir = function(trekId) {
-        return DIR_NAME + '/' + TREK_SUBDIR + '/' + trekId.toString();
+        return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString();
     };
 
     this.replaceImgURLs = function(trekData) {
@@ -25,7 +18,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 var pictureUrl = picture.url;
                 var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
 
-                picture.url = CDV_ROOT + '/' + DIR_NAME + '/' + TREK_SUBDIR + '/' + currentTrekId.toString() + '/' + filename;
+                picture.url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
         });
         return copy;
@@ -42,8 +35,8 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             return deferred.promise;
         }, function() {
             // If not, let's go !!
-            console.log('downloading ' + url + ' to ' + TREKS_FILE_FULL_PATH);
-            return $cordovaFile.downloadFile(url, TREKS_FILE_FULL_PATH);
+            console.log('downloading ' + url + ' to ' + settings.device.CDV_TREK_ROOT_FILE);
+            return $cordovaFile.downloadFile(url, settings.device.CDV_TREK_ROOT_FILE);
         })
         .then(function() {
             return _this.downloadTrekPictures();
@@ -63,7 +56,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 angular.forEach(trek.properties.pictures, function(picture) {
                     var pictureUrl = picture.url;
 
-                    var serverUrl = DOMAIN_NAME + pictureUrl;
+                    var serverUrl = settings.DOMAIN_NAME + pictureUrl;
                     var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
                     promises.push(_this.downloadTrekPicture(currentTrekId, filename, serverUrl));
                 });
@@ -81,14 +74,14 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             return deferred.promise;
             // picture already present, not downloading it
         }, function() {
-            var path = CDV_ROOT + '/' + DIR_NAME + '/' + TREK_SUBDIR + '/' + trekId.toString() + '/' + pictureName;
+            var path = settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + pictureName;
             console.log('downloading ' + url + ' to ' + path);
             return $cordovaFile.downloadFile(url, path);
         });
     };
 
     this.hasTreks = function() {
-        return $cordovaFile.checkFile(DIR_NAME + '/' + TREK_FILENAME);
+        return $cordovaFile.checkFile(settings.device.RELATIVE_TREK_ROOT_FILE);
     };
 
     // Getting treks used for mobile purpose
@@ -106,7 +99,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
 
     this._getTreks = function(replaceUrls) {
 
-        var filePath = DIR_NAME + "/" + TREK_FILENAME,
+        var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
             deferred = $q.defer(),
             _this = this;
 
