@@ -2,7 +2,7 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings) {
+geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, utils) {
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
         return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
@@ -45,16 +45,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
             trekPoisFilepath = this._getPoisTrekAbsoluteURL(trekId),
             _this = this;
 
-        return this.hasPoisFromTrek(trekId)
-        .then(function() {
-            var deferred = $q.defer();
-            deferred.resolve({message: 'Pois already downloaded for trek ' + trekId.toString()});
-            return deferred.promise;
-        }, function() {
-            // If not, let's go !!
-            console.log('downloading ' + trekPoisURL + ' to ' + trekPoisFilepath);
-            return $cordovaFile.downloadFile(trekPoisURL, trekPoisFilepath);
-        })
+        return utils.downloadFile(trekPoisURL, trekPoisFilepath)
         .then(function() {
             return _this.downloadPoisImages(trekId);
         });
@@ -85,19 +76,19 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
                 var thumbnailUrl = poi.properties.thumbnail;
                 if (!!thumbnailUrl) {
                     var filename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPoiImage(currentPoiId, filename, settings.DOMAIN_NAME + thumbnailUrl))
+                    promises.push(_this.downloadPoiImage(settings.DOMAIN_NAME + thumbnailUrl, currentPoiId, filename))
                 }
 
                 var pictoUrl = poi.properties.type.pictogram;
                 if (!!pictoUrl) {
                     var pictoFilename = pictoUrl.substr(pictoUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPictoImage(currentPoiId, pictoFilename, settings.DOMAIN_NAME + pictoUrl))
+                    promises.push(_this.downloadPictoImage(settings.DOMAIN_NAME + pictoUrl, pictoFilename));
                 }
 
                 angular.forEach(poi.properties.pictures, function(picture) {
                     var pictureUrl = picture.url;
                     var picFilename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPoiImage(currentPoiId, picFilename, settings.DOMAIN_NAME + pictureUrl));
+                    promises.push(_this.downloadPoiImage(settings.DOMAIN_NAME + pictureUrl, currentPoiId, picFilename));
                 });
             })
 
@@ -105,37 +96,12 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         });
     };
 
-    this.downloadPoiImage = function(poiId, pictureName, url) {
-        return $cordovaFile.checkFile(settings.device.RELATIVE_POI_ROOT + '/' + poiId + '/' + pictureName)
-        .then(function() {
-            var deferred = $q.defer();
-            deferred.resolve({message: 'picture ' + pictureName + ' already present'});
-            return deferred.promise;
-            // picture already present, not downloading it
-        }, function() {
-            var path = settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + pictureName;
-            console.log('downloading ' + url + ' to ' + path);
-            return $cordovaFile.downloadFile(url, path);
-        });
+    this.downloadPoiImage = function(url, poiId, pictureName) {
+        return utils.downloadFile(url, settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + pictureName);
     };
 
-    this.downloadPictoImage = function(poiId, pictoName, url) {
-        return $cordovaFile.checkFile(settings.device.RELATIVE_PICTO_ROOT + '/' + pictoName)
-        .then(function() {
-            var deferred = $q.defer();
-            deferred.resolve({message: 'pictogram ' + pictoName + ' already present'});
-            return deferred.promise;
-            // picture already present, not downloading it
-        }, function() {
-            var path = settings.device.CDV_PICTO_ROOT + '/' + pictoName;
-            console.log('downloading ' + url + ' to ' + path);
-            return $cordovaFile.downloadFile(url, path);
-        });
-    };
-
-    this.hasPoisFromTrek = function(trekId) {
-        var trekPoisFilepath = this._getPoisTrekRelativeURL(trekId);
-        return $cordovaFile.checkFile(trekPoisFilepath);
+    this.downloadPictoImage = function(url, pictoName) {
+        return utils.downloadFile(url, settings.device.CDV_PICTO_ROOT + '/' + pictoName);
     };
 
     // Getting Pois used for mobile purpose
