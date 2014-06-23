@@ -120,7 +120,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     };
 
     this.downloadPictoImage = function(poiId, pictoName, url) {
-        return $cordovaFile.checkFile(settings.device.CDV_PICTO_ROOT + '/' + pictoName)
+        return $cordovaFile.checkFile(settings.device.RELATIVE_PICTO_ROOT + '/' + pictoName)
         .then(function() {
             var deferred = $q.defer();
             deferred.resolve({message: 'pictogram ' + pictoName + ' already present'});
