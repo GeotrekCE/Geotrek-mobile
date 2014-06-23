@@ -8,7 +8,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function ($q, settings, $cordovaFile, $http) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', function ($q, settings, $cordovaFile, $http, $log) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -55,12 +55,12 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
                     if (status === 304) {
                         // If status is 304, it means that server file is older than device one
                         // Do nothing.
-                        console.log('File not changed (304) : ' + url + ' at ' + filepath);
+                        $log.info('File not changed (304) : ' + url + ' at ' + filepath);
                         deferred.resolve();
                     }
                     else {
                         // If status is different than 304, there is a problem, so reject the promise
-                        console.log('Response error status ' + status);
+                        $log.info('Response error status ' + status);
                         deferred.reject();
                     }
                     return deferred.promise;
@@ -68,11 +68,11 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
                 
             }, function() {
                 // If there is no file with that path, we download it !
-                console.log('cannot read ' + filepath + ' so downloading it !');
+                $log.info('cannot read ' + filepath + ' so downloading it !');
                 return $cordovaFile.downloadFile(url, filepath);
             });
         } else {
-            console.log('forcing download of ');
+            $log.info('forcing download of ');
             return $cordovaFile.downloadFile(url, filepath);
         }
     };

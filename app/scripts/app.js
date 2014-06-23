@@ -15,9 +15,11 @@ window.ionic.Platform.ready(function() {
     angular.bootstrap(document, ['geotrekMobileApp']);
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', function($urlRouterProvider, $compileProvider) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', function($urlRouterProvider, $compileProvider, $logProvider) {
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
+
+    $logProvider.debugEnabled = true;
 
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
