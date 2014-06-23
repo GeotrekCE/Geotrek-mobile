@@ -12,23 +12,24 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
     };
 
+    this.convertServerUrlToFileSystemUrl = function(poiId, serverUrl) {
+        var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
+        return settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + filename;
+    };
+
     this.replaceImgURLs = function(poiData) {
-        var copy = angular.copy(poiData, {});
+        var copy = angular.copy(poiData, {}),
+            _this = this;
 
         // Parse poi pictures, and change their URL
         angular.forEach(copy.features, function(poi) {
             var currentPoiId = poi.id;
 
-            var thumbnailUrl = poi.properties.thumbnail,
-                thFilename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
-
-            poi.properties.thumbnail = settings.device.CDV_POI_ROOT + '/' + currentPoiId.toString() + '/' + thFilename;
+            poi.properties.thumbnail = _this.convertServerUrlToFileSystemUrl(currentPoiId, poi.properties.thumbnail);
+            poi.properties.type.pictogram = _this.convertServerUrlToFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
 
             angular.forEach(poi.properties.pictures, function(picture) {
-                var pictureUrl = picture.url;
-                var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
-
-                picture.url = settings.device.CDV_POI_ROOT + '/' + currentPoiId.toString() + '/' + filename;
+                picture.url = _this.convertServerUrlToFileSystemUrl(currentPoiId, picture.url);
             });
         });
         return copy;
@@ -80,6 +81,12 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
                 if (!!thumbnailUrl) {
                     var filename = thumbnailUrl.substr(thumbnailUrl.lastIndexOf('/') + 1);
                     promises.push(_this.downloadPoiImage(currentPoiId, filename, settings.DOMAIN_NAME + thumbnailUrl))
+                }
+
+                var pictoUrl = poi.properties.type.pictogram;
+                if (!!pictoUrl) {
+                    var pictoFilename = pictoUrl.substr(pictoUrl.lastIndexOf('/') + 1);
+                    promises.push(_this.downloadPoiImage(currentPoiId, pictoFilename, settings.DOMAIN_NAME + pictoUrl))
                 }
 
                 angular.forEach(poi.properties.pictures, function(picture) {

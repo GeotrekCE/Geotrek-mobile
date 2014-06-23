@@ -10,14 +10,21 @@ geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $windo
         return deferred.promise;
     };
 
+    this.convertServerUrlToRemoteUrl = function(serverUrl) {
+        return settings.DOMAIN_NAME + serverUrl;
+    };
+
     this.replaceImgURLs = function(poiData) {
-        var copy = angular.copy(poiData, {});
+        var copy = angular.copy(poiData, {}),
+            _this = this;
 
         // Parse trek pictures, and change their URL
         angular.forEach(copy.features, function(poi) {
-            poi.properties.thumbnail = settings.DOMAIN_NAME + poi.properties.thumbnail;
+            var thumbnailUrl = poi.properties.thumbnail;
+            poi.properties.thumbnail = _this.convertServerUrlToRemoteUrl(poi.properties.thumbnail);
+            poi.properties.type.pictogram = _this.convertServerUrlToRemoteUrl(poi.properties.type.pictogram);
             angular.forEach(poi.properties.pictures, function(picture) {
-                picture.url = settings.DOMAIN_NAME + picture.url;
+                picture.url = _this.convertServerUrlToRemoteUrl(picture.url);
             });
         });
         return copy;
