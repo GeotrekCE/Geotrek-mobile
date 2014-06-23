@@ -33,7 +33,10 @@ geotrekApp.factory('settings', function () {
         TREK_DIR = 'trek',
         POI_DIR = 'poi',
         PICTOGRAM_DIR = 'pictogram',
-        CDV_ROOT = 'cdvfile://localhost/persistent';
+        CDV_ROOT = 'cdvfile://localhost/persistent',
+
+        FORCE_DOWNLOAD = false,
+        DEBUG = true;
     
     var RELATIVE_ROOT = GEOTREK_DIR,
         RELATIVE_TREK_ROOT = GEOTREK_DIR + '/' + TREK_DIR,
@@ -49,7 +52,7 @@ geotrekApp.factory('settings', function () {
             TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson'
         },
         device: {
-            CDV_ROOT: CDV_ROOT + '/' + RELATIVE_ROOT,
+            CDV_ROOT: CDV_ROOT,
             CDV_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_TREK_ROOT,
             CDV_TREK_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TREK_ROOT_FILE,
             CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
@@ -59,6 +62,8 @@ geotrekApp.factory('settings', function () {
             RELATIVE_TREK_ROOT_FILE: RELATIVE_TREK_ROOT_FILE,
             RELATIVE_POI_ROOT: RELATIVE_POI_ROOT,
             RELATIVE_PICTO_ROOT: RELATIVE_PICTO_ROOT
-        }
+        },
+        FORCE_DOWNLOAD: FORCE_DOWNLOAD,
+        DEBUG: DEBUG
     };
 });

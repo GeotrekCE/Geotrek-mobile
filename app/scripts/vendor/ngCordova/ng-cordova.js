@@ -286,8 +286,9 @@ angular.module('ngCordova.plugins.deviceMotion', [])
     watchAcceleration: function(options) {
       var q = $q.defer();
 
-      navigator.accelerometer.watchAcceleration(function(result) {
+      var watchID = navigator.accelerometer.watchAcceleration(function(result) {
         // Do any magic you need
+        q.resolve(watchID);
         q.notify(result);
       }, function(err) {
         q.reject(err);
@@ -306,16 +307,31 @@ angular.module('ngCordova.plugins.deviceOrientation', [])
 .factory('$cordovaDeviceOrientation', ['$q', function($q) {
 
   return {
+    getCurrentHeading: function() {
+      var q = $q.defer();
+
+      navigator.compass.getCurrentHeading(function(heading) {
+        q.resolve(heading);
+      }, function(err) {
+        q.reject(err);
+      });
+
+      return q.promise;
+    },
     watchHeading: function(options) {
       var q = $q.defer();
 
-      navigator.compass.watchHeading(function(result) {
+      var watchID = navigator.compass.watchHeading(function(result) {
+        q.resolve(watchID);
         q.notify(result);
       }, function(err) {
         q.reject(err);
       }, options);
 
       return q.promise;
+    },
+    clearWatch: function(watchID) {
+      navigator.compass.clearWatch();
     }
   }
 }]);
@@ -455,19 +471,21 @@ angular.module('ngCordova.plugins.file', [])
         return q.promise;
       },
 
-      writeFile: function (filePath, data) {
+      writeFile: function (filePath) {
         var q = $q.defer();
+
+        // Backward compatibility for previous function writeFile(dir, file)
+        if (arguments.length == 2) {
+            filePath = '/' + filePath + '/' + arguments[1];
+        }
 
         getFilesystem().then(
           function (filesystem) {
-            filesystem.root.getFile(filePath, {create: true},
+            filesystem.root.getFile(filePath, {create: false},
               function (fileEntry) {
                 fileEntry.createWriter(
                   function (fileWriter) {
-                    fileWriter.onwriteend = function(evt) {
-                      q.resolve(evt);
-                    }
-                    fileWriter.write(data);
+                    q.resolve(fileWriter);
                   },
                   function (error) {
                     q.reject(error);
@@ -501,6 +519,28 @@ angular.module('ngCordova.plugins.file', [])
                   };
 
                   reader.readAsText(file);
+                });
+              },
+              // error
+              function (error) {
+                q.reject(error);
+              });
+          }
+        );
+
+        return q.promise;
+      },
+
+      readFileMetadata: function (filePath) {
+        var q = $q.defer();
+
+        getFilesystem().then(
+          function (filesystem) {
+            filesystem.root.getFile(filePath, {create: false},
+              // success
+              function (fileEntry) {
+                fileEntry.file(function (file) {
+                  q.resolve(file);
                 });
               },
               // error
@@ -574,6 +614,41 @@ angular.module('ngCordova.plugins.file', [])
       return q.promise;
     }
   }]);
+angular.module('ngCordova.plugins.flashlight', [])
+
+.factory('$cordovaFlashlight', ['$q', function ($q) {
+
+    return {
+      available: function () {
+        var q = $q.defer();
+        window.plugins.flashlight.available(function (isAvailable) {
+          q.resolve(isAvailable);
+        });
+        return q.promise;
+      },
+
+      switchOn: function () {
+        var q = $q.defer();
+        window.plugins.flashlight.switchOn(function (response) {
+          q.resolve(response);
+        }, function (error) {
+          q.reject(error)
+        });
+        return q.promise;
+      },
+
+      switchOff: function () {
+        var q = $q.defer();
+        window.plugins.flashlight.switchOff(function (response) {
+          q.resolve(response);
+        }, function (error) {
+          q.reject(error)
+        });
+        return q.promise;
+      }
+    }
+  }
+]);
 angular.module('ngCordova.plugins.ga', [])
 
     .factory('$cordovaGA', ['$q', function ($q) {
@@ -643,8 +718,9 @@ angular.module('ngCordova.plugins.geolocation', [])
     watchPosition: function(options) {
       var q = $q.defer();
 
-      navigator.geolocation.watchPosition(function(result) {
+      var watchId = navigator.geolocation.watchPosition(function(result) {
         // Do any magic you need
+        q.resolve(watchID);
         q.notify(result);
 
       }, function(err) {
@@ -873,8 +949,10 @@ angular.module('ngCordova.plugins', [
   'ngCordova.plugins.pinDialog',
   'ngCordova.plugins.localNotification',
   'ngCordova.plugins.toast',
+  'ngCordova.plugins.flashlight',
   'ngCordova.plugins.capture',
-  'ngCordova.plugins.appAvailability'
+  'ngCordova.plugins.appAvailability',
+  'ngCordova.plugins.prefs'  
 ]);
 
 angular.module('ngCordova.plugins.network', [])
@@ -910,6 +988,40 @@ angular.module('ngCordova.plugins.pinDialog', [])
   }
   
 }]);
+angular.module('ngCordova.plugins.prefs', [])
+
+  .factory('$cordovaPreferences', ['$window', '$q', function ($window, $q) {
+
+    return {
+
+      set: function (key, value) {
+        var q = $q.defer();
+        
+        $window.applicationPreferences.set(key, value, function(result) {
+          q.resolve(result);
+        }, function(err) {
+          q.reject(err);
+        });
+        
+        return q.promise;
+      },
+      
+
+      get: function (key) {
+        var q = $q.defer();
+        
+        $window.applicationPreferences.get(key, function(value) {
+          q.resolve(value);
+        }, function(err) {
+          q.reject(err);
+        });
+        
+        return q.promise;
+      }
+
+    }
+  }]);
+
 angular.module('ngCordova.plugins.push', [])
 
 .factory('$cordovaPush', ['$q', function ($q) {
