@@ -12,9 +12,14 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
     };
 
-    this.convertServerUrlToFileSystemUrl = function(poiId, serverUrl) {
+    this.convertServerUrlToPoiFileSystemUrl = function(poiId, serverUrl) {
         var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
         return settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + filename;
+    };
+
+    this.convertServerUrlToPictoFileSystemUrl = function(poiId, serverUrl) {
+        var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
+        return settings.device.CDV_PICTO_ROOT + '/' + filename;
     };
 
     this.replaceImgURLs = function(poiData) {
@@ -25,11 +30,11 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         angular.forEach(copy.features, function(poi) {
             var currentPoiId = poi.id;
 
-            poi.properties.thumbnail = _this.convertServerUrlToFileSystemUrl(currentPoiId, poi.properties.thumbnail);
-            poi.properties.type.pictogram = _this.convertServerUrlToFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
+            poi.properties.thumbnail = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, poi.properties.thumbnail);
+            poi.properties.type.pictogram = _this.convertServerUrlToPictoFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
 
             angular.forEach(poi.properties.pictures, function(picture) {
-                picture.url = _this.convertServerUrlToFileSystemUrl(currentPoiId, picture.url);
+                picture.url = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, picture.url);
             });
         });
         return copy;
@@ -86,7 +91,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
                 var pictoUrl = poi.properties.type.pictogram;
                 if (!!pictoUrl) {
                     var pictoFilename = pictoUrl.substr(pictoUrl.lastIndexOf('/') + 1);
-                    promises.push(_this.downloadPoiImage(currentPoiId, pictoFilename, settings.DOMAIN_NAME + pictoUrl))
+                    promises.push(_this.downloadPictoImage(currentPoiId, pictoFilename, settings.DOMAIN_NAME + pictoUrl))
                 }
 
                 angular.forEach(poi.properties.pictures, function(picture) {
@@ -114,10 +119,24 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         });
     };
 
+    this.downloadPictoImage = function(poiId, pictoName, url) {
+        return $cordovaFile.checkFile(settings.device.CDV_PICTO_ROOT + '/' + pictoName)
+        .then(function() {
+            var deferred = $q.defer();
+            deferred.resolve({message: 'pictogram ' + pictoName + ' already present'});
+            return deferred.promise;
+            // picture already present, not downloading it
+        }, function() {
+            var path = settings.device.CDV_PICTO_ROOT + '/' + pictoName;
+            console.log('downloading ' + url + ' to ' + path);
+            return $cordovaFile.downloadFile(url, path);
+        });
+    };
+
     this.hasPoisFromTrek = function(trekId) {
         var trekPoisFilepath = this._getPoisTrekRelativeURL(trekId);
         return $cordovaFile.checkFile(trekPoisFilepath);
-    }
+    };
 
     // Getting Pois used for mobile purpose
     // Image urls are converted to cdv://localhost/persistent/... ones

@@ -50,6 +50,7 @@
             <h2 class="trek-detail__section-title">En chemin</h2>
             <ul class="list">
             <li class="item" ng-repeat="poi in pois.features">
+                <img ng-src="{{ poi.properties.type.pictogram }}"/>
                 <p>{{ poi.properties.name}}</p>
                 <img ng-src="{{ poi.properties.thumbnail }}"/>
             </li>
