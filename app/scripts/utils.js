@@ -23,7 +23,8 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
             return $cordovaFile.readFileMetadata(relativePath)
             .then(function(file) {
 
-                // If there is a file, we check on server if file was modified.
+                // If there is a file, we check on server if file was modified
+                // by using HTTP header 'If-Modified-Since'
                 var lastModifiedDate = new Date(file.lastModifiedDate),
                     config = {
                         headers: {
@@ -31,9 +32,20 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
                         }
                     };
 
+                // NOTICE
+                // We have used $http service because we needed 'If-Modified-Since' HTTP header,
+                // and cordova plugin file transfer (used by $cordovaFile.downloadFile) doesn't manage it properly.
+                // In case on 304, response body is empty, and cordova plugin overwrites previous data with empty file...
+                // https://issues.apache.org/jira/browse/CB-7006
+
                 return $http.get(url, config)
                 .then(function(response) {
                     // Response is 2xx
+
+                    // It means that server file is more recent than device one
+                    // We download it so !
+                    // We could have used $cordovaFile 'writeFile' function, as response contains our data,
+                    // but we prefer 'downloadFile' call to be consistent with other cases.
                     return $cordovaFile.downloadFile(url, filepath);
 
                 }, function(response) {
@@ -41,10 +53,13 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
                         deferred = $q.defer();
 
                     if (status === 304) {
+                        // If status is 304, it means that server file is older than device one
+                        // Do nothing.
                         console.log('File not changed (304) : ' + url + ' at ' + filepath);
                         deferred.resolve();
                     }
                     else {
+                        // If status is different than 304, there is a problem, so reject the promise
                         console.log('Response error status ' + status);
                         deferred.reject();
                     }
@@ -52,6 +67,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', function
                 });
                 
             }, function() {
+                // If there is no file with that path, we download it !
                 console.log('cannot read ' + filepath + ' so downloading it !');
                 return $cordovaFile.downloadFile(url, filepath);
             });
