@@ -6,7 +6,11 @@ geotrekGeolocation.service('geolocationRemoteService', ['$q', function ($q) {
 
     this.getCurrentPosition = function(options) {
 
-        var deferred = $q.defer();
+        var deferred = $q.defer(),
+            // Following http://dev.w3.org/geo/api/spec-source.html#geolocation_interface for error codes
+            PERMISSION_DENIED = 1,
+            POSITION_UNAVAILABLE = 2,
+            TIMEOUT = 3;
 
         function showPosition(position) {
             deferred.resolve(position);
@@ -16,16 +20,16 @@ geotrekGeolocation.service('geolocationRemoteService', ['$q', function ($q) {
         function showError(error) {
             var msg;
             switch(error.code) {
-                case error.PERMISSION_DENIED:
+                case PERMISSION_DENIED:
                     msg = "User denied the request for Geolocation."
                     break;
-                case error.POSITION_UNAVAILABLE:
+                case POSITION_UNAVAILABLE:
                     msg = "Location information is unavailable."
                     break;
-                case error.TIMEOUT:
+                case TIMEOUT:
                     msg = "The request to get user location timed out."
                     break;
-                case error.UNKNOWN_ERROR:
+                default:
                     msg = "An unknown error occurred."
                     break;
             }
