@@ -10,38 +10,36 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, treksFactory, poisFactory, staticPagesFactory, cfpLoadingBar, settings) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService) {
+
+    $scope.message = 'Chargement des données en cours...';
 
     //var url = "http://rando.ecrins-parcnational.fr/fr/files/api/trek/trek.geojson";
     var url = settings.remote.TREK_REMOTE_FILE_URL;
 
-    treksFactory.downloadTreks(url)
-    .then(function() {
+    cfpLoadingBar.start();
+
+    // Synchronizing data with server
+    syncDataService.run(url)
+    .then(function(result) {
+        // Simulating almost ended loading
+        cfpLoadingBar.set(0.9);
         return staticPagesFactory.getStaticPages();
     })
+    // When ok, populating scope with static pages and treks
     .then(function(staticPages) {
         $rootScope.staticPages = staticPages;
         return treksFactory.getTreks();
     })
     .then(function(treks) {
-        $rootScope.treks = treks;
-
-        var trekIds = [];
-        angular.forEach(treks.features, function(trek) {
-            trekIds.push(trek.id);
-        });
-
-        // Downloading Trek POIs
-        return poisFactory.downloadPois(trekIds);
-    })
-    .then(function(result) {
         cfpLoadingBar.complete();
-
-        // Move on
+        $rootScope.treks = treks;
         $state.go('home.trek');
     })
     .catch(function(error) {
-        console.log(error);
+        cfpLoadingBar.complete();
+        $log.error(error);
+        $scope.message = "Problème lors du chargement des données. Si c'est la première fois que vous utilisez Geotrek-Mobile, veuillez avoir une connexion Internet active.";
     });
 
 });

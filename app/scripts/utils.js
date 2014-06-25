@@ -55,17 +55,26 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
                     if (status === 304) {
                         // If status is 304, it means that server file is older than device one
                         // Do nothing.
-                        $log.info('File not changed (304) : ' + url + ' at ' + filepath);
-                        deferred.resolve();
+                        var msg = 'File not changed (304) : ' + url + ' at ' + filepath;
+                        $log.info(msg);
+                        deferred.resolve({message: msg, type: 'connection', data: {status: status}});
                     }
                     else {
-                        // If status is different than 304, there is a problem, so reject the promise
-                        $log.info('Response error status ' + status);
-                        deferred.reject();
+                        // If status is different than 304, there is a connection problem
+
+                        // We can't connect to URL
+                        if (status === 0) {
+                            $log.info('Network unreachable');
+                            deferred.reject({message: 'Network unreachable', type: 'connection', data: {status: status}});
+                        }
+                        else {
+                            $log.info('Response error status ' + status);
+                            deferred.reject({message: 'Response error ', type: 'connection', data: {status: status}});
+                        }
                     }
                     return deferred.promise;
                 });
-                
+
             }, function() {
                 // If there is no file with that path, we download it !
                 $log.info('cannot read ' + filepath + ' so downloading it !');
