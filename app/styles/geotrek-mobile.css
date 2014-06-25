@@ -219,7 +219,20 @@
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   transform: translateX(-50%);
-  color: white; }
+  color: white;
+  background-color: black;
+  opacity: 0.8;
+  padding: 1em; }
+
+#loading-bar .bar {
+  background: #893286;
+  padding: 0;
+  height: 4px; }
+#loading-bar .peg {
+  display: none; }
+
+#loading-bar-spinner {
+  display: none; }
 
 .leaflet-container {
   width: 100%;

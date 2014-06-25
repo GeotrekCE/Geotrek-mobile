@@ -1,0 +1,16 @@
+
+#loading-bar {
+    .bar {
+        background: $loading-bar-color;
+        padding: 0;
+        height: 4px;
+    }
+
+    .peg {
+        display: none;
+    }
+}
+
+#loading-bar-spinner {
+    display: none;
+}
