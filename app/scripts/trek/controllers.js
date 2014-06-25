@@ -2,11 +2,15 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters) {
+geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages) {
 
     // Define utils variables for specific device behaviours
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
     $scope.isIOS = $window.ionic.Platform.isIOS();
+
+    // treks and staticPages come from TrekController routing resolve
+    $rootScope.treks = treks;
+    $rootScope.staticPages = staticPages;
 
     // Define filters from service to the scope for the view
     $scope.filtersData = {

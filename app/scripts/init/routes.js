@@ -10,7 +10,7 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService) {
 
     $scope.message = 'Chargement des données en cours...';
 
@@ -24,16 +24,12 @@ geotrekInit.config(function($stateProvider) {
     .then(function(result) {
         // Simulating almost ended loading
         cfpLoadingBar.set(0.9);
-        return staticPagesFactory.getStaticPages();
-    })
-    // When ok, populating scope with static pages and treks
-    .then(function(staticPages) {
-        $rootScope.staticPages = staticPages;
-        return treksFactory.getTreks();
+
+        // Checking that data is OK before landing page redirection
+        return checkDataService.isReady();
     })
     .then(function(treks) {
         cfpLoadingBar.complete();
-        $rootScope.treks = treks;
         $state.go('home.trek');
     })
     .catch(function(error) {

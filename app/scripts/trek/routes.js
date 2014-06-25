@@ -9,7 +9,15 @@ geotrekTreks.config(function($stateProvider) {
         url: '',
         abstract: true,
         templateUrl: 'views/nav_trek_map.html',
-        controller: 'TrekController'
+        controller: 'TrekController',
+        resolve: {
+            treks: function(treksFactory) {
+                return treksFactory.getTreks();
+            },
+            staticPages: function(staticPagesFactory) {
+                return staticPagesFactory.getStaticPages();
+            }
+        }
     })
     .state('home.trek', {
         url: '/trek',
