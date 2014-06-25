@@ -2,7 +2,9 @@
 
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks', 'geotrekPois', 'geotrekMap', 'geotrekInit', 'ngCordova']);
+var geotrekApp = angular.module('geotrekMobileApp',
+    ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
+     'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova']);
 
 
 // Wait for 'deviceready' Cordova event
@@ -27,7 +29,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
 }])
-.run(['$rootScope', '$log', function($rootScope, $log) {
+.run(['$rootScope', '$log', 'geolocationFactory', function($rootScope, $log, geolocationFactory) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -38,6 +40,13 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
         } else {
             console.error('$stateChangeError :', error);
         }
+    });
+
+    geolocationFactory.getLatLonPosition()
+    .then(function(result) {
+        console.log(result);
+    }).catch(function(error) {
+        console.log(error);
     });
 
     $rootScope.network = 'online';

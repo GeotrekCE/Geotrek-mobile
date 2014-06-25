@@ -185,12 +185,24 @@ This project is generated using Yeoman (http://yeoman.io/)
 GEOTREK-MOBILE REQUIREMENTS
 ===========================
 
-Add cordova plugins to manipulate/transfert files
+CORDOVA FILES PLUGIN
+====================
 ```bash
 $ cordova plugin add org.apache.cordova.file@1.2.0
 $ cordova plugin add org.apache.cordova.file-transfer@0.4.4
+```
+
+CORDOVA NETWORK INFORMATION PLUGIN
+==================================
+```bash
 $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
 (cordova plugin add cordova-plugin-network-information crashes on android, due to https://git-wip-us.apache.org/repos/asf?p=cordova-plugin-network-information.git;a=commit;h=a5e9631258691890f08d94bc784f96aa304c2868)
+```
+
+CORDOVA GEOLOCATION PLUGIN
+==================================
+```bash
+$ cordova plugin add org.apache.cordova.geolocation
 ```
 
 CREDITS
