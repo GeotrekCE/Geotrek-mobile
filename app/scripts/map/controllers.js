@@ -2,16 +2,16 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', function ($scope, leafletData, filterFilter) {
+geotrekMap.controller('MapController', function ($scope, leafletData, filterFilter, settings) {
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
-            lat: 44.8,
-            lng: 6.2,
-            zoom: 9
+            lat: settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE,
+            lng: settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE,
+            zoom: settings.leaflet.GLOBAL_MAP_DEFAULT_ZOOM
         },
         defaults: {
-            scrollWheelZoom: false,
+            scrollWheelZoom: true,
             zoomControl: false // Not needed on Android/iOS modern devices
         }
     });
