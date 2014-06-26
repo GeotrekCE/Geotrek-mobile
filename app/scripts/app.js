@@ -28,7 +28,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
 }])
-.run(['$rootScope', '$log', 'geolocationFactory', function($rootScope, $log, geolocationFactory) {
+.run(['$rootScope', '$log', function($rootScope, $log) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -39,13 +39,6 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
         } else {
             console.error('$stateChangeError :', error);
         }
-    });
-
-    geolocationFactory.getLatLonPosition()
-    .then(function(result) {
-        console.log(result);
-    }).catch(function(error) {
-        console.log(error);
     });
  
     $rootScope.network_available = true;

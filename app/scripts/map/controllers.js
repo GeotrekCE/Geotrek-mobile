@@ -2,7 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', function ($scope, leafletData, filterFilter, settings) {
+geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory',
+                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory) {
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
@@ -13,11 +14,27 @@ geotrekMap.controller('MapController', function ($scope, leafletData, filterFilt
         defaults: {
             scrollWheelZoom: true,
             zoomControl: false // Not needed on Android/iOS modern devices
-        }
+        },
+        markers: {}
     });
+
+    geolocationFactory.getLatLonPosition()
+        .then(function(result) {
+            $scope.markers = {
+                userPosition: {
+                    lat: result.lat,
+                    lng: result.lon,
+                    message: "Vous êtes ici!",
+                }
+            }
+
+        }, function(error) {
+            $log.warn(error);
+        });
 
     // Add treks geojson to the map
     function showTreks() {
+
         angular.extend($scope, {
             geojson: {
                 data: filterFilter($scope.treks.features, $scope.activeFilters.search),
@@ -45,7 +62,7 @@ geotrekMap.controller('MapController', function ($scope, leafletData, filterFilt
             showTreks();
         }
     });
-})
-.controller('MapControllerDetail', function ($scope, $stateParams) {
+}])
+.controller('MapControllerDetail', ['$scope', '$stateParams', function ($scope, $stateParams) {
     console.log($stateParams);
-});
+}]);
