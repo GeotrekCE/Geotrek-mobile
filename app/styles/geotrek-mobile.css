@@ -234,6 +234,18 @@
 #loading-bar-spinner {
   display: none; }
 
+.pictogram {
+  width: 20px; }
+
+.poi-detail__name {
+  display: inline-block;
+  vertical-align: bottom; }
+
+.poi-detail__description {
+  white-space: normal; }
+  .poi-detail__description p {
+    white-space: normal; }
+
 .leaflet-container {
   width: 100%;
   height: 100%; }
