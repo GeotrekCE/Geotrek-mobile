@@ -76,7 +76,7 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
             },
             buttonClicked: function(index) {
-                createModal($scope.staticPages[index].text);
+                createModal('views/static_page.html', $scope.staticPages[index]);
 
                 return true;
             }
@@ -138,13 +138,17 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         return isMatching;
     }
 
-    function createModal(template) {
-        // Display the modal (this is the entire view here)
-        var modal = $ionicModal.fromTemplate(template, {
+    function createModal(template, scope) {
+
+        angular.extend($scope, scope);
+
+        $ionicModal.fromTemplateUrl(template, {
             scope: $scope,
             animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
         });
-        modal.show();
 
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function() {

@@ -2,9 +2,13 @@
 
 'use strict';
 
+<<<<<<< HEAD
 var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova']);
+=======
+var geotrekApp = angular.module('geotrekMobileApp', ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks', 'geotrekPois', 'geotrekMap', 'geotrekInit', 'ngCordova']);
+>>>>>>> master
 
 
 // Wait for 'deviceready' Cordova event
@@ -48,18 +52,18 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
     }).catch(function(error) {
         console.log(error);
     });
-
-    $rootScope.network = 'online';
+ 
+    $rootScope.network_available = true;
 
     function onlineCallback() {
         $log.info('online');
-        $rootScope.network = 'online';
+        $rootScope.network_available = true;
         $rootScope.$digest();
     }
 
     function offlineCallback() {
         $log.info('offline');
-        $rootScope.network = 'offline';
+        $rootScope.network_available = false;
         $rootScope.$digest();
     }
 

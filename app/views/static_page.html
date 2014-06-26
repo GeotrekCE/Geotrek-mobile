@@ -1,0 +1,23 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <a ng-if="isIOS" class="button button-clear button-positive" ng-click="modal.remove()">Cancel</a>
+        <button ng-if="isAndroid" class="button button-back button-icon" ng-click="modal.remove()">
+            <i class="icon ion-android-arrow-back"></i>
+            Retour
+        </button>
+
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+        <div class='page-content padding'>
+            <h1>{{ title }}</h1>
+            <div ng-bind-html="description"></div>
+        </div>
+
+    </ion-content>
+
+</div>

@@ -48,13 +48,15 @@
             <p>Communes : {{ trek.properties.cities.0.name }}</p>
 
             <h2 class="trek-detail__section-title">En chemin</h2>
-            <ul class="list">
-            <li class="item" ng-repeat="poi in pois.features">
-                <img ng-src="{{ poi.properties.type.pictogram }}"/>
-                <p>{{ poi.properties.name}}</p>
-                <img ng-src="{{ poi.properties.thumbnail }}"/>
-            </li>
-            </ul>
+
+            <ion-item class="poi-detail item-thumbnail-right" ng-repeat="poi in pois.features">
+                <img class="thumbnail" ng-src="{{ poi.properties.thumbnail }}"/>
+                <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
+                <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
+                <div class="poi-detail__description" ng-bind-html="poi.properties.description"></div>
+                </div>
+            </ion-item>
+
         </div>
 
     </ion-content>

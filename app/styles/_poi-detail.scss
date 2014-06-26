@@ -1,0 +1,13 @@
+
+.poi-detail__name {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.poi-detail__description {
+    white-space: normal;
+
+    p {
+        white-space: normal;        
+    }
+}
