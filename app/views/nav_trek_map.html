@@ -17,8 +17,8 @@
                 <button class="button button-icon" ng-click="showSearch.search=1">
                     <i class="icon ion-search"></i>
                 </button>
-                <button class="button button-icon">
-                    <i class="icon" ng-class="$root.network == 'online' ? 'ion-loop' : 'ion-alert-circled'"></i>
+                <img class="network-state" ng-show="$root.network_available" src="images/icon_online.png"/>
+                <img class="network-state" ng-hide="$root.network_available" src="images/icon_offline.png"/>
                 </button>
                 <button class="button button-icon" ng-click="showMore()">
                     <i class="icon ion-android-more"></i>

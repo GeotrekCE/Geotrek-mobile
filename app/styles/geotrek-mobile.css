@@ -123,6 +123,8 @@
 .bar-main .item-input-inset {
   padding-top: 6px;
   padding-bottom: 6px; }
+.bar-main .network-state {
+  width: 33px; }
 
 .bar-dark {
   padding: 0; }

@@ -40,17 +40,17 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', fun
         }
     });
 
-    $rootScope.network = 'online';
+    $rootScope.network_available = true;
 
     function onlineCallback() {
         $log.info('online');
-        $rootScope.network = 'online';
+        $rootScope.network_available = true;
         $rootScope.$digest();
     }
 
     function offlineCallback() {
         $log.info('offline');
-        $rootScope.network = 'offline';
+        $rootScope.network_available = false;
         $rootScope.$digest();
     }
 
