@@ -24,7 +24,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 userPosition: {
                     lat: result.lat,
                     lng: result.lon,
-                    message: "Vous êtes ici!",
+                    message: "Vous êtes ici!"
                 }
             }
 
