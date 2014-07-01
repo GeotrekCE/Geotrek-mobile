@@ -5,7 +5,7 @@ var geotrekTreks = angular.module('geotrekTreks');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', function ($injector, $window, $rootScope, $q) {
+geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, geolocationFactory, utils) {
 
     var treksFactory;
 
@@ -45,6 +45,29 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
             });
         }
     };
+
+    treksFactory.getGeolocalizedTreks = function() {
+
+        return treksFactory.getTreks()
+        .then(function(treks) {
+
+            // Getting user geoloc to compute trek distance from user on-the-fly
+            geolocationFactory.getLatLonPosition()
+            .then(function(userPosition) {
+
+                angular.forEach(treks.features, function(trek) {
+                    // First coordinate is trek starting point
+                    var startPoint = trek.geometry.coordinates[0];
+                    trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lon, startPoint[1], startPoint[0]).toFixed(2);
+                });
+
+            }, function(error) {
+                $log.warn(error);
+            });
+
+            return treks;
+        });
+    }
 
     return treksFactory;
 }]);

@@ -12,7 +12,7 @@ geotrekTreks.config(function($stateProvider) {
         controller: 'TrekController',
         resolve: {
             treks: function(treksFactory) {
-                return treksFactory.getTreks();
+                return treksFactory.getGeolocalizedTreks();
             },
             staticPages: function(staticPagesFactory) {
                 return staticPagesFactory.getStaticPages();

@@ -19,6 +19,8 @@
 .trek-list__item .departure {
   color: #893286;
   margin-bottom: 0; }
+.trek-list__item .difficulty {
+  margin-bottom: 0; }
 
 .trek-list__item__detail-bt {
   position: absolute;
