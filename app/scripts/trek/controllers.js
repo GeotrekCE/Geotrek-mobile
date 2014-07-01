@@ -161,12 +161,12 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         $scope.$broadcast('OnFilter');
     });
 })
-.controller('TrekListController', function () {
-    // Default ordering is already alphabetical, so we comment this line
-    // $scope.orderProp = 'properties.name';
-})
+.controller('TrekListController', ['$scope', function ($scope) {
+    // Ordering by distance
+    // If distance is not available, default ordering is trek.geojson one
+    $scope.orderProp = 'distanceFromUser';
+}])
 .controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, poisFactory, socialSharingService) {
-    console.log($stateParams);
 
     $scope.trekId = $stateParams.trekId;
 
