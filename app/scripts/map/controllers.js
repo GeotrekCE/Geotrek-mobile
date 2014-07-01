@@ -64,5 +64,5 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
     });
 }])
 .controller('MapControllerDetail', ['$scope', '$stateParams', function ($scope, $stateParams) {
-    console.log($stateParams);
+    $scope.currentTrek = $stateParams.trekId;
 }]);
