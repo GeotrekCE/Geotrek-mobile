@@ -83,30 +83,39 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         });
     };
 
+    function isValidFilter(value, filter) {
+        var valid = true;
+        if (angular.isUndefined(value)
+            || angular.isUndefined(filter)
+            || (filter === null)
+            || (value === null))
+            {
+                valid = false;
+            }
+        return valid;
+    };
+
     function filterTrekWithFilter(trekValue, filter) {
+
         // Trek considered as matching if filter not set or if
         // property is empty.
-        if (trekValue === undefined ||
-            angular.isUndefined(filter) ||
-            filter === null) {
+        if (!(isValidFilter(trekValue, filter))) {
             return true;
         }
 
-        if (trekValue <= filter) {
-            return true;
-        } else {
-            return false;
-        }
+        return (trekValue <= filter);
     }
 
     function filterTrekWithThemes(themesValues, value) {
         var isMatching = false;
         // Trek considered as matching if filter not set or if
         // property is empty.
+        if (!(isValidFilter(themesValues, value))) {
+            return true;
+        }
+
         angular.forEach(themesValues, function(themeValue) {
-            if (themeValue.id === undefined ||
-                angular.isUndefined(value) ||
-                value === null) {
+            if (themeValue.id === undefined) {
                 isMatching = true;
             }
 
@@ -122,12 +131,13 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         var isMatching = false;
         // Trek considered as matching if filter not set or if
         // property is empty.
+        if (!(isValidFilter(citiesValues, value))) {
+            return true;
+        }
+
         angular.forEach(citiesValues, function(cityValue) {
-            if (cityValue.code === undefined ||
-                angular.isUndefined(value) ||
-                value === null) {
+            if (cityValue.code === undefined) {
                 isMatching = true;
-                return;
             }
 
             if (cityValue.code === value.value) {
