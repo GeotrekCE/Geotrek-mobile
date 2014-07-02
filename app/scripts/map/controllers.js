@@ -20,14 +20,10 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
 
     geolocationFactory.getLatLonPosition()
         .then(function(result) {
-            $scope.markers = {
-                userPosition: {
-                    lat: result.lat,
-                    lng: result.lon,
-                    message: "Vous êtes ici!"
-                }
-            }
-
+            $scope.markers['userPosition'] = {
+                lat: result.lat,
+                lng: result.lon
+            };
         }, function(error) {
             $log.warn(error);
         });
@@ -38,17 +34,10 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
             geojson: {
                 data: filterFilter($scope.treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
-                style: {
-                    fillColor: 'green',
-                    weight: 2,
-                    opacity: 1,
-                    color: 'black',
-                    dashArray: '3',
-                    fillOpacity: 0.7
-                },
+                style: {'color': '#F89406', 'weight': 5, 'opacity': 0.8},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
-                        // With this call, map will always covert all geojson data area
+                        // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
                 }
@@ -81,6 +70,18 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         // Changing filter to display only selected trek
         $scope.geojson.filter = function(trek) {
             return (trek.id == trekId);
+        };
+
+        var startPoint = treksFactory.getStartPoint(trek);
+        var endPoint = treksFactory.getEndPoint(trek);
+
+        $scope.markers['startPoint'] = {
+            lat: startPoint.lat,
+            lng: startPoint.lng,
+        };
+        $scope.markers['endPoint'] = {
+            lat: endPoint.lat,
+            lng: endPoint.lng,
         };
     });
 

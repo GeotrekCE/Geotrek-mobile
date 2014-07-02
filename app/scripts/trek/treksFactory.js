@@ -23,6 +23,14 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
                 'lng': firstPointCoordinates[0]}
     };
 
+    treksFactory.getEndPoint = function(trek) {
+        var nbPts = trek.geometry.coordinates.length;
+        var lastPointCoordinates = trek.geometry.coordinates[nbPts-1];
+
+        return {'lat': lastPointCoordinates[1],
+                'lng': lastPointCoordinates[0]}
+    };
+
     treksFactory.getGeolocalizedTreks = function() {
 
         return treksFactory.getTreks()
