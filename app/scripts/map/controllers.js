@@ -72,8 +72,15 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
     .then(function(trek) {
         var startPoint = treksFactory.getStartPoint(trek);
 
+        // Centering leaflet view on trek start point
+        // TODO: center it following trek bounds
         $scope.center.lat = startPoint.lat;
         $scope.center.lng = startPoint.lng;
+
+        // Changing filter to display only selected trek
+        $scope.geojson.filter = function(trek) {
+            return (trek.id == trekId);
+        };
     });
 
 }]);
