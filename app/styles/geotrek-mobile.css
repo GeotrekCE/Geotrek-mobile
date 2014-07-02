@@ -95,16 +95,22 @@
   margin-left: -10px;
   min-width: 130px; }
 
-.trek-detail__back-bt {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  color: black;
-  text-decoration: none;
-  z-index: 10; }
-
 .button.icon-top:before {
   display: block; }
+
+.switch-detail-map {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 5px;
+  z-index: 10;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #893286; }
+  .switch-detail-map a {
+    color: white;
+    text-decoration: none; }
 
 .slider {
   padding-bottom: 20px; }

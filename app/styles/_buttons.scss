@@ -3,3 +3,18 @@
 		display: block;
 	}
 }
+
+.switch-detail-map {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 5px;
+    z-index: 10;
+    @include border-radius(50%);
+    background-color: $primaryColor;
+
+    a {
+        color: $complementaryColor;
+        text-decoration: none;
+    }
+}
