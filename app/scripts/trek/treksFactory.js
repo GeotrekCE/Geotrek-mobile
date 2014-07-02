@@ -5,7 +5,7 @@ var geotrekTreks = angular.module('geotrekTreks');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, geolocationFactory, utils) {
+geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', '$log', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, $log, geolocationFactory, utils) {
 
     var treksFactory;
 
@@ -15,6 +15,13 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
     else {
         treksFactory = $injector.get('treksRemoteService');
     }
+
+    treksFactory.getStartPoint = function(trek) {
+        var firstPointCoordinates = trek.geometry.coordinates[0];
+
+        return {'lat': firstPointCoordinates[1],
+                'lng': firstPointCoordinates[0]}
+    };
 
     treksFactory.getGeolocalizedTreks = function() {
 
@@ -27,8 +34,8 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
 
                 angular.forEach(treks.features, function(trek) {
                     // First coordinate is trek starting point
-                    var startPoint = trek.geometry.coordinates[0];
-                    trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lon, startPoint[1], startPoint[0]).toFixed(2);
+                    var startPoint = treksFactory.getStartPoint(trek);
+                    trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lon, startPoint.lat, startPoint.lng).toFixed(2);
                 });
 
             }, function(error) {
@@ -37,36 +44,35 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
 
             return treks;
         });
-    }
+    };
 
     treksFactory.getTrek = function(_trekId) {
-        var trekId = parseInt(_trekId);
-        var trek;
+        var trekId = parseInt(_trekId),
+            trek,
+            deferred = $q.defer();
 
         if (angular.isDefined($rootScope.treks)) {
-            var deferred = $q.defer();
-
             angular.forEach($rootScope.treks.features, function(_trek) {
                 if (_trek.id === trekId) {
                     trek = _trek;
                     return;
                 }
             });
-
             deferred.resolve(trek);
-            return deferred.promise;
         } else {
-            return treksFactory.getTreks().then(function(treks) {
+            treksFactory.getTreks()
+            .then(function(treks) {
                 angular.forEach(treks.features, function(_trek) {
                     if (_trek.id === trekId) {
                         trek = _trek;
                         return;
                     }
                 });
-
-                return trek;
+                deferred.resolve(trek);
             });
         }
+
+        return deferred.promise;
     };
 
     return treksFactory;

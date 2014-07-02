@@ -63,6 +63,17 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', function ($scope, $stateParams) {
-    $scope.currentTrek = $stateParams.trekId;
+.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', function ($scope, $stateParams, treksFactory) {
+
+    var trekId = $stateParams.trekId;
+    $scope.currentTrek = trekId;
+
+    treksFactory.getTrek(trekId)
+    .then(function(trek) {
+        var startPoint = treksFactory.getStartPoint(trek);
+
+        $scope.center.lat = startPoint.lat;
+        $scope.center.lng = startPoint.lng;
+    });
+
 }]);
