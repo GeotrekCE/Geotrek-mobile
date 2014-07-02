@@ -462,11 +462,15 @@
                 style: geojson.style,
                 filter: geojson.filter,
                 onEachFeature: onEachFeature,
-                pointToLayer: geojson.pointToLayer
+                pointToLayer: geojson.pointToLayer,
               };
               leafletGeoJSON = L.geoJson(geojson.data, geojson.options);
               leafletData.setGeoJSON(leafletGeoJSON);
               leafletGeoJSON.addTo(map);
+
+              if (geojson.postLoadCallback) {
+                geojson.postLoadCallback(map, leafletGeoJSON);
+              }
             });
           });
         }

@@ -33,8 +33,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         });
 
     // Add treks geojson to the map
-    function showTreks() {
-
+    function showTreks(updateBounds) {
         angular.extend($scope, {
             geojson: {
                 data: filterFilter($scope.treks.features, $scope.activeFilters.search),
@@ -46,6 +45,12 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                     color: 'black',
                     dashArray: '3',
                     fillOpacity: 0.7
+                },
+                postLoadCallback: function(map, feature) {
+                    if ((updateBounds == undefined) || (updateBounds == true)){
+                        // With this call, map will always covert all geojson data area
+                        map.fitBounds(feature.getBounds());
+                    }
                 }
             }
         });
@@ -59,7 +64,9 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
 
     $scope.$on('OnFilter', function() {
         if (angular.isDefined($scope.treks)) {
-            showTreks();
+            var updateBounds = false;
+            // We don't want to adapt map bounds on filter results
+            showTreks(updateBounds);
         }
     });
 }])
@@ -70,12 +77,6 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
 
     treksFactory.getTrek(trekId)
     .then(function(trek) {
-        var startPoint = treksFactory.getStartPoint(trek);
-
-        // Centering leaflet view on trek start point
-        // TODO: center it following trek bounds
-        $scope.center.lat = startPoint.lat;
-        $scope.center.lng = startPoint.lng;
 
         // Changing filter to display only selected trek
         $scope.geojson.filter = function(trek) {
