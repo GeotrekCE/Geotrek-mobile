@@ -205,6 +205,11 @@ CORDOVA GEOLOCATION PLUGIN
 $ cordova plugin add org.apache.cordova.geolocation
 ```
 
+ANGULAR-LEAFLET-DIRECTIVE
+=========================
+Source files are available at https://github.com/Natsu-/angular-leaflet-directive
+A callback has been added on geojson directive to fit map bounds with geojson bounds
+
 CREDITS
 =======
 
