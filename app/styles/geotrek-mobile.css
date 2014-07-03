@@ -254,6 +254,9 @@
   .poi-detail__description p {
     white-space: normal; }
 
+.leaflet-control-layers.leaflet-control {
+  display: none; }
+
 .leaflet-container {
   width: 100%;
   height: 100%; }
