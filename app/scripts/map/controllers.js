@@ -17,10 +17,10 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         },
         layers: {
             baselayers: {
-                openStreetMap: {
-                name: 'OpenStreetMap',
-                type: 'xyz',
-                url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                OSMTopo: {
+                    name: 'OSMTopo',
+                    type: 'xyz',
+                    url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
                 }
             },
             overlays: {
