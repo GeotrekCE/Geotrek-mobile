@@ -59,7 +59,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'iconsService', function ($scope, $stateParams, treksFactory, iconsService) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'poisFactory', 'iconsService', function ($scope, $stateParams, treksFactory, poisFactory, iconsService) {
 
     var trekId = $stateParams.trekId;
     $scope.currentTrek = trekId;
@@ -85,6 +85,23 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
             lng: endPoint.lng,
             icon: iconsService.getArrivalIcon()
         };
+
+        poisFactory.getPoisFromTrek(trekId)
+        .then(function(pois) {
+
+            angular.forEach(pois.features, function(poi) {
+                var poiCoords = {
+                    'lat': poi.geometry.coordinates[1],
+                    'lng': poi.geometry.coordinates[0]
+                };
+                $scope.markers['poi_' + poi.id] = {
+                    lat: poiCoords.lat,
+                    lng: poiCoords.lng,
+                    icon: iconsService.getPOIIcon(poi)
+                };
+            });
+
+        });
     });
 
 }]);
