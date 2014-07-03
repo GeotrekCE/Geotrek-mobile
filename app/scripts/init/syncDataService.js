@@ -10,7 +10,6 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
 
         treksFactory.downloadTreks(url)
         .then(function(result) {
-            $log.info(result);
             return treksFactory.getTreks();
         })
         .then(function(treks) {
@@ -23,7 +22,6 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
             return poisFactory.downloadPois(trekIds);
         })
         .then(function(result) {
-            $log.info(result);
             deferred.resolve(result);
         }).catch(function(error) {
             $log.warn(error);
