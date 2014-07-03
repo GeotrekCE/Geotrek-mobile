@@ -59,7 +59,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', function ($scope, $stateParams, treksFactory) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'iconsService', function ($scope, $stateParams, treksFactory, iconsService) {
 
     var trekId = $stateParams.trekId;
     $scope.currentTrek = trekId;
@@ -78,10 +78,12 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         $scope.markers['startPoint'] = {
             lat: startPoint.lat,
             lng: startPoint.lng,
+            icon: iconsService.getDepartureIcon()
         };
         $scope.markers['endPoint'] = {
             lat: endPoint.lat,
             lng: endPoint.lng,
+            icon: iconsService.getArrivalIcon()
         };
     });
 
