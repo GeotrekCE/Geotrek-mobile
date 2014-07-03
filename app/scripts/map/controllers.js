@@ -2,8 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory',
-                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory) {
+geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'poisFactory',
+                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, poisFactory) {
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
@@ -14,6 +14,22 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         defaults: {
             scrollWheelZoom: true,
             zoomControl: false // Not needed on Android/iOS modern devices
+        },
+        layers: {
+            baselayers: {
+                openStreetMap: {
+                name: 'OpenStreetMap',
+                type: 'xyz',
+                url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                }
+            },
+            overlays: {
+                poi: {
+                    type: 'group',
+                    name: 'poi',
+                    visible: false
+                }
+            }
         },
         markers: {}
     });
@@ -43,6 +59,49 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 }
             }
         });
+
+        angular.forEach($scope.treks.features, function(trek) {
+
+            var startPoint = treksFactory.getStartPoint(trek);
+            var endPoint = treksFactory.getEndPoint(trek);
+
+            $scope.markers['startPoint_' + trek.id] = {
+                lat: startPoint.lat,
+                lng: startPoint.lng,
+                icon: iconsService.getDepartureIcon(),
+                layer: 'poi'
+            };
+            $scope.markers['endPoint_' + trek.id] = {
+                lat: endPoint.lat,
+                lng: endPoint.lng,
+                icon: iconsService.getArrivalIcon(),
+                layer: 'poi'
+            };
+
+            poisFactory.getPoisFromTrek(trek.id)
+            .then(function(pois) {
+
+                angular.forEach(pois.features, function(poi) {
+                    var poiCoords = {
+                        'lat': poi.geometry.coordinates[1],
+                        'lng': poi.geometry.coordinates[0]
+                    };
+                    $scope.markers['poi_' + poi.id] = {
+                        lat: poiCoords.lat,
+                        lng: poiCoords.lng,
+                        icon: iconsService.getPOIIcon(poi),
+                        layer: 'poi'
+                    };
+                });
+
+                leafletData.getMap().then(function(map) {
+                    $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
+                    map.on('zoomend', function() {
+                        $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
+                    });
+                });
+            });
+        });
     }
 
     if (angular.isDefined($scope.treks)) { // If treks data are already loaded
@@ -59,7 +118,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'poisFactory', 'iconsService', function ($scope, $stateParams, treksFactory, poisFactory, iconsService) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', function ($scope, $stateParams, treksFactory) {
 
     var trekId = $stateParams.trekId;
     $scope.currentTrek = trekId;
@@ -72,36 +131,6 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
             return (trek.id == trekId);
         };
 
-        var startPoint = treksFactory.getStartPoint(trek);
-        var endPoint = treksFactory.getEndPoint(trek);
-
-        $scope.markers['startPoint'] = {
-            lat: startPoint.lat,
-            lng: startPoint.lng,
-            icon: iconsService.getDepartureIcon()
-        };
-        $scope.markers['endPoint'] = {
-            lat: endPoint.lat,
-            lng: endPoint.lng,
-            icon: iconsService.getArrivalIcon()
-        };
-
-        poisFactory.getPoisFromTrek(trekId)
-        .then(function(pois) {
-
-            angular.forEach(pois.features, function(poi) {
-                var poiCoords = {
-                    'lat': poi.geometry.coordinates[1],
-                    'lng': poi.geometry.coordinates[0]
-                };
-                $scope.markers['poi_' + poi.id] = {
-                    lat: poiCoords.lat,
-                    lng: poiCoords.lng,
-                    icon: iconsService.getPOIIcon(poi)
-                };
-            });
-
-        });
     });
 
 }]);
