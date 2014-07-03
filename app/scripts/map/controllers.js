@@ -118,7 +118,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', function ($scope, $stateParams, treksFactory) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'leafletData', function ($scope, $stateParams, treksFactory, leafletData) {
 
     var trekId = $stateParams.trekId;
     $scope.currentTrek = trekId;
@@ -126,11 +126,13 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
     treksFactory.getTrek(trekId)
     .then(function(trek) {
 
-        // Changing filter to display only selected trek
-        $scope.geojson.filter = function(trek) {
-            return (trek.id == trekId);
-        };
+        leafletData.getMap().then(function(map) {
+            // Going through L.geoJson object to get trek geojson bounds
+            var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
 
+            // Filling map with current trek
+            map.fitBounds(currentTrekBounds);
+        });
     });
 
 }]);
