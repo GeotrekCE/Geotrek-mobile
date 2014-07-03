@@ -7,26 +7,16 @@ var geotrekMap = angular.module('geotrekMap');
  */
 geotrekMap.service('iconsService', ['$window', 'settings', function ($window, settings) {
 
-    var iconsPrefix;
-
-    if (angular.isDefined($window.cordova)) {
-        iconsPrefix = 'images';
-    }
-    else {
-        iconsPrefix = settings.DOMAIN_NAME + '/static/img';
-    }
-
-
     var trek_icons = {
         default_icon: {},
         departure_icon: {
-            iconUrl: iconsPrefix + '/marker-source.png',
+            iconUrl: 'images/marker-source.png',
             iconSize: [64, 64],
             iconAnchor: [32, 64],
             labelAnchor: [20, -50]
         },
         arrival_icon: {
-            iconUrl: iconsPrefix + '/marker-target.png',
+            iconUrl: 'images/marker-target.png',
             iconSize: [64, 64],
             iconAnchor: [32, 64],
             labelAnchor: [20, -50]
