@@ -176,22 +176,15 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     // If distance is not available, default ordering is trek.geojson one
     $scope.orderProp = 'distanceFromUser';
 }])
-.controller('TrekDetailController', function ($scope, $ionicModal, $stateParams, $sce, treksFactory, poisFactory, socialSharingService) {
+.controller('TrekDetailController',
+    ['$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',
+    function ($scope, $ionicModal, $stateParams, $sce, trek, pois, socialSharingService) {
 
     $scope.trekId = $stateParams.trekId;
-
-    // Get current trek data from the treks file
-    treksFactory.getTrek($stateParams.trekId).then(function(trek) {
-        $scope.trek = trek;
-
-        // We need to declare our json HTML data as safe using $sce
-        $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
-
-        return poisFactory.getPoisFromTrek($stateParams.trekId);
-    })
-    .then(function(pois) {
-        $scope.pois = pois;
-    });
+    $scope.trek = trek;
+    // We need to declare our json HTML data as safe using $sce
+    $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
+    $scope.pois = pois;
 
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/trek_detail.html', {
@@ -210,4 +203,4 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name);
     };
-});
+}]);

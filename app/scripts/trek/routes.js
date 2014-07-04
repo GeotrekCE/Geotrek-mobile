@@ -26,6 +26,14 @@ geotrekTreks.config(function($stateProvider) {
     })
     .state('home.trek.detail', {
         url: '/:trekId',
-        controller: 'TrekDetailController'
+        controller: 'TrekDetailController',
+        resolve: {
+            trek: function(treksFactory, $stateParams) {
+                return treksFactory.getTrek($stateParams.trekId);
+            },
+            pois: function(poisFactory, $stateParams) {
+                return poisFactory.getPoisFromTrek($stateParams.trekId);
+            }
+        }
     });
 });
