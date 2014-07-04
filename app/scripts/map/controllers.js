@@ -98,6 +98,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                     $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
                     map.on('zoomend', function() {
                         $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
+                        console.log(map.getZoom());
                     });
                 });
             });
@@ -118,7 +119,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', 'treksFactory', 'leafletData', function ($scope, $stateParams, treksFactory, leafletData) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', function ($scope, $stateParams, $window, treksFactory, leafletData) {
 
     var trekId = $stateParams.trekId;
     $scope.currentTrek = trekId;
@@ -130,8 +131,16 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
             // Going through L.geoJson object to get trek geojson bounds
             var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
 
+            // FIXME: there is a leaflet bug that freeze trek display on devices
+            // When fixing maxZoom to 12, we can avoid that freeze, but trek is too small
+            // We need to find a way to fix it.
+            var options = {};
+            if (angular.isDefined($window.cordova)) {
+                options['maxZoom'] = 12;
+            }
+
             // Filling map with current trek
-            map.fitBounds(currentTrekBounds);
+            map.fitBounds(currentTrekBounds, options);
         });
     });
 
