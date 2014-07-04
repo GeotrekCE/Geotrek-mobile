@@ -8,7 +8,12 @@ geotrekMap.config(function($stateProvider) {
     .state('home.map', {
         url: '/map',
         templateUrl : 'views/global_map.html',
-        controller: 'MapController'
+        controller: 'MapController',
+        resolve: {
+            pois: function(poisFactory) {
+                return poisFactory.getAllPois();
+            }
+        }
     })
     .state('home.map.trek', {
         url: '/:trekId',

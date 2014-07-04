@@ -2,8 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'poisFactory',
-                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, poisFactory) {
+geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois',
+                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois) {
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
@@ -77,30 +77,27 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 icon: iconsService.getArrivalIcon(),
                 layer: 'poi'
             };
+        });
 
-            poisFactory.getPoisFromTrek(trek.id)
-            .then(function(pois) {
+        angular.forEach(pois, function(poi) {
+            var poiCoords = {
+                'lat': poi.geometry.coordinates[1],
+                'lng': poi.geometry.coordinates[0]
+            };
+            var poiIcon = iconsService.getPOIIcon(poi);
+            $scope.markers['poi_' + poi.id] = {
+                lat: poiCoords.lat,
+                lng: poiCoords.lng,
+                icon: poiIcon,
+                layer: 'poi'
+            };
+            console.log($scope.markers);
+        });
 
-                angular.forEach(pois.features, function(poi) {
-                    var poiCoords = {
-                        'lat': poi.geometry.coordinates[1],
-                        'lng': poi.geometry.coordinates[0]
-                    };
-                    $scope.markers['poi_' + poi.id] = {
-                        lat: poiCoords.lat,
-                        lng: poiCoords.lng,
-                        icon: iconsService.getPOIIcon(poi),
-                        layer: 'poi'
-                    };
-                });
-
-                leafletData.getMap().then(function(map) {
-                    $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
-                    map.on('zoomend', function() {
-                        $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
-                        console.log(map.getZoom());
-                    });
-                });
+        leafletData.getMap().then(function(map) {
+            $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
+            map.on('zoomend', function() {
+                $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
         });
     }
