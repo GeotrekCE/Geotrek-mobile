@@ -13,6 +13,12 @@ geotrekMap.config(function($stateProvider) {
     .state('home.map.trek', {
         url: '/:trekId',
         templateUrl : 'views/detail_map.html',
-        controller: 'MapControllerDetail'
+        controller: 'MapControllerDetail',
+        resolve: {
+            trek: function($stateParams, treksFactory) {
+                var trekId = $stateParams.trekId;
+                return treksFactory.getTrek(trekId);
+            }
+        }
     });
 });

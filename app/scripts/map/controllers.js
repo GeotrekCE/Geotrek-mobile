@@ -119,29 +119,24 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', function ($scope, $stateParams, $window, treksFactory, leafletData) {
+.controller('MapControllerDetail', ['$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek', function ($scope, $stateParams, $window, treksFactory, leafletData, trek) {
 
-    var trekId = $stateParams.trekId;
-    $scope.currentTrek = trekId;
+    $scope.currentTrek = $stateParams.trekId;
 
-    treksFactory.getTrek(trekId)
-    .then(function(trek) {
+    leafletData.getMap().then(function(map) {
+        // Going through L.geoJson object to get trek geojson bounds
+        var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
 
-        leafletData.getMap().then(function(map) {
-            // Going through L.geoJson object to get trek geojson bounds
-            var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
+        // FIXME: there is a leaflet bug that freeze trek display on devices
+        // When fixing maxZoom to 12, we can avoid that freeze, but trek is too small
+        // We need to find a way to fix it.
+        var options = {};
+        if (angular.isDefined($window.cordova)) {
+            options['maxZoom'] = 12;
+        }
 
-            // FIXME: there is a leaflet bug that freeze trek display on devices
-            // When fixing maxZoom to 12, we can avoid that freeze, but trek is too small
-            // We need to find a way to fix it.
-            var options = {};
-            if (angular.isDefined($window.cordova)) {
-                options['maxZoom'] = 12;
-            }
-
-            // Filling map with current trek
-            map.fitBounds(currentTrekBounds, options);
-        });
+        // Filling map with current trek
+        map.fitBounds(currentTrekBounds, options);
     });
 
 }]);
