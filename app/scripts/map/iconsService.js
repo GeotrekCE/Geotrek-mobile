@@ -29,10 +29,12 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getPOIIcon = function(poi) {
         var pictogramUrl = poi.properties.type.pictogram,
-            poi_icon = trek_icons.poi_icon;
-        poi_icon['iconUrl'] = pictogramUrl;
+            poiIconInstance = {};
 
-        return poi_icon;
+        angular.copy(trek_icons.poi_icon, poiIconInstance);
+        poiIconInstance['iconUrl'] = pictogramUrl;
+
+        return poiIconInstance;
     };
 
     this.getDepartureIcon = function() {
