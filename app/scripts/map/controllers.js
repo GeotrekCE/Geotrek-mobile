@@ -91,7 +91,6 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 icon: poiIcon,
                 layer: 'poi'
             };
-            console.log($scope.markers);
         });
 
         leafletData.getMap().then(function(map) {
@@ -102,11 +101,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         });
     }
 
-    if (angular.isDefined($scope.treks)) { // If treks data are already loaded
-        showTreks();
-    } else { // Data not yet loaded, wait for loading, then display treks on map
-        $scope.$on('OnTreksLoaded', showTreks);
-    }
+    showTreks();
 
     $scope.$on('OnFilter', function() {
         if (angular.isDefined($scope.treks)) {
