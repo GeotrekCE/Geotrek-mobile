@@ -7,7 +7,7 @@
             <div class="flex-wrapper" ng-switch-when="1">
                 <label class="item-input-wrapper">
                     <i class="icon ion-ios7-search placeholder-icon"></i>
-                    <input type="search" placeholder="Search" ng-model="activeFilters.search">
+                    <input type="search" placeholder="{{ 'nav_trek_map.search' | translate}}" ng-model="activeFilters.search">
                 </label>
                 <button class="button button-clear" ng-click="cancelBtHandler()">
                     {{ 'nav_trek_map.cancel' | translate }}
