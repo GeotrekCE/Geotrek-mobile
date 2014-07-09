@@ -16,12 +16,20 @@ window.ionic.Platform.ready(function() {
     }
 
     // Now launch the app
-    angular.bootstrap(document, ['geotrekMobileApp']);
+    try {
+        angular.bootstrap(document, ['geotrekMobileApp']);
+    }
+    catch(e) {
+        console.log(e);
+        if (!!e.message) {
+            console.log(e.message);
+        }
+    }
 
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$translateProvider', 'geoTreklocales',
-    function($urlRouterProvider, $compileProvider, $logProvider, $translateProvider, geoTreklocales) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$translateProvider', 'locales',
+    function($urlRouterProvider, $compileProvider, $logProvider, $translateProvider, locales) {
 
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
@@ -31,9 +39,9 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
-    $translateProvider.translations('fr', geoTreklocales['fr']);
-    $translateProvider.translations('en', geoTreklocales['en']);
-    $translateProvider.translations('es', geoTreklocales['es']);
+    $translateProvider.translations('fr', locales['fr']);
+    $translateProvider.translations('en', locales['en']);
+    $translateProvider.translations('es', locales['es']);
     $translateProvider.preferredLanguage('fr');
 
 }])

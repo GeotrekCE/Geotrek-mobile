@@ -2,7 +2,7 @@
 
 var geotrekLocales = angular.module('geotrekLocales', []);
 
-geotrekLocales.constant('geoTreklocales', {
+geotrekLocales.constant('locales', {
     'fr': {
         'nav_trek_map.ways': 'Itinéraires',
         'nav_trek_map.map': 'Carte',
