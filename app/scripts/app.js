@@ -39,9 +39,9 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
+    // Initialize app languages
     $translateProvider.translations('fr', locales['fr']);
     $translateProvider.translations('en', locales['en']);
-    $translateProvider.translations('es', locales['es']);
     $translateProvider.preferredLanguage('fr');
 
 }])

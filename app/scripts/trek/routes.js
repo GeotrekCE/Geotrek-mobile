@@ -1,6 +1,6 @@
 'use strict';
 
-var geotrekTreks = angular.module('geotrekTreks', []);
+var geotrekTreks = angular.module('geotrekTreks', ['pascalprecht.translate']);
 
 geotrekTreks.config(function($stateProvider) {
 
