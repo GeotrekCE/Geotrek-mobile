@@ -94,8 +94,8 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
             },
             buttonClicked: function(index) {
-                var choosenLocale = languages[index].locale;
-                $translate.use(choosenLocale);
+                var chosenLocale = languages[index].locale;
+                $translate.use(chosenLocale);
                 return true;
             }
         });
