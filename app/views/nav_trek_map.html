@@ -69,12 +69,12 @@
                 <li class="filters-list__item">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.commune" ng-options="commune.name for commune in filtersData.communes">
-                            <option value="">Commune</option>
+                            <option value="">{{ 'nav_trek_map.city' | translate }}</option>
                         </select>
                     </label>
                 </li>
             </ul>
-            <button class="button button-block button-small button-dark" ng-click="resetFilters()">Réinitialiser</button>
+            <button class="button button-block button-small button-dark" ng-click="resetFilters()">{{ 'nav_trek_map.reset' | translate }}</button>
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>
