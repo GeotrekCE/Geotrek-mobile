@@ -10,20 +10,16 @@ geotrekGlobalization.config(['$translateProvider', 'locales', function($translat
     $translateProvider.preferredLanguage('fr');
 }]);
 
-geotrekGlobalization.service('globalizationInitService', ['$q', '$translate', 'globalizationFactory', 'settings', function($q, $translate, globalizationFactory, settings) {
+geotrekGlobalization.service('globalizationInitService', ['$q', '$translate', 'globalizationFactory', function($q, $translate, globalizationFactory) {
 
     this.run = function() {
 
         var deferred = $q.defer();
 
-        globalizationFactory.getPreferredLanguage()
+        globalizationFactory.getLanguage()
         .then(function(language) {
-            $translate.use(language || settings.DEFAULT_LANGUAGE);
+            $translate.use(language);
             deferred.resolve(language);
-        }, function(error) {
-            $log.error(error);
-            $translate.use(settings.DEFAULT_LANGUAGE);
-            deferred.resolve(settings.DEFAULT_LANGUAGE);
         });
 
         return deferred.promise;

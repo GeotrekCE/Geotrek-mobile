@@ -2,7 +2,7 @@
 
 var geotrekGlobalization = angular.module('geotrekGlobalization');
 
-geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$q', function ($injector, $window, $q) {
+geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$log', '$q', 'settings', function ($injector, $window, $log, $q, settings) {
 
     var globalizationFactory;
 
@@ -11,6 +11,32 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$
     }
     else {
         globalizationFactory = $injector.get('globalizationRemoteService');
+    }
+
+    globalizationFactory.getLanguage = function() {
+
+        var deferred = $q.defer();
+
+        globalizationFactory.getPreferredLanguage()
+        .then(function(language) {
+            // We need only 2 chars for language, but globalization can return fr-FR for example
+            try {
+                if (!!language) {
+                    language = language.substring(0, 2);
+                }
+            }
+            catch(e) {
+                $log.error(e);
+                language = settings.DEFAULT_LANGUAGE;
+            }
+
+            deferred.resolve(language);
+
+        }, function(error) {
+            deferred.resolve(settings.DEFAULT_LANGUAGE);
+        });
+
+        return deferred.promise;
     }
 
     return globalizationFactory;
