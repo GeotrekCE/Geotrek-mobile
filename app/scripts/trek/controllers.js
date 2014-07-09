@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, $translate, localeSettings) {
+geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, globalizationService, localeSettings) {
 
     // Define utils variables for specific device behaviours
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
@@ -95,7 +95,7 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
             },
             buttonClicked: function(index) {
                 var chosenLocale = languages[index].locale;
-                $translate.use(chosenLocale);
+                globalizationService.setLanguage(chosenLocale);
                 return true;
             }
         });

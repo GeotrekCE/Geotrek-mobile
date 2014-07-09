@@ -10,7 +10,7 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService, globalizationInitService, $translate) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService, globalizationService, $translate) {
 
     $scope.message = 'Chargement des données en cours...';
 
@@ -30,7 +30,7 @@ geotrekInit.config(function($stateProvider) {
     })
     .then(function(treks) {
         // Initializing app default language
-        return globalizationInitService.run();
+        return globalizationService.init();
     })
     .then(function(language) {
         cfpLoadingBar.complete();
