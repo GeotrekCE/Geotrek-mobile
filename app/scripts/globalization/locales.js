@@ -1,9 +1,9 @@
 'use strict';
 
-var geotrekLocales = angular.module('geotrekLocales', []);
+var geotrekGlobalization = angular.module('geotrekGlobalization');
 
 // App translatable strings (.po/.mo equivalent)
-geotrekLocales.constant('locales', {
+geotrekGlobalization.constant('locales', {
     'fr': {
         'nav_trek_map.ways': 'Itinéraires',
         'nav_trek_map.map': 'Carte',
@@ -37,7 +37,7 @@ geotrekLocales.constant('locales', {
 });
 
 // Locale settings to allow user to change app locale
-geotrekLocales.constant('localeSettings',
+geotrekGlobalization.constant('localeSettings',
     [{
         text: 'Français',
         locale: 'fr'

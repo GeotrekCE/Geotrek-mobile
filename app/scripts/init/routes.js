@@ -1,6 +1,6 @@
 'use strict';
 
-var geotrekInit = angular.module('geotrekInit', ['leaflet-directive', 'angular-loading-bar']);
+var geotrekInit = angular.module('geotrekInit', ['leaflet-directive', 'angular-loading-bar', 'geotrekGlobalization']);
 
 geotrekInit.config(function($stateProvider) {
 
@@ -10,7 +10,7 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService, globalizationInitService, $translate) {
 
     $scope.message = 'Chargement des données en cours...';
 
@@ -29,6 +29,10 @@ geotrekInit.config(function($stateProvider) {
         return checkDataService.isReady();
     })
     .then(function(treks) {
+        // Initializing app default language
+        return globalizationInitService.run();
+    })
+    .then(function(language) {
         cfpLoadingBar.complete();
         $state.go('home.trek');
     })

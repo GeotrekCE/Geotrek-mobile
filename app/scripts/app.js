@@ -4,7 +4,8 @@
 
 var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
-     'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova', 'geotrekLocales',
+     'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
+     'geotrekGlobalization',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
@@ -28,8 +29,8 @@ window.ionic.Platform.ready(function() {
 
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$translateProvider', 'locales',
-    function($urlRouterProvider, $compileProvider, $logProvider, $translateProvider, locales) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
+    function($urlRouterProvider, $compileProvider, $logProvider) {
 
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
@@ -38,14 +39,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
 
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
-
-    // Initialize app languages
-    $translateProvider.translations('fr', locales['fr']);
-    $translateProvider.translations('en', locales['en']);
-    $translateProvider.preferredLanguage('fr');
-
 }])
-.run(['$rootScope', '$log', function($rootScope, $log) {
+.run(['$rootScope', '$log', '$translate', 'globalizationFactory', function($rootScope, $log, $translate, globalizationFactory) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -57,7 +52,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
             console.error('$stateChangeError :', error);
         }
     });
- 
+
     $rootScope.network_available = true;
 
     function onlineCallback() {

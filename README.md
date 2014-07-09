@@ -205,6 +205,13 @@ CORDOVA GEOLOCATION PLUGIN
 $ cordova plugin add org.apache.cordova.geolocation
 ```
 
+CORDOVA GLOBALIZATION PLUGIN
+==================================
+```bash
+$ cordova plugin add org.apache.cordova.globalization
+```
+
+
 ANGULAR-LEAFLET-DIRECTIVE
 =========================
 Source files are available at https://github.com/Natsu-/angular-leaflet-directive
