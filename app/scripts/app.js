@@ -4,7 +4,7 @@
 
 var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
-     'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova', 
+     'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova', 'geotrekLocales',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
@@ -20,8 +20,8 @@ window.ionic.Platform.ready(function() {
 
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$translateProvider',
-    function($urlRouterProvider, $compileProvider, $logProvider, $translateProvider) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$translateProvider', 'geoTreklocales',
+    function($urlRouterProvider, $compileProvider, $logProvider, $translateProvider, geoTreklocales) {
 
     $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
@@ -31,11 +31,9 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
-    $translateProvider.translations('fr', {
-        'nav_trek_map.ways': 'Itinéraires',
-        'nav_trek_map.map': 'Carte',
-        'nav_trek_map.cancel': 'Annuler'
-    });
+    $translateProvider.translations('fr', geoTreklocales['fr']);
+    $translateProvider.translations('en', geoTreklocales['en']);
+    $translateProvider.translations('es', geoTreklocales['es']);
     $translateProvider.preferredLanguage('fr');
 
 }])
