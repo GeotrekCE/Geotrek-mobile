@@ -1,17 +1,16 @@
 'use strict';
 
-var geotrekGlobalization = angular.module('geotrekGlobalization', []);
+var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekSettings']);
 
 geotrekGlobalization.config(['$translateProvider', 'locales', function($translateProvider, locales) {
 
     // Initialize app languages
     $translateProvider.translations('fr', locales['fr']);
     $translateProvider.translations('en', locales['en']);
+    $translateProvider.preferredLanguage('fr');
 }]);
 
-geotrekGlobalization.service('globalizationInitService', ['$q', '$translate', 'globalizationFactory', function($q, $translate, globalizationFactory) {
-
-    var DEFAULT_LANGUAGE = 'fr';
+geotrekGlobalization.service('globalizationInitService', ['$q', '$translate', 'globalizationFactory', 'settings', function($q, $translate, globalizationFactory, settings) {
 
     this.run = function() {
 
@@ -19,12 +18,12 @@ geotrekGlobalization.service('globalizationInitService', ['$q', '$translate', 'g
 
         globalizationFactory.getPreferredLanguage()
         .then(function(language) {
-            $translate.use(language || DEFAULT_LANGUAGE);
+            $translate.use(language || settings.DEFAULT_LANGUAGE);
             deferred.resolve(language);
         }, function(error) {
             $log.error(error);
-            $translate.use(DEFAULT_LANGUAGE);
-            deferred.resolve(DEFAULT_LANGUAGE);
+            $translate.use(settings.DEFAULT_LANGUAGE);
+            deferred.resolve(settings.DEFAULT_LANGUAGE);
         });
 
         return deferred.promise;

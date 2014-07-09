@@ -1,37 +1,19 @@
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp');
+var geotrekSettings = angular.module('geotrekSettings', []);
 
 /**
  * Service that gives project constants
  *
- * FileSystem on device is as follows:
- * <GEOTREK_DIR>
- *  |-- trek.geojson
- *  |-- <TREK_DIR>
- *      |-- <trek_1> (ex: 2)
- *          |-- <picture1.jpg>
- *          |-- pois.geojson
- *      |-- <trek_2> (ex: 2854)
- *      ...
- *  |-- <POI_DIR>
- *      |-- <PICTOGRAM_DIR>
- *          |-- <picto1.jpg>
- *          ...
- *      |-- <poi_1>
- *          |-- <thumbnail.jpg> (if exists)
- *          |-- <picture1.jpg>
- *          ...
  */
 
-geotrekApp.factory('settings', function () {
+geotrekSettings.factory('settings', function () {
     
     // Variables that user can change
-
-    //
     var DOMAIN_NAME = 'http://rando.makina-corpus.net',
         FORCE_DOWNLOAD = false,
-        DEBUG = true;
+        DEBUG = true,
+        DEFAULT_LANGUAGE = 'fr';
 
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
@@ -86,6 +68,7 @@ geotrekApp.factory('settings', function () {
         POI_FILE_NAME: POI_FILE_NAME,
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
+        DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,
         remote: {
             TREK_REMOTE_FILE_URL_BASE: DOMAIN_NAME + '/fr/files/api/trek',
             TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson'
