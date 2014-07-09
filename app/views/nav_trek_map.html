@@ -10,7 +10,7 @@
                     <input type="search" placeholder="Search" ng-model="activeFilters.search">
                 </label>
                 <button class="button button-clear" ng-click="cancelBtHandler()">
-                    Cancel
+                    {{ 'nav_trek_map.cancel' | translate }}
                 </button>
             </div>
             <div class="buttons pull-right" ng-switch-default>
@@ -28,8 +28,8 @@
 
         <ion-header-bar class="bar-subheader bar-dark">
             <div class="button-bar">
-                <a class="button" ui-sref="home.trek" ui-sref-active="active">{{ 'ROUTES' | translate }}</a>
-                <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">{{ 'MAP' | translate }}</a>
+                <a class="button" ui-sref="home.trek" ui-sref-active="active">{{ 'nav_trek_map.ways' | translate }}</a>
+                <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">{{ 'nav_trek_map.map' | translate }}</a>
             </div>
         </ion-header-bar>
 

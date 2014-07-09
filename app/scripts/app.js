@@ -32,8 +32,9 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider', '$t
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
     $translateProvider.translations('fr', {
-        'ROUTES': 'Itinéraires',
-        'MAP': 'Carte'
+        'nav_trek_map.ways': 'Itinéraires',
+        'nav_trek_map.map': 'Carte',
+        'nav_trek_map.cancel': 'Annuler'
     });
     $translateProvider.preferredLanguage('fr');
 
