@@ -29,6 +29,14 @@
   color: #494645;
   text-decoration: none; }
 
+.trek-list--number {
+  margin-left: 1em;
+  background: white;
+  color: purple;
+  padding: 0.15em 0.7em;
+  font-weight: bold;
+  border-radius: 45%; }
+
 .filters-list {
   padding: 0;
   color: white; }
