@@ -12,6 +12,9 @@ geotrekGlobalization.config(['$translateProvider', 'locales', function($translat
 
 geotrekGlobalization.service('globalizationService', ['$q', '$translate', 'globalizationFactory', '$localStorage', function($q, $translate, globalizationFactory, $localStorage) {
 
+    // Using simple localStorage module, instead of http://angular-translate.github.io/docs/#/guide/10_storages,
+    // to save user language.
+    // Simplier, and avoid to add angular-translate-storage-local AND angular-translate-storage-cookie
     var LOCALSTORAGE_LANGUAGE_KEY = 'current-language';
 
     this.init = function() {
