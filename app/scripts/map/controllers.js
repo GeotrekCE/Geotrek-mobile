@@ -9,26 +9,17 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
     $scope.isIOS = $window.ionic.Platform.isIOS();
 
+    // Initializing leaflet map
     angular.extend($scope, leafletService.getMapInitParameters());
 
-    geolocationFactory.getLatLonPosition()
-        .then(function(result) {
-            $scope.markers['userPosition'] = {
-                lat: result.lat,
-                lng: result.lon
-            };
-        }, function(error) {
-            $log.warn(error);
-        });
-
-    angular.extend(
-        $scope.markers,
-        leafletService.createMarkersFromTreks(treks.features, pois));
+    // Adding markers linked to current trek
+    var treksMarkers = leafletService.createMarkersFromTreks(treks.features, pois);
+    angular.extend($scope.markers, treksMarkers);
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
-        console.log( $scope.markers[args.markerName]);
-        utils.createModal('views/map_trek_detail.html', {isAndroid: $scope.isAndroid,
-                                                 isIOS: $scope.isIOS});
+        var currentMarker = $scope.markers[args.markerName];
+        utils.createModal('views/map_trek_detail.html',
+            {isAndroid: $scope.isAndroid, isIOS: $scope.isIOS});
     });
 
     // Add treks geojson to the map
@@ -63,6 +54,17 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     }
 
     showTreks();
+
+    // Adding user current position
+    geolocationFactory.getLatLonPosition()
+        .then(function(result) {
+            $scope.markers['userPosition'] = {
+                lat: result.lat,
+                lng: result.lon
+            };
+        }, function(error) {
+            $log.warn(error);
+        });
 
     $scope.$on('OnFilter', function() {
         var updateBounds = false;
