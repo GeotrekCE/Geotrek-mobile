@@ -46,11 +46,9 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
     };
 
     this.createMarkersFromTreks = function(treks, pois) {
-
         var markers = {};
 
         angular.forEach(treks, function(trek) {
-
             var startPoint = treksFactory.getStartPoint(trek);
             var endPoint = treksFactory.getEndPoint(trek);
 
@@ -58,13 +56,17 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 lat: startPoint.lat,
                 lng: startPoint.lng,
                 icon: iconsService.getDepartureIcon(),
-                layer: 'poi'
+                layer: 'poi',
+                name: trek.properties.name,
+                description: trek.properties.description
             };
             markers['endPoint_' + trek.id] = {
                 lat: endPoint.lat,
                 lng: endPoint.lng,
                 icon: iconsService.getArrivalIcon(),
-                layer: 'poi'
+                layer: 'poi',
+                name: trek.properties.name,
+                description: trek.properties.description
             };
         });
 
@@ -78,9 +80,10 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 lat: poiCoords.lat,
                 lng: poiCoords.lng,
                 icon: poiIcon,
-                layer: 'poi'
+                layer: 'poi',
+                name: poi.properties.name,
+                description: poi.properties.description
             };
-
         });
 
         return markers;

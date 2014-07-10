@@ -14,9 +14,10 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     angular.extend($scope.markers, treksMarkers);
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
-        var currentMarker = $scope.markers[args.markerName];
-        utils.createModal('views/map_trek_detail.html',
-            {isAndroid: $scope.isAndroid, isIOS: $scope.isIOS});
+        var modalScope = {
+            marker: $scope.markers[args.markerName]
+        }
+        utils.createModal('views/map_trek_detail.html', modalScope);
     });
 
     // Add treks geojson to the map
