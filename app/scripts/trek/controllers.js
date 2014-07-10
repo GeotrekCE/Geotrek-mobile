@@ -2,7 +2,9 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, globalizationService, localeSettings) {
+geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, globalizationService, localeSettings, utils) {
+    console.log($state);
+    $rootScope.statename = $state.current.name;
 
     // Define utils variables for specific device behaviours
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
@@ -76,7 +78,7 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
             },
             buttonClicked: function(index) {
-                createModal('views/static_page.html', $scope.staticPages[index]);
+                utils.createModal('views/static_page.html', $scope.staticPages[index]);
 
                 return true;
             }
@@ -166,37 +168,23 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         return isMatching;
     }
 
-    function createModal(template, scope) {
-
-        angular.extend($scope, scope);
-
-        $ionicModal.fromTemplateUrl(template, {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modal = modal;
-            $scope.modal.show();
-        });
-
-        //Cleanup the modal when we're done with it!
-        $scope.$on('$destroy', function() {
-            $scope.modal.remove();
-        });
-    }
-
     // Watch for changes on filters, then reload the treks to keep them synced
     $scope.$watchCollection('activeFilters', function() {
         $scope.$broadcast('OnFilter');
     });
 })
-.controller('TrekListController', ['$scope', function ($scope) {
+.controller('TrekListController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
+
+    $rootScope.statename = $state.current.name;
     // Ordering by distance
     // If distance is not available, default ordering is trek.geojson one
     $scope.orderProp = 'distanceFromUser';
 }])
 .controller('TrekDetailController',
-    ['$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',
-    function ($scope, $ionicModal, $stateParams, $sce, trek, pois, socialSharingService) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',
+    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $sce, trek, pois, socialSharingService) {
+
+    $rootScope.statename = $state.current.name;
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;

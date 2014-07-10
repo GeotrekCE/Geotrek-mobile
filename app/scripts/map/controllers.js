@@ -2,8 +2,13 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois',
-                                       function ($scope, $log, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois) {
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois', 'utils',
+                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois, utils) {
+    $rootScope.statename = $state.current.name;
+
+    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
+    $scope.isIOS = $window.ionic.Platform.isIOS();
+
     // Set default Leaflet map params
     angular.extend($scope, {
         center: {
@@ -121,8 +126,10 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         }
     });
 }])
-.controller('MapControllerDetail', ['$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek', function ($scope, $stateParams, $window, treksFactory, leafletData, trek) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek',
+            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, leafletData, trek) {
 
+    $rootScope.statename = $state.current.name;
     $scope.currentTrek = $stateParams.trekId;
 
     leafletData.getMap().then(function(map) {

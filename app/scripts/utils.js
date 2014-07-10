@@ -8,7 +8,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', function ($q, settings, $cordovaFile, $http, $log) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', '$rootScope', '$ionicModal', function ($q, settings, $cordovaFile, $http, $log, $rootScope, $ionicModal) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -86,7 +86,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
         }
     };
 
-   function deg2rad(deg) {
+    function deg2rad(deg) {
         return deg * (Math.PI/180);
     }
 
@@ -102,8 +102,27 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
           return d;
     };
 
+    var createModal = function(template, scope) {
+        console.log('createModal');
+        angular.extend($rootScope, scope);
+
+        $ionicModal.fromTemplateUrl(template, {
+            scope: $rootScope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $rootScope.modal = modal;
+            $rootScope.modal.show();
+        });
+
+        //Cleanup the modal when we're done with it!
+        $rootScope.$on('$destroy', function() {
+            $rootScope.modal.remove();
+        });
+    };
+
     return {
         downloadFile: downloadFile,
-        getDistanceFromLatLonInKm: getDistanceFromLatLonInKm
+        getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
+        createModal: createModal
     };
 }]);
