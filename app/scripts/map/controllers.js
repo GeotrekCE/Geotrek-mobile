@@ -2,8 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois', 'utils', 'leafletService',
-                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois, utils, leafletService) {
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'pois', 'utils', 'leafletService',
+                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, pois, utils, leafletService) {
     $rootScope.statename = $state.current.name;
 
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
@@ -21,11 +21,22 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             $log.warn(error);
         });
 
+    angular.extend(
+        $scope.markers,
+        leafletService.createMarkersFromTreks(treks.features, pois));
+
+    $scope.$on('leafletDirectiveMarker.click', function(event, args){
+        console.log( $scope.markers[args.markerName]);
+        utils.createModal('views/map_trek_detail.html', {isAndroid: $scope.isAndroid,
+                                                 isIOS: $scope.isIOS});
+    });
+
     // Add treks geojson to the map
     function showTreks(updateBounds) {
+
         angular.extend($scope, {
             geojson: {
-                data: filterFilter($scope.treks.features, $scope.activeFilters.search),
+                data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
                 style: {'color': '#F89406', 'weight': 5, 'opacity': 0.8},
                 postLoadCallback: function(map, feature) {
@@ -43,44 +54,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             }
         });
 
-        angular.forEach($scope.treks.features, function(trek) {
-
-            var startPoint = treksFactory.getStartPoint(trek);
-            var endPoint = treksFactory.getEndPoint(trek);
-
-            $scope.markers['startPoint_' + trek.id] = {
-                lat: startPoint.lat,
-                lng: startPoint.lng,
-                icon: iconsService.getDepartureIcon(),
-                layer: 'poi'
-            };
-            $scope.markers['endPoint_' + trek.id] = {
-                lat: endPoint.lat,
-                lng: endPoint.lng,
-                icon: iconsService.getArrivalIcon(),
-                layer: 'poi'
-            };
-        });
-
-        angular.forEach(pois, function(poi) {
-            console.log(poi);
-            var poiCoords = {
-                'lat': poi.geometry.coordinates[1],
-                'lng': poi.geometry.coordinates[0]
-            };
-            var poiIcon = iconsService.getPOIIcon(poi);
-            $scope.markers['poi_' + poi.id] = {
-                lat: poiCoords.lat,
-                lng: poiCoords.lng,
-                icon: poiIcon,
-                layer: 'poi',
-                message: poi.properties.name,
-                popupOptions: {
-                    offset: [0, -5]
-                }
-            };
-        });
-
         leafletData.getMap().then(function(map) {
             $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             map.on('zoomend', function() {
@@ -92,12 +65,11 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     showTreks();
 
     $scope.$on('OnFilter', function() {
-        if (angular.isDefined($scope.treks)) {
-            var updateBounds = false;
-            // We don't want to adapt map bounds on filter results
-            showTreks(updateBounds);
-        }
+        var updateBounds = false;
+        // We don't want to adapt map bounds on filter results
+        showTreks(updateBounds);
     });
+
 }])
 .controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek',
             function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, leafletData, trek) {

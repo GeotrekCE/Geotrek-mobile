@@ -5,7 +5,7 @@ var geotrekMap = angular.module('geotrekMap');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekMap.service('leafletService', ['settings', function (settings) {
+geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService', function (settings, treksFactory, iconsService) {
 
     this.getMapInitParameters = function() {
         // Set default Leaflet map params
@@ -43,6 +43,47 @@ geotrekMap.service('leafletService', ['settings', function (settings) {
                 }
             }
         }
+    };
+
+    this.createMarkersFromTreks = function(treks, pois) {
+
+        var markers = {};
+
+        angular.forEach(treks, function(trek) {
+
+            var startPoint = treksFactory.getStartPoint(trek);
+            var endPoint = treksFactory.getEndPoint(trek);
+
+            markers['startPoint_' + trek.id] = {
+                lat: startPoint.lat,
+                lng: startPoint.lng,
+                icon: iconsService.getDepartureIcon(),
+                layer: 'poi'
+            };
+            markers['endPoint_' + trek.id] = {
+                lat: endPoint.lat,
+                lng: endPoint.lng,
+                icon: iconsService.getArrivalIcon(),
+                layer: 'poi'
+            };
+        });
+
+        angular.forEach(pois, function(poi) {
+            var poiCoords = {
+                'lat': poi.geometry.coordinates[1],
+                'lng': poi.geometry.coordinates[0]
+            };
+            var poiIcon = iconsService.getPOIIcon(poi);
+            markers['poi_' + poi.id] = {
+                lat: poiCoords.lat,
+                lng: poiCoords.lng,
+                icon: poiIcon,
+                layer: 'poi'
+            };
+
+        });
+
+        return markers;
     };
 
 }]);
