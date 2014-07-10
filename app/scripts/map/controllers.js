@@ -69,7 +69,12 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 lat: startPoint.lat,
                 lng: startPoint.lng,
                 icon: iconsService.getDepartureIcon(),
-                layer: 'poi'
+                layer: 'poi',
+                message: '<strong>' + trek.properties.name + '</strong>',
+                popupOptions: {
+                    maxWidth: 150,
+                    offset: [13, -50]
+                }
             };
             $scope.markers['endPoint_' + trek.id] = {
                 lat: endPoint.lat,
@@ -80,6 +85,7 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
         });
 
         angular.forEach(pois, function(poi) {
+            console.log(poi);
             var poiCoords = {
                 'lat': poi.geometry.coordinates[1],
                 'lng': poi.geometry.coordinates[0]
@@ -89,7 +95,11 @@ geotrekMap.controller('MapController', ['$scope', '$log', 'leafletData', 'filter
                 lat: poiCoords.lat,
                 lng: poiCoords.lng,
                 icon: poiIcon,
-                layer: 'poi'
+                layer: 'poi',
+                message: poi.properties.name,
+                popupOptions: {
+                    offset: [0, -5]
+                }
             };
         });
 
