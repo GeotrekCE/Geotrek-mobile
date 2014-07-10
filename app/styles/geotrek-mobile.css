@@ -262,6 +262,11 @@
   .poi-detail__description p {
     white-space: normal; }
 
+[state^='home.map'] .modal-backdrop {
+  height: 33%;
+  top: initial;
+  bottom: 0; }
+
 .leaflet-control-layers.leaflet-control {
   display: none; }
 

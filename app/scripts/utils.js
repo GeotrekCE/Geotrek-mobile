@@ -103,7 +103,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
     };
 
     var createModal = function(template, scope) {
-        console.log('createModal');
+
         angular.extend($rootScope, scope);
 
         $ionicModal.fromTemplateUrl(template, {

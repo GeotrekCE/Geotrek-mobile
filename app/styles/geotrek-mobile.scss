@@ -65,7 +65,9 @@ $bar-dark-active-border:          transparent;
 @import "_loading-bar";
 @import "_pictogram";
 @import "_poi-detail";
+@import "_modal";
 @import "_leaflet-custom";
+
 
 .leaflet-container {
 	width: 100%;

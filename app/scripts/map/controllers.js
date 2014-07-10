@@ -61,6 +61,12 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
+                },
+                onEachFeature: function(featureData, layer) {
+                    layer.on('click', function(latlng, layerPoint, containerPoint, originalEvent) {
+                        utils.createModal('views/map_trek_detail.html', {isAndroid: $scope.isAndroid,
+                                                                             isIOS: $scope.isIOS});
+                    });
                 }
             }
         });
