@@ -2,8 +2,8 @@
 
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
-        <a ng-if="isIOS" class="button button-clear button-positive" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>
-        <button ng-if="isAndroid" class="button button-back button-icon" ng-click="modal.remove()">
+        <a ng-if="$root.isIOS" class="button button-clear button-positive" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>
+        <button ng-if="$root.isAndroid" class="button button-back button-icon" ng-click="modal.remove()">
             <i class="icon ion-android-arrow-back"></i>
             {{ 'static_page.back' | translate }}
         </button>

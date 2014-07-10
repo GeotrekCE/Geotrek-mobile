@@ -40,7 +40,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', '$log', '$translate', 'globalizationFactory', function($rootScope, $log, $translate, globalizationFactory) {
+.run(['$rootScope', '$log', '$window', function($rootScope, $log, $window) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -69,4 +69,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
 
     document.addEventListener("online", onlineCallback, false);
     document.addEventListener("offline", offlineCallback, false);
+
+    // Define utils variables for specific device behaviours
+    $rootScope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
+    $rootScope.isIOS = $window.ionic.Platform.isIOS();
 }]);

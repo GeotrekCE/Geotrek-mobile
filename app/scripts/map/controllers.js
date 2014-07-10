@@ -6,9 +6,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                                        function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, pois, utils, leafletService) {
     $rootScope.statename = $state.current.name;
 
-    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
-    $scope.isIOS = $window.ionic.Platform.isIOS();
-
     // Initializing leaflet map
     angular.extend($scope, leafletService.getMapInitParameters());
 
