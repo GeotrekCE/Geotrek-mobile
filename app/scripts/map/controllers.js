@@ -2,42 +2,14 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois', 'utils',
-                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois, utils) {
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'pois', 'utils', 'leafletService',
+                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, pois, utils, leafletService) {
     $rootScope.statename = $state.current.name;
 
     $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
     $scope.isIOS = $window.ionic.Platform.isIOS();
 
-    // Set default Leaflet map params
-    angular.extend($scope, {
-        center: {
-            lat: settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE,
-            lng: settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE,
-            zoom: settings.leaflet.GLOBAL_MAP_DEFAULT_ZOOM
-        },
-        defaults: {
-            scrollWheelZoom: true,
-            zoomControl: false // Not needed on Android/iOS modern devices
-        },
-        layers: {
-            baselayers: {
-                OSMTopo: {
-                    name: 'OSMTopo',
-                    type: 'xyz',
-                    url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
-                }
-            },
-            overlays: {
-                poi: {
-                    type: 'group',
-                    name: 'poi',
-                    visible: false
-                }
-            }
-        },
-        markers: {}
-    });
+    angular.extend($scope, leafletService.getMapInitParameters());
 
     geolocationFactory.getLatLonPosition()
         .then(function(result) {
@@ -80,12 +52,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                 lat: startPoint.lat,
                 lng: startPoint.lng,
                 icon: iconsService.getDepartureIcon(),
-                layer: 'poi',
-                message: '<strong>' + trek.properties.name + '</strong>',
-                popupOptions: {
-                    maxWidth: 150,
-                    offset: [13, -50]
-                }
+                layer: 'poi'
             };
             $scope.markers['endPoint_' + trek.id] = {
                 lat: endPoint.lat,
