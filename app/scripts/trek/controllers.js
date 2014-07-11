@@ -39,14 +39,11 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
-        if (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
+        return (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
             filterTrekWithFilter(trek.properties.duration, $scope.activeFilters.duration) &&
             filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation) &&
             filterTrekWithThemes(trek.properties.themes, $scope.activeFilters.theme) &&
-            filterTrekWithCities(trek.properties.cities, $scope.activeFilters.commune)) {
-            return true;
-        }
-        return false;
+            filterTrekWithCities(trek.properties.cities, $scope.activeFilters.commune));
     };
 
     $scope.resetFilters = function () {
