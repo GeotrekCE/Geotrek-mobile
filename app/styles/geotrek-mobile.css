@@ -298,7 +298,7 @@
 
 @-webkit-keyframes pulse {
   from {
-    stroke-width: 19;
+    stroke-width: 15;
     stroke-opacity: 1; }
 
   to {
