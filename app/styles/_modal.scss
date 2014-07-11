@@ -3,4 +3,27 @@
     height: 33%;
     top: initial;
     bottom: 0;
+
+    .object-title {
+        padding: 0.3em;
+        overflow: hidden;
+
+        img {
+            vertical-align: top;
+            display: inline-block;
+        }
+    }
+
+    h3 {
+        margin-top: 0em;
+        margin-left: 0.2em;
+        padding-right: 1.5em;
+        color: grey;
+        font-size: 20px;
+    }
+
+    object-detail {
+        padding: 6px;
+    }
+
 }

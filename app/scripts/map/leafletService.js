@@ -58,7 +58,8 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 icon: iconsService.getDepartureIcon(),
                 layer: 'poi',
                 name: trek.properties.name,
-                description: trek.properties.description
+                description: trek.properties.description,
+                thumbnail: trek.properties.thumbnail
             };
             markers['endPoint_' + trek.id] = {
                 lat: endPoint.lat,
@@ -82,7 +83,9 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 icon: poiIcon,
                 layer: 'poi',
                 name: poi.properties.name,
-                description: poi.properties.description
+                description: poi.properties.description,
+                thumbnail: poi.properties.thumbnail,
+                pictogram: poi.properties.type.pictogram
             };
         });
 

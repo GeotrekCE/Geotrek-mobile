@@ -2,10 +2,13 @@
 
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
-        <a ng-if="$root.isIOS" class="button button-clear button-positive" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>
-        <button ng-if="$root.isAndroid" class="button button-back button-icon" ng-click="modal.remove()">
-            <i class="icon ion-android-arrow-back"></i>
-            {{ 'static_page.back' | translate }}
+        <div class="object-title">
+            <img ng-if="objectToDisplay.pictogram" class="pictogram" ng-src="{{ objectToDisplay.pictogram }}"/>
+            <h3 class="poi-detail__name">{{ objectToDisplay.name}}</h3>
+        </div>
+        <a ng-if="$root.isIOS" class="button button-clear button-positive pull-right" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>
+        <button ng-if="$root.isAndroid" class="button button-icon pull-right" ng-click="modal.remove()">
+            <i class="icon ion-close"></i>
         </button>
 
     </ion-header-bar>
@@ -13,9 +16,12 @@
     <!-- Modal content area -->
     <ion-content>
 
-        <div class='page-content padding'>
-            <h2>{{ objectToDisplay.name }}</h2>
-            <p ng-bind-html='objectToDisplay.description'></p>
+        <div class='page-content'>
+            <ion-item class="poi-detail item-thumbnail-right">
+                <img ng-if="objectToDisplay.thumbnail" class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
+                <div class="poi-detail__description" ng-bind-html="objectToDisplay.description"></div>
+                </div>
+            </ion-item>
         </div>
 
     </ion-content>

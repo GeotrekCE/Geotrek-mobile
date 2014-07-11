@@ -253,6 +253,10 @@
 .pictogram {
   width: 20px; }
 
+[state^="home.map"] .modal-backdrop .pictogram {
+  width: 24px;
+  height: 24px; }
+
 .poi-detail__name {
   display: inline-block;
   vertical-align: bottom; }
@@ -266,6 +270,20 @@
   height: 33%;
   top: initial;
   bottom: 0; }
+  [state^='home.map'] .modal-backdrop .object-title {
+    padding: 0.3em;
+    overflow: hidden; }
+    [state^='home.map'] .modal-backdrop .object-title img {
+      vertical-align: top;
+      display: inline-block; }
+  [state^='home.map'] .modal-backdrop h3 {
+    margin-top: 0em;
+    margin-left: 0.2em;
+    padding-right: 1.5em;
+    color: grey;
+    font-size: 20px; }
+  [state^='home.map'] .modal-backdrop object-detail {
+    padding: 6px; }
 
 .leaflet-control-layers.leaflet-control {
   display: none; }
