@@ -62,6 +62,8 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     geolocationFactory.getLatLonPosition()
         .then(function(result) {
 
+            // Pulsing marker inspired by
+            // http://blog.thematicmapping.org/2014/06/real-time-tracking-with-spot-and-leafet.html
             $scope.paths['userPosition'] = {
                 radius: 5,
                 color: 'orange',
