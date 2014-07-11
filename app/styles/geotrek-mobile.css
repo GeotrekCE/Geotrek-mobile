@@ -284,6 +284,8 @@
     font-size: 20px; }
   [state^='home.map'] .modal-backdrop object-detail {
     padding: 6px; }
+  [state^='home.map'] .modal-backdrop .item {
+    background-color: transparent; }
 
 .leaflet-control-layers.leaflet-control {
   display: none; }
