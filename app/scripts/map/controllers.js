@@ -15,9 +15,20 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
         var modalScope = {
-            marker: $scope.markers[args.markerName]
+            objectToDisplay: $scope.markers[args.markerName]
         }
         utils.createModal('views/map_trek_detail.html', modalScope);
+    });
+
+    $scope.$on('leafletDirectiveMap.geojsonClick', function(event, trek) {
+        var modalScope = {
+            objectToDisplay: {
+                name: trek.properties.name,
+                description: trek.properties.description
+            }
+        }
+        utils.createModal('views/map_trek_detail.html', modalScope);
+
     });
 
     // Add treks geojson to the map
@@ -33,12 +44,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
-                },
-                onEachFeature: function(featureData, layer) {
-                    layer.on('click', function(latlng, layerPoint, containerPoint, originalEvent) {
-                        utils.createModal('views/map_trek_detail.html', {isAndroid: $scope.isAndroid,
-                                                                             isIOS: $scope.isIOS});
-                    });
                 }
             }
         });
