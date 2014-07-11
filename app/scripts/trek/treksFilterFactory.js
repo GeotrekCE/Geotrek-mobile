@@ -24,8 +24,16 @@ geotrekTreks.value('treksFilters', {
         { value: 1000, name: '1000m', icon: 'deniv1.svg' }
     ],
     themes : [
+        { value: 12, name: 'Col', icon: 'deniv1.svg' },
+        { value: 1, name: 'Faune', icon: 'deniv1.svg' },
+        { value: 2, name: 'Flore', icon: 'deniv1.svg' },
+        { value: 7, name: 'Géologie', icon: 'deniv1.svg' },
+        { value: 5, name: 'Histoire et architecture', icon: 'deniv1.svg' },
         { value: 8, name: 'Lac et glacier', icon: 'deniv1.svg' },
-        { value: 8, name: 'Lac et glacier', icon: 'deniv1.svg' },
+        { value: 6, name: 'Pastoralisme', icon: 'deniv1.svg' },
+        { value: 4, name: 'Point de vue', icon: 'deniv1.svg' },
+        { value: 10, name: 'Refuge', icon: 'deniv1.svg' },
+        { value: 9, name: 'Sommet', icon: 'deniv1.svg' },
     ],
     communes : [
         { value: '05064', name: 'La Chapelle-en-Valgaudémar' },

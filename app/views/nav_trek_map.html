@@ -61,10 +61,36 @@
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ themes.icon }}" ng-repeat="themes in filtersData.themes" ng-model="activeFilters.theme" btn-radio="{{ themes.value }}" style="background-image: url(images/{{ themes.icon }});" uncheckable>
-                        <span>{{ themes.name }}</span>
-                    </button>
+                    <label class="item-input item-select">
+                        <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes">
+                            <option value="">{{ 'nav_trek_map.theme' | translate }}</option>
+                        </select>
+                    </label>
                 </li>
+
+                <li class="filters-list__item">
+                    <label class="item-input item-select">
+                        <select ng-model="activeFilters.use" ng-options="use.name for use in filtersData.uses">
+                            <option value="">{{ 'nav_trek_map.use' | translate }}</option>
+                        </select>
+                    </label>
+                </li>
+
+                <li class="filters-list__item">
+                    <label class="item-input item-select">
+                        <select ng-model="activeFilters.route" ng-options="route.name for route in filtersData.routes">
+                            <option value="">{{ 'nav_trek_map.route' | translate }}</option>
+                        </select>
+                    </label>
+                </li>
+
+                <li class="filters-list__item">
+                    <label class="item-input item-select">
+                        <select ng-model="activeFilters.valley" ng-options="valley.name for valley in filtersData.valleys">
+                            <option value="">{{ 'nav_trek_map.valley' | translate }}</option>
+                        </select>
+                    </label>
+                </li>                
 
                 <li class="filters-list__item">
                     <label class="item-input item-select">
