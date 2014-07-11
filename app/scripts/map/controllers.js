@@ -2,8 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'pois', 'utils', 'leafletService',
-                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, pois, utils, leafletService) {
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'pois', 'utils', 'leafletService', 'leafletPathsHelpers',
+                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, pois, utils, leafletService, leafletPathsHelpers) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
@@ -61,10 +61,18 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     // Adding user current position
     geolocationFactory.getLatLonPosition()
         .then(function(result) {
-            $scope.markers['userPosition'] = {
-                lat: result.lat,
-                lng: result.lon
+
+            $scope.paths['userPosition'] = {
+                radius: 5,
+                color: 'orange',
+                fillColor: 'black',
+                fillOpacity: 1,
+                latlngs: result,
+                type: 'circleMarker',
+                className: 'leaflet-live-user',
+                strokeWidth: 10
             };
+
         }, function(error) {
             $log.warn(error);
         });

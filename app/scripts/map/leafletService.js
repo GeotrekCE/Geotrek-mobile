@@ -41,7 +41,8 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                     enable: ['click'],
                     logic: 'emit'
                 }
-            }
+            },
+            paths: {}
         }
     };
 

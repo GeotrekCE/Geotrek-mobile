@@ -50,7 +50,7 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
 
         geolocationFactory.getCurrentPosition(options)
             .then(function(position) {
-                deferred.resolve({'lat': position.coords.latitude, 'lon': position.coords.longitude});
+                deferred.resolve({'lat': position.coords.latitude, 'lng': position.coords.longitude});
             }, function(error) {
                 deferred.reject(convertError(error));
             });
