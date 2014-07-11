@@ -37,13 +37,13 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
         .then(function(treks) {
 
             // Getting user geoloc to compute trek distance from user on-the-fly
-            geolocationFactory.getLatLonPosition()
+            geolocationFactory.getLatLngPosition()
             .then(function(userPosition) {
 
                 angular.forEach(treks.features, function(trek) {
                     // First coordinate is trek starting point
                     var startPoint = treksFactory.getStartPoint(trek);
-                    trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lon, startPoint.lat, startPoint.lng).toFixed(2);
+                    trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, startPoint.lat, startPoint.lng).toFixed(2);
                 });
 
             }, function(error) {

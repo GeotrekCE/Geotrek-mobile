@@ -59,7 +59,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     showTreks();
 
     // Adding user current position
-    geolocationFactory.getLatLonPosition()
+    geolocationFactory.getLatLngPosition()
         .then(function(result) {
 
             // Pulsing marker inspired by

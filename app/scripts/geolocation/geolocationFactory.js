@@ -44,7 +44,7 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
         return {message: msg};
     }
 
-    geolocationFactory.getLatLonPosition = function(options) {
+    geolocationFactory.getLatLngPosition = function(options) {
 
         var deferred = $q.defer();
 
