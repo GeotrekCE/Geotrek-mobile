@@ -6,10 +6,6 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     console.log($state);
     $rootScope.statename = $state.current.name;
 
-    // Define utils variables for specific device behaviours
-    $scope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
-    $scope.isIOS = $window.ionic.Platform.isIOS();
-
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
