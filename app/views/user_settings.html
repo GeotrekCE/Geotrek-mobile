@@ -21,10 +21,7 @@
                 <div class="input-label">
                   Language
                 </div>
-                <select>
-                  <option selected>Blue</option>
-                  <option>Green</option>
-                  <option>Red</option>
+                <select ng-model="userSettings.currentLanguage" ng-options="language.text for language in languages">
                 </select>
             </ion-item>
 
@@ -32,9 +29,7 @@
                 <div class="input-label">
                   Synchronization mode
                 </div>
-                <select>
-                  <option selected>WiFi</option>
-                  <option>WiFi + 3G/4G</option>
+                <select ng-model="userSettings.downloadConnectionType" ng-options="connection.label for connection in connections">
                 </select>
             </ion-item>
 
@@ -43,7 +38,7 @@
                     POI Alert
                 </div>
                 <label class="toggle toggle-royal pull-right">
-                    <input type="checkbox">
+                    <input type="checkbox" ng-model="userSettings.alertOnPOIs" >
                     <div class="track">
                         <div class="handle"></div>
                     </div>

@@ -49,13 +49,13 @@ geotrekGlobalization.constant('locales', {
 });
 
 // Locale settings to allow user to change app locale
-geotrekGlobalization.constant('localeSettings',
-    [{
+geotrekGlobalization.constant('localeSettings', [
+    {
         text: 'Français',
         locale: 'fr'
     },
     {
         text: 'English',
         locale: 'en'
-    }]
-);
+    }
+]);
