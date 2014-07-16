@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, globalizationService, localeSettings, utils) {
+geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, localeSettings, utils) {
 
     $rootScope.statename = $state.current.name;
 
@@ -76,25 +76,6 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
                 return true;
             }
         });
-    };
-
-    // Triggered on a button click, or some other target
-    $scope.chooseLanguage = function () {
-        
-        // Show the action sheet
-        /*var languages = localeSettings;
-
-        $ionicActionSheet.show({
-            buttons: languages,
-            cancel: function() {
-
-            },
-            buttonClicked: function(index) {
-                var chosenLocale = languages[index].locale;
-                globalizationService.setLanguage(chosenLocale);
-                return true;
-            }
-        });*/
     };
 
     function isValidFilter(value, filter) {

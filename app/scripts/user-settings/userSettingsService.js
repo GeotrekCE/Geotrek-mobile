@@ -6,6 +6,19 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
 
     var LOCALSTORAGE_USER_SETTINGS_KEY = 'user-settings';
 
+    this.getUserLanguage = function() {
+
+        var currentLanguage;
+
+        try {
+            currentLanguage = $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['currentLanguage'];
+        }
+        catch(e) {
+        }
+
+        return currentLanguage;
+    };
+
     this.getUserSettings = function() {
         var userSettings = $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY];
 

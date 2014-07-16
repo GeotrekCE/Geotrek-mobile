@@ -36,7 +36,7 @@ geotrekUserSettings.controller('UserSettingsController',
     // If current language is modified, translating text
     $scope.$watch('userSettings.currentLanguage', function() {
         var chosenLanguage = $scope.userSettings.currentLanguage.locale;
-        globalizationService.setLanguage(chosenLanguage);
+        globalizationService.translateTo(chosenLanguage);
     });
 
     // If user settings are modified, saving them
