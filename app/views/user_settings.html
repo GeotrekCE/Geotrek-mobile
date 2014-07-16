@@ -1,0 +1,52 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <a ng-if="$root.isIOS" class="button button-clear button-positive" ui-sref="home.trek">Cancel</a>
+        <button ng-if="$root.isAndroid" class="button button-back button-icon" ui-sref="home.trek">
+            <i class="icon ion-android-arrow-back"></i>
+            {{ 'user_parameters.back' | translate }}
+        </button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+        <div class="item item-divider">
+            {{ 'user_parameters.parameters' | translate }}
+        </div>
+        <ion-list class="user-parameters">
+
+            <ion-item class="item item-input item-select">
+                <div class="input-label">
+                  {{ 'user_parameters.language' | translate }}
+                </div>
+                <select ng-model="userSettings.currentLanguage" ng-options="data.label for (key, data) in languages">
+                </select>
+            </ion-item>
+
+            <ion-item class="item item-input item-select">
+                <div class="input-label">
+                  {{ 'user_parameters.synchronization_mode' | translate }}
+                </div>
+                <select ng-model="userSettings.synchronizationMode" ng-options="data.label for (key, data) in connections">
+                </select>
+            </ion-item>
+
+            <ion-item class="item-toggle">
+                <div class="input-label">
+                  {{ 'user_parameters.poi_alert' | translate }}
+                </div>
+                <label class="toggle toggle-royal pull-right">
+                    <input type="checkbox" ng-model="userSettings.alertOnPOIs" >
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </ion-item>
+
+        </ion-list>
+
+    </ion-content>
+
+</div>

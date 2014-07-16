@@ -8242,3 +8242,5 @@ a.button {
   to {
     transform: scale(1);
     opacity: 1; } }
+.list .item-toggle {
+  padding: 8px; }

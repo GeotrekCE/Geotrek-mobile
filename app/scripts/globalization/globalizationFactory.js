@@ -2,7 +2,7 @@
 
 var geotrekGlobalization = angular.module('geotrekGlobalization');
 
-geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$log', '$q', 'settings', function ($injector, $window, $log, $q, settings) {
+geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$log', '$q', 'globalSettings', function ($injector, $window, $log, $q, globalSettings) {
 
     var globalizationFactory;
 
@@ -27,13 +27,13 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$
             }
             catch(e) {
                 $log.error(e);
-                language = settings.DEFAULT_LANGUAGE;
+                language = globalSettings.DEFAULT_LANGUAGE;
             }
 
             deferred.resolve(language);
 
         }, function(error) {
-            deferred.resolve(settings.DEFAULT_LANGUAGE);
+            deferred.resolve(globalSettings.DEFAULT_LANGUAGE);
         });
 
         return deferred.promise;

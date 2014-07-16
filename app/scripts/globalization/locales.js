@@ -21,7 +21,12 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Communes',
         'trek_detail.on_road': 'En chemin',
         'trek_list.departure': 'Départ',
-        'trek_list.distance': 'Distance'
+        'trek_list.distance': 'Distance',
+        'user_parameters.parameters': 'Paramètres',
+        'user_parameters.back': 'Retour',
+        'user_parameters.language': 'Langage',
+        'user_parameters.synchronization_mode': 'Sync. des données',
+        'user_parameters.poi_alert': 'Alerte près d\'un POI (si GPS)'
     },
     'en': {
         'nav_trek_map.ways': 'Ways',
@@ -40,18 +45,23 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Cities',
         'trek_detail.on_road': 'On road',
         'trek_list.departure': 'Departure',
-        'trek_list.distance': 'Distance'        
+        'trek_list.distance': 'Distance',
+        'user_parameters.parameters': 'Parameters',
+        'user_parameters.back': 'Back',
+        'user_parameters.language': 'Language',
+        'user_parameters.synchronization_mode': 'Synchronization mode',
+        'user_parameters.poi_alert': 'POI alert (GPS only)'        
     }
-});
+})
 
 // Locale settings to allow user to change app locale
-geotrekGlobalization.constant('localeSettings',
-    [{
-        text: 'Français',
+.constant('localeSettings', {
+    'fr': {
+        label: 'Français',
         locale: 'fr'
     },
-    {
-        text: 'English',
+    'en': {
+        label: 'English',
         locale: 'en'
-    }]
-);
+    }
+});

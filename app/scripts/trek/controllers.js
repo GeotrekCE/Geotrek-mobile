@@ -80,8 +80,9 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
     // Triggered on a button click, or some other target
     $scope.chooseLanguage = function () {
+        
         // Show the action sheet
-        var languages = localeSettings;
+        /*var languages = localeSettings;
 
         $ionicActionSheet.show({
             buttons: languages,
@@ -93,7 +94,7 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
                 globalizationService.setLanguage(chosenLocale);
                 return true;
             }
-        });
+        });*/
     };
 
     function isValidFilter(value, filter) {

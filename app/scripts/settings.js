@@ -1,19 +1,23 @@
 'use strict';
 
-var geotrekSettings = angular.module('geotrekSettings', []);
+var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 
 /**
  * Service that gives project constants
  *
  */
 
-geotrekSettings.factory('settings', function () {
+// settings is a factory, we cannot use it in other modules config part,
+// so we put in globalSettings some project constants.
+geotrekAppSettings.constant('globalSettings', {
+    DEFAULT_LANGUAGE: 'fr'
+})
+.factory('settings', function () {
     
     // Variables that user can change
     var DOMAIN_NAME = 'http://rando.makina-corpus.net',
         FORCE_DOWNLOAD = false,
-        DEBUG = true,
-        DEFAULT_LANGUAGE = 'fr';
+        DEBUG = true;
 
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
@@ -68,7 +72,6 @@ geotrekSettings.factory('settings', function () {
         POI_FILE_NAME: POI_FILE_NAME,
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
-        DEFAULT_LANGUAGE: DEFAULT_LANGUAGE,
         remote: {
             TREK_REMOTE_FILE_URL_BASE: DOMAIN_NAME + '/fr/files/api/trek',
             TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson'
