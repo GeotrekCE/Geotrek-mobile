@@ -5,17 +5,52 @@
         <a ng-if="$root.isIOS" class="button button-clear button-positive" ui-sref="home.trek">Cancel</a>
         <button ng-if="$root.isAndroid" class="button button-back button-icon" ui-sref="home.trek">
             <i class="icon ion-android-arrow-back"></i>
-            {{ 'user_parameters.parameters' | translate }}
+            {{ 'user_parameters.back' | translate }}
         </button>
     </ion-header-bar>
 
     <!-- Modal content area -->
     <ion-content>
 
-        <div class="user-parameters padding">
-            
-            <p>Some text</p>
+        <div class="item item-divider">
+            {{ 'user_parameters.parameters' | translate }}
         </div>
+        <ion-list class="user-parameters">
+
+            <ion-item class="item item-input item-select">
+                <div class="input-label">
+                  Language
+                </div>
+                <select>
+                  <option selected>Blue</option>
+                  <option>Green</option>
+                  <option>Red</option>
+                </select>
+            </ion-item>
+
+            <ion-item class="item item-input item-select">
+                <div class="input-label">
+                  Synchronization mode
+                </div>
+                <select>
+                  <option selected>WiFi</option>
+                  <option>WiFi + 3G/4G</option>
+                </select>
+            </ion-item>
+
+            <ion-item class="item-toggle">
+                <div class="input-label">
+                    POI Alert
+                </div>
+                <label class="toggle toggle-royal pull-right">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </ion-item>
+
+        </ion-list>
 
     </ion-content>
 
