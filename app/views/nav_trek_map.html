@@ -60,7 +60,7 @@
                     </button>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes">
                             <option value="">{{ 'nav_trek_map.theme' | translate }}</option>
@@ -68,7 +68,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.use" ng-options="use.name for use in filtersData.uses">
                             <option value="">{{ 'nav_trek_map.use' | translate }}</option>
@@ -76,7 +76,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.route" ng-options="route.name for route in filtersData.routes">
                             <option value="">{{ 'nav_trek_map.route' | translate }}</option>
@@ -84,7 +84,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.valley" ng-options="valley.name for valley in filtersData.valleys">
                             <option value="">{{ 'nav_trek_map.valley' | translate }}</option>
@@ -92,7 +92,7 @@
                     </label>
                 </li>                
 
-                <li class="filters-list__item">
+                <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.commune" ng-options="commune.name for commune in filtersData.communes">
                             <option value="">{{ 'nav_trek_map.city' | translate }}</option>

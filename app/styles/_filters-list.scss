@@ -8,7 +8,7 @@
 	}
 
 	.item-select {
-		min-height: 30px;
+		min-height: 32px;
 
 		&:after {
 			color: white;
@@ -21,6 +21,8 @@
 			padding: 4px 45px 5px 15px;
 			color: white;
 			direction: ltr;
+			background-color: $secondaryColor;
+			border: 1px solid white;
 		}
 	}
 }
@@ -32,7 +34,14 @@
 		& + & {
 			border-top: 1px solid white;
 		}
+
+		&.filters-list__item--select {
+			border-top: none;
+			padding-top: 0px;
+		}
 	}
+
+	
 
 	.filters-list__bt {
 		position: relative;

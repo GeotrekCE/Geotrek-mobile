@@ -44,7 +44,7 @@
     list-style: none;
     text-align: center; }
   .filters-list .item-select {
-    min-height: 30px; }
+    min-height: 32px; }
     .filters-list .item-select:after {
       color: white; }
     .filters-list .item-select select {
@@ -53,13 +53,18 @@
       width: 100%;
       padding: 4px 45px 5px 15px;
       color: white;
-      direction: ltr; }
+      direction: ltr;
+      background-color: #974b95;
+      border: 1px solid white; }
 
 .filters-list__item {
   margin: 10px 0;
   padding-top: 10px; }
   .filters-list__item + .filters-list__item {
     border-top: 1px solid white; }
+  .filters-list__item.filters-list__item--select {
+    border-top: none;
+    padding-top: 0px; }
 
 .filters-list__bt {
   position: relative;
