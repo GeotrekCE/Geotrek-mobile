@@ -2,10 +2,9 @@
 
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
-geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSettings', 'networkSettings', 'settings', function ($localStorage, localeSettings, networkSettings, settings) {
+geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSettings', 'networkSettings', 'globalSettings', function ($localStorage, localeSettings, networkSettings, globalSettings) {
 
     var LOCALSTORAGE_USER_SETTINGS_KEY = 'user-settings';
-
 
     this.getUserSettings = function() {
         var userSettings = $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY];
@@ -13,7 +12,7 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
         if (!userSettings)
             userSettings = {};
         if (!userSettings['currentLanguage']) 
-            userSettings['currentLanguage'] = settings.DEFAULT_LANGUAGE;
+            userSettings['currentLanguage'] = globalSettings.DEFAULT_LANGUAGE;
         if (!userSettings['synchronizationMode'])
             userSettings['synchronizationMode'] = 'wifi';
         if (!userSettings['alertOnPOIs']) {

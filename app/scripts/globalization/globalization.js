@@ -1,13 +1,13 @@
 'use strict';
 
-var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekAppSettings', 'ngStorage']);
+var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekAppSettings', 'ngStorage', 'geotrekUserSettings']);
 
-geotrekGlobalization.config(['$translateProvider', 'locales', function($translateProvider, locales) {
+geotrekGlobalization.config(['$translateProvider', 'locales', 'globalSettings', function($translateProvider, locales, globalSettings) {
 
     // Initialize app languages
     $translateProvider.translations('fr', locales['fr']);
     $translateProvider.translations('en', locales['en']);
-    $translateProvider.preferredLanguage('fr');
+    $translateProvider.preferredLanguage(globalSettings.DEFAULT_LANGUAGE);
 }]);
 
 geotrekGlobalization.service('globalizationService', ['$q', '$translate', 'globalizationFactory', '$localStorage', function($q, $translate, globalizationFactory, $localStorage) {

@@ -46,10 +46,10 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.parameters': 'Parameters',
         'user_parameters.back': 'Back'
     }
-});
+})
 
 // Locale settings to allow user to change app locale
-geotrekGlobalization.constant('localeSettings', {
+.constant('localeSettings', {
     'fr': {
         label: 'Français',
         locale: 'fr'

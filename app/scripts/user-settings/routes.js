@@ -20,4 +20,4 @@ geotrekUserSettings.config(function($stateProvider) {
         label: 'WiFi + 3G/4G',
         value: 'all'
     }
-});
+})
