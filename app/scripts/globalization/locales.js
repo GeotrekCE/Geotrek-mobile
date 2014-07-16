@@ -23,7 +23,10 @@ geotrekGlobalization.constant('locales', {
         'trek_list.departure': 'Départ',
         'trek_list.distance': 'Distance',
         'user_parameters.parameters': 'Paramètres',
-        'user_parameters.back': 'Retour'
+        'user_parameters.back': 'Retour',
+        'user_parameters.language': 'Langage',
+        'user_parameters.synchronization_mode': 'Sync. des données',
+        'user_parameters.poi_alert': 'Alerte près d\'un POI (si GPS)'
     },
     'en': {
         'nav_trek_map.ways': 'Ways',
@@ -44,7 +47,10 @@ geotrekGlobalization.constant('locales', {
         'trek_list.departure': 'Departure',
         'trek_list.distance': 'Distance',
         'user_parameters.parameters': 'Parameters',
-        'user_parameters.back': 'Back'
+        'user_parameters.back': 'Back',
+        'user_parameters.language': 'Language',
+        'user_parameters.synchronization_mode': 'Synchronization mode',
+        'user_parameters.poi_alert': 'POI alert (GPS only)'        
     }
 })
 

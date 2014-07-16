@@ -19,7 +19,7 @@
 
             <ion-item class="item item-input item-select">
                 <div class="input-label">
-                  Language
+                  {{ 'user_parameters.language' | translate }}
                 </div>
                 <select ng-model="userSettings.currentLanguage" ng-options="data.label for (key, data) in languages">
                 </select>
@@ -27,7 +27,7 @@
 
             <ion-item class="item item-input item-select">
                 <div class="input-label">
-                  Synchronization mode
+                  {{ 'user_parameters.synchronization_mode' | translate }}
                 </div>
                 <select ng-model="userSettings.synchronizationMode" ng-options="data.label for (key, data) in connections">
                 </select>
@@ -35,7 +35,7 @@
 
             <ion-item class="item-toggle">
                 <div class="input-label">
-                    POI Alert
+                  {{ 'user_parameters.poi_alert' | translate }}
                 </div>
                 <label class="toggle toggle-royal pull-right">
                     <input type="checkbox" ng-model="userSettings.alertOnPOIs" >
