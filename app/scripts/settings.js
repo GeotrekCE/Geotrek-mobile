@@ -1,13 +1,13 @@
 'use strict';
 
-var geotrekSettings = angular.module('geotrekSettings', []);
+var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 
 /**
  * Service that gives project constants
  *
  */
 
-geotrekSettings.factory('settings', function () {
+geotrekAppSettings.factory('settings', function () {
     
     // Variables that user can change
     var DOMAIN_NAME = 'http://rando.makina-corpus.net',

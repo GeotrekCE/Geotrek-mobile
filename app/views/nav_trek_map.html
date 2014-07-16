@@ -19,9 +19,7 @@
                 </button>
                 <img class="network-state" ng-show="$root.network_available" src="images/icon_online.png"/>
                 <img class="network-state" ng-hide="$root.network_available" src="images/icon_offline.png"/>
-                <button class="button button-icon" ng-click="chooseLanguage()">
-                    <i class="icon ion-gear-b"></i>
-                </button>
+                <a class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></a>
                 <button class="button button-icon" ng-click="showMore()">
                     <i class="icon ion-android-more"></i>
                 </button>

@@ -1,6 +1,6 @@
 'use strict';
 
-var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekSettings', 'ngStorage']);
+var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekAppSettings', 'ngStorage']);
 
 geotrekGlobalization.config(['$translateProvider', 'locales', function($translateProvider, locales) {
 

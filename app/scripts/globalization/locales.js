@@ -21,7 +21,8 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Communes',
         'trek_detail.on_road': 'En chemin',
         'trek_list.departure': 'Départ',
-        'trek_list.distance': 'Distance'
+        'trek_list.distance': 'Distance',
+        'user_parameters.parameters': 'Paramètres'
     },
     'en': {
         'nav_trek_map.ways': 'Ways',
@@ -40,7 +41,8 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Cities',
         'trek_detail.on_road': 'On road',
         'trek_list.departure': 'Departure',
-        'trek_list.distance': 'Distance'        
+        'trek_list.distance': 'Distance',
+        'user_parameters.parameters': 'Parameters'    
     }
 });
 
