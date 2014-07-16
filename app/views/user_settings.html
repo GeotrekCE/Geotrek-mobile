@@ -21,7 +21,7 @@
                 <div class="input-label">
                   Language
                 </div>
-                <select ng-model="userSettings.currentLanguage" ng-options="language.text for language in languages">
+                <select ng-model="userSettings.currentLanguage" ng-options="data.label for (key, data) in languages">
                 </select>
             </ion-item>
 
@@ -29,7 +29,7 @@
                 <div class="input-label">
                   Synchronization mode
                 </div>
-                <select ng-model="userSettings.downloadConnectionType" ng-options="connection.label for connection in connections">
+                <select ng-model="userSettings.synchronizationMode" ng-options="data.label for (key, data) in connections">
                 </select>
             </ion-item>
 

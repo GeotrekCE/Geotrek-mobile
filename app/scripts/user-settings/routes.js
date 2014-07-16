@@ -10,4 +10,14 @@ geotrekUserSettings.config(function($stateProvider) {
         controller: 'UserSettingsController'
     });
 
+})
+.constant('networkSettings', {
+    'wifi': {
+        label: 'WiFi',
+        value: 'wifi'
+    },
+    'all': {
+        label: 'WiFi + 3G/4G',
+        value: 'all'
+    }
 });

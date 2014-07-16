@@ -3,21 +3,26 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings',
-    function ($rootScope, $state, $scope, $ionicModal, localeSettings) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService',
+    function ($rootScope, $state, $scope, $ionicModal, localeSettings, userSettingsService, networkSettings, globalizationService) {
 
     $rootScope.statename = $state.current.name;
 
+    // To have a correct 2-ways binding, localeSettings and networkSettings are used for
+    // 1/ select markup initialization
     $scope.languages = localeSettings;
-    $scope.connections = [{label:'WiFi'}, {label: 'WiFi + 3G/4G'}];
+    $scope.connections = networkSettings;
 
-    var userSettings = {
-        currentLanguage: localeSettings[0],
-        downloadConnectionType: $scope.connections[0],
-        alertOnPOIs: true
+    // AND
+    // 2/ initialize select with saved user settings
+    var userSettings = userSettingsService.getUserSettings();
+    var scopeUserSettings = {
+        currentLanguage: localeSettings[userSettings.currentLanguage],
+        synchronizationMode: networkSettings[userSettings.synchronizationMode],
+        alertOnPOIs: userSettings.alertOnPOIs
     };
 
-    $scope.userSettings = userSettings;
+    $scope.userSettings = scopeUserSettings;
 
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/user_settings.html', {
@@ -27,6 +32,17 @@ geotrekUserSettings.controller('UserSettingsController',
         $scope.modal = modal;
         $scope.modal.show();
     });
+
+    // If current language is modified, translating text
+    $scope.$watch('userSettings.currentLanguage', function() {
+        var chosenLanguage = $scope.userSettings.currentLanguage.locale;
+        globalizationService.setLanguage(chosenLanguage);
+    });
+
+    // If user settings are modified, saving them
+    $scope.$watch('userSettings', function() {
+        userSettingsService.saveUserSettings($scope.userSettings);
+    }, true);
 
     //Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
