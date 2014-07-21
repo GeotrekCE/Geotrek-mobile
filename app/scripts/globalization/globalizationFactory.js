@@ -13,7 +13,7 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$
         globalizationFactory = $injector.get('globalizationRemoteService');
     }
 
-    globalizationFactory.getLanguage = function() {
+    globalizationFactory.detectLanguage = function() {
 
         var deferred = $q.defer();
 

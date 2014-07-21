@@ -23,7 +23,7 @@ geotrekGlobalization.service('globalizationService', ['$q', '$translate', 'globa
             deferred.resolve(savedLanguage);
         }
         else {
-            globalizationFactory.getLanguage()
+            globalizationFactory.detectLanguage()
             .then(function(language) {
                 $translate.use(language);
                 deferred.resolve(language);
