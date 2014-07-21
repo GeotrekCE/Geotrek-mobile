@@ -2,7 +2,9 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, localeSettings, utils) {
+geotrekTreks.controller('TrekController',
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'treks', 'staticPages', 'localeSettings', 'utils', 'dynamicTreksFiltersService',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treks, staticPages, localeSettings, utils, dynamicTreksFiltersService) {
 
     $rootScope.statename = $state.current.name;
 
@@ -10,13 +12,18 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
 
+    var dynamicTreksFilters = dynamicTreksFiltersService.getTrekFilters(treks);
+
     // Define filters from service to the scope for the view
     $scope.filtersData = {
-        difficulties : treksFilters.difficulties,
-        durations    : treksFilters.durations,
-        elevations   : treksFilters.elevations,
-        themes       : treksFilters.themes,
-        communes     : treksFilters.communes
+        difficulties : dynamicTreksFilters.difficulties,
+        durations    : dynamicTreksFilters.durations,
+        elevations   : dynamicTreksFilters.elevations,
+        themes       : dynamicTreksFilters.themes,
+        communes     : dynamicTreksFilters.municipalities,
+        uses         : dynamicTreksFilters.uses,
+        valleys      : dynamicTreksFilters.valleys,
+        routes       : dynamicTreksFilters.route,
     };
 
     // Prepare an empty object to store currently selected filters
@@ -147,7 +154,7 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     $scope.$watchCollection('activeFilters', function() {
         $scope.$broadcast('OnFilter');
     });
-})
+}])
 .controller('TrekListController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
 
     $rootScope.statename = $state.current.name;
