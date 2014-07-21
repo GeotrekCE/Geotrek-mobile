@@ -2,7 +2,9 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treksFilters, treks, staticPages, localeSettings, utils) {
+geotrekTreks.controller('TrekController',
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, treks, staticPages, localeSettings, utils, treksFiltersService) {
 
     $rootScope.statename = $state.current.name;
 
@@ -11,23 +13,10 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
     $rootScope.staticPages = staticPages;
 
     // Define filters from service to the scope for the view
-    $scope.filtersData = {
-        difficulties : treksFilters.difficulties,
-        durations    : treksFilters.durations,
-        elevations   : treksFilters.elevations,
-        themes       : treksFilters.themes,
-        communes     : treksFilters.communes
-    };
+    $scope.filtersData = treksFiltersService.getTrekFilterOptions(treks);
 
     // Prepare an empty object to store currently selected filters
-    $scope.activeFilters = {
-        difficulty: undefined,
-        duration:   undefined,
-        elevation:  undefined,
-        theme:      undefined,
-        commune:    null,
-        search:     ''
-    };
+    $scope.activeFilters = treksFiltersService.getDefaultActiveFilterValues();
 
     // Give access to state data to our View for active state
     $scope.$state = $state;
@@ -39,22 +28,11 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
-        return (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
-            filterTrekWithFilter(trek.properties.duration, $scope.activeFilters.duration) &&
-            filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation) &&
-            filterTrekWithThemes(trek.properties.themes, $scope.activeFilters.theme) &&
-            filterTrekWithCities(trek.properties.cities, $scope.activeFilters.commune));
+        return treksFiltersService.filterTreks(trek, $scope.activeFilters);
     };
 
     $scope.resetFilters = function () {
-        $scope.activeFilters = {
-            difficulty: undefined,
-            duration:   undefined,
-            elevation:  undefined,
-            theme:      undefined,
-            commune:    null,
-            search:     ''
-        };
+        $scope.activeFilters = treksFiltersService.getDefaultActiveFilterValues();
     };
 
     $scope.cancelBtHandler = function () {
@@ -78,76 +56,11 @@ geotrekTreks.controller('TrekController', function ($rootScope, $scope, $state, 
         });
     };
 
-    function isValidFilter(value, filter) {
-        var valid = true;
-        if (angular.isUndefined(value)
-            || angular.isUndefined(filter)
-            || (filter === null)
-            || (value === null))
-            {
-                valid = false;
-            }
-        return valid;
-    };
-
-    function filterTrekWithFilter(trekValue, filter) {
-
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (!(isValidFilter(trekValue, filter))) {
-            return true;
-        }
-
-        return (trekValue <= filter);
-    }
-
-    function filterTrekWithThemes(themesValues, value) {
-        var isMatching = false;
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (!(isValidFilter(themesValues, value))) {
-            return true;
-        }
-
-        angular.forEach(themesValues, function(themeValue) {
-            if (themeValue.id === undefined) {
-                isMatching = true;
-            }
-
-            if (themeValue.id === value) {
-                isMatching = true;
-            }
-        });
-
-        return isMatching;
-    }
-
-    function filterTrekWithCities(citiesValues, value) {
-        var isMatching = false;
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (!(isValidFilter(citiesValues, value))) {
-            return true;
-        }
-
-        angular.forEach(citiesValues, function(cityValue) {
-            if (cityValue.code === undefined) {
-                isMatching = true;
-            }
-
-            if (cityValue.code === value.value) {
-                isMatching = true;
-            }
-        });
-
-        return isMatching;
-    }
-
     // Watch for changes on filters, then reload the treks to keep them synced
     $scope.$watchCollection('activeFilters', function() {
         $scope.$broadcast('OnFilter');
     });
-})
+}])
 .controller('TrekListController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
 
     $rootScope.statename = $state.current.name;
