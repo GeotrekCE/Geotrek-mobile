@@ -32,7 +32,7 @@ geotrekTreks.config(function($stateProvider) {
                 return treksFactory.getTrek($stateParams.trekId);
             },
             pois: function(poisFactory, $stateParams) {
-                return poisFactory.getPoisFromTrek($stateParams.trekId);
+                return poisFactory.getGeolocalizedPOIsFromTrek($stateParams.trekId);
             }
         }
     });
