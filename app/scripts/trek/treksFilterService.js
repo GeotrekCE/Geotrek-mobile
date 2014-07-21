@@ -84,6 +84,34 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
             this.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code'));
     };
 
+
+    // Remove filter duplicates that have the same "value"
+    this.removeFilterDuplicates = function(array) {
+
+        var dict = {}, result=[];
+        for (var i=0; i<array.length; i++) {
+            var currentValue = array[i].value;
+            dict[currentValue] = array[i];
+        }
+        var dictKeys = Object.keys(dict);
+        for (var i=0; i<dictKeys.length; i++) {
+            result.push(dict[dictKeys[i]]);
+        }
+
+        return result;
+    };
+
+    // Sort filter values by their name
+    this.sortFilterNames = function(array) {
+        array.sort(function(a, b) {
+            var nameA = a.name;
+            var nameB = b.name;
+            return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+        });
+
+        return array;
+    };
+
     // Possible values that user can select on filter sidebar menu.
     // Some are hardcoded (difficulties, durations, elevations),
     // others come from trek possible values
@@ -116,6 +144,20 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
                 trekMunicipalities.push({value: city.code, name: city.name});
             });
         });
+
+        // Removing possible values duplicates
+        trekThemes = this.removeFilterDuplicates(trekThemes);
+        trekUses = this.removeFilterDuplicates(trekUses);
+        trekRoute = this.removeFilterDuplicates(trekRoute);
+        trekValleys = this.removeFilterDuplicates(trekValleys);
+        trekMunicipalities = this.removeFilterDuplicates(trekMunicipalities);
+
+        // Sort values by their name
+        trekThemes = this.sortFilterNames(trekThemes);
+        trekUses = this.sortFilterNames(trekUses);
+        trekRoute = this.sortFilterNames(trekRoute);
+        trekValleys = this.sortFilterNames(trekValleys);
+        trekMunicipalities = this.sortFilterNames(trekMunicipalities);
 
         return {
             difficulties : [
