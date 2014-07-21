@@ -33,6 +33,9 @@ geotrekTreks.controller('TrekController',
         elevation:  undefined,
         theme:      undefined,
         commune:    null,
+        use:        null,
+        valley:     null,
+        route:      null,
         search:     ''
     };
 
@@ -46,11 +49,15 @@ geotrekTreks.controller('TrekController',
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function (trek) {
+
         return (filterTrekWithFilter(trek.properties.difficulty.id, $scope.activeFilters.difficulty) &&
             filterTrekWithFilter(trek.properties.duration, $scope.activeFilters.duration) &&
             filterTrekWithFilter(trek.properties.ascent, $scope.activeFilters.elevation) &&
-            filterTrekWithThemes(trek.properties.themes, $scope.activeFilters.theme) &&
-            filterTrekWithCities(trek.properties.cities, $scope.activeFilters.commune));
+            filterTrekWithSelect(trek.properties.themes, $scope.activeFilters.theme, 'id') &&
+            filterTrekWithSelect(trek.properties.usages, $scope.activeFilters.use, 'id') &&
+            filterTrekWithSelect(trek.properties.route, $scope.activeFilters.route, 'id') &&
+            filterTrekWithSelect(trek.properties.valleys, $scope.activeFilters.valley, 'id') &&
+            filterTrekWithSelect(trek.properties.cities, $scope.activeFilters.commune, 'code'));
     };
 
     $scope.resetFilters = function () {
@@ -108,46 +115,27 @@ geotrekTreks.controller('TrekController',
         return (trekValue <= filter);
     }
 
-    function filterTrekWithThemes(themesValues, value) {
-        var isMatching = false;
+    function filterTrekWithSelect(selectOptionValues, formValue, fieldToCheck) {
         // Trek considered as matching if filter not set or if
         // property is empty.
-        if (!(isValidFilter(themesValues, value))) {
+        if (!(isValidFilter(selectOptionValues, formValue))) {
             return true;
         }
 
-        angular.forEach(themesValues, function(themeValue) {
-            if (themeValue.id === undefined) {
-                isMatching = true;
-            }
-
-            if (themeValue.id === value) {
-                isMatching = true;
-            }
-        });
-
-        return isMatching;
-    }
-
-    function filterTrekWithCities(citiesValues, value) {
-        var isMatching = false;
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (!(isValidFilter(citiesValues, value))) {
-            return true;
+        if (!angular.isArray(selectOptionValues)) {
+            selectOptionValues = [selectOptionValues];
         }
 
-        angular.forEach(citiesValues, function(cityValue) {
-            if (cityValue.code === undefined) {
-                isMatching = true;
+        // Using native loops instead of angularjs forEach because we want to stop searching
+        // when value has been found
+        for (var i=0; i<selectOptionValues.length; i++) {
+            var fieldValue = selectOptionValues[i][fieldToCheck];
+            if (angular.isUndefined(fieldValue) || (fieldValue === formValue.value)) {
+                return true;
             }
+        };
 
-            if (cityValue.code === value.value) {
-                isMatching = true;
-            }
-        });
-
-        return isMatching;
+        return false;
     }
 
     // Watch for changes on filters, then reload the treks to keep them synced
