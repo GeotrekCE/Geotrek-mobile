@@ -2,13 +2,10 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.service('mapFileSystemService', ['$q', function ($q) {
+geotrekMap.service('mapFileSystemService', ['$q', 'utils', 'settings', function ($q, utils, settings) {
 
-    // We don't have to download Map Background in Remote version, only for device offline mode
     this.downloadGlobalBackground = function(url) {
-        var deferred = $q.defer();
-        deferred.resolve({message: 'We need to download map Background'});
-        return deferred.promise;
+        return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
     };
 
 }]);
