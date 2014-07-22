@@ -2,13 +2,13 @@
 
 var geotrekInit = angular.module('geotrekInit');
 
-geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFactory', function($q, $log, treksFactory, poisFactory) {
+geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFactory', 'settings', 'mapFactory', function($q, $log, treksFactory, poisFactory, settings, mapFactory) {
 
-    this.run = function(url) {
+    this.run = function() {
 
         var deferred = $q.defer();
 
-        treksFactory.downloadTreks(url)
+        treksFactory.downloadTreks(settings.remote.TREK_REMOTE_FILE_URL)
         .then(function(result) {
             return treksFactory.getTreks();
         })
@@ -20,6 +20,9 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
 
             // Downloading Trek POIs
             return poisFactory.downloadPois(trekIds);
+        })
+        .then(function(result) {
+            return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL);
         })
         .then(function(result) {
             deferred.resolve(result);

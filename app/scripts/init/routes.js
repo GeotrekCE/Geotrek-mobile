@@ -1,6 +1,6 @@
 'use strict';
 
-var geotrekInit = angular.module('geotrekInit', ['leaflet-directive', 'angular-loading-bar', 'geotrekGlobalization']);
+var geotrekInit = angular.module('geotrekInit', ['leaflet-directive', 'angular-loading-bar', 'geotrekGlobalization', 'geotrekMap']);
 
 geotrekInit.config(function($stateProvider) {
 
@@ -10,17 +10,14 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, settings, syncDataService, checkDataService, globalizationService, $translate) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, syncDataService, checkDataService, globalizationService, $translate) {
 
     $scope.message = 'Chargement des données en cours...';
-
-    //var url = "http://rando.ecrins-parcnational.fr/fr/files/api/trek/trek.geojson";
-    var url = settings.remote.TREK_REMOTE_FILE_URL;
 
     cfpLoadingBar.start();
 
     // Synchronizing data with server
-    syncDataService.run(url)
+    syncDataService.run()
     .then(function(result) {
         // Simulating almost ended loading
         cfpLoadingBar.set(0.9);

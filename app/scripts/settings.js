@@ -74,7 +74,8 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         remote: {
             TREK_REMOTE_FILE_URL_BASE: DOMAIN_NAME + '/fr/files/api/trek',
-            TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson'
+            TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles'
         },
         device: {
             CDV_ROOT: CDV_ROOT,
