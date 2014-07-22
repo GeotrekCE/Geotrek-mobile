@@ -33,9 +33,6 @@ geotrekAppSettings.constant('globalSettings', {
 
     var leaflet_conf = leaflet_dev_conf;
 
-    var POI_FILE_NAME = 'pois.geojson',
-        TREKS_FILE_NAME = 'trek.geojson';
-
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
      * <GEOTREK_DIR>
@@ -54,8 +51,18 @@ geotrekAppSettings.constant('globalSettings', {
      *          |-- <thumbnail.jpg> (if exists)
      *          |-- <picture1.jpg>
      *          ...
+     *  |-- <TILES_DIR>
+     *      |-- global.mbtiles
+     *      |-- <trek-X.mbtiles> (ex: trek-1)
+     *      |-- <trek-Y.mbtiles> (ex: trek-1)
      */
+
+    var POI_FILE_NAME = 'pois.geojson',
+        TREKS_FILE_NAME = 'trek.geojson',
+        TILES_FILE_NAME = 'global.mbtiles';
+
     var GEOTREK_DIR = 'geotrek',
+        TILES_DIR = 'tiles',
         TREK_DIR = 'trek',
         POI_DIR = 'poi',
         PICTOGRAM_DIR = 'pictogram',
@@ -65,11 +72,15 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_TREK_ROOT = GEOTREK_DIR + '/' + TREK_DIR,
         RELATIVE_TREK_ROOT_FILE = GEOTREK_DIR + '/' + TREKS_FILE_NAME,
         RELATIVE_POI_ROOT = GEOTREK_DIR + '/' + POI_DIR,
-        RELATIVE_PICTO_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR;
+        RELATIVE_PICTO_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR,
+        RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
+        RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME;
 
     return {
         DOMAIN_NAME: DOMAIN_NAME,
         POI_FILE_NAME: POI_FILE_NAME,
+        TREKS_FILE_NAME: TREKS_FILE_NAME,
+        TILES_FILE_NAME: TILES_FILE_NAME,
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         remote: {
@@ -83,11 +94,15 @@ geotrekAppSettings.constant('globalSettings', {
             CDV_TREK_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TREK_ROOT_FILE,
             CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
             CDV_PICTO_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_ROOT,
+            CDV_TILES_ROOT: CDV_ROOT + '/' + RELATIVE_TILES_ROOT,
+            CDV_TILES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TILES_ROOT_FILE,
             RELATIVE_ROOT: RELATIVE_ROOT,
             RELATIVE_TREK_ROOT: RELATIVE_TREK_ROOT,
             RELATIVE_TREK_ROOT_FILE: RELATIVE_TREK_ROOT_FILE,
             RELATIVE_POI_ROOT: RELATIVE_POI_ROOT,
-            RELATIVE_PICTO_ROOT: RELATIVE_PICTO_ROOT
+            RELATIVE_PICTO_ROOT: RELATIVE_PICTO_ROOT,
+            RELATIVE_TILES_ROOT: RELATIVE_TILES_ROOT,
+            RELATIVE_TILES_ROOT_FILE: RELATIVE_TILES_ROOT_FILE
         },
         leaflet: leaflet_conf
     };

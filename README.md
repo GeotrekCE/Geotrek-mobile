@@ -211,6 +211,11 @@ CORDOVA GLOBALIZATION PLUGIN
 $ cordova plugin add org.apache.cordova.globalization
 ```
 
+CORDOVA MBTILES PLUGIN
+==================================
+```bash
+https://github.com/ffournier/cordova-plugin-mbtiles
+```
 
 ANGULAR-LEAFLET-DIRECTIVE
 =========================
