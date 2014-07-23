@@ -5,11 +5,11 @@ var geotrekMap = angular.module('geotrekMap');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService', function (settings, treksFactory, iconsService) {
+geotrekMap.service('leafletService', ['$q', 'settings', 'treksFactory', 'iconsService', 'mapFactory', function ($q, settings, treksFactory, iconsService, mapFactory) {
 
     this.getMapInitParameters = function() {
         // Set default Leaflet map params
-        return {
+        var map_parameters = {
             center: {
                 lat: settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE,
                 lng: settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE,
@@ -20,13 +20,6 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 zoomControl: false // Not needed on Android/iOS modern devices
             },
             layers: {
-                baselayers: {
-                    OSMTopo: {
-                        name: 'OSMTopo',
-                        type: 'xyz',
-                        url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
-                    }
-                },
                 overlays: {
                     poi: {
                         type: 'group',
@@ -43,7 +36,24 @@ geotrekMap.service('leafletService', ['settings', 'treksFactory', 'iconsService'
                 }
             },
             paths: {}
-        }
+        };
+
+        var deferred = $q.defer();
+
+        // We initialize leaflet baselayers param with :
+        // 1/ Remote url on browser mode OR
+        // 2/ Local saved mbtiles on device
+        mapFactory.getTileLayer()
+        .then(function(layer) {
+            map_parameters.layers.baselayers = layer;
+            deferred.resolve(map_parameters);
+        })
+        .catch(function(error) {
+            $log.error(error);
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
     };
 
     this.createMarkersFromTreks = function(treks, pois) {

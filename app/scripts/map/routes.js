@@ -12,6 +12,9 @@ geotrekMap.config(function($stateProvider) {
         resolve: {
             pois: function(poisFactory) {
                 return poisFactory.getAllPois();
+            },
+            mapParameters: function(leafletService) {
+                return leafletService.getMapInitParameters();
             }
         }
     })

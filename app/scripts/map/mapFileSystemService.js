@@ -32,7 +32,23 @@ geotrekMap.service('mapFileSystemService', ['$q', 'utils', 'settings', 'MBTilesP
     };
 
     this.getTileLayer = function() {
-        return MBTilesPluginService.getTileLayer();
+        var deferred = $q.defer();
+
+        MBTilesPluginService.getTileLayer()
+        .then(function(layer) {
+            deferred.resolve({
+                mbtiles: {
+                    name: 'MBTilesLayer',
+                    type: 'custom',
+                    layer: layer
+                }
+            });
+        })
+        .catch(function(error) {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
     };
 
 }]);

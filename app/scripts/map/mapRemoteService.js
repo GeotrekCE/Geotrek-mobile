@@ -19,7 +19,14 @@ geotrekMap.service('mapRemoteService', ['$q', function ($q) {
 
     this.getTileLayer = function() {
         var deferred = $q.defer();
-        deferred.resolve({message: 'TODO: return OSM base tile layer url'});
+        deferred.resolve({
+            OSMTopo: {
+                name: 'OSMTopo',
+                type: 'xyz',
+                url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
+            }
+        });
+
         return deferred.promise;
     };
 
