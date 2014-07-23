@@ -2,7 +2,7 @@
 
 var geotrekInit = angular.module('geotrekInit');
 
-geotrekInit.service('checkDataService', ['$q', '$log', 'treksFactory', 'staticPagesFactory', function($q, $log, treksFactory, staticPagesFactory) {
+geotrekInit.service('checkDataService', ['$q', '$log', 'treksFactory', 'staticPagesFactory', 'mapFactory', function($q, $log, treksFactory, staticPagesFactory, mapFactory) {
 
     this.isReady = function() {
 
@@ -13,6 +13,9 @@ geotrekInit.service('checkDataService', ['$q', '$log', 'treksFactory', 'staticPa
         .then(function() {
             // Checking if treks are OK
             return treksFactory.getTreks();
+        })
+        .then(function(result) {
+            return mapFactory.isReady();
         })
         .then(function(result) {
             deferred.resolve(result);

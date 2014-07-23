@@ -7,12 +7,11 @@ var geotrekMap = angular.module('geotrekMap');
  */
 geotrekMap.service('MBTilesPluginService', ['$q', 'settings', function ($q, settings) {
 
-    var mbTilesPlugin = null;
+    var mbTilesPlugin = new MBTilesPlugin();
 
     this.init = function(type, typepath, url) {
         var deferred = $q.defer();
 
-        mbTilesPlugin = new MBTilesPlugin();
         mbTilesPlugin.init({type: type, typepath: typepath, url: url},
             function(result) {
                 deferred.resolve(result);

@@ -11,4 +11,10 @@ geotrekMap.service('mapRemoteService', ['$q', function ($q) {
         return deferred.promise;
     };
 
+    this.isReady = function() {
+        var deferred = $q.defer();
+        deferred.resolve({message: 'Tiles are always available in browser mode'});
+        return deferred.promise;
+    };
+
 }]);
