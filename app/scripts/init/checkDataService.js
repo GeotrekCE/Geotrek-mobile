@@ -15,6 +15,7 @@ geotrekInit.service('checkDataService', ['$q', '$log', 'treksFactory', 'staticPa
             return treksFactory.getTreks();
         })
         .then(function(result) {
+            // Checking if map background is OK
             return mapFactory.isReady();
         })
         .then(function(result) {
