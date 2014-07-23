@@ -106,7 +106,7 @@ geotrekMap.service('MBTilesPluginService', ['$q', 'settings', function ($q, sett
         .then(function(metadata) {
             var tmp = new L.TileLayer.MBTilesPlugin(mbTilesPlugin,
             {
-                tms:true,
+                tms: true,
                 zoom: metadata.min_zoom,
                 maxZoom : metadata.max_zoom,
                 zoomOffset:0
