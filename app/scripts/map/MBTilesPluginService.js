@@ -86,7 +86,7 @@ geotrekMap.service('MBTilesPluginService', ['$q', 'settings', function ($q, sett
 
     this.getMetadata = function() {
         var deferred = $q.defer();
-        
+
         mbTilesPlugin.getMetadata(
             function(result) {
                 deferred.resolve(result);
@@ -96,7 +96,29 @@ geotrekMap.service('MBTilesPluginService', ['$q', 'settings', function ($q, sett
             }
         );
 
-        return deferred.promise;        
+        return deferred.promise;
+    };
+
+    this.getTileLayer = function() {
+        var deferred = $q.defer();
+
+        this.getMetadata()
+        .then(function(metadata) {
+            var tmp = new L.TileLayer.MBTilesPlugin(mbTilesPlugin,
+            {
+                tms:true,
+                zoom: metadata.min_zoom,
+                maxZoom : metadata.max_zoom,
+                zoomOffset:0
+            }, function(layer) {
+                deferred.resolve(layer);
+            });
+
+        }, function(error) {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
     };
 
 }]);

@@ -31,4 +31,8 @@ geotrekMap.service('mapFileSystemService', ['$q', 'utils', 'settings', 'MBTilesP
         return deferred.promise;
     };
 
+    this.getTileLayer = function() {
+        return MBTilesPluginService.getTileLayer();
+    }
+
 }]);

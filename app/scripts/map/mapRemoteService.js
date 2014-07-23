@@ -17,4 +17,10 @@ geotrekMap.service('mapRemoteService', ['$q', function ($q) {
         return deferred.promise;
     };
 
+    this.getTileLayer = function() {
+        var deferred = $q.defer();
+        deferred.resolve({message: 'TODO: return OSM base tile layer url'});
+        return deferred.promise;
+    };
+
 }]);
