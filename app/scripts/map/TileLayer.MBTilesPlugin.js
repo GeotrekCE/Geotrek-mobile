@@ -7,7 +7,6 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
     
     initialize: function(mbTilesPlugin, options, callback)
     {
-        console.log("initialize");
         this.mbTilesPlugin = mbTilesPlugin;
         L.Util.setOptions(this, options);
         
@@ -15,23 +14,15 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
         var minZoom = 0;
         var maxZoom = 0;
         
-        console.log("initialize2");
         mbTilesPlugin.getMinZoom(function(result)
         {
-            console.log("getMinZoom");
             minZoom = result.min_zoom;
-            console.log(result);
-            console.log("getMinZoom --" + minZoom + "--");
             mbTilesPlugin.getMaxZoom(function(result)
             {
-                console.log("getMaxZoom");
                 maxZoom = result.max_zoom;
-                console.log("getMaxZoom --" + maxZoom + "--");
                 mbTilesPlugin.getMetadata(function(result)
                 {
-                    console.log("getMetadata");
                     mbTilesMetadata = result;
-                    console.log(result);
                     L.Util.setOptions(tileLayer,
                     {
                         minZoom: minZoom,
@@ -41,13 +32,11 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
                     if (mbTilesMetadata.format)
                     {
                         base64Prefix = "data:image/" + mbTilesMetadata.format + ";base64,";
-                        console.log("base64Prefix --" + base64Prefix + "--");
                     }
                     else
                     {
                         // assuming that tiles are in png as default format ...
                         base64Prefix = "data:image/png;base64,";
-                        console.log("base64Prefix --" + base64Prefix + "--");
                     }
                     callback(tileLayer);
                 });
@@ -62,14 +51,11 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
         var z = this._getZoomForUrl();
         var x = tilePoint.x;
         var y = tilePoint.y;
-        console.log("getTileUrl");
-        console.log(this.mbTilesPlugin);
-        console.log("-----");
+
         this.mbTilesPlugin.getTile({z: z, x: x, y: y},
             function(result)
             {
                 tile.src = base64Prefix + result.tile_data;
-                console.log("tile.src : " + JSON.stringify(result));
             },
             function(error)
             {
