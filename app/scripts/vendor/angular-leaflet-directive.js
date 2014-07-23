@@ -1820,7 +1820,12 @@
           // and pass it on createLayer result for next processes
           custom: {
             createLayer: function (params) {
-              return angular.copy(params.layer);
+              if (params.layer instanceof L.Class) {
+                  return angular.copy(params.layer);
+              }
+              else {
+                  $log.error('[AngularJS - Leaflet] A custom layer must be a leaflet Class');
+              }
             }
           }
         };
