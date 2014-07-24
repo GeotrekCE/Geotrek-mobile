@@ -57,13 +57,21 @@ geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'sett
 
     this.downloadTrekPreciseBackground = function(trekId) {
         var url = settings.remote.TILES_REMOTE_PATH_URL + this._getTrekTileFilename(trekId);
-
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT + this._getTrekTileFilename(trekId));
     };
 
     this.hasTrekPreciseBackground = function(trekId) {
-        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT_FILE + this._getTrekTileFilename(trekId);
-        return $cordovaFile.checkFile(trekFilenamePath);
+        var deferred = $q.defer();
+
+        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + this._getTrekTileFilename(trekId);
+         $cordovaFile.checkFile(trekFilenamePath)
+        .then(function(result) {
+            deferred.resolve(true);
+        }, function(error) {
+            deferred.resolve(false);
+        });
+
+        return deferred.promise;
     };
 
     this.removeTrekPreciseBackground = function(trekId) {
