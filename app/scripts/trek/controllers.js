@@ -88,20 +88,21 @@ geotrekTreks.controller('TrekController',
         });
 
         var currentTrek = getTrekById(treks.features, trekId);
-        currentTrek.realProgress = 0;
-        currentTrek.inDownloadProgress = false;
+        currentTrek.mbtiles.realProgress = 0;
+        currentTrek.mbtiles.inDownloadProgress = false;
 
         confirmPopup.then(function(confirmed) {
             if(confirmed) {
-                currentTrek.inDownloadProgress = true;
+                currentTrek.mbtiles.inDownloadProgress = true;
                 $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
                 .then(function(result) {
-                    currentTrek.inDownloadProgress = false;
-                    currentTrek.isDownloaded = true;
+                    currentTrek.mbtiles.inDownloadProgress = false;
+                    currentTrek.mbtiles.isDownloaded = true;
                 }, function(error) {
-                    currentTrek.inDownloadProgress = false;
+                    currentTrek.mbtiles.inDownloadProgress = false;
                 }, function(progress) {
-                    currentTrek.realProgress = Math.floor(progress.loaded / progress.total * 100);
+                    currentTrek.mbtiles.inDownloadProgress = true;
+                    currentTrek.mbtiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
                 });
             }
         });
@@ -120,7 +121,7 @@ geotrekTreks.controller('TrekController',
             if(confirmed) {
                 $q.when(mapFactory.removeTrekPreciseBackground(trekId))
                 .then(function(result) {
-                    currentTrek.isDownloaded = false;
+                    currentTrek.mbtiles.isDownloaded = false;
                 }, function(error) {
                     $log.error(error);
                 });

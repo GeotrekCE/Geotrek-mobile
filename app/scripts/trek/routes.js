@@ -34,7 +34,9 @@ geotrekTreks.config(function($stateProvider) {
                 $q.all(promises)
                 .then(function(isDownloadedList) {
                     for(var i=0; i<isDownloadedList.length; i++) {
-                        treksList[i].isDownloaded = isDownloadedList[i];
+                        treksList[i]['mbtiles'] = {
+                            isDownloaded: isDownloadedList[i]
+                        };
                     }
                 });
             }
