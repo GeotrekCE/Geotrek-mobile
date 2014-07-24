@@ -61,7 +61,7 @@ geotrekTreks.controller('TrekController',
         $scope.$broadcast('OnFilter');
     });
 }])
-.controller('TrekListController', ['$rootScope', '$state', '$scope', '$ionicPopup', function ($rootScope, $state, $scope, $ionicPopup) {
+.controller('TrekListController', ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', 'mapFactory', 'treks', function ($rootScope, $state, $scope, $ionicPopup, $q, mapFactory, treks) {
 
     $rootScope.statename = $state.current.name;
     // Ordering by distance
@@ -77,14 +77,19 @@ geotrekTreks.controller('TrekController',
 
         confirmPopup.then(function(res) {
             if(res) {
-                console.log('You are sure !');
+                mapFactory.downloadTrekPreciseBackground(trekId)
+                .then(function(result) {
+                    console.log('download ended !');
+                }, function(error) {
+                    console.log('download error');
+                }, function(progress) {
+                    console.log(progress);
+                });
             } else {
                 console.log('You are not sure...');
             }
         });
     };
-
-
 }])
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',

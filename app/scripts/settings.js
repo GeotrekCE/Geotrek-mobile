@@ -86,6 +86,7 @@ geotrekAppSettings.constant('globalSettings', {
         remote: {
             TREK_REMOTE_FILE_URL_BASE: DOMAIN_NAME + '/fr/files/api/trek',
             TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson',
+            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
             MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles'
         },
         device: {

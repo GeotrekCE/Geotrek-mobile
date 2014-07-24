@@ -22,7 +22,23 @@ geotrekTreks.config(function($stateProvider) {
     .state('home.trek', {
         url: '/trek',
         templateUrl : 'views/trek_list.html',
-        controller: 'TrekListController'
+        controller: 'TrekListController',
+        resolve: {
+            downloadedTreks: function($q, treks, mapFactory) {
+                var promises = [],
+                    treksList = treks.features;
+                angular.forEach(treksList, function(trek) {
+                    promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
+                });
+
+                $q.all(promises)
+                .then(function(isDownloadedList) {
+                    for(var i=0; i<isDownloadedList.length; i++) {
+                        treksList[i].isDownloaded = isDownloadedList[i];
+                    }
+                });
+            }
+        }
     })
     .state('home.trek.detail', {
         url: '/:trekId',

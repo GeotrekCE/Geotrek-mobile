@@ -2,7 +2,7 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.service('mapFileSystemService', ['$q', 'utils', 'settings', 'MBTilesPluginService', function ($q, utils, settings, MBTilesPluginService) {
+geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'settings', 'MBTilesPluginService', function ($q, $cordovaFile, utils, settings, MBTilesPluginService) {
 
     this.downloadGlobalBackground = function(url) {
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
@@ -49,6 +49,25 @@ geotrekMap.service('mapFileSystemService', ['$q', 'utils', 'settings', 'MBTilesP
         });
 
         return deferred.promise;
+    };
+
+    this._getTrekTileFilename = function(trekId) {
+        return '/trek-' + trekId.toString() + '.mbtiles';
+    }
+
+    this.downloadTrekPreciseBackground = function(trekId) {
+        var url = settings.remote.TILES_REMOTE_PATH_URL + this._getTrekTileFilename(trekId);
+
+        return utils.downloadFile(url, settings.device.CDV_TILES_ROOT + this._getTrekTileFilename(trekId));
+    };
+
+    this.hasTrekPreciseBackground = function(trekId) {
+        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT_FILE + this._getTrekTileFilename(trekId);
+        return $cordovaFile.checkFile(trekFilenamePath);
+    };
+
+    this.removeTrekPreciseBackground = function(trekId) {
+        return $cordovaFile.removeFile(trekFilenamePath);
     };
 
 }]);
