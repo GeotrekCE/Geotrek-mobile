@@ -64,7 +64,7 @@ geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'sett
         var deferred = $q.defer();
 
         var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + this._getTrekTileFilename(trekId);
-         $cordovaFile.checkFile(trekFilenamePath)
+        $cordovaFile.checkFile(trekFilenamePath)
         .then(function(result) {
             deferred.resolve(true);
         }, function(error) {
@@ -75,6 +75,7 @@ geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'sett
     };
 
     this.removeTrekPreciseBackground = function(trekId) {
+        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + this._getTrekTileFilename(trekId);
         return $cordovaFile.removeFile(trekFilenamePath);
     };
 
