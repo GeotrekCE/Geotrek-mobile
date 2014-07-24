@@ -82,30 +82,39 @@ geotrekTreks.controller('TrekController',
 
     $scope.downloadTile = function(trekId) {
 
-        var confirmPopup = $ionicPopup.confirm({
+        // We prevent tile download if network is not available
+        if (!$rootScope.network_available) {
+            $ionicPopup.alert({
+                title: 'Network cannot be reached',
+                template: 'Check your network connection, needed to download trek precise maps'
+            });
+        }
+        else {
+            var confirmPopup = $ionicPopup.confirm({
             title: 'Download trek map',
             template: 'You will download precise map for this trek. Are you sure ?'
-        });
+            });
 
-        var currentTrek = getTrekById(treks.features, trekId);
-        currentTrek.mbtiles.realProgress = 0;
-        currentTrek.mbtiles.inDownloadProgress = false;
+            var currentTrek = getTrekById(treks.features, trekId);
+            currentTrek.mbtiles.realProgress = 0;
+            currentTrek.mbtiles.inDownloadProgress = false;
 
-        confirmPopup.then(function(confirmed) {
-            if(confirmed) {
-                currentTrek.mbtiles.inDownloadProgress = true;
-                $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
-                .then(function(result) {
-                    currentTrek.mbtiles.inDownloadProgress = false;
-                    currentTrek.mbtiles.isDownloaded = true;
-                }, function(error) {
-                    currentTrek.mbtiles.inDownloadProgress = false;
-                }, function(progress) {
+            confirmPopup.then(function(confirmed) {
+                if(confirmed) {
                     currentTrek.mbtiles.inDownloadProgress = true;
-                    currentTrek.mbtiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
-                });
-            }
-        });
+                    $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
+                    .then(function(result) {
+                        currentTrek.mbtiles.inDownloadProgress = false;
+                        currentTrek.mbtiles.isDownloaded = true;
+                    }, function(error) {
+                        currentTrek.mbtiles.inDownloadProgress = false;
+                    }, function(progress) {
+                        currentTrek.mbtiles.inDownloadProgress = true;
+                        currentTrek.mbtiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
+                    });
+                }
+            });
+        }
     };
 
     $scope.removeTile = function(trekId) {
