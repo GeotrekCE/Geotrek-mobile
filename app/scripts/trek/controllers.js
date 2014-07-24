@@ -68,6 +68,18 @@ geotrekTreks.controller('TrekController',
     // If distance is not available, default ordering is trek.geojson one
     $scope.orderProp = 'distanceFromUser';
 
+    var getTrekById = function(treks, trekId) {
+        var currentTrek;
+        angular.forEach(treks, function(trek) {
+            if (trek.id == trekId) {
+                currentTrek = trek;
+                return;
+            }
+        });
+
+        return currentTrek;
+    };
+
     $scope.downloadTile = function(trekId) {
 
         var confirmPopup = $ionicPopup.confirm({
@@ -75,18 +87,22 @@ geotrekTreks.controller('TrekController',
             template: 'You will download precise map for this trek. Are you sure ?'
         });
 
-        confirmPopup.then(function(res) {
-            if(res) {
-                mapFactory.downloadTrekPreciseBackground(trekId)
+        var currentTrek = getTrekById(treks.features, trekId);
+        currentTrek.realProgress = 0;
+        currentTrek.inDownloadProgress = false;
+
+        confirmPopup.then(function(confirmed) {
+            if(confirmed) {
+                currentTrek.inDownloadProgress = true;
+                $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
                 .then(function(result) {
-                    console.log('download ended !');
+                    currentTrek.inDownloadProgress = false;
+                    currentTrek.isDownloaded = true;
                 }, function(error) {
-                    console.log('download error');
+                    currentTrek.inDownloadProgress = false;
                 }, function(progress) {
-                    console.log(progress);
+                    currentTrek.realProgress = Math.floor(progress.loaded / progress.total * 100);
                 });
-            } else {
-                console.log('You are not sure...');
             }
         });
     };

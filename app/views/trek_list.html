@@ -7,7 +7,8 @@
             <p class="difficulty">{{ trek.properties.difficulty.label }} - {{ trek.properties.duration_pretty }}</p>
             <p ng-if="trek.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{ trek.distanceFromUser }}km</p>
             <div class="trek-list__item__detail__actions">
-                <a ng-if="!trek.isDownloaded" ng-click="$event.stopPropagation(); downloadTile(trek.id);" class="trek-list__item__detail-bt button-icon icon ion-archive"></a>
+                <a ng-if="!trek.isDownloaded && !trek.inDownloadProgress" ng-click="$event.stopPropagation(); downloadTile(trek.id);" class="trek-list__item__detail-bt button-icon icon ion-archive"></a>
+                <span ng-if="trek.inDownloadProgress">{{ trek.realProgress }}%</span>
                 <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon ion-ios7-information"></a>
             </div>
         </ion-item>
