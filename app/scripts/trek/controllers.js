@@ -61,12 +61,30 @@ geotrekTreks.controller('TrekController',
         $scope.$broadcast('OnFilter');
     });
 }])
-.controller('TrekListController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
+.controller('TrekListController', ['$rootScope', '$state', '$scope', '$ionicPopup', function ($rootScope, $state, $scope, $ionicPopup) {
 
     $rootScope.statename = $state.current.name;
     // Ordering by distance
     // If distance is not available, default ordering is trek.geojson one
     $scope.orderProp = 'distanceFromUser';
+
+    $scope.downloadTile = function(trekId) {
+
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Download trek map',
+            template: 'You will download precise map for this trek. Are you sure ?'
+        });
+
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log('You are sure !');
+            } else {
+                console.log('You are not sure...');
+            }
+        });
+    };
+
+
 }])
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',

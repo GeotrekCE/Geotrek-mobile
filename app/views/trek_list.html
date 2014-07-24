@@ -6,7 +6,10 @@
             <p class="departure">{{ 'trek_list.departure' | translate }} : {{ trek.properties.departure }}</p>
             <p class="difficulty">{{ trek.properties.difficulty.label }} - {{ trek.properties.duration_pretty }}</p>
             <p ng-if="trek.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{ trek.distanceFromUser }}km</p>
-            <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon ion-ios7-information"></a>
+            <div class="trek-list__item__detail__actions">
+                <a ng-click="$event.stopPropagation(); downloadTile(trek.id);" class="trek-list__item__detail-bt button-icon icon ion-archive"></a>
+                <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon ion-ios7-information"></a>
+            </div>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -22,10 +22,12 @@
 .trek-list__item .difficulty {
   margin-bottom: 0; }
 
-.trek-list__item__detail-bt {
+.trek-list__item__detail__actions {
   position: absolute;
   right: 5px;
-  bottom: 10px;
+  bottom: 10px; }
+
+.trek-list__item__detail-bt {
   color: #494645;
   text-decoration: none; }
 

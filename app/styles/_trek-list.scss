@@ -12,10 +12,13 @@
 	}
 }
 
+.trek-list__item__detail__actions {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+}
+
 .trek-list__item__detail-bt {
-	position: absolute;
-	right: 5px;
-	bottom: 10px;
 	color: $dark;
 	text-decoration: none;
 }
