@@ -62,8 +62,8 @@ geotrekTreks.controller('TrekController',
     });
 }])
 .controller('TrekListController',
-    ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', 'mapFactory', 'treks', 'userSettingsService', 'networkSettings',
-    function ($rootScope, $state, $scope, $ionicPopup, $q, mapFactory, treks, userSettingsService, networkSettings) {
+    ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', 'mapFactory', 'treks', 'userSettingsService',
+    function ($rootScope, $state, $scope, $ionicPopup, $q, mapFactory, treks, userSettingsService) {
 
     $rootScope.statename = $state.current.name;
     // Ordering by distance
@@ -92,19 +92,10 @@ geotrekTreks.controller('TrekController',
             });
         }
         else {
+
             // Getting user connection settings, to know if we are in WiFi only mode
-            var userConnectionPreference = userSettingsService.getUserSettings().synchronizationMode;
-
-            var warning = false;
-            // We have to warn user only if device connection is not wifi one and user only wants to use wifi
-            if (angular.isDefined(navigator.connection)) {
-                if ((navigator.connection.type == Connection.WIFI) && (userConnectionPreference == networkSettings.wifi.value)) {
-                    warning = true;
-                }
-            }
-
             var template = 'You will download precise map for this trek. Are you sure ?';
-            if (warning) {
+            if (userSettingsService.warnForDownload()) {
                 template += '<br/><strong>Warning</strong>: you are not WiFi connected, be aware that some mobile data will be spent.';
             }
 

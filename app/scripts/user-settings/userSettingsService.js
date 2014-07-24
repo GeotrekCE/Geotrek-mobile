@@ -44,4 +44,20 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
         $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['alertOnPOIs'] = userSettings.alertOnPOIs;
     };
 
+    this.warnForDownload = function() {
+
+        var userConnectionPreference = this.getUserSettings().synchronizationMode,
+            warning = false;
+
+        // We have to warn user only if device connection is not wifi one and user only wants to use wifi
+        // If we don't know the connection, we prefer to avoid to repeat warning message each time user downloads something
+        if (angular.isDefined(navigator.connection)) {
+            if ((navigator.connection.type == Connection.WIFI) && (userConnectionPreference == networkSettings.wifi.value)) {
+                warning = true;
+            }
+        }
+
+        return warning;
+    };
+
 }]);
