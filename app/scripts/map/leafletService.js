@@ -45,12 +45,12 @@ geotrekMap.service('leafletService',
         // We initialize leaflet baselayers param with :
         // 1/ Remote url on browser mode OR
         // 2/ Local saved mbtiles on device
-        mapFactory.getTileLayer()
+        mapFactory.getGlobalTileLayer()
         .then(function(layer) {
             map_parameters.layers.baselayers = layer;
-            return mapFactory.getPreciseLayers();
+            return mapFactory.getDownloadedLayers();
         })
-        .then(function(preciseLayers) {
+        .then(function(downloadedLayers) {
             // TODO : add layers to map_parameters
             deferred.resolve(map_parameters);
         })

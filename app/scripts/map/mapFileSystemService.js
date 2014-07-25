@@ -3,8 +3,8 @@
 var geotrekMap = angular.module('geotrekMap');
 
 geotrekMap.service('mapFileSystemService',
-    ['$q', '$cordovaFile', '$log', 'utils', 'settings', 'MBTilesPluginService',
-    function ($q, $cordovaFile, $log, utils, settings, MBTilesPluginService) {
+    ['$q', '$cordovaFile', '$log', 'utils', 'settings', 'LeafletMBTileLayerService',
+    function ($q, $cordovaFile, $log, utils, settings, LeafletMBTileLayerService) {
 
     this.downloadGlobalBackground = function(url) {
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
@@ -33,10 +33,14 @@ geotrekMap.service('mapFileSystemService',
         return deferred.promise;
     };
 
-    this.getTileLayer = function() {
+    this.getGlobalTileLayer = function() {
+        return this.getTileLayer(settings.TILES_FILE_NAME);
+    };
+
+    this.getTileLayer = function(tileLayerFilePath) {
         var deferred = $q.defer();
 
-        MBTilesPluginService.getTileLayer()
+        LeafletMBTileLayerService.getTileLayer(tileLayerFilePath)
         .then(function(layer) {
             deferred.resolve({
                 mbtiles: {
@@ -54,8 +58,9 @@ geotrekMap.service('mapFileSystemService',
     };
 
     // Create each layer corresponding to downloaded tiles
-    this.getPreciseLayers = function() {
-        var deferred = $q.defer();
+    this.getDownloadedLayers = function() {
+        var deferred = $q.defer(),
+            promise = [];
 
         $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
         .then(function(listFiles) {

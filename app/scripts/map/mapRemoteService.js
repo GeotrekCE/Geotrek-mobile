@@ -19,7 +19,7 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
         return deferred.promise;
     };
 
-    this.getTileLayer = function() {
+    this.getGlobalTileLayer = function() {
         var deferred = $q.defer();
         deferred.resolve({
             OSMTopo: {
@@ -33,7 +33,7 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
     };
 
     // There is no precise layer in browser mode, as we are always using global background
-    this.getPreciseLayers = function() {
+    this.getDownloadedLayers = function() {
         return [];
     };
 

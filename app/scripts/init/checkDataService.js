@@ -16,7 +16,7 @@ geotrekInit.service('checkDataService', ['$q', '$log', 'treksFactory', 'staticPa
         })
         .then(function(result) {
             // Checking if map background is OK
-            return mapFactory.isReady();
+            return mapFactory.getGlobalTileLayer();
         })
         .then(function(result) {
             deferred.resolve(result);
