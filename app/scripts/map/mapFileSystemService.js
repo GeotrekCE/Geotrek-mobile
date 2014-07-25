@@ -37,18 +37,21 @@ geotrekMap.service('mapFileSystemService',
         return this.getTileLayer(settings.TILES_FILE_NAME);
     };
 
-    this.getTileLayer = function(tileLayerFilePath) {
-        var deferred = $q.defer();
+    this.getTileLayer = function(mbtileFilename) {
 
-        LeafletMBTileLayerService.getTileLayer(tileLayerFilePath)
+        console.log(mbtileFilename);
+        var deferred = $q.defer(),
+            mbtileFilenameWoExtension = mbtileFilename.substr(0, mbtileFilename.lastIndexOf('.'));
+
+        LeafletMBTileLayerService.getTileLayer(mbtileFilename)
         .then(function(layer) {
-            deferred.resolve({
-                mbtiles: {
-                    name: 'MBTilesLayer',
-                    type: 'custom',
-                    layer: layer
-                }
-            });
+            var resultDict = {
+                id: mbtileFilenameWoExtension,
+                name: 'MBTilesLayer',
+                type: 'custom',
+                layer: layer
+            }
+            deferred.resolve(resultDict);
         })
         .catch(function(error) {
             deferred.reject(error);
@@ -60,12 +63,24 @@ geotrekMap.service('mapFileSystemService',
     // Create each layer corresponding to downloaded tiles
     this.getDownloadedLayers = function() {
         var deferred = $q.defer(),
-            promise = [];
+            promise = [],
+            _this = this;
 
         $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
         .then(function(listFiles) {
-            // TODO: for each existing mbtiles, we must add a corresponding layer to map
-            deferred.resolve(listFiles);
+            var promises = [];
+            // FIXME: loading more than 1 tile layer does not work atm
+            /*angular.forEach(listFiles, function(mbtileFile) {
+                if (mbtileFile.name != 'global.mbtiles') {
+                    promises.push(_this.getTileLayer(mbtileFile.name));
+                }
+            });*/
+
+            $q.all(promises)
+            .then(function(layers) {
+                deferred.resolve(layers);
+            })
+
         }, function(error) {
             $log.error(error);
             deferred.resolve([]);

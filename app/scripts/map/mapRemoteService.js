@@ -22,11 +22,10 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
     this.getGlobalTileLayer = function() {
         var deferred = $q.defer();
         deferred.resolve({
-            OSMTopo: {
-                name: 'OSMTopo',
-                type: 'xyz',
-                url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
-            }
+            id: 'OSMTopo',
+            name: 'OSMTopo',
+            type: 'xyz',
+            url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
         });
 
         return deferred.promise;

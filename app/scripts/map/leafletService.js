@@ -22,6 +22,7 @@ geotrekMap.service('leafletService',
                 zoomControl: false // Not needed on Android/iOS modern devices
             },
             layers: {
+                baselayers: {},
                 overlays: {
                     poi: {
                         type: 'group',
@@ -47,11 +48,15 @@ geotrekMap.service('leafletService',
         // 2/ Local saved mbtiles on device
         mapFactory.getGlobalTileLayer()
         .then(function(layer) {
-            map_parameters.layers.baselayers = layer;
+            map_parameters.layers.baselayers[layer.id] = layer;
             return mapFactory.getDownloadedLayers();
         })
         .then(function(downloadedLayers) {
-            // TODO : add layers to map_parameters
+            angular.forEach(downloadedLayers, function(layer) {
+                // FIXME : put them as overlays ?
+                map_parameters.layers.overlays[layer.id] = layer;
+            });
+
             deferred.resolve(map_parameters);
         })
         .catch(function(error) {
