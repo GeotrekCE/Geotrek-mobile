@@ -121,4 +121,9 @@ geotrekMap.service('MBTilesPluginService', ['$q', 'settings', function ($q, sett
         return deferred.promise;
     };
 
+    // TODO
+    this.getPreciseLayers = function() {
+        return [];
+    };
+
 }]);

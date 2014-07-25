@@ -5,7 +5,9 @@ var geotrekMap = angular.module('geotrekMap');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekMap.service('leafletService', ['$q', 'settings', 'treksFactory', 'iconsService', 'mapFactory', function ($q, settings, treksFactory, iconsService, mapFactory) {
+geotrekMap.service('leafletService',
+    ['$q', '$log', 'settings', 'treksFactory', 'iconsService', 'mapFactory',
+    function ($q, $log, settings, treksFactory, iconsService, mapFactory) {
 
     this.getMapInitParameters = function() {
         // Set default Leaflet map params
@@ -46,6 +48,10 @@ geotrekMap.service('leafletService', ['$q', 'settings', 'treksFactory', 'iconsSe
         mapFactory.getTileLayer()
         .then(function(layer) {
             map_parameters.layers.baselayers = layer;
+            return mapFactory.getPreciseLayers();
+        })
+        .then(function(preciseLayers) {
+            // TODO : add layers to map_parameters
             deferred.resolve(map_parameters);
         })
         .catch(function(error) {

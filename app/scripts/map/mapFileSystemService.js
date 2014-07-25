@@ -2,7 +2,9 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'settings', 'MBTilesPluginService', function ($q, $cordovaFile, utils, settings, MBTilesPluginService) {
+geotrekMap.service('mapFileSystemService',
+    ['$q', '$cordovaFile', '$log', 'utils', 'settings', 'MBTilesPluginService',
+    function ($q, $cordovaFile, $log, utils, settings, MBTilesPluginService) {
 
     this.downloadGlobalBackground = function(url) {
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
@@ -46,6 +48,22 @@ geotrekMap.service('mapFileSystemService', ['$q', '$cordovaFile', 'utils', 'sett
         })
         .catch(function(error) {
             deferred.reject(error);
+        });
+
+        return deferred.promise;
+    };
+
+    // Create each layer corresponding to downloaded tiles
+    this.getPreciseLayers = function() {
+        var deferred = $q.defer();
+
+        $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
+        .then(function(listFiles) {
+            // TODO: for each existing mbtiles, we must add a corresponding layer to map
+            deferred.resolve(listFiles);
+        }, function(error) {
+            $log.error(error);
+            deferred.resolve([]);
         });
 
         return deferred.promise;

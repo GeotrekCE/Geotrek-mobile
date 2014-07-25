@@ -32,6 +32,11 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
         return deferred.promise;
     };
 
+    // There is no precise layer in browser mode, as we are always using global background
+    this.getPreciseLayers = function() {
+        return [];
+    };
+
     this._getLocalStorageKey = function(trekId) {
         return EMULATED_DOWNLOAD_LOCALSTORAGE_KEY + trekId.toString();
     }
