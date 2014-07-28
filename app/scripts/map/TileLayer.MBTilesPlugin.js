@@ -1,66 +1,89 @@
 L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
 {
     mbTilesPlugin : null,
-    mbTilesMetadata : null,
     base64Prefix : null,
+    filename: null,
 
-    
-    initialize: function(mbTilesPlugin, options, callback)
+    initialize: function(mbTilesPlugin, filename, rootUrl, options, callback)
     {
+        console.log('Leaflet plugin init');
+        console.log(mbTilesPlugin);
+        console.log(filename);
+        console.log(rootUrl);
         this.mbTilesPlugin = mbTilesPlugin;
+        this.filename = filename;
         L.Util.setOptions(this, options);
         
         var tileLayer = this;
         var minZoom = 0;
         var maxZoom = 0;
         
-        mbTilesPlugin.getMinZoom(function(result)
-        {
-            minZoom = result.min_zoom;
-            mbTilesPlugin.getMaxZoom(function(result)
-            {
-                maxZoom = result.max_zoom;
-                mbTilesPlugin.getMetadata(function(result)
-                {
-                    mbTilesMetadata = result;
-                    L.Util.setOptions(tileLayer,
+        mbTilesPlugin.init(
+            {type: 'db', typepath: 'cdvfile', url: rootUrl},
+            function(result) {
+
+                mbTilesPlugin.open({name: filename}, function(result) {
+
+                    mbTilesPlugin.getMetadata(function(metadata)
                     {
-                        minZoom: minZoom,
-                        maxZoom: maxZoom
+                        console.log(metadata);
+                        L.Util.setOptions(tileLayer,
+                        {
+                            minZoom: metadata.min_zoom,
+                            maxZoom: metadata.max_zoom
+                        });
+                        
+                        if (!!metadata.format)
+                        {
+                            base64Prefix = "data:image/" + metadata.format + ";base64,";
+                        }
+                        else
+                        {
+                            // assuming that tiles are in png as default format ...
+                            base64Prefix = "data:image/png;base64,";
+                        }
+                        callback(tileLayer);
+                    },
+                    function(error) {
+                        console.log('failed to load metadata');
                     });
-                    
-                    if (mbTilesMetadata.format)
-                    {
-                        base64Prefix = "data:image/" + mbTilesMetadata.format + ";base64,";
-                    }
-                    else
-                    {
-                        // assuming that tiles are in png as default format ...
-                        base64Prefix = "data:image/png;base64,";
-                    }
-                    callback(tileLayer);
+                },
+                function(error) {
+                    console.log("failed to open db " + filename);
                 });
-            });
-        });
+            },
+            function(error) {
+                console.log("failed to init db " + filename)
+            }
+        );
     },
     
-    getTileUrl: function (tilePoint, zoom, tile)
+    getTileUrl: function (tilePoint, zoom, tile, filename)
     {   
         this._adjustTilePoint(tilePoint);
 //      var z = this._getOffsetZoom(zoom);
         var z = this._getZoomForUrl();
         var x = tilePoint.x;
         var y = tilePoint.y;
+        var mbTilesPlugin = this.mbTilesPlugin;
 
-        this.mbTilesPlugin.getTile({z: z, x: x, y: y},
-            function(result)
-            {
-                tile.src = base64Prefix + result.tile_data;
-            },
-            function(error)
-            {
-                console.log("failed to load tile " + JSON.stringify(error));
-            });
+        mbTilesPlugin.open({name: filename}, function(result) {
+
+            mbTilesPlugin.getTile(
+                {z: z, x: x, y: y},
+                function(result)
+                {
+                    tile.src = base64Prefix + result.tile_data;
+                },
+                function(error)
+                {
+                    console.log("failed to load tile " + JSON.stringify(error));
+                }
+            );
+        }, function(error) {
+            console.log("failed to open db " + filename);
+        });
+
     },
     
     _loadTile: function (tile, tilePoint, zoom)
@@ -68,7 +91,7 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
         tile._layer = this;
         tile.onload = this._tileOnLoad;
         tile.onerror = this._tileOnError;
-        this.getTileUrl(tilePoint, this.options.zoom, tile);
+        this.getTileUrl(tilePoint, this.options.zoom, tile, this.filename);
     },
     
     

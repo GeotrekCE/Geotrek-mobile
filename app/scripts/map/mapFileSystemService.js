@@ -47,7 +47,7 @@ geotrekMap.service('mapFileSystemService',
         .then(function(layer) {
             var resultDict = {
                 id: mbtileFilenameWoExtension,
-                name: 'MBTilesLayer',
+                name: 'MBTilesLayer-' + mbtileFilenameWoExtension,
                 type: 'custom',
                 layer: layer
             }
@@ -69,12 +69,12 @@ geotrekMap.service('mapFileSystemService',
         $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
         .then(function(listFiles) {
             var promises = [];
-            // FIXME: loading more than 1 tile layer does not work atm
-            /*angular.forEach(listFiles, function(mbtileFile) {
-                if (mbtileFile.name != 'global.mbtiles') {
+
+            angular.forEach(listFiles, function(mbtileFile) {
+                if (mbtileFile.name != settings.TILES_FILE_NAME) {
                     promises.push(_this.getTileLayer(mbtileFile.name));
                 }
-            });*/
+            });
 
             $q.all(promises)
             .then(function(layers) {

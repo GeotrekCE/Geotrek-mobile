@@ -49,14 +49,6 @@ geotrekMap.service('leafletService',
         mapFactory.getGlobalTileLayer()
         .then(function(layer) {
             map_parameters.layers.baselayers[layer.id] = layer;
-            return mapFactory.getDownloadedLayers();
-        })
-        .then(function(downloadedLayers) {
-            angular.forEach(downloadedLayers, function(layer) {
-                // FIXME : put them as overlays ?
-                map_parameters.layers.overlays[layer.id] = layer;
-            });
-
             deferred.resolve(map_parameters);
         })
         .catch(function(error) {

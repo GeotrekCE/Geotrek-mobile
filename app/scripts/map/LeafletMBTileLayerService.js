@@ -12,20 +12,18 @@ geotrekMap.service('LeafletMBTileLayerService',
     this.getTileLayer = function(tileLayerFilePath) {
         var deferred = $q.defer();
 
-        MBTilesPluginService.get(tileLayerFilePath)
-        .then(function(mbTilesPlugin) {
-            var tmp = new L.TileLayer.MBTilesPlugin(mbTilesPlugin,
-            {
-                tms: true,
-                zoomOffset:0
-            }, function(layer) {
+        var mbTilesPlugin = new MBTilesPlugin();
+
+        var tmp = new L.TileLayer.MBTilesPlugin(
+            mbTilesPlugin,
+            tileLayerFilePath,
+            settings.device.CDV_TILES_ROOT,
+            { tms: true },
+
+            function(layer) {
                 deferred.resolve(layer);
-            });
-        })
-        .catch(function(error) {
-            $log.error(error);
-            deferred.reject(error);
-        });
+            }
+        );
 
         return deferred.promise;
     };

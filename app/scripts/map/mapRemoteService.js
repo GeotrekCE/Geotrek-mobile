@@ -21,11 +21,12 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
 
     this.getGlobalTileLayer = function() {
         var deferred = $q.defer();
+        var tileLayer = new L.TileLayer('http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png');
         deferred.resolve({
             id: 'OSMTopo',
             name: 'OSMTopo',
-            type: 'xyz',
-            url: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
+            type: 'custom',
+            layer: tileLayer,
         });
 
         return deferred.promise;
@@ -33,7 +34,9 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
 
     // There is no precise layer in browser mode, as we are always using global background
     this.getDownloadedLayers = function() {
-        return [];
+        var deferred = $q.defer();
+        deferred.resolve([]);
+        return deferred.promise;
     };
 
     this._getLocalStorageKey = function(trekId) {
