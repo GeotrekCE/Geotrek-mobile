@@ -6,17 +6,11 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
 
     initialize: function(mbTilesPlugin, filename, rootUrl, options, callback)
     {
-        console.log('Leaflet plugin init');
-        console.log(mbTilesPlugin);
-        console.log(filename);
-        console.log(rootUrl);
         this.mbTilesPlugin = mbTilesPlugin;
         this.filename = filename;
         L.Util.setOptions(this, options);
         
         var tileLayer = this;
-        var minZoom = 0;
-        var maxZoom = 0;
         
         mbTilesPlugin.init(
             {type: 'db', typepath: 'cdvfile', url: rootUrl},
@@ -26,7 +20,6 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
 
                     mbTilesPlugin.getMetadata(function(metadata)
                     {
-                        console.log(metadata);
                         L.Util.setOptions(tileLayer,
                         {
                             minZoom: metadata.min_zoom,
