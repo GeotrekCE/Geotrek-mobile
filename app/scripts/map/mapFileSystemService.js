@@ -88,6 +88,34 @@ geotrekMap.service('mapFileSystemService',
         return deferred.promise;
     };
 
+    this.cleanDownloadedLayers = function() {
+        var deferred = $q.defer(),
+            promise = [],
+            _this = this;
+
+        $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
+        .then(function(listFiles) {
+            var promises = [];
+
+            angular.forEach(listFiles, function(mbtileFile) {
+                if (mbtileFile.name != settings.TILES_FILE_NAME) {
+                    promises.push($cordovaFile.removeFile(settings.device.RELATIVE_TILES_ROOT + "/" + mbtileFile.name));
+                }
+            });
+
+            $q.all(promises)
+            .then(function(layers) {
+                deferred.resolve(layers);
+            })
+
+        }, function(error) {
+            $log.error(error);
+            deferred.resolve([]);
+        });
+
+        return deferred.promise;
+    };
+
     this._getTrekTileFilename = function(trekId) {
         return '/trek-' + trekId.toString() + '.mbtiles';
     }

@@ -4,7 +4,12 @@ var geotrekMap = angular.module('geotrekMap');
 
 geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $localStorage) {
 
-    var EMULATED_DOWNLOAD_LOCALSTORAGE_KEY = 'emulated-background-trek-'
+    var EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY = 'emulated-background',
+        EMULATED_DOWNLOAD_LOCALSTORAGE_KEY = 'trek-';
+
+    if (!$localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY]) {
+        $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY] = {};
+    }
 
     // We don't have to download Map Background in Remote version, only for device offline mode
     this.downloadGlobalBackground = function(url) {
@@ -32,6 +37,13 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
         return deferred.promise;
     };
 
+    this.cleanDownloadedLayers = function() {
+        var deferred = $q.defer();
+        $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY] = {};
+        deferred.resolve();
+        return deferred.promise;
+    };
+
     // There is no precise layer in browser mode, as we are always using global background
     this.getDownloadedLayers = function() {
         var deferred = $q.defer();
@@ -45,15 +57,15 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
 
     // We want to simulate correct trek background downloading
     this.downloadTrekPreciseBackground = function(trekId) {
-        $localStorage[this._getLocalStorageKey(trekId)] = 'OK';
+        $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY][this._getLocalStorageKey(trekId)] = 'OK';
     };
 
     this.hasTrekPreciseBackground = function(trekId) {
-        return angular.isDefined($localStorage[this._getLocalStorageKey(trekId)]);
+        return angular.isDefined($localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY][this._getLocalStorageKey(trekId)]);
     };
 
     this.removeTrekPreciseBackground = function(trekId) {
-        delete $localStorage[this._getLocalStorageKey(trekId)];
+        delete $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY][this._getLocalStorageKey(trekId)];
     };
 
 }]);

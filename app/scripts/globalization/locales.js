@@ -26,7 +26,9 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.back': 'Retour',
         'user_parameters.language': 'Langage',
         'user_parameters.synchronization_mode': 'Sync. des données',
-        'user_parameters.poi_alert': 'Alerte près d\'un POI (si GPS)'
+        'user_parameters.poi_alert': 'Alerte près d\'un POI (si GPS)',
+        'user_parameters.clean_maps': 'Nettoyer les cartes',
+        'user_parameters.clean': 'Suppression'
     },
     'en': {
         'nav_trek_map.ways': 'Ways',
@@ -50,7 +52,9 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.back': 'Back',
         'user_parameters.language': 'Language',
         'user_parameters.synchronization_mode': 'Synchronization mode',
-        'user_parameters.poi_alert': 'POI alert (GPS only)'        
+        'user_parameters.poi_alert': 'POI alert (GPS only)',
+        'user_parameters.clean_maps': 'Clean maps',
+        'user_parameters.clean': 'Delete'
     }
 })
 
