@@ -58,6 +58,12 @@
                     </button>
                 </li>
 
+                <li class="filters-list__item">
+                    <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" style="background-image: url(images/{{ download.icon }});" uncheckable>
+                        <span>{{ download.name }}</span>
+                    </button>
+                </li>
+
                 <li class="filters-list__item filters-list__item--select">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes">

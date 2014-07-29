@@ -86,7 +86,8 @@
     position: relative;
     top: 33px; }
   .filters-list__bt.button-icon.activated, .filters-list__bt.button-icon.active {
-    background-position: center bottom; }
+    background-position: center bottom;
+    background-repeat: no-repeat; }
 
 .trek-detail .list .item {
   border-left: none;

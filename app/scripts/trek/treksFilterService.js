@@ -14,6 +14,7 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
             difficulty:   undefined,
             duration:     undefined,
             elevation:    undefined,
+            download:     undefined,
             theme:        undefined,
             municipality: null,
             use:          null,
@@ -47,6 +48,18 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
         return (trekValue <= filter);
     };
 
+    // Generic function that is called on hardcoded filters
+    this.filterTrekEquals = function(trekValue, filter) {
+
+        // Trek considered as matching if filter not set or if
+        // property is empty.
+        if (!(this.isValidFilter(trekValue, filter))) {
+            return true;
+        }
+
+        return (trekValue == filter);
+    };
+
     // Generic function that is called on select filters
     this.filterTrekWithSelect = function(selectOptionValues, formValue, fieldToCheck) {
         // Trek considered as matching if filter not set or if
@@ -77,6 +90,7 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
         return (this.filterTrekWithFilter(trek.properties.difficulty.id, activeFilters.difficulty) &&
             this.filterTrekWithFilter(trek.properties.duration, activeFilters.duration) &&
             this.filterTrekWithFilter(trek.properties.ascent, activeFilters.elevation) &&
+            this.filterTrekEquals(trek.mbtiles.isDownloaded ? 1 : 0, activeFilters.download) &&
             this.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
             this.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
             this.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
@@ -175,6 +189,9 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
                 { value: 300, name: '300m', icon: 'deniv1.svg' },
                 { value: 600, name: '600m', icon: 'deniv1.svg' },
                 { value: 1000, name: '1000m', icon: 'deniv1.svg' }
+            ],
+            downloads : [
+                { value: 1, name: 'Trek map available offline', icon: 'icon_offline.png' }
             ],
             themes : trekThemes,
             uses: trekUses,

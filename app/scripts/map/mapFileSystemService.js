@@ -39,7 +39,6 @@ geotrekMap.service('mapFileSystemService',
 
     this.getTileLayer = function(mbtileFilename) {
 
-        console.log(mbtileFilename);
         var deferred = $q.defer(),
             mbtileFilenameWoExtension = mbtileFilename.substr(0, mbtileFilename.lastIndexOf('.'));
 

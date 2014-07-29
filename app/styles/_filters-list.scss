@@ -73,5 +73,6 @@
 
 		&.button-icon.activated, &.button-icon.active {
 			background-position: center bottom;
+			background-repeat: no-repeat;
 		}
 	}
