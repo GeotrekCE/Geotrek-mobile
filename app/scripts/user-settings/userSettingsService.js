@@ -52,7 +52,7 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
         // We have to warn user only if device connection is not wifi one and user only wants to use wifi
         // If we don't know the connection, we prefer to avoid to repeat warning message each time user downloads something
         if (angular.isDefined(navigator.connection)) {
-            if ((navigator.connection.type == Connection.WIFI) && (userConnectionPreference == networkSettings.wifi.value)) {
+            if ((navigator.connection.type != Connection.WIFI) && (userConnectionPreference == networkSettings.wifi.value)) {
                 warning = true;
             }
         }
