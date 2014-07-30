@@ -113,10 +113,11 @@ geotrekMap.service('leafletService',
 
     this.createMarkersCluster = function(treks) {
         var markers = {};
-
+        var trekIcon = iconsService.getTrekIcon();
         angular.forEach(treks, function(trekData) {
             var middlePoint = trekData.geometry.coordinates[Math.round(trekData.geometry.coordinates.length/2)];
             markers['marker' + trekData.id] = {
+                icon: trekIcon,
                 layer: "cluster",
                 lat: middlePoint[1],
                 lng: middlePoint[0],

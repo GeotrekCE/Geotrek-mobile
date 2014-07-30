@@ -24,6 +24,13 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         poi_icon: {
             iconSize: [27, 27],
             labelAnchor: [20, -50]
+        },
+        trek_icon: {
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+            iconUrl: 'images/trek-icon.svg',
+            className: 'trek-icon',
+            labelAnchor: [15, 0]
         }
     };
 
@@ -43,6 +50,10 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getArrivalIcon = function() {
         return trek_icons.arrival_icon;
+    };
+
+    this.getTrekIcon = function() {
+        return trek_icons.trek_icon;
     };
 
 }]);

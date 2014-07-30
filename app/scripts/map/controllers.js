@@ -73,14 +73,11 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     // Cluster the treks at low zoom levels
     leafletData.getMap().then(function(map) {
         var cluster = leafletService.createMarkersCluster($scope.geojson.data);
-        console.log(cluster);
         angular.extend($scope.markers, cluster);
-    });
-
-    leafletData.getMap().then(function(map) {
-        $scope.layers.overlays['cluster'].visible = (map.getZoom() < 12);
+        $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
         map.on('zoomend', function() {
-            $scope.layers.overlays['cluster'].visible = (map.getZoom() < 12);
+            console.log(map);
+            $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
         });
     });
 
