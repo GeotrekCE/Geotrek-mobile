@@ -56,7 +56,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         map.fitBounds(feature.getBounds());
                     }
                 },
-                onEachFeature: function(feature) {
+                onEachFeature: function(feature, layer) {
                     // Display treks as icons and cluster them if needed
                     var cluster = leafletService.createMarkersCluster(feature);
                     angular.extend($scope.markers, cluster);
@@ -72,6 +72,14 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         .then(function(pois) {
                         var treksMarkers = leafletService.createMarkersFromTrek(feature, pois.features);
                         angular.extend($scope.markers, treksMarkers);
+                    });
+
+                    // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
+                    // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
+                    layer.on({
+                        click: function(e) {
+                            $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
+                        }
                     });
                 }
             }
