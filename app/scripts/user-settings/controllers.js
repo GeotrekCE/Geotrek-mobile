@@ -6,8 +6,6 @@ geotrekUserSettings.controller('UserSettingsController',
     ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory',
     function ($rootScope, $state, $scope, $ionicModal, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory) {
 
-    $rootScope.statename = $state.current.name;
-
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
     $scope.languages = localeSettings;

@@ -16,14 +16,10 @@ geotrekTreks.config(function($stateProvider) {
             },
             staticPages: function(staticPagesFactory) {
                 return staticPagesFactory.getStaticPages();
-            }
-        }
-    })
-    .state('home.trek', {
-        url: '/trek',
-        templateUrl : 'views/trek_list.html',
-        controller: 'TrekListController',
-        resolve: {
+            },
+            // Resolve only to add "isDownloaded" property on each available trek
+            // "isDownloaded = true" means that user has manually downloaded
+            // precise map for this trek
             downloadedTreks: function($q, treks, mapFactory) {
                 var promises = [],
                     treksList = treks.features;
@@ -41,6 +37,11 @@ geotrekTreks.config(function($stateProvider) {
                 });
             }
         }
+    })
+    .state('home.trek', {
+        url: '/trek',
+        templateUrl : 'views/trek_list.html',
+        controller: 'TrekListController'
     })
     .state('home.trek.detail', {
         url: '/:trekId',

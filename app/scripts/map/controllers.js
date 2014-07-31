@@ -5,7 +5,6 @@ var geotrekMap = angular.module('geotrekMap');
 geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
                                        function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
     $rootScope.statename = $state.current.name;
-
     // Initializing leaflet map
     angular.extend($scope, mapParameters);
 
@@ -24,7 +23,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             }
         }
         utils.createModal('views/map_trek_detail.html', modalScope);
-
     });
 
     leafletData.getMap().then(function(map) {
@@ -127,7 +125,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 .controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek',
             function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, leafletData, trek) {
 
-    $rootScope.statename = $state.current.name;
     $scope.currentTrek = $stateParams.trekId;
 
     leafletData.getMap().then(function(map) {
