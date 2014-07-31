@@ -101,10 +101,13 @@ $bar-dark-active-border:          transparent;
 	background:url(../images/logo_pn.svg) top right no-repeat;
 	position: absolute;
 	top: 5px;
-	left: 0;
+	left: 15px;
 	border: none;
+    padding-left: 25px;
 
 	&:before {
+        position: absolute;
+        top: 0;
 		margin-left: -48px;
 	}
 }

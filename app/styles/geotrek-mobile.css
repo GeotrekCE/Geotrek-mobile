@@ -340,9 +340,12 @@
   background: url(../images/logo_pn.svg) top right no-repeat;
   position: absolute;
   top: 5px;
-  left: 0;
-  border: none; }
+  left: 15px;
+  border: none;
+  padding-left: 25px; }
   .bar .button.button-logo:before {
+    position: absolute;
+    top: 0;
     margin-left: -48px; }
 
 .bar .button.button-icon [class*="ion-android"]:before {
