@@ -64,31 +64,29 @@ geotrekMap.service('leafletService',
         return deferred.promise;
     };
 
-    this.createMarkersFromTreks = function(treks, pois) {
+    this.createMarkersFromTrek = function(trek, pois) {
         var markers = {};
 
-        angular.forEach(treks, function(trek) {
-            var startPoint = treksFactory.getStartPoint(trek);
-            var endPoint = treksFactory.getEndPoint(trek);
+        var startPoint = treksFactory.getStartPoint(trek);
+        var endPoint = treksFactory.getEndPoint(trek);
 
-            markers['startPoint_' + trek.id] = {
-                lat: startPoint.lat,
-                lng: startPoint.lng,
-                icon: iconsService.getDepartureIcon(),
-                layer: 'poi',
-                name: trek.properties.name,
-                description: trek.properties.description,
-                thumbnail: trek.properties.thumbnail
-            };
-            markers['endPoint_' + trek.id] = {
-                lat: endPoint.lat,
-                lng: endPoint.lng,
-                icon: iconsService.getArrivalIcon(),
-                layer: 'poi',
-                name: trek.properties.name,
-                description: trek.properties.description
-            };
-        });
+        markers['startPoint_' + trek.id] = {
+            lat: startPoint.lat,
+            lng: startPoint.lng,
+            icon: iconsService.getDepartureIcon(),
+            layer: 'poi',
+            name: trek.properties.name,
+            description: trek.properties.description,
+            thumbnail: trek.properties.thumbnail
+        };
+        markers['endPoint_' + trek.id] = {
+            lat: endPoint.lat,
+            lng: endPoint.lng,
+            icon: iconsService.getArrivalIcon(),
+            layer: 'poi',
+            name: trek.properties.name,
+            description: trek.properties.description
+        };
 
         angular.forEach(pois, function(poi) {
             var poiCoords = {
@@ -111,18 +109,16 @@ geotrekMap.service('leafletService',
         return markers;
     };
 
-    this.createMarkersCluster = function(treks) {
+    this.createMarkersCluster = function(trekData) {
         var markers = {};
         var trekIcon = iconsService.getTrekIcon();
-        angular.forEach(treks, function(trekData) {
-            var middlePoint = trekData.geometry.coordinates[Math.round(trekData.geometry.coordinates.length/2)];
-            markers['marker' + trekData.id] = {
-                icon: trekIcon,
-                layer: "cluster",
-                lat: middlePoint[1],
-                lng: middlePoint[0],
-            };
-        });
+        var middlePoint = trekData.geometry.coordinates[0];
+        markers['marker' + trekData.id] = {
+            icon: trekIcon,
+            layer: "cluster",
+            lat: middlePoint[1],
+            lng: middlePoint[0],
+        };
 
         return markers;
     };

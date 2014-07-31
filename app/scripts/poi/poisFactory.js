@@ -46,7 +46,9 @@ geotrekPois.factory('poisFactory',
 
     poisFactory.getGeolocalizedPOIsFromTrek = function(trekId) {
 
-        return poisFactory.getPoisFromTrek(trekId)
+        var deferred = $q.defer();
+
+        poisFactory.getPoisFromTrek(trekId)
         .then(function(pois) {
             // Getting user geoloc to compute trek distance from user on-the-fly
             geolocationFactory.getLatLngPosition()
@@ -56,12 +58,14 @@ geotrekPois.factory('poisFactory',
                     var poiPoint = {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]};
                     poi.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, poiPoint.lat, poiPoint.lng).toFixed(2);
                 });
+                deferred.resolve(pois);
             }, function(error) {
                 $log.warn(error);
+                deferred.resolve(pois);
             });
-
-            return pois;
         });
+
+        return deferred.promise;
     };
 
     return poisFactory;

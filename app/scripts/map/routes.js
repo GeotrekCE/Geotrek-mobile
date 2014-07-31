@@ -10,9 +10,6 @@ geotrekMap.config(function($stateProvider) {
         templateUrl : 'views/global_map.html',
         controller: 'MapController',
         resolve: {
-            pois: function(poisFactory) {
-                return poisFactory.getAllPois();
-            },
             mapParameters: function(leafletService) {
                 return leafletService.getMapInitParameters();
             }
