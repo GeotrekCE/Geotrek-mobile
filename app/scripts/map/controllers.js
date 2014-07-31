@@ -2,15 +2,11 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'pois', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory',
-                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, pois, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory) {
-
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
+                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
+    $rootScope.statename = $state.current.name;
     // Initializing leaflet map
     angular.extend($scope, mapParameters);
-
-    // Adding markers linked to current trek
-    var treksMarkers = leafletService.createMarkersFromTreks(treks.features, pois);
-    angular.extend($scope.markers, treksMarkers);
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
         var modalScope = {
@@ -44,6 +40,9 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 
+        // Remove all markers so the displayed markers can fit the search results
+        $scope.markers = {};
+
         angular.extend($scope, {
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
@@ -54,6 +53,32 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
+                },
+                onEachFeature: function(feature, layer) {
+                    // Display treks as icons and cluster them if needed
+                    var cluster = leafletService.createMarkersCluster(feature);
+                    angular.extend($scope.markers, cluster);
+                    leafletData.getMap().then(function(map) {
+                        $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
+                        map.on('zoomend', function() {
+                            $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
+                        });
+                    });
+
+                    // Adding markers linked to current trek
+                    poisFactory.getPoisFromTrek(feature.id)
+                        .then(function(pois) {
+                        var treksMarkers = leafletService.createMarkersFromTrek(feature, pois.features);
+                        angular.extend($scope.markers, treksMarkers);
+                    });
+
+                    // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
+                    // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
+                    layer.on({
+                        click: function(e) {
+                            $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
+                        }
+                    });
                 }
             }
         });
@@ -64,6 +89,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
         });
+
     }
 
     showTreks();
