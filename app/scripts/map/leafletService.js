@@ -116,6 +116,7 @@ geotrekMap.service('leafletService',
         markers['marker' + trekData.id] = {
             icon: trekIcon,
             layer: "cluster",
+            clickable: false,
             lat: middlePoint[1],
             lng: middlePoint[0],
         };
