@@ -7,7 +7,8 @@ $secondaryColor:		$greenDarker;
 $complementaryColor:    white;
 
 $tabs-color:			$dark;
-$tabs-border-color:		$primaryColor;
+$tabs-border-color:		$complementaryColor;
+$tabs-border-active-color: $primaryColor;
 
 $icon-bt-color:			$dark;
 $highlight-text-color:  $green;

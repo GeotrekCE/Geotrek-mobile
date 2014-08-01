@@ -24,10 +24,13 @@
       background: $tabs-color;
     }
 
+    box-shadow: inset 0 -4px 0 $tabs-border-color;
+    color: white;
+
     &.active,
     &.activated {
-      box-shadow: inset 0 -4px 0 $tabs-border-color;
-      color: white;
+      box-shadow: inset 0 -4px 0 $tabs-border-active-color;
+      font-weight: bold;
     }
 
     &:after {
