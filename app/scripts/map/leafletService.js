@@ -28,6 +28,11 @@ geotrekMap.service('leafletService',
                         type: 'group',
                         name: 'poi',
                         visible: false
+                    },
+                    cluster: {
+                        type: 'markercluster',
+                        name: 'cluster',
+                        visible: true
                     }
                 }
             },
@@ -59,31 +64,29 @@ geotrekMap.service('leafletService',
         return deferred.promise;
     };
 
-    this.createMarkersFromTreks = function(treks, pois) {
+    this.createMarkersFromTrek = function(trek, pois) {
         var markers = {};
 
-        angular.forEach(treks, function(trek) {
-            var startPoint = treksFactory.getStartPoint(trek);
-            var endPoint = treksFactory.getEndPoint(trek);
+        var startPoint = treksFactory.getStartPoint(trek);
+        var endPoint = treksFactory.getEndPoint(trek);
 
-            markers['startPoint_' + trek.id] = {
-                lat: startPoint.lat,
-                lng: startPoint.lng,
-                icon: iconsService.getDepartureIcon(),
-                layer: 'poi',
-                name: trek.properties.name,
-                description: trek.properties.description,
-                thumbnail: trek.properties.thumbnail
-            };
-            markers['endPoint_' + trek.id] = {
-                lat: endPoint.lat,
-                lng: endPoint.lng,
-                icon: iconsService.getArrivalIcon(),
-                layer: 'poi',
-                name: trek.properties.name,
-                description: trek.properties.description
-            };
-        });
+        markers['startPoint_' + trek.id] = {
+            lat: startPoint.lat,
+            lng: startPoint.lng,
+            icon: iconsService.getDepartureIcon(),
+            layer: 'poi',
+            name: trek.properties.name,
+            description: trek.properties.description,
+            thumbnail: trek.properties.thumbnail
+        };
+        markers['endPoint_' + trek.id] = {
+            lat: endPoint.lat,
+            lng: endPoint.lng,
+            icon: iconsService.getArrivalIcon(),
+            layer: 'poi',
+            name: trek.properties.name,
+            description: trek.properties.description
+        };
 
         angular.forEach(pois, function(poi) {
             var poiCoords = {
@@ -102,6 +105,21 @@ geotrekMap.service('leafletService',
                 pictogram: poi.properties.type.pictogram
             };
         });
+
+        return markers;
+    };
+
+    this.createMarkersCluster = function(trekData) {
+        var markers = {};
+        var trekIcon = iconsService.getTrekIcon();
+        var middlePoint = trekData.geometry.coordinates[0];
+        markers['marker' + trekData.id] = {
+            icon: trekIcon,
+            layer: "cluster",
+            clickable: false,
+            lat: middlePoint[1],
+            lng: middlePoint[0],
+        };
 
         return markers;
     };
