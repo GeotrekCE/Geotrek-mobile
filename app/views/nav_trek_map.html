@@ -31,7 +31,10 @@
 
         <ion-header-bar class="bar-subheader bar-dark">
             <div class="button-bar">
-                <a class="button" ui-sref="home.trek" ui-sref-active="active">{{ 'nav_trek_map.ways' | translate }}<span class="trek-list--number">{{ (treks.features | filter:filterTreks | filter:{properties:activeFilters.search}).length }}</span></a>
+                <a class="button" ui-sref="home.trek" ui-sref-active="active">
+                    <span class="trek-list--number">{{ (treks.features | filter:filterTreks | filter:{properties:activeFilters.search}).length }}</span>
+                    {{ 'nav_trek_map.ways' | translate }}
+                </a>
                 <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">{{ 'nav_trek_map.map' | translate }}</a>
             </div>
         </ion-header-bar>

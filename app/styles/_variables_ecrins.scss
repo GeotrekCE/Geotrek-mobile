@@ -4,13 +4,15 @@
 
 $purple:				#893286;
 $purpleLight:			#974B95;
+$green:                 #CEDC00;
 
 $primaryColor:			$purple;
 $secondaryColor:		$purpleLight;
 $complementaryColor:    white;
 
 $tabs-color:			$purple;
-$tabs-border-color:		white;
+$tabs-border-color:		grey;
+$tabs-border-active-color: $green;
 
 $icon-bt-color:			$secondaryColor;
 $highlight-text-color:  $purple;

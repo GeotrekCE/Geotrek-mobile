@@ -24,16 +24,27 @@
       background: $tabs-color;
     }
 
+    box-shadow: inset 0 -4px 0 $tabs-border-color;
+    color: white;
+
     &.active,
     &.activated {
-      box-shadow: inset 0 -4px 0 $tabs-border-color;
-      color: white;
+      box-shadow: inset 0 -4px 0 $tabs-border-active-color;
+      font-weight: bold;
     }
 
     &:after {
       display: none;
     }
   }
+}
+
+.bar-subheader .button-bar {
+   
+  .button + .button {
+    border-left: 3px solid $tabs-border-active-color;
+  }
+
 }
 
 .bar-subheader .button-bar > .button {
@@ -47,6 +58,7 @@
     border-radius: 0;
   }
 }
+
 
 .bar-secondary {
   .button-back {
