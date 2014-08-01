@@ -4,7 +4,7 @@
         <ion-header-bar class="bar-main bar-light item-input-inset" ng-switch on="showSearch.search">
             <button class="button button-icon icon ion-navicon button-logo" menu-toggle="left">
             </button>
-            <h1 class="app-title">Rando Ecrin</h1>
+
             <div class="flex-wrapper" ng-switch-when="1">
                 <label class="item-input-wrapper">
                     <i class="icon ion-ios7-search placeholder-icon"></i>
@@ -14,16 +14,20 @@
                     {{ 'nav_trek_map.cancel' | translate }}
                 </button>
             </div>
-            <div class="buttons pull-right" ng-switch-default>
-                <button class="button button-icon" ng-click="showSearch.search=1">
-                    <i class="icon ion-search"></i>
-                </button>
-                <img class="network-state" ng-show="$root.network_available" src="images/icon_online.png"/>
-                <img class="network-state" ng-hide="$root.network_available" src="images/icon_offline.png"/>
-                <a class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></a>
-                <button class="button button-icon" ng-click="showMore()">
-                    <i class="icon ion-android-more"></i>
-                </button>
+
+            <div ng-switch-default>
+                <h1 class="app-title">Rando Ecrin</h1>
+                <div class="buttons pull-right">
+                    <button class="button button-icon" ng-click="showSearch.search=1">
+                        <i class="icon ion-search"></i>
+                    </button>
+                    <img class="network-state" ng-show="$root.network_available" src="images/icon_online.png"/>
+                    <img class="network-state" ng-hide="$root.network_available" src="images/icon_offline.png"/>
+                    <a class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></a>
+                    <button class="button button-icon" ng-click="showMore()">
+                        <i class="icon ion-android-more"></i>
+                    </button>
+                </div>
             </div>
         </ion-header-bar>
 
