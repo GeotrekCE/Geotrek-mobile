@@ -92,6 +92,11 @@ $bar-dark-active-border:          transparent;
 	}
 }
 
+h1.app-title {
+    font-size: 140%;
+    margin: 0 0.5em;
+}
+
 //
 // Icons specific fixes
 // --------------------------------------------------
@@ -99,16 +104,13 @@ $bar-dark-active-border:          transparent;
 .bar .button.button-logo {
 	width: 45px;
 	background:url(../images/logo_pn.svg) top right no-repeat;
-	position: absolute;
-	top: 5px;
-	left: 15px;
 	border: none;
-    padding-left: 25px;
+    padding-left: 45px;
 
 	&:before {
         position: absolute;
         top: 0;
-		margin-left: -48px;
+        left: -12px;
 	}
 }
 
