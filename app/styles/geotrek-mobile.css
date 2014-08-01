@@ -320,6 +320,11 @@
   to {
     stroke-width: 50;
     stroke-opacity: 0; } }
+span.network-status {
+  position: absolute;
+  top: 15px;
+  right: 50px; }
+
 .leaflet-container {
   width: 100%;
   height: 100%; }

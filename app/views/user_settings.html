@@ -12,10 +12,11 @@
     <!-- Modal content area -->
     <ion-content>
 
-        <div class="item item-divider">
-            {{ 'user_parameters.parameters' | translate }}
-        </div>
         <ion-list class="user-parameters">
+
+            <div class="item item-divider">
+                {{ 'user_parameters.global' | translate }}
+            </div>
 
             <ion-item class="item item-input item-select">
                 <div class="input-label">
@@ -25,6 +26,26 @@
                 </select>
             </ion-item>
 
+            <div class="item item-divider">
+                {{ 'user_parameters.network' | translate }}
+            </div>
+
+            <ion-item class="item-input">
+                <div class="input-label">
+                  {{ 'user_parameters.is_connected' | translate }}
+                </div>
+                <label class="pull-right">
+                    <span class="network-status" ng-switch="$root.network_available">
+                        <div ng-switch-when="true">
+                        {{ 'user_parameters.network_reachable' | translate }}
+                        </div>
+                        <div ng-switch-when="false">
+                        {{ 'user_parameters.network_not_reachable' | translate }}
+                        </div>
+                    </span>
+                </label>
+            </ion-item>
+
             <ion-item class="item item-input item-select">
                 <div class="input-label">
                   {{ 'user_parameters.synchronization_mode' | translate }}
@@ -32,6 +53,10 @@
                 <select ng-model="userSettings.synchronizationMode" ng-options="data.label for (key, data) in connections">
                 </select>
             </ion-item>
+
+            <div class="item item-divider">
+                {{ 'user_parameters.map' | translate }}
+            </div>
 
             <ion-item class="item-toggle">
                 <div class="input-label">
@@ -56,6 +81,7 @@
                     </button>
                 </label>
             </ion-item>
+
 
         </ion-list>
 
