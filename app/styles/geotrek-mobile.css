@@ -153,17 +153,20 @@
   .bar-dark .button {
     border: none;
     background: #893286;
-    box-shadow: inset 0 -4px 0 white;
+    box-shadow: inset 0 -4px 0 gray;
     color: white; }
     .bar-dark .button.activated {
       background: rgba(137, 50, 134, 0.6); }
     .bar-dark .button.active {
       background: #893286; }
     .bar-dark .button.active, .bar-dark .button.activated {
-      box-shadow: inset 0 -4px 0 gray;
+      box-shadow: inset 0 -4px 0 #cedc00;
       font-weight: bold; }
     .bar-dark .button:after {
       display: none; }
+
+.bar-subheader .button-bar .button + .button {
+  border-left: 3px solid #cedc00; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;

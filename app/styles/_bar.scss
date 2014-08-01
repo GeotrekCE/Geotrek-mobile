@@ -39,6 +39,14 @@
   }
 }
 
+.bar-subheader .button-bar {
+   
+  .button + .button {
+    border-left: 3px solid $tabs-border-active-color;
+  }
+
+}
+
 .bar-subheader .button-bar > .button {
   min-height: $button-bar-button-height - 1 + 12;
   line-height: $button-bar-button-height + 12;
@@ -50,6 +58,7 @@
     border-radius: 0;
   }
 }
+
 
 .bar-secondary {
   .button-back {
