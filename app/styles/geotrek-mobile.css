@@ -319,6 +319,11 @@
   to {
     stroke-width: 50;
     stroke-opacity: 0; } }
+span.network-status {
+  position: absolute;
+  top: 15px;
+  right: 50px; }
+
 .leaflet-container {
   width: 100%;
   height: 100%; }
@@ -334,15 +339,19 @@
     border-radius: 5px;
     font-size: 14px; }
 
+h1.app-title {
+  font-size: 140%;
+  margin: 0 0.5em; }
+
 .bar .button.button-logo {
   width: 45px;
   background: url(../images/logo_pn.svg) top right no-repeat;
-  position: absolute;
-  top: 5px;
-  left: 0;
-  border: none; }
+  border: none;
+  padding-left: 45px; }
   .bar .button.button-logo:before {
-    margin-left: -48px; }
+    position: absolute;
+    top: 0;
+    left: -12px; }
 
 .bar .button.button-icon [class*="ion-android"]:before {
   font-size: 22px; }

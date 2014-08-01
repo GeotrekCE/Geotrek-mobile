@@ -22,13 +22,18 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.on_road': 'En chemin',
         'trek_list.departure': 'Départ',
         'trek_list.distance': 'Distance',
-        'user_parameters.parameters': 'Paramètres',
+        'user_parameters.global': 'Général',
         'user_parameters.back': 'Retour',
         'user_parameters.language': 'Langage',
         'user_parameters.synchronization_mode': 'Sync. des données',
         'user_parameters.poi_alert': 'Alerte près d\'un POI (si GPS)',
+        'user_parameters.map': 'Carte',
         'user_parameters.clean_maps': 'Nettoyer les cartes',
-        'user_parameters.clean': 'Suppression'
+        'user_parameters.clean': 'Suppression',
+        'user_parameters.network': 'Réseau',
+        'user_parameters.is_connected': 'Connecté ?',
+        'user_parameters.network_reachable': 'Oui',
+        'user_parameters.network_not_reachable': 'Non'
     },
     'en': {
         'nav_trek_map.ways': 'Ways',
@@ -48,13 +53,18 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.on_road': 'On road',
         'trek_list.departure': 'Departure',
         'trek_list.distance': 'Distance',
-        'user_parameters.parameters': 'Parameters',
+        'user_parameters.global': 'Global',
         'user_parameters.back': 'Back',
         'user_parameters.language': 'Language',
         'user_parameters.synchronization_mode': 'Synchronization mode',
         'user_parameters.poi_alert': 'POI alert (GPS only)',
+        'user_parameters.map': 'Map settings',
         'user_parameters.clean_maps': 'Clean maps',
-        'user_parameters.clean': 'Delete'
+        'user_parameters.clean': 'Delete',
+        'user_parameters.network': 'Network',
+        'user_parameters.is_connected': 'Online ?',
+        'user_parameters.network_reachable': 'Yes',
+        'user_parameters.network_not_reachable': 'No'
     }
 })
 
