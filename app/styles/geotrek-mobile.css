@@ -16,8 +16,9 @@
 .trek-list {
   display: block; }
 
+.trek-list__item h3 {
+  color: #893286; }
 .trek-list__item .departure {
-  color: #893286;
   margin-bottom: 0; }
 .trek-list__item .difficulty {
   margin-bottom: 0; }
@@ -166,7 +167,7 @@
       display: none; }
 
 .bar-subheader .button-bar .button + .button {
-  border-left: 3px solid #cedc00; }
+  border-left: 4px solid #cedc00; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;
@@ -348,6 +349,15 @@ span.network-status {
 h1.app-title {
   font-size: 140%;
   margin: 0 0.5em; }
+
+.list .item-toggle {
+  padding: 8px; }
+
+.item p {
+  color: #919388; }
+
+.icon {
+  color: #4d4a4a; }
 
 .bar .button.button-logo {
   width: 45px;
