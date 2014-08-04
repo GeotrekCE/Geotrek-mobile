@@ -72,6 +72,9 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                         angular.extend($scope.markers, treksMarkers);
                     });
 
+                    // Adding arrows to show trek's direction
+                    layer.setText('>         ', {repeat:true, offset: 10});
+
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
                     layer.on({
