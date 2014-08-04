@@ -23,6 +23,15 @@
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
 
+            <ul class="trek-detail__main-infos">
+                <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
+                <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
+                <li class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
+                <li class="trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
+                <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
+                <li class="trek-detail__main-infos__item icon-valleys">Valleys</li>
+            </ul>
+
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide>
                     <img ng-src="{{ trek.properties.pictures.0.url }}">
