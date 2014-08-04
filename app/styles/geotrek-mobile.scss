@@ -97,9 +97,21 @@ h1.app-title {
     margin: 0 0.5em;
 }
 
+.list .item-toggle {
+    padding: 8px;
+}
+
+.item p {
+    color: $complementaryColor2;
+}
+
 //
 // Icons specific fixes
 // --------------------------------------------------
+
+.icon {
+    color: #4d4a4a;
+}
 
 .bar .button.button-logo {
 	width: 45px;

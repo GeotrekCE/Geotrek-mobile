@@ -3,8 +3,11 @@
 }
 
 .trek-list__item {
+    h3 {
+        color: $highlight-text-color;
+    }
+
 	.departure {
-		color: $highlight-text-color;
 		margin-bottom: 0;
 	}
 	.difficulty {
