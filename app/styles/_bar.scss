@@ -64,11 +64,16 @@
   .button-back {
     white-space: nowrap;
     overflow: hidden;
-    color: $highlight-text-color;
+    color: $complementaryColor2;
     padding-right: 91px;
   }
 
+
+  .modal__actions i {
+      color: $primaryColor;
+  }
+
   i {
-    color: $icon-bt-color;
+    color: $complementaryColor2;
   }
 }

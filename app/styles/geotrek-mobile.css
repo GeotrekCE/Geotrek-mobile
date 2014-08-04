@@ -180,10 +180,12 @@
 .bar-secondary .button-back {
   white-space: nowrap;
   overflow: hidden;
-  color: #981d97;
+  color: #4d4a4a;
   padding-right: 91px; }
-.bar-secondary i {
+.bar-secondary .modal__actions i {
   color: #981d97; }
+.bar-secondary i {
+  color: #4d4a4a; }
 
 .platform-android .action-sheet, .platform-browser .action-sheet {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -301,6 +303,9 @@
   [state^='home.map'] .modal-backdrop .item {
     background-color: transparent; }
 
+.modal__actions i {
+  color: #981d97; }
+
 .leaflet-control-layers.leaflet-control {
   display: none; }
 
@@ -354,7 +359,7 @@ h1.app-title {
   padding: 8px; }
 
 .item p {
-  color: #919388; }
+  color: #4d4a4a; }
 
 .icon {
   color: #4d4a4a; }
