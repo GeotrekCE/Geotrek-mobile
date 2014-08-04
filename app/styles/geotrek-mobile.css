@@ -111,6 +111,43 @@
   margin-left: -10px;
   min-width: 130px; }
 
+.trek-detail__main-infos {
+  background-color: #981d97;
+  padding: 5px;
+  margin: 0 -10px; }
+
+.trek-detail__main-infos__item {
+  padding: 10px 5px 10px 40px;
+  display: inline-block;
+  width: 130px;
+  position: relative;
+  color: white; }
+
+.trek-detail__main-infos__item:before {
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  left: 5px; }
+
+.icon-duration:before {
+  content: url("../images/duration-1.svg"); }
+
+.icon-difficulty:before {
+  content: url("../images/difficulty-2.svg"); }
+
+.icon-ascent:before {
+  content: url("../images/deniv1.svg");
+  top: -5px; }
+
+.icon-total-length:before {
+  content: url("../images/difficulty-2.svg"); }
+
+.icon-route:before {
+  content: url("../images/difficulty-2.svg"); }
+
+.icon-valleys:before {
+  content: url("../images/difficulty-2.svg"); }
+
 .button.icon-top:before {
   display: block; }
 
@@ -179,10 +216,12 @@
 .bar-secondary .button-back {
   white-space: nowrap;
   overflow: hidden;
-  color: #981d97;
+  color: #4d4a4a;
   padding-right: 91px; }
-.bar-secondary i {
+.bar-secondary .modal__actions i {
   color: #981d97; }
+.bar-secondary i {
+  color: #4d4a4a; }
 
 .platform-android .action-sheet, .platform-browser .action-sheet {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -300,6 +339,9 @@
   [state^='home.map'] .modal-backdrop .item {
     background-color: transparent; }
 
+.modal__actions i {
+  color: #981d97; }
+
 .leaflet-control-layers.leaflet-control {
   display: none; }
 
@@ -353,7 +395,7 @@ h1.app-title {
   padding: 8px; }
 
 .item p {
-  color: #919388; }
+  color: #4d4a4a; }
 
 .icon {
   color: #4d4a4a; }

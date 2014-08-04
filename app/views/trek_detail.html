@@ -5,9 +5,9 @@
         <a ng-if="$root.isIOS" class="button button-clear button-positive" ui-sref="home.trek">Cancel</a>
         <button ng-if="$root.isAndroid" class="button button-back button-icon" ui-sref="home.trek">
             <i class="icon ion-android-arrow-back"></i>
-            {{ trek.properties.name }}
+            Rando Ecrins
         </button>
-        <div class="buttons pull-right">
+        <div class="buttons pull-right modal__actions">
             <button class="button button-icon" ng-click="newTask()">
                 <i class="icon ion-android-forums"></i>
             </button>
@@ -22,6 +22,15 @@
 
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
+
+            <ul class="trek-detail__main-infos">
+                <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
+                <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
+                <li class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
+                <li class="trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
+                <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
+                <li class="trek-detail__main-infos__item icon-valleys">Valleys</li>
+            </ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide>

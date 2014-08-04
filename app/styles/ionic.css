@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
   Ionicons, v1.5.2
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -8241,8 +8242,3 @@ a.button {
   to {
     transform: scale(1);
     opacity: 1; } }
-.list .item-toggle {
-  padding: 8px; }
-
-.icon {
-  color: #4d4a4a; }
