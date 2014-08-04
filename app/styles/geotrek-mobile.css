@@ -17,7 +17,7 @@
   display: block; }
 
 .trek-list__item h3 {
-  color: #893286; }
+  color: #981d97; }
 .trek-list__item .departure {
   margin-bottom: 0; }
 .trek-list__item .difficulty {
@@ -57,7 +57,7 @@
       padding: 4px 45px 5px 15px;
       color: white;
       direction: ltr;
-      background-color: #974b95;
+      background-color: #981d97;
       border: 1px solid white; }
 
 .filters-list__item {
@@ -103,7 +103,7 @@
   font-size: 18px; }
 
 .trek-detail__section-title {
-  background: #893286;
+  background: #981d97;
   color: white;
   font-size: 14px;
   display: inline-block;
@@ -124,7 +124,7 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #893286; }
+  background-color: #981d97; }
   .switch-detail-map a {
     color: white;
     text-decoration: none; }
@@ -138,7 +138,7 @@
     max-width: 100%; }
 
 .slider-legend {
-  color: #893286; }
+  color: #981d97; }
 
 .slider-pager {
   bottom: 5px; }
@@ -153,13 +153,13 @@
   padding: 0; }
   .bar-dark .button {
     border: none;
-    background: #893286;
+    background: #981d97;
     box-shadow: inset 0 -4px 0 gray;
     color: white; }
     .bar-dark .button.activated {
-      background: rgba(137, 50, 134, 0.6); }
+      background: rgba(152, 29, 151, 0.6); }
     .bar-dark .button.active {
-      background: #893286; }
+      background: #981d97; }
     .bar-dark .button.active, .bar-dark .button.activated {
       box-shadow: inset 0 -4px 0 #cedc00;
       font-weight: bold; }
@@ -180,10 +180,10 @@
 .bar-secondary .button-back {
   white-space: nowrap;
   overflow: hidden;
-  color: #893286;
+  color: #981d97;
   padding-right: 91px; }
 .bar-secondary i {
-  color: #974b95; }
+  color: #981d97; }
 
 .platform-android .action-sheet, .platform-browser .action-sheet {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -255,7 +255,7 @@
   padding: 1em; }
 
 #loading-bar .bar {
-  background: #893286;
+  background: #981d97;
   padding: 0;
   height: 4px; }
 #loading-bar .peg {
@@ -339,7 +339,7 @@ span.network-status {
   overflow: hidden; }
 
 .menu-left {
-  background: #974b95; }
+  background: #981d97; }
   .menu-left .scroll-content {
     padding: 0 10px; }
   .menu-left .button-block {
