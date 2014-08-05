@@ -16,7 +16,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     });
 
     $scope.$on('leafletDirectiveMap.geojsonClick', function(event, trek) {
-        console.log(trek);
         var modalScope = {
             objectToDisplay: {
                 name: trek.properties.name,
