@@ -54,6 +54,7 @@ $bar-dark-active-border:          transparent;
 
 // Partials imports
 // -------------------------
+@import "_icons";
 @import "_trek-list";
 @import "_filters-list";
 @import "_trek-detail";
@@ -68,7 +69,6 @@ $bar-dark-active-border:          transparent;
 @import "_modal";
 @import "_leaflet-custom";
 @import "_user-settings";
-
 
 .leaflet-container {
 	width: 100%;

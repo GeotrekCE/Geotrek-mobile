@@ -10,7 +10,7 @@
                 <a ng-if="!trek.mbtiles.isDownloaded && !trek.mbtiles.inDownloadProgress" ng-click="$event.stopPropagation(); downloadTile(trek.id);" class="trek-list__item__detail-bt button-icon icon ion-archive"></a>
                 <span ng-if="trek.mbtiles.inDownloadProgress">{{ trek.mbtiles.realProgress }}%</span>
                 <a ng-if="trek.mbtiles.isDownloaded && !trek.mbtiles.inDownloadProgress" ng-click="$event.stopPropagation(); removeTile(trek.id);" class="trek-list__item__detail-bt button-icon icon ion-trash-a"></a>
-                <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon ion-ios7-information"></a>
+                <a ui-sref="home.trek.detail({ trekId: trek.id })" ng-click="$event.stopPropagation()" class="trek-list__item__detail-bt button-icon icon icon-geotrek icon-binoculars"></a>
             </div>
         </ion-item>
     </ion-list>

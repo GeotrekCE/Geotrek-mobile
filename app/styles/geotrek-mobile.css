@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .flex-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -11,6 +12,12 @@
   -moz-flex: 1 0;
   -ms-flex: 1 0;
   flex: 1 0; }
+
+.icon-geotrek {
+  font-family: "geotrek-mobile";
+  vertical-align: middle; }
+  .icon-geotrek.icon-binoculars:before {
+    content: "b"; }
 
 .trek-list {
   display: block; }

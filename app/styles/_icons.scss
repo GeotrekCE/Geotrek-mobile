@@ -1,0 +1,10 @@
+
+.icon-geotrek {
+    
+    font-family: "geotrek-mobile";
+    vertical-align: middle;
+
+    &.icon-binoculars:before {
+        content: "b";
+    }
+}
