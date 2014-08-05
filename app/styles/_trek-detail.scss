@@ -50,6 +50,11 @@
 	left: 5px;	
 }
 
+
+.trek-detail__main-infos__item.icon {
+	color: white;
+}
+
 .icon-duration:before {
 	content: url('../images/duration-1.svg');
 }
@@ -60,7 +65,7 @@
 
 .icon-ascent:before {
 	content: url('../images/deniv1.svg');
-	top: -5px;
+	top: -1px;
 }
 
 .icon-total-length:before {
@@ -71,6 +76,9 @@
 	content: url('../images/difficulty-2.svg');
 }
 
-.icon-valleys:before {
-	content: url('../images/difficulty-2.svg');
+.trek-detail__main-infos__item.icon.ion-android-locate:before {
+	font-size: 20px;
+	color: white;
+	top: 11px;
+	left: 11px;
 }

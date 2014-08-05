@@ -48,7 +48,7 @@ geotrekTreks.config(function($stateProvider) {
         controller: 'TrekDetailController',
         resolve: {
             trek: function(treksFactory, $stateParams) {
-                return treksFactory.getTrek($stateParams.trekId);
+                return treksFactory.getGeolocalizedTrek($stateParams.trekId);
             },
             pois: function(poisFactory, $stateParams) {
                 return poisFactory.getGeolocalizedPOIsFromTrek($stateParams.trekId);

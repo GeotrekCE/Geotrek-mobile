@@ -33,7 +33,9 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
 
     treksFactory.getGeolocalizedTreks = function() {
 
-        return treksFactory.getTreks()
+        var deferred = $q.defer();
+
+        treksFactory.getTreks()
         .then(function(treks) {
 
             // Getting user geoloc to compute trek distance from user on-the-fly
@@ -46,12 +48,40 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
                     trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, startPoint.lat, startPoint.lng).toFixed(2);
                 });
 
+                deferred.resolve(treks);
+
             }, function(error) {
                 $log.warn(error);
+                deferred.resolve(treks);
             });
-
-            return treks;
         });
+
+        return deferred.promise;
+    };
+
+    treksFactory.getGeolocalizedTrek = function(_trekId) {
+
+        var deferred = $q.defer();
+
+        treksFactory.getTrek(_trekId)
+        .then(function(trek) {
+
+            // Getting user geoloc to compute trek distance from user on-the-fly
+            geolocationFactory.getLatLngPosition()
+            .then(function(userPosition) {
+
+                // First coordinate is trek starting point
+                var startPoint = treksFactory.getStartPoint(trek);
+                trek.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, startPoint.lat, startPoint.lng).toFixed(2);
+                deferred.resolve(trek);
+
+            }, function(error) {
+                $log.warn(error);
+                deferred.resolve(trek);
+            });
+        });
+
+        return deferred.promise;
     };
 
     treksFactory.getTrek = function(_trekId) {
