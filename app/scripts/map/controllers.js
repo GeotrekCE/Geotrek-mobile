@@ -16,10 +16,15 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     });
 
     $scope.$on('leafletDirectiveMap.geojsonClick', function(event, trek) {
+        console.log(trek);
         var modalScope = {
             objectToDisplay: {
                 name: trek.properties.name,
-                description: trek.properties.description
+                description: trek.properties.description,
+                duration_pretty: trek.properties.duration_pretty,
+                difficulty: trek.properties.difficulty,
+                ascent: trek.properties.ascent,
+                length: trek.properties.length
             }
         }
         utils.createModal('views/map_trek_detail.html', modalScope);
@@ -59,9 +64,9 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                     var cluster = leafletService.createMarkersCluster(feature);
                     angular.extend($scope.markers, cluster);
                     leafletData.getMap().then(function(map) {
-                        $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
+                        $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 10);
                         map.on('zoomend', function() {
-                            $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 12);
+                            $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 10);
                         });
                     });
 
