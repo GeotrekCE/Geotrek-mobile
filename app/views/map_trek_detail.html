@@ -30,6 +30,8 @@
                 <div class="poi-detail__description" ng-bind-html="objectToDisplay.description"></div>
                 </div>
             </ion-item>
+
+            <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-geotrek icon-binoculars"></a>
         </div>
 
     </ion-content>

@@ -14,7 +14,8 @@
 
 .icon-geotrek {
   font-family: "geotrek-mobile";
-  vertical-align: middle; }
+  vertical-align: middle;
+  text-decoration: none; }
   .icon-geotrek.icon-binoculars:before {
     content: "b"; }
 

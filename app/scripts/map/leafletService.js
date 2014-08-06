@@ -76,7 +76,6 @@ geotrekMap.service('leafletService',
             icon: iconsService.getDepartureIcon(),
             layer: 'poi',
             name: trek.properties.departure,
-            thumbnail: trek.properties.thumbnail
         };
         markers['endPoint_' + trek.id] = {
             lat: endPoint.lat,

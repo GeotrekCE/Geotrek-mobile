@@ -23,7 +23,8 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                 duration_pretty: trek.properties.duration_pretty,
                 difficulty: trek.properties.difficulty,
                 ascent: trek.properties.ascent,
-                length: trek.properties.length
+                length: trek.properties.length,
+                id: trek.id
             }
         }
         utils.createModal('views/map_trek_detail.html', modalScope);
