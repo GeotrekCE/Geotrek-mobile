@@ -75,8 +75,7 @@ geotrekMap.service('leafletService',
             lng: startPoint.lng,
             icon: iconsService.getDepartureIcon(),
             layer: 'poi',
-            name: trek.properties.name,
-            description: trek.properties.description,
+            name: trek.properties.departure,
             thumbnail: trek.properties.thumbnail
         };
         markers['endPoint_' + trek.id] = {
@@ -84,8 +83,7 @@ geotrekMap.service('leafletService',
             lng: endPoint.lng,
             icon: iconsService.getArrivalIcon(),
             layer: 'poi',
-            name: trek.properties.name,
-            description: trek.properties.description
+            name: trek.properties.arrival,
         };
 
         angular.forEach(pois, function(poi) {
