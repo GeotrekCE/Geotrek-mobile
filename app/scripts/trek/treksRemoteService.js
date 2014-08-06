@@ -20,6 +20,9 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             angular.forEach(trek.properties.pictures, function(picture) {
                 picture.url = settings.DOMAIN_NAME + picture.url;
             });
+            angular.forEach(trek.properties.usages, function(usage) {
+                usage.pictogram = settings.DOMAIN_NAME + usage.pictogram;
+            });
         });
         return copy;
     };

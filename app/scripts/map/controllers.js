@@ -11,7 +11,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
         var modalScope = {
             objectToDisplay: $scope.markers[args.markerName]
-        }
+        };
         utils.createModal('views/map_trek_detail.html', modalScope);
     });
 
@@ -24,9 +24,10 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                 difficulty: trek.properties.difficulty,
                 ascent: trek.properties.ascent,
                 length: trek.properties.length,
-                id: trek.id
+                id: trek.id,
+                usages: trek.properties.usages
             }
-        }
+        };
         utils.createModal('views/map_trek_detail.html', modalScope);
     });
 

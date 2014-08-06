@@ -161,6 +161,16 @@
   top: 11px;
   left: 11px; }
 
+.trek-detail__usage-infos {
+  padding: 5px; }
+
+.trek-detail__usage-infos__item {
+  display: inline-block;
+  position: relative; }
+
+.trek-detail__usage-infos__item.icon {
+  height: 30px; }
+
 .button.icon-top:before {
   display: block; }
 
