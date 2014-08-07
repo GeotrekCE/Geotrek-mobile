@@ -89,7 +89,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
         });
-
     }
 
     showTreks();
@@ -102,6 +101,15 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     }
 
     setAttribution();
+
+    // Show the scale control
+    function setScale() {
+        leafletData.getMap().then(function(map) {
+            L.control.scale({imperial: false}).addTo(map);
+        });
+    }
+
+    setScale();
 
     // Adding user current position
     geolocationFactory.getLatLngPosition()
