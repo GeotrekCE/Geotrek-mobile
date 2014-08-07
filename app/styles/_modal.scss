@@ -7,8 +7,10 @@
     }
 
     .object-title {
-        padding: 0.3em;
+        padding-right: 0.3em;
+        padding-left: 0.3em;
         overflow: hidden;
+        min-height: 40px;
 
         img {
             vertical-align: top;
@@ -19,9 +21,9 @@
     h3 {
         margin-top: 0em;
         margin-left: 0.2em;
-        padding-right: 1.5em;
+        padding-right: 30px;
         color: grey;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     object-detail {

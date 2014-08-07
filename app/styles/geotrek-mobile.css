@@ -161,9 +161,6 @@
   top: 11px;
   left: 11px; }
 
-.trek-detail__usage-infos {
-  padding: 5px; }
-
 .trek-detail__usage-infos__item {
   display: inline-block;
   position: relative; }
@@ -346,17 +343,19 @@
   bottom: 0;
   top: auto; }
 [state^='home.map'] .modal-backdrop .object-title {
-  padding: 0.3em;
-  overflow: hidden; }
+  padding-right: 0.3em;
+  padding-left: 0.3em;
+  overflow: hidden;
+  min-height: 40px; }
   [state^='home.map'] .modal-backdrop .object-title img {
     vertical-align: top;
     display: inline-block; }
 [state^='home.map'] .modal-backdrop h3 {
   margin-top: 0em;
   margin-left: 0.2em;
-  padding-right: 1.5em;
+  padding-right: 30px;
   color: grey;
-  font-size: 20px; }
+  font-size: 16px; }
 [state^='home.map'] .modal-backdrop object-detail {
   padding: 6px; }
 [state^='home.map'] .modal-backdrop .item {
