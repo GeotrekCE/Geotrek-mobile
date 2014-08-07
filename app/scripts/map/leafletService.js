@@ -28,11 +28,6 @@ geotrekMap.service('leafletService',
                         type: 'group',
                         name: 'poi',
                         visible: false
-                    },
-                    cluster: {
-                        type: 'markercluster',
-                        name: 'cluster',
-                        visible: true
                     }
                 }
             },
@@ -102,21 +97,6 @@ geotrekMap.service('leafletService',
                 pictogram: poi.properties.type.pictogram
             };
         });
-
-        return markers;
-    };
-
-    this.createMarkersCluster = function(trekData) {
-        var markers = {};
-        var trekIcon = iconsService.getTrekIcon();
-        var middlePoint = trekData.geometry.coordinates[0];
-        markers['marker' + trekData.id] = {
-            icon: trekIcon,
-            layer: "cluster",
-            clickable: false,
-            lat: middlePoint[1],
-            lng: middlePoint[0],
-        };
 
         return markers;
     };

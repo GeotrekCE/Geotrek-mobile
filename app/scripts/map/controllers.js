@@ -61,15 +61,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
                     }
                 },
                 onEachFeature: function(feature, layer) {
-                    // Display treks as icons and cluster them if needed
-                    var cluster = leafletService.createMarkersCluster(feature);
-                    angular.extend($scope.markers, cluster);
-                    leafletData.getMap().then(function(map) {
-                        $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 10);
-                        map.on('zoomend', function() {
-                            $scope.layers.overlays['cluster'].visible = (map.getZoom() <= 10);
-                        });
-                    });
 
                     // Adding markers linked to current trek
                     poisFactory.getPoisFromTrek(feature.id)
@@ -151,5 +142,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
         // Filling map with current trek
         map.fitBounds(currentTrekBounds, options);
     });
+
+
 
 }]);
