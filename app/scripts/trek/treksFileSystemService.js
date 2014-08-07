@@ -20,6 +20,12 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
 
                 picture.url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
+            angular.forEach(trek.properties.usages, function(usage) {
+                var usageUrl = usage.pictogram;
+                var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
+
+                usage.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+            });
         });
         return copy;
     };
@@ -48,6 +54,13 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
 
                     var serverUrl = settings.DOMAIN_NAME + pictureUrl;
                     var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
+                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                });
+                angular.forEach(trek.properties.usages, function(usage) {
+                    var usageUrl = usage.pictogram;
+
+                    var serverUrl = settings.DOMAIN_NAME + usageUrl;
+                    var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
                     promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
                 });
             })

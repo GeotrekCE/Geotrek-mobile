@@ -40,6 +40,7 @@ geotrekAppSettings.constant('globalSettings', {
      *  |-- <TREK_DIR>
      *      |-- <trek_1> (ex: 2)
      *          |-- <picture1.jpg>
+     *          |-- <usage1.jpg>
      *          |-- pois.geojson
      *      |-- <trek_2> (ex: 2854)
      *      ...
