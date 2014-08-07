@@ -22,13 +22,15 @@ geotrekAppSettings.constant('globalSettings', {
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
         GLOBAL_MAP_CENTER_LONGITUDE: 1.37,
-        GLOBAL_MAP_DEFAULT_ZOOM: 12
+        GLOBAL_MAP_DEFAULT_ZOOM: 12,
+        GLOBAL_MAP_ATTRIBUTION: '<a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | &copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'
     };
 
     var ecrin_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 44.8,
         GLOBAL_MAP_CENTER_LONGITUDE: 6.2,
-        GLOBAL_MAP_DEFAULT_ZOOM: 9
+        GLOBAL_MAP_DEFAULT_ZOOM: 9,
+        GLOBAL_MAP_ATTRIBUTION: '&copy; IGN Geoportail'
     };
 
     var leaflet_conf = leaflet_dev_conf;

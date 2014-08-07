@@ -94,6 +94,15 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
     showTreks();
 
+    // Set the global map attribution
+    function setAttribution() {
+        leafletData.getMap().then(function(map) {
+            map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
+        });
+    }
+
+    setAttribution();
+
     // Adding user current position
     geolocationFactory.getLatLngPosition()
         .then(function(result) {
