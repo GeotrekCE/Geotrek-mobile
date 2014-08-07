@@ -92,24 +92,12 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     }
 
     showTreks();
-
-    // Set the global map attribution
-    function setAttribution() {
-        leafletData.getMap().then(function(map) {
-            map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
-        });
-    }
-
-    setAttribution();
-
-    // Show the scale control
-    function setScale() {
-        leafletData.getMap().then(function(map) {
-            L.control.scale({imperial: false}).addTo(map);
-        });
-    }
-
-    setScale();
+    
+    // Show the scale and attribution controls
+    leafletData.getMap().then(function(map) {
+        leafletService.setScale(map);
+        leafletService.setAttribution(map);
+    });
 
     // Adding user current position
     geolocationFactory.getLatLngPosition()

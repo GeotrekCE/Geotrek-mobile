@@ -101,4 +101,12 @@ geotrekMap.service('leafletService',
         return markers;
     };
 
+    this.setScale = function(map) {
+        L.control.scale({imperial: false}).addTo(map);
+    }
+
+    this.setAttribution = function(map) {
+        map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
+    }
+
 }]);
