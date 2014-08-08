@@ -102,20 +102,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
     // Adding user current position
     geolocationFactory.getLatLngPosition()
         .then(function(result) {
-
-            // Pulsing marker inspired by
-            // http://blog.thematicmapping.org/2014/06/real-time-tracking-with-spot-and-leafet.html
-            $scope.paths['userPosition'] = {
-                radius: 5,
-                color: 'orange',
-                fillColor: 'black',
-                fillOpacity: 1,
-                latlngs: result,
-                type: 'circleMarker',
-                className: 'leaflet-live-user',
-                strokeWidth: 10
-            };
-
+            $scope.paths['userPosition'] = leafletService.setPositionMarker(result);
         }, function(error) {
             $log.warn(error);
         });
@@ -127,12 +114,12 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
         .then(function(result) {
             leafletData.getMap().then(function(map) {
                 map.setView(result);
+                $scope.paths['userPosition'] = leafletService.setPositionMarker(result);
             });
         })
     }
 
     $scope.centerMapUser = centerMapUser;
-
 
     $scope.$on('OnFilter', function() {
         var updateBounds = false;
