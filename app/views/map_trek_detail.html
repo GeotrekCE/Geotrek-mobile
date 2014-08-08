@@ -29,7 +29,7 @@
                 </ul>
 
                 <ul ng-if="objectToDisplay.usages" class="trek-detail__usage-infos">
-                    <li class="trek-detail__usage-infos__item">Usages : </li>
+                    <li class="trek-detail__usage-infos__item">{{ 'map_trek_detail.usages' | translate }}</li>
                     <li class="trek-detail__usage-infos__item" ng-repeat="usage in objectToDisplay.usages">
                         <img class="trek-detail__usage-infos__item icon" ng-src="{{ usage.pictogram }}"/>
                     </li>
@@ -41,7 +41,7 @@
                     </div>
                 </ion-item>
 
-                <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars"> + de détails</a>
+                <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars">{{ 'map_trek_detail.more_details' | translate }}</a>
             </div>
         </div>
 

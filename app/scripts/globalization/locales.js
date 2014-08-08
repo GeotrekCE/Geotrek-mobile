@@ -5,6 +5,8 @@ var geotrekGlobalization = angular.module('geotrekGlobalization');
 // App translatable strings (.po/.mo equivalent)
 geotrekGlobalization.constant('locales', {
     'fr': {
+        'map_trek_detail.more_details': ' + de détails',
+        'map_trek_detail.usages': 'Usages : ',
         'nav_trek_map.ways': 'Itinéraires',
         'nav_trek_map.map': 'Carte',
         'nav_trek_map.cancel': 'Annuler',
@@ -36,6 +38,8 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.network_not_reachable': 'Non'
     },
     'en': {
+        'map_trek_detail.more_details': ' more details',
+        'map_trek_detail.usages': 'Usages: ',
         'nav_trek_map.ways': 'Ways',
         'nav_trek_map.map': 'Map',
         'nav_trek_map.cancel': 'Cancel',
