@@ -120,6 +120,20 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             $log.warn(error);
         });
 
+    // Center map on user position
+
+    function centerMapUser() {
+        geolocationFactory.getLatLngPosition()
+        .then(function(result) {
+            leafletData.getMap().then(function(map) {
+                map.setView(result);
+            });
+        })
+    }
+
+    $scope.centerMapUser = centerMapUser;
+
+
     $scope.$on('OnFilter', function() {
         var updateBounds = false;
         // We don't want to adapt map bounds on filter results

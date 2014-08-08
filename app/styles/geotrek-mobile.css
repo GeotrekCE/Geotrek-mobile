@@ -175,23 +175,28 @@
 .button.icon-top:before {
   display: block; }
 
-.switch-detail-map {
-  width: 46px;
-  height: 46px;
+.switch-detail {
+  width: 42px;
+  height: 42px;
   text-align: center;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
   padding: 5px;
   z-index: 10;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   background-color: #981d97; }
-  .switch-detail-map a {
+  .switch-detail.switch-detail-map {
+    bottom: 20px;
+    right: 20px; }
+  .switch-detail.switch-detail-userlocation {
+    top: 106px;
+    left: 20px; }
+  .switch-detail a, .switch-detail button {
     color: white;
     text-decoration: none;
-    padding: 0; }
+    padding: 0;
+    border: 0; }
 
 .slider {
   padding-bottom: 20px; }

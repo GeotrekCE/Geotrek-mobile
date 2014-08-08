@@ -4,21 +4,30 @@
 	}
 }
 
-.switch-detail-map {
-    width: 46px;
-    height: 46px;
+.switch-detail {
+    width: 42px;
+    height: 42px;
     text-align: center;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
     padding: 5px;
     z-index: 10;
     @include border-radius(50%);
     background-color: $primaryColor;
 
-    a {
+    &.switch-detail-map {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    &.switch-detail-userlocation {
+        top: 106px;
+        left: 20px;
+    }
+
+    a, button {
         color: $complementaryColor;
         text-decoration: none;
         padding: 0;
+        border: 0;
     }
 }
