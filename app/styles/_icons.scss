@@ -1,11 +1,17 @@
 
 .icon-geotrek {
     
-    font-family: "geotrek-mobile";
     vertical-align: middle;
     text-decoration: none;
 
     &.icon-binoculars:before {
         content: "b";
     }
+}
+
+
+.icon-text {
+    line-height: 32px;
+    vertical-align: top;
+    padding-left: 10px;
 }

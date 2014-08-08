@@ -3,7 +3,7 @@
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
         <div class="object-title">
-            <img ng-if="objectToDisplay.pictogram" class="pictogram" ng-src="{{ objectToDisplay.pictogram }}"/>
+            <img ng-if="objectToDisplay.pictogram" class="pictogram pictogram-title" ng-src="{{ objectToDisplay.pictogram }}"/>
             <h3 class="poi-detail__name">{{ objectToDisplay.name}}</h3>
         </div>
         <a ng-if="$root.isIOS" class="button button-clear button-positive pull-right" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>
@@ -41,7 +41,7 @@
                     </div>
                 </ion-item>
 
-                <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-geotrek icon-binoculars"></a>
+                <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars"> + de détails</a>
             </div>
         </div>
 

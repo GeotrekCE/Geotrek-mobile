@@ -13,11 +13,15 @@
   flex: 1 0; }
 
 .icon-geotrek {
-  font-family: "geotrek-mobile";
   vertical-align: middle;
   text-decoration: none; }
   .icon-geotrek.icon-binoculars:before {
     content: "b"; }
+
+.icon-text {
+  line-height: 32px;
+  vertical-align: top;
+  padding-left: 10px; }
 
 .trek-list {
   display: block; }
@@ -324,6 +328,9 @@
 
 .pictogram {
   width: 20px; }
+
+.pictogram-title {
+  margin-right: 10px; }
 
 [state^="home.map"] .modal-backdrop .pictogram {
   width: 24px;
