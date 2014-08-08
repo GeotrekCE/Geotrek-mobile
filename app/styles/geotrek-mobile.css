@@ -192,6 +192,9 @@
   .switch-detail.switch-detail-userlocation {
     top: 106px;
     left: 20px; }
+  .switch-detail.switch-detail-treklocation {
+    top: 168px;
+    left: 20px; }
   .switch-detail a, .switch-detail button {
     color: white;
     text-decoration: none;

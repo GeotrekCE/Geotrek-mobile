@@ -133,7 +133,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
     $scope.currentTrek = $stateParams.trekId;
 
-    leafletData.getMap().then(function(map) {
+    function fitBoundsTrek(map) {
         // Going through L.geoJson object to get trek geojson bounds
         var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
 
@@ -147,8 +147,20 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
         // Filling map with current trek
         map.fitBounds(currentTrekBounds, options);
+    }
+
+    leafletData.getMap().then(function(map) {
+        fitBoundsTrek(map);
     });
 
+    // Center map on user position
 
+    function centerMapTrek() {
+        leafletData.getMap().then(function(map) {
+            fitBoundsTrek(map);
+        });
+    }
+
+    $scope.centerMapTrek = centerMapTrek;
 
 }]);
