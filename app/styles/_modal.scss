@@ -11,6 +11,7 @@
         padding-left: 0.3em;
         overflow: hidden;
         min-height: 40px;
+        display: table;
 
         img {
             vertical-align: top;
@@ -24,6 +25,9 @@
         padding-right: 30px;
         color: grey;
         font-size: 16px;
+        margin-bottom: 0px;
+        display: table-cell;
+        vertical-align: middle;
     }
 
     object-detail {

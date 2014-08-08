@@ -346,7 +346,8 @@
   padding-right: 0.3em;
   padding-left: 0.3em;
   overflow: hidden;
-  min-height: 40px; }
+  min-height: 40px;
+  display: table; }
   [state^='home.map'] .modal-backdrop .object-title img {
     vertical-align: top;
     display: inline-block; }
@@ -355,7 +356,10 @@
   margin-left: 0.2em;
   padding-right: 30px;
   color: grey;
-  font-size: 16px; }
+  font-size: 16px;
+  margin-bottom: 0px;
+  display: table-cell;
+  vertical-align: middle; }
 [state^='home.map'] .modal-backdrop object-detail {
   padding: 6px; }
 [state^='home.map'] .modal-backdrop .item {
