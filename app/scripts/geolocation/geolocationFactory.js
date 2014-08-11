@@ -6,7 +6,8 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
 
     var geolocationFactory;
 
-    if (angular.isDefined($window.cordova) && (!$window.ionic.Platform.isAndroid())) {
+
+    if (angular.isDefined($window.cordova)) {
         geolocationFactory = $injector.get('geolocationDeviceService');
     }
     else {

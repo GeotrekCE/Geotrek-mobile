@@ -107,6 +107,16 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             $log.warn(error);
         });
 
+    // Follow user position
+    geolocationFactory.watchPosition($scope, {enableHighAccuracy: true});
+
+    $scope.$on('watchPosition', function(scope, position) {
+        leafletData.getMap().then(function(map) {
+            $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
+        });
+    });
+
+
     // Center map on user position
 
     function centerMapUser() {
