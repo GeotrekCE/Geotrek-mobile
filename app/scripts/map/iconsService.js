@@ -21,6 +21,11 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
             iconAnchor: [32, 64],
             labelAnchor: [20, -50]
         },
+        parking_icon: {
+            iconUrl: 'images/parking.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        },
         poi_icon: {
             iconSize: [27, 27],
             labelAnchor: [20, -50]
@@ -43,6 +48,10 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getArrivalIcon = function() {
         return trek_icons.arrival_icon;
+    };
+
+    this.getParkingIcon = function() {
+        return trek_icons.parking_icon;
     };
 
     this.getTrekIcon = function() {

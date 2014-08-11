@@ -31,6 +31,14 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
                 'lng': lastPointCoordinates[0]}
     };
 
+    treksFactory.getParkingPoint = function(trek) {
+        console.log(trek.properties);
+        var parkingCoordinates = trek.properties.parking_location;
+
+        return {'lat': parkingCoordinates[1],
+                'lng': parkingCoordinates[0]}
+    };
+
     treksFactory.getGeolocalizedTreks = function() {
 
         var deferred = $q.defer();

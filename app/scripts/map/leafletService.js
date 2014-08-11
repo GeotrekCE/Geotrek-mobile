@@ -64,6 +64,7 @@ geotrekMap.service('leafletService',
 
         var startPoint = treksFactory.getStartPoint(trek);
         var endPoint = treksFactory.getEndPoint(trek);
+        var parkingPoint = treksFactory.getParkingPoint(trek);
 
         markers['startPoint_' + trek.id] = {
             lat: startPoint.lat,
@@ -78,6 +79,13 @@ geotrekMap.service('leafletService',
             icon: iconsService.getArrivalIcon(),
             layer: 'poi',
             name: trek.properties.arrival,
+        };
+        markers['parking_' + trek.id] = {
+            lat: parkingPoint.lat,
+            lng: parkingPoint.lng,
+            icon: iconsService.getParkingIcon(),
+            layer: 'poi',
+            name: trek.properties.advised_parking,
         };
 
         angular.forEach(pois, function(poi) {
