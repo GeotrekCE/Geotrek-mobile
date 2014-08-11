@@ -32,7 +32,6 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
     };
 
     treksFactory.getParkingPoint = function(trek) {
-        console.log(trek.properties);
         var parkingCoordinates = trek.properties.parking_location;
 
         return {'lat': parkingCoordinates[1],

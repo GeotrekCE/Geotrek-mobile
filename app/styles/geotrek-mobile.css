@@ -362,10 +362,11 @@
   bottom: 0;
   top: auto; }
 [state^='home.map'] .modal-backdrop .object-title {
-  padding-right: 0.3em;
+  padding-right: 50px;
   padding-left: 0.3em;
   overflow: hidden;
   min-height: 40px;
+  width: 100%;
   display: table; }
   [state^='home.map'] .modal-backdrop .object-title img {
     vertical-align: top;
