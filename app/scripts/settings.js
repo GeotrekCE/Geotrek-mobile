@@ -15,7 +15,7 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = 'http://rando.makina-corpus.net',
+    var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
         DEBUG = true;
 
