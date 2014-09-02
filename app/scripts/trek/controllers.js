@@ -33,6 +33,10 @@ geotrekTreks.controller('TrekController',
         $scope.activeFilters = treksFiltersService.getDefaultActiveFilterValues();
     };
 
+    $scope.clearSearch = function () {
+        $scope.activeFilters.search = '';
+    };
+
     $scope.cancelBtHandler = function () {
         $scope.showSearch.search = 0;
         $scope.activeFilters.search = '';

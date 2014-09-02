@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .flex-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -216,7 +217,7 @@
   bottom: 5px; }
 
 .bar-main .flex-wrapper {
-  margin-left: 40px; }
+  margin: 0 5px; }
 .bar-main .item-input-inset {
   padding-top: 6px;
   padding-bottom: 6px; }
@@ -258,6 +259,13 @@
   color: #981d97; }
 .bar-secondary i {
   color: #4d4a4a; }
+
+.search-area {
+  position: relative; }
+  .search-area .ion-close {
+    position: absolute;
+    top: 6px;
+    right: 10px; }
 
 .platform-android .action-sheet, .platform-browser .action-sheet {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);

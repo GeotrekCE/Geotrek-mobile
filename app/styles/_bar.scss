@@ -1,6 +1,6 @@
 .bar-main {
   .flex-wrapper {
-    margin-left: 40px;
+    margin: 0 5px;
   }
 
   .item-input-inset {
@@ -59,7 +59,6 @@
   }
 }
 
-
 .bar-secondary {
   .button-back {
     white-space: nowrap;
@@ -68,12 +67,21 @@
     padding-right: 91px;
   }
 
-
   .modal__actions i {
       color: $primaryColor;
   }
 
   i {
     color: $complementaryColor2;
+  }
+}
+
+.search-area {
+  position: relative;
+
+  .ion-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
   }
 }
