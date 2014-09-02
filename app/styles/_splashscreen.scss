@@ -1,5 +1,7 @@
 .splashscreen {
-	background: url(../images/splash-screen.jpg) center top;
+	background: url(../images/splash-screen-large.jpg) center top no-repeat black;
+    max-width: 100%;
+    height: auto;
 }
 
 	.splashscreen__text {
