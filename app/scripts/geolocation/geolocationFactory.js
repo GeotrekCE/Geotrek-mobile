@@ -6,7 +6,9 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
 
     var geolocationFactory;
 
-
+    // On Android, HTML5 geolocation is better than native one, support for android
+    // has been dropped (https://issues.apache.org/jira/browse/CB-5977)
+    // That's why we test if platform is Android
     if (angular.isDefined($window.cordova) && (!$window.ionic.Platform.isAndroid())) {
         geolocationFactory = $injector.get('geolocationDeviceService');
     }
@@ -52,7 +54,6 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
         // Cleaning watch to resolve weird no-callback issue
         // See MapController for more precisions
         if (!!$rootScope.watchID) {
-            console.log($rootScope.watchID);
             $log.info('There is a watch, cleaning it before getting user LatLng position');
             geolocationFactory.clearWatch($rootScope.watchID);
         }
