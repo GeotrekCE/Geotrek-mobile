@@ -58,6 +58,11 @@ geotrekAppSettings.constant('globalSettings', {
      *      |-- global.mbtiles
      *      |-- <trek-X.mbtiles> (ex: trek-1)
      *      |-- <trek-Y.mbtiles> (ex: trek-1)
+     *  |-- <STATIC_DIR>
+     *      |-- pages.json
+     *      |-- images
+     *          |-- <picture1.jpg>
+     *          |-- <picture2.jpg>
      */
 
     var POI_FILE_NAME = 'pois.geojson',
@@ -68,6 +73,9 @@ geotrekAppSettings.constant('globalSettings', {
         TILES_DIR = 'tiles',
         TREK_DIR = 'trek',
         POI_DIR = 'poi',
+        STATIC_PAGES_DIR = 'staticpages',
+        STATIC_PAGES_FILE = 'pages.json',
+        STATIC_PAGES_IMAGES_DIR = 'images',
         PICTOGRAM_DIR = 'pictogram',
         CDV_ROOT = 'cdvfile://localhost/persistent',
 
@@ -77,7 +85,10 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_POI_ROOT = GEOTREK_DIR + '/' + POI_DIR,
         RELATIVE_PICTO_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR,
         RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
-        RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME;
+        RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME,
+        RELATIVE_STATIC_PAGES_ROOT = GEOTREK_DIR + '/' + STATIC_PAGES_DIR,
+        RELATIVE_STATIC_PAGES_ROOT_FILE = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_FILE,
+        RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
 
     return {
         DOMAIN_NAME: DOMAIN_NAME,
@@ -101,13 +112,19 @@ geotrekAppSettings.constant('globalSettings', {
             CDV_PICTO_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_ROOT,
             CDV_TILES_ROOT: CDV_ROOT + '/' + RELATIVE_TILES_ROOT,
             CDV_TILES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TILES_ROOT_FILE,
+            CDV_STATIC_PAGES_ROOT: CDV_ROOT + '/' + RELATIVE_STATIC_PAGES_ROOT,
+            CDV_STATIC_PAGES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_STATIC_PAGES_ROOT_FILE,
+            CDV_STATIC_PAGES_IMG_ROOT: CDV_ROOT + '/' + RELATIVE_STATIC_PAGES_IMG_ROOT,
             RELATIVE_ROOT: RELATIVE_ROOT,
             RELATIVE_TREK_ROOT: RELATIVE_TREK_ROOT,
             RELATIVE_TREK_ROOT_FILE: RELATIVE_TREK_ROOT_FILE,
             RELATIVE_POI_ROOT: RELATIVE_POI_ROOT,
             RELATIVE_PICTO_ROOT: RELATIVE_PICTO_ROOT,
             RELATIVE_TILES_ROOT: RELATIVE_TILES_ROOT,
-            RELATIVE_TILES_ROOT_FILE: RELATIVE_TILES_ROOT_FILE
+            RELATIVE_TILES_ROOT_FILE: RELATIVE_TILES_ROOT_FILE,
+            RELATIVE_STATIC_PAGES_ROOT: RELATIVE_STATIC_PAGES_ROOT,
+            RELATIVE_STATIC_PAGES_ROOT_FILE: RELATIVE_STATIC_PAGES_ROOT_FILE,
+            RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT
         },
         leaflet: leaflet_conf
     };
