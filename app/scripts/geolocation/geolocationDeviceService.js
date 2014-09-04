@@ -9,16 +9,24 @@ geotrekGeolocation.service('geolocationDeviceService', ['$q', '$cordovaGeolocati
     };
 
     this.watchPosition = function($scope, options) {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(
-                function(position) {
-                    $scope.$broadcast('watchPosition', {'lat': position.coords.latitude, 'lng': position.coords.longitude});
-                }, function(positionError) {
-                    $scope.$broadcast('watchPosition', positionError);
-              }, options);
-        } else {
-            $scope.$broadcast('watchPosition', 'Your browser does not support HTML5 geolocation API.');
-        }
+
+        var deferred = $q.defer(),
+            watchResult = $cordovaGeolocation.watchPosition(options);
+
+        watchResult.promise
+        .then(function(position) {
+            $scope.$broadcast('watchPosition', 'ngcordova geolocation watch uses notify, not resolve');
+        }, function(positionError) {
+            $scope.$broadcast('watchPosition', positionError);
+        }, function(position) {
+            $scope.$broadcast('watchPosition', {'lat': position.coords.latitude, 'lng': position.coords.longitude});
+        });
+
+        return watchResult.watchId;
+    };
+
+    this.clearWatch = function(watchID) {
+        return $cordovaGeolocation.clearWatch(watchID);
     };
 
 }]);

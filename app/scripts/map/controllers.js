@@ -5,6 +5,7 @@ var geotrekMap = angular.module('geotrekMap');
 geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
                                        function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
     $rootScope.statename = $state.current.name;
+
     // Initializing leaflet map
     angular.extend($scope, mapParameters);
 
@@ -107,26 +108,38 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             $log.warn(error);
         });
 
-    // Follow user position
-    geolocationFactory.watchPosition($scope, {enableHighAccuracy: true});
-
     $scope.$on('watchPosition', function(scope, position) {
         leafletData.getMap().then(function(map) {
             $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
         });
     });
 
+    // README: watchPosition has a weird issue : if we get user CurrentPosition while watch is activated
+    // we get no callback for geolocation browser service
+    // This callback is used to reactivate watching after getLatLngPosition call, as this call desactivate
+    // watch to avoid that issue
+    var watchCallback = function() {
+        $rootScope.watchID = geolocationFactory.watchPosition($scope, {enableHighAccuracy: true});
+    }
+
+    // Beginning geolocation watching
+    // TODO: this watch must depend on user watch setting
+    watchCallback();
 
     // Center map on user position
-
     function centerMapUser() {
-        geolocationFactory.getLatLngPosition()
+
+        // We give watchCallback on this call to reactivate watching after geolocation call
+        geolocationFactory.getLatLngPosition({}, watchCallback)
         .then(function(result) {
             leafletData.getMap().then(function(map) {
                 map.setView(result);
                 $scope.paths['userPosition'] = leafletService.setPositionMarker(result);
             });
         })
+        .catch(function(error) {
+            $log.warn(error);
+        });
     }
 
     $scope.centerMapUser = centerMapUser;

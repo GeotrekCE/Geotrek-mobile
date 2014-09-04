@@ -2,12 +2,12 @@
 
 var geotrekGeolocation = angular.module('geotrekGeolocation', []);
 
-geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', function ($injector, $window, $q) {
+geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', '$rootScope', '$log', function ($injector, $window, $q, $rootScope, $log) {
 
     var geolocationFactory;
 
 
-    if (angular.isDefined($window.cordova)) {
+    if (angular.isDefined($window.cordova) && (!$window.ionic.Platform.isAndroid())) {
         geolocationFactory = $injector.get('geolocationDeviceService');
     }
     else {
@@ -45,14 +45,28 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
         return {message: msg};
     }
 
-    geolocationFactory.getLatLngPosition = function(options) {
+    geolocationFactory.getLatLngPosition = function(options, watchCallback) {
 
         var deferred = $q.defer();
 
+        // Cleaning watch to resolve weird no-callback issue
+        // See MapController for more precisions
+        if (!!$rootScope.watchID) {
+            console.log($rootScope.watchID);
+            $log.info('There is a watch, cleaning it before getting user LatLng position');
+            geolocationFactory.clearWatch($rootScope.watchID);
+        }
+
         geolocationFactory.getCurrentPosition(options)
             .then(function(position) {
+                if (watchCallback) {
+                    watchCallback();
+                }
                 deferred.resolve({'lat': position.coords.latitude, 'lng': position.coords.longitude});
             }, function(error) {
+                if (watchCallback) {
+                    watchCallback();
+                }
                 deferred.reject(convertError(error));
             });
 
