@@ -5,7 +5,7 @@
 var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
-     'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings',
+     'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings', 'geotrekStaticPages',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 

@@ -1,12 +1,26 @@
 'use strict';
 
-var geotrekApp = angular.module('geotrekMobileApp');
+var geotrekStaticPages = angular.module('geotrekStaticPages', []);
 
 /**
  * Service that gives treks filters
  */
+geotrekStaticPages.factory('staticPagesFactory', ['$injector', '$window', function ($injector, $window) {
 
-geotrekApp.factory('staticPagesFactory', function ($resource, $rootScope, $window, $q) {
+    var staticPagesFactory;
+
+    if (angular.isDefined($window.cordova)) {
+        console.log('cordova');
+        staticPagesFactory = $injector.get('staticPagesFileSystemService');
+    }
+    else {
+        staticPagesFactory = $injector.get('staticPagesRemoteService');
+    }
+
+    return staticPagesFactory;
+}]);
+
+/*geotrekApp.factory('staticPagesFactory', function ($resource, $rootScope, $window, $q) {
     return {
         getStaticPages: function() {
             var deferred = $q.defer(),
@@ -26,4 +40,4 @@ geotrekApp.factory('staticPagesFactory', function ($resource, $rootScope, $windo
             return deferred.promise;
         }
     };
-});
+});*/
