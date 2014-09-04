@@ -2,30 +2,43 @@
  * Service that persists and retrieves treks from data source
  */
 
-geotrekStaticPages.service('staticPagesRemoteService', function ($resource, $rootScope, $window, $q) {
-    
-    var staticPagesURL;
+geotrekStaticPages.service('staticPagesRemoteService', [
+    '$resource', '$rootScope', '$window', '$q', '$http', 'settings',
+    function ($resource, $rootScope, $window, $q, $http, settings) {
 
+    // We don't have to download Treks in Remote version, only for device offline mode
     this.downloadStaticPages = function(url) {
-        staticPagesURL = url;
+        var deferred = $q.defer();
+        deferred.resolve();
+        return deferred.promise;
     };
 
     this.getStaticPages = function() {
-        var deferred = $q.defer(),
-            fakeText = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Aliquam ac egestas est. Nunc ac nisl fringilla, tristique nibh quis, fermentum dui.</p><p>Nulla sit amet sodales mauris. Praesent tristique commodo tempus. Suspendisse vel blandit mi. In neque sapien, consequat eu gravida eu, interdum nec quam. Nullam eget suscipit mi. Morbi vestibulum nisl ut nisi lacinia, ut consectetur sapien ultricies.</p>';
+        var deferred = $q.defer();
 
-        // text field is used by ionic $ionicActionSheet.show() method to display menu titles
-        // title and description are used in static pages template
-        var pages = [
-            { text: 'Page statique A', title: 'Page statique A', description: fakeText },
-            { text: 'Page statique B', title: 'Page statique B', description: fakeText },
-            { text: 'Page statique C', title: 'Page statique C', description: fakeText },
-            { text: 'Page statique D', title: 'Page statique D', description: fakeText }
-        ];
+        $http.get(settings.remote.STATIC_PAGES_URL)
+        .then(function(response) {
 
-        deferred.resolve(pages);
+            var staticPages = [];
+            angular.forEach(response.data, function(page) {
+
+                var content = page.content;
+                // Appending DOMAIN_NAME on each image src to be correctly loaded on browser
+                // (image urls in json are relative)
+                content = content.replace('src="', 'src="' + settings.DOMAIN_NAME);
+
+                staticPages.push({
+                    text: page.title,
+                    title: page.title,
+                    description: content
+                });
+            })
+            deferred.resolve(staticPages);
+        }, function(error) {
+            deferred.reject(error);
+        });
 
         return deferred.promise;
     };
 
-});
+}]);
