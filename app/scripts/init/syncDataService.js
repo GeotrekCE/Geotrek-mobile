@@ -8,7 +8,10 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
 
         var deferred = $q.defer();
 
-        treksFactory.downloadTreks(settings.remote.TREK_REMOTE_FILE_URL)
+        staticPagesFactory.downloadStaticPages(settings.remote.STATIC_PAGES_URL)
+        .then(function(result) {
+            return treksFactory.downloadTreks(settings.remote.TREK_REMOTE_FILE_URL);
+        })
         .then(function(result) {
             return treksFactory.getTreks();
         })
@@ -25,11 +28,9 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
             return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL);
         })
         .then(function(result) {
-            return staticPagesFactory.downloadStaticPages(settings.remote.STATIC_PAGES_URL);
-        })
-        .then(function(result) {
             deferred.resolve(result);
-        }).catch(function(error) {
+        })
+        .catch(function(error) {
             $log.warn(error);
             deferred.resolve(error);
         });

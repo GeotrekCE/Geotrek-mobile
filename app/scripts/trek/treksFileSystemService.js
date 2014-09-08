@@ -88,7 +88,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             deferred = $q.defer(),
             _this = this;
 
-        $cordovaFile.readFile(filePath)
+        $cordovaFile.readAsText(filePath)
         .then(
             function(data) {
                 var jsonData = JSON.parse(data);

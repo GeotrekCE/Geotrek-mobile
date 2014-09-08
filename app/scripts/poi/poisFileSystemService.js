@@ -123,7 +123,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
             deferred = $q.defer(),
             _this = this;
 
-        $cordovaFile.readFile(trekPoisFilepath)
+        $cordovaFile.readAsText(trekPoisFilepath)
         .then(
             function(data) {
                 var jsonData = JSON.parse(data);
