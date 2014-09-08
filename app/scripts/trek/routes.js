@@ -27,7 +27,7 @@ geotrekTreks.config(function($stateProvider) {
                     promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
                 });
 
-                $q.all(promises)
+                return $q.all(promises)
                 .then(function(isDownloadedList) {
                     for(var i=0; i<isDownloadedList.length; i++) {
                         treksList[i]['mbtiles'] = {
