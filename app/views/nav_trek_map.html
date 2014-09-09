@@ -19,16 +19,18 @@
                 </button>
             </div>
 
-            <div ng-switch-default>
-                <h1 class="app-title">Rando Ecrins</h1>
-                <div class="buttons pull-right">
-                    <button class="button button-icon" ng-click="showSearch.search=1">
-                        <i class="icon ion-search"></i>
-                    </button>
-                    <a class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></a>
-                    <button class="button button-icon" ng-click="showMore()">
-                        <i class="icon ion-android-more"></i>
-                    </button>
+            <div ng-switch-default class="row">
+                <h1 class="app-title col">Rando Ecrins</h1>
+                <div class="buttons col col-25">
+                    <div class="buttons pull-right">
+                        <button class="button button-icon" ng-click="showSearch.search=1">
+                            <i class="icon ion-search"></i>
+                        </button>
+                        <a class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></a>
+                        <button class="button button-icon" ng-click="showMore()">
+                            <i class="icon ion-android-more"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </ion-header-bar>
