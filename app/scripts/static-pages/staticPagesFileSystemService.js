@@ -18,13 +18,29 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
     };
 
    this.replaceImgURLs = function(staticPagesData) {
-
         // Parse static page url on content, and change their URL
         angular.forEach(staticPagesData, function(pages) {
-            
-            // Only the content must be changed
-            // TODO : parse content to change <img> urls
-            pages.content = "new-" + pages.content;
+
+            // To change static content img urls, we are parsing given content
+
+            // Wrapping it with div to be sure than root element is unique
+            // (If page content has several root elements, like a <h1> followed by a <p>
+            // for example, html() call will only return first element, and we need all elements)
+            var wrappedContent = '<div>' + pages.content + '</div>';
+
+            // Using jqlite to parse wrapped content
+            var $htmlContent = angular.element(wrappedContent);
+
+            // Then we look for each img markup, and change url with device one
+            angular.forEach($htmlContent.find('img'), function(element) {
+                var currentUrl = element.src;
+                var filename = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
+
+                element.src = settings.device.CDV_STATIC_PAGES_IMG_ROOT + '/' + filename;
+            });
+
+            // And finally, we affect this transformed content to initial one
+            pages.content = $htmlContent.html();
         });
 
         return staticPagesData;
@@ -96,9 +112,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
                 if (replaceUrls) {
                     jsonData = _this.replaceImgURLs(jsonData);
                 }
-
                 deferred.resolve(jsonData);
-
             },
             deferred.reject
         );
