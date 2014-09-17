@@ -375,6 +375,10 @@
   min-height: 33%;
   bottom: 0;
   top: auto; }
+[state^='home.map'] .modal-backdrop .modal-fullheight {
+  min-height: 100%;
+  bottom: 0;
+  top: auto; }
 [state^='home.map'] .modal-backdrop .object-title {
   padding-right: 50px;
   padding-left: 0.3em;
