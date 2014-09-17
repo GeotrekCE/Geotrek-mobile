@@ -215,6 +215,8 @@
 
 .slider-pager {
   bottom: 5px; }
+  .slider-pager .icon {
+    color: #981d97; }
 
 .bar-main .flex-wrapper {
   margin: 0 5px; }
