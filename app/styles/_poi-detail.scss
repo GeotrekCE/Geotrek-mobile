@@ -1,6 +1,8 @@
 .poi-detail__name {
     display: inline-block;
     vertical-align: bottom;
+    color: $complementaryColor2;
+    font-weight: bold;
 }
 
 .poi-detail__description {

@@ -360,7 +360,9 @@
 
 .poi-detail__name {
   display: inline-block;
-  vertical-align: bottom; }
+  vertical-align: bottom;
+  color: #4d4a4a;
+  font-weight: bold; }
 
 .poi-detail__description {
   white-space: normal; }
