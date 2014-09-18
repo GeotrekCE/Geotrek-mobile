@@ -17,20 +17,22 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             angular.forEach(trek.properties.pictures, function(picture) {
                 var pictureUrl = picture.url;
                 var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
-
                 picture.url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
             angular.forEach(trek.properties.usages, function(usage) {
                 var usageUrl = usage.pictogram;
                 var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
-
                 usage.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
             angular.forEach(trek.properties.themes, function(theme) {
                 var themeUrl = theme.pictogram;
                 var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
-
                 theme.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+            });
+            angular.forEach(trek.properties.networks, function(network) {
+                var networkUrl = network.pictogram;
+                var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
+                network.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
         });
         return copy;

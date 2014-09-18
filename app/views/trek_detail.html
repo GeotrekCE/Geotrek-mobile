@@ -48,6 +48,13 @@
                 </li>
             </ul>
 
+            <ul ng-if="trek.properties.networks" class="trek-detail__usage-infos">
+                <li class="trek-detail__usage-infos__item">{{ 'trek_detail.networks' | translate }}</li>
+                <li class="trek-detail__usage-infos__item wrapper" ng-repeat="network in trek.properties.networks">
+                        <img class="trek-detail__usage-infos__item icon" ng-src="{{ network.pictogram }}"/>
+                </li>
+            </ul>
+
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide ng-repeat="picture in trek.properties.pictures">
                     <img ng-src="{{ picture.url }}">
