@@ -157,6 +157,7 @@ geotrekTreks.controller('TrekController',
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.pois = pois;
+    console.log(pois);
 
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/trek_detail.html', {

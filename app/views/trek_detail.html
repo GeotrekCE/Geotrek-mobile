@@ -39,14 +39,14 @@
                 <li class="trek-detail__usage-infos__item" ng-repeat="usage in trek.properties.usages">
                     <img class="trek-detail__usage-infos__item icon" ng-src="{{ usage.pictogram }}"/>
                 </li>
-            <ul>
+            </ul>
 
             <ul ng-if="trek.properties.themes" class="trek-detail__usage-infos">
                 <li class="trek-detail__usage-infos__item">{{ 'trek_detail.themes' | translate }}</li>
                 <li class="trek-detail__usage-infos__item wrapper" ng-repeat="theme in trek.properties.themes">
                     <img class="trek-detail__usage-infos__item icon" ng-src="{{ theme.pictogram }}"/>
                 </li>
-            <ul>
+            </ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide>
@@ -71,6 +71,9 @@
                 {{ district.name.join(', ') }}
             </p>
             <p>{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
+
+            <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
+            <p ng-bind-html="trek.properties.advice" ></p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
