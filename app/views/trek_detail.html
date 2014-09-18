@@ -49,17 +49,9 @@
             </ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
-                <ion-slide>
-                    <img ng-src="{{ trek.properties.pictures.0.url }}">
-                    <span class="slider-legend">Test légende</span>
-                </ion-slide>
-                <ion-slide>
-                    <img src="http://i677.photobucket.com/albums/vv137/smileytrucker/cow-toy-car-stuck-head-1259518194w.jpg">
-                    <span class="slider-legend">Test légende</span>
-                </ion-slide>
-                <ion-slide>
-                    <img src="http://farm6.staticflickr.com/5226/5663664227_ba5e573930_z.jpg">
-                    <span class="slider-legend">Test légende</span>
+                <ion-slide ng-repeat="picture in trek.properties.pictures">
+                    <img ng-src="{{ picture.url }}">
+                    <span class="slider-legend">{{ picture.legend }} ({{ picture.author }})</span>
                 </ion-slide>
             </ion-slide-box>
 
@@ -71,6 +63,8 @@
                 {{ district.name.join(', ') }}
             </p>
             <p>{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
+
+            <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
             <p ng-if="trek.properties.advised_parking">{{ 'trek_detail.advised_parking' | translate }} : {{ trek.properties.advised_parking }}</p>
