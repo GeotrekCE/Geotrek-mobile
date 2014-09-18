@@ -72,6 +72,10 @@
             </p>
             <p>{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
 
+            <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
+            <p ng-if="trek.properties.advised_parking">{{ 'trek_detail.advised_parking' | translate }} : {{ trek.properties.advised_parking }}</p>
+            <p ng-if="trek.properties.public_transport">{{ 'trek_detail.public_transport' | translate }} : {{ trek.properties.public_transport }}</p>
+
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
             <p ng-bind-html="trek.properties.advice" ></p>
 
