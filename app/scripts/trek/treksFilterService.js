@@ -6,12 +6,12 @@ var geotrekTreks = angular.module('geotrekTreks');
  * Service that gives trek filters
  */
 
-geotrekTreks.service('treksFiltersService', ['$q', function($q) {
+geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
 
     // Get default value for each filter field
     this.getDefaultActiveFilterValues = function() {
         return {
-            difficulty:   undefined,
+            difficulty:   {},
             duration:     undefined,
             elevation:    undefined,
             download:     undefined,
@@ -29,7 +29,8 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
         if (angular.isUndefined(value)
             || angular.isUndefined(filter)
             || (filter === null)
-            || (value === null))
+            || (value === null)
+            || (angular.equals(filter, {})))
             {
                 valid = false;
             }
@@ -51,13 +52,28 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
     // Generic function that is called on hardcoded filters
     this.filterTrekEquals = function(trekValue, filter) {
 
-        // Trek considered as matching if filter not set or if
-        // property is empty.
-        if (!(this.isValidFilter(trekValue, filter))) {
-            return true;
+        var is_valid = true;
+        if (this.isValidFilter(trekValue, filter)) {
+            if(angular.isNumber(filter)){
+                is_valid = trekValue === filter;
+            }
+            else{
+                var keys = Object.keys(filter);
+                for (var i = 0; i < keys.length; i++) {
+                    if (filter[keys[i]] === true ){
+                        // In combined filters if one filter is valid, no need to look on the other
+                        // OR operator
+                        if (parseFloat(trekValue) === parseFloat(keys[i])){
+                            return true;
+                        }
+                        else{
+                            is_valid = false;
+                        }
+                    }
+                };
+            }
         }
-
-        return (trekValue == filter);
+        return is_valid;
     };
 
     // Generic function that is called on select filters
@@ -86,8 +102,7 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
 
     // Function called each time a filter is modified, to know which treks to displayed
     this.filterTreks = function(trek, activeFilters) {
-
-        return (this.filterTrekWithFilter(trek.properties.difficulty.id, activeFilters.difficulty) &&
+        return (this.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
             this.filterTrekWithFilter(trek.properties.duration, activeFilters.duration) &&
             this.filterTrekWithFilter(trek.properties.ascent, activeFilters.elevation) &&
             this.filterTrekEquals(trek.mbtiles.isDownloaded ? 1 : 0, activeFilters.download) &&
@@ -175,10 +190,10 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
 
         return {
             difficulties : [
-                { value: 1, name: 'Facile', icon: 'difficulty-1.svg' },
+                { value: 1, name: 'Facile', icon: 'difficulty-1.svg'},
                 { value: 2, name: 'Moyen', icon: 'difficulty-2.svg' },
                 { value: 3, name: 'Difficile', icon: 'difficulty-2.svg' },
-                { value: 4, name: 'Difficile', icon: 'difficulty-2.svg' }
+                { value: 4, name: 'Confirmé', icon: 'difficulty-2.svg' }
             ],
             durations : [
                 { value: 2.5, name: '<2H30', icon: 'duration-1.svg' },
