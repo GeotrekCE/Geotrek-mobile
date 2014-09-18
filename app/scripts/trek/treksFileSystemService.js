@@ -26,6 +26,12 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
 
                 usage.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
+            angular.forEach(trek.properties.themes, function(theme) {
+                var themeUrl = theme.pictogram;
+                var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
+
+                theme.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+            });
         });
         return copy;
     };

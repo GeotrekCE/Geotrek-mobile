@@ -169,6 +169,11 @@
   display: inline-block;
   position: relative; }
 
+.trek-detail__usage-infos__item.wrapper {
+  width: 30px;
+  height: 30px;
+  overflow: hidden; }
+
 .trek-detail__usage-infos__item.icon {
   height: 30px; }
 
@@ -365,6 +370,11 @@
   vertical-align: bottom;
   color: #4d4a4a;
   font-weight: bold; }
+
+.poi-detail__departure-arrival {
+  display: inline-block;
+  vertical-align: bottom;
+  color: #4d4a4a; }
 
 .poi-detail__description {
   white-space: normal; }

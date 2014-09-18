@@ -90,6 +90,12 @@
 	position: relative;
 }
 
+.trek-detail__usage-infos__item.wrapper {
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+}
+
 .trek-detail__usage-infos__item.icon {
 	height: 30px;
 }

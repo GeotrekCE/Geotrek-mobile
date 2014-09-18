@@ -23,6 +23,8 @@
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
 
+            <h5 class="poi-detail__departure-arrival">{{ trek.properties.departure}} → {{ trek.properties.arrival}}</h5>
+
             <ul class="trek-detail__main-infos">
                 <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
                 <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
@@ -31,6 +33,20 @@
                 <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
                 <li class="trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
             </ul>
+
+            <ul ng-if="trek.properties.usages" class="trek-detail__usage-infos">
+                <li class="trek-detail__usage-infos__item">{{ 'map_trek_detail.usages' | translate }}</li>
+                <li class="trek-detail__usage-infos__item" ng-repeat="usage in trek.properties.usages">
+                    <img class="trek-detail__usage-infos__item icon" ng-src="{{ usage.pictogram }}"/>
+                </li>
+            <ul>
+
+            <ul ng-if="trek.properties.themes" class="trek-detail__usage-infos">
+                <li class="trek-detail__usage-infos__item">{{ 'trek_detail.themes' | translate }}</li>
+                <li class="trek-detail__usage-infos__item wrapper" ng-repeat="theme in trek.properties.themes">
+                    <img class="trek-detail__usage-infos__item icon" ng-src="{{ theme.pictogram }}"/>
+                </li>
+            <ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide>
