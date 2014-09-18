@@ -156,6 +156,12 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
     $scope.currentTrek = $stateParams.trekId;
 
+    leafletData.getMap().then(function(map) {
+        L.geoJson(trek, {style:{'color': '#981d97', 'weight': 9, 'opacity': 0.8}})
+            .addTo(map)
+            .bringToBack();
+    });
+
     function fitBoundsTrek(map) {
         // Going through L.geoJson object to get trek geojson bounds
         var currentTrekBounds = L.geoJson(trek, $scope.geojson.options).getBounds();
