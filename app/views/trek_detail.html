@@ -23,7 +23,9 @@
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
 
-            <h5 class="poi-detail__departure-arrival">{{ trek.properties.departure}} → {{ trek.properties.arrival}}</h5>
+            <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
+
+            <h5 class="trek-detail__departure-arrival">{{ trek.properties.departure}} → {{ trek.properties.arrival}}</h5>
 
             <ul class="trek-detail__main-infos">
                 <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
@@ -64,7 +66,7 @@
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.description' | translate }}</h2>
             <p class="teaser" ng-bind-html="teaser">
-                <p>{{ object.properties.ambiance }}</p>
+                <p>{{ object.properties.description }}</p>
             </p>
             <p ng-repeat="district in trek.properties.districts">
                 {{ district.name.join(', ') }}

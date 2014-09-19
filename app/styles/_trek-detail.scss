@@ -18,6 +18,10 @@
 	font-size: $font-size-large;
 }
 
+.trek-detail__subtitle {
+	font-size: $font-size-base;
+}
+
 .trek-detail__section-title {
 	background: $highlight-text-color;
 	color: white;
@@ -98,4 +102,10 @@
 
 .trek-detail__usage-infos__item.icon {
 	height: 30px;
+}
+
+.trek-detail__departure-arrival {
+    display: inline-block;
+    vertical-align: bottom;
+    color: $complementaryColor2;
 }

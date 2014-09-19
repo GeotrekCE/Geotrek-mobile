@@ -112,6 +112,9 @@
 .trek-detail__title {
   font-size: 18px; }
 
+.trek-detail__subtitle {
+  font-size: 14px; }
+
 .trek-detail__section-title {
   background: #981d97;
   color: white;
@@ -176,6 +179,11 @@
 
 .trek-detail__usage-infos__item.icon {
   height: 30px; }
+
+.trek-detail__departure-arrival {
+  display: inline-block;
+  vertical-align: bottom;
+  color: #4d4a4a; }
 
 .button.icon-top:before {
   display: block; }
@@ -370,11 +378,6 @@
   vertical-align: bottom;
   color: #4d4a4a;
   font-weight: bold; }
-
-.poi-detail__departure-arrival {
-  display: inline-block;
-  vertical-align: bottom;
-  color: #4d4a4a; }
 
 .poi-detail__description {
   white-space: normal; }
