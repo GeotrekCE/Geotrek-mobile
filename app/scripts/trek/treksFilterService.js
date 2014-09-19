@@ -42,9 +42,30 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
 
         // Trek considered as matching if filter not set or if
         // property is empty.
-        if (!(this.isValidFilter(trekValue, filter))) {
-            return true;
+        var is_valid = true;
+
+        if (this.isValidFilter(trekValue, filter)) {
+            if(angular.isNumber(filter)){
+                is_valid = trekValue <= filter;
+            }
+            else{
+                var keys = Object.keys(filter);
+                for (var i = 0; i < keys.length; i++) {
+                    if (filter[keys[i]] === true ){
+                        // In combined filters if one filter is valid, no need to look on the other
+                        // OR operator
+                        if (trekValue <= parseFloat(keys[i])){
+                            return true;
+                        }
+                        else{
+                            is_valid = false;
+                        }
+                    }
+                };
+            }
         }
+        return is_valid;
+    };
 
     // Generic function that is called on hardcoded range filters
     this.filterTrekWithInterval = function(trekValue, filters) {
