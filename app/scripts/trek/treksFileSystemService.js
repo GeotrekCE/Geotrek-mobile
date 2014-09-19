@@ -59,16 +59,26 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 var currentTrekId = trek.id;
                 angular.forEach(trek.properties.pictures, function(picture) {
                     var pictureUrl = picture.url;
-
                     var serverUrl = settings.DOMAIN_NAME + pictureUrl;
                     var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
                     promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
                 });
                 angular.forEach(trek.properties.usages, function(usage) {
                     var usageUrl = usage.pictogram;
-
                     var serverUrl = settings.DOMAIN_NAME + usageUrl;
                     var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
+                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                });
+                angular.forEach(trek.properties.themes, function(theme) {
+                    var themeUrl = theme.pictogram;
+                    var serverUrl = settings.DOMAIN_NAME + themeUrl;
+                    var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
+                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                });
+                angular.forEach(trek.properties.networks, function(network) {
+                    var networkUrl = network.pictogram;
+                    var serverUrl = settings.DOMAIN_NAME + networkUrl;
+                    var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
                     promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
                 });
             })

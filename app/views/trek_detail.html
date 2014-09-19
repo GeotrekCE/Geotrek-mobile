@@ -73,8 +73,11 @@
                 {{ district.name.join(', ') }}
             </p>
             <p>{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
-
             <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
+
+            <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
+            <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
+            <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
             <p ng-if="trek.properties.advised_parking">{{ 'trek_detail.advised_parking' | translate }} : {{ trek.properties.advised_parking }}</p>
