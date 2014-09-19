@@ -86,6 +86,9 @@
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
             <p ng-bind-html="trek.properties.advice" ></p>
 
+            <h2 ng-if="trek.properties.disabled_infrastructure" class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
+            <p ng-bind-html="trek.properties.disabled_infrastructure" ></p>
+
             <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
             <ion-item class="poi-detail item-thumbnail-right" ng-repeat="poi in pois.features">
