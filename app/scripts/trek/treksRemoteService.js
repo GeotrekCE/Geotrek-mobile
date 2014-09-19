@@ -29,6 +29,7 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             angular.forEach(trek.properties.networks, function(network) {
                 network.pictogram = settings.DOMAIN_NAME + network.pictogram;
             });
+            trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
         });
         return copy;
     };

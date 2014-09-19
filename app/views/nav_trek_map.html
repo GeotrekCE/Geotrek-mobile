@@ -53,7 +53,7 @@
         <ion-content scroll="false">
             <ul class="filters-list">
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty" btn-radio="{{ difficulty.value }}" style="background-image: url(images/{{ difficulty.icon }});" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox style="background-image: url({{ difficulty.icon }});background-size: contain;" uncheckable>
                         <span>{{ difficulty.name }}</span>
                     </button>
                 </li>
