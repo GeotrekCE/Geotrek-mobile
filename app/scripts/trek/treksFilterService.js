@@ -13,7 +13,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
         return {
             difficulty:   {},
             duration:     undefined,
-            elevation:    undefined,
+            elevation:    {},
             download:     undefined,
             theme:        undefined,
             municipality: null,
@@ -46,7 +46,24 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
             return true;
         }
 
-        return (trekValue <= filter);
+    // Generic function that is called on hardcoded range filters
+    this.filterTrekWithInterval = function(trekValue, filters) {
+        var is_valid = true;
+        var keys = Object.keys(filters);
+        for (var i = 0; i < keys.length; i++) {
+            var filter = filters[keys[i]];
+            if (filter.checked === true ){
+                // In combined filters if one filter is valid, no need to look on the other
+                // OR operator
+                if (parseFloat(trekValue) >= parseFloat(filter.interval[0]) && parseFloat(trekValue) <= parseFloat(filter.interval[1])){
+                    return true;
+                }
+                else{
+                    is_valid = false;
+                }
+            }
+        };
+        return is_valid;
     };
 
     // Generic function that is called on hardcoded filters
@@ -104,7 +121,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
     this.filterTreks = function(trek, activeFilters) {
         return (this.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
             this.filterTrekWithFilter(trek.properties.duration, activeFilters.duration) &&
-            this.filterTrekWithFilter(trek.properties.ascent, activeFilters.elevation) &&
+            this.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
             this.filterTrekEquals(trek.mbtiles.isDownloaded ? 1 : 0, activeFilters.download) &&
             this.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
             this.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
@@ -218,10 +235,10 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
                 { value: 4, name: '1/2', icon: 'duration-2.svg' },
                 { value: 8, name: 'Journée', icon: 'duration-3.svg' }
             ],
-            elevations : [
-                { value: 300, name: '300m', icon: 'deniv1.svg' },
-                { value: 600, name: '600m', icon: 'deniv1.svg' },
-                { value: 1000, name: '1000m', icon: 'deniv1.svg' }
+            elevations :  [
+                { id: 300, name: 'Faible', icon: 'deniv1.svg', interval: [0, 300] },
+                { id: 600, name: 'Moyen', icon: 'deniv1.svg', interval: [301, 1000] },
+                { id: 1000, name: 'Fort', icon: 'deniv1.svg', interval: [1001, 30000] },
             ],
             downloads : [
                 { value: 1, name: 'Trek map available offline', icon: 'icon_offline.png' }

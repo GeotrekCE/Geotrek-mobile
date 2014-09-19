@@ -65,7 +65,7 @@
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-repeat="elevation in filtersData.elevations" ng-model="activeFilters.elevation" btn-radio="{{ elevation.value }}" style="background-image: url(images/{{ elevation.icon }});" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-init="activeFilters.elevation[elevation.id] = elevation" ng-repeat="elevation in filtersData.elevations" btn-checkbox ng-model="activeFilters.elevation[elevation.id].checked" style="background-image: url(images/{{ elevation.icon }});" uncheckable>
                         <span>{{ elevation.name }}</span>
                     </button>
                 </li>
