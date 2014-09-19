@@ -12,7 +12,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
     this.getDefaultActiveFilterValues = function() {
         return {
             difficulty:   {},
-            duration:     undefined,
+            duration:     {},
             elevation:    {},
             download:     undefined,
             theme:        undefined,
@@ -120,7 +120,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
     // Function called each time a filter is modified, to know which treks to displayed
     this.filterTreks = function(trek, activeFilters) {
         return (this.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
-            this.filterTrekWithFilter(trek.properties.duration, activeFilters.duration) &&
+            this.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
             this.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
             this.filterTrekEquals(trek.mbtiles.isDownloaded ? 1 : 0, activeFilters.download) &&
             this.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
@@ -231,9 +231,9 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
         return {
             difficulties : trekDifficulties,
             durations : [
-                { value: 2.5, name: '<2H30', icon: 'duration-1.svg' },
-                { value: 4, name: '1/2', icon: 'duration-2.svg' },
-                { value: 8, name: 'Journée', icon: 'duration-3.svg' }
+                { id: 2.5, name: '<2H30', icon: 'duration-1.svg', interval: [0, 2.5]},
+                { id: 4, name: '1/2', icon: 'duration-2.svg', interval: [2.5, 8] },
+                { id: 8, name: 'Journée', icon: 'duration-3.svg', interval: [8, 20000]}
             ],
             elevations :  [
                 { id: 300, name: 'Faible', icon: 'deniv1.svg', interval: [0, 300] },

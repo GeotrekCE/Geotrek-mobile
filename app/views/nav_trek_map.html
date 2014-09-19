@@ -59,7 +59,7 @@
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration" btn-radio="{{ duration.value }}" style="background-image: url(images/{{ duration.icon }});" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox style="background-image: url(images/{{ duration.icon }});" uncheckable>
                         <span>{{ duration.name }}</span>
                     </button>
                 </li>
