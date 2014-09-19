@@ -89,6 +89,20 @@
             <h2 ng-if="trek.properties.disabled_infrastructure" class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
             <p ng-bind-html="trek.properties.disabled_infrastructure" ></p>
 
+            <h2 ng-if="trek.properties.information_desks" class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
+            <ion-item class="" ng-repeat="information_desk in trek.properties.information_desks">
+                <div class="information-desk">
+                    <h3 ng-bind-html="information_desk.name"></h3>
+                    <p ng-bind-html="information_desk.description"></p>
+                    <p ng-bind-html="information_desk.street"></p>
+                    <p>{{ information_desk.postal_code}} {{ information_desk.municipality}}</p>
+                    <p>
+                        <a href="{{information_desk.website}}">{{ 'trek_detail.website' | translate }}</a> - 
+                        <a href="tel:{{information_desk.phone}}">{{information_desk.phone}}</a>
+                    </p>
+                </div>
+            </ion-item>
+
             <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
             <ion-item class="poi-detail item-thumbnail-right" ng-repeat="poi in pois.features">
