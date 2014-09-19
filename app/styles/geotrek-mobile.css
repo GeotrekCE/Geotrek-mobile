@@ -168,14 +168,23 @@
   top: 11px;
   left: 11px; }
 
+.trek-detail__network-infos {
+  display: inline-flex; }
+
 .trek-detail__usage-infos__item {
   display: inline-block;
-  position: relative; }
+  position: relative;
+  padding-right: 5px; }
 
 .trek-detail__usage-infos__item.wrapper {
   width: 30px;
   height: 30px;
   overflow: hidden; }
+
+.trek-detail__usage-infos__item.wrapper-small {
+  height: 20px;
+  overflow: hidden;
+  display: flex; }
 
 .trek-detail__usage-infos__item.icon {
   height: 30px; }

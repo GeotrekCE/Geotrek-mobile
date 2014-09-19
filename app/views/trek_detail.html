@@ -50,10 +50,11 @@
                 </li>
             </ul>
 
-            <ul ng-if="trek.properties.networks" class="trek-detail__usage-infos">
+            <ul ng-if="trek.properties.networks" class="trek-detail__network-infos">
                 <li class="trek-detail__usage-infos__item">{{ 'trek_detail.networks' | translate }}</li>
-                <li class="trek-detail__usage-infos__item wrapper" ng-repeat="network in trek.properties.networks">
-                        <img class="trek-detail__usage-infos__item icon" ng-src="{{ network.pictogram }}"/>
+                <li class="trek-detail__usage-infos__item wrapper-small" ng-repeat="network in trek.properties.networks">
+                    <img class="trek-detail__usage-infos__item icon" ng-src="{{ network.pictogram }}"/>
+                    <p>{{network.name}}</p>
                 </li>
             </ul>
 
