@@ -156,6 +156,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
 
     $scope.currentTrek = $stateParams.trekId;
 
+    // Draw a new polyline in background to highlight the selected trek
     leafletData.getMap().then(function(map) {
         L.geoJson(trek, {style:{'color': '#981d97', 'weight': 9, 'opacity': 0.8}})
             .addTo(map)

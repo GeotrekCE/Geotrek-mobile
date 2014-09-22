@@ -168,14 +168,23 @@
   top: 11px;
   left: 11px; }
 
+.trek-detail__network-infos {
+  display: inline-flex; }
+
 .trek-detail__usage-infos__item {
   display: inline-block;
-  position: relative; }
+  position: relative;
+  padding-right: 5px; }
 
 .trek-detail__usage-infos__item.wrapper {
   width: 30px;
   height: 30px;
   overflow: hidden; }
+
+.trek-detail__usage-infos__item.wrapper-small {
+  height: 20px;
+  overflow: hidden;
+  display: flex; }
 
 .trek-detail__usage-infos__item.icon {
   height: 30px; }
@@ -422,28 +431,6 @@
 .leaflet-control-layers.leaflet-control {
   display: none; }
 
-.leaflet-live-user {
-  -webkit-animation: pulse 2s ease-out;
-  animation: pulse 2s ease-out;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite; }
-
-@-webkit-keyframes pulse {
-  from {
-    stroke-width: 15;
-    stroke-opacity: 1; }
-
-  to {
-    stroke-width: 50;
-    stroke-opacity: 0; } }
-@keyframes pulse {
-  from {
-    stroke-width: 15;
-    stroke-opacity: 1; }
-
-  to {
-    stroke-width: 50;
-    stroke-opacity: 0; } }
 span.network-status {
   position: absolute;
   top: 15px;
