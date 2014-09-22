@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window', '$q', 'settings', function ($resource, $rootScope, $window, $q, settings) {
+geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window', '$q', 'settings', 'globalizationSettings', function ($resource, $rootScope, $window, $q, settings, globalizationSettings) {
 
     // We don't have to download Treks in Remote version, only for device offline mode
     this.downloadTreks = function(url) {
@@ -35,7 +35,7 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
     };
 
     this.getTreks = function() {
-        var requests = $resource(settings.remote.TREK_REMOTE_FILE_URL, {}, {
+        var requests = $resource(globalizationSettings.TREK_REMOTE_FILE_URL, {}, {
                 query: {
                     method: 'GET',
                     cache: true
