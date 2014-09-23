@@ -87,6 +87,23 @@ geotrekMap.service('leafletService',
             layer: 'poi',
             name: trek.properties.advised_parking,
         };
+        var informationCount = 0;
+        angular.forEach(trek.properties.information_desks, function(information) {
+            var informationDescription = "<p>" + information.description + "</p>"
+                + "<p>" + information.street + "</p>"
+                + "<p>" + information.postal_code + " " + information.municipality + "</p>"
+                + "<p><a href='" + information.website + "'>Web</a> - <a href='tel:" + information.phone + "'>" + information.phone + "</a></p>";
+            markers['information_' + trek.id + informationCount] = {
+                lat: information.latitude,
+                lng: information.longitude,
+                icon: iconsService.getInformationIcon(),
+                layer: 'poi',
+                name: information.name,
+                thumbnail: information.photo_url,
+                description: informationDescription,
+            };
+            informationCount += 1;
+        });
 
         angular.forEach(pois, function(poi) {
             var poiCoords = {
