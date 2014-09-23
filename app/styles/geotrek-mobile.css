@@ -15,7 +15,7 @@
 .icon-geotrek {
   vertical-align: middle;
   text-decoration: none; }
-  .icon-geotrek.icon-binoculars:before {
+  .icon-geotrek.icon-binoculars::before {
     content: "b"; }
 
 .icon-text {
@@ -36,7 +36,8 @@
 .trek-list__item__detail__actions {
   position: absolute;
   right: 5px;
-  bottom: 10px; }
+  bottom: 10px;
+  width: 88px; }
 
 .trek-list__item__detail-bt {
   color: #494645;
@@ -139,6 +140,7 @@
 
 .trek-detail__main-infos__item:before {
   width: 30px;
+  height: 30px;
   position: absolute;
   top: 5px;
   left: 5px; }

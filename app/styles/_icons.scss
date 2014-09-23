@@ -4,7 +4,7 @@
     vertical-align: middle;
     text-decoration: none;
 
-    &.icon-binoculars:before {
+    &.icon-binoculars::before {
         content: "b";
     }
 }

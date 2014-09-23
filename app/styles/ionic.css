@@ -4326,10 +4326,7 @@ a.subdued {
     animation-duration: 0.1s;
     -webkit-animation-timing-function: ease-in-out;
     -moz-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
+    animation-timing-function: ease-in-out; }
   .popup.popup-showing {
     visibility: visible; }
   .popup.active {
@@ -4341,10 +4338,7 @@ a.subdued {
     animation-duration: 0.2s;
     -webkit-animation-timing-function: ease-in-out;
     -moz-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
+    animation-timing-function: ease-in-out; }
   .popup.popup-tall {
     overflow: hidden; }
     .popup.popup-tall .popup-body {
