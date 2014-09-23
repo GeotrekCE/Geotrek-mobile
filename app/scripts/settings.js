@@ -17,7 +17,8 @@ geotrekAppSettings.constant('globalSettings', {
     // Variables that user can change
     var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
-        DEBUG = true;
+        DEBUG = false,
+        LOGS = true;
 
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
@@ -38,6 +39,7 @@ geotrekAppSettings.constant('globalSettings', {
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
      * <GEOTREK_DIR>
+     *  |-- <LOGS_FILENAME>
      *  |-- trek.geojson
      *  |-- <TREK_DIR>
      *      |-- <trek_1> (ex: 2)
@@ -70,6 +72,7 @@ geotrekAppSettings.constant('globalSettings', {
         TILES_FILE_NAME = 'global.mbtiles';
 
     var GEOTREK_DIR = 'geotrek',
+        LOGS_FILENAME = 'geotrek.log',
         TILES_DIR = 'tiles',
         TREK_DIR = 'trek',
         POI_DIR = 'poi',
@@ -80,6 +83,7 @@ geotrekAppSettings.constant('globalSettings', {
         CDV_ROOT = 'cdvfile://localhost/persistent',
 
         RELATIVE_ROOT = GEOTREK_DIR,
+        RELATIVE_LOGS_FILE = GEOTREK_DIR + '/' + LOGS_FILENAME,
         RELATIVE_TREK_ROOT = GEOTREK_DIR + '/' + TREK_DIR,
         RELATIVE_TREK_ROOT_FILE = GEOTREK_DIR + '/' + TREKS_FILE_NAME,
         RELATIVE_POI_ROOT = GEOTREK_DIR + '/' + POI_DIR,
@@ -124,7 +128,8 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_TILES_ROOT_FILE: RELATIVE_TILES_ROOT_FILE,
             RELATIVE_STATIC_PAGES_ROOT: RELATIVE_STATIC_PAGES_ROOT,
             RELATIVE_STATIC_PAGES_ROOT_FILE: RELATIVE_STATIC_PAGES_ROOT_FILE,
-            RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT
+            RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT,
+            RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE
         },
         leaflet: leaflet_conf
     };
