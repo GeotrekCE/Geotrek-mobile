@@ -20,6 +20,10 @@ geotrekLog.service('logDeviceService', function ($injector, settings) {
         var writeOptions = {
             append: true
         };
+
+        // Stringify log, useful when msg is a JavaScript Object
+        msg = JSON.stringify(msg);
+
         $cordovaFile.writeFile(
             settings.device.RELATIVE_LOGS_FILE,
             // Adding "\n" to add line return between each log (readability purpose)
