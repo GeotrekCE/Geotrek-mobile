@@ -2,15 +2,15 @@
 
 var geotrekInit = angular.module('geotrekInit');
 
-geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFactory', 'settings', 'mapFactory', 'staticPagesFactory', function($q, $log, treksFactory, poisFactory, settings, mapFactory, staticPagesFactory) {
+geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFactory', 'settings', 'globalizationSettings', 'mapFactory', 'staticPagesFactory', function($q, $log, treksFactory, poisFactory, settings, globalizationSettings, mapFactory, staticPagesFactory) {
 
     this.run = function() {
 
         var deferred = $q.defer();
 
-        staticPagesFactory.downloadStaticPages(settings.remote.STATIC_PAGES_URL)
+        staticPagesFactory.downloadStaticPages(globalizationSettings.STATIC_PAGES_URL)
         .then(function(result) {
-            return treksFactory.downloadTreks(settings.remote.TREK_REMOTE_FILE_URL);
+            return treksFactory.downloadTreks(globalizationSettings.TREK_REMOTE_FILE_URL);
         })
         .then(function(result) {
             return treksFactory.getTreks();

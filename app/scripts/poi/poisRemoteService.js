@@ -2,7 +2,7 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings) {
+geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings) {
 
     this.downloadPois = function(trekIds) {
         var deferred = $q.defer();
@@ -32,7 +32,7 @@ geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $windo
 
     this.getPoisFromTrek = function(trekId) {
 
-        var trek_pois_url = settings.remote.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
+        var trek_pois_url = globalizationSettings.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
             requests = $resource(trek_pois_url, {}, {
                 query: {
                     method: 'GET',
