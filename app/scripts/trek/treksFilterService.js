@@ -262,7 +262,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
                 { id: 1000, name: 'Fort', icon: 'deniv1.svg', interval: [1001, 30000] },
             ],
             downloads : [
-                { value: 1, name: 'Trek map available offline', icon: 'icon_offline.png' }
+                { value: 1, name: 'Trek map available offline', icon: 'icon_offline.svg' }
             ],
             themes : trekThemes,
             uses: trekUses,
