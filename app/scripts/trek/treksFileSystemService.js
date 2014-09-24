@@ -34,11 +34,15 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
                 network.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
             });
-            angular.forEach(trek.properties.information_desks, function(information_desk) {
-                var informationUrl = information_desk.photo_url;
-                var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
-                information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
-            });
+            if(angular.isDefined(trek.properties.information_desks)){
+                angular.forEach(trek.properties.information_desks, function(information_desk) {
+                    var informationUrl = information_desk.photo_url;
+                    if(informationUrl){
+                        var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
+                        information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                    };
+                });
+            };
             if(angular.isDefined(trek.properties.difficulty)){
                 var difficultyUrl = trek.properties.difficulty.pictogram;
                 var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
@@ -91,12 +95,16 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                     var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
                     promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
                 });
-                angular.forEach(trek.properties.information_desks, function(information_desk) {
-                    var informationUrl = decodeURIComponent(information_desk.photo_url);
-                    var serverUrl = settings.DOMAIN_NAME + informationUrl;
-                    var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
-                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
-                });
+                if(angular.isDefined(trek.properties.information_desks)){
+                    angular.forEach(trek.properties.information_desks, function(information_desk) {
+                        var informationUrl = decodeURIComponent(information_desk.photo_url);
+                        if(informationUrl){
+                            var serverUrl = settings.DOMAIN_NAME + informationUrl;
+                            var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
+                            promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                        };
+                    });
+                };
                 if(angular.isDefined(trek.properties.difficulty)){
                     var difficultyUrl = trek.properties.difficulty.pictogram;
                     var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
