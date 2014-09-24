@@ -5,7 +5,7 @@ var geotrekTreks = angular.module('geotrekTreks');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', '$log', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, $log, geolocationFactory, utils) {
+geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', 'logging', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils) {
 
     var treksFactory;
 
@@ -58,7 +58,7 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
                 deferred.resolve(treks);
 
             }, function(error) {
-                $log.warn(error);
+                logging.warn(error);
                 deferred.resolve(treks);
             });
         });
@@ -83,7 +83,7 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
                 deferred.resolve(trek);
 
             }, function(error) {
-                $log.warn(error);
+                logging.warn(error);
                 deferred.resolve(trek);
             });
         });

@@ -30,18 +30,16 @@ window.ionic.Platform.ready(function() {
 
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
-    function($urlRouterProvider, $compileProvider, $logProvider) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider',
+    function($urlRouterProvider, $compileProvider) {
 
-    $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
-
-    $logProvider.debugEnabled = true;
+    $urlRouterProvider.otherwise('/trek');
 
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', '$log', '$window', '$state', function($rootScope, $log, $window, $state) {
+.run(['$rootScope', '$window', '$state', 'logging', function($rootScope, $window, $state, logging) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -62,13 +60,13 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
     $rootScope.network_available = true;
 
     function onlineCallback() {
-        $log.info('online');
+        logging.info('online');
         $rootScope.network_available = true;
         $rootScope.$digest();
     }
 
     function offlineCallback() {
-        $log.info('offline');
+        logging.info('offline');
         $rootScope.network_available = false;
         $rootScope.$digest();
     }

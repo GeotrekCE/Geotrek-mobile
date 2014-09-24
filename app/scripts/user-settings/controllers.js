@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory',
-    function ($rootScope, $state, $scope, $ionicModal, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
+    function ($rootScope, $state, $scope, $ionicModal, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
@@ -49,7 +49,7 @@ geotrekUserSettings.controller('UserSettingsController',
             // Disabling delete button to inform user that delete is done
             $scope.cleanIsDisabled = true;
         }, function(error) {
-            $log.error(error);
+            logging.error(error);
         });
     };
 

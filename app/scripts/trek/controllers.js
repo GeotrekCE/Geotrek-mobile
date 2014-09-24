@@ -3,8 +3,8 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.controller('TrekController',
-    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$log', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService',
-     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $log, treks, staticPages, localeSettings, utils, treksFiltersService) {
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, logging, treks, staticPages, localeSettings, utils, treksFiltersService) {
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
@@ -142,7 +142,7 @@ geotrekTreks.controller('TrekController',
                 .then(function(result) {
                     currentTrek.mbtiles.isDownloaded = false;
                 }, function(error) {
-                    $log.error(error);
+                    logging.error(error);
                 });
             }
         });

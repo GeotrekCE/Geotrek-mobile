@@ -6,8 +6,8 @@ var geotrekMap = angular.module('geotrekMap');
  * Service that persists and retrieves treks from data source
  */
 geotrekMap.service('LeafletMBTileLayerService',
-    ['$q', '$log', 'settings',
-    function ($q, $log, settings) {
+    ['$q', 'settings', 'logging',
+    function ($q, settings, logging) {
 
     this.getTileLayer = function(tileLayerFilePath) {
         var deferred = $q.defer();
@@ -23,7 +23,7 @@ geotrekMap.service('LeafletMBTileLayerService',
                 deferred.resolve(layer);
             },
             function(error) {
-                $log.error(error);
+                logging.error(error);
             }
         );
 

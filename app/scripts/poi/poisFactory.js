@@ -6,8 +6,8 @@ var geotrekPois = angular.module('geotrekPois', []);
  * Service that persists and retrieves treks from data source
  */
 geotrekPois.factory('poisFactory',
-    ['$injector', '$window', '$rootScope', '$q', '$log', 'treksFactory', 'geolocationFactory', 'utils',
-    function ($injector, $window, $rootScope, $q, $log, treksFactory, geolocationFactory, utils) {
+    ['$injector', '$window', '$rootScope', '$q', 'logging', 'treksFactory', 'geolocationFactory', 'utils',
+    function ($injector, $window, $rootScope, $q, logging, treksFactory, geolocationFactory, utils) {
 
     var poisFactory;
 
@@ -60,7 +60,7 @@ geotrekPois.factory('poisFactory',
                 });
                 deferred.resolve(pois);
             }, function(error) {
-                $log.warn(error);
+                logging.warn(error);
                 deferred.resolve(pois);
             });
         });
