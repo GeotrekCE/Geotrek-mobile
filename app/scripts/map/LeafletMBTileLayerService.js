@@ -19,9 +19,11 @@ geotrekMap.service('LeafletMBTileLayerService',
             tileLayerFilePath,
             settings.device.CDV_TILES_ROOT,
             { tms: true },
-
             function(layer) {
                 deferred.resolve(layer);
+            },
+            function(error) {
+                $log.error(error);
             }
         );
 
