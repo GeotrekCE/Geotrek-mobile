@@ -103,11 +103,8 @@ geotrekAppSettings.constant('globalSettings', {
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         remote: {
-            TREK_REMOTE_FILE_URL_BASE: DOMAIN_NAME + '/fr/files/api/trek',
-            TREK_REMOTE_FILE_URL: DOMAIN_NAME + '/fr/files/api/trek/trek.geojson',
             TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
             MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles',
-            STATIC_PAGES_URL: DOMAIN_NAME + '/fr/files/api/pages/pages.json'
         },
         device: {
             CDV_ROOT: CDV_ROOT,
@@ -135,4 +132,24 @@ geotrekAppSettings.constant('globalSettings', {
         },
         leaflet: leaflet_conf
     };
-});
+}).service('globalizationSettings', [ 'globalizationFactory', 'settings', '$q', function(globalizationFactory, settings, $q){
+    var self = this;
+
+    self.I18N_PREFIX;
+    self.STATIC_PAGES_URL;
+    self.TREK_REMOTE_FILE_URL;
+    self.TREK_REMOTE_FILE_URL_BASE;
+
+    this.setPrefix = function(i18n_prefix){
+        self.I18N_PREFIX = i18n_prefix
+        self.STATIC_PAGES_URL = settings.DOMAIN_NAME + '/' + self.I18N_PREFIX + '/files/api/pages/pages.json';
+        self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek/trek.geojson';
+        self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek';
+    }
+
+    this.setDefaultPrefix = function(){
+        return globalizationFactory.detectLanguage().then(function(i18n_prefix){
+            self.setPrefix(i18n_prefix);
+        });
+    }
+}]);

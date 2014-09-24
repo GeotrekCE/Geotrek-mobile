@@ -33,7 +33,7 @@
                     <li class="trek-detail__usage-infos__item" ng-repeat="usage in objectToDisplay.usages">
                         <img class="trek-detail__usage-infos__item icon" ng-src="{{ usage.pictogram }}"/>
                     </li>
-                <ul>
+                </ul>
 
                 <ion-item ng-if="objectToDisplay.thumbnail" class="poi-detail item-thumbnail-right">
                     <img class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
@@ -41,7 +41,7 @@
                     </div>
                 </ion-item>
 
-                <a ng-if="objectToDisplay.id" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars">{{ 'map_trek_detail.more_details' | translate }}</a>
+                <a ng-if="objectToDisplay.id" ng-click="modal.remove()" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars">{{ 'map_trek_detail.more_details' | translate }}</a>
             </div>
         </div>
 

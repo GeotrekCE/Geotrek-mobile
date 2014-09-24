@@ -70,9 +70,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
                         angular.extend($scope.markers, treksMarkers);
                     });
 
-                    // Adding arrows to show trek's direction
-                    layer.setText('>         ', {repeat:true, offset: 10});
-
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
                     layer.on({
@@ -156,10 +153,12 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
 
     $scope.currentTrek = $stateParams.trekId;
 
+    // Draw a new polyline in background to highlight the selected trek
     leafletData.getMap().then(function(map) {
         L.geoJson(trek, {style:{'color': '#981d97', 'weight': 9, 'opacity': 0.8}})
             .addTo(map)
-            .bringToBack();
+            .bringToBack()
+            .setText('>         ', {repeat:true, offset: 15});
     });
 
     function fitBoundsTrek(map) {

@@ -4,8 +4,15 @@
     vertical-align: middle;
     text-decoration: none;
 
-    &.icon-binoculars:before {
-        content: "b";
+    &.icon-binoculars::before {
+        content: url(../images/binocular.svg);
+        width: 32px;
+        height: 32px;
+    }
+    &.icon-binoculars-2::before {
+        content: url(../images/binocular-2.svg);
+        width: 32px;
+        height: 32px;
     }
 }
 

@@ -26,6 +26,11 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
             iconSize: [32, 32],
             iconAnchor: [16, 16]
         },
+        information_icon: {
+            iconUrl: 'images/information.svg',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        },
         poi_icon: {
             iconSize: [27, 27],
             labelAnchor: [20, -50]
@@ -52,6 +57,10 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getParkingIcon = function() {
         return trek_icons.parking_icon;
+    };
+
+    this.getInformationIcon = function() {
+        return trek_icons.information_icon;
     };
 
     this.getTrekIcon = function() {

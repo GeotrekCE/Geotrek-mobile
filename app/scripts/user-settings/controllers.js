@@ -14,14 +14,15 @@ geotrekUserSettings.controller('UserSettingsController',
 
     // AND
     // 2/ initialize select with saved user settings
-    var userSettings = userSettingsService.getUserSettings();
-    var scopeUserSettings = {
-        currentLanguage: localeSettings[userSettings.currentLanguage],
-        synchronizationMode: networkSettings[userSettings.synchronizationMode],
-        alertOnPOIs: userSettings.alertOnPOIs
-    };
-
-    $scope.userSettings = scopeUserSettings;
+     userSettingsService.getUserSettings().then(function(userSettings){
+            var scopeUserSettings = {
+                currentLanguage: localeSettings[userSettings.currentLanguage],
+                synchronizationMode: networkSettings[userSettings.synchronizationMode],
+                alertOnPOIs: userSettings.alertOnPOIs
+            };
+            $scope.userSettings = scopeUserSettings;
+        }
+    )
 
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/user_settings.html', {

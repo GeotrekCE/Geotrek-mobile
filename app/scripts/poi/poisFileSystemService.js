@@ -2,7 +2,7 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, utils) {
+geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings, utils) {
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
         return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
@@ -41,7 +41,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     };
 
     this.downloadPoisFromTrek = function(trekId) {
-        var trekPoisURL = settings.remote.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
+        var trekPoisURL = globalizationSettings.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
             trekPoisFilepath = this._getPoisTrekAbsoluteURL(trekId),
             _this = this;
 

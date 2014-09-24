@@ -49,7 +49,40 @@ $bar-dark-active-border:          transparent;
 	@include flex(1, 0);
 }
 
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+}
 
+.main-container {
+    overflow: hidden; // Fix ionic bug (horizontal scroll when sidebar is open)
+}
+
+.menu-left {
+    background: $secondaryColor;
+
+    .scroll-content {
+        padding: 0 10px;
+    }
+
+    .button-block {
+        border-radius: 5px;
+        font-size: 14px;
+    }
+}
+
+h1.app-title {
+    font-size: 140%;
+    margin: 0 0.5em;
+}
+
+.list .item-toggle {
+    padding: 8px;
+}
+
+.item p {
+    color: $complementaryColor2;
+}
 
 
 // Partials imports
@@ -69,41 +102,6 @@ $bar-dark-active-border:          transparent;
 @import "_modal";
 @import "_leaflet-custom";
 @import "_user-settings";
-
-.leaflet-container {
-	width: 100%;
-	height: 100%;
-}
-
-.main-container {
-	overflow: hidden; // Fix ionic bug (horizontal scroll when sidebar is open)
-}
-
-.menu-left {
-	background: $secondaryColor;
-
-	.scroll-content {
-		padding: 0 10px;
-	}
-
-	.button-block {
-		border-radius: 5px;
-		font-size: 14px;
-	}
-}
-
-h1.app-title {
-    font-size: 140%;
-    margin: 0 0.5em;
-}
-
-.list .item-toggle {
-    padding: 8px;
-}
-
-.item p {
-    color: $complementaryColor2;
-}
 
 //
 // Icons specific fixes

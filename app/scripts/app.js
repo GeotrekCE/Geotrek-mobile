@@ -39,7 +39,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', '$window', '$state', 'logging', function($rootScope, $window, $state, logging) {
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', function($rootScope, logging, $window, $state, globalizationSettings) {
+
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -51,7 +52,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
             console.error('$stateChangeError :', error);
         }
     });
-
+    globalizationSettings.setDefaultPrefix();
     $rootScope.$on('$stateChangeSuccess', function (evt, to, toParams, from, fromParams, error) {
         // Adding state current name on html body markup to design some elements according to current state.
         $rootScope.statename = $state.current.name;

@@ -12,11 +12,42 @@
   -ms-flex: 1 0;
   flex: 1 0; }
 
+.leaflet-container {
+  width: 100%;
+  height: 100%; }
+
+.main-container {
+  overflow: hidden; }
+
+.menu-left {
+  background: #981D97; }
+  .menu-left .scroll-content {
+    padding: 0 10px; }
+  .menu-left .button-block {
+    border-radius: 5px;
+    font-size: 14px; }
+
+h1.app-title {
+  font-size: 140%;
+  margin: 0 0.5em; }
+
+.list .item-toggle {
+  padding: 8px; }
+
+.item p {
+  color: #4d4a4a; }
+
 .icon-geotrek {
   vertical-align: middle;
   text-decoration: none; }
-  .icon-geotrek.icon-binoculars:before {
-    content: "b"; }
+  .icon-geotrek.icon-binoculars::before {
+    content: url(../images/binocular.svg);
+    width: 32px;
+    height: 32px; }
+  .icon-geotrek.icon-binoculars-2::before {
+    content: url(../images/binocular-2.svg);
+    width: 32px;
+    height: 32px; }
 
 .icon-text {
   line-height: 32px;
@@ -36,7 +67,8 @@
 .trek-list__item__detail__actions {
   position: absolute;
   right: 5px;
-  bottom: 10px; }
+  bottom: 10px;
+  width: 88px; }
 
 .trek-list__item__detail-bt {
   color: #494645;
@@ -119,6 +151,7 @@
   background: #981D97;
   color: white;
   font-size: 14px;
+  font-weight: bold;
   display: inline-block;
   padding: 10px;
   padding-left: 10px;
@@ -139,6 +172,7 @@
 
 .trek-detail__main-infos__item:before {
   width: 30px;
+  height: 30px;
   position: absolute;
   top: 5px;
   left: 5px; }
@@ -389,9 +423,11 @@
   font-weight: bold; }
 
 .poi-detail__description {
-  white-space: normal; }
+  white-space: normal;
+  color: black; }
   .poi-detail__description p {
-    white-space: normal; }
+    white-space: normal;
+    color: black; }
 
 [state^='home.map'] .modal-backdrop .modal {
   min-height: 33%;
@@ -439,7 +475,7 @@
 
 @-webkit-keyframes pulse {
   from {
-    stroke-width: 15;
+    stroke-width: 19;
     stroke-opacity: 1; }
   to {
     stroke-width: 50;
@@ -455,31 +491,6 @@ span.network-status {
   position: absolute;
   top: 15px;
   right: 50px; }
-
-.leaflet-container {
-  width: 100%;
-  height: 100%; }
-
-.main-container {
-  overflow: hidden; }
-
-.menu-left {
-  background: #981D97; }
-  .menu-left .scroll-content {
-    padding: 0 10px; }
-  .menu-left .button-block {
-    border-radius: 5px;
-    font-size: 14px; }
-
-h1.app-title {
-  font-size: 140%;
-  margin: 0 0.5em; }
-
-.list .item-toggle {
-  padding: 8px; }
-
-.item p {
-  color: #4d4a4a; }
 
 .icon {
   color: #4d4a4a; }
