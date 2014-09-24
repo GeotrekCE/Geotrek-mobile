@@ -41,7 +41,13 @@ h1.app-title {
   vertical-align: middle;
   text-decoration: none; }
   .icon-geotrek.icon-binoculars::before {
-    content: "b"; }
+    content: url(../images/binocular.svg);
+    width: 32px;
+    height: 32px; }
+  .icon-geotrek.icon-binoculars-2::before {
+    content: url(../images/binocular-2.svg);
+    width: 32px;
+    height: 32px; }
 
 .icon-text {
   line-height: 32px;
