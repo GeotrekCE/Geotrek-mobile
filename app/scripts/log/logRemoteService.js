@@ -4,24 +4,24 @@ var geotrekLog = angular.module('geotrekLog');
 
 geotrekLog.service('logRemoteService', function () {
 
-    this.log = function(logFunction, msg) {
-        logFunction(msg);
+    this.log = function(msg) {
+        console.log(msg);
     };
 
-    this.info = function(logFunction, msg) {
-        logFunction(msg);
+    this.info = function(msg) {
+        console.info(msg);
     };
 
-    this.warn = function(logFunction, msg) {
-        logFunction(msg);
+    this.warn = function(msg) {
+        console.warn(msg);
     };
 
-    this.error = function(logFunction, msg) {
-        logFunction(msg);
+    this.error = function(msg) {
+        console.error(msg);
     };
 
-    this.debug = function(logFunction, msg) {
-        logFunction(msg);
+    this.debug = function(msg) {
+        console.debug(msg);
     };
 
 });

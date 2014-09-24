@@ -18,7 +18,8 @@ geotrekAppSettings.constant('globalSettings', {
     var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
-        LOGS = true;
+        LOGS = true,
+        LOG_POOL_TIME = 6000;  // ms
 
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
@@ -129,7 +130,8 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_STATIC_PAGES_ROOT: RELATIVE_STATIC_PAGES_ROOT,
             RELATIVE_STATIC_PAGES_ROOT_FILE: RELATIVE_STATIC_PAGES_ROOT_FILE,
             RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT,
-            RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE
+            RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE,
+            LOG_POOL_TIME: LOG_POOL_TIME
         },
         leaflet: leaflet_conf
     };

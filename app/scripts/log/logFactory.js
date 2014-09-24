@@ -2,25 +2,14 @@
 
 var geotrekLog = angular.module('geotrekLog', []);
 
-
-geotrekLog.config(function($provide) {
-    $provide.decorator('$log', function($delegate, $sniffer, logFactory) {
-
-        var methodsToWrap = ['log', 'info', 'warn', 'error', 'debug'];
-
-        angular.forEach(methodsToWrap, function(method) {
-            var _method = $delegate[method];
-            // Replacing the original behavior and including the original
-            $delegate[method] = function(msg) { 
-                logFactory[method](_method, msg);
-            };
-        });
-
-        return $delegate;
-    });
-});
-
-geotrekLog.factory('logFactory', ['$injector', '$window', function ($injector, $window) {
+// README : we wanted to log JavaScript messages in a device file (for debug purpose)
+// we tried to use angular decorator ($provide in module config)
+// of '$log' angular built-in logging but there are some circular dependencies
+// injection when using $cordovaFile in log $delegate. In fact, $cordovaFile
+// has a dependence to $q, which has a dependence to ExceptionHandler
+// which has a dependence to $log, ARG.
+// We then defined a specific logging service.
+geotrekLog.factory('logging', ['$injector', '$window', '$timeout', function ($injector, $window, $timeout) {
 
     var logFactory;
 
