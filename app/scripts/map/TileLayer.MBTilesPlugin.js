@@ -3,11 +3,13 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
     mbTilesPlugin : null,
     base64Prefix : null,
     filename: null,
+    errorCallback: console.log,
 
-    initialize: function(mbTilesPlugin, filename, rootUrl, options, callback)
+    initialize: function(mbTilesPlugin, filename, rootUrl, options, callback, errorCallback)
     {
         this.mbTilesPlugin = mbTilesPlugin;
         this.filename = filename;
+        this.errorCallback = errorCallback;
         L.Util.setOptions(this, options);
         
         var tileLayer = this;
@@ -38,20 +40,26 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
                         callback(tileLayer);
                     },
                     function(error) {
-                        console.log('failed to load metadata');
+                        if (errorCallback) {
+                            errorCallback("failed to load metadata");
+                        }
                     });
                 },
                 function(error) {
-                    console.log("failed to open db " + filename);
+                    if (errorCallback) {
+                        errorCallback("failed to open db " + filename);
+                    }
                 });
             },
             function(error) {
-                console.log("failed to init db " + filename)
+                if (errorCallback) {
+                    errorCallback("failed to init db " + filename);
+                }
             }
         );
     },
     
-    getTileUrl: function (tilePoint, zoom, tile, filename)
+    getTileUrl: function (tilePoint, zoom, tile, filename, errorCallback)
     {   
         this._adjustTilePoint(tilePoint);
 //      var z = this._getOffsetZoom(zoom);
@@ -70,13 +78,16 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
                 },
                 function(error)
                 {
-                    console.log("failed to load tile " + JSON.stringify(error));
+                    if (errorCallback) {
+                        errorCallback("failed to load tile " + JSON.stringify(error));
+                    }
                 }
             );
         }, function(error) {
-            console.log("failed to open db " + filename);
+            if (errorCallback) {
+                errorCallback("failed to open db " + filename);
+            }
         });
-
     },
     
     _loadTile: function (tile, tilePoint, zoom)
@@ -84,7 +95,7 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
         tile._layer = this;
         tile.onload = this._tileOnLoad;
         tile.onerror = this._tileOnError;
-        this.getTileUrl(tilePoint, this.options.zoom, tile, this.filename);
+        this.getTileUrl(tilePoint, this.options.zoom, tile, this.filename, this.errorCallback);
     },
     
     
