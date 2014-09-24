@@ -13,13 +13,14 @@ geotrekLog.service('logDeviceService', function ($document, $injector, settings,
     // Cleaning log file on each app loading
     // This function will be called only once (services in AngularJS are singleton)
     $cordovaFile.removeFile(settings.device.RELATIVE_LOGS_FILE)
-    .then(function(result) {
+    .finally(function() {
 
         // We want to write logs on file system, but this call is asynchronous,
         // but we don't want to manage the callback on each logging call in whole app code.
         // Solution: we store logs in local storage, and on each "settings.device.LOG_POOL_TIME" seconds,
         // we write it on file, and clean logs in local storage
         poolLogsFn = $timeout(function poolLogs() {
+
             var writeOptions = {
                 append: true
             };
