@@ -36,8 +36,8 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             });
             if(angular.isDefined(trek.properties.information_desks)){
                 angular.forEach(trek.properties.information_desks, function(information_desk) {
-                    var informationUrl = information_desk.photo_url;
-                    if(informationUrl){
+                    if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                        var informationUrl = information_desk.photo_url;
                         var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
                         information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
                     };
@@ -97,8 +97,8 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 });
                 if(angular.isDefined(trek.properties.information_desks)){
                     angular.forEach(trek.properties.information_desks, function(information_desk) {
-                        var informationUrl = decodeURIComponent(information_desk.photo_url);
-                        if(informationUrl){
+                        if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                            var informationUrl = decodeURIComponent(information_desk.photo_url);
                             var serverUrl = settings.DOMAIN_NAME + informationUrl;
                             var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
                             promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
