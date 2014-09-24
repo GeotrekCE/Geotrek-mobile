@@ -47,37 +47,37 @@ geotrekLog.service('logDeviceService', function ($document, $injector, settings,
         $timeout.cancel(poolLogsFn);
     }, false);
 
-    this._writeLog = function(msg) {
+    this._writeLog = function(msg, logPrefix) {
         // Stringify log, useful when msg is a JavaScript Object
-        msg = JSON.stringify(msg);
-
         // Adding "\n" to add line return between each log (readability purpose)
-        $localStorage[LOCALSTORAGE_LOGS_KEY] += msg + '\n';
+        var msgFormatted = logPrefix + JSON.stringify(msg) + '\n';
+
+        $localStorage[LOCALSTORAGE_LOGS_KEY] +=  msgFormatted;
     };
 
     this.log = function(msg) {
         console.log(msg);
-        this._writeLog('LOG: ' + msg);
+        this._writeLog(msg, 'LOG: ');
     };
 
     this.info = function(msg) {
         console.info(msg);
-        this._writeLog('INFO: ' + msg);
+        this._writeLog(msg, 'INFO: ');
     };
 
     this.warn = function(msg) {
         console.warn(msg);
-        this._writeLog('WARN: ' + msg);
+        this._writeLog(msg, 'WARN: ');
     };
 
     this.error = function(msg) {
         console.error(msg);
-        this._writeLog('ERROR: ' + msg);
+        this._writeLog(msg, 'ERROR: ');
     };
 
     this.debug = function(msg) {
         console.debug(msg);
-        this._writeLog('DEBUG: ' + msg);
+        this._writeLog(msg, 'DEBUG: ');
     };
 
 });
