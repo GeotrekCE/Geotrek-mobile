@@ -24,8 +24,8 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
                     {
                         L.Util.setOptions(tileLayer,
                         {
-                            minZoom: metadata.min_zoom,
-                            maxZoom: metadata.max_zoom
+                            minZoom: metadata.minzoom,
+                            maxZoom: metadata.maxzoom
                         });
                         
                         if (!!metadata.format)
