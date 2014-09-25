@@ -6,7 +6,7 @@ var geotrekTreks = angular.module('geotrekTreks');
  * Service that gives trek filters
  */
 
-geotrekTreks.service('treksFiltersService', ['$q', '$log', function($q, $log) {
+geotrekTreks.service('treksFiltersService', ['$q', function($q) {
 
     // Get default value for each filter field
     this.getDefaultActiveFilterValues = function() {

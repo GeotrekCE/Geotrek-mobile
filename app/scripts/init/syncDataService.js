@@ -2,7 +2,8 @@
 
 var geotrekInit = angular.module('geotrekInit');
 
-geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFactory', 'settings', 'globalizationSettings', 'mapFactory', 'staticPagesFactory', function($q, $log, treksFactory, poisFactory, settings, globalizationSettings, mapFactory, staticPagesFactory) {
+
+geotrekInit.service('syncDataService', ['$q', 'logging', 'treksFactory', 'poisFactory', 'settings', 'globalizationSettings', 'mapFactory', 'staticPagesFactory', function($q, logging, treksFactory, poisFactory, settings, globalizationSettings, mapFactory, staticPagesFactory) {
 
     this.run = function() {
 
@@ -31,7 +32,7 @@ geotrekInit.service('syncDataService', ['$q', '$log', 'treksFactory', 'poisFacto
             deferred.resolve(result);
         })
         .catch(function(error) {
-            $log.warn(error);
+            logging.warn(error);
             deferred.resolve(error);
         });
 

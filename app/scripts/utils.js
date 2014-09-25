@@ -8,7 +8,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', '$rootScope', '$ionicModal', function ($q, settings, $cordovaFile, $http, $log, $rootScope, $ionicModal) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -56,7 +56,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
                         // If status is 304, it means that server file is older than device one
                         // Do nothing.
                         var msg = 'File not changed (304) : ' + url + ' at ' + filepath;
-                        $log.info(msg);
+                        logging.info(msg);
                         deferred.resolve({message: msg, type: 'connection', data: {status: status}});
                     }
                     else {
@@ -64,11 +64,11 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
 
                         // We can't connect to URL
                         if (status === 0) {
-                            $log.info('Network unreachable');
+                            logging.info('Network unreachable');
                             deferred.reject({message: 'Network unreachable', type: 'connection', data: {status: status}});
                         }
                         else {
-                            $log.info('Response error status ' + status);
+                            logging.info('Response error status ' + status);
                             deferred.reject({message: 'Response error ', type: 'connection', data: {status: status}});
                         }
                     }
@@ -77,11 +77,11 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', '$log', 
 
             }, function() {
                 // If there is no file with that path, we download it !
-                $log.info('cannot read ' + filepath + ' so downloading it !');
+                logging.info('cannot read ' + filepath + ' so downloading it !');
                 return $cordovaFile.downloadFile(url, filepath);
             });
         } else {
-            $log.info('forcing download of ');
+            logging.info('forcing download of ');
             return $cordovaFile.downloadFile(url, filepath);
         }
     };

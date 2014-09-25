@@ -2,7 +2,7 @@
 
 var geotrekGlobalization = angular.module('geotrekGlobalization');
 
-geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$log', '$q', 'globalSettings', function ($injector, $window, $log, $q, globalSettings) {
+geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', 'logging', '$q', 'globalSettings', function ($injector, $window, logging, $q, globalSettings) {
 
     var globalizationFactory;
 
@@ -26,7 +26,7 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', '$
                 }
             }
             catch(e) {
-                $log.error(e);
+                logging.error(e);
                 language = globalSettings.DEFAULT_LANGUAGE;
             }
 

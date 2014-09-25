@@ -10,7 +10,7 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, $log, treksFactory, staticPagesFactory, cfpLoadingBar, syncDataService, checkDataService, globalizationService, $translate) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, cfpLoadingBar, syncDataService, checkDataService, globalizationService, $translate) {
 
     $scope.message = 'Chargement des données en cours...';
 
@@ -35,7 +35,7 @@ geotrekInit.config(function($stateProvider) {
     })
     .catch(function(error) {
         cfpLoadingBar.complete();
-        $log.error(error);
+        logging.error(error);
         $scope.message = "Problème lors du chargement des données. Si c'est la première fois que vous utilisez Geotrek-Mobile, veuillez avoir une connexion Internet active.";
     });
 

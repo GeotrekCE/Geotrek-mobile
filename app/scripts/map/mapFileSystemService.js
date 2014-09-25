@@ -3,8 +3,8 @@
 var geotrekMap = angular.module('geotrekMap');
 
 geotrekMap.service('mapFileSystemService',
-    ['$q', '$cordovaFile', '$log', 'utils', 'settings', 'LeafletMBTileLayerService',
-    function ($q, $cordovaFile, $log, utils, settings, LeafletMBTileLayerService) {
+    ['$q', '$cordovaFile', 'logging', 'utils', 'settings', 'LeafletMBTileLayerService',
+    function ($q, $cordovaFile, logging, utils, settings, LeafletMBTileLayerService) {
 
     this.downloadGlobalBackground = function(url) {
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
@@ -81,7 +81,7 @@ geotrekMap.service('mapFileSystemService',
             })
 
         }, function(error) {
-            $log.error(error);
+            logging.error(error);
             deferred.resolve([]);
         });
 
@@ -109,7 +109,7 @@ geotrekMap.service('mapFileSystemService',
             })
 
         }, function(error) {
-            $log.error(error);
+            logging.error(error);
             deferred.resolve([]);
         });
 

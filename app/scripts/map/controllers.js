@@ -2,8 +2,8 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
-                                       function ($rootScope, $state, $scope, $log, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
+geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
+                                       function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
@@ -102,7 +102,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
         .then(function(result) {
             $scope.paths['userPosition'] = leafletService.setPositionMarker(result);
         }, function(error) {
-            $log.warn(error);
+            logging.warn(error);
         });
 
     $scope.$on('watchPosition', function(scope, position) {
@@ -135,7 +135,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', '$log'
             });
         })
         .catch(function(error) {
-            $log.warn(error);
+            logging.warn(error);
         });
     }
 

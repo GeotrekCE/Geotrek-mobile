@@ -2,7 +2,7 @@
 
 var geotrekGeolocation = angular.module('geotrekGeolocation', []);
 
-geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', '$rootScope', '$log', function ($injector, $window, $q, $rootScope, $log) {
+geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', '$rootScope', 'logging', function ($injector, $window, $q, $rootScope, logging) {
 
     var geolocationFactory;
 
@@ -54,7 +54,7 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
         // Cleaning watch to resolve weird no-callback issue
         // See MapController for more precisions
         if (!!$rootScope.watchID) {
-            $log.info('There is a watch, cleaning it before getting user LatLng position');
+            logging.info('There is a watch, cleaning it before getting user LatLng position');
             geolocationFactory.clearWatch($rootScope.watchID);
         }
 

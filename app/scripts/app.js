@@ -6,6 +6,7 @@ var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
      'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings', 'geotrekStaticPages',
+     'geotrekLog',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
@@ -29,18 +30,17 @@ window.ionic.Platform.ready(function() {
 
 });
 
-geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
-    function($urlRouterProvider, $compileProvider, $logProvider) {
+geotrekApp.config(['$urlRouterProvider', '$compileProvider',
+    function($urlRouterProvider, $compileProvider) {
 
-    $urlRouterProvider.otherwise('/trek');
     // Root url is defined in init module
-
-    $logProvider.debugEnabled = true;
+    $urlRouterProvider.otherwise('/trek');
 
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', '$log', '$window', '$state', 'globalizationSettings', function($rootScope, $log, $window, $state, globalizationSettings) {
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', function($rootScope, logging, $window, $state, globalizationSettings) {
+
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -61,13 +61,13 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider', '$logProvider',
     $rootScope.network_available = true;
 
     function onlineCallback() {
-        $log.info('online');
+        logging.info('online');
         $rootScope.network_available = true;
         $rootScope.$digest();
     }
 
     function offlineCallback() {
-        $log.info('offline');
+        logging.info('offline');
         $rootScope.network_available = false;
         $rootScope.$digest();
     }

@@ -6,7 +6,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  * Cordova social sharing API
  * Angular wrapper for https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin/
  */
-geotrekApp.factory('socialSharingService', function ($rootScope, $window) {
+geotrekApp.factory('socialSharingService', function ($rootScope, $window, logging) {
     if (!$window.cordova) {
         return;
     }
@@ -89,7 +89,7 @@ geotrekApp.factory('socialSharingService', function ($rootScope, $window) {
             return ecb;
         } else {
             return function (result) {
-                console.log('The injected error callback of "' + functionName + '" received: ' + JSON.stringify(result));
+                logging.error('The injected error callback of "' + functionName + '" received: ' + JSON.stringify(result));
             };
         }
     };

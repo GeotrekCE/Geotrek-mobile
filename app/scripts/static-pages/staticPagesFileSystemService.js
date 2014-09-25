@@ -3,8 +3,8 @@
  */
 
 geotrekStaticPages.service('staticPagesFileSystemService', [
-    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', '$log', 'settings', 'utils',
-    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, $log, settings, utils) {
+    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'utils',
+    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, utils) {
 
     this.downloadStaticPages = function(url) {
         var _this = this;
@@ -13,7 +13,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
         .then(function() {
             return _this.downloadStaticPagesPictures();
         }).catch(function(error){
-            $log.error(error);
+            logging.error(error);
         });
     };
 
