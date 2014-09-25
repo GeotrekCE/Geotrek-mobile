@@ -77,11 +77,11 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
 
             }, function() {
                 // If there is no file with that path, we download it !
-                logging.info('cannot read ' + filepath + ' so downloading it !');
+                logging.info('cannot read ' + filepath + ' so downloading it at ' + url);
                 return $cordovaFile.downloadFile(url, filepath);
             });
         } else {
-            logging.info('forcing download of ');
+            logging.info('forcing download of ' + filepath + ' at ' + url);
             return $cordovaFile.downloadFile(url, filepath);
         }
     };
