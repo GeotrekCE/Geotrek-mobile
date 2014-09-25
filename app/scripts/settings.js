@@ -26,7 +26,7 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_ATTRIBUTION: '<a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | &copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'
     };
 
-    var ecrin_conf = {
+    var ecrins_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 44.8,
         GLOBAL_MAP_CENTER_LONGITUDE: 6.2,
         GLOBAL_MAP_DEFAULT_ZOOM: 9,
@@ -46,6 +46,9 @@ geotrekAppSettings.constant('globalSettings', {
      *          |-- pois.geojson
      *      |-- <trek_2> (ex: 2854)
      *      ...
+     *      |-- <PICTOGRAM_DIR>
+     *          |-- <picto1.jpg>
+     *          ...
      *  |-- <POI_DIR>
      *      |-- <PICTOGRAM_DIR>
      *          |-- <picto1.jpg>
@@ -83,7 +86,8 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_TREK_ROOT = GEOTREK_DIR + '/' + TREK_DIR,
         RELATIVE_TREK_ROOT_FILE = GEOTREK_DIR + '/' + TREKS_FILE_NAME,
         RELATIVE_POI_ROOT = GEOTREK_DIR + '/' + POI_DIR,
-        RELATIVE_PICTO_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR,
+        RELATIVE_PICTO_TREK_ROOT = RELATIVE_TREK_ROOT + '/' + PICTOGRAM_DIR,
+        RELATIVE_PICTO_POI_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR,
         RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
         RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME,
         RELATIVE_STATIC_PAGES_ROOT = GEOTREK_DIR + '/' + STATIC_PAGES_DIR,
@@ -106,7 +110,8 @@ geotrekAppSettings.constant('globalSettings', {
             CDV_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_TREK_ROOT,
             CDV_TREK_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TREK_ROOT_FILE,
             CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
-            CDV_PICTO_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_ROOT,
+            CDV_PICTO_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_TREK_ROOT,
+            CDV_PICTO_POI_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_POI_ROOT,
             CDV_TILES_ROOT: CDV_ROOT + '/' + RELATIVE_TILES_ROOT,
             CDV_TILES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TILES_ROOT_FILE,
             CDV_STATIC_PAGES_ROOT: CDV_ROOT + '/' + RELATIVE_STATIC_PAGES_ROOT,
@@ -116,7 +121,8 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_TREK_ROOT: RELATIVE_TREK_ROOT,
             RELATIVE_TREK_ROOT_FILE: RELATIVE_TREK_ROOT_FILE,
             RELATIVE_POI_ROOT: RELATIVE_POI_ROOT,
-            RELATIVE_PICTO_ROOT: RELATIVE_PICTO_ROOT,
+            RELATIVE_PICTO_TREK_ROOT: RELATIVE_PICTO_TREK_ROOT,
+            RELATIVE_PICTO_POI_ROOT: RELATIVE_PICTO_POI_ROOT,
             RELATIVE_TILES_ROOT: RELATIVE_TILES_ROOT,
             RELATIVE_TILES_ROOT_FILE: RELATIVE_TILES_ROOT_FILE,
             RELATIVE_STATIC_PAGES_ROOT: RELATIVE_STATIC_PAGES_ROOT,

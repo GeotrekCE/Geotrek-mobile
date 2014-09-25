@@ -19,7 +19,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
 
     this.convertServerUrlToPictoFileSystemUrl = function(poiId, serverUrl) {
         var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
-        return settings.device.CDV_PICTO_ROOT + '/' + filename;
+        return settings.device.CDV_PICTO_POI_ROOT + '/' + filename;
     };
 
     this.replaceImgURLs = function(poiData) {
@@ -101,7 +101,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     };
 
     this.downloadPictoImage = function(url, pictoName) {
-        return utils.downloadFile(url, settings.device.CDV_PICTO_ROOT + '/' + pictoName);
+        return utils.downloadFile(url, settings.device.CDV_PICTO_POI_ROOT + '/' + pictoName);
     };
 
     // Getting Pois used for mobile purpose

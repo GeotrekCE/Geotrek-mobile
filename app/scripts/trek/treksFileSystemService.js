@@ -22,17 +22,17 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             angular.forEach(trek.properties.usages, function(usage) {
                 var usageUrl = usage.pictogram;
                 var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
-                usage.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                usage.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
             });
             angular.forEach(trek.properties.themes, function(theme) {
                 var themeUrl = theme.pictogram;
                 var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
-                theme.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                theme.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
             });
             angular.forEach(trek.properties.networks, function(network) {
                 var networkUrl = network.pictogram;
                 var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
-                network.pictogram = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                network.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
             });
             if(angular.isDefined(trek.properties.information_desks)){
                 angular.forEach(trek.properties.information_desks, function(information_desk) {
@@ -46,7 +46,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             if(angular.isDefined(trek.properties.difficulty)){
                 var difficultyUrl = trek.properties.difficulty.pictogram;
                 var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
-                trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_ROOT + '/' + filename;
+                trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_POI_ROOT + '/' + filename;
             }
         });
         return copy;
@@ -81,19 +81,19 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                     var usageUrl = decodeURIComponent(usage.pictogram);
                     var serverUrl = settings.DOMAIN_NAME + usageUrl;
                     var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
-                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                    promises.push(utils.downloadFile(serverUrl, settings.device.CDV_PICTO_TREK_ROOT + '/' + filename));
                 });
                 angular.forEach(trek.properties.themes, function(theme) {
                     var themeUrl = decodeURIComponent(theme.pictogram);
                     var serverUrl = settings.DOMAIN_NAME + themeUrl;
                     var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
-                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                    promises.push(utils.downloadFile(serverUrl, settings.device.CDV_PICTO_TREK_ROOT + '/' + filename));
                 });
                 angular.forEach(trek.properties.networks, function(network) {
                     var networkUrl = decodeURIComponent(network.pictogram);
                     var serverUrl = settings.DOMAIN_NAME + networkUrl;
                     var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
-                    promises.push(utils.downloadFile(serverUrl, _this.getTrekSubdir(currentTrekId) + '/' + filename));
+                    promises.push(utils.downloadFile(serverUrl, settings.device.CDV_PICTO_TREK_ROOT + '/' + filename));
                 });
                 if(angular.isDefined(trek.properties.information_desks)){
                     angular.forEach(trek.properties.information_desks, function(information_desk) {
@@ -108,7 +108,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 if(angular.isDefined(trek.properties.difficulty)){
                     var difficultyUrl = trek.properties.difficulty.pictogram;
                     var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
-                    promises.push(utils.downloadFile(settings.DOMAIN_NAME + difficultyUrl, settings.device.CDV_PICTO_ROOT + '/' + filename));
+                    promises.push(utils.downloadFile(settings.DOMAIN_NAME + difficultyUrl, settings.device.CDV_PICTO_POI_ROOT + '/' + filename));
                 }
             })
 
