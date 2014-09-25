@@ -74,7 +74,12 @@ L.TileLayer.MBTilesPlugin = L.TileLayer.extend(
                 {z: z, x: x, y: y},
                 function(result)
                 {
-                    tile.src = base64Prefix + result.tile_data;
+                    if (result.tile_data) {
+                        tile.src = base64Prefix + result.tile_data;
+                    }
+                    else if (errorCallback) {
+                        errorCallback("failed to load tile " + x.toString() + " " + y.toString() + " " + z.toString() + " in database " + filename);
+                    }
                 },
                 function(error)
                 {
