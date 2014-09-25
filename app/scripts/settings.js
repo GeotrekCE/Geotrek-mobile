@@ -18,8 +18,10 @@ geotrekAppSettings.constant('globalSettings', {
     var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
-        LOGS = true,
-        LOG_POOL_TIME = 6000;  // ms
+        LOGS = true,  // if true, console logs are also saved in a file (device only)
+        // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
+        LOG_POOL_TIME = 6000;  // in ms
+
 
     var leaflet_dev_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
