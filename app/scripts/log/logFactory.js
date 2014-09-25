@@ -9,11 +9,12 @@ var geotrekLog = angular.module('geotrekLog', []);
 // has a dependence to $q, which has a dependence to ExceptionHandler
 // which has a dependence to $log, ARG.
 // We then defined a specific logging service.
-geotrekLog.factory('logging', ['$injector', '$window', '$timeout', function ($injector, $window, $timeout) {
+geotrekLog.factory('logging', ['$injector', '$window', '$timeout', 'settings', function ($injector, $window, $timeout, settings) {
 
     var logFactory;
 
-    if (angular.isDefined($window.cordova)) {
+    // Writing logs on file only if LOGS settings is OK
+    if (angular.isDefined($window.cordova) && settings.device.LOGS) {
         logFactory = $injector.get('logDeviceService');
     }
     else {

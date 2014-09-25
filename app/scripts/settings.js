@@ -130,7 +130,8 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_STATIC_PAGES_ROOT_FILE: RELATIVE_STATIC_PAGES_ROOT_FILE,
             RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT,
             RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE,
-            LOG_POOL_TIME: LOG_POOL_TIME
+            LOG_POOL_TIME: LOG_POOL_TIME,
+            LOGS: LOGS
         },
         leaflet: leaflet_conf
     };
