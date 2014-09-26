@@ -22,13 +22,7 @@ geotrekMap.service('leafletService',
                 zoomControl: false // Not needed on Android/iOS modern devices
             },
             layers: {
-                baselayers: {
-                    trektiles: {
-                        name: 'trektiles',
-                        type: 'xyz',
-                        url: settings.device.CDV_TILES_ROOT + '/{z}/{x}/{y}.png' // voir pour connecté
-                    }
-                },
+                baselayers: {},
                 overlays: {
                     poi: {
                         type: 'group',
@@ -47,7 +41,22 @@ geotrekMap.service('leafletService',
             paths: {}
         };
 
-        return map_parameters;
+        var deferred = $q.defer();
+
+        // We initialize leaflet baselayers param with :
+        // 1/ Remote url on browser mode OR
+        // 2/ Local saved mbtiles on device
+        mapFactory.getGlobalTileLayer()
+        .then(function(layer) {
+            map_parameters.layers.baselayers[layer.id] = layer;
+            deferred.resolve(map_parameters);
+        })
+        .catch(function(error) {
+            logging.error(error);
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
 
     };
 

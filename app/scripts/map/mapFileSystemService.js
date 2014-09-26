@@ -33,8 +33,19 @@ geotrekMap.service('mapFileSystemService',
         return deferred.promise;
     };
 
+
+
     this.getGlobalTileLayer = function() {
-        return this.getTileLayer(settings.TILES_FILE_NAME);
+        var deferred = $q.defer();
+        var tileLayer = new L.TileLayer(settings.device.CDV_TILES_ROOT + '/{z}/{x}/{y}.png');
+        deferred.resolve({
+            id: 'OSMTopo',
+            name: 'OSMTopo',
+            type: 'custom',
+            layer: tileLayer,
+        });
+
+        return deferred.promise;
     };
 
     this.getTileLayer = function(mbtileFilename) {
