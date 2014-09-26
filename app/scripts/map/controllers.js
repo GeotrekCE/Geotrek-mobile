@@ -32,18 +32,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
         utils.createModal('views/map_trek_detail.html', modalScope);
     });
 
-    leafletData.getMap().then(function(map) {
-
-        mapFactory.getDownloadedLayers()
-        .then(function(downloadedLayers) {
-
-            angular.forEach(downloadedLayers, function(layerStructure) {
-                map.addLayer(layerStructure.layer);
-                layerStructure.layer.bringToFront();
-            });
-        });
-    });
-
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 
@@ -82,6 +70,8 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
         });
 
         leafletData.getMap().then(function(map) {
+
+            console.log($scope);
             $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             map.on('zoomend', function() {
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
