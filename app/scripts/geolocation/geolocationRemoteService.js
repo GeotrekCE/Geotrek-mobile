@@ -4,6 +4,9 @@ var geotrekGeolocation = angular.module('geotrekGeolocation');
 
 geotrekGeolocation.service('geolocationRemoteService', ['$q', '$timeout', function ($q, $timeout) {
 
+    // There variables are used to limit watchPosition callbacks
+    var iterNum = 0, maxIterNum = 10;
+
     this.getCurrentPosition = function(options) {
 
         var deferred = $q.defer();
@@ -28,13 +31,26 @@ geotrekGeolocation.service('geolocationRemoteService', ['$q', '$timeout', functi
         return deferred.promise;
     };
 
+    // We broadcast to scope only 1 data on each <maxIterNum> watchPosition callback
+    this._broadcast = function($scope, dataToBroadcast) {
+        if (iterNum === maxIterNum) {
+            $scope.$broadcast('watchPosition', dataToBroadcast);
+            iterNum = 0;
+        }
+        else {
+            iterNum += 1;
+        }
+    };
+
     this.watchPosition = function($scope, options) {
+        var _this = this;
+
         if (navigator.geolocation) {
             return navigator.geolocation.watchPosition(
                 function(position) {
-                    $scope.$broadcast('watchPosition', {'lat': position.coords.latitude, 'lng': position.coords.longitude});
+                    _this._broadcast($scope, {'lat': position.coords.latitude, 'lng': position.coords.longitude});
                 }, function(positionError) {
-                    $scope.$broadcast('watchPosition', positionError);
+                    _this._broadcast($scope, positionError);
               }, options);
         } else {
             $scope.$broadcast('watchPosition', 'Your browser does not support HTML5 geolocation API.');

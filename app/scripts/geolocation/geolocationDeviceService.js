@@ -4,25 +4,24 @@ var geotrekGeolocation = angular.module('geotrekGeolocation');
 
 geotrekGeolocation.service('geolocationDeviceService', ['$q', '$cordovaGeolocation', function ($q, $cordovaGeolocation) {
 
-    var itemNum = 0, maxIterNum = 10;
+    // There variables are used to limit watchPosition callbacks
+    var iterNum = 0, maxIterNum = 1;
 
     this.getCurrentPosition = function(options) {
         return $cordovaGeolocation.getCurrentPosition(options);
     };
 
     this._broadcast = function($scope, dataToBroadcast) {
-        console.log('Iter Num : ' + itemNum.toString());
-        if (itemNum === 10) {
+        if (iterNum === maxIterNum) {
             $scope.$broadcast('watchPosition', dataToBroadcast);
-            itemNum = 0;
+            iterNum = 0;
         }
         else {
-            itemNum += 1;
+            iterNum += 1;
         }
     };
 
     this.watchPosition = function($scope, options) {
-
         var deferred = $q.defer(),
             watchResult = $cordovaGeolocation.watchPosition(options),
             _this = this;
