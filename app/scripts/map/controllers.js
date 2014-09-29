@@ -90,7 +90,7 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
     }
 
     showTreks();
-    
+
     // Show the scale and attribution controls
     leafletData.getMap().then(function(map) {
         leafletService.setScale(map);
@@ -105,7 +105,17 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
             logging.warn(error);
         });
 
+    var iterNum = 0, maxIterNum = 10;
     $scope.$on('watchPosition', function(scope, position) {
+        console.log('watchPosition');
+        console.log(position);
+
+        window.plugin.notification.local.add({
+            id:      1,
+            title:   'User Position',
+            message: '(' + position.lat.toString() + '/' + position.lng.toString() + ')',
+        });
+
         leafletData.getMap().then(function(map) {
             $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
         });
@@ -116,11 +126,14 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
     // This callback is used to reactivate watching after getLatLngPosition call, as this call desactivate
     // watch to avoid that issue
     var watchCallback = function() {
-        $rootScope.watchID = geolocationFactory.watchPosition($scope, {enableHighAccuracy: true});
+        var watchOptions = {
+            enableHighAccuracy: true
+        }
+        // TODO: this watch must depend on user watch setting
+        $rootScope.watchID = geolocationFactory.watchPosition($scope, watchOptions);
     }
 
     // Beginning geolocation watching
-    // TODO: this watch must depend on user watch setting
     watchCallback();
 
     // Center map on user position

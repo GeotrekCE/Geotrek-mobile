@@ -217,6 +217,12 @@ CORDOVA MBTILES PLUGIN
 https://github.com/ffournier/cordova-plugin-mbtiles
 ```
 
+CORDOVA LOCAL NOTIFICATION PLUGIN
+==================================
+```bash
+cordova plugin add de.appplant.cordova.plugin.local-notification
+```
+
 ANGULAR-LEAFLET-DIRECTIVE
 =========================
 Source files are available at https://github.com/Natsu-/angular-leaflet-directive
