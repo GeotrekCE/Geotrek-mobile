@@ -2,8 +2,9 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory',
-                                       function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory) {
+geotrekMap.controller('MapController', 
+    ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory',
+    function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory, notificationFactory) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
@@ -105,20 +106,16 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
             logging.warn(error);
         });
 
-    var iterNum = 0, maxIterNum = 10;
     $scope.$on('watchPosition', function(scope, position) {
-        console.log('watchPosition');
-        console.log(position);
+        
+        if (position.lat && position.lng) {
+            var msg = '(' + position.lat.toString() + '/' + position.lng.toString() + ')';
+            notificationFactory.notify(msg);
 
-        window.plugin.notification.local.add({
-            id:      1,
-            title:   'User Position',
-            message: '(' + position.lat.toString() + '/' + position.lng.toString() + ')',
-        });
-
-        leafletData.getMap().then(function(map) {
-            $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
-        });
+            leafletData.getMap().then(function(map) {
+                $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
+            });
+        }
     });
 
     // README: watchPosition has a weird issue : if we get user CurrentPosition while watch is activated
