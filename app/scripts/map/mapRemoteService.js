@@ -2,7 +2,7 @@
 
 var geotrekMap = angular.module('geotrekMap');
 
-geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $localStorage) {
+geotrekMap.service('mapRemoteService', ['$q', '$localStorage', 'settings', function ($q, $localStorage, settings) {
 
     var EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY = 'emulated-background',
         EMULATED_DOWNLOAD_LOCALSTORAGE_KEY = 'trek-';
@@ -10,6 +10,10 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
     if (!$localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY]) {
         $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY] = {};
     }
+
+    this.getGlobalTileLayerURL = function() {
+        return settings.remote.LEAFLET_BACKGROUND_URL;
+    };
 
     // We don't have to download Map Background in Remote version, only for device offline mode
     this.downloadGlobalBackground = function(url) {
@@ -21,19 +25,6 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', function ($q, $lo
     this.isReady = function() {
         var deferred = $q.defer();
         deferred.resolve({message: 'Tiles are always available in browser mode'});
-        return deferred.promise;
-    };
-
-    this.getGlobalTileLayer = function() {
-        var deferred = $q.defer();
-        var tileLayer = new L.TileLayer('http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png');
-        deferred.resolve({
-            id: 'OSMTopo',
-            name: 'OSMTopo',
-            type: 'custom',
-            layer: tileLayer,
-        });
-
         return deferred.promise;
     };
 

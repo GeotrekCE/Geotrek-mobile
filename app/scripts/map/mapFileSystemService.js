@@ -6,6 +6,10 @@ geotrekMap.service('mapFileSystemService',
     ['$q', '$cordovaFile', 'logging', 'utils', 'settings', 'LeafletMBTileLayerService',
     function ($q, $cordovaFile, logging, utils, settings, LeafletMBTileLayerService) {
 
+    this.getGlobalTileLayerURL = function() {
+        return settings.device.LEAFLET_BACKGROUND_URL;
+    };
+
     this.downloadGlobalBackground = function(url) {
         return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
     };
@@ -28,21 +32,6 @@ geotrekMap.service('mapFileSystemService',
         })
         .catch(function(error) {
             deferred.reject(error);
-        });
-
-        return deferred.promise;
-    };
-
-
-
-    this.getGlobalTileLayer = function() {
-        var deferred = $q.defer();
-        var tileLayer = new L.TileLayer(settings.device.CDV_TILES_ROOT + '/{z}/{x}/{y}.png');
-        deferred.resolve({
-            id: 'OSMTopo',
-            name: 'OSMTopo',
-            type: 'custom',
-            layer: tileLayer,
         });
 
         return deferred.promise;

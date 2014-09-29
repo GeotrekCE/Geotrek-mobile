@@ -20,7 +20,7 @@
   overflow: hidden; }
 
 .menu-left {
-  background: #981d97; }
+  background: #981D97; }
   .menu-left .scroll-content {
     padding: 0 10px; }
   .menu-left .button-block {
@@ -58,7 +58,7 @@ h1.app-title {
   display: block; }
 
 .trek-list__item h3 {
-  color: #981d97; }
+  color: #981D97; }
 .trek-list__item .departure {
   margin-bottom: 0; }
 .trek-list__item .difficulty {
@@ -99,7 +99,7 @@ h1.app-title {
       padding: 4px 45px 5px 15px;
       color: white;
       direction: ltr;
-      background-color: #981d97;
+      background-color: #981D97;
       border: 1px solid white; }
 
 .filters-list__item {
@@ -148,7 +148,7 @@ h1.app-title {
   font-size: 14px; }
 
 .trek-detail__section-title {
-  background: #981d97;
+  background: #981D97;
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -159,7 +159,7 @@ h1.app-title {
   min-width: 130px; }
 
 .trek-detail__main-infos {
-  background-color: #981d97;
+  background-color: #981D97;
   padding: 5px;
   margin: 0 -10px; }
 
@@ -241,7 +241,7 @@ h1.app-title {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #981d97; }
+  background-color: #981D97; }
   .switch-detail.switch-detail-map {
     bottom: 20px;
     right: 20px; }
@@ -272,7 +272,7 @@ h1.app-title {
 .slider-pager {
   bottom: 5px; }
   .slider-pager .icon {
-    color: #981d97; }
+    color: #981D97; }
 
 .bar-main .flex-wrapper {
   margin: 0 5px; }
@@ -284,21 +284,21 @@ h1.app-title {
   padding: 0; }
   .bar-dark .button {
     border: none;
-    background: #981d97;
-    box-shadow: inset 0 -4px 0 gray;
+    background: #981D97;
+    box-shadow: inset 0 -4px 0 grey;
     color: white; }
     .bar-dark .button.activated {
       background: rgba(152, 29, 151, 0.6); }
     .bar-dark .button.active {
-      background: #981d97; }
+      background: #981D97; }
     .bar-dark .button.active, .bar-dark .button.activated {
-      box-shadow: inset 0 -4px 0 #cedc00;
+      box-shadow: inset 0 -4px 0 #CEDC00;
       font-weight: bold; }
     .bar-dark .button:after {
       display: none; }
 
 .bar-subheader .button-bar .button + .button {
-  border-left: 4px solid #cedc00; }
+  border-left: 4px solid #CEDC00; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;
@@ -314,7 +314,7 @@ h1.app-title {
   color: #4d4a4a;
   padding-right: 91px; }
 .bar-secondary .modal__actions i {
-  color: #981d97; }
+  color: #981D97; }
 .bar-secondary i {
   color: #4d4a4a; }
 
@@ -377,7 +377,7 @@ h1.app-title {
   border-radius: 0; }
   .platform-android .action-sheet-group .button, .platform-browser .action-sheet-group .button {
     padding: 1px 15px;
-    color: black; }
+    color: #000; }
 
 .splashscreen {
   background: url(../images/splash-screen-large.jpg) center top no-repeat black;
@@ -397,7 +397,7 @@ h1.app-title {
   padding: 1em; }
 
 #loading-bar .bar {
-  background: #981d97;
+  background: #981D97;
   padding: 0;
   height: 4px; }
 #loading-bar .peg {
@@ -462,7 +462,7 @@ h1.app-title {
   background-color: transparent; }
 
 .modal__actions i {
-  color: #981d97; }
+  color: #981D97; }
 
 .leaflet-control-layers.leaflet-control {
   display: none; }
@@ -477,7 +477,6 @@ h1.app-title {
   from {
     stroke-width: 19;
     stroke-opacity: 1; }
-
   to {
     stroke-width: 50;
     stroke-opacity: 0; } }
@@ -485,7 +484,6 @@ h1.app-title {
   from {
     stroke-width: 15;
     stroke-opacity: 1; }
-
   to {
     stroke-width: 50;
     stroke-opacity: 0; } }

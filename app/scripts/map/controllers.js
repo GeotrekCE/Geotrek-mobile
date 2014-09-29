@@ -70,8 +70,6 @@ geotrekMap.controller('MapController', ['$rootScope', '$state', '$scope', 'loggi
         });
 
         leafletData.getMap().then(function(map) {
-
-            console.log($scope);
             $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             map.on('zoomend', function() {
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
