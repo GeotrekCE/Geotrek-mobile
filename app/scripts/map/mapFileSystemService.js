@@ -11,7 +11,7 @@ geotrekMap.service('mapFileSystemService',
     };
 
     this.downloadGlobalBackground = function(url) {
-        return utils.downloadFile(url, settings.device.CDV_TILES_ROOT_FILE);
+        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
     };
 
     this.isReady = function() {

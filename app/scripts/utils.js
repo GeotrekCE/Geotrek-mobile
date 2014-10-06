@@ -120,9 +120,41 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         });
     };
 
+    var unzip = function(zipLocalPath, toPath) {
+
+        var deferred = $q.defer();
+
+        // Calling unzip method from Zip Plugin (https://github.com/MobileChromeApps/zip)
+        zip.unzip(zipLocalPath, toPath, function(result) {
+
+            if (result == 0) {
+                deferred.resolve("unzip complete");
+            }
+            else {
+                deferred.reject("unzip failed");
+            }
+
+        }, function(eventProgress) {
+            // eventProgress is a dict with 2 keys : loaded and total
+            deferred.notify(eventProgress);
+        });
+
+        return deferred.promise;
+    };
+
+    var downloadAndUnzip = function(url, folderPath) {
+        var filename = url.split(/[\/]+/).pop();
+        return downloadFile(url, folderPath + "/" + filename)
+        .then(function() {
+            return unzip(folderPath + "/" + filename, folderPath);
+        });
+    };
+
     return {
         downloadFile: downloadFile,
         getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
-        createModal: createModal
+        createModal: createModal,
+        unzip: unzip,
+        downloadAndUnzip: downloadAndUnzip
     };
 }]);

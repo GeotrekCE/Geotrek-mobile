@@ -217,6 +217,12 @@ CORDOVA MBTILES PLUGIN
 https://github.com/ffournier/cordova-plugin-mbtiles
 ```
 
+CORDOVA ZIP PLUGIN
+==================================
+```bash
+cordova plugin add https://github.com/MobileChromeApps/zip.git
+```
+
 ANGULAR-LEAFLET-DIRECTIVE
 =========================
 Source files are available at https://github.com/Natsu-/angular-leaflet-directive

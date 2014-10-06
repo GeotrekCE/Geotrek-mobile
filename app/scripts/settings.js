@@ -100,7 +100,8 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         remote: {
             TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles',
+            // MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://cg44.makina-corpus.net/tmp/tiles-geotrek/tiles-all.zip",
             LEAFLET_BACKGROUND_URL: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
         },
         device: {
@@ -129,7 +130,7 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE,
             LOG_POOL_TIME: LOG_POOL_TIME,
             LOGS: LOGS,
-            LEAFLET_BACKGROUND_URL: CDV_ROOT + '/' + RELATIVE_TILES_ROOT + '/tiles-geotrek/tiles-all/{z}/{x}/{y}.png',
+            LEAFLET_BACKGROUND_URL: CDV_ROOT + '/' + RELATIVE_TILES_ROOT + '/tiles-all/{z}/{x}/{y}.png',
         },
         leaflet: leaflet_conf
     };
