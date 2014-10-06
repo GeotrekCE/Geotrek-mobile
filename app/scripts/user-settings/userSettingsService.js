@@ -26,8 +26,8 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
             userSettings = {};
         if (!userSettings['synchronizationMode'])
             userSettings['synchronizationMode'] = 'wifi';
-        if (!userSettings['alertOnPOIs']) {
-            userSettings['alertOnPOIs'] = false;
+        if (!userSettings['alertOnPois']) {
+            userSettings['alertOnPois'] = false;
         }
         if (!userSettings['currentLanguage']){
             globalizationFactory.detectLanguage()
@@ -49,7 +49,7 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
         }
         $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['currentLanguage'] = userSettings.currentLanguage.locale;
         $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['synchronizationMode'] = userSettings.synchronizationMode.value;
-        $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['alertOnPOIs'] = userSettings.alertOnPOIs;
+        $localStorage[LOCALSTORAGE_USER_SETTINGS_KEY]['alertOnPois'] = userSettings.alertOnPois;
     };
 
     this.warnForDownload = function() {

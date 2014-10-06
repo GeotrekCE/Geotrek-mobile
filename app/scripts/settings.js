@@ -20,7 +20,8 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
         // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
-        LOG_POOL_TIME = 6000;  // in ms
+        LOG_POOL_TIME = 6000,  // in ms
+        POI_ALERT_RADIUS = 0.5;  // in km
 
 
     var leaflet_dev_conf = {
@@ -137,7 +138,8 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_STATIC_PAGES_IMG_ROOT: RELATIVE_STATIC_PAGES_IMG_ROOT,
             RELATIVE_LOGS_FILE: RELATIVE_LOGS_FILE,
             LOG_POOL_TIME: LOG_POOL_TIME,
-            LOGS: LOGS
+            LOGS: LOGS,
+            POI_ALERT_RADIUS : POI_ALERT_RADIUS
         },
         leaflet: leaflet_conf
     };

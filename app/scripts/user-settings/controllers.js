@@ -18,7 +18,7 @@ geotrekUserSettings.controller('UserSettingsController',
             var scopeUserSettings = {
                 currentLanguage: localeSettings[userSettings.currentLanguage],
                 synchronizationMode: networkSettings[userSettings.synchronizationMode],
-                alertOnPOIs: userSettings.alertOnPOIs
+                alertOnPois: userSettings.alertOnPois
             };
             $scope.userSettings = scopeUserSettings;
         }

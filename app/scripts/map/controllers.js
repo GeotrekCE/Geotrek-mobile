@@ -3,8 +3,8 @@
 var geotrekMap = angular.module('geotrekMap');
 
 geotrekMap.controller('MapController', 
-    ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory',
-    function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory, notificationFactory) {
+    ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
@@ -109,8 +109,27 @@ geotrekMap.controller('MapController',
     $scope.$on('watchPosition', function(scope, position) {
         
         if (position.lat && position.lng) {
-            var msg = '(' + position.lat.toString() + '/' + position.lng.toString() + ')';
-            notificationFactory.notify(msg);
+            var alertOnPois;
+            userSettingsService.getUserSettings().then(function(userSettings) {
+                alertOnPois = userSettings.alertOnPois;
+                if (alertOnPois) {
+                    poisFactory.getAllPois().then(function(pois) {
+                        var nearbyPois = mapFactory.getNearbyPois();
+                        angular.forEach(pois, function(poi) {
+                            var poiDistanceFromUser = utils.getDistanceFromLatLonInKm(position.lat, position.lng, poi.geometry.coordinates[1], poi.geometry.coordinates[0]).toFixed(2);
+                            if (poiDistanceFromUser < settings.device.POI_ALERT_RADIUS) {
+                                if (!nearbyPois[poi.id]) {
+                                    var msg = poi.properties.name + ' (' + poiDistanceFromUser * 1000 + 'm)';
+                                    notificationFactory.notify(msg);
+                                    mapFactory.addNearbyPoi(poi.id);
+                                }
+                            } else {
+                                mapFactory.removeNearbyPoi(poi.id);
+                            };
+                        })
+                    });
+                };
+            });
 
             leafletData.getMap().then(function(map) {
                 $scope.paths['userPosition'] = leafletService.setPositionMarker(position);
