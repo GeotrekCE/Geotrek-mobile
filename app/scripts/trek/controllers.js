@@ -126,27 +126,6 @@ geotrekTreks.controller('TrekController',
             });
         }
     };
-
-    $scope.removeTile = function(trekId) {
-
-        var confirmPopup = $ionicPopup.confirm({
-            title: 'Remove trek map',
-            template: 'Are you sure to remove trek precise map ?'
-        });
-
-        var currentTrek = getTrekById(treks.features, trekId);
-
-        confirmPopup.then(function(confirmed) {
-            if(confirmed) {
-                $q.when(mapFactory.removeTrekPreciseBackground(trekId))
-                .then(function(result) {
-                    currentTrek.mbtiles.isDownloaded = false;
-                }, function(error) {
-                    logging.error(error);
-                });
-            }
-        });
-    };
 }])
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',
