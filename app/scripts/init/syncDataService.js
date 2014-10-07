@@ -3,38 +3,27 @@
 var geotrekInit = angular.module('geotrekInit');
 
 
-geotrekInit.service('syncDataService', ['$q', 'logging', 'treksFactory', 'poisFactory', 'settings', 'globalizationSettings', 'mapFactory', 'staticPagesFactory', function($q, logging, treksFactory, poisFactory, settings, globalizationSettings, mapFactory, staticPagesFactory) {
+geotrekInit.service('syncDataService', ['$q', '$window', 'logging', 'settings', 'mapFactory', 'utils', function($q, $window, logging, settings, mapFactory, utils) {
 
     this.run = function() {
 
         var deferred = $q.defer();
 
-        staticPagesFactory.downloadStaticPages(globalizationSettings.STATIC_PAGES_URL)
-        .then(function(result) {
-            return treksFactory.downloadTreks(globalizationSettings.TREK_REMOTE_FILE_URL);
-        })
-        .then(function(result) {
-            return treksFactory.getTreks();
-        })
-        .then(function(treks) {
-            var trekIds = [];
-            angular.forEach(treks.features, function(trek) {
-                trekIds.push(trek.id);
+        if (angular.isDefined($window.cordova)) {
+            utils.downloadAndUnzip(settings.remote.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT)
+            .then(function() {
+                return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL);
+            })
+            .then(function() {
+                deferred.resolve();
+            })
+            .catch(function(error) {
+                logging.warn(error);
+                deferred.resolve(error);
             });
-
-            // Downloading Trek POIs
-            return poisFactory.downloadPois(trekIds);
-        })
-        .then(function(result) {
-            return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL);
-        })
-        .then(function(result) {
-            deferred.resolve(result);
-        })
-        .catch(function(error) {
-            logging.warn(error);
-            deferred.resolve(error);
-        });
+        } else {
+            deferred.resolve();
+        }
 
         return deferred.promise;
     };
