@@ -156,11 +156,31 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         });
     };
 
+
+    var removeDir = function(path) {
+        var defered = $q.defer();
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function gotFS(fileSystem) {
+            fileSystem.root.getDirectory(path, {create: false}, function(parent) {
+                parent.removeRecursively(
+                    defered.resolve
+                    , function() {
+                        defered.reject({message: 'Directory remove error', data: path});
+                    });
+            }, function() {
+                defered.reject({message: 'Directory not found', data: path});
+            });
+        }, function() {
+            defered.reject({message: 'Filesystem not found', data: path});
+        });
+        return defered.promise;
+    };
+
     return {
         downloadFile: downloadFile,
         getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
         createModal: createModal,
         unzip: unzip,
-        downloadAndUnzip: downloadAndUnzip
+        downloadAndUnzip: downloadAndUnzip,
+        removeDir: removeDir
     };
 }]);

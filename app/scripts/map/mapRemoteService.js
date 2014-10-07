@@ -42,8 +42,4 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', 'settings', funct
         return angular.isDefined($localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY][this._getLocalStorageKey(trekId)]);
     };
 
-    this.removeTrekPreciseBackground = function(trekId) {
-        delete $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY][this._getLocalStorageKey(trekId)];
-    };
-
 }]);

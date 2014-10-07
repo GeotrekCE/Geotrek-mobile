@@ -14,6 +14,10 @@ geotrekMap.service('mapFileSystemService',
         return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
     };
 
+    this._deleteTiles = function(zoomLevel) {
+        return utils.removeDir(settings.device.RELATIVE_TILES_ROOT + "/" + zoomLevel);
+    };
+
     this.cleanDownloadedLayers = function() {
         var deferred = $q.defer(),
             promise = [],
@@ -24,9 +28,14 @@ geotrekMap.service('mapFileSystemService',
             var promises = [];
 
             angular.forEach(listFiles, function(mbtileFile) {
+                // Remove the zip file
                 if (mbtileFile.name != settings.TILES_FILE_NAME) {
                     promises.push($cordovaFile.removeFile(settings.device.RELATIVE_TILES_ROOT + "/" + mbtileFile.name));
-                }
+                };
+                // Remove the tiles foldes
+                for (var i = 13; i <= 16; i++) {
+                    promises.push(_this._deleteTiles(i));
+                };
             });
 
             $q.all(promises)
@@ -63,11 +72,6 @@ geotrekMap.service('mapFileSystemService',
         });
 
         return deferred.promise;
-    };
-
-    this.removeTrekPreciseBackground = function(trekId) {
-        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + this._getTrekTileFilename(trekId);
-        return $cordovaFile.removeFile(trekFilenamePath);
     };
 
 }]);

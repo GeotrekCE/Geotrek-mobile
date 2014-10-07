@@ -65,7 +65,7 @@ geotrekAppSettings.constant('globalSettings', {
 
     var POI_FILE_NAME = 'pois.geojson',
         TREKS_FILE_NAME = 'trek.geojson',
-        TILES_FILE_NAME = 'global.mbtiles';
+        TILES_FILE_NAME = 'global.zip';
 
     var GEOTREK_DIR = 'geotrek',
         LOGS_FILENAME = 'geotrek.log',
@@ -99,10 +99,8 @@ geotrekAppSettings.constant('globalSettings', {
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         remote: {
-            //TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
-            TILES_REMOTE_PATH_URL: "http://cg44.makina-corpus.net/tmp/tiles-geotrek",
-            // MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles',
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://cg44.makina-corpus.net/tmp/tiles-geotrek/tiles-global.zip",
+            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
             LEAFLET_BACKGROUND_URL: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
         },
         device: {
