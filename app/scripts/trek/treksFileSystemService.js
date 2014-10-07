@@ -46,7 +46,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             if(angular.isDefined(trek.properties.difficulty)){
                 var difficultyUrl = trek.properties.difficulty.pictogram;
                 var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
-                trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_POI_ROOT + '/' + filename;
+                trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
             }
         });
         return copy;
