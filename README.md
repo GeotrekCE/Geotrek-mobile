@@ -239,6 +239,7 @@ AUTHORS
     * Adrien Denat
     * Mathieu Leplatre
     * Romain Garrigues
+    * Éric Bréhault
 
 ![Makina Logo][1]
 
