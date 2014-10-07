@@ -23,22 +23,12 @@ geotrekAppSettings.constant('globalSettings', {
         LOG_POOL_TIME = 6000,  // in ms
         POI_ALERT_RADIUS = 0.5;  // in km
 
-
-    var leaflet_dev_conf = {
+    var leaflet_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 42.77,
         GLOBAL_MAP_CENTER_LONGITUDE: 1.37,
         GLOBAL_MAP_DEFAULT_ZOOM: 12,
-        GLOBAL_MAP_ATTRIBUTION: '<a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | &copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'
+        GLOBAL_MAP_ATTRIBUTION: '<a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | &copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>',
     };
-
-    var ecrins_conf = {
-        GLOBAL_MAP_CENTER_LATITUDE: 44.8,
-        GLOBAL_MAP_CENTER_LONGITUDE: 6.2,
-        GLOBAL_MAP_DEFAULT_ZOOM: 9,
-        GLOBAL_MAP_ATTRIBUTION: '&copy; IGN Geoportail'
-    };
-
-    var leaflet_conf = leaflet_dev_conf;
 
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
@@ -76,7 +66,7 @@ geotrekAppSettings.constant('globalSettings', {
 
     var POI_FILE_NAME = 'pois.geojson',
         TREKS_FILE_NAME = 'trek.geojson',
-        TILES_FILE_NAME = 'global.mbtiles';
+        TILES_FILE_NAME = 'global.zip';
 
     var GEOTREK_DIR = 'geotrek',
         LOGS_FILENAME = 'geotrek.log',
@@ -111,7 +101,8 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         remote: {
             TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.mbtiles',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
+            LEAFLET_BACKGROUND_URL: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
         },
         device: {
             CDV_ROOT: CDV_ROOT,
@@ -140,6 +131,7 @@ geotrekAppSettings.constant('globalSettings', {
             LOG_POOL_TIME: LOG_POOL_TIME,
             LOGS: LOGS,
             POI_ALERT_RADIUS : POI_ALERT_RADIUS
+            LEAFLET_BACKGROUND_URL: CDV_ROOT + '/' + RELATIVE_TILES_ROOT + '/{z}/{x}/{y}.png',
         },
         leaflet: leaflet_conf
     };

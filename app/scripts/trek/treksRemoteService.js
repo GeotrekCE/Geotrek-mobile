@@ -4,13 +4,6 @@ var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window', '$q', 'settings', 'globalizationSettings', function ($resource, $rootScope, $window, $q, settings, globalizationSettings) {
 
-    // We don't have to download Treks in Remote version, only for device offline mode
-    this.downloadTreks = function(url) {
-        var deferred = $q.defer();
-        deferred.resolve({message: 'No need to download treks in browser mode'});
-        return deferred.promise;
-    };
-
     this.replaceImgURLs = function(trekData) {
         var copy = angular.copy(trekData, {});
 

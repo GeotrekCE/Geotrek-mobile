@@ -11,6 +11,7 @@ geotrekMap.service('leafletService',
 
     this.getMapInitParameters = function() {
         // Set default Leaflet map params
+
         var map_parameters = {
             center: {
                 lat: settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE,
@@ -22,7 +23,14 @@ geotrekMap.service('leafletService',
                 zoomControl: false // Not needed on Android/iOS modern devices
             },
             layers: {
-                baselayers: {},
+                baselayers: {
+                    tiles: {
+                        type: 'xyz',
+                        name: 'backgroundTiles',
+                        url: mapFactory.getGlobalTileLayerURL()
+                    }
+
+                },
                 overlays: {
                     poi: {
                         type: 'group',
@@ -41,22 +49,7 @@ geotrekMap.service('leafletService',
             paths: {}
         };
 
-        var deferred = $q.defer();
-
-        // We initialize leaflet baselayers param with :
-        // 1/ Remote url on browser mode OR
-        // 2/ Local saved mbtiles on device
-        mapFactory.getGlobalTileLayer()
-        .then(function(layer) {
-            map_parameters.layers.baselayers[layer.id] = layer;
-            deferred.resolve(map_parameters);
-        })
-        .catch(function(error) {
-            logging.error(error);
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
+        return map_parameters;
     };
 
     this.createMarkersFromTrek = function(trek, pois) {

@@ -4,12 +4,6 @@ var geotrekPois = angular.module('geotrekPois');
 
 geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings) {
 
-    this.downloadPois = function(trekIds) {
-        var deferred = $q.defer();
-        deferred.resolve({message: 'No need to download pois in browser mode'});
-        return deferred.promise;
-    };
-
     this.convertServerUrlToRemoteUrl = function(serverUrl) {
         return settings.DOMAIN_NAME + serverUrl;
     };

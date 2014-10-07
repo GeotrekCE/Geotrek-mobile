@@ -6,13 +6,6 @@ geotrekStaticPages.service('staticPagesRemoteService', [
     '$resource', '$rootScope', '$window', '$q', '$http', 'settings', 'globalizationSettings',
     function ($resource, $rootScope, $window, $q, $http, settings, globalizationSettings) {
 
-    // We don't have to download Treks in Remote version, only for device offline mode
-    this.downloadStaticPages = function(url) {
-        var deferred = $q.defer();
-        deferred.resolve();
-        return deferred.promise;
-    };
-
     this.getStaticPages = function() {
         var deferred = $q.defer();
 

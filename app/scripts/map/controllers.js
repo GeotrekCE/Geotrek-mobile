@@ -33,18 +33,6 @@ geotrekMap.controller('MapController',
         utils.createModal('views/map_trek_detail.html', modalScope);
     });
 
-    leafletData.getMap().then(function(map) {
-
-        mapFactory.getDownloadedLayers()
-        .then(function(downloadedLayers) {
-
-            angular.forEach(downloadedLayers, function(layerStructure) {
-                map.addLayer(layerStructure.layer);
-                layerStructure.layer.bringToFront();
-            });
-        });
-    });
-
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 

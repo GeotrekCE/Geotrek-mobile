@@ -211,16 +211,16 @@ CORDOVA GLOBALIZATION PLUGIN
 $ cordova plugin add org.apache.cordova.globalization
 ```
 
-CORDOVA MBTILES PLUGIN
-==================================
-```bash
-https://github.com/ffournier/cordova-plugin-mbtiles
-```
-
 CORDOVA LOCAL NOTIFICATION PLUGIN
 ==================================
 ```bash
 cordova plugin add de.appplant.cordova.plugin.local-notification
+```
+
+CORDOVA ZIP PLUGIN
+==================================
+```bash
+cordova plugin add https://github.com/MobileChromeApps/zip.git
 ```
 
 ANGULAR-LEAFLET-DIRECTIVE
