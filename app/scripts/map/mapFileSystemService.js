@@ -3,8 +3,8 @@
 var geotrekMap = angular.module('geotrekMap');
 
 geotrekMap.service('mapFileSystemService',
-    ['$q', '$cordovaFile', 'logging', 'utils', 'settings', 'LeafletMBTileLayerService',
-    function ($q, $cordovaFile, logging, utils, settings, LeafletMBTileLayerService) {
+    ['$q', '$cordovaFile', 'logging', 'utils', 'settings',
+    function ($q, $cordovaFile, logging, utils, settings) {
 
     this.getGlobalTileLayerURL = function() {
         return settings.device.LEAFLET_BACKGROUND_URL;
@@ -12,80 +12,6 @@ geotrekMap.service('mapFileSystemService',
 
     this.downloadGlobalBackground = function(url) {
         return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
-    };
-
-    this.isReady = function() {
-        var deferred = $q.defer();
-
-        // Initialize MBTilesPlugin data types
-        MBTilesPluginService.init('db', 'cdvfile', settings.device.CDV_TILES_ROOT)
-        // Open MBTilesPlugin database
-        .then(function(result) {
-            return MBTilesPluginService.open(settings.TILES_FILE_NAME);
-        })
-        // Getting metadata to be sure that database is well formed
-        .then(function(result) {
-            return MBTilesPluginService.getMetadata();
-        })
-        .then(function(result) {
-            deferred.resolve(result);
-        })
-        .catch(function(error) {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-    };
-
-    this.getTileLayer = function(mbtileFilename) {
-
-        var deferred = $q.defer(),
-            mbtileFilenameWoExtension = mbtileFilename.substr(0, mbtileFilename.lastIndexOf('.'));
-
-        LeafletMBTileLayerService.getTileLayer(mbtileFilename)
-        .then(function(layer) {
-            var resultDict = {
-                id: mbtileFilenameWoExtension,
-                name: 'MBTilesLayer-' + mbtileFilenameWoExtension,
-                type: 'custom',
-                layer: layer
-            }
-            deferred.resolve(resultDict);
-        })
-        .catch(function(error) {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-    };
-
-    // Create each layer corresponding to downloaded tiles
-    this.getDownloadedLayers = function() {
-        var deferred = $q.defer(),
-            promise = [],
-            _this = this;
-
-        $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
-        .then(function(listFiles) {
-            var promises = [];
-
-            angular.forEach(listFiles, function(mbtileFile) {
-                if (mbtileFile.name != settings.TILES_FILE_NAME) {
-                    promises.push(_this.getTileLayer(mbtileFile.name));
-                }
-            });
-
-            $q.all(promises)
-            .then(function(layers) {
-                deferred.resolve(layers);
-            })
-
-        }, function(error) {
-            logging.error(error);
-            deferred.resolve([]);
-        });
-
-        return deferred.promise;
     };
 
     this.cleanDownloadedLayers = function() {
@@ -117,12 +43,12 @@ geotrekMap.service('mapFileSystemService',
     };
 
     this._getTrekTileFilename = function(trekId) {
-        return '/trek-' + trekId.toString() + '.mbtiles';
+        return '/trek-' + trekId.toString() + '.zip';
     }
 
     this.downloadTrekPreciseBackground = function(trekId) {
         var url = settings.remote.TILES_REMOTE_PATH_URL + this._getTrekTileFilename(trekId);
-        return utils.downloadFile(url, settings.device.CDV_TILES_ROOT + this._getTrekTileFilename(trekId));
+        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
     };
 
     this.hasTrekPreciseBackground = function(trekId) {

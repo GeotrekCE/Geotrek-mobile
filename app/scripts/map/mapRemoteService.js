@@ -22,23 +22,10 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', 'settings', funct
         return deferred.promise;
     };
 
-    this.isReady = function() {
-        var deferred = $q.defer();
-        deferred.resolve({message: 'Tiles are always available in browser mode'});
-        return deferred.promise;
-    };
-
     this.cleanDownloadedLayers = function() {
         var deferred = $q.defer();
         $localStorage[EMULATED_DOWNLOAD_LOCALSTORAGE_ROOT_KEY] = {};
         deferred.resolve();
-        return deferred.promise;
-    };
-
-    // There is no precise layer in browser mode, as we are always using global background
-    this.getDownloadedLayers = function() {
-        var deferred = $q.defer();
-        deferred.resolve([]);
         return deferred.promise;
     };
 
