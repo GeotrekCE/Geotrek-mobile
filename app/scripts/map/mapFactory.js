@@ -22,6 +22,10 @@ geotrekMap.factory('mapFactory', ['$localStorage', '$injector', '$window', funct
 
         var nearbyPois;
 
+        if (!$localStorage[LOCALSTORAGE_NEARBY_POIS]) {
+            $localStorage[LOCALSTORAGE_NEARBY_POIS] = {};
+        }
+
         try {
             nearbyPois = $localStorage[LOCALSTORAGE_NEARBY_POIS];
         }

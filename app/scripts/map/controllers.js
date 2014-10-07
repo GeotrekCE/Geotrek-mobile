@@ -107,7 +107,6 @@ geotrekMap.controller('MapController',
         });
 
     $scope.$on('watchPosition', function(scope, position) {
-        
         if (position.lat && position.lng) {
             var alertOnPois;
             userSettingsService.getUserSettings().then(function(userSettings) {
