@@ -44,29 +44,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
         });
 
         return staticPagesData;
-    };    
-
-    this.downloadStaticPagesPictures = function() {
-        var _this = this;
-
-        return this.getRawStaticPages()
-        .then(function(staticPages) {
-            var promises = [];
-
-            angular.forEach(staticPages, function(page) {
-
-                angular.forEach(page.media, function(media) {
-                    var mediaUrl = media.url;
-                    var serverUrl = settings.DOMAIN_NAME + mediaUrl;
-                    var filename = mediaUrl.substr(mediaUrl.lastIndexOf('/') + 1);
-
-                    promises.push(utils.downloadFile(serverUrl, settings.device.CDV_STATIC_PAGES_IMG_ROOT + '/' + filename));
-                });
-            })
-
-            return $q.all(promises);
-        });
-    };    
+    };   
 
     // Getting treks used for mobile purpose
     // Image urls are converted to cdv://localhost/persistent/... ones
