@@ -1,18 +1,3 @@
 .leaflet-control-layers.leaflet-control {
     display: none;
 }
-
-.leaflet-live-user {
-    -webkit-animation: pulse 2s ease-out;
-    animation: pulse 2s ease-out;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-}
-@-webkit-keyframes pulse {
-    from { stroke-width: 19; stroke-opacity: 1; }
-    to { stroke-width: 50; stroke-opacity: 0; }
-}
-@keyframes pulse {
-    from { stroke-width: 15; stroke-opacity: 1; }
-    to { stroke-width: 50; stroke-opacity: 0; }
-}

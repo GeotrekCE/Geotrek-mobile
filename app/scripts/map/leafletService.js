@@ -132,14 +132,14 @@ geotrekMap.service('leafletService',
         // Pulsing marker inspired by
         // http://blog.thematicmapping.org/2014/06/real-time-tracking-with-spot-and-leafet.html
         return {
-            radius: 5,
-            color: 'orange',
-            fillColor: 'black',
+            radius: 7,
+            color: 'black',
+            fillColor: 'orange',
             fillOpacity: 1,
             latlngs: result,
             type: 'circleMarker',
             className: 'leaflet-live-user',
-            strokeWidth: 10
+            weight: 2
         };
     }
 
