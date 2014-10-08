@@ -228,6 +228,9 @@ h1.app-title {
   vertical-align: bottom;
   color: #4d4a4a; }
 
+.trek-detail__altimetric-profile {
+  width: 100%; }
+
 .button.icon-top:before {
   display: block; }
 
@@ -429,10 +432,6 @@ h1.app-title {
     white-space: normal;
     color: black; }
 
-[state^='home.map'] .modal-backdrop .modal {
-  min-height: 33%;
-  bottom: 0;
-  top: auto; }
 [state^='home.map'] .modal-backdrop .modal-fullheight {
   min-height: 100%;
   bottom: 0;

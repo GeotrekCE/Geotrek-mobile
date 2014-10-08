@@ -76,6 +76,7 @@
             <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
+            <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
             <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
             <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
 

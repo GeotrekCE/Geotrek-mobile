@@ -48,6 +48,11 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                 var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
                 trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
             }
+            if(angular.isDefined(trek.properties.altimetric_profile)){
+                var altimetric_profileUrl = trek.properties.altimetric_profile;
+                var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".svg");
+                trek.properties.altimetric_profile = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+            }
         });
         return copy;
     };
