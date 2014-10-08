@@ -39,7 +39,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', function($rootScope, logging, $window, $state, globalizationSettings) {
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform) {
 
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
@@ -78,4 +78,13 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Define utils variables for specific device behaviours
     $rootScope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
     $rootScope.isIOS = $window.ionic.Platform.isIOS();
+
+    // back button => back in history
+    $ionicPlatform.registerBackButtonAction(function () {
+        if($state.current.name=="preload"){
+            navigator.app.exitApp();
+        } else {
+            $window.history.back();
+        }
+    }, 100);
 }]);
