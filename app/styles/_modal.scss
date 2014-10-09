@@ -45,3 +45,15 @@
 .modal__actions i {
     color: $primaryColor;
 }
+
+@media (min-width: 680px) {
+    .modal {
+        top: 5%;
+        right: 5%;
+        bottom: 5%;
+        left: 5%;
+        overflow: visible;
+        min-height: 240px;
+        width: 90%;
+    }
+}
