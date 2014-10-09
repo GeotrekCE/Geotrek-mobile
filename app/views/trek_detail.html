@@ -54,8 +54,8 @@
                 <li ng-if="trek.properties.networks" class="col trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
                     <span class="trek-detail__extra-infos__item__icon" ng-repeat="network in trek.properties.networks">
+                        <span>{{network.name}}</span>&nbsp;
                         <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
-                        <span>{{network.name}}</span>
                     </span>
                 </li>
             </ul>

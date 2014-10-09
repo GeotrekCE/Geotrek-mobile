@@ -92,9 +92,6 @@
 .trek-detail__extra-infos {
 	.trek-detail__extra-infos__item {
 		display: inline;
-		& > * {
-			display: inline-block;
-		}
 		.trek-detail__extra-infos__item__icon {
 			.icon {
 				position: relative;
@@ -108,10 +105,7 @@
 				width: 30px;
 				height: 30px;
 				overflow: hidden;
-			}
-			&.wrapper-small {
-				height: 20px;
-				overflow: hidden;
+				display: inline-block;
 			}
 		}
 	}
