@@ -54,6 +54,19 @@ geotrekMap.controller('MapController',
                             $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
                         }
                     });
+
+                    if(feature.geometry.type=="LineString") {
+                        leafletData.getMap().then(function(map) {
+                            L.geoJson(feature, {style:{'color': 'transparent', 'weight': 35, 'opacity': 0.8}})
+                            .addTo(map)
+                            .bringToFront()
+                            .on({
+                                click: function(e) {
+                                    $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
+                                }
+                            });
+                        });
+                    }
                 }
             }
         });

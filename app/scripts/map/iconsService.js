@@ -32,7 +32,7 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
             iconAnchor: [16, 16]
         },
         poi_icon: {
-            iconSize: [36, 36],
+            iconSize: [40, 40],
             labelAnchor: [20, -50]
         }
     };
