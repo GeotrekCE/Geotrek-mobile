@@ -18,19 +18,20 @@ geotrekMap.controller('MapController',
     });
 
     $scope.$on('leafletDirectiveMap.geojsonClick', function(event, trek) {
-        var modalScope = {
-            objectToDisplay: {
-                name: trek.properties.name,
-                description: trek.properties.description,
-                duration_pretty: trek.properties.duration_pretty,
-                difficulty: trek.properties.difficulty,
-                ascent: trek.properties.ascent,
-                length: trek.properties.length,
-                id: trek.id,
-                usages: trek.properties.usages
-            }
-        };
-        utils.createModal('views/map_trek_detail.html', modalScope);
+        // var modalScope = {
+        //     objectToDisplay: {
+        //         name: trek.properties.name,
+        //         description: trek.properties.description,
+        //         duration_pretty: trek.properties.duration_pretty,
+        //         difficulty: trek.properties.difficulty,
+        //         ascent: trek.properties.ascent,
+        //         length: trek.properties.length,
+        //         id: trek.id,
+        //         usages: trek.properties.usages
+        //     }
+        // };
+        // utils.createModal('views/map_trek_detail.html', modalScope);
+        $state.go("home.trek.detail", { trekId: trek.id });
     });
 
     // Add treks geojson to the map

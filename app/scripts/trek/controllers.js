@@ -128,8 +128,8 @@ geotrekTreks.controller('TrekController',
     };
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$sce', 'trek', 'pois', 'socialSharingService',
-    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $sce, trek, pois, socialSharingService) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService',
+    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService) {
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
@@ -151,7 +151,12 @@ geotrekTreks.controller('TrekController',
         $scope.modal.remove();
     });
 
+    $scope.back = function() {
+        $window.history.go(-1);
+    }
+
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name);
     };
+
 }]);
