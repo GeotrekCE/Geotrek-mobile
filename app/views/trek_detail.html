@@ -27,13 +27,13 @@
 
             <h5 class="trek-detail__departure-arrival">{{ trek.properties.departure}} → {{ trek.properties.arrival}}</h5>
 
-            <ul class="trek-detail__main-infos">
-                <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
-                <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
-                <li class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
-                <li class="trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
-                <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
-                <li class="trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
+            <ul class="row trek-detail__main-infos">
+                <li class="col trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
+                <li class="col trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
+                <li class="col trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
+                <li class="col trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
+                <li class="col trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
+                <li class="col trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
             </ul>
 
             <ul ng-if="trek.properties.usages" class="trek-detail__usage-infos">
