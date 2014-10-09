@@ -39,7 +39,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform) {
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading',function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform, $ionicLoading) {
 
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
@@ -87,4 +87,19 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
             $window.history.back();
         }
     }, 100);
+
+    // spinner when routing
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        if (toState.resolve) {
+            $ionicLoading.show({
+                template: '<i class="icon icon-big ion-looping"></i>'
+            });
+        }
+    });
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        if (toState.resolve) {
+            $ionicLoading.hide();
+        }
+    });
+
 }]);

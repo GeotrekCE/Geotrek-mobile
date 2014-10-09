@@ -480,6 +480,10 @@ span.network-status {
 .icon {
   color: #4d4a4a; }
 
+.icon-big {
+  font-size: 90px;
+}
+
 .bar .button.button-logo {
   width: 45px;
   background: url(../images/logo_pn.svg) top right no-repeat;
