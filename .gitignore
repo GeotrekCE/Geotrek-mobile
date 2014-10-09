@@ -2,9 +2,3 @@ node_modules
 bower_components
 .tmp
 .sass-cache
-app/styles/geotrek-mobile.css
-<<<<<<< HEAD
-app/styles/geotrek-mobile.css.map
-=======
-app/styles/geotrek-mobile.css.map
->>>>>>> I do not like conflict when I merge
