@@ -67,8 +67,11 @@ h1.app-title {
 .trek-list__item__detail__actions {
   position: absolute;
   right: 5px;
-  bottom: 10px;
-  width: 88px; }
+  bottom: 10px; }
+  .trek-list__item__detail__actions a {
+    display: block;
+    height: 40px;
+    width: 50px; }
 
 .trek-list__item__detail-bt {
   color: #494645;

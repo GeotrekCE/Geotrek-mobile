@@ -19,7 +19,11 @@
     position: absolute;
     right: 5px;
     bottom: 10px;
-    width: 88px;
+    a {
+        display: block;
+        height: 40px;
+        width: 50px;
+    }
 }
 
 .trek-list__item__detail-bt {
