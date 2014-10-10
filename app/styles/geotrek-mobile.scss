@@ -176,6 +176,15 @@ h1.app-title {
 	}
 }
 
+@media (max-width: 567px) {
+  .responsive-sm.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    .col {
+      flex: 1 150px;
+    }
+  }
+}
 
 //
 // Custom icon font

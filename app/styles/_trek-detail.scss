@@ -49,6 +49,10 @@
 	color: white;
 }
 
+.responsive-sm .col.trek-detail__main-infos__item {
+	margin-bottom: 0;
+}
+
 .trek-detail__main-infos__item:before {
 	width: 30px;
 	height: 30px;
