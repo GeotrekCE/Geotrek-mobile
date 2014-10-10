@@ -91,6 +91,29 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
         return deferred.promise;
     };
 
+    treksFactory.getTrekDistance = function(trek) {
+        geolocationFactory.getLatLngPosition()
+        .then(function(userPosition) {
+            trek.distanceFromUser = treksFactory._computeTrekDistance(trek, userPosition);
+        });
+    };
+
+    treksFactory.getTreksDistance = function(treks) {
+        geolocationFactory.getLatLngPosition()
+        .then(function(userPosition) {
+            angular.forEach(treks.features, function(trek) {
+                trek.distanceFromUser = treksFactory._computeTrekDistance(trek, userPosition);
+            });
+        });
+    };
+
+    treksFactory._computeTrekDistance = function(trek, userPosition) {
+        // First coordinate is trek starting point
+        var startPoint = treksFactory.getStartPoint(trek);
+        return utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, startPoint.lat, startPoint.lng).toFixed(2);
+    };
+
+
     treksFactory.getTrek = function(_trekId) {
         var trekId = parseInt(_trekId),
             trek,

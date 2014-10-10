@@ -3,12 +3,15 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.controller('TrekController',
-    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService',
-     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, logging, treks, staticPages, localeSettings, utils, treksFiltersService) {
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
+
+    // get distance to treks
+    treksFactory.getTreksDistance($rootScope.treks);
 
     // Define filters from service to the scope for the view
     $scope.filtersData = treksFiltersService.getTrekFilterOptions(treks);
@@ -128,11 +131,15 @@ geotrekTreks.controller('TrekController',
     };
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService',
-    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService', 'treksFactory',
+    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService, treksFactory) {
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
+    
+    // get distance to treks
+    treksFactory.getTrekDistance($scope.trek);
+
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.pois = pois;
