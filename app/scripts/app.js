@@ -91,7 +91,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // spinner when routing
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         $ionicLoading.show({
-            template: '<i class="icon icon-big ion-looping"></i>',
+            template: '<i class="icon icon-big ion-looping"></i>'
         });
     });
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
