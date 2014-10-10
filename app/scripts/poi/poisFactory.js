@@ -44,28 +44,11 @@ geotrekPois.factory('poisFactory',
         });
     };
 
-    poisFactory.getGeolocalizedPOIsFromTrek = function(trekId) {
-
-        var deferred = $q.defer();
-
-        poisFactory.getPoisFromTrek(trekId)
-        .then(function(pois) {
-            // Getting user geoloc to compute trek distance from user on-the-fly
-            geolocationFactory.getLatLngPosition()
-            .then(function(userPosition) {
-                angular.forEach(pois.features, function(poi) {
-                    // First coordinate is trek starting point
-                    var poiPoint = {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]};
-                    poi.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, poiPoint.lat, poiPoint.lng).toFixed(2);
-                });
-                deferred.resolve(pois);
-            }, function(error) {
-                logging.warn(error);
-                deferred.resolve(pois);
-            });
+    poisFactory.getPoisDistance = function(pois, userPosition) {
+        angular.forEach(pois.features, function(poi) {
+            var poiPoint = {lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0]};
+            poi.distanceFromUser = utils.getDistanceFromLatLonInKm(userPosition.lat, userPosition.lng, poiPoint.lat, poiPoint.lng).toFixed(2);
         });
-
-        return deferred.promise;
     };
 
     return poisFactory;

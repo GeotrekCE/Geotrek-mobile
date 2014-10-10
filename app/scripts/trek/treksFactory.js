@@ -42,6 +42,7 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
         return geolocationFactory.getLatLngPosition()
         .then(function(userPosition) {
             trek.distanceFromUser = treksFactory._computeTrekDistance(trek, userPosition);
+            return userPosition
         });
     };
 

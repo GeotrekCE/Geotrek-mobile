@@ -131,18 +131,20 @@ geotrekTreks.controller('TrekController',
     };
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService', 'treksFactory',
-    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService, treksFactory) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService', 'treksFactory', 'poisFactory',
+    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService, treksFactory, poisFactory) {
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
     
-    // get distance to treks
-    treksFactory.getTrekDistance($scope.trek);
-
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.pois = pois;
+
+    // get distance to treks and pois
+    treksFactory.getTrekDistance($scope.trek).then(function(userPosition) {
+        poisFactory.getPoisDistance($scope.pois, userPosition);
+    });
 
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/trek_detail.html', {
