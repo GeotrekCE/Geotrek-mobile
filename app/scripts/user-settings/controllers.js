@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
-    function ($rootScope, $state, $scope, $ionicModal, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
+    ['$rootScope', '$state', '$scope', 'localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
+    function ($rootScope, $state, $scope, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
@@ -23,15 +23,6 @@ geotrekUserSettings.controller('UserSettingsController',
             $scope.userSettings = scopeUserSettings;
         }
     )
-
-    // Display the modal (this is the entire view here)
-    $ionicModal.fromTemplateUrl('views/user_settings.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function(modal) {
-        $scope.modal = modal;
-        $scope.modal.show();
-    });
 
     // If current language is modified, translating text
     $scope.$watch('userSettings.currentLanguage', function() {
@@ -53,10 +44,5 @@ geotrekUserSettings.controller('UserSettingsController',
             logging.error(error);
         });
     };
-
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-        $scope.modal.remove();
-    });
 
 }]);

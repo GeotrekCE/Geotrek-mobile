@@ -7,6 +7,7 @@ geotrekUserSettings.config(function($stateProvider) {
     $stateProvider
     .state('settings', {
         url: '/settings',
+        templateUrl: 'views/user_settings.html',
         controller: 'UserSettingsController'
     });
 
