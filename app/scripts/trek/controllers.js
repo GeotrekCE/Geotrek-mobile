@@ -109,21 +109,21 @@ geotrekTreks.controller('TrekController',
             });
 
             var currentTrek = getTrekById(treks.features, trekId);
-            currentTrek.mbtiles.realProgress = 0;
-            currentTrek.mbtiles.inDownloadProgress = false;
+            currentTrek.tiles.realProgress = 0;
+            currentTrek.tiles.inDownloadProgress = false;
 
             confirmPopup.then(function(confirmed) {
                 if(confirmed) {
-                    currentTrek.mbtiles.inDownloadProgress = true;
+                    currentTrek.tiles.inDownloadProgress = true;
                     $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
                     .then(function(result) {
-                        currentTrek.mbtiles.inDownloadProgress = false;
-                        currentTrek.mbtiles.isDownloaded = true;
+                        currentTrek.tiles.inDownloadProgress = false;
+                        currentTrek.tiles.isDownloaded = true;
                     }, function(error) {
-                        currentTrek.mbtiles.inDownloadProgress = false;
+                        currentTrek.tiles.inDownloadProgress = false;
                     }, function(progress) {
-                        currentTrek.mbtiles.inDownloadProgress = true;
-                        currentTrek.mbtiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
+                        currentTrek.tiles.inDownloadProgress = true;
+                        currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
                     });
                 }
             });

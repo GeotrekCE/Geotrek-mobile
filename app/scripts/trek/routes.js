@@ -30,7 +30,7 @@ geotrekTreks.config(function($stateProvider) {
                 return $q.all(promises)
                 .then(function(isDownloadedList) {
                     for(var i=0; i<isDownloadedList.length; i++) {
-                        treksList[i]['mbtiles'] = {
+                        treksList[i]['tiles'] = {
                             isDownloaded: isDownloadedList[i]
                         };
                     }

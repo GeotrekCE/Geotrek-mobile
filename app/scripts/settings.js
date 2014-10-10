@@ -54,9 +54,6 @@ geotrekAppSettings.constant('globalSettings', {
      *          |-- <picture1.jpg>
      *          ...
      *  |-- <TILES_DIR>
-     *      |-- global.mbtiles
-     *      |-- <trek-X.mbtiles> (ex: trek-1)
-     *      |-- <trek-Y.mbtiles> (ex: trek-1)
      *  |-- <STATIC_DIR>
      *      |-- pages.json
      *      |-- images
