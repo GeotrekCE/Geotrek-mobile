@@ -5,6 +5,8 @@ var geotrekGlobalization = angular.module('geotrekGlobalization');
 // App translatable strings (.po/.mo equivalent)
 geotrekGlobalization.constant('locales', {
     'fr': {
+        'init.loading': 'Chargement des données en cours...',
+        'init.error_loading': 'Problème lors du chargement des données. Si c\'est la première fois que vous utilisez Geotrek-Mobile, veuillez avoir une connexion Internet active.',
         'map_trek_detail.more_details': ' + de détails',
         'map_trek_detail.usages': 'Usages : ',
         'nav_trek_map.ways': 'Itinéraires',
@@ -51,6 +53,8 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.network_not_reachable': 'Non'
     },
     'en': {
+        'init.loading': 'Loading data...',
+        'init.error_loading': 'Problem while loading data. If you start Geotrek-Mobile for the first time, please have an active Internet connection.',
         'map_trek_detail.more_details': ' more details',
         'map_trek_detail.usages': 'Usages: ',
         'nav_trek_map.ways': 'Ways',
