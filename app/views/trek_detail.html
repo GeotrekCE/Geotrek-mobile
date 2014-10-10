@@ -111,7 +111,7 @@
             <ion-item class="poi-detail item-thumbnail-right" ng-repeat="poi in pois.features">
                 <img class="thumbnail" ng-src="{{ poi.properties.thumbnail }}"/>
                 <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
-                <h3 class="poi-detail__name">{{ poi.properties.name}}</h3><span ng-if="poi.distanceFromUser">({{ poi.distanceFromUser }}km)</span>
+                <h3 class="poi-detail__name">{{ poi.properties.name}}</h3><span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ poi.distanceFromUser }}km)</span>
                 <div class="poi-detail__description" ng-bind-html="poi.properties.description"></div>
             </ion-item>
 
