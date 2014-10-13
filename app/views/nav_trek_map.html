@@ -72,7 +72,7 @@
 
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" style="background-image: url(images/{{ download.icon }});" uncheckable>
-                        <span>{{ download.name }}</span>
+                        <span>{{ download.name | translate }}</span>
                     </button>
                 </li>
 

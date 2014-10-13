@@ -252,17 +252,18 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
         return {
             difficulties : trekDifficulties,
             durations : [
-                { id: 2.5, name: '<2H30', icon: 'duration-1.svg', interval: [0, 2.5]},
-                { id: 4, name: '1/2', icon: 'duration-2.svg', interval: [2.5, 8] },
-                { id: 8, name: 'Journée', icon: 'duration-3.svg', interval: [8, 20000]}
+                { id: 4, name: '<1/2 J', icon: 'duration-1.svg', interval: [0, 4]},
+                { id: 8, name: '1/2 - 1', icon: 'duration-2.svg', interval: [4, 8] },
+                { id: 24, name: '> 1 J', icon: 'duration-3.svg', interval: [8, 99999]},
             ],
             elevations :  [
-                { id: 300, name: 'Faible', icon: 'deniv1.svg', interval: [0, 300] },
-                { id: 600, name: 'Moyen', icon: 'deniv1.svg', interval: [301, 1000] },
-                { id: 1000, name: 'Fort', icon: 'deniv1.svg', interval: [1001, 30000] },
+                { id: 0, name: '<300m', icon: 'deniv1.svg', interval: [0, 300] },
+                { id: 300, name: '300-600', icon: 'deniv1.svg', interval: [301, 600] },
+                { id: 600, name: '600-1000', icon: 'deniv1.svg', interval: [601, 1000] },
+                { id: 1000, name: '>1000m', icon: 'deniv1.svg', interval: [1001, 99999] },
             ],
             downloads : [
-                { value: 1, name: 'Trek map available offline', icon: 'icon_offline.svg' }
+                { value: 1, name: 'nav_trek_map.offline', icon: 'icon_offline.svg' }
             ],
             themes : trekThemes,
             uses: trekUses,

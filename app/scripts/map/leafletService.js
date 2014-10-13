@@ -134,7 +134,7 @@ geotrekMap.service('leafletService',
         return {
             radius: 7,
             color: 'black',
-            fillColor: 'orange',
+            fillColor: '#981d97',
             fillOpacity: 1,
             latlngs: result,
             type: 'circleMarker',
