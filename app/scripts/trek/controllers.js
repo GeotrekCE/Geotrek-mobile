@@ -33,7 +33,19 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.resetFilters = function () {
-        $scope.activeFilters = treksFiltersService.getDefaultActiveFilterValues();
+
+        angular.forEach(['difficulty', 'duration', 'elevation'], function(field){
+            angular.forEach($scope.activeFilters[field], function(value, key) {
+                $scope.activeFilters[field][key].checked = false;
+            });
+        });
+        $scope.activeFilters.download =     undefined;
+        $scope.activeFilters.theme =        undefined;
+        $scope.activeFilters.municipality = null;
+        $scope.activeFilters.use =          null;
+        $scope.activeFilters.valley =       null;
+        $scope.activeFilters.route =        null;
+        $scope.activeFilters.search =       '';
     };
 
     $scope.clearSearch = function () {
