@@ -15,7 +15,7 @@
 
         <div class='page-content padding'>
             <h1>{{ title }}</h1>
-            <div ng-bind-html="description"></div>
+            <div ng-bind-html="description | externalLinks"></div>
         </div>
 
     </ion-content>

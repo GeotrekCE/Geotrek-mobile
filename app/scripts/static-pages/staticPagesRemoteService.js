@@ -12,7 +12,7 @@ geotrekStaticPages.service('staticPagesRemoteService', [
             {
                 text: "Title 1",
                 title: "Title 1",
-                description: "Lorem ipsum"
+                description: "Lorem ipsum <a href='http://makina-corpus.com'>Makina Corpus</a>"
             }, {
                 text: "Title 2",
                 title: "Title 2",

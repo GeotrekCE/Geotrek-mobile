@@ -3,8 +3,8 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.controller('TrekController',
-    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', 'logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
-     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$timeout','logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout,logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;

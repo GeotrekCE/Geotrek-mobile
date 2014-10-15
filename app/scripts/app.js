@@ -39,7 +39,13 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
-.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading',function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform, $ionicLoading) {
+.filter('externalLinks', function() {
+    return function(text) {
+        return String(text).replace(/href=/gm, "class=\"external-link\" href=");
+    }
+})
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading',
+function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform, $ionicLoading) {
 
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
@@ -97,5 +103,19 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
         $ionicLoading.hide();
     });
+
+    // open external links in device default browser
+    if(angular.isDefined(window.cordova)) {
+        window.setInterval(function () {
+            angular.forEach(document.querySelectorAll('a.external-link'), function(element) {
+                angular.element(element).bind('click', function (event) {
+                    event.preventDefault();
+                    var url = element.href;
+                    window.open(encodeURI(url), '_system', 'location=yes');
+                    return false;
+                });
+            });
+        }, 1000);
+    }
 
 }]);
