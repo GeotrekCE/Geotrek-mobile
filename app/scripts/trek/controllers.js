@@ -67,8 +67,8 @@ geotrekTreks.controller('TrekController',
     });
 }])
 .controller('TrekListController',
-    ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', 'mapFactory', 'treks', 'userSettingsService',
-    function ($rootScope, $state, $scope, $ionicPopup, $q, mapFactory, treks, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', '$translate', 'mapFactory', 'treks', 'userSettingsService',
+    function ($rootScope, $state, $scope, $ionicPopup, $q, $translate, mapFactory, treks, userSettingsService) {
 
     // Ordering by distance
     // If distance is not available, default ordering is trek.geojson one
@@ -87,47 +87,55 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.downloadTile = function(trekId) {
-
-        // We prevent tile download if network is not available
-        if (!$rootScope.network_available) {
-            $ionicPopup.alert({
-                title: 'Network cannot be reached',
-                template: 'Check your network connection, needed to download trek precise maps'
-            });
-        }
-        else {
-
-            // Getting user connection settings, to know if we are in WiFi only mode
-            var template = 'You will download precise map for this trek. Are you sure ?';
-            if (userSettingsService.warnForDownload()) {
-                template += '<br/><strong>Warning</strong>: you are not WiFi connected, be aware that some mobile data will be spent.';
+        $translate([
+            'trek_controller_no_network_title',
+            'trek_controller_no_network_label',
+            'trek_controller_download_confirm_message',
+            'trek_controller_donwload_warning_title',
+            'trek_controller_donwload_warning_message',
+            'trek_controller_download_confirm_title'
+        ]).then(function(translations) {
+            // We prevent tile download if network is not available
+            if (!$rootScope.network_available) {
+                $ionicPopup.alert({
+                    title: translations.trek_controller_no_network_title,
+                    template: translations.trek_controller_no_network_label
+                });
             }
+            else {
 
-            var confirmPopup = $ionicPopup.confirm({
-                title: 'Download trek map',
-                template: template
-            });
-
-            var currentTrek = getTrekById(treks.features, trekId);
-            currentTrek.tiles.realProgress = 0;
-            currentTrek.tiles.inDownloadProgress = false;
-
-            confirmPopup.then(function(confirmed) {
-                if(confirmed) {
-                    currentTrek.tiles.inDownloadProgress = true;
-                    $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
-                    .then(function(result) {
-                        currentTrek.tiles.inDownloadProgress = false;
-                        currentTrek.tiles.isDownloaded = true;
-                    }, function(error) {
-                        currentTrek.tiles.inDownloadProgress = false;
-                    }, function(progress) {
-                        currentTrek.tiles.inDownloadProgress = true;
-                        currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
-                    });
+                // Getting user connection settings, to know if we are in WiFi only mode
+                var template = translations.trek_controller_download_confirm_message;
+                if (userSettingsService.warnForDownload()) {
+                    template += '<br/><strong>' + translations.trek_controller_donwload_warning_title +'</strong>: ' + translations.trek_controller_donwload_warning_message;
                 }
-            });
-        }
+
+                var confirmPopup = $ionicPopup.confirm({
+                    title: translations.trek_controller_download_confirm_title,
+                    template: template
+                });
+
+                var currentTrek = getTrekById(treks.features, trekId);
+                currentTrek.tiles.realProgress = 0;
+                currentTrek.tiles.inDownloadProgress = false;
+
+                confirmPopup.then(function(confirmed) {
+                    if(confirmed) {
+                        currentTrek.tiles.inDownloadProgress = true;
+                        $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
+                        .then(function(result) {
+                            currentTrek.tiles.inDownloadProgress = false;
+                            currentTrek.tiles.isDownloaded = true;
+                        }, function(error) {
+                            currentTrek.tiles.inDownloadProgress = false;
+                        }, function(progress) {
+                            currentTrek.tiles.inDownloadProgress = true;
+                            currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
+                        });
+                    }
+                });
+            }
+        });
     };
 }])
 .controller('TrekDetailController',

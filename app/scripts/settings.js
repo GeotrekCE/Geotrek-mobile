@@ -97,13 +97,10 @@ geotrekAppSettings.constant('globalSettings', {
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         remote: {
-            //TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
-            TILES_REMOTE_PATH_URL: "http://cg44.makina-corpus.net/tmp/tiles-geotrek",
+            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
-            //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://cg44.makina-corpus.net/tmp/tiles-geotrek/tiles-global.zip",
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
-            FULL_DATA_REMOTE_FILE_URL: "http://cg44.makina-corpus.net/tmp/geotrek-info.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
             LEAFLET_BACKGROUND_URL: 'http://{s}.livembtiles.makina-corpus.net/makina/OSMTopo/{z}/{x}/{y}.png'
         },
@@ -162,6 +159,7 @@ geotrekAppSettings.constant('globalSettings', {
         self.I18N_PREFIX = i18n_prefix
         self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek/trek.geojson';
         self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek';
+        self.FULL_DATA_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/' + self.I18N_PREFIX + '/files/api/trek/trek.zip';
     }
 
     this.setDefaultPrefix = function(){
