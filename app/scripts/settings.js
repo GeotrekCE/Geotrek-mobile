@@ -142,13 +142,11 @@ geotrekAppSettings.constant('globalSettings', {
     var self = this;
 
     self.I18N_PREFIX;
-    self.STATIC_PAGES_URL;
     self.TREK_REMOTE_FILE_URL;
     self.TREK_REMOTE_FILE_URL_BASE;
 
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix
-        self.STATIC_PAGES_URL = settings.DOMAIN_NAME + '/' + self.I18N_PREFIX + '/files/api/pages/pages.json';
         self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek/trek.geojson';
         self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek';
     }

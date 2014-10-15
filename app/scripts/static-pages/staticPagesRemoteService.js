@@ -8,29 +8,18 @@ geotrekStaticPages.service('staticPagesRemoteService', [
 
     this.getStaticPages = function() {
         var deferred = $q.defer();
-
-        $http.get(globalizationSettings.STATIC_PAGES_URL)
-        .then(function(response) {
-
-            var staticPages = [];
-            angular.forEach(response.data, function(page) {
-
-                var content = page.content;
-                // Appending DOMAIN_NAME on each image src to be correctly loaded on browser
-                // (image urls in json are relative)
-                content = content.replace('src="', 'src="' + settings.DOMAIN_NAME);
-
-                staticPages.push({
-                    text: page.title,
-                    title: page.title,
-                    description: content
-                });
-            })
-            deferred.resolve(staticPages);
-        }, function(error) {
-            deferred.reject(error);
-        });
-
+        var staticPages = [
+            {
+                text: "Title 1",
+                title: "Title 1",
+                description: "Lorem ipsum"
+            }, {
+                text: "Title 2",
+                title: "Title 2",
+                description: "Lorem ipsum"
+            }
+        ];
+        deferred.resolve(staticPages);
         return deferred.promise;
     };
 
