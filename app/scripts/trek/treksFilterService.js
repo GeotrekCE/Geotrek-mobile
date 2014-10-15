@@ -6,7 +6,7 @@ var geotrekTreks = angular.module('geotrekTreks');
  * Service that gives trek filters
  */
 
-geotrekTreks.service('treksFiltersService', ['$q', function($q) {
+geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, settings) {
 
     // Get default value for each filter field
     this.getDefaultActiveFilterValues = function() {
@@ -191,7 +191,7 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
     };
 
     // Possible values that user can select on filter sidebar menu.
-    // Some are hardcoded (difficulties, durations, elevations),
+    // Some are constants defined in settings (durations, elevations),
     // others come from trek possible values
     this.getTrekFilterOptions = function(treks) {
 
@@ -251,17 +251,8 @@ geotrekTreks.service('treksFiltersService', ['$q', function($q) {
 
         return {
             difficulties : trekDifficulties,
-            durations : [
-                { id: 4, name: '<1/2 J', icon: 'duration-1.svg', interval: [0, 4]},
-                { id: 8, name: '1/2 - 1', icon: 'duration-2.svg', interval: [4, 8] },
-                { id: 24, name: '> 1 J', icon: 'duration-3.svg', interval: [8, 99999]},
-            ],
-            elevations :  [
-                { id: 0, name: '<300m', icon: 'deniv1.svg', interval: [0, 300] },
-                { id: 300, name: '300-600', icon: 'deniv1.svg', interval: [301, 600] },
-                { id: 600, name: '600-1000', icon: 'deniv1.svg', interval: [601, 1000] },
-                { id: 1000, name: '>1000m', icon: 'deniv1.svg', interval: [1001, 99999] },
-            ],
+            durations : settings.filters.durations,
+            elevations :  settings.filters.elevations,
             downloads : [
                 { value: 1, name: 'nav_trek_map.offline', icon: 'icon_offline.svg' }
             ],
