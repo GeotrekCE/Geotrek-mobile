@@ -59,14 +59,14 @@
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox style="background-image: url(images/{{ duration.icon }});" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox style="background-image: url(images/duration-{{ $index+1 }}.svg);" uncheckable>
                         <span>{{ duration.name }}</span>
                     </button>
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ elevation.icon }}" ng-init="activeFilters.elevation[elevation.id] = elevation" ng-repeat="elevation in filtersData.elevations" btn-checkbox ng-model="activeFilters.elevation[elevation.id].checked" style="background-image: url(images/{{ elevation.icon }});" uncheckable>
-                        <span>{{ elevation.name }}</span>
+                    <button class="filters-list__bt-no-icon button" ng-init="activeFilters.elevation[elevation.id] = elevation" ng-repeat="elevation in filtersData.elevations" btn-checkbox ng-model="activeFilters.elevation[elevation.id].checked" uncheckable>
+                        {{ elevation.name }}
                     </button>
                 </li>
 

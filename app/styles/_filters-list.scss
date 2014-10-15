@@ -76,3 +76,27 @@
 			background-repeat: no-repeat;
 		}
 	}
+
+	.filters-list__bt-no-icon {
+		position: relative;
+		color: white;
+		padding: 0 1px;
+		font-size: 12px;
+		min-width: 53px;
+		margin: 0 1px;
+		border-color: white;
+		background: transparent;
+
+		&:before {
+			font-size: 40px;
+		}
+
+		&:hover {
+			color: white;
+		}
+		&.activated, &.active {
+			border-color: white;
+			background: transparent;
+			opacity: 0.3;
+		}
+	}

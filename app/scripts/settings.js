@@ -139,15 +139,15 @@ geotrekAppSettings.constant('globalSettings', {
         leaflet: leaflet_conf,
         filters: {
             durations : [
-                { id: 4, name: '<1/2 J', icon: 'duration-1.svg', interval: [0, 4]},
-                { id: 8, name: '1/2 - 1', icon: 'duration-2.svg', interval: [4, 8] },
-                { id: 24, name: '> 1 J', icon: 'duration-3.svg', interval: [8, 99999]},
+                { id: 4, name: '<1/2 J', interval: [0, 4]},
+                { id: 10, name: '1/2 - 1', interval: [4, 10] },
+                { id: 24, name: '> 1 J', interval: [10, 99999]},
             ],
             elevations :  [
-                { id: 0, name: '<300m', icon: 'deniv1.svg', interval: [0, 300] },
-                { id: 300, name: '300-600', icon: 'deniv1.svg', interval: [301, 600] },
-                { id: 600, name: '600-1000', icon: 'deniv1.svg', interval: [601, 1000] },
-                { id: 1000, name: '>1000m', icon: 'deniv1.svg', interval: [1001, 99999] },
+                { id: 0, name: '<300m', interval: [0, 300] },
+                { id: 300, name: '300-600', interval: [301, 600] },
+                { id: 600, name: '600-1000', interval: [601, 1000] },
+                { id: 1000, name: '>1000m', interval: [1001, 99999] },
             ],
         }
     };
