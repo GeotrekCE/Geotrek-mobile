@@ -50,7 +50,7 @@
 
     <!-- Left menu -->
     <ion-side-menu side="left" width="245">
-        <ion-content scroll="false">
+        <ion-content scroll="true" scrollbar-x="false" scrollbar-y="false">
             <ul class="filters-list">
                 <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox style="background-image: url({{ difficulty.icon }});background-size: contain;" uncheckable>
