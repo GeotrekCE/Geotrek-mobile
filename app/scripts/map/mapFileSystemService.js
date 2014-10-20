@@ -10,8 +10,8 @@ geotrekMap.service('mapFileSystemService',
         return settings.device.LEAFLET_BACKGROUND_URL;
     };
 
-    this.downloadGlobalBackground = function(url) {
-        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
+    this.downloadGlobalBackground = function(url, progress) {
+        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT, false, progress);
     };
 
     this._deleteTiles = function(zoomLevel) {

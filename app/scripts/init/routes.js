@@ -17,14 +17,17 @@ geotrekInit.config(function($stateProvider) {
     });
 
     cfpLoadingBar.start();
+    $scope.progress = "0%";
+
+    var displayProgress = function(label) {
+        return function(progress) {
+            $scope.progress = label + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+        }
+    };
 
     // Synchronizing data with server
-    syncDataService.run()
-    .then(function(result) {
-        // Simulating almost ended loading
-        cfpLoadingBar.set(0.9);
-    })
-    .then(function(treks) {
+    syncDataService.run(displayProgress)
+    .then(function() {
         // Initializing app default language
         return globalizationService.init();
     })

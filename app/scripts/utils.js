@@ -142,18 +142,18 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         return deferred.promise;
     };
 
-    var downloadAndUnzip = function(url, folderPath, forceUnzip) {
+    var downloadAndUnzip = function(url, folderPath, forceUnzip, progress) {
         var filename = url.split(/[\/]+/).pop();
         return downloadFile(url, folderPath + "/" + filename)
         .then(function(data) {
             if(data.status && data.status == 304 && !forceUnzip) {
                 var deferred = $q.defer();
-                deferred.resolve({message: 'File already there, we assume it had been unzipped previously.'});
+                deferred.resolve({useCache: true, message: 'File already there, we assume it had been unzipped previously.'});
                 return deferred.promise;
             } else {
                 return unzip(folderPath + "/" + filename, folderPath);
             }
-        });
+        }, null, progress);
     };
 
 
