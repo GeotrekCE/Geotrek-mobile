@@ -10,7 +10,7 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, cfpLoadingBar, syncDataService, checkDataService, globalizationService, $translate) {
+}).controller('AssetsController', function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, cfpLoadingBar, syncDataService, globalizationService, $translate) {
 
     $translate('init.loading').then(function(msg) {
         $scope.message = msg;
@@ -23,9 +23,6 @@ geotrekInit.config(function($stateProvider) {
     .then(function(result) {
         // Simulating almost ended loading
         cfpLoadingBar.set(0.9);
-
-        // Checking that data is OK before landing page redirection
-        return checkDataService.isReady();
     })
     .then(function(treks) {
         // Initializing app default language
