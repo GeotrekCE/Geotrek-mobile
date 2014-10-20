@@ -44,8 +44,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         return String(text).replace(/href=/gm, "class=\"external-link\" href=");
     }
 })
-.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading',
-function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform, $ionicLoading) {
+.run(['$rootScope', 'logging', '$window', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading', '$translate',
+function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlatform, $ionicLoading, $translate) {
 
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
@@ -54,6 +54,12 @@ function($rootScope, logging, $window, $state, globalizationSettings, $ionicPlat
             } else {
                 console.error('$stateChangeError : ' + JSON.stringify(error));
             }
+            $translate(['error_message', 'error_title']).then(function(translations) {
+                $cordovaDialogs.alert(translations.error_message, translations.error_title, 'OK')
+                .then(function() {
+                    $state.go('preload');
+                });
+            });
         } else {
             console.error('$stateChangeError :', error);
         }

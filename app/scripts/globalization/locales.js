@@ -59,7 +59,9 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.network_reachable': 'Oui',
         'user_parameters.network_not_reachable': 'Non',
         'usersettings_controller_cleanmaps_confirm_title': 'Supprimer les cartes détaillées',
-        'usersettings_controller_cleanmaps_confirm_label': 'Êtes-vous sûr ?'
+        'usersettings_controller_cleanmaps_confirm_label': 'Êtes-vous sûr ?',
+        'error_message': 'Une erreur est survenue',
+        'error_title': 'Erreur'
     },
     'en': {
         'init.loading': 'Loading data...',
@@ -116,7 +118,9 @@ geotrekGlobalization.constant('locales', {
         'user_parameters.network_reachable': 'Yes',
         'user_parameters.network_not_reachable': 'No',
         'usersettings_controller_cleanmaps_confirm_title': 'Remove detailled maps',
-        'usersettings_controller_cleanmaps_confirm_label': 'Are you sure?'
+        'usersettings_controller_cleanmaps_confirm_label': 'Are you sure?',
+        'error_message': 'An error occured',
+        'error_title': 'Error'
     }
 })
 

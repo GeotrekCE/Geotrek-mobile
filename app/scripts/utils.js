@@ -145,8 +145,9 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
     var downloadAndUnzip = function(url, folderPath, forceUnzip, progress) {
         var filename = url.split(/[\/]+/).pop();
         return downloadFile(url, folderPath + "/" + filename)
-        .then(function(data) {
-            if(data.status && data.status == 304 && !forceUnzip) {
+        .then(function(response) {
+            if(response.data && response.data.status && response.data.status == 304 && !forceUnzip) {
+                progress({loaded: 100, total: 100});
                 var deferred = $q.defer();
                 deferred.resolve({useCache: true, message: 'File already there, we assume it had been unzipped previously.'});
                 return deferred.promise;
