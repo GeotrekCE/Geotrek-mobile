@@ -3,6 +3,7 @@
 var geotrekPois = angular.module('geotrekPois');
 
 geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings, utils) {
+    var _pois = {};
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
         return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
@@ -30,8 +31,12 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         angular.forEach(copy.features, function(poi) {
             var currentPoiId = poi.id;
 
-            poi.properties.thumbnail = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, poi.properties.thumbnail);
-            poi.properties.type.pictogram = _this.convertServerUrlToPictoFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
+            if(poi.properties.thumbnail) {
+                poi.properties.thumbnail = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, poi.properties.thumbnail);
+            }
+            if(poi.properties.type.pictogram) {
+                poi.properties.type.pictogram = _this.convertServerUrlToPictoFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
+            }
 
             angular.forEach(poi.properties.pictures, function(picture) {
                 picture.url = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, picture.url);
@@ -43,33 +48,28 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     // Getting Pois used for mobile purpose
     // Image urls are converted to cdv://localhost/persistent/... ones
     this.getPoisFromTrek = function(trekId) {
-        var replaceUrls = true;
-        return this._getPoisFromTrek(trekId, replaceUrls);
+        return this._getPoisFromTrek(trekId);
     };
 
-    // Getting server trek original data
-    this.getRawPoisFromTrek = function(trekId) {
-        var replaceUrls = false;
-        return this._getPoisFromTrek(trekId, replaceUrls);
-    };
+    this._getPoisFromTrek = function(trekId) {
+        var deferred = $q.defer();
+        if(!_pois[trekId]) {
+            var trekPoisFilepath = this._getPoisTrekRelativeURL(trekId),
+                _this = this;
 
-    this._getPoisFromTrek = function(trekId, replaceUrls) {
-
-        var trekPoisFilepath = this._getPoisTrekRelativeURL(trekId),
-            deferred = $q.defer(),
-            _this = this;
-
-        $cordovaFile.readAsText(trekPoisFilepath)
-        .then(
-            function(data) {
-                var jsonData = JSON.parse(data);
-                if (replaceUrls) {
+            $cordovaFile.readAsText(trekPoisFilepath)
+            .then(
+                function(data) {
+                    var jsonData = JSON.parse(data);
                     jsonData = _this.replaceImgURLs(jsonData);
-                }
-                deferred.resolve(jsonData);
-            },
-            deferred.reject
-        );
+                    _pois[trekId] = jsonData;
+                    deferred.resolve(_pois[trekId]);
+                },
+                deferred.reject
+            );
+        } else {
+            deferred.resolve(_pois[trekId]);
+        }
 
         return deferred.promise;
     };

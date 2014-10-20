@@ -3,6 +3,7 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, utils) {
+    var _treks;
 
     this.getTrekSubdir = function(trekId) {
         return settings.device.CDV_TREK_ROOT + '/' + trekId.toString();
@@ -60,33 +61,28 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
     // Getting treks used for mobile purpose
     // Image urls are converted to cdv://localhost/persistent/... ones
     this.getTreks = function() {
-        var replaceUrls = true;
-        return this._getTreks(replaceUrls);
+        return this._getTreks();
     };
 
-    // Getting server trek original data
-    this.getRawTreks = function() {
-        var replaceUrls = false;
-        return this._getTreks(replaceUrls);
-    };
+    this._getTreks = function() {
+        var deferred = $q.defer();
+        if(!_treks) {
+            var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
+                _this = this;
 
-    this._getTreks = function(replaceUrls) {
-
-        var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
-            deferred = $q.defer(),
-            _this = this;
-
-        $cordovaFile.readAsText(filePath)
-        .then(
-            function(data) {
-                var jsonData = JSON.parse(data);
-                if (replaceUrls) {
+            $cordovaFile.readAsText(filePath)
+            .then(
+                function(data) {
+                    var jsonData = JSON.parse(data);
                     jsonData = _this.replaceImgURLs(jsonData);
-                }
-                deferred.resolve(jsonData);
-            },
-            deferred.reject
-        );
+                    _treks = jsonData;
+                    deferred.resolve(_treks);
+                },
+                deferred.reject
+            );
+        } else {
+            deferred.resolve(_treks);
+        }
 
         return deferred.promise;
     };

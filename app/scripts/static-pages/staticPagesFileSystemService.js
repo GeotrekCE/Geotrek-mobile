@@ -6,6 +6,8 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
     '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'utils',
     function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, utils) {
 
+    var _staticPages;
+
     this.downloadStaticPages = function(url) {
         var _this = this;
 
@@ -52,22 +54,26 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
         var replaceUrls = true,
             deferred = $q.defer();
 
-        this._getStaticPages(replaceUrls)
-        .then(function(jsonData) {
-            var staticPages = [];
-            angular.forEach(jsonData, function(page) {
+        if(!_staticPages) {
+            this._getStaticPages(replaceUrls)
+            .then(function(jsonData) {
+                var staticPages = [];
+                angular.forEach(jsonData, function(page) {
 
-                staticPages.push({
-                    text: page.title,
-                    title: page.title,
-                    description: page.content
-                });
-            })
-
-            deferred.resolve(staticPages);
-        }, function(error) {
-            deferred.reject(error);
-        });
+                    staticPages.push({
+                        text: page.title,
+                        title: page.title,
+                        description: page.content
+                    });
+                })
+                _staticPages = staticPages;
+                deferred.resolve(_staticPages);
+            }, function(error) {
+                deferred.reject(error);
+            });
+        } else {
+            deferred.resolve(_staticPages);
+        }
 
         return deferred.promise;
     };

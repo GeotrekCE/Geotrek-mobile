@@ -9,6 +9,16 @@ geotrekMap.service('leafletService',
     ['$q', 'logging', 'settings', 'treksFactory', 'iconsService', 'mapFactory',
     function ($q, logging, settings, treksFactory, iconsService, mapFactory) {
 
+    var _markers = [];
+
+    this.getMarkers = function() {
+        return _markers;
+    };
+
+    this.setMarkers = function(markers) {
+        _markers = markers;
+    };
+
     this.getMapInitParameters = function() {
         // Set default Leaflet map params
 
