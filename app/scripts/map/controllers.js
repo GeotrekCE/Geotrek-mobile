@@ -25,7 +25,7 @@ geotrekMap.controller('MapController',
     function showTreks(updateBounds) {
 
         // Remove all markers so the displayed markers can fit the search results
-        $scope.markers = {};
+        $scope.leafletService = leafletService;
 
         angular.extend($scope, {
             geojson: {
@@ -39,14 +39,6 @@ geotrekMap.controller('MapController',
                     }
                 },
                 onEachFeature: function(feature, layer) {
-
-                    // Adding markers linked to current trek
-                    poisFactory.getPoisFromTrek(feature.id)
-                        .then(function(pois) {
-                        var treksMarkers = leafletService.createMarkersFromTrek(feature, pois.features);
-                        angular.extend($scope.markers, treksMarkers);
-                    });
-
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
                     layer.on({
@@ -54,19 +46,6 @@ geotrekMap.controller('MapController',
                             $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
                         }
                     });
-
-                    if(feature.geometry.type=="LineString") {
-                        leafletData.getMap().then(function(map) {
-                            L.geoJson(feature, {style:{'color': 'transparent', 'weight': 35, 'opacity': 0.8}})
-                            .addTo(map)
-                            .bringToFront()
-                            .on({
-                                click: function(e) {
-                                    $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
-                                }
-                            });
-                        });
-                    }
                 }
             }
         });
@@ -165,17 +144,24 @@ geotrekMap.controller('MapController',
     });
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'leafletData', 'trek',
-            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, leafletData, trek) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService','leafletData', 'trek',
+            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, leafletData, trek) {
 
     $scope.currentTrek = $stateParams.trekId;
 
-    // Draw a new polyline in background to highlight the selected trek
     leafletData.getMap().then(function(map) {
+        // Draw a new polyline in background to highlight the selected trek
         L.geoJson(trek, {style:{'color': '#981d97', 'weight': 9, 'opacity': 0.8}})
             .addTo(map)
             .bringToBack()
             .setText('>         ', {repeat:true, offset: 15});
+        
+        // Display POIs
+        poisFactory.getPoisFromTrek(trek.id)
+        .then(function(pois) {
+            var treksMarkers = leafletService.createMarkersFromTrek(trek, pois.features);
+            leafletService.setMarkers(treksMarkers);
+        });
     });
 
     function fitBoundsTrek(map) {
