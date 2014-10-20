@@ -143,7 +143,7 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
         return (this.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
             this.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
             this.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
-            this.filterTrekEquals(trek.tiles.isDownloaded ? 1 : 0, activeFilters.download) &&
+            this.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
             this.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
             this.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
             this.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
