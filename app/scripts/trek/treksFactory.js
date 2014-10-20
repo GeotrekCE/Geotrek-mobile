@@ -34,8 +34,8 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
     treksFactory.getParkingPoint = function(trek) {
         var parkingCoordinates = trek.properties.parking_location;
 
-        return {'lat': parkingCoordinates[1],
-                'lng': parkingCoordinates[0]}
+        return parkingCoordinates ? {'lat': parkingCoordinates[1],
+                'lng': parkingCoordinates[0]} : null
     };
 
     treksFactory.getTrekDistance = function(trek) {
