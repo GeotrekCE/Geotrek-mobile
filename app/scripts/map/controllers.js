@@ -12,7 +12,7 @@ geotrekMap.controller('MapController',
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args){
         var modalScope = {
-            objectToDisplay: $scope.markers[args.markerName]
+            objectToDisplay: leafletService.getMarkers()[args.markerName]
         };
         utils.createModal('views/map_trek_detail.html', modalScope);
     });
@@ -31,7 +31,7 @@ geotrekMap.controller('MapController',
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
-                style: {'color': '#F89406', 'weight': 5, 'opacity': 0.8},
+                style: {'color': '#F89406', 'weight': 8, 'opacity': 0.8},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
                         // With this call, map will always cover all geojson data area
@@ -151,7 +151,7 @@ geotrekMap.controller('MapController',
 
     leafletData.getMap().then(function(map) {
         // Draw a new polyline in background to highlight the selected trek
-        L.geoJson(trek, {style:{'color': '#981d97', 'weight': 9, 'opacity': 0.8}})
+        L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
             .addTo(map)
             .bringToBack()
             .setText('>         ', {repeat:true, offset: 15});
