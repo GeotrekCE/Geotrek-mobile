@@ -169,7 +169,7 @@ geotrekTreks.controller('TrekController',
     // Display the modal (this is the entire view here)
     $ionicModal.fromTemplateUrl('views/trek_detail.html', {
         scope: $scope,
-        animation: 'slide-in-up'
+        animation: 'no-animation'
     }).then(function(modal) {
         $scope.modal = modal;
         $scope.modal.show();
