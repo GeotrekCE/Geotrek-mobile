@@ -4,7 +4,7 @@ var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.controller('TrekController',
     ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$timeout','logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
-     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout,logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
@@ -67,7 +67,6 @@ geotrekTreks.controller('TrekController',
             },
             buttonClicked: function(index) {
                 utils.createModal('views/static_page.html', $scope.staticPages[index]);
-
                 return true;
             }
         });
@@ -151,8 +150,8 @@ geotrekTreks.controller('TrekController',
     };
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'socialSharingService', 'treksFactory', 'poisFactory',
-    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, socialSharingService, treksFactory, poisFactory) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory',
+    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory) {
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
@@ -171,6 +170,9 @@ geotrekTreks.controller('TrekController',
         scope: $scope,
         animation: 'no-animation'
     }).then(function(modal) {
+        
+        utils.openLinkInSystemBrowser('.trek-detail p');
+
         $scope.modal = modal;
         $scope.modal.show();
     });

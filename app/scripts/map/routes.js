@@ -16,13 +16,25 @@ geotrekMap.config(function($stateProvider) {
         }
     })
     .state('home.map.trek', {
-        url: '/:trekId',
+        url: '/map-:trekId',
         templateUrl : 'views/detail_map.html',
         controller: 'MapControllerDetail',
         resolve: {
             trek: function($stateParams, treksFactory) {
                 var trekId = $stateParams.trekId;
                 return treksFactory.getTrek(trekId);
+            }
+        }
+    })
+    .state('home.map.detail', {
+        url: '/trek-:trekId',
+        controller: 'TrekDetailController',
+        resolve: {
+            trek: function(treksFactory, $stateParams) {
+                return treksFactory.getTrek($stateParams.trekId);
+            },
+            pois: function(poisFactory, $stateParams) {
+                return poisFactory.getPoisFromTrek($stateParams.trekId);
             }
         }
     });
