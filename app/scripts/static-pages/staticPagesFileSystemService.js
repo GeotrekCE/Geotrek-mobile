@@ -41,6 +41,8 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
                 element.src = settings.device.CDV_STATIC_PAGES_IMG_ROOT + '/' + filename;
             });
 
+
+
             // And finally, we affect this transformed content to initial one
             pages.content = $htmlContent.html();
         });

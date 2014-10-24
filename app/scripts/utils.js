@@ -8,7 +8,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -112,6 +112,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         }).then(function(modal) {
             $rootScope.modal = modal;
             $rootScope.modal.show();
+            openLinkInSystemBrowser('.modal.active ion-content');
         });
 
         //Cleanup the modal when we're done with it!
@@ -176,12 +177,32 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         return defered.promise;
     };
 
+    // open external links in device default browser 
+    var openLinkInSystemBrowser = function(container) {
+
+        var parent = container;
+        $timeout(function () {
+            angular.forEach(document.querySelectorAll(parent + ' a'), function(target) {
+                angular.element(target).bind('click', function (event) {
+                    event.preventDefault();
+                    var url = target.href;
+                    window.open(encodeURI(url), '_system', 'location=yes');
+                    return false;
+                });
+            });
+        });
+
+    };
+
+
     return {
         downloadFile: downloadFile,
         getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
         createModal: createModal,
         unzip: unzip,
         downloadAndUnzip: downloadAndUnzip,
-        removeDir: removeDir
+        removeDir: removeDir,
+        openLinkInSystemBrowser: openLinkInSystemBrowser
     };
+
 }]);

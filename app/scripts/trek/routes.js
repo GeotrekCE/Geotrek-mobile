@@ -44,7 +44,7 @@ geotrekTreks.config(function($stateProvider) {
         controller: 'TrekListController'
     })
     .state('home.trek.detail', {
-        url: '/:trekId',
+        url: '/trek-:trekId',
         controller: 'TrekDetailController',
         resolve: {
             trek: function(treksFactory, $stateParams) {

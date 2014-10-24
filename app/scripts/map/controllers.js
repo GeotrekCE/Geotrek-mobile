@@ -18,7 +18,7 @@ geotrekMap.controller('MapController',
     });
 
     $scope.$on('leafletDirectiveMap.geojsonClick', function(event, trek) {
-        $state.go("home.trek.detail", { trekId: trek.id });
+        $state.go("home.map.detail", { trekId: trek.id });
     });
 
     // Add treks geojson to the map
