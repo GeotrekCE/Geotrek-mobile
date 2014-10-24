@@ -15,7 +15,7 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = 'http://192.168.100.36:8888', // 'http://prod-rando-fr.makina-corpus.net',
+    var DOMAIN_NAME = /*'http://192.168.100.36:8888',*/  'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)

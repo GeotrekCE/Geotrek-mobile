@@ -147,11 +147,13 @@ geotrekMap.controller('MapController',
 .controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService','leafletData', 'trek',
             function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, leafletData, trek) {
 
+    $scope.currentHighlight = {};
+
     $scope.currentTrek = $stateParams.trekId;
 
     leafletData.getMap().then(function(map) {
         // Draw a new polyline in background to highlight the selected trek
-        L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
+        $scope.currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
             .addTo(map)
             .bringToBack()
             .setText('>         ', {repeat:true, offset: 15});
@@ -162,6 +164,13 @@ geotrekMap.controller('MapController',
             var treksMarkers = leafletService.createMarkersFromTrek(trek, pois.features);
             leafletService.setMarkers(treksMarkers);
         });
+
+        // Reinitialize focus and markers of a trek
+        $rootScope.$on('$stateChangeStart', function() {
+            map.removeLayer($scope.currentHighlight);
+            leafletService.setMarkers();
+        });
+
     });
 
     function fitBoundsTrek(map) {
@@ -191,6 +200,7 @@ geotrekMap.controller('MapController',
             fitBoundsTrek(map);
         });
     }
+
 
     $scope.centerMapTrek = centerMapTrek;
 
