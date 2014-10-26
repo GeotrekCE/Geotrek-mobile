@@ -46,15 +46,15 @@
 
                 <li ng-if="trek.properties.themes" class="col trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.themes' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="theme in trek.properties.themes">
+                    <span class="trek-detail__extra-infos__item__icon" ng-repeat="theme in trek.properties.themes">
                         <img class="icon" ng-src="{{ theme.pictogram }}"/>
                     </span>
                 </li>
 
                 <li ng-if="trek.properties.networks" class="col trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon" ng-repeat="network in trek.properties.networks">
-                        <span>{{network.name}}</span>&nbsp;
+                    <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
+                        <span class="net-name">{{network.name}}</span>&nbsp;
                         <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
                     </span>
                 </li>
@@ -111,11 +111,19 @@
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
-            <ion-item class="poi-detail item-thumbnail-right" ng-repeat="poi in pois.features">
-                <img class="thumbnail" ng-src="{{ poi.properties.thumbnail }}"/>
-                <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
-                <h3 class="poi-detail__name">{{ poi.properties.name}}</h3><span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ poi.distanceFromUser }}km)</span>
-                <div class="poi-detail__description" ng-bind-html="poi.properties.description"></div>
+            <ion-item class="poi-detail" ng-repeat="poi in pois.features">
+                <div class="row header">
+                    <div class="col col-80 title">
+                        <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
+                        <h3 class="poi-detail__name">{{ poi.properties.name}}</h3><span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ poi.distanceFromUser }}km)</span>
+                    </div>
+                    <div class="col col-20 thumbnail">
+                        <img ng-src="{{ poi.properties.thumbnail }}"/>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="poi-detail__description" ng-bind-html="poi.properties.description"></div>
+                </div>
             </ion-item>
 
         </div>
