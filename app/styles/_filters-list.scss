@@ -53,6 +53,7 @@
 		background-position: center bottom;
 		margin-bottom: 20px;
 		border: none;
+		opacity: 0.3;
 
 		&:before {
 			font-size: 40px;
@@ -74,6 +75,7 @@
 		&.button-icon.activated, &.button-icon.active {
 			background-position: center bottom;
 			background-repeat: no-repeat;
+			opacity: 1;
 		}
 	}
 
@@ -86,6 +88,7 @@
 		margin: 0 1px;
 		border-color: white;
 		background: transparent;
+		opacity: 0.3;
 
 		&:before {
 			font-size: 40px;
@@ -97,6 +100,6 @@
 		&.activated, &.active {
 			border-color: white;
 			background: transparent;
-			opacity: 0.3;
+			opacity: 1;
 		}
 	}
