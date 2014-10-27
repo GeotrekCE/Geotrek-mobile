@@ -73,7 +73,20 @@
 
   i {
     color: $complementaryColor2;
+    &.overicon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      &:before {
+        font-size: 1.2em !important;
+      }
+    }
+    &.low-op {
+      opacity: 0.5;
+      color: #bbb;
+    }
   }
+
 }
 
 .search-area {

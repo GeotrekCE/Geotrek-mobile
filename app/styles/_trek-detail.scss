@@ -94,22 +94,31 @@
 }
 
 .trek-detail__extra-infos {
+	padding: 10px;
 	.trek-detail__extra-infos__item {
 		display: inline;
+		margin-bottom: 10px;
+		.net-name {
+			position: relative;
+			top: -9px;
+		}
+		.trek-detail__extra-infos__item__label {
+			display: block;
+		}
 		.trek-detail__extra-infos__item__icon {
+			width: 30px;
+		    height: 30px;
+		    overflow: hidden;
+		    display: inline-block;
 			.icon {
 				position: relative;
-				top: 6px;
-				height: 30px;
+    			height: 30px;
 				&.icon-network {
 					border: 1px $grayLight solid;
 				}
 			}
 			&.wrapper {
-				width: 30px;
-				height: 30px;
-				overflow: hidden;
-				display: inline-block;
+				width: 60px;
 			}
 		}
 	}

@@ -8,7 +8,14 @@
             Rando Ecrins
         </button>
         <div class="buttons pull-right modal__actions">
-            <button class="button button-icon" ng-click="newTask()">
+            <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadTile()">
+                <i class="icon ion-archive"></i>
+            </button>
+            <button ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="button button-icon">
+                <i class="icon ion-archive low-op"></i>
+                <i class="icon ion-checkmark-round overicon"></i>
+            </button>
+            <button ng-if="false" class="button button-icon" ng-click="newTask()">
                 <i class="icon ion-android-forums"></i>
             </button>
             <button class="button button-icon" ng-click="share()">

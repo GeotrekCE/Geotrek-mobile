@@ -97,64 +97,14 @@ geotrekTreks.controller('TrekController',
         return currentTrek;
     };
 
-    $scope.downloadTile = function(trekId) {
-        $translate([
-            'trek_controller_no_network_title',
-            'trek_controller_no_network_label',
-            'trek_controller_download_confirm_message',
-            'trek_controller_donwload_warning_title',
-            'trek_controller_donwload_warning_message',
-            'trek_controller_download_confirm_title'
-        ]).then(function(translations) {
-            // We prevent tile download if network is not available
-            if (!$rootScope.network_available) {
-                $ionicPopup.alert({
-                    title: translations.trek_controller_no_network_title,
-                    template: translations.trek_controller_no_network_label
-                });
-            }
-            else {
-
-                // Getting user connection settings, to know if we are in WiFi only mode
-                var template = translations.trek_controller_download_confirm_message;
-                if (userSettingsService.warnForDownload()) {
-                    template += '<br/><strong>' + translations.trek_controller_donwload_warning_title +'</strong>: ' + translations.trek_controller_donwload_warning_message;
-                }
-
-                var confirmPopup = $ionicPopup.confirm({
-                    title: translations.trek_controller_download_confirm_title,
-                    template: template
-                });
-
-                var currentTrek = getTrekById(treks.features, trekId);
-                currentTrek.tiles.realProgress = 0;
-                currentTrek.tiles.inDownloadProgress = false;
-
-                confirmPopup.then(function(confirmed) {
-                    if(confirmed) {
-                        currentTrek.tiles.inDownloadProgress = true;
-                        $q.when(mapFactory.downloadTrekPreciseBackground(trekId))
-                        .then(function(result) {
-                            currentTrek.tiles.inDownloadProgress = false;
-                            currentTrek.tiles.isDownloaded = true;
-                        }, function(error) {
-                            currentTrek.tiles.inDownloadProgress = false;
-                        }, function(progress) {
-                            currentTrek.tiles.inDownloadProgress = true;
-                            currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
-                        });
-                    }
-                });
-            }
-        });
-    };
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$stateParams', '$window', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory',
-    function ($rootScope, $state, $scope, $ionicModal, $stateParams, $window, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
+    console.log(trek);
     
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
@@ -188,6 +138,62 @@ geotrekTreks.controller('TrekController',
 
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name);
+    };
+
+    $scope.downloadTrek = function () {
+
+    };
+
+    $scope.downloadTile = function(trekId) {
+        $translate([
+            'trek_controller_no_network_title',
+            'trek_controller_no_network_label',
+            'trek_controller_download_confirm_message',
+            'trek_controller_donwload_warning_title',
+            'trek_controller_donwload_warning_message',
+            'trek_controller_download_confirm_title'
+        ]).then(function(translations) {
+            // We prevent tile download if network is not available
+            if (!$rootScope.network_available) {
+                $ionicPopup.alert({
+                    title: translations.trek_controller_no_network_title,
+                    template: translations.trek_controller_no_network_label
+                });
+            }
+            else {
+
+                // Getting user connection settings, to know if we are in WiFi only mode
+                var template = translations.trek_controller_download_confirm_message;
+                if (userSettingsService.warnForDownload()) {
+                    template += '<br/><strong>' + translations.trek_controller_donwload_warning_title +'</strong>: ' + translations.trek_controller_donwload_warning_message;
+                }
+
+                var confirmPopup = $ionicPopup.confirm({
+                    title: translations.trek_controller_download_confirm_title,
+                    template: template
+                });
+
+                var currentTrek = trek;
+                currentTrek.tiles.realProgress = 0;
+                currentTrek.tiles.inDownloadProgress = false;
+
+                confirmPopup.then(function(confirmed) {
+                    if(confirmed) {
+                        currentTrek.tiles.inDownloadProgress = true;
+                        $q.when(mapFactory.downloadTrekPreciseBackground($scope.trekId))
+                        .then(function(result) {
+                            currentTrek.tiles.inDownloadProgress = false;
+                            currentTrek.tiles.isDownloaded = true;
+                        }, function(error) {
+                            currentTrek.tiles.inDownloadProgress = false;
+                        }, function(progress) {
+                            currentTrek.tiles.inDownloadProgress = true;
+                            currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
+                        });
+                    }
+                });
+            }
+        });
     };
 
 }]);

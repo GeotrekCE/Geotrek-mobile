@@ -17,13 +17,10 @@
 
 .trek-list__item__detail__actions {
     position: absolute;
-    right: 5px;
+    right: 10px;
     bottom: 10px;
-    a {
-        display: block;
-        height: 40px;
-        width: 50px;
-    }
+    font-size: 1.5em;
+    opacity: 0.6;
 }
 
 .trek-list__item__detail-bt {

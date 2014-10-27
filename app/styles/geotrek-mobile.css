@@ -66,12 +66,10 @@ h1.app-title {
 
 .trek-list__item__detail__actions {
   position: absolute;
-  right: 5px;
-  bottom: 10px; }
-  .trek-list__item__detail__actions a {
-    display: block;
-    height: 40px;
-    width: 50px; }
+  right: 10px;
+  bottom: 10px;
+  font-size: 1.5em;
+  opacity: 0.6; }
 
 .trek-list__item__detail-bt {
   color: #494645;
@@ -156,10 +154,6 @@ h1.app-title {
     background: transparent;
     opacity: 1; }
 
-.trek-detail p {
-  padding: 5px;
-}
-
 .trek-detail .list .item {
   border-left: none;
   border-right: none;
@@ -234,35 +228,28 @@ h1.app-title {
   top: 11px;
   left: 11px; }
 
-  .trek-detail .trek-detail__extra-infos {
-    padding: 10px;
-  }
-
-.trek-detail__extra-infos .trek-detail__extra-infos__item {
-  display: inline; 
-  margin-bottom: 10px;
-}
-
-  .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__label {
-    display: block;
-  }
-
-  .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name{
-    position: relative;
-    top: -9px;
-  }
-  .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon {
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    display: inline-block; }
-  .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
-    position: relative;
-    height: 30px; }
-    .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
-      border: 1px #999 solid; }
-  .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
-    width: 60px;}
+.trek-detail__extra-infos {
+  padding: 10px; }
+  .trek-detail__extra-infos .trek-detail__extra-infos__item {
+    display: inline;
+    margin-bottom: 10px; }
+    .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
+      position: relative;
+      top: -9px; }
+    .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__label {
+      display: block; }
+    .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon {
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      display: inline-block; }
+      .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
+        position: relative;
+        height: 30px; }
+        .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
+          border: 1px #999 solid; }
+      .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
+        width: 60px; }
 
 .trek-detail__departure-arrival {
   display: inline-block;
@@ -361,6 +348,15 @@ h1.app-title {
   color: #981D97; }
 .bar-secondary i {
   color: #4d4a4a; }
+  .bar-secondary i.overicon {
+    position: absolute;
+    top: 5px;
+    right: 5px; }
+    .bar-secondary i.overicon:before {
+      font-size: 1.2em !important; }
+  .bar-secondary i.low-op {
+    opacity: 0.5;
+    color: #bbb; }
 
 .search-area {
   position: relative; }
@@ -451,9 +447,8 @@ h1.app-title {
   display: none; }
 
 .pictogram {
-  width: 20px; 
-  vertical-align: middle;
-}
+  width: 20px;
+  vertical-align: middle; }
 
 .pictogram-title {
   margin-right: 10px; }
@@ -463,39 +458,29 @@ h1.app-title {
   height: 24px; }
 
 .poi-detail {
-  padding: 0;
-}
+  padding: 0; }
 
 .poi-detail .row {
-  padding: 10px;
-}
+  padding: 10px; }
 
 .poi-detail .header {
   border-bottom: 1px solid #eee;
-  height: 80px;
-}
-
-.poi-detail .title {
-}
+  height: 80px; }
 
 .poi-detail .thumbnail {
   height: 60px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .poi-detail .thumbnail img {
   width: 100%;
-  height: auto;
-}
+  height: auto; }
 
-
-.poi-detail .poi-detail__name {
+.poi-detail__name {
   display: inline;
   vertical-align: middle;
   color: #4d4a4a;
-  font-weight: bold; 
-  white-space: normal;
-}
+  font-weight: bold;
+  white-space: normal; }
 
 .poi-detail__distance {
   display: inline;
