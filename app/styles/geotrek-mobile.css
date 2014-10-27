@@ -459,41 +459,36 @@ h1.app-title {
 
 .poi-detail {
   padding: 0; }
-
-.poi-detail .row {
-  padding: 10px; }
-
-.poi-detail .header {
-  border-bottom: 1px solid #eee;
-  height: 80px; }
-
-.poi-detail .thumbnail {
-  height: 60px;
-  overflow: hidden; }
-
-.poi-detail .thumbnail img {
-  width: 100%;
-  height: auto; }
-
-.poi-detail__name {
-  display: inline;
-  vertical-align: middle;
-  color: #4d4a4a;
-  font-weight: bold;
-  white-space: normal; }
-
-.poi-detail__distance {
-  display: inline;
-  vertical-align: middle;
-  font-size: 14px;
-  margin: 0 0 2px 2px; }
-
-.poi-detail__description {
-  white-space: normal;
-  color: black; }
-  .poi-detail__description p {
+  .poi-detail .row {
+    padding: 10px; }
+  .poi-detail .header {
+    border-bottom: 1px solid #eee;
+    height: 80px; }
+    .poi-detail .header .poi-detail__name {
+      display: inline;
+      vertical-align: middle;
+      color: #4d4a4a;
+      font-weight: bold;
+      white-space: normal;
+      margin: 0;
+      padding: 0; }
+    .poi-detail .header .poi-detail__distance {
+      display: inline;
+      vertical-align: middle;
+      font-size: 14px;
+      margin: 0 0 2px 2px; }
+  .poi-detail .thumbnail {
+    height: 60px;
+    overflow: hidden; }
+    .poi-detail .thumbnail img {
+      width: 100%;
+      height: auto; }
+  .poi-detail .poi-detail__description {
     white-space: normal;
     color: black; }
+    .poi-detail .poi-detail__description p {
+      white-space: normal;
+      color: black; }
 
 [state^='home.map'] .modal-backdrop .modal-fullheight {
   min-height: 100%;

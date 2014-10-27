@@ -35,6 +35,19 @@ geotrekMap.config(function($stateProvider) {
             },
             pois: function(poisFactory, $stateParams) {
                 return poisFactory.getPoisFromTrek($stateParams.trekId);
+            },
+            downloadedTrek: function($q, trek, mapFactory) {
+                var promises = [];
+                promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
+
+                return $q.all(promises)
+                .then(function(isDownloadedList) {
+                    for(var i=0; i<isDownloadedList.length; i++) {
+                        trek['tiles'] = {
+                            isDownloaded: isDownloadedList[i]
+                        };
+                    }
+                });
             }
         }
     });

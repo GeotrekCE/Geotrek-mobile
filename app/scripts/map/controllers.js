@@ -27,7 +27,7 @@ geotrekMap.controller('MapController',
         // Remove all markers so the displayed markers can fit the search results
         $scope.leafletService = leafletService;
 
-        angular.extend($scope, {
+        var layerGeo = angular.extend($scope, {
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
@@ -37,11 +37,24 @@ geotrekMap.controller('MapController',
                         // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
+
                 },
                 onEachFeature: function(feature, layer) {
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
+                    
+
+                    //Add almostOver layer for easy tap on mobile
+                    leafletData.getMap().then(function(map) {
+                        map.almostOver.addLayer(layer);
+
+                        map.on('almost:click', function (e) {
+                            $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', e.layer.feature, e);
+                        });
+                    });
+
                     layer.on({
+
                         click: function(e) {
                             $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
                         }
@@ -142,6 +155,7 @@ geotrekMap.controller('MapController',
         // We don't want to adapt map bounds on filter results
         showTreks(updateBounds);
     });
+
 
 }])
 .controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService','leafletData', 'trek',
