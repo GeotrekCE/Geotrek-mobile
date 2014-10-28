@@ -46,10 +46,6 @@ geotrekMap.controller('MapController',
                     //Add almostOver layer for easy tap on mobile
                     leafletData.getMap().then(function(map) {
                         map.almostOver.addLayer(layer);
-
-                        map.on('almost:click', function (e) {
-                            $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', e.layer.feature, e);
-                        });
                     });
 
                     layer.on({
@@ -67,7 +63,14 @@ geotrekMap.controller('MapController',
             map.on('zoomend', function() {
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
+
+            //AlmostOver event
+            map.on('almost:click', function (e) {
+                $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', e.layer.feature, e);
+            });
         });
+
+
     }
 
     showTreks();
@@ -150,7 +153,6 @@ geotrekMap.controller('MapController',
     $scope.centerMapUser = centerMapUser;
 
     $scope.$on('OnFilter', function() {
-        console.log('filtered');
         var updateBounds = false;
         // We don't want to adapt map bounds on filter results
         showTreks(updateBounds);
