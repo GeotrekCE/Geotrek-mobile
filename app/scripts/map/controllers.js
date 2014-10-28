@@ -27,7 +27,7 @@ geotrekMap.controller('MapController',
         // Remove all markers so the displayed markers can fit the search results
         $scope.leafletService = leafletService;
 
-        var layerGeo = angular.extend($scope, {
+        angular.extend($scope, {
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
@@ -43,7 +43,6 @@ geotrekMap.controller('MapController',
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
                     
-
                     //Add almostOver layer for easy tap on mobile
                     leafletData.getMap().then(function(map) {
                         map.almostOver.addLayer(layer);
@@ -151,6 +150,7 @@ geotrekMap.controller('MapController',
     $scope.centerMapUser = centerMapUser;
 
     $scope.$on('OnFilter', function() {
+        console.log('filtered');
         var updateBounds = false;
         // We don't want to adapt map bounds on filter results
         showTreks(updateBounds);
@@ -167,7 +167,7 @@ geotrekMap.controller('MapController',
 
     leafletData.getMap().then(function(map) {
         // Draw a new polyline in background to highlight the selected trek
-        $scope.currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
+        var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
             .addTo(map)
             .bringToBack()
             .setText('>         ', {repeat:true, offset: 15});
@@ -181,7 +181,7 @@ geotrekMap.controller('MapController',
 
         // Reinitialize focus and markers of a trek
         $rootScope.$on('$stateChangeStart', function() {
-            map.removeLayer($scope.currentHighlight);
+            map.removeLayer(currentHighlight);
             leafletService.setMarkers();
         });
 

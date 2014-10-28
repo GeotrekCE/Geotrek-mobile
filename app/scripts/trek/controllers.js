@@ -73,9 +73,9 @@ geotrekTreks.controller('TrekController',
     };
 
     // Watch for changes on filters, then reload the treks to keep them synced
-    $scope.$watchCollection('activeFilters', function() {
-        $scope.$broadcast('OnFilter');
-    });
+    $scope.$watch('activeFilters', function(newValue, oldValue) {
+        $rootScope.$broadcast('OnFilter');
+    },true);
 }])
 .controller('TrekListController',
     ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', '$translate', 'mapFactory', 'treks', 'userSettingsService',

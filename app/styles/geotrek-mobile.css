@@ -162,6 +162,28 @@ h1.app-title {
   padding: 15px 0; }
   .trek-detail .list .item:first-child {
     border-top: none; }
+.trek-detail .trek-detail__extra-infos {
+  padding-top: 10px; }
+  .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item {
+    display: inline;
+    margin-bottom: 10px; }
+    .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
+      position: relative;
+      top: -9px; }
+    .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__label {
+      display: block; }
+    .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon {
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      display: inline-block; }
+      .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
+        position: relative;
+        height: 30px; }
+        .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
+          border: 1px #999 solid; }
+      .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
+        width: 60px; }
 
 .trek-detail__title {
   font-size: 18px; }
@@ -227,29 +249,6 @@ h1.app-title {
   color: white;
   top: 11px;
   left: 11px; }
-
-.trek-detail__extra-infos {
-  padding: 10px; }
-  .trek-detail__extra-infos .trek-detail__extra-infos__item {
-    display: inline;
-    margin-bottom: 10px; }
-    .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
-      position: relative;
-      top: -9px; }
-    .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__label {
-      display: block; }
-    .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon {
-      width: 30px;
-      height: 30px;
-      overflow: hidden;
-      display: inline-block; }
-      .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
-        position: relative;
-        height: 30px; }
-        .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
-          border: 1px #999 solid; }
-      .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
-        width: 60px; }
 
 .trek-detail__departure-arrival {
   display: inline-block;
