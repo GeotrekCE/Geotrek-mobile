@@ -265,9 +265,9 @@ h1.app-title {
   width: 42px;
   height: 42px;
   text-align: center;
-  position: absolute;
+  position: fixed;
   padding: 5px;
-  z-index: 10;
+  z-index: 9;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -285,7 +285,10 @@ h1.app-title {
     color: white;
     text-decoration: none;
     padding: 0;
-    border: 0; }
+    border: 0;
+    width: 100%;
+    height: 100%;
+    display: block; }
 
 .slider {
   padding-bottom: 20px; }
@@ -293,7 +296,11 @@ h1.app-title {
 .slider-slides {
   text-align: center; }
   .slider-slides img {
-    max-width: 100%; }
+    max-width: 100%;
+    width: auto;
+    max-height: 500px;
+    display: block;
+    margin: auto; }
 
 .slider-legend {
   color: #4d4a4a;
@@ -477,11 +484,12 @@ h1.app-title {
       font-size: 14px;
       margin: 0 0 2px 2px; }
   .poi-detail .thumbnail {
+    text-align: right;
     height: 60px;
     overflow: hidden; }
     .poi-detail .thumbnail img {
-      width: 100%;
-      height: auto; }
+      height: 100%;
+      width: auto; }
   .poi-detail .poi-detail__description {
     white-space: normal;
     color: black; }
@@ -519,6 +527,9 @@ h1.app-title {
 
 .modal__actions i {
   color: #981D97; }
+
+.modal-content {
+  z-index: 8; }
 
 @media (min-width: 680px) {
   .modal {

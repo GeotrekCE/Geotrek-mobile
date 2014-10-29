@@ -1,4 +1,3 @@
-
 [state^='home.map'] .modal-backdrop {
 
     .modal-fullheight {
@@ -44,6 +43,10 @@
 
 .modal__actions i {
     color: $primaryColor;
+}
+
+.modal-content {
+    z-index: 8;
 }
 
 @media (min-width: 680px) {

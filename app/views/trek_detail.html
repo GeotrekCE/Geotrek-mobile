@@ -25,7 +25,7 @@
     </ion-header-bar>
 
     <!-- Modal content area -->
-    <ion-content>
+    <ion-content class="modal-content">
 
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
@@ -138,7 +138,7 @@
     </ion-content>
 
     <div class="switch-detail switch-detail-map">
-        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-android-location icon-faces"></a>
+        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-android-location icon-faces" ng-click="alert('clicked');"></a>
     </div>
 
 </div>

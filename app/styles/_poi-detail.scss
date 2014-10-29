@@ -23,11 +23,12 @@
     }
   }
   .thumbnail {
+    text-align: right;
     height: 60px;
     overflow: hidden;
     img {
-      width: 100%;
-      height: auto;
+      height: 100%;
+      width: auto;
     }
   }
   .poi-detail__description {
