@@ -31,7 +31,7 @@ geotrekMap.controller('MapController',
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
-                style: {'color': '#F89406', 'weight': 8, 'opacity': 0.8},
+                style: {'color': '#F89406', 'weight': 8, 'opacity': 0.8, 'smoothFactor': 3},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
                         // With this call, map will always cover all geojson data area
@@ -42,11 +42,6 @@ geotrekMap.controller('MapController',
                 onEachFeature: function(feature, layer) {
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
-                    
-                    //Add almostOver layer for easy tap on mobile
-                    leafletData.getMap().then(function(map) {
-                        map.almostOver.addLayer(layer);
-                    });
 
                     layer.on({
 
@@ -54,6 +49,19 @@ geotrekMap.controller('MapController',
                             $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
                         }
                     });
+
+                    if(feature.geometry.type=="LineString") {
+                        leafletData.getMap().then(function(map) {
+                            L.geoJson(feature, {style:{'color': 'transparent', 'weight': 35, 'smoothFactor': 3}})
+                            .addTo(map)
+                            .bringToFront()
+                            .on({
+                                click: function(e) {
+                                    $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
+                                }
+                            });
+                        });
+                    }
                 }
             }
         });
@@ -63,14 +71,7 @@ geotrekMap.controller('MapController',
             map.on('zoomend', function() {
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
-
-            //AlmostOver event
-            map.on('almost:click', function (e) {
-                $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', e.layer.feature, e);
-            });
         });
-
-
     }
 
     showTreks();
@@ -169,7 +170,7 @@ geotrekMap.controller('MapController',
 
     leafletData.getMap().then(function(map) {
         // Draw a new polyline in background to highlight the selected trek
-        var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8}})
+        var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3}})
             .addTo(map)
             .bringToBack()
             .setText('>         ', {repeat:true, offset: 15});
