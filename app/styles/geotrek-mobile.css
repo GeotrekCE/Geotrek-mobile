@@ -267,7 +267,7 @@ h1.app-title {
   text-align: center;
   position: fixed;
   padding: 5px;
-  z-index: 9;
+  z-index: 99999;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;

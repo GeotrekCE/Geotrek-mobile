@@ -10,7 +10,7 @@
     text-align: center;
     position: fixed;
     padding: 5px;
-    z-index: 9;
+    z-index: 99999;
     @include border-radius(50%);
     background-color: $primaryColor;
 
