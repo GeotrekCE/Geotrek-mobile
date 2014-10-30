@@ -31,48 +31,32 @@ geotrekMap.controller('MapController',
             geojson: {
                 data: filterFilter(treks.features, $scope.activeFilters.search),
                 filter: $scope.filterTreks,
-                style: {'color': '#F89406', 'weight': 8, 'opacity': 0.8, 'smoothFactor': 3},
+                style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
                         // With this call, map will always cover all geojson data area
                         map.fitBounds(feature.getBounds());
                     }
-
                 },
                 onEachFeature: function(feature, layer) {
                     // The version of onEachFeature from the angular-leaflet-directive is overwritten by the current onEachFeature
                     // It is therefore necessary to broadcast the event on click, as the angular-leaflet-directive does.
-
                     layer.on({
 
                         click: function(e) {
-                            $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
+                            $state.go("home.map.detail", { trekId: feature.properties.id });
                         }
                     });
-
-                    if(feature.geometry.type=="LineString") {
-                        leafletData.getMap().then(function(map) {
-                            L.geoJson(feature, {style:{'color': 'transparent', 'weight': 35, 'smoothFactor': 3}})
-                            .addTo(map)
-                            .bringToFront()
-                            .on({
-                                click: function(e) {
-                                    $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', feature, e);
-                                }
-                            });
-                        });
-                    }
                 }
             }
         });
-
         leafletData.getMap().then(function(map) {
             $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             map.on('zoomend', function() {
                 $scope.layers.overlays['poi'].visible = (map.getZoom() > 12);
             });
         });
-    }
+    };
 
     showTreks();
 
@@ -125,6 +109,7 @@ geotrekMap.controller('MapController',
     // This callback is used to reactivate watching after getLatLngPosition call, as this call desactivate
     // watch to avoid that issue
     var watchCallback = function() {
+
         var watchOptions = {
             enableHighAccuracy: true
         }
@@ -170,10 +155,10 @@ geotrekMap.controller('MapController',
 
     leafletData.getMap().then(function(map) {
         // Draw a new polyline in background to highlight the selected trek
-        var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3}})
+        var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 18, 'opacity': 0.8, 'smoothFactor': 3}})
             .addTo(map)
             .bringToBack()
-            .setText('>         ', {repeat:true, offset: 15});
+            .setText('>         ', {repeat:true, offset: 18});
         
         // Display POIs
         poisFactory.getPoisFromTrek(trek.id)
