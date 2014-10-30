@@ -247,7 +247,7 @@ AUTHORS
     * Romain Garrigues
     * Éric Bréhault
 
-![Makina Logo][1]
+![http://www.makina-corpus.com][1]
 
 LICENSE
 =======
@@ -257,9 +257,7 @@ LICENSE
 
 ![http://www.ecrins-parcnational.fr][2]
 
-![enter image description here][5]
+![http://www.makina-corpus.com][1]
 
-
-  [1]: http://depot.makina-corpus.org/public/logo.gif "Makina logo"
-  [2]: http://depot.makina-corpus.org/public/geotrek/logo-pne.png
-  [5]: http://depot.makina-corpus.org/public/logo.gif
+  [1]: http://depot.makina-corpus.org/public/logo.gif
+  [2]: http://geotrek.fr/images/logo-pne.png
