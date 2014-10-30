@@ -246,8 +246,10 @@ AUTHORS
     * Mathieu Leplatre
     * Romain Garrigues
     * Éric Bréhault
+    * Frédéric Bonifas
+    * Simon Bats
 
-![http://www.makina-corpus.com][1]
+[<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
 
 LICENSE
 =======
@@ -255,9 +257,6 @@ LICENSE
     * OpenSource - BSD
     * Copyright (c) Parc National des Écrins - Makina Corpus
 
-![http://www.ecrins-parcnational.fr][2]
+[<img src="http://geotrek.fr/images/logo-pne.png">](http://www.ecrins-parcnational.fr)
 
-![http://www.makina-corpus.com][1]
-
-  [1]: http://depot.makina-corpus.org/public/logo.gif
-  [2]: http://geotrek.fr/images/logo-pne.png
+[<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
