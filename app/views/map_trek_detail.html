@@ -14,7 +14,7 @@
     </ion-header-bar>
 
     <!-- Modal content area -->
-    <ion-content>
+    <ion-content overflow-scroll="false">
 
         <div class='page-content'>
 
@@ -35,10 +35,9 @@
                     </li>
                 </ul>
 
-                <ion-item ng-if="objectToDisplay.thumbnail" class="poi-detail item-thumbnail-right">
+                <ion-item ng-if="objectToDisplay.thumbnail" class="poi-detail map-poi">
                     <img class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
-                    <div class="poi-detail__description" ng-bind-html="objectToDisplay.description"></div>
-                    </div>
+                    <p class="poi-detail__description" ng-bind-html="objectToDisplay.description"></p>
                 </ion-item>
 
                 <a ng-if="objectToDisplay.id" ng-click="modal.remove()" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars-2">{{ 'map_trek_detail.more_details' | translate }}</a>

@@ -40,6 +40,17 @@
           color: black;
       }
   }
+  &.map-poi {
+    .thumbnail {
+      height: auto;
+      overflow: visible;
+      display: block;
+      margin: 20px auto;
+    }
+    .poi-detail__description {
+      padding: 10px;
+    }
+  }
 }
 
 

@@ -8,6 +8,7 @@
             Rando Ecrins
         </button>
         <div class="buttons pull-right modal__actions">
+            <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>
             <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadTile()">
                 <i class="icon ion-archive"></i>
             </button>
@@ -25,7 +26,7 @@
     </ion-header-bar>
 
     <!-- Modal content area -->
-    <ion-content class="modal-content">
+    <ion-content overflow-scroll="false" class="modal-content">
 
         <div class="trek-detail padding">
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>

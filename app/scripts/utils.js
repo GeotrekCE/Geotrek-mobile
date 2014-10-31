@@ -8,7 +8,8 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', 
+    function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -194,6 +195,16 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
 
     };
 
+    var showSpinner = function() {
+        $ionicLoading.show({
+            template: '<i class="icon icon-big ion-looping"></i>'
+        });
+    }
+
+    var hideSpinner = function() {
+        $ionicLoading.hide();
+    }
+
 
     return {
         downloadFile: downloadFile,
@@ -202,7 +213,9 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         unzip: unzip,
         downloadAndUnzip: downloadAndUnzip,
         removeDir: removeDir,
-        openLinkInSystemBrowser: openLinkInSystemBrowser
+        openLinkInSystemBrowser: openLinkInSystemBrowser,
+        showSpinner: showSpinner,
+        hideSpinner: hideSpinner
     };
 
 }]);

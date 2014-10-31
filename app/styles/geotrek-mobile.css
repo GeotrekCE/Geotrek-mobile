@@ -496,6 +496,13 @@ h1.app-title {
     .poi-detail .poi-detail__description p {
       white-space: normal;
       color: black; }
+  .poi-detail.map-poi .thumbnail {
+    height: auto;
+    overflow: visible;
+    display: block;
+    margin: 20px auto; }
+  .poi-detail.map-poi .poi-detail__description {
+    padding: 10px; }
 
 [state^='home.map'] .modal-backdrop .modal-fullheight {
   min-height: 100%;

@@ -41,11 +41,11 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
 }])
 .filter('externalLinks', function() {
     return function(text) {
-        return String(text).replace(/href=/gm, "class=\"external-link\" href=");
-    }
+        return String(text).replace(/href=/gm, 'class="external-link" href=');
+    };
 })
-.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$ionicLoading', '$translate',
-function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $ionicLoading, $translate) {
+.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils',
+function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils) {
 
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
@@ -84,8 +84,8 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
         $rootScope.$digest();
     }
 
-    document.addEventListener("online", onlineCallback, false);
-    document.addEventListener("offline", offlineCallback, false);
+    document.addEventListener('online', onlineCallback, false);
+    document.addEventListener('offline', offlineCallback, false);
 
     // Define utils variables for specific device behaviours
     $rootScope.isAndroid = $window.ionic.Platform.isAndroid() || $window.ionic.Platform.platforms[0] === 'browser';
@@ -93,7 +93,7 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
 
     // back button => back in history
     $ionicPlatform.registerBackButtonAction(function () {
-        if($state.current.name=="preload"){
+        if($state.current.name=='preload'){
             navigator.app.exitApp();
         } else {
             $window.history.back();
@@ -102,12 +102,10 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
 
     // spinner when routing
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        $ionicLoading.show({
-            template: '<i class="icon icon-big ion-looping"></i>'
-        });
+        utils.showSpinner();
     });
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        $ionicLoading.hide();
+    $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
+        utils.hideSpinner();
     });
 
     
