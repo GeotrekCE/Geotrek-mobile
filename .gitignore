@@ -2,5 +2,6 @@ node_modules
 bower_components
 .tmp
 .sass-cache
+.DS_Store
 app/styles/geotrek-mobile.css
 app/styles/geotrek-mobile.css.map
