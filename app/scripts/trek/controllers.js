@@ -9,7 +9,7 @@ geotrekTreks.controller('TrekController',
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
-    $rootScope.filteredTreks = treks.fetaures;
+    $rootScope.filteredTreks = treks.features;
 
     // get distance to treks
     treksFactory.getTreksDistance($rootScope.treks);
