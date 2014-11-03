@@ -138,17 +138,24 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
         return false;
     };
 
-    // Function called each time a filter is modified, to know which treks to displayed
-    this.filterTreks = function(trek, activeFilters) {
-        return (this.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
-            this.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
-            this.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
-            this.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
-            this.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
-            this.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
-            this.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
-            this.filterTrekWithSelect(trek.properties.valleys, activeFilters.valley, 'id') &&
-            this.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code'));
+    // Function called each time a filter is modified, to know which treks to display
+    this.filterTreks = function(treks, activeFilters) {
+        var self = this;
+        var filteredTreks = [];
+        angular.forEach(treks, function(trek) {
+            if (self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
+            self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
+            self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
+            self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
+            self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
+            self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
+            self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
+            self.filterTrekWithSelect(trek.properties.valleys, activeFilters.valley, 'id') &&
+            self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
+                filteredTreks.push(trek);
+            };
+        });
+        return filteredTreks;
     };
 
 

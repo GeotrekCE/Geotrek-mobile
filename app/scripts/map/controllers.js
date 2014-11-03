@@ -25,8 +25,7 @@ geotrekMap.controller('MapController',
 
         angular.extend($scope, {
             geojson: {
-                data: filterFilter(treks.features, $scope.activeFilters.search),
-                filter: $scope.filterTreks,
+                data: $rootScope.filteredTreks,
                 style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
@@ -53,8 +52,6 @@ geotrekMap.controller('MapController',
             });
         });
     };
-
-    showTreks();
 
     // Show the scale and attribution controls
     leafletData.getMap().then(function(map) {
@@ -139,6 +136,8 @@ geotrekMap.controller('MapController',
         // We don't want to adapt map bounds on filter results
         showTreks(updateBounds);
     });
+
+    showTreks();
 
 
 }])

@@ -9,6 +9,7 @@ geotrekTreks.controller('TrekController',
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
+    $rootScope.filteredTreks = treks.fetaures;
 
     // get distance to treks
     treksFactory.getTreksDistance($rootScope.treks);
@@ -28,8 +29,9 @@ geotrekTreks.controller('TrekController',
     };
 
     // Filter treks everytime our filters change
-    $scope.filterTreks = function (trek) {
-        return treksFiltersService.filterTreks(trek, $scope.activeFilters);
+    $scope.filterTreks = function () {
+        console.log('filtered');
+        $rootScope.filteredTreks = treksFiltersService.filterTreks(treks.features, $scope.activeFilters);
     };
 
     $scope.resetFilters = function () {
@@ -74,6 +76,7 @@ geotrekTreks.controller('TrekController',
 
     // Watch for changes on filters, then reload the treks to keep them synced
     $scope.$watch('activeFilters', function(newValue, oldValue) {
+        $scope.filterTreks();
         $rootScope.$broadcast('OnFilter');
     },true);
 }])
