@@ -25,7 +25,7 @@ geotrekMap.controller('MapController',
 
         angular.extend($scope, {
             geojson: {
-                data: $rootScope.filteredTreks,
+                data: filterFilter($rootScope.filteredTreks, $scope.activeFilters.search),
                 style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3},
                 postLoadCallback: function(map, feature) {
                     if ((updateBounds == undefined) || (updateBounds == true)){
@@ -57,6 +57,7 @@ geotrekMap.controller('MapController',
     leafletData.getMap().then(function(map) {
         leafletService.setScale(map);
         leafletService.setAttribution(map);
+        showTreks();
     });
 
     // Adding user current position
@@ -136,8 +137,6 @@ geotrekMap.controller('MapController',
         // We don't want to adapt map bounds on filter results
         showTreks(updateBounds);
     });
-
-    showTreks();
 
 
 }])

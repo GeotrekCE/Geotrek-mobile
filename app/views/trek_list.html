@@ -1,6 +1,6 @@
 <ion-content overflow-scroll="false">
     <ion-list class="trek-list">
-        <ion-item ng-repeat="trek in filteredTreks | orderBy:orderProp" ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item item-thumbnail-left">
+        <ion-item ng-repeat="trek in filteredTreks | filter:{properties:activeFilters.search} | orderBy:orderProp" ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item item-thumbnail-left">
             <img class="thumbnail" ng-src="{{ trek.properties.pictures.0.url }}"/>
             <h3>{{ trek.properties.name }}</h3>
             <p class="departure">{{ 'trek_list.departure' | translate }} : {{ trek.properties.departure }}</p>

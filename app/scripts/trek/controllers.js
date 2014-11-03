@@ -9,7 +9,7 @@ geotrekTreks.controller('TrekController',
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
-    $rootScope.filteredTreks = treks.fetaures;
+    $rootScope.filteredTreks = treks.features;
 
     // get distance to treks
     treksFactory.getTreksDistance($rootScope.treks);
@@ -30,7 +30,6 @@ geotrekTreks.controller('TrekController',
 
     // Filter treks everytime our filters change
     $scope.filterTreks = function () {
-        console.log('filtered');
         $rootScope.filteredTreks = treksFiltersService.filterTreks(treks.features, $scope.activeFilters);
     };
 
@@ -107,7 +106,6 @@ geotrekTreks.controller('TrekController',
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
-    
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.pois = pois;
@@ -140,10 +138,6 @@ geotrekTreks.controller('TrekController',
 
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name);
-    };
-
-    $scope.downloadTrek = function () {
-
     };
 
     $scope.downloadTile = function(trekId) {
