@@ -11,14 +11,15 @@ geotrekMap.controller('MapController',
     // Initializing leaflet map
     map = L.map('map', mapParameters);
     var userPosition;
+    var treks = L.geoJson();
 
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 
         // Remove all markers so the displayed markers can fit the search results
         $scope.leafletService = leafletService;
-
-        var treks = L.geoJson(filterFilter($rootScope.filteredTreks, $scope.activeFilters.search), {
+        treks.clearLayers();
+        treks = L.geoJson(filterFilter($rootScope.filteredTreks, $scope.activeFilters.search), {
             style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3},
             onEachFeature: function(feature, layer) {
                 layer.on({
@@ -124,8 +125,8 @@ geotrekMap.controller('MapController',
     // Draw a new polyline in background to highlight the selected trek
     var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 18, 'opacity': 0.8, 'smoothFactor': 3}})
         .addTo(map)
-        .bringToBack()
-        .setText('>         ', {repeat:true});
+        .bringToBack();
+        //.setText('>         ', {repeat:true});
 
     var treksMarkers = L.featureGroup().addTo(map);
 
