@@ -102,7 +102,7 @@ geotrekAppSettings.constant('globalSettings', {
             MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
-            LEAFLET_BACKGROUND_URL: 'http://{s}.tilestream.makina-corpus.net/v2/osmtopo/{z}/{x}/{y}.png'
+            LEAFLET_BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
         device: {
             CDV_ROOT: CDV_ROOT,
