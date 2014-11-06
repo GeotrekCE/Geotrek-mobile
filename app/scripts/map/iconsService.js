@@ -9,42 +9,42 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     var trek_icons = {
         default_icon: {},
-        departure_icon: {
+        departure_icon: L.icon({
             iconUrl: 'images/marker-source.png',
             iconSize: [64, 64],
             iconAnchor: [32, 64],
             labelAnchor: [20, -50]
-        },
-        arrival_icon: {
+        }),
+        arrival_icon: L.icon({
             iconUrl: 'images/marker-target.png',
             iconSize: [64, 64],
             iconAnchor: [32, 64],
             labelAnchor: [20, -50]
-        },
-        parking_icon: {
+        }),
+        parking_icon: L.icon({
             iconUrl: 'images/parking.png',
             iconSize: [32, 32],
             iconAnchor: [16, 16]
-        },
-        information_icon: {
+        }),
+        information_icon: L.icon({
             iconUrl: 'images/information.svg',
             iconSize: [32, 32],
             iconAnchor: [16, 16]
-        },
-        poi_icon: {
+        }),
+        poi_icon: L.icon({
             iconSize: [40, 40],
             labelAnchor: [20, -50]
-        }
+        })
     };
 
     this.getPOIIcon = function(poi) {
-        var pictogramUrl = poi.properties.type.pictogram,
-            poiIconInstance = {};
+        var pictogramUrl = poi.properties.type.pictogram;
 
-        angular.copy(trek_icons.poi_icon, poiIconInstance);
-        poiIconInstance['iconUrl'] = pictogramUrl;
-
-        return poiIconInstance;
+        return L.icon({
+            iconUrl: pictogramUrl,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        })
     };
 
     this.getDepartureIcon = function() {
