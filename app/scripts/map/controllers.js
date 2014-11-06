@@ -125,8 +125,8 @@ geotrekMap.controller('MapController',
     // Draw a new polyline in background to highlight the selected trek
     var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 18, 'opacity': 0.8, 'smoothFactor': 3}})
         .addTo(map)
-        .bringToBack();
-        //.setText('>         ', {repeat:true});
+        .bringToBack()
+        .setText('>         ', {repeat:true});
 
     var treksMarkers = L.featureGroup().addTo(map);
 
