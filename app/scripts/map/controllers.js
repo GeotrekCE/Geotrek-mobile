@@ -152,6 +152,12 @@ geotrekMap.controller('MapController',
         leafletService.setMarkers();
     });
 
-    map.fitBounds(currentHighlight);
+    function centerMapTrek () {
+        map.fitBounds(currentHighlight);
+    };
+
+    $scope.centerMapTrek = centerMapTrek;
+    
+    centerMapTrek();
 
 }]);
