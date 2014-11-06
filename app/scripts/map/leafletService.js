@@ -25,6 +25,8 @@ geotrekMap.service('leafletService',
         var map_parameters = {
             center: [settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE, settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE],
             zoom: settings.leaflet.GLOBAL_MAP_DEFAULT_ZOOM,
+            minZoom: settings.leaflet.GLOBAL_MAP_DEFAULT_MIN_ZOOM,
+            maxZoom: settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM,
             scrollWheelZoom: true,
             zoomControl: false,
             layers: L.tileLayer(mapFactory.getGlobalTileLayerURL())
@@ -40,20 +42,21 @@ geotrekMap.service('leafletService',
         var endPoint = treksFactory.getEndPoint(trek);
         var parkingPoint = treksFactory.getParkingPoint(trek);
 
-        markers.push(L.marker([startPoint.lat, startPoint.lng], {
-            icon: iconsService.getDepartureIcon(),
-            name: trek.properties.departure,
-        }));
-
         markers.push(L.marker([endPoint.lat, endPoint.lng], {
             icon: iconsService.getArrivalIcon(),
             name: trek.properties.arrival,
         }));
 
+        markers.push(L.marker([startPoint.lat, startPoint.lng], {
+            icon: iconsService.getDepartureIcon(),
+            name: trek.properties.departure,
+        }));
+
         if(parkingPoint) {
             markers.push(L.marker([parkingPoint.lat, parkingPoint.lng], {
             icon: iconsService.getParkingIcon(),
-            name: trek.properties.advised_parking,
+            name: "Parking",
+            description: trek.properties.advised_parking,
             }));
         };
 
