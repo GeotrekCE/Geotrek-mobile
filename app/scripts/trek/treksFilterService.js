@@ -230,7 +230,6 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
             trekRoute.push({value: route.id, name: route.label});
 
             // Valleys init
-            console.log(trek.properties);
             angular.forEach(trek.properties.districts, function(district) {
                 trekValleys.push({value: district.id, name: district.name});
             });
