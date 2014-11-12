@@ -150,7 +150,7 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
             self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
             self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
             self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
-            self.filterTrekWithSelect(trek.properties.valleys, activeFilters.valley, 'id') &&
+            self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id') &&
             self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
                 filteredTreks.push(trek);
             };
@@ -230,8 +230,9 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
             trekRoute.push({value: route.id, name: route.label});
 
             // Valleys init
+            console.log(trek.properties);
             angular.forEach(trek.properties.districts, function(district) {
-                trekValleys.push({value: district.id, name: district.label});
+                trekValleys.push({value: district.id, name: district.name});
             });
 
             // Municipalities init
