@@ -149,7 +149,7 @@ geotrekMap.controller('MapController',
     // Reinitialize focus and markers of a trek
     $rootScope.$on('$stateChangeStart', function() {
         map.removeLayer(currentHighlight);
-        leafletService.setMarkers();
+        map.removeLayer(treksMarkers);
     });
 
     function centerMapTrek () {
