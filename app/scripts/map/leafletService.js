@@ -23,90 +23,56 @@ geotrekMap.service('leafletService',
         // Set default Leaflet map params
 
         var map_parameters = {
-            center: {
-                lat: settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE,
-                lng: settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE,
-                zoom: settings.leaflet.GLOBAL_MAP_DEFAULT_ZOOM
-            },
-            defaults: {
-                scrollWheelZoom: true,
-                zoomControl: false // Not needed on Android/iOS modern devices
-            },
-            layers: {
-                baselayers: {
-                    tiles: {
-                        type: 'xyz',
-                        name: 'backgroundTiles',
-                        url: mapFactory.getGlobalTileLayerURL()
-                    }
-
-                },
-                overlays: {
-                    poi: {
-                        type: 'group',
-                        name: 'poi',
-                        visible: false
-                    }
-                }
-            },
-            markers: {},
-            events: {
-                markers: {
-                    enable: ['click'],
-                    logic: 'emit'
-                }
-            },
-            paths: {}
+            center: [settings.leaflet.GLOBAL_MAP_CENTER_LATITUDE, settings.leaflet.GLOBAL_MAP_CENTER_LONGITUDE],
+            zoom: settings.leaflet.GLOBAL_MAP_DEFAULT_ZOOM,
+            minZoom: settings.leaflet.GLOBAL_MAP_DEFAULT_MIN_ZOOM,
+            maxZoom: settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM,
+            scrollWheelZoom: true,
+            zoomControl: false,
+            layers: L.tileLayer(mapFactory.getGlobalTileLayerURL())
         };
 
         return map_parameters;
     };
 
     this.createMarkersFromTrek = function(trek, pois) {
-        var markers = {};
+        var markers = [];
 
         var startPoint = treksFactory.getStartPoint(trek);
         var endPoint = treksFactory.getEndPoint(trek);
         var parkingPoint = treksFactory.getParkingPoint(trek);
 
-        markers['startPoint_' + trek.id] = {
-            lat: startPoint.lat,
-            lng: startPoint.lng,
-            icon: iconsService.getDepartureIcon(),
-            layer: 'poi',
-            name: trek.properties.departure,
-        };
-        markers['endPoint_' + trek.id] = {
-            lat: endPoint.lat,
-            lng: endPoint.lng,
+        markers.push(L.marker([endPoint.lat, endPoint.lng], {
             icon: iconsService.getArrivalIcon(),
-            layer: 'poi',
             name: trek.properties.arrival,
-        };
+        }));
+
+        markers.push(L.marker([startPoint.lat, startPoint.lng], {
+            icon: iconsService.getDepartureIcon(),
+            name: trek.properties.departure,
+        }));
+
         if(parkingPoint) {
-            markers['parking_' + trek.id] = {
-                lat: parkingPoint.lat,
-                lng: parkingPoint.lng,
-                icon: iconsService.getParkingIcon(),
-                layer: 'poi',
-                name: trek.properties.advised_parking,
-            };
-        }
+            markers.push(L.marker([parkingPoint.lat, parkingPoint.lng], {
+            icon: iconsService.getParkingIcon(),
+            name: "Parking",
+            description: trek.properties.advised_parking,
+            }));
+        };
+
         var informationCount = 0;
         angular.forEach(trek.properties.information_desks, function(information) {
             var informationDescription = "<p>" + information.description + "</p>"
                 + "<p>" + information.street + "</p>"
                 + "<p>" + information.postal_code + " " + information.municipality + "</p>"
                 + "<p><a href='" + information.website + "'>Web</a> - <a href='tel:" + information.phone + "'>" + information.phone + "</a></p>";
-            markers['information_' + trek.id + informationCount] = {
-                lat: information.latitude,
-                lng: information.longitude,
+            
+            markers.push(L.marker([information.latitude, information.longitude], {
                 icon: iconsService.getInformationIcon(),
-                layer: 'poi',
                 name: information.name,
                 thumbnail: information.photo_url,
                 description: informationDescription,
-            };
+            }));
             informationCount += 1;
         });
 
@@ -116,16 +82,14 @@ geotrekMap.service('leafletService',
                 'lng': poi.geometry.coordinates[0]
             };
             var poiIcon = iconsService.getPOIIcon(poi);
-            markers['poi_' + poi.id] = {
-                lat: poiCoords.lat,
-                lng: poiCoords.lng,
+
+            markers.push(L.marker([poiCoords.lat, poiCoords.lng], {
                 icon: poiIcon,
-                layer: 'poi',
                 name: poi.properties.name,
                 description: poi.properties.description,
                 thumbnail: poi.properties.thumbnail,
                 pictogram: poi.properties.type.pictogram
-            };
+            }));
         });
 
         return markers;
@@ -139,7 +103,7 @@ geotrekMap.service('leafletService',
         map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
     }
 
-    this.setPositionMarker = function(result) {
+    this.setPositionMarker = function() {
 
         // Pulsing marker inspired by
         // http://blog.thematicmapping.org/2014/06/real-time-tracking-with-spot-and-leafet.html
@@ -148,7 +112,6 @@ geotrekMap.service('leafletService',
             color: 'black',
             fillColor: '#981d97',
             fillOpacity: 1,
-            latlngs: result,
             type: 'circleMarker',
             className: 'leaflet-live-user',
             weight: 2

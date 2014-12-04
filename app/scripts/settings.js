@@ -24,9 +24,11 @@ geotrekAppSettings.constant('globalSettings', {
         POI_ALERT_RADIUS = 0.5;  // in km
 
     var leaflet_conf = {
-        GLOBAL_MAP_CENTER_LATITUDE: 42.77,
-        GLOBAL_MAP_CENTER_LONGITUDE: 1.37,
+        GLOBAL_MAP_CENTER_LATITUDE: 44.83,
+        GLOBAL_MAP_CENTER_LONGITUDE: 6.34,
         GLOBAL_MAP_DEFAULT_ZOOM: 12,
+        GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
+        GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
         GLOBAL_MAP_ATTRIBUTION: '<a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | &copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>',
     };
 

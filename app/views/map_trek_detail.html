@@ -35,9 +35,9 @@
                     </li>
                 </ul>
 
-                <ion-item ng-if="objectToDisplay.thumbnail" class="poi-detail map-poi">
-                    <img class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
-                    <p class="poi-detail__description" ng-bind-html="objectToDisplay.description"></p>
+                <ion-item class="poi-detail map-poi">
+                    <img  ng-if="objectToDisplay.thumbnail" class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
+                    <p ng-if="objectToDisplay.description" class="poi-detail__description" ng-bind-html="objectToDisplay.description"></p>
                 </ion-item>
 
                 <a ng-if="objectToDisplay.id" ng-click="modal.remove()" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars-2">{{ 'map_trek_detail.more_details' | translate }}</a>
