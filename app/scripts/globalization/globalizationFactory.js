@@ -22,6 +22,9 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', 'l
             // We need only 2 chars for language, but globalization can return fr-FR for example
             try {
                 if (!!language) {
+                    if (typeof language !== 'string') {
+                        language = language.value;
+                    }
                     language = language.substring(0, 2);
                 }
             }

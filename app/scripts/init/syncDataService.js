@@ -7,10 +7,11 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaNetwork','logg
     function($q, $window, $cordovaNetwork, logging, settings, mapFactory, utils, globalizationSettings, treksFactory) {
 
         this.run = function(progress) {
-
+            
             var deferred = $q.defer();
 
             if (angular.isDefined($window.cordova) && $cordovaNetwork.isOnline()) {
+                
                 utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
                 .then(function(response) {
                     if(!response.useCache) {
@@ -26,7 +27,8 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaNetwork','logg
                 .catch(function(error) {
                     logging.warn(error);
                     deferred.resolve(error);
-                });
+                });                
+                
             } else {
                 deferred.resolve();
             }

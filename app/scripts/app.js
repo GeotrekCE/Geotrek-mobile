@@ -11,7 +11,8 @@ var geotrekApp = angular.module('geotrekMobileApp',
      'pascalprecht.translate']);
 
 // Wait for 'deviceready' Cordova event
-window.ionic.Platform.ready(function() {
+ionic.Platform.ready(function() {
+
     if(window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
@@ -46,7 +47,6 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
 })
 .run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils',
 function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils) {
-
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {

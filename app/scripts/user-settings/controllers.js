@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$rootScope', '$state', '$scope', '$ionicPopup', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
-    function ($rootScope, $state, $scope, $ionicPopup, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
+    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$ionicPopup', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
+    function ($ionicPlatform, $rootScope, $state, $scope, $ionicPopup, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
@@ -57,6 +57,10 @@ geotrekUserSettings.controller('UserSettingsController',
                 }
             });
         });
+    };
+
+    $scope.exitApp = function() {
+        ionic.Platform.exitApp()
     };
 
 }]);

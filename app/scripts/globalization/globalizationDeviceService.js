@@ -5,7 +5,13 @@ var geotrekGlobalization = angular.module('geotrekGlobalization');
 geotrekGlobalization.service('globalizationDeviceService', ['$q', '$cordovaGlobalization', function ($q, $cordovaGlobalization) {
 
     this.getPreferredLanguage = function() {
-        return $cordovaGlobalization.getPreferredLanguage();
+
+        var deferred = $q.defer(),
+            preferredLanguage = $cordovaGlobalization.getPreferredLanguage();
+
+        deferred.resolve(preferredLanguage);
+
+        return deferred.promise;
     };
 
 }]);

@@ -30,4 +30,12 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
+
+    <feature name="Globalization">
+        <param name="id" value="org.apache.cordova.globalization" />
+    </feature>
+
+    <feature name="Geolocation">
+        <param name="id" value="org.apache.cordova.geolocation" />
+    </feature>
 </widget>
