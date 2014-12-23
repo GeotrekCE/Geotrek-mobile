@@ -108,6 +108,7 @@ geotrekTreks.controller('TrekController',
     $scope.trek = trek;
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
+    $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
     $scope.pois = pois;
 
     // get distance to treks and pois
@@ -137,7 +138,7 @@ geotrekTreks.controller('TrekController',
     }
 
     $scope.share = function() {
-        socialSharingService.share($scope.trek.properties.name);
+        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.thumbnail, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.slug);
     };
 
     $scope.downloadTile = function(trekId) {

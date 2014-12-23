@@ -76,6 +76,14 @@ h1.app-title {
     margin: 0 0.5em;
 }
 
+// Prevent head title from collapsing into search icon on small mobiles
+@media (max-width: 400px) {
+  h1.app-title {
+    font-size: 130%;
+    margin: 0 0;
+  }
+}
+
 .list .item-toggle {
     padding: 8px;
 }
@@ -100,6 +108,7 @@ h1.app-title {
 @import "_pictogram";
 @import "_poi-detail";
 @import "_modal";
+@import "_static-pages";
 @import "_leaflet-custom";
 @import "_user-settings";
 
@@ -183,6 +192,14 @@ h1.app-title {
     .col {
       flex: 1 150px;
     }
+  }
+}
+
+
+//Prevent ruler and credits collapsing on map for small mobiles
+@media (max-width: 400px) {
+  .leaflet-bottom .leaflet-control-scale {
+    margin-bottom: 25px;
   }
 }
 

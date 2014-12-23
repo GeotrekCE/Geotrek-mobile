@@ -67,8 +67,8 @@ geotrekAppSettings.constant('globalSettings', {
         TREKS_FILE_NAME = 'trek.geojson',
         TILES_FILE_NAME = 'global.zip';
 
-    var GEOTREK_DIR = 'geotrek',
-        LOGS_FILENAME = 'geotrek.log',
+    var GEOTREK_DIR = 'rando-ecrins',
+        LOGS_FILENAME = 'rando-ecrins.log',
         TILES_DIR = 'tiles',
         TREK_DIR = 'trek',
         POI_DIR = 'poi',
@@ -156,6 +156,7 @@ geotrekAppSettings.constant('globalSettings', {
     self.I18N_PREFIX;
     self.TREK_REMOTE_FILE_URL;
     self.TREK_REMOTE_FILE_URL_BASE;
+    self.FULL_DATA_REMOTE_FILE_URL;
 
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix

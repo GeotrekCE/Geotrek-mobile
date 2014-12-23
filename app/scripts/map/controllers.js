@@ -4,15 +4,14 @@ var geotrekMap = angular.module('geotrekMap');
 var map;
 
 geotrekMap.controller('MapController', 
-    ['$rootScope', '$state', '$scope', 'logging', '$window', 'leafletData', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'leafletPathsHelpers', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, logging, $window, leafletData, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, leafletPathsHelpers, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', 'logging', '$window', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, logging, $window, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
     map = L.map('map', mapParameters);
     var userPosition;
     var treks = L.geoJson();
-
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 
@@ -30,9 +29,11 @@ geotrekMap.controller('MapController',
             }
         }).addTo(map).bringToBack();
 
-        if ((updateBounds == undefined) || (updateBounds == true)){
-            // With this call, map will always cover all geojson data area
-            map.fitBounds(treks.getBounds());
+        if ((updateBounds == undefined) || (updateBounds == true)) {
+            if ($rootScope.statename === 'home.map') {
+                // With this call, map will always cover all geojson data area
+                map.fitBounds(treks.getBounds());
+            }
         }
     };
 
@@ -117,8 +118,8 @@ geotrekMap.controller('MapController',
 
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService','leafletData', 'trek', 'utils',
-            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, leafletData, trek, utils) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService', 'trek', 'utils',
+            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, trek, utils) {
 
     $scope.currentTrek = $stateParams.trekId;
 
@@ -146,18 +147,19 @@ geotrekMap.controller('MapController',
         });
     });
 
-    // Reinitialize focus and markers of a trek
+    // Reinitialize focus and markers of a trek on state-change
     $rootScope.$on('$stateChangeStart', function() {
         map.removeLayer(currentHighlight);
         map.removeLayer(treksMarkers);
+        map.setZoom(10);
     });
 
-    function centerMapTrek () {
+    function centerMapTrek() {
         map.fitBounds(currentHighlight);
     };
-
-    $scope.centerMapTrek = centerMapTrek;
     
+    $scope.centerMapTrek = centerMapTrek;
+
     centerMapTrek();
 
 }]);

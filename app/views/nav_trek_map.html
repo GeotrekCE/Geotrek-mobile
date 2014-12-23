@@ -53,13 +53,15 @@
         <ion-content scroll="true" scrollbar-x="false" scrollbar-y="false">
             <ul class="filters-list">
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox style="background-image: url({{ difficulty.icon }});background-size: contain;" ng-click="filterTreks" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox ng-click="filterTreks" uncheckable>
+                        <img src="{{ difficulty.icon }}" alt="{{ difficulty.name }}">
                         <span>{{ difficulty.name }}</span>
                     </button>
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox style="background-image: url(images/duration-{{ $index+1 }}.svg);" ng-click="filterTreks" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox ng-click="filterTreks" uncheckable>
+                        <img src="images/duration-{{ $index+1 }}.svg" alt="{{ duration.name }}">
                         <span>{{ duration.name }}</span>
                     </button>
                 </li>
@@ -71,7 +73,8 @@
                 </li>
 
                 <li class="filters-list__item">
-                    <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" style="background-image: url(images/{{ download.icon }});" ng-click="filterTreks" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" ng-click="filterTreks" uncheckable>
+                        <img src="images/{{ download.icon }}" alt="{{ download.name | translate }}">
                         <span>{{ download.name | translate }}</span>
                     </button>
                 </li>

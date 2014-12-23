@@ -8,14 +8,21 @@
         content: url(../images/binocular.svg);
         width: 32px;
         height: 32px;
+        font-size: 38px;
     }
     &.icon-binoculars-2::before {
         content: url(../images/binocular-2.svg);
         width: 32px;
         height: 32px;
+        font-size: 38px;
     }
 }
 
+.switch-detail-map {
+    .ion-android-location::before {
+        padding-top: 6px;
+    } 
+}
 
 .icon-text {
     line-height: 32px;

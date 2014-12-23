@@ -48,16 +48,13 @@
 		color: white;
 		padding: 0;
 		font-size: 13px;
-		min-width: 56px;
-		background-repeat: no-repeat;
-		background-position: center bottom;
-		margin-bottom: 20px;
+		line-height: 1.4em;
 		border: none;
-		opacity: 0.3;
+		opacity: 1;
 
-		&:before {
-			font-size: 40px;
-		}
+		// &:before {
+		// 	font-size: 40px;
+		// }
 
 		// & + & {
 		// 	margin-left: 6px;
@@ -67,15 +64,18 @@
 			color: white;
 		}
 
-		span {
-			position: relative;
-			top: 33px;
+		img {
+			width: 56px;
+			opacity: 0.4;
+			display: block;
+			margin: auto;
 		}
 
-		&.button-icon.activated, &.button-icon.active {
-			background-position: center bottom;
-			background-repeat: no-repeat;
+		&.button-icon.active, &.button-icon.activated {
 			opacity: 1;
+			img {
+				opacity: 1;
+			}
 		}
 	}
 
@@ -86,9 +86,9 @@
 		font-size: 12px;
 		min-width: 53px;
 		margin: 0 1px;
-		border-color: white;
+		border-color: rgba(255,255,255,0.4);
 		background: transparent;
-		opacity: 0.3;
+		opacity: 1;
 
 		&:before {
 			font-size: 40px;
@@ -98,8 +98,9 @@
 			color: white;
 		}
 		&.activated, &.active {
-			border-color: white;
-			background: transparent;
 			opacity: 1;
+			background: #fff;
+			color: $primaryColor;
+			border-color: rgba(255,255,255,1);
 		}
 	}

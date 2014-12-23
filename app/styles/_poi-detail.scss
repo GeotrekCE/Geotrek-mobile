@@ -1,34 +1,50 @@
 .poi-detail {
   padding: 0;
-  .row {
+  margin-bottom: 20px;
+  .row.content {
     padding: 10px;
   }
   .header {
     border-bottom: 1px solid #eee;
-    height: 80px;
-    .poi-detail__name {
-      display: inline;
-      vertical-align: middle;
-      color: $complementaryColor2;
-      font-weight: bold;
-      white-space: normal;
-      margin: 0;
+    padding: 0;
+    .title {
+      width: 100%;
       padding: 0;
+      line-height: 1em;
+      align-items: center;
+      justify-content: center;
+      .poi-detail__name {
+        display: inline;
+        vertical-align: middle;
+        color: $complementaryColor2;
+        font-weight: bold;
+        white-space: normal;
+        margin: 0;
+        padding: 0;
+      }
+      .poi-detail__distance {
+        display: inline;
+        vertical-align: middle;
+        font-size: 14px;
+        margin: 0 0 2px 2px;
+      }
+      .pictogram {
+        width: auto;
+        height: auto;
+      }
     }
-    .poi-detail__distance {
-      display: inline;
-      vertical-align: middle;
-      font-size: 14px;
-      margin: 0 0 2px 2px;
-    }
-  }
-  .thumbnail {
-    text-align: right;
-    height: 60px;
-    overflow: hidden;
-    img {
-      height: 100%;
-      width: auto;
+    
+    .picture {
+      width: 100%;
+      display: block;
+      line-height: 0em;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      img[src=""], img[ng-src=""] {
+         display: none;
+      }
     }
   }
   .poi-detail__description {

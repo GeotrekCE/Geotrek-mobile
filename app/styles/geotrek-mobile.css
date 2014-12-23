@@ -31,6 +31,10 @@ h1.app-title {
   font-size: 140%;
   margin: 0 0.5em; }
 
+@media (max-width: 400px) {
+  h1.app-title {
+    font-size: 130%;
+    margin: 0 0; } }
 .list .item-toggle {
   padding: 8px; }
 
@@ -43,11 +47,16 @@ h1.app-title {
   .icon-geotrek.icon-binoculars::before {
     content: url(../images/binocular.svg);
     width: 32px;
-    height: 32px; }
+    height: 32px;
+    font-size: 38px; }
   .icon-geotrek.icon-binoculars-2::before {
     content: url(../images/binocular-2.svg);
     width: 32px;
-    height: 32px; }
+    height: 32px;
+    font-size: 38px; }
+
+.switch-detail-map .ion-android-location::before {
+  padding-top: 6px; }
 
 .icon-text {
   line-height: 32px;
@@ -117,23 +126,20 @@ h1.app-title {
   color: white;
   padding: 0;
   font-size: 13px;
-  min-width: 56px;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  margin-bottom: 20px;
+  line-height: 1.4em;
   border: none;
-  opacity: 0.3; }
-  .filters-list__bt:before {
-    font-size: 40px; }
+  opacity: 1; }
   .filters-list__bt:hover {
     color: white; }
-  .filters-list__bt span {
-    position: relative;
-    top: 33px; }
-  .filters-list__bt.button-icon.activated, .filters-list__bt.button-icon.active {
-    background-position: center bottom;
-    background-repeat: no-repeat;
+  .filters-list__bt img {
+    width: 56px;
+    opacity: 0.4;
+    display: block;
+    margin: auto; }
+  .filters-list__bt.button-icon.active, .filters-list__bt.button-icon.activated {
     opacity: 1; }
+    .filters-list__bt.button-icon.active img, .filters-list__bt.button-icon.activated img {
+      opacity: 1; }
 
 .filters-list__bt-no-icon {
   position: relative;
@@ -142,17 +148,18 @@ h1.app-title {
   font-size: 12px;
   min-width: 53px;
   margin: 0 1px;
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.4);
   background: transparent;
-  opacity: 0.3; }
+  opacity: 1; }
   .filters-list__bt-no-icon:before {
     font-size: 40px; }
   .filters-list__bt-no-icon:hover {
     color: white; }
   .filters-list__bt-no-icon.activated, .filters-list__bt-no-icon.active {
-    border-color: white;
-    background: transparent;
-    opacity: 1; }
+    opacity: 1;
+    background: #fff;
+    color: #981D97;
+    border-color: white; }
 
 .trek-detail .list .item {
   border-left: none;
@@ -196,9 +203,8 @@ h1.app-title {
   color: white;
   font-size: 14px;
   font-weight: bold;
-  display: inline-block;
   padding: 10px;
-  padding-left: 10px;
+  margin-right: -10px;
   margin-left: -10px;
   min-width: 130px; }
 
@@ -258,12 +264,15 @@ h1.app-title {
 .trek-detail__altimetric-profile {
   width: 100%; }
 
+.information-desk p {
+  white-space: normal; }
+
 .button.icon-top:before {
   display: block; }
 
 .switch-detail {
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   text-align: center;
   position: fixed;
   padding: 5px;
@@ -464,32 +473,44 @@ h1.app-title {
   height: 24px; }
 
 .poi-detail {
-  padding: 0; }
-  .poi-detail .row {
+  padding: 0;
+  margin-bottom: 20px; }
+  .poi-detail .row.content {
     padding: 10px; }
   .poi-detail .header {
     border-bottom: 1px solid #eee;
-    height: 80px; }
-    .poi-detail .header .poi-detail__name {
-      display: inline;
-      vertical-align: middle;
-      color: #4d4a4a;
-      font-weight: bold;
-      white-space: normal;
-      margin: 0;
-      padding: 0; }
-    .poi-detail .header .poi-detail__distance {
-      display: inline;
-      vertical-align: middle;
-      font-size: 14px;
-      margin: 0 0 2px 2px; }
-  .poi-detail .thumbnail {
-    text-align: right;
-    height: 60px;
-    overflow: hidden; }
-    .poi-detail .thumbnail img {
-      height: 100%;
-      width: auto; }
+    padding: 0; }
+    .poi-detail .header .title {
+      width: 100%;
+      padding: 0;
+      line-height: 1em;
+      align-items: center;
+      justify-content: center; }
+      .poi-detail .header .title .poi-detail__name {
+        display: inline;
+        vertical-align: middle;
+        color: #4d4a4a;
+        font-weight: bold;
+        white-space: normal;
+        margin: 0;
+        padding: 0; }
+      .poi-detail .header .title .poi-detail__distance {
+        display: inline;
+        vertical-align: middle;
+        font-size: 14px;
+        margin: 0 0 2px 2px; }
+      .poi-detail .header .title .pictogram {
+        width: auto;
+        height: auto; }
+    .poi-detail .header .picture {
+      width: 100%;
+      display: block;
+      line-height: 0em; }
+      .poi-detail .header .picture img {
+        width: 100%;
+        height: auto; }
+      .poi-detail .header .picture img[src=""], .poi-detail .header .picture img[ng-src=""] {
+        display: none; }
   .poi-detail .poi-detail__description {
     white-space: normal;
     color: black; }
@@ -547,6 +568,16 @@ h1.app-title {
     overflow: visible;
     min-height: 240px;
     width: 90%; } }
+.static-pages h1 {
+  display: none; }
+.static-pages ul {
+  list-style: initial;
+  padding: 15px; }
+  .static-pages ul li {
+    margin-bottom: 1em; }
+.static-pages img {
+  max-width: 100%; }
+
 .leaflet-control-layers.leaflet-control {
   display: none; }
 
@@ -602,6 +633,9 @@ span.network-status {
     flex-wrap: wrap; }
     .responsive-sm.row .col {
       flex: 1 150px; } }
+@media (max-width: 400px) {
+  .leaflet-bottom .leaflet-control-scale {
+    margin-bottom: 25px; } }
 @font-face {
   font-family: "geotrek-mobile";
   src: url("../fonts/geotrek-mobile.eot");
