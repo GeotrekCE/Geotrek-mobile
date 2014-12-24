@@ -15,6 +15,7 @@ geotrekTreks.config(function($stateProvider) {
                 return treksFactory.getTreks();
             },
             staticPages: function(staticPagesFactory) {
+                //return staticPagesFactory.getStaticPages();
                 return staticPagesFactory.getStaticPages();
             },
             // Resolve only to add "isDownloaded" property on each available trek

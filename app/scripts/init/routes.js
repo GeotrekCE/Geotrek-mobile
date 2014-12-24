@@ -21,13 +21,12 @@ function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, static
 
     var displayProgress = function(label) {
         return function(progress) {
-            console.log(progress);
             $scope.progress = label + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
         }
     };
 
     var syncData = function() {
-        if (!globalizationSettings.FULL_DATA_REMOTE_FILE_URL) {
+        if ((!globalizationSettings.FULL_DATA_REMOTE_FILE_URL) && (!$window.ionic.Platform.isAndroid())) {
             window.setTimeout(syncData,100);
         }else {
             // Synchronizing data with server

@@ -19,6 +19,7 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
             function(data) {
                 var data = JSON.parse(data);
                 angular.forEach(data.features, function(trek) {
+                    console.log(trek);
                     var currentTrekId = trek.id;
                     angular.forEach(trek.properties.pictures, function(picture) {
                         var pictureUrl = picture.url;
@@ -58,6 +59,11 @@ geotrekTreks.service('treksFileSystemService', function ($resource, $rootScope, 
                         var altimetric_profileUrl = trek.properties.altimetric_profile;
                         var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".svg");
                         trek.properties.altimetric_profile = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                    }
+                    if(angular.isDefined(trek.properties.thumbnail)) {
+                        var thumbUrl = trek.properties.thumbnail;
+                        var filename = thumbUrl.substr(thumbUrl.lastIndexOf('/') + 1);
+                        trek.properties.thumbnail = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
                     }
                 });
                 $cordovaFile.writeFile(filePath, JSON.stringify(data), {append: false})

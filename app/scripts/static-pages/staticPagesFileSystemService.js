@@ -20,6 +20,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
     };
 
    this.replaceImgURLs = function(staticPagesData) {
+        console.log('entered');
         // Parse static page url on content, and change their URL
         angular.forEach(staticPagesData, function(pages) {
 
@@ -36,9 +37,9 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
             // Then we look for each img markup, and change url with device one
             angular.forEach($htmlContent.find('img'), function(element) {
                 var currentUrl = element.src;
-                var filename = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
+                var filename = currentUrl.substr(currentUrl.indexOf('media'));
 
-                element.src = settings.device.CDV_STATIC_PAGES_IMG_ROOT + '/' + filename;
+                element.src = settings.DOMAIN_NAME + '/' + filename;
             });
 
 

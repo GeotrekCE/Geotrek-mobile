@@ -45,8 +45,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         return String(text).replace(/href=/gm, 'class="external-link" href=');
     };
 })
-.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils',
-function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils) {
+.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
+function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -102,6 +102,7 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
 
     // spinner when routing
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        console.log(toState);
         utils.showSpinner();
     });
     $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
