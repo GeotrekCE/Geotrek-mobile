@@ -11,23 +11,28 @@ geotrekMap.controller('MapController',
     // Initializing leaflet map
     map = L.map('map', mapParameters);
     var userPosition;
-    var treks = L.geoJson();
+    var treks = new L.MarkerClusterGroup({
+        showCoverageOnHover: false,
+        iconCreateFunction: function(cluster) {
+            return iconsService.getClusterIcon(cluster);
+        }
+    });
+    $scope.treks = treks;
     // Add treks geojson to the map
     function showTreks(updateBounds) {
 
         // Remove all markers so the displayed markers can fit the search results
         $scope.leafletService = leafletService;
-        treks.clearLayers();
-        treks = L.geoJson(filterFilter($rootScope.filteredTreks, $scope.activeFilters.search), {
-            style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8, 'smoothFactor': 3},
-            onEachFeature: function(feature, layer) {
-                layer.on({
-                    click: function(e) {
-                        $state.go("home.map.detail", { trekId: feature.properties.id });
-                    }
-                });
-            }
-        }).addTo(map).bringToBack();
+        angular.forEach(filterFilter($rootScope.filteredTreks, $scope.activeFilters.search), function(trek) {
+            var trekDeparture = leafletService.createClusterMarkerFromTrek(trek);
+            trekDeparture.on({
+                click: function(e) {
+                    $state.go("home.map.detail", { trekId: trek.properties.id });
+                }
+            });
+            treks.addLayer(trekDeparture);
+        });
+        map.addLayer(treks);
 
         if ((updateBounds == undefined) || (updateBounds == true)) {
             if ($rootScope.statename === 'home.map') {
@@ -123,11 +128,16 @@ geotrekMap.controller('MapController',
 
     $scope.currentTrek = $stateParams.trekId;
 
-    // Draw a new polyline in background to highlight the selected trek
-    var currentHighlight = L.geoJson(trek, {style:{'color': '#981d97', 'weight': 18, 'opacity': 0.8, 'smoothFactor': 3}})
+    // Draw a polyline to highlight the selected trek
+    var currentHighlight = L.geoJson(trek, {style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8}})
         .addTo(map)
-        .bringToBack()
-        .setText('>         ', {repeat:true});
+        .setText('>         ', {
+            repeat:true,
+            offset: 5
+        });
+
+    // Remove the treks cluster on detail view
+    map.removeLayer($scope.$parent.treks);
 
     var treksMarkers = L.featureGroup().addTo(map);
 
@@ -151,6 +161,9 @@ geotrekMap.controller('MapController',
     $rootScope.$on('$stateChangeStart', function() {
         map.removeLayer(currentHighlight);
         map.removeLayer(treksMarkers);
+        if ($scope.$parent) {
+            map.addLayer($scope.$parent.treks);
+        };
         map.setZoom(10);
     });
 

@@ -63,6 +63,34 @@ h1.app-title {
   vertical-align: top;
   padding-left: 10px; }
 
+.leaflet-marker-icon.trek-cluster, .leaflet-marker-icon.trek-icon {
+  border-radius: 999px;
+  border-style: solid;
+  border-width: 4px;
+  background-color: #981D97;
+  background-size: 28px;
+  background-image: url(../images/trek-icon.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: 0.8 !important; }
+.leaflet-marker-icon.trek-icon {
+  border-color: #009FDA; }
+.leaflet-marker-icon.trek-cluster {
+  border-color: #F89406; }
+  .leaflet-marker-icon.trek-cluster .count {
+    border-radius: 5px;
+    background-color: #F89406;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    min-width: 20px;
+    min-height: 20px;
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    right: -2px; }
+
 .trek-list {
   display: block; }
 
