@@ -123,13 +123,13 @@ geotrekMap.controller('MapController',
 
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService', 'trek', 'utils',
-            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, trek, utils) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService', 'trek', 'utils', 'settings',
+            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, trek, utils, settings) {
 
     $scope.currentTrek = $stateParams.trekId;
 
     // Draw a polyline to highlight the selected trek
-    var currentHighlight = L.geoJson(trek, {style: {'color': '#F89406', 'weight': 12, 'opacity': 0.8}})
+    var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 12, 'opacity': 0.8}})
         .addTo(map)
         .setText('>         ', {
             repeat:true,

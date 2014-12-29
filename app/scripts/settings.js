@@ -30,6 +30,7 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
         GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
         GLOBAL_MAP_ATTRIBUTION: '(c) IGN Geoportail',
+        TREK_COLOR: '#F89406'
     };
 
     /* Variables for filesystem tree on device
