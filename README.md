@@ -188,27 +188,33 @@ GEOTREK-MOBILE REQUIREMENTS
 CORDOVA FILES PLUGIN
 ====================
 ```bash
-$ cordova plugin add org.apache.cordova.file@1.2.0
-$ cordova plugin add org.apache.cordova.file-transfer@0.4.4
+cordova plugin add org.apache.cordova.file@1.2.0
+cordova plugin add org.apache.cordova.file-transfer@0.4.4
 ```
 
 CORDOVA NETWORK INFORMATION PLUGIN
 ==================================
 ```bash
-$ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
 (cordova plugin add cordova-plugin-network-information crashes on android, due to https://git-wip-us.apache.org/repos/asf?p=cordova-plugin-network-information.git;a=commit;h=a5e9631258691890f08d94bc784f96aa304c2868)
 ```
 
 CORDOVA GEOLOCATION PLUGIN
 ==================================
 ```bash
-$ cordova plugin add org.apache.cordova.geolocation
+cordova plugin add org.apache.cordova.geolocation
 ```
 
 CORDOVA GLOBALIZATION PLUGIN
 ==================================
 ```bash
-$ cordova plugin add org.apache.cordova.globalization
+cordova plugin add org.apache.cordova.globalization
+```
+
+PHONEGAP SOCIAL SHARING
+==================================
+```bash
+cordova plugin add nl.x-services.plugins.socialsharing
 ```
 
 CORDOVA LOCAL NOTIFICATION PLUGIN
@@ -242,20 +248,20 @@ CREDITS
 AUTHORS
 =======
 
-    * Adrien Denat
-    * Mathieu Leplatre
-    * Romain Garrigues
-    * Éric Bréhault
-    * Frédéric Bonifas
-    * Simon Bats
+* Adrien Denat
+* Mathieu Leplatre
+* Romain Garrigues
+* Éric Bréhault
+* Frédéric Bonifas
+* Simon Bats
 
 [<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
 
-LICENSE
+LICENCE
 =======
 
-    * OpenSource - BSD
-    * Copyright (c) Parc National des Écrins - Makina Corpus
+* OpenSource - BSD
+* Copyright (c) Parc National des Écrins - Makina Corpus
 
 [<img src="http://geotrek.fr/images/logo-pne.png">](http://www.ecrins-parcnational.fr)
 
