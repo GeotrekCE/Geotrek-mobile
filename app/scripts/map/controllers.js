@@ -129,11 +129,11 @@ geotrekMap.controller('MapController',
     $scope.currentTrek = $stateParams.trekId;
 
     // Draw a polyline to highlight the selected trek
-    var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 12, 'opacity': 0.8}})
+    var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 9, 'opacity': 0.8}})
         .addTo(map)
         .setText('>         ', {
             repeat:true,
-            offset: 5
+            offset: 4
         });
 
     // Remove the treks cluster on detail view
