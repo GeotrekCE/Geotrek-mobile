@@ -20,8 +20,8 @@ geotrekMap.controller('MapController',
     $scope.treks = treks;
     // Add treks geojson to the map
     function showTreks(updateBounds) {
-
         // Remove all markers so the displayed markers can fit the search results
+        treks.clearLayers();
         $scope.leafletService = leafletService;
         angular.forEach(filterFilter($rootScope.filteredTreks, $scope.activeFilters.search), function(trek) {
             var trekDeparture = leafletService.createClusterMarkerFromTrek(trek);
