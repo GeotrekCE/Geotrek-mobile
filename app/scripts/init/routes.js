@@ -21,8 +21,9 @@ function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, static
 
     var displayProgress = function(label) {
         return function(progress) {
-            console.log(progress);
-            $scope.progress = label + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+            $translate('init.' + label).then(function(msg) {
+                $scope.progress = msg + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+            });
         }
     };
 

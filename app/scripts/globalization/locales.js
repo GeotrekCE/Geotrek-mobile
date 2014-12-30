@@ -6,7 +6,7 @@ var geotrekGlobalization = angular.module('geotrekGlobalization');
 geotrekGlobalization.constant('locales', {
     'fr': {
         'init.loading': 'Chargement des données en cours...',
-        'init.datas': 'Randonnées',
+        'init.data': 'Randonnées',
         'init.map': 'Carte',
         'init.error_loading': 'Problème lors du chargement des données. Si c\'est la première fois que vous utilisez Geotrek-Mobile, veuillez avoir une connexion Internet active.',
         'map_trek_detail.more_details': ' + de détails',
@@ -70,7 +70,7 @@ geotrekGlobalization.constant('locales', {
     },
     'en': {
         'init.loading': 'Loading data...',
-        'init.datas': 'Treks',
+        'init.data': 'Treks',
         'init.map': 'Map',
         'init.error_loading': 'Problem while loading data. If you start Geotrek-Mobile for the first time, please have an active Internet connection.',
         'map_trek_detail.more_details': ' more details',
