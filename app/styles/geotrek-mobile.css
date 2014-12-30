@@ -236,6 +236,10 @@ h1.app-title {
 .trek-detail__subtitle {
   font-size: 14px; }
 
+.trek-detail__ambiance {
+  font-size: 14px;
+  color: #4d4a4a; }
+
 .trek-detail__section-title {
   background: #981D97;
   color: white;
