@@ -208,10 +208,12 @@ h1.app-title {
   .trek-detail .list .item:first-child {
     border-top: none; }
 .trek-detail .trek-detail__extra-infos {
-  padding-top: 10px; }
+  background: #ECE5DA;
+  padding: 5px;
+  margin: 0 -10px 10px -10px;
+  width: auto; }
   .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item {
-    display: inline;
-    margin-bottom: 10px; }
+    display: inline; }
     .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
       position: relative;
       top: -9px; }
@@ -226,7 +228,8 @@ h1.app-title {
         position: relative;
         height: 30px; }
         .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
-          border: 1px #999 solid; }
+          border: 1px #999 solid;
+          background: white; }
       .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
         width: 80px; }
 
@@ -304,6 +307,8 @@ h1.app-title {
   color: #4d4a4a; }
 
 .trek-detail__altimetric-profile {
+  margin: 0;
+  padding: 0;
   width: 100%; }
 
 .information-desk p {
