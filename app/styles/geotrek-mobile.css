@@ -148,6 +148,12 @@ h1.app-title {
   .filters-list__item.filters-list__item--select {
     border-top: none;
     padding-top: 0px; }
+  .filters-list__item svg, .filters-list__item svg path {
+    fill: white !important; }
+  .filters-list__item svg {
+    -webkit-transform: scale(0.5) translate(-68px, -68px);
+    -moz-transform: scale(0.5) translate(-68px, -68px);
+    transform: scale(0.5) translate(-68px, -68px); }
 
 .filters-list__bt {
   position: relative;
@@ -160,14 +166,18 @@ h1.app-title {
   .filters-list__bt:hover {
     color: white; }
   .filters-list__bt img {
-    width: 56px;
+    width: 56px; }
+  .filters-list__bt img, .filters-list__bt svg {
     opacity: 0.4;
     display: block;
     margin: auto; }
   .filters-list__bt.button-icon.active, .filters-list__bt.button-icon.activated {
     opacity: 1; }
-    .filters-list__bt.button-icon.active img, .filters-list__bt.button-icon.activated img {
+    .filters-list__bt.button-icon.active img, .filters-list__bt.button-icon.active svg, .filters-list__bt.button-icon.activated img, .filters-list__bt.button-icon.activated svg {
       opacity: 1; }
+  .filters-list__bt .difficulty-icon {
+    width: 56px;
+    height: 56px; }
 
 .filters-list__bt-no-icon {
   position: relative;
