@@ -14,7 +14,7 @@ geotrekGeolocation.service('geolocationRemoteService', ['$q', '$timeout', functi
         // On some weird cases, there is no callback on getCurrentPosition when used together with watchPosition...
         // Adding a timeout to be sure that app is not blocked on these cases
         options = options || {};
-        options['timeout'] = 2 * 1000; // 2s
+        options['timeout'] = 10 * 1000; // 10s
 
         // Using HTML5 geolocation API
         if (navigator.geolocation) {

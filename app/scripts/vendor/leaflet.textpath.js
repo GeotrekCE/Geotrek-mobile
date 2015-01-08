@@ -53,13 +53,22 @@ var PolylineTextPath = {
           return this;
         }
 
-        var defaults = {repeat: false, fillColor: 'black', attributes: {}};
+        var defaults = {
+            repeat: false,
+            fillColor: 'black',
+            attributes: {},
+            below: false,
+        };
         options = L.Util.extend(defaults, options);
 
         /* If empty text, hide */
         if (!text) {
-            if (this._textNode && this._textNode.parentNode)
+            if (this._textNode && this._textNode.parentNode) {
                 this._map._pathRoot.removeChild(this._textNode);
+                
+                /* delete the node, so it will not be removed a 2nd time if the layer is later removed from the map */
+                delete this._textNode;
+            }
             return this;
         }
 
@@ -94,9 +103,15 @@ var PolylineTextPath = {
             textNode.setAttribute(attr, options.attributes[attr]);
         textPath.appendChild(document.createTextNode(text));
         textNode.appendChild(textPath);
-        svg.insertBefore(textNode, svg.firstChild);
         this._textNode = textNode;
-        
+
+        if (options.below) {
+            svg.insertBefore(textNode, svg.firstChild);
+        }
+        else {
+            svg.appendChild(textNode);
+        }
+
         /* Center text according to the path's bounding box */
         if (options.center) {
             var textWidth = textNode.getBBox().width;

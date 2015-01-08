@@ -63,6 +63,34 @@ h1.app-title {
   vertical-align: top;
   padding-left: 10px; }
 
+.leaflet-marker-icon.trek-cluster, .leaflet-marker-icon.trek-icon {
+  border-radius: 999px;
+  border-style: solid;
+  border-width: 4px;
+  background-color: #981D97;
+  background-size: 28px;
+  background-image: url(../images/trek-icon.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: 0.8 !important; }
+.leaflet-marker-icon.trek-icon {
+  border-color: #009FDA; }
+.leaflet-marker-icon.trek-cluster {
+  border-color: #F89406; }
+  .leaflet-marker-icon.trek-cluster .count {
+    border-radius: 5px;
+    background-color: #F89406;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    min-width: 20px;
+    min-height: 20px;
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    right: -2px; }
+
 .trek-list {
   display: block; }
 
@@ -120,6 +148,12 @@ h1.app-title {
   .filters-list__item.filters-list__item--select {
     border-top: none;
     padding-top: 0px; }
+  .filters-list__item svg, .filters-list__item svg path {
+    fill: white !important; }
+  .filters-list__item svg {
+    -webkit-transform: scale(0.5) translate(-68px, -68px);
+    -moz-transform: scale(0.5) translate(-68px, -68px);
+    transform: scale(0.5) translate(-68px, -68px); }
 
 .filters-list__bt {
   position: relative;
@@ -132,14 +166,18 @@ h1.app-title {
   .filters-list__bt:hover {
     color: white; }
   .filters-list__bt img {
-    width: 56px;
+    width: 56px; }
+  .filters-list__bt img, .filters-list__bt svg {
     opacity: 0.4;
     display: block;
     margin: auto; }
   .filters-list__bt.button-icon.active, .filters-list__bt.button-icon.activated {
     opacity: 1; }
-    .filters-list__bt.button-icon.active img, .filters-list__bt.button-icon.activated img {
+    .filters-list__bt.button-icon.active img, .filters-list__bt.button-icon.active svg, .filters-list__bt.button-icon.activated img, .filters-list__bt.button-icon.activated svg {
       opacity: 1; }
+  .filters-list__bt .difficulty-icon {
+    width: 56px;
+    height: 56px; }
 
 .filters-list__bt-no-icon {
   position: relative;
@@ -170,10 +208,12 @@ h1.app-title {
   .trek-detail .list .item:first-child {
     border-top: none; }
 .trek-detail .trek-detail__extra-infos {
-  padding-top: 10px; }
+  background: #ECE5DA;
+  padding: 5px;
+  margin: 0 -10px 10px -10px;
+  width: auto; }
   .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item {
-    display: inline;
-    margin-bottom: 10px; }
+    display: inline; }
     .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
       position: relative;
       top: -9px; }
@@ -188,7 +228,8 @@ h1.app-title {
         position: relative;
         height: 30px; }
         .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
-          border: 1px #999 solid; }
+          border: 1px #999 solid;
+          background: white; }
       .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon.wrapper {
         width: 80px; }
 
@@ -197,6 +238,10 @@ h1.app-title {
 
 .trek-detail__subtitle {
   font-size: 14px; }
+
+.trek-detail__ambiance {
+  font-size: 14px;
+  color: #4d4a4a; }
 
 .trek-detail__section-title {
   background: #981D97;
@@ -262,6 +307,8 @@ h1.app-title {
   color: #4d4a4a; }
 
 .trek-detail__altimetric-profile {
+  margin: 0;
+  padding: 0;
   width: 100%; }
 
 .information-desk p {

@@ -39,6 +39,14 @@
 			border-top: none;
 			padding-top: 0px;
 		}
+
+		svg, svg path {
+			fill: white !important;
+		}
+
+		svg {
+			@include transform(scale(0.5) translate(-68px, -68px));
+		}
 	}
 
 	
@@ -66,6 +74,9 @@
 
 		img {
 			width: 56px;
+		}
+
+		img, svg {
 			opacity: 0.4;
 			display: block;
 			margin: auto;
@@ -73,9 +84,14 @@
 
 		&.button-icon.active, &.button-icon.activated {
 			opacity: 1;
-			img {
+			img, svg {
 				opacity: 1;
 			}
+		}
+
+		.difficulty-icon {
+			width: 56px;
+			height: 56px;
 		}
 	}
 

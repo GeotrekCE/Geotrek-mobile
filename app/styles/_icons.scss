@@ -29,3 +29,44 @@
     vertical-align: top;
     padding-left: 10px;
 }
+
+.leaflet-marker-icon {
+    &.trek-cluster, &.trek-icon {
+        border-radius: 999px;
+        border-style: solid;
+        border-width: 4px;
+        background-color: $primaryColor;
+        background-size: 28px;
+        background-image: url(../images/trek-icon.svg);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        opacity: 0.8 !important;
+    }
+
+    &.trek-icon {
+      border-color: $complementaryColor4;
+
+    }
+
+    &.trek-cluster {
+      border-color: $complementaryColor3;
+
+      .count {
+        border-radius: 5px;
+
+        background-color: $complementaryColor3;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        min-width: 20px;
+        min-height: 20px;
+
+        display: block;
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+
+      }
+    }
+}

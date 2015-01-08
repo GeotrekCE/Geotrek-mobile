@@ -95,13 +95,23 @@ geotrekMap.service('leafletService',
         return markers;
     };
 
+    this.createClusterMarkerFromTrek = function(trek) {
+        var startPoint = treksFactory.getStartPoint(trek);
+
+        var marker = L.marker([startPoint.lat, startPoint.lng], {
+            icon: iconsService.getTrekIcon()
+        });
+
+        return marker;
+    };
+
     this.setScale = function(map) {
         L.control.scale({imperial: false}).addTo(map);
-    }
+    };
 
     this.setAttribution = function(map) {
         map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
-    }
+    };
 
     this.setPositionMarker = function() {
 

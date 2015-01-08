@@ -34,6 +34,12 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         poi_icon: L.icon({
             iconSize: [40, 40],
             labelAnchor: [20, -50]
+        }),
+        trek_icon: L.divIcon({
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            className: 'trek-icon',
+            labelAnchor: [20, 0]
         })
     };
 
@@ -45,6 +51,15 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
             iconSize: [32, 32],
             iconAnchor: [16, 16]
         })
+    };
+
+    this.getClusterIcon = function(cluster) {
+        return new L.DivIcon({
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            className: 'trek-cluster',
+            html: '<span class="count">' + cluster.getChildCount() + '</span>'
+        });
     };
 
     this.getDepartureIcon = function() {

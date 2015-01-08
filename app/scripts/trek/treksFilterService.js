@@ -6,7 +6,7 @@ var geotrekTreks = angular.module('geotrekTreks');
  * Service that gives trek filters
  */
 
-geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, settings) {
+geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function($q, $sce, settings) {
 
     // Get default value for each filter field
     this.getDefaultActiveFilterValues = function() {
@@ -217,8 +217,9 @@ geotrekTreks.service('treksFiltersService', ['$q', 'settings', function($q, sett
             });
 
             // Diffulties init
+
             var difficulty = trek.properties.difficulty;
-            trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: difficulty.pictogram});
+            trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
 
             // Uses init
             angular.forEach(trek.properties.usages, function(usage) {

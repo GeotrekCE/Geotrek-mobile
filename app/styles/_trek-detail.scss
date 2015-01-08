@@ -14,10 +14,12 @@
 	}
 
 	.trek-detail__extra-infos {
-		padding-top: 10px;
+		background: $complementaryColor5;
+		padding: 5px;
+		margin: 0 -10px 10px -10px;
+		width: auto;
 		.trek-detail__extra-infos__item {
 			display: inline;
-			margin-bottom: 10px;
 			.net-name {
 				position: relative;
 				top: -9px;
@@ -35,6 +37,7 @@
 	    			height: 30px;
 					&.icon-network {
 						border: 1px $grayLight solid;
+						background: white;
 					}
 				}
 				&.wrapper {
@@ -51,6 +54,11 @@
 
 .trek-detail__subtitle {
 	font-size: $font-size-base;
+}
+
+.trek-detail__ambiance {
+	font-size: $font-size-base;
+    color: $complementaryColor2;
 }
 
 .trek-detail__section-title {
@@ -130,6 +138,8 @@
 }
 
 .trek-detail__altimetric-profile {
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 
