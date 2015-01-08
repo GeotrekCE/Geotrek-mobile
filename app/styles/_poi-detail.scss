@@ -57,11 +57,15 @@
       }
   }
   &.map-poi {
-    .thumbnail {
+    img {
+      width: 100%;
+      max-width: 100%;
       height: auto;
       overflow: visible;
       display: block;
-      margin: 20px auto;
+      &.thumbnail {
+        margin: 20px auto;  
+      }
     }
     .poi-detail__description {
       padding: 10px;

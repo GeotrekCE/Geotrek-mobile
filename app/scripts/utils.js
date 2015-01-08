@@ -195,6 +195,10 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
 
     };
 
+    var getTrekFilename = function(trekId) {
+        return '/trek-' + trekId.toString() + '.zip';
+    }
+
     var showSpinner = function() {
         $ionicLoading.show({
             template: '<i class="icon icon-big ion-looping"></i>'
@@ -214,6 +218,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         downloadAndUnzip: downloadAndUnzip,
         removeDir: removeDir,
         openLinkInSystemBrowser: openLinkInSystemBrowser,
+        getTrekFilename: getTrekFilename,
         showSpinner: showSpinner,
         hideSpinner: hideSpinner
     };

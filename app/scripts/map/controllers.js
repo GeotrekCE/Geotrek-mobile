@@ -23,7 +23,7 @@ geotrekMap.controller('MapController',
             onEachFeature: function(feature, layer) {
                 layer.on({
                     click: function(e) {
-                        $state.go("home.map.detail", { trekId: feature.properties.id });
+                        $state.go("home.map.detail", { trekId: feature.id });
                     }
                 });
             }

@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$ionicPopup', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'logging',
-    function ($ionicPlatform, $rootScope, $state, $scope, $ionicPopup, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, logging) {
+    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$q', '$ionicPopup', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
+    function ($ionicPlatform, $rootScope, $state, $scope, $q, $ionicPopup, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
@@ -35,7 +35,7 @@ geotrekUserSettings.controller('UserSettingsController',
         userSettingsService.saveUserSettings($scope.userSettings);
     }, true);
 
-    $scope.cleanMaps = function() {
+    $scope.cleanFiles = function() {
         $translate([
             'usersettings_controller_cleanmaps_confirm_title',
             'usersettings_controller_cleanmaps_confirm_label'
@@ -47,13 +47,32 @@ geotrekUserSettings.controller('UserSettingsController',
 
             confirmPopup.then(function(confirmed) {
                 if(confirmed) {
-                    mapFactory.cleanDownloadedLayers()
-                    .then(function(result) {
-                        // Disabling delete button to inform user that delete is done
-                        $scope.cleanIsDisabled = true;
-                    }, function(error) {
-                        logging.error(error);
-                    });
+                    $q.all([
+                        mapFactory.cleanDownloadedLayers()
+                        .then(
+                            function(result) {
+                                
+                            }, function(error) {
+                                logging.error(error);
+                            }
+                        ),
+                        treksFactory.removeDownloadedImages()
+                        .then(
+                            function() {
+
+                            }, function(error) {
+                                console.error(error);
+                            }
+                        )
+                    ])
+                    .then(
+                        function(result) {
+                            // Disabling delete button to inform user that delete is done
+                            $scope.cleanIsDisabled = true;
+                        }, function(error) {
+                            console.error(error);
+                        }
+                    );
                 }
             });
         });

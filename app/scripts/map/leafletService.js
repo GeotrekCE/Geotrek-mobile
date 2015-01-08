@@ -66,7 +66,7 @@ geotrekMap.service('leafletService',
                 + "<p>" + information.street + "</p>"
                 + "<p>" + information.postal_code + " " + information.municipality + "</p>"
                 + "<p><a href='" + information.website + "'>Web</a> - <a href='tel:" + information.phone + "'>" + information.phone + "</a></p>";
-            
+
             markers.push(L.marker([information.latitude, information.longitude], {
                 icon: iconsService.getInformationIcon(),
                 name: information.name,
@@ -82,12 +82,12 @@ geotrekMap.service('leafletService',
                 'lng': poi.geometry.coordinates[0]
             };
             var poiIcon = iconsService.getPOIIcon(poi);
-
             markers.push(L.marker([poiCoords.lat, poiCoords.lng], {
                 icon: poiIcon,
                 name: poi.properties.name,
                 description: poi.properties.description,
                 thumbnail: poi.properties.thumbnail,
+                img: poi.properties.pictures[0],
                 pictogram: poi.properties.type.pictogram
             }));
         });

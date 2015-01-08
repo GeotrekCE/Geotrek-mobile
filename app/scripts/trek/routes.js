@@ -15,27 +15,7 @@ geotrekTreks.config(function($stateProvider) {
                 return treksFactory.getTreks();
             },
             staticPages: function(staticPagesFactory) {
-                //return staticPagesFactory.getStaticPages();
                 return staticPagesFactory.getStaticPages();
-            },
-            // Resolve only to add "isDownloaded" property on each available trek
-            // "isDownloaded = true" means that user has manually downloaded
-            // precise map for this trek
-            downloadedTreks: function($q, treks, mapFactory) {
-                var promises = [],
-                    treksList = treks.features;
-                angular.forEach(treksList, function(trek) {
-                    promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
-                });
-
-                return $q.all(promises)
-                .then(function(isDownloadedList) {
-                    for(var i=0; i<isDownloadedList.length; i++) {
-                        treksList[i]['tiles'] = {
-                            isDownloaded: isDownloadedList[i]
-                        };
-                    }
-                });
             }
         }
     })
@@ -57,7 +37,6 @@ geotrekTreks.config(function($stateProvider) {
             downloadedTrek: function($q, trek, mapFactory) {
                 var promises = [];
                 promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
-
                 return $q.all(promises)
                 .then(function(isDownloadedList) {
                     for(var i=0; i<isDownloadedList.length; i++) {

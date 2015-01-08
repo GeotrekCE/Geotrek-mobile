@@ -517,11 +517,14 @@ h1.app-title {
     .poi-detail .poi-detail__description p {
       white-space: normal;
       color: black; }
-  .poi-detail.map-poi .thumbnail {
+  .poi-detail.map-poi img {
+    width: 100%;
+    max-width: 100%;
     height: auto;
     overflow: visible;
-    display: block;
-    margin: 20px auto; }
+    display: block; }
+    .poi-detail.map-poi img.thumbnail {
+      margin: 20px auto; }
   .poi-detail.map-poi .poi-detail__description {
     padding: 10px; }
 

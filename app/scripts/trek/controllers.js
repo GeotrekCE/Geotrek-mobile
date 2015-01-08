@@ -6,7 +6,6 @@ geotrekTreks.controller('TrekController',
     ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$timeout','logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
      function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
 
-    console.log(treks);
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
     $rootScope.staticPages = staticPages;
@@ -142,7 +141,7 @@ geotrekTreks.controller('TrekController',
         socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.thumbnail, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.slug);
     };
 
-    $scope.downloadTile = function(trekId) {
+    $scope.downloadFiles = function() {
         $translate([
             'trek_controller_no_network_title',
             'trek_controller_no_network_label',
@@ -171,23 +170,80 @@ geotrekTreks.controller('TrekController',
                     template: template
                 });
 
-                var currentTrek = trek;
-                currentTrek.tiles.realProgress = 0;
-                currentTrek.tiles.inDownloadProgress = false;
+                var loadCounter = [0,0],
+                    imgLoaded = false,
+                    tilesLoaded = false;
 
-                confirmPopup.then(function(confirmed) {
+                var currentTrek = trek;
+                    currentTrek.tiles.realProgress = 0;
+                    currentTrek.tiles.inDownloadProgress = false;
+
+                return confirmPopup.then(function(confirmed) {
                     if(confirmed) {
+
                         currentTrek.tiles.inDownloadProgress = true;
-                        $q.when(mapFactory.downloadTrekPreciseBackground($scope.trekId))
-                        .then(function(result) {
-                            currentTrek.tiles.inDownloadProgress = false;
-                            currentTrek.tiles.isDownloaded = true;
-                        }, function(error) {
-                            currentTrek.tiles.inDownloadProgress = false;
-                        }, function(progress) {
-                            currentTrek.tiles.inDownloadProgress = true;
-                            currentTrek.tiles.realProgress = Math.floor(progress.loaded / progress.total * 100);
-                        });
+                        return $q.all([
+                            mapFactory.downloadTrekPreciseBackground($scope.trekId)
+                            .then(
+                                function(resultTiles){
+                                    imgLoaded = true;
+                                }, function(error) {
+                                    currentTrek.tiles.inDownloadProgress = false;
+                                }, function(progress) {
+                                    currentTrek.tiles.inDownloadProgress = true;
+                                    loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 2);
+                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1]; 
+                                }
+                            ),
+                            treksFactory.downloadTrekDetails($scope.trekId)
+                            .then(
+                                function(resultImgs) {
+                                    tilesLoaded = true;
+                                }, function(error) {
+                                    currentTrek.tiles.inDownloadProgress = false;
+                                }, function(progress) {
+                                    currentTrek.tiles.inDownloadProgress = true;
+                                    loadCounter[1] = Math.floor((progress.loaded / progress.total * 100) / 2);
+                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1];
+                                }
+                            )
+
+                        ])
+                        .then(
+                            function(resultGlobal) {
+
+                                if (imgLoaded && tilesLoaded) {
+                                    currentTrek.tiles.inDownloadProgress = false;
+                                    currentTrek.tiles.isDownloaded = true;
+                                    treksFactory.getTreks()
+                                    .then(
+                                        function(trekCollection) {
+                                            $rootScope.treks = trekCollection;
+                                        }, function(errorMsg) {
+                                            console.error(errorMsg);
+                                        }
+                                    );
+                                }else {
+                                    var isWrong = '';
+                                    if (!imgLoaded) {
+                                        isWrong = 'images';
+                                    }
+                                    if (!TilesLoaded) {
+                                        isWrong = 'tiles';
+                                    }
+                                    if (!TilesLoaded && !imgLoaded) {
+                                        isWrong = 'images and tiles';
+                                    }
+
+                                    currentTrek.tiles.inDownloadProgress = false;
+                                    console.error('issue with download of ' + isWrong);
+                                }
+
+                            }, function(error) {
+                                currentTrek.tiles.inDownloadProgress = false;
+                            }
+                        );
+
                     }
                 });
             }

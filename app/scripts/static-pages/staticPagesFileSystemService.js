@@ -20,7 +20,6 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
     };
 
    this.replaceImgURLs = function(staticPagesData) {
-        console.log('entered');
         // Parse static page url on content, and change their URL
         angular.forEach(staticPagesData, function(pages) {
 

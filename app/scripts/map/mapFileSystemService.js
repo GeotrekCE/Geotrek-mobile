@@ -51,19 +51,15 @@ geotrekMap.service('mapFileSystemService',
         return deferred.promise;
     };
 
-    this._getTrekTileFilename = function(trekId) {
-        return '/trek-' + trekId.toString() + '.zip';
-    }
-
     this.downloadTrekPreciseBackground = function(trekId) {
-        var url = settings.remote.TILES_REMOTE_PATH_URL + this._getTrekTileFilename(trekId);
+        var url = settings.remote.TILES_REMOTE_PATH_URL + utils.getTrekFilename(trekId);
         return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT);
     };
 
     this.hasTrekPreciseBackground = function(trekId) {
         var deferred = $q.defer();
 
-        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + this._getTrekTileFilename(trekId);
+        var trekFilenamePath = settings.device.RELATIVE_TILES_ROOT + utils.getTrekFilename(trekId);
         $cordovaFile.checkFile(trekFilenamePath)
         .then(function(result) {
             deferred.resolve(true);

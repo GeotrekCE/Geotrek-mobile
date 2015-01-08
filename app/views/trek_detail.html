@@ -9,7 +9,7 @@
         </button>
         <div class="buttons pull-right modal__actions">
             <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>
-            <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadTile()">
+            <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadFiles()">
                 <i class="icon ion-archive"></i>
             </button>
             <button ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="button button-icon">

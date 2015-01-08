@@ -15,7 +15,7 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = /*'http://rando.ecrins-parcnational.fr'*/ 'http://192.168.1.71:8888',
+    var DOMAIN_NAME = /*'http://rando.ecrins-parcnational.fr'*/ 'http://192.168.100.46:8888',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
@@ -65,6 +65,7 @@ geotrekAppSettings.constant('globalSettings', {
 
     var POI_FILE_NAME = 'pois.geojson',
         TREKS_FILE_NAME = 'trek.geojson',
+        TREKS_ZIP_NAME = 'trek.zip',
         TILES_FILE_NAME = 'global.zip';
 
     var GEOTREK_DIR = 'rando-ecrins',
@@ -95,6 +96,9 @@ geotrekAppSettings.constant('globalSettings', {
         DOMAIN_NAME: DOMAIN_NAME,
         POI_FILE_NAME: POI_FILE_NAME,
         TREKS_FILE_NAME: TREKS_FILE_NAME,
+        PICTOGRAM_DIR: PICTOGRAM_DIR,
+        LOGS_FILENAME: LOGS_FILENAME,
+        TREKS_ZIP_NAME: TREKS_ZIP_NAME,
         TILES_FILE_NAME: TILES_FILE_NAME,
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,

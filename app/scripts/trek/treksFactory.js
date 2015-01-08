@@ -5,7 +5,8 @@ var geotrekTreks = angular.module('geotrekTreks');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', 'logging', 'geolocationFactory', 'utils', function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils) {
+geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q', 'logging', 'geolocationFactory', 'utils', 
+function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils) {
 
     var treksFactory;
 
@@ -64,13 +65,18 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
 
     treksFactory.getTrek = function(_trekId) {
         var trekId = parseInt(_trekId),
+            self = this,
             trek,
             deferred = $q.defer();
-
+            
         if (angular.isDefined($rootScope.treks)) {
             angular.forEach($rootScope.treks.features, function(_trek) {
                 if (_trek.id === trekId) {
-                    trek = _trek;
+                    if (angular.isDefined($window.cordova)) {
+                        trek = self.replaceGalleryURLs(_trek);
+                    }else {
+                        trek = _trek;
+                    }
                     return;
                 }
             });
@@ -80,7 +86,11 @@ geotrekTreks.factory('treksFactory', ['$injector', '$window', '$rootScope', '$q'
             .then(function(treks) {
                 angular.forEach(treks.features, function(_trek) {
                     if (_trek.id === trekId) {
-                        trek = _trek;
+                        if (angular.isDefined($window.cordova)) {
+                            trek = self.replaceGalleryURLs(_trek);
+                        }else {
+                            trek = _trek;
+                        }
                         return;
                     }
                 });

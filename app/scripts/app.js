@@ -102,7 +102,6 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
 
     // spinner when routing
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        console.log(toState);
         utils.showSpinner();
     });
     $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
