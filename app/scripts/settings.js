@@ -15,7 +15,7 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = /*'http://rando.ecrins-parcnational.fr'*/ 'http://192.168.100.46:8888',
+    var DOMAIN_NAME = 'http://rando.ecrins-parcnational.fr',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
