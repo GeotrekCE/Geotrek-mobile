@@ -43,10 +43,6 @@
 		svg, svg path {
 			fill: white !important;
 		}
-
-		svg {
-			@include transform(scale(0.5) translate(-68px, -68px));
-		}
 	}
 
 	
@@ -72,11 +68,9 @@
 			color: white;
 		}
 
-		img {
-			width: 56px;
-		}
-
 		img, svg {
+			height: 56px;
+			width: 56px;
 			opacity: 0.4;
 			display: block;
 			margin: auto;

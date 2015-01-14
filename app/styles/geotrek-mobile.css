@@ -150,10 +150,6 @@ h1.app-title {
     padding-top: 0px; }
   .filters-list__item svg, .filters-list__item svg path {
     fill: white !important; }
-  .filters-list__item svg {
-    -webkit-transform: scale(0.5) translate(-68px, -68px);
-    -moz-transform: scale(0.5) translate(-68px, -68px);
-    transform: scale(0.5) translate(-68px, -68px); }
 
 .filters-list__bt {
   position: relative;
@@ -165,9 +161,9 @@ h1.app-title {
   opacity: 1; }
   .filters-list__bt:hover {
     color: white; }
-  .filters-list__bt img {
-    width: 56px; }
   .filters-list__bt img, .filters-list__bt svg {
+    height: 56px;
+    width: 56px;
     opacity: 0.4;
     display: block;
     margin: auto; }
