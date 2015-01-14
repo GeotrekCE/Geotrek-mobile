@@ -232,13 +232,15 @@ cordova plugin add https://github.com/MobileChromeApps/zip.git
 CORDOVA INAPPBROWSER PLUGIN
 ==================================
 ```bash
-cordova plugins add org.apache.cordova.inappbrowser
+cordova plugin add org.apache.cordova.inappbrowser
 ```
 
-ANGULAR-LEAFLET-DIRECTIVE
-=========================
-Source files are available at https://github.com/Natsu-/angular-leaflet-directive
-A callback has been added on geojson directive to fit map bounds with geojson bounds
+CORDOVA DIALOGS PLUGIN
+==================================
+```bash
+cordova plugin add org.apache.cordova.dialogs
+```
+
 
 CREDITS
 =======
