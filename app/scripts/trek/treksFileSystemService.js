@@ -38,7 +38,7 @@ geotrekTreks.service('treksFileSystemService',
                     });
                     if(angular.isDefined(trek.properties.information_desks)){
                         angular.forEach(trek.properties.information_desks, function(information_desk) {
-                            if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                            if(angular.isDefined(information_desk.photo_url)){
                                 var informationUrl = information_desk.photo_url;
                                 var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
                                 information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;

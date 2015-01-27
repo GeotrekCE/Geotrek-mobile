@@ -107,6 +107,7 @@
             <ion-item class="" ng-repeat="information_desk in trek.properties.information_desks">
                 <div class="information-desk">
                     <h3 ng-bind-html="information_desk.name"></h3>
+                    <img ng-src="{{information_desk.photo_url}}">
                     <p ng-bind-html="information_desk.description"></p>
                     <p ng-bind-html="information_desk.street"></p>
                     <p>{{ information_desk.postal_code}} {{ information_desk.municipality}}</p>
