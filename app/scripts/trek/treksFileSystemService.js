@@ -36,15 +36,6 @@ geotrekTreks.service('treksFileSystemService',
                         var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
                         network.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
                     });
-                    if(angular.isDefined(trek.properties.information_desks)){
-                        angular.forEach(trek.properties.information_desks, function(information_desk) {
-                            if(angular.isDefined(information_desk.photo_url)){
-                                var informationUrl = information_desk.photo_url;
-                                var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
-                                information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
-                            };
-                        });
-                    };
                     if(angular.isDefined(trek.properties.difficulty)){
                         var difficultyUrl = trek.properties.difficulty.pictogram;
                         var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
@@ -84,10 +75,26 @@ geotrekTreks.service('treksFileSystemService',
                     var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
                     picture.url = settings.device.CDV_TREK_ROOT + '/' + trekData.id.toString() + '/' + filename;
                 });
+                if(angular.isDefined(copy.properties.information_desks)){
+                    angular.forEach(copy.properties.information_desks, function(information_desk) {
+                        if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                            var informationUrl = information_desk.photo_url;
+                            var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
+                            information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + trekData.id.toString() + '/' + filename;
+                        };
+                    });
+                }
             }else {
                 angular.forEach(copy.properties.pictures, function(picture) {
                     picture.url = settings.DOMAIN_NAME + picture.url;
                 });
+                if(angular.isDefined(copy.properties.information_desks)){
+                    angular.forEach(copy.properties.information_desks, function(information_desk) {
+                        if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                            information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
+                        };
+                    });
+                }
             }
             deferred.resolve(copy);
         });
