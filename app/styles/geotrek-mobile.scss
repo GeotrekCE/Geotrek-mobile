@@ -190,7 +190,9 @@ h1.app-title {
     flex-direction: row;
     flex-wrap: wrap;
     .col {
-      flex: 1 150px;
+      flex: 1;
+      min-width: 50%;
+      max-width: 50%;
     }
   }
 }

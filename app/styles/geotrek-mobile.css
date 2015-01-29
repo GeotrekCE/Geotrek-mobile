@@ -209,7 +209,12 @@ h1.app-title {
   margin: 0 -10px 10px -10px;
   width: auto; }
   .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item {
-    display: inline; }
+    display: inline-block;
+    margin: 0px 10px; }
+    @media (max-width: 680px) {
+      .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item {
+        width: 48%;
+        margin: 0px; } }
     .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .net-name {
       position: relative;
       top: -9px; }
@@ -258,12 +263,11 @@ h1.app-title {
 .trek-detail__main-infos__item {
   padding: 10px 0 10px 40px;
   display: inline-block;
-  width: 130px;
   position: relative;
   color: white; }
-
-.responsive-sm .col.trek-detail__main-infos__item {
-  margin-bottom: 0; }
+  @media (max-width: 680px) {
+    .trek-detail__main-infos__item {
+      width: 48%; } }
 
 .trek-detail__main-infos__item:before {
   width: 30px;
@@ -685,7 +689,9 @@ span.network-status {
     flex-direction: row;
     flex-wrap: wrap; }
     .responsive-sm.row .col {
-      flex: 1 150px; } }
+      flex: 1;
+      min-width: 50%;
+      max-width: 50%; } }
 @media (max-width: 400px) {
   .leaflet-bottom .leaflet-control-scale {
     margin-bottom: 25px; } }

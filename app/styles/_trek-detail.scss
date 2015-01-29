@@ -19,7 +19,12 @@
 		margin: 0 -10px 10px -10px;
 		width: auto;
 		.trek-detail__extra-infos__item {
-			display: inline;
+			display: inline-block;
+			margin: 0px 10px;
+			@media (max-width: 680px) {
+				width: 48%;
+				margin: 0px;
+			}
 			.net-name {
 				position: relative;
 				top: -9px;
@@ -82,13 +87,11 @@
 .trek-detail__main-infos__item {
 	padding: 10px 0 10px 40px;
 	display: inline-block;
-	width: 130px;
+	@media (max-width: 680px) {
+		width: 48%;
+	}
 	position: relative;
 	color: white;
-}
-
-.responsive-sm .col.trek-detail__main-infos__item {
-	margin-bottom: 0;
 }
 
 .trek-detail__main-infos__item:before {

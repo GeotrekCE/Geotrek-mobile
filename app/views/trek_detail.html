@@ -36,31 +36,31 @@
             <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
             <p class="trek-detail__departure-arrival">{{ trek.properties.departure }} <span ng-if="trek.properties.arrival">→</span> {{ trek.properties.arrival }}</p>
 
-            <ul class="row trek-detail__main-infos responsive-sm">
-                <li class="col trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
-                <li class="col trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
-                <li class="col trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
-                <li class="col trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
-                <li class="col trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
-                <li class="col trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
+            <ul class="trek-detail__main-infos">
+                <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
+                <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
+                <li class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
+                <li class="trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
+                <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
+                <li class="trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
             </ul>
 
-            <ul class="row trek-detail__extra-infos responsive-sm">
-                <li ng-if="trek.properties.usages" class="col trek-detail__extra-infos__item">
+            <ul class="trek-detail__extra-infos">
+                <li ng-if="trek.properties.usages" class="trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'map_trek_detail.usages' | translate }}</span>
                     <span class="trek-detail__extra-infos__item__icon" ng-repeat="usage in trek.properties.usages">
                         <img class="icon" ng-src="{{ usage.pictogram }}"/>
                     </span>
                 </li>
 
-                <li ng-if="trek.properties.themes" class="col trek-detail__extra-infos__item">
+                <li ng-if="trek.properties.themes" class="trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.themes' | translate }}</span>
                     <span class="trek-detail__extra-infos__item__icon" ng-repeat="theme in trek.properties.themes">
                         <img class="icon" ng-src="{{ theme.pictogram }}"/>
                     </span>
                 </li>
 
-                <li ng-if="trek.properties.networks" class="col trek-detail__extra-infos__item">
+                <li ng-if="trek.properties.networks" class="trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
                     <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
                         <span class="net-name">{{network.name}}</span>&nbsp;
