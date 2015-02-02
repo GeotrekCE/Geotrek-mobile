@@ -43,7 +43,7 @@ geotrekTreks.service('treksFileSystemService',
                     }
                     if(angular.isDefined(trek.properties.altimetric_profile)){
                         var altimetric_profileUrl = trek.properties.altimetric_profile;
-                        var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".svg");
+                        var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".png");
                         trek.properties.altimetric_profile = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
                     }
                     if(angular.isDefined(trek.properties.thumbnail)) {

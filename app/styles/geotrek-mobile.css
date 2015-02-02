@@ -554,7 +554,7 @@ h1.app-title {
         font-size: 14px;
         margin: 0 0 2px 2px; }
       .poi-detail .header .title .pictogram {
-        width: auto;
+        width: 30px;
         height: auto; }
     .poi-detail .header .picture {
       width: 100%;
