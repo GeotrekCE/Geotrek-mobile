@@ -66,7 +66,9 @@ geotrekGlobalization.constant('locales', {
         'usersettings_controller_cleanmaps_confirm_title': 'Supprimer les cartes détaillées',
         'usersettings_controller_cleanmaps_confirm_label': 'Êtes-vous sûr ?',
         'error_message': 'Une erreur est survenue',
-        'error_title': 'Erreur'
+        'error_title': 'Erreur',
+        'maj_title': 'Données mises à jour',
+        'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer puis les re-télécharger pour mettre à jours leurs images et leurs fond de carte.'
     },
     'en': {
         'init.loading': 'Loading data...',
@@ -130,7 +132,9 @@ geotrekGlobalization.constant('locales', {
         'usersettings_controller_cleanmaps_confirm_title': 'Remove detailled maps',
         'usersettings_controller_cleanmaps_confirm_label': 'Are you sure?',
         'error_message': 'An error occured',
-        'error_title': 'Error'
+        'error_title': 'Error',
+        'maj_title': 'Data updated',
+        'maj_message': 'Treks data where updated. If you had downloaded details informations on a trek, please remove them and download again in order to have updated pictures and detailed map layers'
     }
 })
 

@@ -8,8 +8,8 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', 
-    function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading) {
+geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', '$translate', '$ionicPopup',
+    function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading, $translate, $ionicPopup) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -47,6 +47,18 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
                     // We download it so !
                     // We could have used $cordovaFile 'writeFile' function, as response contains our data,
                     // but we prefer 'downloadFile' call to be consistent with other cases.
+                    $translate([
+                        'maj_title',
+                        'maj_message'
+                    ]).then(function(translations) {
+                        var alertPopup = $ionicPopup.alert({
+                            title: translations.maj_title,
+                            template: translations.maj_message
+                        });
+                        alertPopup.then(function(res) {
+                            console.log('User knows !');
+                        });
+                    });
                     return $cordovaFile.downloadFile(url, filepath);
 
                 }, function(response) {
