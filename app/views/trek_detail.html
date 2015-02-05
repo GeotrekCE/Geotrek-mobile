@@ -10,10 +10,10 @@
         <div class="buttons pull-right modal__actions">
             <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>
             <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadFiles()">
-                <i class="icon ion-archive"></i>
+                <i class="icon ion-archive" ng-class="{'ion-archive': isAndroid, 'ion-archive': !isAndroid}"></i>
             </button>
             <button ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="button button-icon">
-                <i class="icon ion-archive low-op"></i>
+                <i class="icon ion-archive low-op" ng-class="{'ion-archive': isAndroid, 'ion-archive': !isAndroid}"></i>
                 <i class="icon ion-checkmark-round overicon"></i>
             </button>
             <button ng-if="false" class="button button-icon" ng-click="newTask()">
@@ -71,7 +71,12 @@
 
             <ion-slide-box show-pager="true" disable-scroll="false">
                 <ion-slide ng-repeat="picture in trek.properties.pictures">
-                    <img ng-src="{{ picture.url }}">
+                    <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}">
+                    <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                        <span>
+                            {{ 'image.connect' | translate }}
+                        </span>
+                    </div>
                     <span class="slider-legend">{{ picture.legend }} ({{ picture.author }})</span>
                 </ion-slide>
             </ion-slide-box>
@@ -107,7 +112,7 @@
             <ion-item class="" ng-repeat="information_desk in trek.properties.information_desks">
                 <div class="information-desk">
                     <h3 ng-bind-html="information_desk.name"></h3>
-                    <img ng-src="{{information_desk.photo_url}}">
+                    <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{information_desk.photo_url}}">
                     <p ng-bind-html="information_desk.description"></p>
                     <p ng-bind-html="information_desk.street"></p>
                     <p>{{ information_desk.postal_code}} {{ information_desk.municipality}}</p>
@@ -125,6 +130,7 @@
                     <div class="title row">
                         <div class="col-10">
                             <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
+                           
                         </div>
                         <div class="col">
                             <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
@@ -132,7 +138,12 @@
                         </div>
                     </div>
                     <div class="picture">
-                        <img ng-src="{{ poi.properties.pictures[0].url }}"/>
+                        <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ poi.properties.pictures[0].url }}"/>
+                         <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                            <span>
+                                {{ 'image.connect' | translate }}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row content">

@@ -34,11 +34,14 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.resetFilters = function () {
-
-        angular.forEach(['difficulty', 'duration', 'elevation'], function(field){
+        console.log($scope.activeFilters);
+        angular.forEach(['duration', 'elevation'], function(field){
             angular.forEach($scope.activeFilters[field], function(value, key) {
                 $scope.activeFilters[field][key].checked = false;
             });
+        });
+        angular.forEach($scope.activeFilters['difficulty'], function(value, key) {
+            $scope.activeFilters['difficulty'][key] = false;
         });
         $scope.activeFilters.download =     undefined;
         $scope.activeFilters.theme =        undefined;
@@ -103,6 +106,10 @@ geotrekTreks.controller('TrekController',
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+
+    $scope.network_available = $rootScope.network_available;
+
+    $scope.isAndroid = ionic.Platform.isAndroid();
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;

@@ -49,6 +49,21 @@ $bar-dark-active-border:          transparent;
 	@include flex(1, 0);
 }
 
+.no-image {
+  max-width: 100%;
+  padding: 1.2em;
+  background: $grayLighter;
+  color: $grayLight;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  span {
+    display: block;
+    line-height: normal;
+    white-space: initial;
+  }
+}
+
 .leaflet-container {
     width: 100%;
     height: 100%;
