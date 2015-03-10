@@ -1,5 +1,5 @@
 .splashscreen {
-	background: black url(../images/splash-pne.jpg) center center no-repeat;
+	background: black url(../images/splash.jpg) center center no-repeat;
     background-size: auto 100%;
     width: 100%;
     height: 100%;
@@ -10,7 +10,7 @@
     only screen and (        min-device-pixel-ratio: 2),
     only screen and (                min-resolution: 192dpi),
     only screen and (                min-resolution: 2dppx) { 
-        background-image: url(../images/splash-pne@2x.jpg);
+        background-image: url(../images/splash.jpg);
     }
 
     @media only screen and (orientation: landscape) {

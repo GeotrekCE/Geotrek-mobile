@@ -33,7 +33,7 @@
   overflow: hidden; }
 
 .menu-left {
-  background: #981D97; }
+  background: #7da013; }
   .menu-left .scroll-content {
     padding: 0 10px; }
   .menu-left .button-block {
@@ -52,7 +52,7 @@ h1.app-title {
   padding: 8px; }
 
 .item p {
-  color: #4d4a4a; }
+  color: grey; }
 
 .icon-geotrek {
   vertical-align: middle;
@@ -80,19 +80,19 @@ h1.app-title {
   border-radius: 999px;
   border-style: solid;
   border-width: 4px;
-  background-color: #981D97;
+  background-color: #494645;
   background-size: 28px;
   background-image: url(../images/trek-icon.svg);
   background-repeat: no-repeat;
   background-position: 50% 50%;
   opacity: 0.8 !important; }
 .leaflet-marker-icon.trek-icon {
-  border-color: #009FDA; }
+  border-color: #1C72BC; }
 .leaflet-marker-icon.trek-cluster {
-  border-color: #F89406; }
+  border-color: #F07F00; }
   .leaflet-marker-icon.trek-cluster .count {
     border-radius: 5px;
-    background-color: #F89406;
+    background-color: #F07F00;
     color: white;
     text-align: center;
     font-weight: bold;
@@ -108,7 +108,7 @@ h1.app-title {
   display: block; }
 
 .trek-list__item h3 {
-  color: #981D97; }
+  color: #ABD76A; }
 .trek-list__item .departure {
   margin-bottom: 0; }
 .trek-list__item .difficulty {
@@ -128,7 +128,7 @@ h1.app-title {
 .trek-list--number {
   margin-right: 0.4em;
   background: white;
-  color: purple;
+  color: #494645;
   padding: 0.15em 0.7em;
   font-weight: bold;
   border-radius: 45%; }
@@ -150,7 +150,7 @@ h1.app-title {
       padding: 4px 45px 5px 15px;
       color: white;
       direction: ltr;
-      background-color: #981D97;
+      background-color: #7da013;
       border: 1px solid white; }
 
 .filters-list__item {
@@ -205,7 +205,7 @@ h1.app-title {
   .filters-list__bt-no-icon.activated, .filters-list__bt-no-icon.active {
     opacity: 1;
     background: #fff;
-    color: #981D97;
+    color: #ABD76A;
     border-color: white; }
 
 .trek-detail .list .item {
@@ -217,7 +217,7 @@ h1.app-title {
   .trek-detail .list .item:first-child {
     border-top: none; }
 .trek-detail .trek-detail__extra-infos {
-  background: #ECE5DA;
+  background: #E0CDA9;
   padding: 5px;
   margin: 0 -10px 10px -10px;
   width: auto; }
@@ -255,10 +255,10 @@ h1.app-title {
 
 .trek-detail__ambiance {
   font-size: 14px;
-  color: #4d4a4a; }
+  color: grey; }
 
 .trek-detail__section-title {
-  background: #981D97;
+  background: #ABD76A;
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -268,7 +268,7 @@ h1.app-title {
   min-width: 130px; }
 
 .trek-detail__main-infos {
-  background-color: #981D97;
+  background-color: #ABD76A;
   padding: 5px;
   margin: 0 -10px;
   width: auto; }
@@ -317,7 +317,7 @@ h1.app-title {
 .trek-detail__departure-arrival {
   display: inline-block;
   vertical-align: bottom;
-  color: #4d4a4a; }
+  color: grey; }
 
 .trek-detail__altimetric-profile {
   margin: 0;
@@ -340,7 +340,7 @@ h1.app-title {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #981D97; }
+  background-color: #494645; }
   .switch-detail.switch-detail-map {
     bottom: 20px;
     right: 20px; }
@@ -372,13 +372,13 @@ h1.app-title {
     margin: auto; }
 
 .slider-legend {
-  color: #4d4a4a;
+  color: grey;
   font-style: italic; }
 
 .slider-pager {
   bottom: 5px; }
   .slider-pager .icon {
-    color: #981D97; }
+    color: #ABD76A; }
 
 .bar-main .flex-wrapper {
   margin: 0 5px; }
@@ -390,21 +390,22 @@ h1.app-title {
   padding: 0; }
   .bar-dark .button {
     border: none;
-    background: #981D97;
-    box-shadow: inset 0 -4px 0 grey;
-    color: white; }
+    background: #494645;
+    color: white;
+    box-shadow: inset 0 -4px 0 white; }
     .bar-dark .button.activated {
-      background: rgba(152, 29, 151, 0.6); }
+      background: rgba(171, 215, 106, 0.6); }
     .bar-dark .button.active {
-      background: #981D97; }
+      background: #494645;
+      color: #ABD76A; }
     .bar-dark .button.active, .bar-dark .button.activated {
-      box-shadow: inset 0 -4px 0 #CEDC00;
+      box-shadow: inset 0 -4px 0 #ABD76A;
       font-weight: bold; }
     .bar-dark .button:after {
       display: none; }
 
 .bar-subheader .button-bar .button + .button {
-  border-left: 4px solid #CEDC00; }
+  border-left: 4px solid #ABD76A; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;
@@ -417,12 +418,12 @@ h1.app-title {
 .bar-secondary .button-back {
   white-space: nowrap;
   overflow: hidden;
-  color: #4d4a4a;
+  color: grey;
   padding-right: 91px; }
 .bar-secondary .modal__actions i {
-  color: #981D97; }
+  color: #ABD76A; }
 .bar-secondary i {
-  color: #4d4a4a; }
+  color: grey; }
   .bar-secondary i.overicon {
     position: absolute;
     top: 5px;
@@ -495,13 +496,13 @@ h1.app-title {
     color: #000; }
 
 .splashscreen {
-  background: black url(../images/splash-pne.jpg) center center no-repeat;
+  background: black url(../images/splash.jpg) center center no-repeat;
   background-size: auto 100%;
   width: 100%;
   height: 100%; }
   @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .splashscreen {
-      background-image: url(../images/splash-pne@2x.jpg); } }
+      background-image: url(../images/splash.jpg); } }
   @media only screen and (orientation: landscape) {
     .splashscreen {
       background-size: 100% auto; } }
@@ -519,7 +520,7 @@ h1.app-title {
   padding: 1em; }
 
 #loading-bar .bar {
-  background: #981D97;
+  background: #ABD76A;
   padding: 0;
   height: 4px; }
 #loading-bar .peg {
@@ -556,7 +557,7 @@ h1.app-title {
       .poi-detail .header .title .poi-detail__name {
         display: inline;
         vertical-align: middle;
-        color: #4d4a4a;
+        color: grey;
         font-weight: bold;
         white-space: normal;
         margin: 0;
@@ -624,7 +625,7 @@ h1.app-title {
   background-color: transparent; }
 
 .modal__actions i {
-  color: #981D97; }
+  color: #ABD76A; }
 
 .modal-content {
   z-index: 8; }
@@ -657,14 +658,15 @@ span.network-status {
   right: 50px; }
 
 .icon {
-  color: #4d4a4a; }
+  color: grey; }
 
 .icon-big {
   font-size: 90px; }
 
 .bar .button.button-logo {
   width: 45px;
-  background: url(../images/logo_pn.svg) top right no-repeat;
+  background: url(../images/logo.png) top right no-repeat;
+  background-size: auto 100%;
   border: none;
   padding-left: 45px; }
   .bar .button.button-logo:before {

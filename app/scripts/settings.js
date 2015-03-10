@@ -15,7 +15,7 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = 'http://rando.ecrins-parcnational.fr',
+    var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)

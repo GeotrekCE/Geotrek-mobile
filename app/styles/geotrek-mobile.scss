@@ -32,7 +32,7 @@ $bar-dark-active-border:          transparent;
 // --------------------------------------------------
 
 @import "_variables_default";
-@import "_variables_ecrins";
+//@import "_variables_ecrins";
 @import "bourbon/dist/_bourbon";
 @import "ionic/scss/_variables";
 @import "ionic/scss/_mixins";
@@ -141,7 +141,8 @@ h1.app-title {
 
 .bar .button.button-logo {
 	width: 45px;
-	background:url(../images/logo_pn.svg) top right no-repeat;
+	background:url(../images/logo.png) top right no-repeat;
+  background-size: auto 100%;
 	border: none;
     padding-left: 45px;
 

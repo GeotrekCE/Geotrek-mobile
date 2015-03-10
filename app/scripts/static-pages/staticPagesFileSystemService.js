@@ -36,9 +36,10 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
             // Then we look for each img markup, and change url with device one
             angular.forEach($htmlContent.find('img'), function(element) {
                 var currentUrl = element.src;
-                var filename = currentUrl.substr(currentUrl.indexOf('media'));
-
-                element.src = settings.DOMAIN_NAME + '/' + filename;
+                if (!utils.isAbsoluteURL(currentUrl)) {
+                    var filename = currentUrl.substr(currentUrl.indexOf('media'));
+                    element.src = settings.DOMAIN_NAME + '/' + filename;
+                }
             });
 
 

@@ -12,7 +12,7 @@
     padding: 5px;
     z-index: 99999;
     @include border-radius(50%);
-    background-color: $primaryColor;
+    background-color: $dark;
 
     &.switch-detail-map {
         bottom: 20px;

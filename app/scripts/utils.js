@@ -209,18 +209,26 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
 
     var getTrekFilename = function(trekId) {
         return '/trek-' + trekId.toString() + '.zip';
-    }
+    };
 
     var showSpinner = function() {
         $ionicLoading.show({
             template: '<i class="icon icon-big ion-looping"></i>'
         });
-    }
+    };
 
     var hideSpinner = function() {
         $ionicLoading.hide();
-    }
+    };
 
+    var matchProtocolOrNot = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+    var isAbsoluteURL = function (url) {
+        if (url.match(matchProtocolOrNot)) {
+            return true;
+        }
+
+        return false;
+    };
 
     return {
         downloadFile: downloadFile,
@@ -232,7 +240,8 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         openLinkInSystemBrowser: openLinkInSystemBrowser,
         getTrekFilename: getTrekFilename,
         showSpinner: showSpinner,
-        hideSpinner: hideSpinner
+        hideSpinner: hideSpinner,
+        isAbsoluteURL: isAbsoluteURL
     };
 
 }]);
