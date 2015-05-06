@@ -105,12 +105,14 @@
 .trek-list {
   display: block; }
 
-.trek-list__item h3 {
-  color: #aec900; }
-.trek-list__item .departure {
-  margin-bottom: 0; }
-.trek-list__item .difficulty {
-  margin-bottom: 0; }
+.trek-list__item {
+  width: 100%; }
+  .trek-list__item h3 {
+    color: #aec900; }
+  .trek-list__item .departure {
+    margin-bottom: 0; }
+  .trek-list__item .difficulty {
+    margin-bottom: 0; }
 
 .trek-list__item__detail__actions {
   position: absolute;
@@ -238,7 +240,8 @@
       display: inline-block; }
       .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
         position: relative;
-        height: 30px; }
+        max-width: 30px;
+        max-height: 30px; }
         .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon.icon-network {
           border: 1px #999 solid;
           background: white; }
