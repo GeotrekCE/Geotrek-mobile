@@ -40,14 +40,12 @@
     border-radius: 5px;
     font-size: 14px; }
 
-h1.app-title {
-  font-size: 140%;
-  margin: 0 0.5em; }
+.app-title {
+  height: 100%;
+  max-width: 100%;
+  margin-top: 5px;
+  margin-left: -15px; }
 
-@media (max-width: 400px) {
-  h1.app-title {
-    font-size: 130%;
-    margin: 0 0; } }
 .list .item-toggle {
   padding: 8px; }
 
@@ -108,7 +106,7 @@ h1.app-title {
   display: block; }
 
 .trek-list__item h3 {
-  color: #ABD76A; }
+  color: #aec900; }
 .trek-list__item .departure {
   margin-bottom: 0; }
 .trek-list__item .difficulty {
@@ -205,7 +203,7 @@ h1.app-title {
   .filters-list__bt-no-icon.activated, .filters-list__bt-no-icon.active {
     opacity: 1;
     background: #fff;
-    color: #ABD76A;
+    color: #aec900;
     border-color: white; }
 
 .trek-detail .list .item {
@@ -258,7 +256,7 @@ h1.app-title {
   color: grey; }
 
 .trek-detail__section-title {
-  background: #ABD76A;
+  background: #aec900;
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -268,7 +266,7 @@ h1.app-title {
   min-width: 130px; }
 
 .trek-detail__main-infos {
-  background-color: #ABD76A;
+  background-color: #aec900;
   padding: 5px;
   margin: 0 -10px;
   width: auto; }
@@ -378,7 +376,7 @@ h1.app-title {
 .slider-pager {
   bottom: 5px; }
   .slider-pager .icon {
-    color: #ABD76A; }
+    color: #aec900; }
 
 .bar-main .flex-wrapper {
   margin: 0 5px; }
@@ -394,18 +392,18 @@ h1.app-title {
     color: white;
     box-shadow: inset 0 -4px 0 white; }
     .bar-dark .button.activated {
-      background: rgba(171, 215, 106, 0.6); }
+      background: rgba(174, 201, 0, 0.6); }
     .bar-dark .button.active {
       background: #494645;
-      color: #ABD76A; }
+      color: #aec900; }
     .bar-dark .button.active, .bar-dark .button.activated {
-      box-shadow: inset 0 -4px 0 #ABD76A;
+      box-shadow: inset 0 -4px 0 #aec900;
       font-weight: bold; }
     .bar-dark .button:after {
       display: none; }
 
 .bar-subheader .button-bar .button + .button {
-  border-left: 4px solid #ABD76A; }
+  border-left: 4px solid #aec900; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;
@@ -421,7 +419,7 @@ h1.app-title {
   color: grey;
   padding-right: 91px; }
 .bar-secondary .modal__actions i {
-  color: #ABD76A; }
+  color: #aec900; }
 .bar-secondary i {
   color: grey; }
   .bar-secondary i.overicon {
@@ -520,7 +518,7 @@ h1.app-title {
   padding: 1em; }
 
 #loading-bar .bar {
-  background: #ABD76A;
+  background: #aec900;
   padding: 0;
   height: 4px; }
 #loading-bar .peg {
@@ -625,7 +623,7 @@ h1.app-title {
   background-color: transparent; }
 
 .modal__actions i {
-  color: #ABD76A; }
+  color: #aec900; }
 
 .modal-content {
   z-index: 8; }
@@ -664,11 +662,8 @@ span.network-status {
   font-size: 90px; }
 
 .bar .button.button-logo {
-  width: 45px;
-  background: url(../images/logo.png) top right no-repeat;
-  background-size: auto 100%;
   border: none;
-  padding-left: 45px; }
+  margin-right: 0px; }
   .bar .button.button-logo:before {
     position: absolute;
     top: 0;

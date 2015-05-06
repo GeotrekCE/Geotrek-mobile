@@ -45,11 +45,13 @@ geotrekMap.service('leafletService',
         markers.push(L.marker([endPoint.lat, endPoint.lng], {
             icon: iconsService.getArrivalIcon(),
             name: trek.properties.arrival,
+            markerType: 'arrival'
         }));
 
         markers.push(L.marker([startPoint.lat, startPoint.lng], {
             icon: iconsService.getDepartureIcon(),
             name: trek.properties.departure,
+            markerType: 'departure'
         }));
 
         if(parkingPoint) {
@@ -57,6 +59,7 @@ geotrekMap.service('leafletService',
             icon: iconsService.getParkingIcon(),
             name: "Parking",
             description: trek.properties.advised_parking,
+            markerType: 'parking'
             }));
         };
 
@@ -72,6 +75,7 @@ geotrekMap.service('leafletService',
                 name: information.name,
                 thumbnail: information.photo_url,
                 description: informationDescription,
+                markerType: 'information'
             }));
             informationCount += 1;
         });
@@ -88,7 +92,8 @@ geotrekMap.service('leafletService',
                 description: poi.properties.description,
                 thumbnail: poi.properties.thumbnail,
                 img: poi.properties.pictures[0],
-                pictogram: poi.properties.type.pictogram
+                pictogram: poi.properties.type.pictogram,
+                markerType: 'poi'
             }));
         });
 

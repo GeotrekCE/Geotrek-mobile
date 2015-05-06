@@ -26,7 +26,7 @@ geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $windo
 
     this.getPoisFromTrek = function(trekId) {
 
-        var trek_pois_url = globalizationSettings.TREK_REMOTE_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
+        var trek_pois_url = globalizationSettings.TREK_REMOTE_API_FILE_URL_BASE + '/' + trekId + '/' + settings.POI_FILE_NAME,
             requests = $resource(trek_pois_url, {}, {
                 query: {
                     method: 'GET',

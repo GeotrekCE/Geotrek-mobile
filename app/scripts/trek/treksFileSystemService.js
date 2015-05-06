@@ -14,42 +14,31 @@ geotrekTreks.service('treksFileSystemService',
         var deferred = $q.defer();
         var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
             _this = this;
-
+        console.log(filePath);
         $cordovaFile.readAsText(filePath)
         .then(
             function(data) {
                 var data = JSON.parse(data);
+                console.log(data);
                 angular.forEach(data.features, function(trek) {
-                    var currentTrekId = trek.id;
                     angular.forEach(trek.properties.usages, function(usage) {
-                        var usageUrl = usage.pictogram;
-                        var filename = usageUrl.substr(usageUrl.lastIndexOf('/') + 1);
-                        usage.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
+                        usage.pictogram = settings.device.CDV_APP_ROOT + usage.pictogram;
                     });
                     angular.forEach(trek.properties.themes, function(theme) {
-                        var themeUrl = theme.pictogram;
-                        var filename = themeUrl.substr(themeUrl.lastIndexOf('/') + 1);
-                        theme.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
+                        theme.pictogram = settings.device.CDV_APP_ROOT + theme.pictogram;
                     });
                     angular.forEach(trek.properties.networks, function(network) {
-                        var networkUrl = network.pictogram;
-                        var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
-                        network.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
+                        network.pictogram = settings.device.CDV_APP_ROOT + network.pictogram;
                     });
-                    if(angular.isDefined(trek.properties.difficulty)){
-                        var difficultyUrl = trek.properties.difficulty.pictogram;
-                        var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
-                        trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
+                    if(trek.properties.difficulty && trek.properties.difficulty.pictogram){
+                        trek.properties.difficulty.pictogram = settings.device.CDV_APP_ROOT + trek.properties.difficulty.pictogram;
                     }
-                    if(angular.isDefined(trek.properties.altimetric_profile)){
-                        var altimetric_profileUrl = trek.properties.altimetric_profile;
-                        var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".png");
-                        trek.properties.altimetric_profile = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                    if(trek.properties.altimetric_profile){
+                        var filename = trek.properties.altimetric_profile.replace(".json", ".png");
+                        trek.properties.altimetric_profile = settings.device.CDV_APP_ROOT + filename;
                     }
-                    if(angular.isDefined(trek.properties.thumbnail)) {
-                        var thumbUrl = trek.properties.thumbnail;
-                        var filename = thumbUrl.substr(thumbUrl.lastIndexOf('/') + 1);
-                        trek.properties.thumbnail = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
+                    if(trek.properties.thumbnail) {
+                        trek.properties.thumbnail = settings.device.CDV_APP_ROOT + trek.properties.thumbnail;
                     }
                 });
                 $cordovaFile.writeFile(filePath, JSON.stringify(data), {append: false})
@@ -71,28 +60,24 @@ geotrekTreks.service('treksFileSystemService',
             // Parse trek gallery pictures, and change their URL
             if (isLocal) {
                 angular.forEach(copy.properties.pictures, function(picture) {
-                    var pictureUrl = picture.url;
-                    var filename = pictureUrl.substr(pictureUrl.lastIndexOf('/') + 1);
-                    picture.url = settings.device.CDV_TREK_ROOT + '/' + trekData.id.toString() + '/' + filename;
+                    picture.url = settings.device.CDV_APP_ROOT + picture.url;
                 });
-                if(angular.isDefined(copy.properties.information_desks)){
+                if(copy.properties.information_desks){
                     angular.forEach(copy.properties.information_desks, function(information_desk) {
-                        if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
-                            var informationUrl = information_desk.photo_url;
-                            var filename = informationUrl.substr(informationUrl.lastIndexOf('/') + 1);
-                            information_desk.photo_url = settings.device.CDV_TREK_ROOT + '/' + trekData.id.toString() + '/' + filename;
-                        };
+                        if(information_desk.photo_url){
+                            information_desk.photo_url = settings.device.CDV_APP_ROOT + information_desk.photo_url;
+                        }
                     });
                 }
             }else {
                 angular.forEach(copy.properties.pictures, function(picture) {
                     picture.url = settings.DOMAIN_NAME + picture.url;
                 });
-                if(angular.isDefined(copy.properties.information_desks)){
+                if(copy.properties.information_desks){
                     angular.forEach(copy.properties.information_desks, function(information_desk) {
-                        if(angular.isDefined(information_desk.photo_url) && information_desk.photo_url !== null){
+                        if(information_desk.photo_url) {
                             information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
-                        };
+                        }
                     });
                 }
             }
@@ -168,13 +153,13 @@ geotrekTreks.service('treksFileSystemService',
         );
 
         return defered.promise;
-    }
+    };
 
 
     // Download of trek and pois images for offline use
     this.downloadTrekDetails = function(trekId) {
         var url = globalizationSettings.TREK_REMOTE_FILE_URL_BASE + utils.getTrekFilename(trekId);
-        return utils.downloadAndUnzip(url, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT);
+        return utils.downloadAndUnzip(url, settings.device.CDV_APP_ROOT);
     };
 
     this.removeTrekDownloadedFiles = function(path) {
@@ -190,18 +175,18 @@ geotrekTreks.service('treksFileSystemService',
 
                 if (currentFilesName.toLowerCase().match(/^\S*(800x800+|150x150+)\S*\.(jpg|png|gif|jpeg)$/ig) ) {
                     promises.push($cordovaFile.removeFile(path + "/" + currentFilesName));
-                };
+                }
             });
 
             $q.all(promises)
             .then(function(images) {
                 defered.resolve(images);
-            })
+            });
 
         }, function(error) {
             logging.error(error);
             deferred.reject({message: 'Couldnt access trek folder', data: path});
-        })
+        });
 
         return defered.promise;
 
@@ -222,13 +207,13 @@ geotrekTreks.service('treksFileSystemService',
                     // Remove pois
                     if (poiFile.name != settings.PICTOGRAM_DIR) {
                         promises.push(utils.removeDir(settings.device.RELATIVE_POI_ROOT + "/" + poiFile.name));
-                    };
+                    }
                 });
 
                 $q.all(promises)
                 .then(function(pois) {
                     promise.push(pois);
-                })
+                });
 
             }, function(error) {
                 logging.error(error);
@@ -242,33 +227,34 @@ geotrekTreks.service('treksFileSystemService',
                     // Remove the zip file
                     if (trekFile.name != settings.TREKS_FILE_NAME && trekFile.name != settings.TREKS_ZIP_NAME && trekFile.name != settings.LOGS_FILENAME ) {
                         promises.push($cordovaFile.removeFile(settings.device.RELATIVE_ROOT + "/" + trekFile.name));
-                    };
+                    }
                 });
 
                 $q.all(promises)
                 .then(function(trekZip) {
                     promise.push(trekZip);
-                })
+                });
 
             }, function(error) {
                 logging.error(error);
                 deferred.reject({message: 'Couldnt delete treks zip', data: error});
             }),
-            $cordovaFile.listDir(settings.device.RELATIVE_TREK_ROOT)
+            $cordovaFile.listDir(settings.device.RELATIVE_TREK_MEDIA)
             .then(function(listFiles) {
                 var promises = [];
 
                 angular.forEach(listFiles, function(trekFile) {
                     // Remove the zip file
+                    console.log(settings.device.RELATIVE_TREK_MEDIA + "/" + 'listFiles' + '/' + trekFile.name);
                     if (trekFile.name != settings.TREKS_FILE_NAME) {
-                        promises.push(_this.removeTrekDownloadedFiles(settings.device.RELATIVE_TREK_ROOT + "/" + trekFile.name));
-                    };
+                        promises.push(_this.removeTrekDownloadedFiles(settings.device.RELATIVE_TREK_MEDIA + "/" + 'listFiles' + '/' + trekFile.name));
+                    }
                 });
 
                 $q.all(promises)
                 .then(function(layers) {
                     promise.push(layers);
-                })
+                });
 
             }, function(error) {
                 logging.error(error);

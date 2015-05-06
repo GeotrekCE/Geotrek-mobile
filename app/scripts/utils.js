@@ -208,7 +208,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
     };
 
     var getTrekFilename = function(trekId) {
-        return '/trek-' + trekId.toString() + '.zip';
+        return '/' + trekId.toString() + '.zip';
     };
 
     var showSpinner = function() {

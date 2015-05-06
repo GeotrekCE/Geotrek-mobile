@@ -15,7 +15,8 @@ geotrekAppSettings.constant('globalSettings', {
 .factory('settings', function () {
     
     // Variables that user can change
-    var DOMAIN_NAME = 'http://prod-rando-fr.makina-corpus.net',
+    var DOMAIN_NAME = 'http://rando-cg44.makina-corpus.net/data',
+        API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
@@ -65,36 +66,48 @@ geotrekAppSettings.constant('globalSettings', {
      */
 
     var POI_FILE_NAME = 'pois.geojson',
-        TREKS_FILE_NAME = 'trek.geojson',
-        TREKS_ZIP_NAME = 'trek.zip',
+        TREKS_FILE_NAME = 'treks.geojson',
+        TREKS_ZIP_NAME = 'global.zip',
         TILES_FILE_NAME = 'global.zip';
 
-    var GEOTREK_DIR = 'rando-ecrins',
-        LOGS_FILENAME = 'rando-ecrins.log',
+    var GEOTREK_DIR = 'rando-loire-atlantique',
+        API_DIR = 'api',
+        LANG_DIR = 'fr',
+        MEDIA_DIR = 'media',
+        UPLOAD_DIR = 'upload',
+        PAPERCLIP_DIR = 'paperclip',
+        MEDIA_TREK_DIR = 'trekking_trek',
+        MEDIA_POI_DIR = 'trekking_poi',
+        LOGS_FILENAME = 'rando-loire-atlantique.log',
         TILES_DIR = 'tiles',
-        TREK_DIR = 'trek',
+        TREK_DIR = 'treks',
         POI_DIR = 'poi',
         STATIC_PAGES_DIR = 'staticpages',
-        STATIC_PAGES_FILE = 'pages.json',
+        STATIC_PAGES_FILE = 'flatpages.geojson',
         STATIC_PAGES_IMAGES_DIR = 'images',
         PICTOGRAM_DIR = 'pictogram',
         CDV_ROOT = 'cdvfile://localhost/persistent',
 
         RELATIVE_ROOT = GEOTREK_DIR,
+        RELATIVE_API_DIR = GEOTREK_DIR + '/' + API_DIR + '/' + LANG_DIR,
+        RELATIVE_MEDIA_DIR = GEOTREK_DIR + '/' + MEDIA_DIR,
         RELATIVE_LOGS_FILE = GEOTREK_DIR + '/' + LOGS_FILENAME,
-        RELATIVE_TREK_ROOT = GEOTREK_DIR + '/' + TREK_DIR,
-        RELATIVE_TREK_ROOT_FILE = GEOTREK_DIR + '/' + TREKS_FILE_NAME,
-        RELATIVE_POI_ROOT = GEOTREK_DIR + '/' + POI_DIR,
-        RELATIVE_PICTO_TREK_ROOT = RELATIVE_TREK_ROOT + '/' + PICTOGRAM_DIR,
-        RELATIVE_PICTO_POI_ROOT = RELATIVE_POI_ROOT + '/' + PICTOGRAM_DIR,
+        RELATIVE_TREK_ROOT_FILE = RELATIVE_API_DIR + '/' + TREKS_FILE_NAME,
+        RELATIVE_TREK_ROOT = RELATIVE_API_DIR + '/' + TREK_DIR,
+        RELATIVE_TREK_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_TREK_DIR,
+        RELATIVE_POI_ROOT = RELATIVE_API_DIR + '/' + TREK_DIR,
+        RELATIVE_POI_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_POI_DIR,
+        RELATIVE_PICTO_TREK_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
+        RELATIVE_PICTO_POI_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
         RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
         RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME,
-        RELATIVE_STATIC_PAGES_ROOT = GEOTREK_DIR + '/' + STATIC_PAGES_DIR,
-        RELATIVE_STATIC_PAGES_ROOT_FILE = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_FILE,
+        RELATIVE_STATIC_PAGES_ROOT = RELATIVE_API_DIR + '/' + STATIC_PAGES_DIR,
+        RELATIVE_STATIC_PAGES_ROOT_FILE = RELATIVE_API_DIR + '/' + STATIC_PAGES_FILE,
         RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
 
     return {
         DOMAIN_NAME: DOMAIN_NAME,
+        API_FOLDER: API_FOLDER,
         POI_FILE_NAME: POI_FILE_NAME,
         TREKS_FILE_NAME: TREKS_FILE_NAME,
         PICTOGRAM_DIR: PICTOGRAM_DIR,
@@ -104,19 +117,22 @@ geotrekAppSettings.constant('globalSettings', {
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         remote: {
-            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/files/tiles',
+            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/zip/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
             LEAFLET_BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
         device: {
             CDV_ROOT: CDV_ROOT,
+            CDV_APP_ROOT: CDV_ROOT + '/' + RELATIVE_ROOT,
             CDV_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_TREK_ROOT,
             CDV_TREK_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TREK_ROOT_FILE,
-            CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
+            CDV_TREK_MEDIA: CDV_ROOT + '/' + RELATIVE_TREK_MEDIA,
             CDV_PICTO_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_TREK_ROOT,
+            CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
+            CDV_POI_MEDIA: CDV_ROOT + '/' + RELATIVE_TREK_MEDIA,
             CDV_PICTO_POI_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_POI_ROOT,
             CDV_TILES_ROOT: CDV_ROOT + '/' + RELATIVE_TILES_ROOT,
             CDV_TILES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TILES_ROOT_FILE,
@@ -126,7 +142,9 @@ geotrekAppSettings.constant('globalSettings', {
             RELATIVE_ROOT: RELATIVE_ROOT,
             RELATIVE_TREK_ROOT: RELATIVE_TREK_ROOT,
             RELATIVE_TREK_ROOT_FILE: RELATIVE_TREK_ROOT_FILE,
+            RELATIVE_TREK_MEDIA: RELATIVE_TREK_MEDIA,
             RELATIVE_POI_ROOT: RELATIVE_POI_ROOT,
+            RELATIVE_POI_MEDIA: RELATIVE_POI_MEDIA,
             RELATIVE_PICTO_TREK_ROOT: RELATIVE_PICTO_TREK_ROOT,
             RELATIVE_PICTO_POI_ROOT: RELATIVE_PICTO_POI_ROOT,
             RELATIVE_TILES_ROOT: RELATIVE_TILES_ROOT,
@@ -165,9 +183,10 @@ geotrekAppSettings.constant('globalSettings', {
 
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix
-        self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek/trek.geojson';
-        self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME  + '/' + self.I18N_PREFIX + '/files/api/trek';
-        self.FULL_DATA_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/' + self.I18N_PREFIX + '/files/api/trek/trek.zip';
+        self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/api/' + self.I18N_PREFIX + '/treks.geojson';
+        self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
+        self.TREK_REMOTE_API_FILE_URL_BASE = settings.DOMAIN_NAME + '/' + 'api/' + self.I18N_PREFIX + '/treks';
+        self.FULL_DATA_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
     }
 
     this.setDefaultPrefix = function(){

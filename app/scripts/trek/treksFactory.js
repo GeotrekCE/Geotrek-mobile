@@ -17,11 +17,20 @@ function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils
         treksFactory = $injector.get('treksRemoteService');
     }
 
-    treksFactory.getStartPoint = function(trek) {
-        var firstPointCoordinates = trek.geometry.coordinates[0];
+    treksFactory.getStartPoint = function(element) {
+        var firstPointCoordinates = [];
+        if (element.geometry.type === 'Point') {
+            firstPointCoordinates = element.geometry.coordinates;
+        } else if (element.geometry.type === 'LineString') {
+            firstPointCoordinates = element.geometry.coordinates[0];
+        } else if (element.geometry.type === 'Polygon' || element.geometry.type === 'MultiLineString') {
+            firstPointCoordinates = element.geometry.coordinates[0][0];
+        }
 
-        return {'lat': firstPointCoordinates[1],
-                'lng': firstPointCoordinates[0]}
+        return {
+            'lat': firstPointCoordinates[1],
+            'lng': firstPointCoordinates[0]
+        };
     };
 
     treksFactory.getEndPoint = function(trek) {

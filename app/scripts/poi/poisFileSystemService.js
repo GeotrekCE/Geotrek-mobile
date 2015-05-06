@@ -13,34 +13,33 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
     };
 
-    this.convertServerUrlToPoiFileSystemUrl = function(poiId, serverUrl) {
+    this.convertServerUrlToPoiFileSystemUrl = function(trekId, serverUrl) {
         var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
-        return settings.device.CDV_POI_ROOT + '/' + poiId.toString() + '/' + filename;
+        return settings.device.CDV_POI_MEDIA + '/' + trekId.toString() + '/' + filename;
     };
 
-    this.convertServerUrlToPictoFileSystemUrl = function(poiId, serverUrl) {
+    this.convertServerUrlToPictoFileSystemUrl = function(serverUrl) {
         var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
         return settings.device.CDV_PICTO_POI_ROOT + '/' + filename;
     };
 
-    this.replaceImgURLs = function(poiData, isLocal) {
+    this.replaceImgURLs = function(poiData, isLocal, trekId) {
         var copy = angular.copy(poiData, {}),
             _this = this;
         // Parse poi pictures, and change their URL
         angular.forEach(copy.features, function(poi) {
-            var currentPoiId = poi.id;
 
             if(poi.properties.type.pictogram) {
-                poi.properties.type.pictogram = _this.convertServerUrlToPictoFileSystemUrl(currentPoiId, poi.properties.type.pictogram);
+                poi.properties.type.pictogram = _this.convertServerUrlToPictoFileSystemUrl(poi.properties.type.pictogram);
             }
 
             if (isLocal) {
                 angular.forEach(poi.properties.pictures, function(picture) {
-                    picture.url = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, picture.url);
+                    picture.url = _this.convertServerUrlToPoiFileSystemUrl(trekId, picture.url);
                 });
 
                 if(poi.properties.thumbnail) {
-                    poi.properties.thumbnail = _this.convertServerUrlToPoiFileSystemUrl(currentPoiId, poi.properties.thumbnail);
+                    poi.properties.thumbnail = _this.convertServerUrlToPoiFileSystemUrl(trekId, poi.properties.thumbnail);
                 }
             }else {
                 angular.forEach(poi.properties.pictures, function(picture) {
@@ -76,7 +75,7 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
                 .then(
                     function(data) {
                         var jsonData = JSON.parse(data);
-                        jsonData = _this.replaceImgURLs(jsonData,isLocal);
+                        jsonData = _this.replaceImgURLs(jsonData, isLocal, trekId);
                         _pois[trekId] = jsonData;
                         _pois[trekId].localFiles = isLocal;
                         deferred.resolve(_pois[trekId]);

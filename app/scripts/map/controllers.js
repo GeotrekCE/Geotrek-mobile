@@ -33,6 +33,7 @@ geotrekMap.controller('MapController',
             });
             treks.addLayer(trekDeparture);
         });
+
         map.addLayer(treks);
 
         if ((updateBounds == undefined) || (updateBounds == true)) {
@@ -41,7 +42,7 @@ geotrekMap.controller('MapController',
                 map.fitBounds(treks.getBounds());
             }
         }
-    };
+    }
 
     // Show the scale and attribution controls
     leafletService.setScale(map);
@@ -74,10 +75,10 @@ geotrekMap.controller('MapController',
                                 }
                             } else {
                                 mapFactory.removeNearbyPoi(poi.id);
-                            };
-                        })
+                            }
+                        });
                     });
-                };
+                }
             });
 
             userPosition.setLatLng(position);
@@ -92,10 +93,10 @@ geotrekMap.controller('MapController',
 
         var watchOptions = {
             enableHighAccuracy: true
-        }
+        };
         // TODO: this watch must depend on user watch setting
         $rootScope.watchID = geolocationFactory.watchPosition($scope, watchOptions);
-    }
+    };
 
     // Beginning geolocation watching
     watchCallback();
@@ -147,14 +148,19 @@ geotrekMap.controller('MapController',
             objectToDisplay: feature
         };
         utils.createModal('views/map_trek_detail.html', modalScope);
-    };
+    }
 
     poisFactory.getPoisFromTrek(trek.id)
     .then(function(pois) {
         var pois = leafletService.createMarkersFromTrek(trek, pois.features);
         angular.forEach(pois, function(poi) {
-            poi.on('click', function(e) {poiModal(e.target.options)})
-            treksMarkers.addLayer(poi);
+            if (poi._latlng) {
+                if (poi.options.markerType === 'poi' || poi.options.markerType === 'information') {
+                    poi.on('click', function(e) {poiModal(e.target.options)});
+                }
+                treksMarkers.addLayer(poi);
+            }
+            
         });
     });
 
@@ -164,13 +170,13 @@ geotrekMap.controller('MapController',
         map.removeLayer(treksMarkers);
         if ($scope.$parent) {
             map.addLayer($scope.$parent.treks);
-        };
+        }
         map.setZoom(10);
     });
 
     function centerMapTrek() {
         map.fitBounds(currentHighlight);
-    };
+    }
     
     $scope.centerMapTrek = centerMapTrek;
 

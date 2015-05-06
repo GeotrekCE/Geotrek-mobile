@@ -77,7 +77,7 @@
                             {{ 'image.connect' | translate }}
                         </span>
                     </div>
-                    <span class="slider-legend">{{ picture.legend }} ({{ picture.author }})</span>
+                    <span ng-if="picture.legend || picture.author" class="slider-legend">{{ picture.legend }} ({{ picture.author }})</span>
                 </ion-slide>
             </ion-slide-box>
 
