@@ -2,10 +2,10 @@
 
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
-        <a ng-if="$root.isIOS" class="button button-clear button-positive" ng-click="back()">Cancel</a>
+        <a ng-if="$root.isIOS" class="button button-clear button-positive" ng-click="back()">{{ 'cancel' | translate }}</a>
         <button ng-if="$root.isAndroid" class="button button-back button-icon" ng-click="back()">
             <i class="icon ion-android-arrow-back"></i>
-            Rando Ecrins
+            {{ 'cancel' | translate }}
         </button>
         <div class="buttons pull-right modal__actions">
             <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>

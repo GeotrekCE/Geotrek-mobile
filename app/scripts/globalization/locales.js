@@ -68,6 +68,7 @@ geotrekGlobalization.constant('locales', {
         'image.connect': 'Veuillez vous connecter pour voir cette image',
         'error_message': 'Une erreur est survenue',
         'error_title': 'Erreur',
+        'cancel': 'Retour',
         'maj_title': 'Données mises à jour',
         'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer puis les re-télécharger pour mettre à jours leurs images et leurs fond de carte.'
     },
@@ -135,6 +136,7 @@ geotrekGlobalization.constant('locales', {
         'image.connect': 'You need network connexion in order to see this image',
         'error_message': 'An error occured',
         'error_title': 'Error',
+        'cancel': 'Cancel',
         'maj_title': 'Data updated',
         'maj_message': 'Treks data where updated. If you had downloaded details informations on a trek, please remove them and download again in order to have updated pictures and detailed map layers'
     }
