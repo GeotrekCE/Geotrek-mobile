@@ -93,14 +93,16 @@
             </p>
             <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
 
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
-            <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
-            <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
-            <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
+            <div ng-if="activateElevation">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
+                <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
+                <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
+                <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
+            </div>
 
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
+            <h2 class="trek-detail__section-title" ng-if="trek.properties.public_transport.length > 0 || trek.properties.advised_parking">{{ 'trek_detail.transport' | translate }}</h2>
             <p ng-if="trek.properties.advised_parking">{{ 'trek_detail.advised_parking' | translate }} : {{ trek.properties.advised_parking }}</p>
-            <p ng-if="trek.properties.public_transport">
+            <p ng-if="trek.properties.public_transport.length > 0">
                 <span>{{ 'trek_detail.public_transport' | translate }} : </span>
                 <span ng-bind-html="trek.properties.public_transport"></span>
             </p>
@@ -111,8 +113,8 @@
             <h2 ng-if="trek.properties.disabled_infrastructure" class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
             <p ng-bind-html="trek.properties.disabled_infrastructure" ></p>
 
-            <h2 ng-if="trek.properties.information_desks" class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
-            <ion-item class="" ng-repeat="information_desk in trek.properties.information_desks">
+            <h2 ng-if="trek.properties.information_desks.length > 0" class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
+            <ion-item ng-if="trek.properties.information_desks.length > 0" class="" ng-repeat="information_desk in trek.properties.information_desks">
                 <div class="information-desk">
                     <h3 ng-bind-html="information_desk.name"></h3>
                     <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{information_desk.photo_url}}">
@@ -126,9 +128,9 @@
                 </div>
             </ion-item>
 
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
+            <h2 ng-if="pois.features.length > 0" class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
-            <ion-item class="poi-detail" ng-repeat="poi in pois.features">
+            <ion-item ng-if="pois.features.length > 0" class="poi-detail" ng-repeat="poi in pois.features">
                 <div class="header">
                     <div class="title row">
                         <div class="col-10">

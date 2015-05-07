@@ -20,6 +20,7 @@ geotrekAppSettings.constant('globalSettings', {
         API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
+        ACTIVE_ELEVATION = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
         // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
         LOG_POOL_TIME = 6000,  // in ms
@@ -118,6 +119,7 @@ geotrekAppSettings.constant('globalSettings', {
         TILES_FILE_NAME: TILES_FILE_NAME,
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
+        ACTIVE_ELEVATION: ACTIVE_ELEVATION,
         remote: {
             TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
