@@ -66,8 +66,8 @@
     height: 32px;
     font-size: 38px; }
 
-.switch-detail-map .ion-android-location::before {
-  padding-top: 6px; }
+.switch-detail-map a::before {
+  line-height: 42px; }
 
 .icon-text {
   line-height: 32px;
@@ -208,6 +208,9 @@
     color: #aec900;
     border-color: white; }
 
+.button.button-positive.button-clear {
+  color: #aec900; }
+
 .trek-detail .list .item {
   border-left: none;
   border-right: none;
@@ -237,7 +240,8 @@
       width: 30px;
       height: 30px;
       overflow: hidden;
-      display: inline-block; }
+      display: inline-block;
+      position: relative; }
       .trek-detail .trek-detail__extra-infos .trek-detail__extra-infos__item .trek-detail__extra-infos__item__icon .icon {
         position: relative;
         max-width: 30px;
@@ -275,39 +279,26 @@
   width: auto; }
 
 .trek-detail__main-infos__item {
-  padding: 10px 0 10px 40px;
+  padding: 10px 0 10px 10px;
   display: inline-block;
   position: relative;
   color: white; }
   @media (max-width: 680px) {
     .trek-detail__main-infos__item {
       width: 48%; } }
-
-.trek-detail__main-infos__item:before {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 5px;
-  left: 5px; }
+  .trek-detail__main-infos__item > div {
+    display: inline-block;
+    vertical-align: middle; }
+    .trek-detail__main-infos__item > div:first-child {
+      margin-right: 0.6rem; }
+    .trek-detail__main-infos__item > div img {
+      height: 2rem; }
+    .trek-detail__main-infos__item > div i {
+      color: inherit;
+      font-size: 2rem; }
 
 .trek-detail__main-infos__item.icon {
   color: white; }
-
-.icon-duration:before {
-  content: url("../images/duration-1.svg"); }
-
-.icon-difficulty:before {
-  content: url("../images/difficulty-2.svg"); }
-
-.icon-ascent:before {
-  content: url("../images/deniv1.svg");
-  top: -1px; }
-
-.icon-total-length:before {
-  content: url("../images/length.svg"); }
-
-.icon-route:before {
-  content: url("../images/route.svg"); }
 
 .trek-detail__main-infos__item.icon.ion-android-locate:before {
   font-size: 20px;
@@ -693,9 +684,6 @@ span.network-status {
 
 .platform-ios .ion-android-forums:before {
   content: "\f16b"; }
-
-.platform-ios .ion-android-share:before {
-  content: "\f1f1"; }
 
 @media (max-width: 567px) {
   .responsive-sm.row {

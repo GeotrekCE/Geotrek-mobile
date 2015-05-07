@@ -30,6 +30,9 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             }
             trek.properties.thumbnail = settings.DOMAIN_NAME + trek.properties.thumbnail;
             trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
+            if(trek.properties.route){
+                trek.properties.route.pictogram = settings.DOMAIN_NAME + trek.properties.route.pictogram;
+            }
             trek.properties.altimetric_profile = settings.DOMAIN_NAME + trek.properties.altimetric_profile.replace(".json", ".png");
         });
         return copy;

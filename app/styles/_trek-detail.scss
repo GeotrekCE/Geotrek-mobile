@@ -1,3 +1,7 @@
+.button.button-positive.button-clear {
+	color: $primaryColor;
+}
+
 .trek-detail {
 	.list {
 		.item {
@@ -37,6 +41,7 @@
 			    height: 30px;
 			    overflow: hidden;
 			    display: inline-block;
+			    position: relative;
 				.icon {
 					position: relative;
 	    			max-width: 30px;
@@ -86,46 +91,31 @@
 }
 
 .trek-detail__main-infos__item {
-	padding: 10px 0 10px 40px;
+	padding: 10px 0 10px 10px;
 	display: inline-block;
 	@media (max-width: 680px) {
 		width: 48%;
 	}
 	position: relative;
 	color: white;
-}
-
-.trek-detail__main-infos__item:before {
-	width: 30px;
-	height: 30px;
-	position: absolute;
-	top: 5px;
-	left: 5px;	
+	> div {
+		display: inline-block;
+  		vertical-align: middle;
+  		&:first-child {
+  			margin-right: 0.6rem;
+  		}
+  		img {
+			height: 2rem;
+  		}
+  		i {
+  			color: inherit;
+  			font-size: 2rem;
+  		}
+	}	
 }
 
 .trek-detail__main-infos__item.icon {
 	color: white;
-}
-
-.icon-duration:before {
-	content: url('../images/duration-1.svg');
-}
-
-.icon-difficulty:before {
-	content: url('../images/difficulty-2.svg');
-}
-
-.icon-ascent:before {
-	content: url('../images/deniv1.svg');
-	top: -1px;
-}
-
-.icon-total-length:before {
-	content: url('../images/length.svg');
-}
-
-.icon-route:before {
-	content: url('../images/route.svg');
 }
 
 .trek-detail__main-infos__item.icon.ion-android-locate:before {

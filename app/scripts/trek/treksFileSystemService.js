@@ -40,6 +40,9 @@ geotrekTreks.service('treksFileSystemService',
                         var filename = trek.properties.altimetric_profile.replace(".json", ".png");
                         trek.properties.altimetric_profile = settings.device.CDV_APP_ROOT + filename;
                     }
+                    if(trek.properties.route){
+                        trek.properties.route.pictogram = settings.device.CDV_APP_ROOT + trek.properties.route.pictogram;
+                    }
                     if(trek.properties.thumbnail) {
                         trek.properties.thumbnail = settings.device.CDV_APP_ROOT + trek.properties.thumbnail;
                     }

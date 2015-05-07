@@ -2,18 +2,17 @@
 
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
-        <a ng-if="$root.isIOS" class="button button-clear button-positive" ng-click="back()">{{ 'cancel' | translate }}</a>
-        <button ng-if="$root.isAndroid" class="button button-back button-icon" ng-click="back()">
+        <button class="button button-back button-icon" ng-click="back()">
             <i class="icon ion-android-arrow-back"></i>
             {{ 'cancel' | translate }}
         </button>
         <div class="buttons pull-right modal__actions">
             <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>
             <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadFiles()">
-                <i class="icon ion-archive" ng-class="{'ion-archive': isAndroid, 'ion-archive': !isAndroid}"></i>
+                <i class="icon ion-archive"></i>
             </button>
             <button ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="button button-icon">
-                <i class="icon ion-archive low-op" ng-class="{'ion-archive': isAndroid, 'ion-archive': !isAndroid}"></i>
+                <i class="icon ion-archive low-op"></i>
                 <i class="icon ion-checkmark-round overicon"></i>
             </button>
             <button ng-if="false" class="button button-icon" ng-click="newTask()">
@@ -37,12 +36,30 @@
             <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival">{{ trek.properties.departure }} <span ng-if="trek.properties.arrival">→</span> {{ trek.properties.arrival }}</p>
 
             <ul class="trek-detail__main-infos">
-                <li ng-if="trek.properties.duration_pretty" class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
-                <li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
-                <li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
-                <li ng-if="trek.properties.length" class="trek-detail__main-infos__item icon-total-length">{{ trek.properties.length/1000 | number:2 }}km</li>
-                <li ng-if="trek.properties.route" class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
-                <li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
+                <li ng-if="trek.properties.duration_pretty" class="trek-detail__main-infos__item duration">
+                    <div><img src="images/duration-1.svg"></div>
+                    <div><span>{{ trek.properties.duration_pretty }}</span></div>
+                </li>
+                <li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item difficulty">
+                    <div><img src="images/difficulty-2.svg"></div>
+                    <div><span>{{ trek.properties.difficulty.label }}</span></div>
+                </li>
+                <li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
+                    <div><img src="images/deniv1.svg"></div>
+                    <div><span>{{ trek.properties.ascent }}m</span></div>
+                </li>
+                <li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
+                    <div><img src="images/length.svg"></div>
+                    <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
+                </li>
+                <li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
+                    <div><img src="{{trek.properties.route.pictogram}}"></div>
+                    <div><span>{{ trek.properties.route.label }}</span></div>
+                </li>
+                <li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
+                    <div><i class="icon ion-android-locate"></i></div>
+                    <div><span>{{ trek.distanceFromUser }}km</span></div>
+                </li>
             </ul>
 
             <ul class="trek-detail__extra-infos">
@@ -161,7 +178,7 @@
     </ion-content>
 
     <div class="switch-detail switch-detail-map">
-        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-android-location icon-faces" ng-click="alert('clicked');"></a>
+        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-map icon-faces" ng-click="alert('clicked');"></a>
     </div>
 
 </div>
