@@ -173,6 +173,12 @@ geotrekAppSettings.constant('globalSettings', {
                 { id: 600, name: '600-1000', interval: [601, 1000] },
                 { id: 1000, name: '>1000m', interval: [1001, 99999] },
             ],
+            eLength :  [
+                { id: 0, name: '<10km', interval: [0, 10000] },
+                { id: 10000, name: '10km-20km', interval: [10001, 20000] },
+                { id: 20000, name: '20km-30km', interval: [20001, 30000] },
+                { id: 30000, name: '>30km', interval: [30001, 99999] },
+            ],
         }
     };
 }).service('globalizationSettings', [ 'globalizationFactory', 'settings', '$q', function(globalizationFactory, settings, $q){

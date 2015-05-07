@@ -25,6 +25,9 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             angular.forEach(trek.properties.information_desks, function(information_desk) {
                 information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
             });
+            if(trek.properties['length']){
+                trek.properties.eLength = trek.properties['length'];
+            }
             trek.properties.thumbnail = settings.DOMAIN_NAME + trek.properties.thumbnail;
             trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
             trek.properties.altimetric_profile = settings.DOMAIN_NAME + trek.properties.altimetric_profile.replace(".json", ".png");

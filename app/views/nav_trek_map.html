@@ -75,6 +75,12 @@
                 </li>
 
                 <li class="filters-list__item">
+                    <button class="filters-list__bt-no-icon button" ng-init="activeFilters.eLength[eLength.id] = eLength" ng-repeat="eLength in filtersData.eLength" btn-checkbox ng-model="activeFilters.eLength[eLength.id].checked" ng-click="filterTreks" uncheckable>
+                        {{ eLength.name }}
+                    </button>
+                </li>
+
+                <li class="filters-list__item">
                     <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" ng-click="filterTreks" uncheckable>
                         <img src="images/{{ download.icon }}" alt="{{ download.name | translate }}">
                         <span>{{ download.name | translate }}</span>

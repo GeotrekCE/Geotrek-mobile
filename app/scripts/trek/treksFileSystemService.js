@@ -33,6 +33,9 @@ geotrekTreks.service('treksFileSystemService',
                     if(trek.properties.difficulty && trek.properties.difficulty.pictogram){
                         trek.properties.difficulty.pictogram = settings.device.CDV_APP_ROOT + trek.properties.difficulty.pictogram;
                     }
+                    if(trek.properties['length']){
+                        trek.properties.eLength = trek.properties['length'];
+                    }
                     if(trek.properties.altimetric_profile){
                         var filename = trek.properties.altimetric_profile.replace(".json", ".png");
                         trek.properties.altimetric_profile = settings.device.CDV_APP_ROOT + filename;

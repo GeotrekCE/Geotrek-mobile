@@ -14,6 +14,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             difficulty:   {},
             duration:     {},
             elevation:    {},
+            eLength:      {},
             download:     undefined,
             theme:        undefined,
             municipality: null,
@@ -146,6 +147,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             if (self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
             self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
             self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
+            self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength) &&
             self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
             self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
             self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
@@ -261,6 +263,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             difficulties : trekDifficulties,
             durations : settings.filters.durations,
             elevations :  settings.filters.elevations,
+            eLength :  settings.filters.eLength,
             downloads : [
                 { value: 1, name: 'nav_trek_map.offline', icon: 'icon_offline.svg' }
             ],
