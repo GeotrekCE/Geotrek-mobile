@@ -16,6 +16,7 @@ geotrekAppSettings.constant('globalSettings', {
     
     // Variables that user can change
     var DOMAIN_NAME = 'http://rando-cg44.makina-corpus.net/data',
+        PUBLIC_WEBSITE = 'http://rando-cg44.makina-corpus.net',
         API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
@@ -107,6 +108,7 @@ geotrekAppSettings.constant('globalSettings', {
 
     return {
         DOMAIN_NAME: DOMAIN_NAME,
+        PUBLIC_WEBSITE: PUBLIC_WEBSITE,
         API_FOLDER: API_FOLDER,
         POI_FILE_NAME: POI_FILE_NAME,
         TREKS_FILE_NAME: TREKS_FILE_NAME,

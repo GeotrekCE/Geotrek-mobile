@@ -104,8 +104,8 @@ geotrekTreks.controller('TrekController',
 
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, settings, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
 
     $scope.network_available = $rootScope.network_available;
 
@@ -145,7 +145,7 @@ geotrekTreks.controller('TrekController',
     }
 
     $scope.share = function() {
-        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.thumbnail, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.slug);
+        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.thumbnail, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
     };
 
     $scope.downloadFiles = function() {
