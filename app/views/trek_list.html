@@ -4,7 +4,7 @@
             <img class="thumbnail" ng-src="{{ trek.properties.thumbnail }}"/>
             <h3>{{ trek.properties.name }}</h3>
             <p ng-if="trek.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ trek.properties.departure }}</p>
-            <p class="difficulty">{{ trek.properties.difficulty.label }} - {{ trek.properties.duration_pretty }}</p>
+            <p class="difficulty">{{ trek.properties.difficulty.label }} <span ng-if="trek.properties.difficulty && trek.properties.duration_pretty">-</span> {{ trek.properties.duration_pretty }}</p>
             <p ng-if="trek.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{ trek.distanceFromUser }}km</p>
             <div class="trek-list__item__detail__actions">
                 <i ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="icon ion-archive"></i>
