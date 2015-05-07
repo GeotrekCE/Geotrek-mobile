@@ -176,14 +176,6 @@ $bar-dark-active-border:          transparent;
 	}
 }
 
-.ion-android-forums {
-	.platform-ios & { // Switch to iOS icon
-		&:before {
-			content: "\f16b";
-		}
-	}
-}
-
 @media (max-width: 567px) {
   .responsive-sm.row {
     flex-direction: row;

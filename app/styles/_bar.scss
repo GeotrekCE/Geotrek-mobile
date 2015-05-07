@@ -23,10 +23,10 @@
 
     &.active {
       background: $tabs-color;
-      color: $primaryColor;
+      //color: $primaryColor;
     }
 
-    box-shadow: inset 0 -4px 0 $tabs-border-color;
+    box-shadow: inset 0 -4px 0 $tabs-color;
 
     &.active,
     &.activated {
@@ -43,7 +43,7 @@
 .bar-subheader .button-bar {
    
   .button + .button {
-    border-left: 4px solid $tabs-border-active-color;
+    border-left: 1px solid white;
   }
 
 }

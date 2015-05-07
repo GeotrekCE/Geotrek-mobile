@@ -384,12 +384,11 @@
     border: none;
     background: #494645;
     color: white;
-    box-shadow: inset 0 -4px 0 white; }
+    box-shadow: inset 0 -4px 0 #494645; }
     .bar-dark .button.activated {
       background: rgba(174, 201, 0, 0.6); }
     .bar-dark .button.active {
-      background: #494645;
-      color: #aec900; }
+      background: #494645; }
     .bar-dark .button.active, .bar-dark .button.activated {
       box-shadow: inset 0 -4px 0 #aec900;
       font-weight: bold; }
@@ -397,7 +396,7 @@
       display: none; }
 
 .bar-subheader .button-bar .button + .button {
-  border-left: 4px solid #aec900; }
+  border-left: 1px solid white; }
 
 .bar-subheader .button-bar > .button {
   min-height: 43px;
@@ -681,9 +680,6 @@ span.network-status {
   line-height: 10px; }
   .icon-geotrek-level1:before {
     font-size: 52px; }
-
-.platform-ios .ion-android-forums:before {
-  content: "\f16b"; }
 
 @media (max-width: 567px) {
   .responsive-sm.row {
