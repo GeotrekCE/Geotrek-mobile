@@ -115,6 +115,7 @@ geotrekTreks.controller('TrekController',
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
+    console.log(trek);
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);

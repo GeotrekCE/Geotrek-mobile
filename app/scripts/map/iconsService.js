@@ -34,23 +34,23 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         poi_icon: L.icon({
             iconSize: [40, 40],
             labelAnchor: [20, -50]
-        }),
-        trek_icon: L.divIcon({
-            iconSize: [40, 40],
-            iconAnchor: [20, 20],
-            className: 'trek-icon',
-            labelAnchor: [20, 0]
         })
     };
 
     this.getPOIIcon = function(poi) {
-        var pictogramUrl = poi.properties.type.pictogram;
+        //var pictogramUrl = poi.properties.type.pictogram;
+        console.log(poi);
+        // return L.icon({
+        //     iconUrl: pictogramUrl,
+        //     iconSize: [32, 32],
+        //     iconAnchor: [16, 16]
+        // })
 
-        return L.icon({
-            iconUrl: pictogramUrl,
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-        })
+        return new L.DivIcon({
+            iconSize: [34, 50],
+            iconAnchor: [17, 50],
+            className: 'poi-icon poi-' + poi.properties.type.id
+        });
     };
 
     this.getClusterIcon = function(cluster) {
@@ -78,8 +78,16 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         return trek_icons.information_icon;
     };
 
-    this.getTrekIcon = function() {
-        return trek_icons.trek_icon;
+    this.getTrekIcon = function(element) {
+        var icon = L.divIcon({
+            iconSize: [34, 50],
+            iconAnchor: [17, 50],
+            className: 'trek-icon'
+        });
+        if (element.properties) {
+            icon.options.className += ' cat-' + element.properties.category.id;
+        }
+        return icon;
     };
 
 }]);

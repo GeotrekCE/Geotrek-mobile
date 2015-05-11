@@ -31,42 +31,71 @@
 }
 
 .leaflet-marker-icon {
-    &.trek-cluster, &.trek-icon {
-        border-radius: 999px;
-        border-style: solid;
-        border-width: 4px;
-        background-color: $dark;
-        background-size: 28px;
-        background-image: url(../images/trek-icon.svg);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        opacity: 0.8 !important;
+    &.trek-icon {
+        background: transparent top left no-repeat;
+        background-size: 100% auto;
+        &.cat-T1 {
+            background-image: url(../images/rando_pedestre_repere.svg);
+        }
+        &.cat-T2 {
+            background-image: url(../images/rando_velo_repere.svg);
+        }
+        &.cat-T3 {
+            background-image: url(../images/rando_vtt_repere.svg);
+        }
+        &.cat-T4 {
+            background-image: url(../images/rando_equestre_repere.svg);
+        }
     }
 
-    &.trek-icon {
-      border-color: $complementaryColor4;
-
+    &.poi-icon {
+        background: transparent top left no-repeat;
+        background-size: 100% auto;
+        &.poi-1 {
+            background-image: url(../images/visites_repere.svg);
+        }
+        &.poi-2 {
+            background-image: url(../images/activites_repere.svg);
+        }
+        &.poi-4 {
+            background-image: url(../images/restauration_repere.svg);
+        }
+        &.poi-3 {
+            background-image: url(../images/hebergement_repere.svg);
+        }
     }
 
     &.trek-cluster {
-      border-color: $complementaryColor3;
-
-      .count {
-        border-radius: 5px;
-
-        background-color: $complementaryColor3;
-        color: white;
-        text-align: center;
-        font-weight: bold;
-        font-size: 12px;
-        min-width: 20px;
-        min-height: 20px;
-
-        display: block;
-        position: absolute;
-        bottom: -2px;
-        right: -2px;
-
-      }
+        border-color: $complementaryColor3;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        position: relative;
+        background: #ffd400;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+            background: white;
+            border: 2px solid black;
+        }
+        .count {
+            color: black;
+              text-align: center;
+              font-weight: bold;
+              width: 25px;
+              height: 1rem;
+              font-size: 12px;
+              display: block;
+              position: absolute;
+              top: 9px;
+              left: 5px;
+        }
     }
 }

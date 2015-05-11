@@ -87,10 +87,43 @@ $bar-dark-active-border:          transparent;
 }
 
 .app-title {
+  max-height: 24px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.bar-header {
+  padding-left: 0;
+  padding-right: 0;
+  .button {
+    padding: 0 4px;
+    &:before, i:before {
+      font-size: 24px !important;
+      vertical-align: middle;
+    }
+    &:after {
+      left: 0;
+      right: 0;
+    }
+  }
+  .button-menu {
     height: 100%;
-    max-width: 100%;
-    margin-top: 5px;
-    margin-left: -15px;
+    margin-top: -10px;
+  }
+  .row {
+    padding: 0;
+    height: 100%;
+  }
+  .col {
+    padding: 0;
+    padding: 0 5px;
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
 }
 
 .list .item-toggle {
@@ -131,34 +164,6 @@ $bar-dark-active-border:          transparent;
 
 .icon-big {
   font-size: 90px;
-}
-
-.bar .button.button-logo {
-	border: none;
-  margin-right: 0px;
-
-	&:before {
-        position: absolute;
-        top: 0;
-        left: -12px;
-	}
-}
-
-.bar .button.button-icon [class*="ion-android"] {
-	&:before {
-		font-size: 22px;
-	}
-
-	&.ion-android-more:before {
-		font-size: 22px;
-		line-height: 34px;
-		padding-right: 7px;
-		padding-left: 7px;
-	}
-
-	&.ion-android-arrow-back:before {
-		font-size: 14px;
-	}
 }
 
 .icon-geotrek-difficulty2 {

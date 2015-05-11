@@ -24,6 +24,9 @@ geotrekTreks.service('treksFileSystemService',
                     angular.forEach(trek.properties.usages, function(usage) {
                         usage.pictogram = settings.device.CDV_APP_ROOT + usage.pictogram;
                     });
+                    angular.forEach(trek.properties.accessibilities, function(accessibility) {
+                        accessibility.pictogram = settings.device.CDV_APP_ROOT + accessibility.pictogram;
+                    });
                     angular.forEach(trek.properties.themes, function(theme) {
                         theme.pictogram = settings.device.CDV_APP_ROOT + theme.pictogram;
                     });

@@ -41,10 +41,34 @@
     font-size: 14px; }
 
 .app-title {
-  height: 100%;
+  max-height: 24px;
   max-width: 100%;
-  margin-top: 5px;
-  margin-left: -15px; }
+  vertical-align: middle; }
+
+.bar-header {
+  padding-left: 0;
+  padding-right: 0; }
+  .bar-header .button {
+    padding: 0 4px; }
+    .bar-header .button:before, .bar-header .button i:before {
+      font-size: 24px !important;
+      vertical-align: middle; }
+    .bar-header .button:after {
+      left: 0;
+      right: 0; }
+  .bar-header .button-menu {
+    height: 100%;
+    margin-top: -10px; }
+  .bar-header .row {
+    padding: 0;
+    height: 100%; }
+  .bar-header .col {
+    padding: 0;
+    padding: 0 5px; }
+    .bar-header .col:first-child {
+      padding-left: 0; }
+    .bar-header .col:last-child {
+      padding-right: 0; }
 
 .list .item-toggle {
   padding: 8px; }
@@ -74,33 +98,58 @@
   vertical-align: top;
   padding-left: 10px; }
 
-.leaflet-marker-icon.trek-cluster, .leaflet-marker-icon.trek-icon {
-  border-radius: 999px;
-  border-style: solid;
-  border-width: 4px;
-  background-color: #494645;
-  background-size: 28px;
-  background-image: url(../images/trek-icon.svg);
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  opacity: 0.8 !important; }
 .leaflet-marker-icon.trek-icon {
-  border-color: #1C72BC; }
+  background: transparent top left no-repeat;
+  background-size: 100% auto; }
+  .leaflet-marker-icon.trek-icon.cat-T1 {
+    background-image: url(../images/rando_pedestre_repere.svg); }
+  .leaflet-marker-icon.trek-icon.cat-T2 {
+    background-image: url(../images/rando_velo_repere.svg); }
+  .leaflet-marker-icon.trek-icon.cat-T3 {
+    background-image: url(../images/rando_vtt_repere.svg); }
+  .leaflet-marker-icon.trek-icon.cat-T4 {
+    background-image: url(../images/rando_equestre_repere.svg); }
+.leaflet-marker-icon.poi-icon {
+  background: transparent top left no-repeat;
+  background-size: 100% auto; }
+  .leaflet-marker-icon.poi-icon.poi-1 {
+    background-image: url(../images/visites_repere.svg); }
+  .leaflet-marker-icon.poi-icon.poi-2 {
+    background-image: url(../images/activites_repere.svg); }
+  .leaflet-marker-icon.poi-icon.poi-4 {
+    background-image: url(../images/restauration_repere.svg); }
+  .leaflet-marker-icon.poi-icon.poi-3 {
+    background-image: url(../images/hebergement_repere.svg); }
 .leaflet-marker-icon.trek-cluster {
-  border-color: #F07F00; }
-  .leaflet-marker-icon.trek-cluster .count {
-    border-radius: 5px;
-    background-color: #F07F00;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-    min-width: 20px;
-    min-height: 20px;
+  border-color: #F07F00;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  position: relative;
+  background: #ffd400; }
+  .leaflet-marker-icon.trek-cluster::before {
+    content: "";
     display: block;
     position: absolute;
-    bottom: -2px;
-    right: -2px; }
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    top: 4px;
+    left: 4px;
+    background: white;
+    border: 2px solid black; }
+  .leaflet-marker-icon.trek-cluster .count {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    width: 25px;
+    height: 1rem;
+    font-size: 12px;
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 5px; }
 
 .trek-list {
   display: block; }
@@ -653,24 +702,6 @@ span.network-status {
 
 .icon-big {
   font-size: 90px; }
-
-.bar .button.button-logo {
-  border: none;
-  margin-right: 0px; }
-  .bar .button.button-logo:before {
-    position: absolute;
-    top: 0;
-    left: -12px; }
-
-.bar .button.button-icon [class*="ion-android"]:before {
-  font-size: 22px; }
-.bar .button.button-icon [class*="ion-android"].ion-android-more:before {
-  font-size: 22px;
-  line-height: 34px;
-  padding-right: 7px;
-  padding-left: 7px; }
-.bar .button.button-icon [class*="ion-android"].ion-android-arrow-back:before {
-  font-size: 14px; }
 
 .icon-geotrek-difficulty2:before {
   font-size: 34px;

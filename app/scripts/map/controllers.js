@@ -10,9 +10,12 @@ geotrekMap.controller('MapController',
 
     // Initializing leaflet map
     map = L.map('map', mapParameters);
+    map.options.maxZoom = settings.leaflet.GLOBAL_MAP_DL_TILES_ZOOM;
     var userPosition;
     var treks = new L.MarkerClusterGroup({
         showCoverageOnHover: false,
+        spiderfyDistanceMultiplier: 2,
+        maxClusterRadius: 60,
         iconCreateFunction: function(cluster) {
             return iconsService.getClusterIcon(cluster);
         }
@@ -123,6 +126,15 @@ geotrekMap.controller('MapController',
         showTreks(updateBounds);
     });
 
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+        if (toState.name === 'home.map') {
+            map.options.maxZoom = settings.leaflet.GLOBAL_MAP_DL_TILES_ZOOM;
+        }
+
+        if (toState.name === 'home.map.trek') {
+            map.options.maxZoom = settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM;
+        }
+    });
 
 }])
 .controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService', 'trek', 'utils', 'settings',
@@ -137,7 +149,7 @@ geotrekMap.controller('MapController',
             repeat:true,
             offset: 4
         });
-
+    map.options.maxZoom = settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM;
     // Remove the treks cluster on detail view
     map.removeLayer($scope.$parent.treks);
 

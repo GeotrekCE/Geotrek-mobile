@@ -16,6 +16,9 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             angular.forEach(trek.properties.usages, function(usage) {
                 usage.pictogram = settings.DOMAIN_NAME + usage.pictogram;
             });
+            angular.forEach(trek.properties.accessibilities, function(accessibility) {
+                accessibility.pictogram = settings.DOMAIN_NAME + accessibility.pictogram;
+            });
             angular.forEach(trek.properties.themes, function(theme) {
                 theme.pictogram = settings.DOMAIN_NAME + theme.pictogram;
             });

@@ -104,7 +104,7 @@ geotrekMap.service('leafletService',
         var startPoint = treksFactory.getStartPoint(trek);
 
         var marker = L.marker([startPoint.lat, startPoint.lng], {
-            icon: iconsService.getTrekIcon()
+            icon: iconsService.getTrekIcon(trek)
         });
 
         return marker;

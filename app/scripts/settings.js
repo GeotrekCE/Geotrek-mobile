@@ -30,6 +30,7 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_CENTER_LATITUDE: 44.83,
         GLOBAL_MAP_CENTER_LONGITUDE: 6.34,
         GLOBAL_MAP_DEFAULT_ZOOM: 12,
+        GLOBAL_MAP_DL_TILES_ZOOM: 12,
         GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
         GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
         GLOBAL_MAP_ATTRIBUTION: '(c) IGN Geoportail',

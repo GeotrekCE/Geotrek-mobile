@@ -2,8 +2,9 @@
     <!-- Center content -->
     <ion-side-menu-content>
         <ion-header-bar class="bar-main bar-light item-input-inset" ng-switch on="showSearch.search">
-            <button class="button button-icon icon ion-navicon button-logo" menu-toggle="left">
-            </button>
+            <div class="button-menu">
+                <button class="button button-icon icon ion-navicon-round" menu-toggle="left"></button>
+            </div>
 
             <div class="flex-wrapper" ng-switch-when="1">
                 <div class="search-area flex-wrapper">
@@ -25,13 +26,9 @@
                 </div>
                 <div class="buttons col col-33">
                     <div class="buttons pull-right">
-                        <button class="button button-icon" ng-click="showSearch.search=1">
-                            <i class="icon ion-search"></i>
-                        </button>
-                        <button class="button button-icon" ui-sref="settings"><i class="icon ion-gear-b"></i></button>
-                        <button class="button button-icon" ng-click="showMore()">
-                            <i class="icon ion-android-more"></i>
-                        </button>
+                        <button class="button button-icon icon ion-search" ng-click="showSearch.search=1"></button>
+                        <button class="button button-icon icon ion-gear-b" ui-sref="settings"></button>
+                        <button class="button button-icon icon ion-android-more" ng-click="showMore()"></button>
                     </div>
                 </div>
             </div>
