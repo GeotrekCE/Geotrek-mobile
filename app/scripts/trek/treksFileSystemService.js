@@ -36,6 +36,9 @@ geotrekTreks.service('treksFileSystemService',
                     if(trek.properties.difficulty && trek.properties.difficulty.pictogram){
                         trek.properties.difficulty.pictogram = settings.device.CDV_APP_ROOT + trek.properties.difficulty.pictogram;
                     }
+                    if(trek.properties.category && trek.properties.category.pictogram) {
+                        trek.properties.category.pictogram = settings.CDV_APP_ROOT + trek.properties.category.pictogram;
+                    }
                     if(trek.properties['length']){
                         trek.properties.eLength = trek.properties['length'];
                     }

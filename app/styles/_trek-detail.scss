@@ -142,3 +142,34 @@
 		white-space: normal;
 	}
 }
+
+.net-prev-elements {
+	margin-left: -10px;
+	margin-right: -10px;
+	.row {
+		padding: 0;
+	}
+	.col {
+		text-align: center;
+		&:first-child {
+			border-right: 1px solid $grayLight;
+		}
+		&:last-child {
+			border-left: 1px solid $grayLight;
+		}
+	}
+	i {
+		color: $primaryColor;	
+	}
+	color: $primaryColor;
+	background: $dark;
+}
+
+.children-detail, .parent-detail {
+	.item-content {
+		padding: 0;
+	}
+	.thumbnail {
+		height: 3rem;
+	}
+}

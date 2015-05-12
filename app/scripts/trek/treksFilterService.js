@@ -144,18 +144,18 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         var self = this;
         var filteredTreks = [];
         angular.forEach(treks, function(trek) {
-            if (self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
-            self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
-            self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
-            self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength) &&
-            self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
-            self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
-            self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
-            self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
-            self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id') &&
-            self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
+            if (!trek.properties.difficulty || self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
+            !trek.properties.duration || self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
+            !trek.properties.ascent || self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
+            !trek.properties.eLength || self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength) &&
+            !trek.tiles || self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
+            !trek.properties.properties || self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
+            !trek.properties.usages || self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
+            !trek.properties.route || self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
+            !trek.properties.districts || self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id') &&
+            !trek.properties.cities || self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
                 filteredTreks.push(trek);
-            };
+            }
         });
         return filteredTreks;
     };
@@ -214,33 +214,44 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         angular.forEach(treks.features, function(trek) {
 
             // Themes init
-            angular.forEach(trek.properties.themes, function(theme) {
-                trekThemes.push({value: theme.id, name: theme.label});
-            });
+            if (trek.properties.themes) {
+                angular.forEach(trek.properties.themes, function(theme) {
+                    trekThemes.push({value: theme.id, name: theme.label});
+                });
+            }
 
             // Diffulties init
+            if (trek.properties.difficulty) {
+                var difficulty = trek.properties.difficulty;
+                trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
+            }
 
-            var difficulty = trek.properties.difficulty;
-            trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
-
-            // Uses init
-            angular.forEach(trek.properties.usages, function(usage) {
-                trekUses.push({value: usage.id, name: usage.label});
-            });
+            if (trek.properties.usages) {
+                // Uses init
+                angular.forEach(trek.properties.usages, function(usage) {
+                    trekUses.push({value: usage.id, name: usage.label});
+                });
+            }
 
             // Route init
-            var route = trek.properties.route;
-            trekRoute.push({value: route.id, name: route.label});
+            if (trek.properties.route) {
+                var route = trek.properties.route;
+                trekRoute.push({value: route.id, name: route.label});
+            }
 
             // Valleys init
-            angular.forEach(trek.properties.districts, function(district) {
-                trekValleys.push({value: district.id, name: district.name});
-            });
+            if (trek.properties.districts) {
+                angular.forEach(trek.properties.districts, function(district) {
+                    trekValleys.push({value: district.id, name: district.name});
+                });
+            }
 
             // Municipalities init
-            angular.forEach(trek.properties.cities, function(city) {
-                trekMunicipalities.push({value: city.code, name: city.name});
-            });
+            if (trek.properties.cities) {
+                angular.forEach(trek.properties.cities, function(city) {
+                    trekMunicipalities.push({value: city.code, name: city.name});
+                });
+            }
         });
 
         // Removing possible values duplicates

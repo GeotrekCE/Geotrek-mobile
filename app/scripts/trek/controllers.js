@@ -115,7 +115,40 @@ geotrekTreks.controller('TrekController',
 
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
-    console.log(trek);
+    $scope.children = [];
+    angular.forEach(trek.properties.children, function (child) {
+        treksFactory.getTrek(child)
+            .then(
+                function (childData) {
+                    $scope.children.push(childData);
+                }
+            );
+    });
+    if (trek.properties.previous) {
+        treksFactory.getTrek(trek.properties.previous)
+            .then(
+                function (previousData) {
+                    $scope.previous = previousData;
+                }
+            );
+    }
+    if (trek.properties.next) {
+        treksFactory.getTrek(trek.properties.next)
+            .then(
+                function (nextData) {
+                    $scope.next = nextData;
+                }
+            );
+    }
+    if (trek.properties.parent) {
+        treksFactory.getTrek(trek.properties.parent)
+            .then(
+                function (parentData) {
+                    $scope.parent = parentData;
+                }
+            );
+    }
+
     // We need to declare our json HTML data as safe using $sce
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);

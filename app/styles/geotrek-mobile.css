@@ -158,9 +158,7 @@
   width: 100%; }
   .trek-list__item h3 {
     color: #aec900; }
-  .trek-list__item .departure {
-    margin-bottom: 0; }
-  .trek-list__item .difficulty {
+  .trek-list__item p {
     margin-bottom: 0; }
 
 .trek-list__item__detail__actions {
@@ -169,6 +167,9 @@
   bottom: 10px;
   font-size: 1.5em;
   opacity: 0.6; }
+
+.item-thumbnail-left, .item-thumbnail-left .item-content {
+  min-height: 110px; }
 
 .trek-list__item__detail-bt {
   color: #494645;
@@ -367,6 +368,27 @@
 
 .information-desk p {
   white-space: normal; }
+
+.net-prev-elements {
+  margin-left: -10px;
+  margin-right: -10px;
+  color: #aec900;
+  background: #494645; }
+  .net-prev-elements .row {
+    padding: 0; }
+  .net-prev-elements .col {
+    text-align: center; }
+    .net-prev-elements .col:first-child {
+      border-right: 1px solid #999; }
+    .net-prev-elements .col:last-child {
+      border-left: 1px solid #999; }
+  .net-prev-elements i {
+    color: #aec900; }
+
+.children-detail .item-content, .parent-detail .item-content {
+  padding: 0; }
+.children-detail .thumbnail, .parent-detail .thumbnail {
+  height: 3rem; }
 
 .button.icon-top:before {
   display: block; }

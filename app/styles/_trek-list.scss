@@ -8,10 +8,7 @@
         color: $highlight-text-color;
     }
 
-	.departure {
-		margin-bottom: 0;
-	}
-	.difficulty {
+	p {
 		margin-bottom: 0;
 	}
 }
@@ -22,6 +19,10 @@
     bottom: 10px;
     font-size: 1.5em;
     opacity: 0.6;
+}
+
+.item-thumbnail-left, .item-thumbnail-left .item-content {
+    min-height: 110px;
 }
 
 .trek-list__item__detail-bt {

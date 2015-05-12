@@ -9,6 +9,7 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
 
         // Parse trek pictures, and change their URL
         angular.forEach(copy.features, function(trek) {
+            console.log(trek);
             var currentTrekId = trek.id;
             angular.forEach(trek.properties.pictures, function(picture) {
                 picture.url = settings.DOMAIN_NAME + picture.url;
@@ -28,11 +29,18 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
             angular.forEach(trek.properties.information_desks, function(information_desk) {
                 information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
             });
-            if(trek.properties['length']){
+            if(trek.properties['length']) {
                 trek.properties.eLength = trek.properties['length'];
             }
-            trek.properties.thumbnail = settings.DOMAIN_NAME + trek.properties.thumbnail;
-            trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
+            if(trek.properties.thumbnail) {
+                trek.properties.thumbnail = settings.DOMAIN_NAME + trek.properties.thumbnail;
+            }
+            if(trek.properties.difficulty) {
+                trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
+            }
+            if(trek.properties.category) {
+                trek.properties.category.pictogram = settings.DOMAIN_NAME + trek.properties.category.pictogram;
+            }
             if(trek.properties.route){
                 trek.properties.route.pictogram = settings.DOMAIN_NAME + trek.properties.route.pictogram;
             }

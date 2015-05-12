@@ -28,6 +28,18 @@
     <ion-content overflow-scroll="false" class="modal-content">
 
         <div class="trek-detail padding">
+            <div ng-if="next || previous" class="net-prev-elements">
+                <div class="row">
+                    <div class="col" ui-sref="home.trek.detail({ trekId: previous.id })">
+                        <i class="icon ion-chevron-left"></i>
+                        <span>{{previous.properties.name}}</span>
+                    </div>
+                    <div class="col" ui-sref="home.trek.detail({ trekId: next.id })">
+                        <span>{{next.properties.name}}</span>
+                        <i class="icon ion-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
 
             <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
@@ -144,6 +156,42 @@
                         <a href="{{information_desk.website}}">{{ 'trek_detail.website' | translate }}</a> - 
                         <a href="tel:{{information_desk.phone}}">{{information_desk.phone}}</a>
                     </p>
+                </div>
+            </ion-item>
+
+            <h2 ng-if="children.length > 0" class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
+
+            <ion-item ng-if="children.length > 0" class="children-detail" ng-repeat="child in children" ui-sref="home.trek.detail({ trekId: child.id })">
+                <div class="header">
+                    <div class="title row">
+                        <div class="col-20">
+                            <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
+                        </div>
+                        <div class="col">
+                            <h3 class="child-detail__name">{{ child.properties.name}}</h3>
+                            <span ng-if="child.properties.difficulty" class="child-detail__difficulty">{{ child.properties.difficulty.label }}</span>
+                            <span ng-if="child.properties.duration_pretty" class="child-detail__duration">&nbsp;{{ child.properties.duration_pretty }}</span>
+                            <span ng-if="child.properties.eLength" class="child-detail__duration">&nbsp;{{ child.properties.eLength | number:0}} km</span>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+
+            <h2 ng-if="parent" class="trek-detail__section-title">{{ 'trek_detail.parent' | translate }}</h2>
+
+            <ion-item ng-if="parent" class="parent-detail" ui-sref="home.trek.detail({ trekId: parent.id })">
+                <div class="header">
+                    <div class="title row">
+                        <div class="col-20">
+                            <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
+                        </div>
+                        <div class="col">
+                            <h3 class="parent-detail__name">{{ parent.properties.name}}</h3>
+                            <span ng-if="parent.properties.difficulty" class="parent-detail__difficulty">{{ parent.properties.difficulty.label }}</span>
+                            <span ng-if="parent.properties.duration_pretty" class="parent-detail__duration">&nbsp;{{ parent.properties.duration_pretty }}</span>
+                            <span ng-if="parent.properties.eLength" class="parent-detail__duration">&nbsp;{{ parent.properties.eLength | number:0}} km</span>
+                        </div>
+                    </div>
                 </div>
             </ion-item>
 
