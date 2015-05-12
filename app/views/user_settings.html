@@ -80,11 +80,13 @@
                 </label>
             </ion-item>
 
-            <div class="item item-divider"></div>
+            <div class="item item-divider">
+                  {{ 'user_parameters.exit' | translate }}
+            </div>
 
             <ion-item class="item-toggle">
                 <div class="input-label">
-                  {{ 'user_parameters.exit' | translate }}
+                  {{ 'user_parameters.exit_label' | translate }}
                 </div>
                 <label class="toggle pull-right">
                     <button class="button button-small button-light" ng-click="exitApp()">
