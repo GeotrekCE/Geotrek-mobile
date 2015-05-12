@@ -117,7 +117,7 @@
                     <p ng-bind-html="information_desk.street"></p>
                     <p>{{ information_desk.postal_code}} {{ information_desk.municipality}}</p>
                     <p>
-                        <a href="{{information_desk.website}}">{{ 'trek_detail.website' | translate }}</a> - 
+                        <a href="{{information_desk.website}}">{{ 'trek_detail.website' | translate }}</a> -
                         <a href="tel:{{information_desk.phone}}">{{information_desk.phone}}</a>
                     </p>
                 </div>
@@ -130,7 +130,7 @@
                     <div class="title row">
                         <div class="col-10">
                             <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
-                           
+
                         </div>
                         <div class="col">
                             <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
@@ -156,7 +156,7 @@
     </ion-content>
 
     <div class="switch-detail switch-detail-map">
-        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-android-location icon-faces" ng-click="alert('clicked');"></a>
+        <a ui-sref="home.map.trek({ trekId: trek.id })" class="trek-detail__back-bt button-icon icon ion-map icon-faces" ng-click="alert('clicked');"></a>
     </div>
 
 </div>

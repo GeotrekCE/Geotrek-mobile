@@ -1,6 +1,6 @@
 
 .icon-geotrek {
-    
+
     vertical-align: middle;
     text-decoration: none;
 
@@ -19,9 +19,9 @@
 }
 
 .switch-detail-map {
-    .ion-android-location::before {
+    .ion-map::before, .ion-document:before {
         padding-top: 6px;
-    } 
+    }
 }
 
 .icon-text {
