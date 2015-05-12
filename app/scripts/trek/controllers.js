@@ -128,7 +128,7 @@ geotrekTreks.controller('TrekController',
         scope: $scope,
         animation: 'no-animation'
     }).then(function(modal) {
-        
+
         utils.openLinkInSystemBrowser('.trek-detail p');
 
         $scope.modal = modal;
@@ -155,7 +155,8 @@ geotrekTreks.controller('TrekController',
             'trek_controller_download_confirm_message',
             'trek_controller_donwload_warning_title',
             'trek_controller_donwload_warning_message',
-            'trek_controller_download_confirm_title'
+            'trek_controller_download_confirm_title',
+            'trek_controller_donwload_cancel'
         ]).then(function(translations) {
             // We prevent tile download if network is not available
             if (!$rootScope.network_available) {
@@ -173,6 +174,7 @@ geotrekTreks.controller('TrekController',
                 }
 
                 var confirmPopup = $ionicPopup.confirm({
+                    cancelText: translations.trek_controller_donwload_cancel,
                     title: translations.trek_controller_download_confirm_title,
                     template: template
                 });
@@ -199,7 +201,7 @@ geotrekTreks.controller('TrekController',
                                 }, function(progress) {
                                     currentTrek.tiles.inDownloadProgress = true;
                                     loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 2);
-                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1]; 
+                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1];
                                 }
                             ),
                             treksFactory.downloadTrekDetails($scope.trekId)
