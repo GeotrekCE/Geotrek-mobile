@@ -143,12 +143,19 @@ geotrekMap.controller('MapController',
     $scope.currentTrek = $stateParams.trekId;
 
     // Draw a polyline to highlight the selected trek
-    var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 9, 'opacity': 0.8}})
+    var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 9, 'opacity': settings.leaflet.HIGHLIGHT_DETAIL_LINEAR ? 1 : 0.8}})
         .addTo(map)
         .setText('>         ', {
             repeat:true,
             offset: 4
         });
+
+    if (settings.leaflet.HIGHLIGHT_DETAIL_LINEAR) {
+        L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
+            .addTo(map)
+            .bringToBack();
+    }
+
     map.options.maxZoom = settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM;
     // Remove the treks cluster on detail view
     map.removeLayer($scope.$parent.treks);
