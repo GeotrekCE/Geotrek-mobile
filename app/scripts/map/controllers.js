@@ -73,7 +73,7 @@ geotrekMap.controller('MapController',
                             if (poiDistanceFromUser < settings.device.POI_ALERT_RADIUS) {
                                 if (!nearbyPois[poi.id]) {
                                     var msg = poi.properties.name + ' (' + poiDistanceFromUser * 1000 + 'm)';
-                                    notificationFactory.notify(msg);
+                                    notificationFactory.notify(msg, poi.properties.name);
                                     mapFactory.addNearbyPoi(poi.id);
                                 }
                             } else {
