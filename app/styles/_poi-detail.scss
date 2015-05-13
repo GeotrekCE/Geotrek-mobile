@@ -33,7 +33,14 @@
         height: auto;
       }
     }
-    
+    .picture-legend {
+      line-height: 2em;
+      display: block;
+      text-align: center;
+      font-style: italic;
+      font-size: 14px;
+      color: $complementaryColor2;
+    }
     .picture {
       width: 100%;
       display: block;

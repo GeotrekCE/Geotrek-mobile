@@ -212,8 +212,9 @@
                             <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }}km)</span>
                         </div>
                     </div>
-                    <div class="picture">
-                        <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ poi.properties.pictures[0].url }}"/>
+                    <div class="picture" ng-init="picture=poi.properties.pictures[0]">
+                         <img ng-if="picture" ng-src="{{ picture.url }}"/>
+                         <span ng-if="picture" class="picture-legend">{{ picture.legend }} ({{ picture.author }})</span>
                          <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
                             <span>
                                 {{ 'image.connect' | translate }}
