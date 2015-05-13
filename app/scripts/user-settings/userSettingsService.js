@@ -27,7 +27,7 @@ geotrekUserSettings.service('userSettingsService', ['$localStorage', 'localeSett
         if (!userSettings['synchronizationMode'])
             userSettings['synchronizationMode'] = 'wifi';
         if (!userSettings['alertOnPois']) {
-            userSettings['alertOnPois'] = false;
+            userSettings['alertOnPois'] = true;
         }
         if (!userSettings['currentLanguage']){
             globalizationFactory.detectLanguage()
