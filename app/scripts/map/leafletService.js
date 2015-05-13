@@ -45,17 +45,20 @@ geotrekMap.service('leafletService',
         markers.push(L.marker([endPoint.lat, endPoint.lng], {
             icon: iconsService.getArrivalIcon(),
             name: trek.properties.arrival,
+            type: 'arrival'
         }));
 
         markers.push(L.marker([startPoint.lat, startPoint.lng], {
             icon: iconsService.getDepartureIcon(),
             name: trek.properties.departure,
+            type: 'departure',
         }));
 
         if(parkingPoint) {
             markers.push(L.marker([parkingPoint.lat, parkingPoint.lng], {
             icon: iconsService.getParkingIcon(),
             name: "Parking",
+            type: "parking",
             description: trek.properties.advised_parking,
             }));
         };

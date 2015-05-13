@@ -3,7 +3,7 @@
 var geotrekMap = angular.module('geotrekMap');
 var map;
 
-geotrekMap.controller('MapController', 
+geotrekMap.controller('MapController',
     ['$rootScope', '$state', '$scope', 'logging', '$window', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, logging, $window, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
     $rootScope.statename = $state.current.name;
@@ -153,7 +153,9 @@ geotrekMap.controller('MapController',
     .then(function(pois) {
         var pois = leafletService.createMarkersFromTrek(trek, pois.features);
         angular.forEach(pois, function(poi) {
-            poi.on('click', function(e) {poiModal(e.target.options)})
+            if (['departure', 'arrival', 'parking'].indexOf(poi.options.type) === -1) {
+                poi.on('click', function(e) {poiModal(e.target.options)})
+            }
             treksMarkers.addLayer(poi);
         });
     });
@@ -171,7 +173,7 @@ geotrekMap.controller('MapController',
     function centerMapTrek() {
         map.fitBounds(currentHighlight);
     };
-    
+
     $scope.centerMapTrek = centerMapTrek;
 
     centerMapTrek();
