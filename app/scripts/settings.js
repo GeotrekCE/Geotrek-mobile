@@ -13,7 +13,7 @@ geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr'
 })
 .factory('settings', function () {
-    
+
     // Variables that user can change
     var DOMAIN_NAME = 'http://rando.ecrins-parcnational.fr',
         FORCE_DOWNLOAD = false,
@@ -21,7 +21,7 @@ geotrekAppSettings.constant('globalSettings', {
         LOGS = true,  // if true, console logs are also saved in a file (device only)
         // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
         LOG_POOL_TIME = 6000,  // in ms
-        POI_ALERT_RADIUS = 0.5;  // in km
+        POI_ALERT_RADIUS = 0.05;  // in km
 
     var leaflet_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 44.83,
