@@ -7,7 +7,10 @@ geotrekMap.service('mapFileSystemService',
     function ($q, $cordovaFile, logging, utils, settings) {
 
     this.getGlobalTileLayerURL = function() {
-        return settings.device.LEAFLET_BACKGROUND_URL;
+        return [
+            settings.remote.LEAFLET_BACKGROUND_URL,
+            settings.device.LEAFLET_BACKGROUND_URL
+        ];
     };
 
     this.downloadGlobalBackground = function(url, progress) {
@@ -20,7 +23,7 @@ geotrekMap.service('mapFileSystemService',
 
     this.cleanDownloadedLayers = function() {
         var deferred = $q.defer(),
-            promise = [],
+            promises = [],
             _this = this;
 
         $cordovaFile.listDir(settings.device.RELATIVE_TILES_ROOT)
@@ -31,17 +34,17 @@ geotrekMap.service('mapFileSystemService',
                 // Remove the zip file
                 if (mbtileFile.name != settings.TILES_FILE_NAME) {
                     promises.push($cordovaFile.removeFile(settings.device.RELATIVE_TILES_ROOT + "/" + mbtileFile.name));
-                };
+                }
                 // Remove the tiles foldes
                 for (var i = 13; i <= 16; i++) {
                     promises.push(_this._deleteTiles(i));
-                };
+                }
             });
 
             $q.all(promises)
             .then(function(layers) {
                 deferred.resolve(layers);
-            })
+            });
 
         }, function(error) {
             logging.error(error);

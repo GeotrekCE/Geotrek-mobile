@@ -8,6 +8,7 @@ geotrekTreks.controller('TrekController',
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
+    console.log(treks);
     $rootScope.staticPages = staticPages;
     $rootScope.filteredTreks = treks.features;
 

@@ -772,4 +772,7 @@ span.network-status {
 .icon-geotrek-difficulty2:before {
   content: "e"; }
 
+.trek-list__item .departure {
+  display: none; }
+
 /*# sourceMappingURL=geotrek-mobile.css.map */
