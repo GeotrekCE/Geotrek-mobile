@@ -377,13 +377,33 @@
   .net-prev-elements .row {
     padding: 0; }
   .net-prev-elements .col {
-    text-align: center; }
+    text-align: center;
+    height: 40px;
+    line-height: 40px; }
     .net-prev-elements .col:first-child {
       border-right: 1px solid #999; }
+      .net-prev-elements .col:first-child i {
+        margin-right: 2px; }
     .net-prev-elements .col:last-child {
       border-left: 1px solid #999; }
+      .net-prev-elements .col:last-child i {
+        margin-left: 2px; }
   .net-prev-elements i {
-    color: #aec900; }
+    color: #aec900;
+    display: block;
+    font-size: 28px; }
+  .net-prev-elements i, .net-prev-elements p {
+    line-height: normal;
+    max-width: 70%;
+    display: inline-block;
+    vertical-align: top; }
+  .net-prev-elements p {
+    height: 30px;
+    margin: 0;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    /* pour Opera 9 */
+    text-overflow: ellipsis; }
 
 .children-detail .item-content, .parent-detail .item-content {
   padding: 0; }
@@ -773,6 +793,12 @@ span.network-status {
   content: "e"; }
 
 .trek-list__item .departure {
+  display: none; }
+
+.filters-list__item.elevation {
+  display: none; }
+
+.filters-list__item.valleys {
   display: none; }
 
 /*# sourceMappingURL=geotrek-mobile.css.map */

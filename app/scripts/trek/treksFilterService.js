@@ -144,16 +144,16 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         var self = this;
         var filteredTreks = [];
         angular.forEach(treks, function(trek) {
-            if (!trek.properties.difficulty || self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
-            !trek.properties.duration || self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
-            !trek.properties.ascent || self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
-            !trek.properties.eLength || self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength) &&
-            !trek.tiles || self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
-            !trek.properties.properties || self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
-            !trek.properties.usages || self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
-            !trek.properties.route || self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
-            !trek.properties.districts || self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id') &&
-            !trek.properties.cities || self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
+            if ((!trek.properties.difficulty || self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty)) &&
+            (!trek.properties.duration || self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration)) &&
+            (!trek.properties.ascent || self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation)) &&
+            (!trek.properties.eLength || self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength)) &&
+            (!trek.tiles || self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download)) &&
+            (!trek.properties.properties || self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id')) &&
+            (!trek.properties.usages || self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id')) &&
+            (!trek.properties.route || self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id')) &&
+            (!trek.properties.districts || self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id')) &&
+            (!trek.properties.cities || self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code'))) {
                 filteredTreks.push(trek);
             }
         });

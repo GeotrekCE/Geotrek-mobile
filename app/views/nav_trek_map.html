@@ -51,40 +51,40 @@
     <ion-side-menu side="left" width="245">
         <ion-content scroll="true" scrollbar-x="false" scrollbar-y="false">
             <ul class="filters-list">
-                <li class="filters-list__item">
+                <li class="filters-list__item difficulty">
                     <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox ng-click="filterTreks" uncheckable>
                         <div class="difficulty-icon" ng-include="difficulty.icon"></div>
                         <span>{{ difficulty.name }}</span>
                     </button>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item duration">
                     <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox ng-click="filterTreks" uncheckable>
                         <img src="images/duration-{{ $index+1 }}.svg" alt="{{ duration.name }}">
                         <span>{{ duration.name }}</span>
                     </button>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item elevation">
                     <button class="filters-list__bt-no-icon button" ng-init="activeFilters.elevation[elevation.id] = elevation" ng-repeat="elevation in filtersData.elevations" btn-checkbox ng-model="activeFilters.elevation[elevation.id].checked" ng-click="filterTreks" uncheckable>
                         {{ elevation.name }}
                     </button>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item length">
                     <button class="filters-list__bt-no-icon button" ng-init="activeFilters.eLength[eLength.id] = eLength" ng-repeat="eLength in filtersData.eLength" btn-checkbox ng-model="activeFilters.eLength[eLength.id].checked" ng-click="filterTreks" uncheckable>
                         {{ eLength.name }}
                     </button>
                 </li>
 
-                <li class="filters-list__item">
+                <li class="filters-list__item downloaded">
                     <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" ng-click="filterTreks" uncheckable>
                         <img src="images/{{ download.icon }}" alt="{{ download.name | translate }}">
                         <span>{{ download.name | translate }}</span>
                     </button>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select themes">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.theme' | translate }}</option>
@@ -92,7 +92,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select uses">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.use" ng-options="use.name for use in filtersData.uses" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.use' | translate }}</option>
@@ -100,7 +100,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select routes">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.route" ng-options="route.name for route in filtersData.routes" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.route' | translate }}</option>
@@ -108,7 +108,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select valleys">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.valley" ng-options="valley.name for valley in filtersData.valleys" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.valley' | translate }}</option>
@@ -116,7 +116,7 @@
                     </label>
                 </li>                
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select municipality">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.municipality" ng-options="municipality.name for municipality in filtersData.municipalities" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.city' | translate }}</option>

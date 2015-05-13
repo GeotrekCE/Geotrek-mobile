@@ -151,15 +151,38 @@
 	}
 	.col {
 		text-align: center;
+		height: 40px;
+		line-height: 40px;
 		&:first-child {
 			border-right: 1px solid $grayLight;
+			i {
+		  		margin-right: 2px;
+			}
 		}
 		&:last-child {
 			border-left: 1px solid $grayLight;
+			i {
+		  		margin-left: 2px;
+			}
 		}
 	}
 	i {
-		color: $primaryColor;	
+		color: $primaryColor;
+		display: block;
+		font-size: 28px;
+	}
+	i, p {
+		line-height: normal;
+		max-width: 70%;
+		display: inline-block;
+		vertical-align: top;
+	}
+	p {
+		height: 30px;
+		margin: 0;
+		overflow: hidden;
+		-o-text-overflow: ellipsis; /* pour Opera 9 */
+  		text-overflow: ellipsis;
 	}
 	color: $primaryColor;
 	background: $dark;
