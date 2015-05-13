@@ -4,10 +4,10 @@ var geotrekNotification = angular.module('geotrekNotification');
 
 geotrekNotification.service('notificationDeviceService', ['$q', '$timeout', function ($q, $timeout) {
 
-    this.notify = function(msg) {
+    this.notify = function(msg, title) {
         window.plugin.notification.local.add({
             id:      1,
-            title:   'Title',
+            title:   title || 'Title',
             message: msg
         });
     };
