@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.makinacorpus.randoecrins" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Rando Ecrins</name>
+<widget id="com.makinacorpus.randoloireatlantique" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Rando Loire-Atlantique</name>
     <description>
-        Toutes les randonnées du Parc des Écrins.
+        Rando Loire-Atlantique
     </description>
     <author email="contact@makina-corpus.com" href="http://makina-corpus.com">
         Makina Corpus Cordova Team
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <preference name="SplashScreenDelay" value="0" />
+    <preference name="SplashScreenDelay" value="7000" />
+    <preference name="SplashScreen" value="screen" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
@@ -86,18 +87,21 @@
 
     <platform name="android">
         <icon src="images/icons/android/ic_launcher-medium.png" density="mdpi" />
+        <icon src="images/icons/android/ic_launcher-high.png" density="ldpi" />
         <icon src="images/icons/android/ic_launcher-high.png" density="hdpi" />
         <icon src="images/icons/android/ic_launcher-x-high.png" density="xhdpi" />
         <icon src="images/icons/android/ic_launcher-xx-high.png" density="xxhdpi" />
         <icon src="images/icons/android/ic_launcher-xxx-high.png" density="xxxhdpi" />
 
         <splash src="images/splashscreen/android/splash-landscape-mdpi.png" density="land-mdpi"/>
+        <splash src="images/splashscreen/android/splash-landscape-hdpi.png" density="land-ldpi"/>
         <splash src="images/splashscreen/android/splash-landscape-hdpi.png" density="land-hdpi"/>
         <splash src="images/splashscreen/android/splash-landscape-xhdpi.png" density="land-xhdpi"/>
         <splash src="images/splashscreen/android/splash-landscape-xxhdpi.png" density="land-xxhdpi"/>
         <splash src="images/splashscreen/android/splash-landscape-xxxhdpi.png" density="land-xxxhdpi"/>
 
         <splash src="images/splashscreen/android/splash-portrait-mdpi.png" density="port-mdpi"/>
+        <splash src="images/splashscreen/android/splash-portrait-hdpi.png" density="port-ldpi"/>
         <splash src="images/splashscreen/android/splash-portrait-hdpi.png" density="port-hdpi"/>
         <splash src="images/splashscreen/android/splash-portrait-xhdpi.png" density="port-xhdpi"/>
         <splash src="images/splashscreen/android/splash-portrait-xxhdpi.png" density="port-xxhdpi"/>
