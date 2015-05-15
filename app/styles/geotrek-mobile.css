@@ -341,8 +341,11 @@
     vertical-align: middle; }
     .trek-detail__main-infos__item > div:first-child {
       margin-right: 0.6rem; }
-    .trek-detail__main-infos__item > div img {
+    .trek-detail__main-infos__item > div img, .trek-detail__main-infos__item > div svg {
       height: 2rem; }
+    .trek-detail__main-infos__item > div svg {
+      width: 2rem;
+      fill: white; }
     .trek-detail__main-infos__item > div i {
       color: inherit;
       font-size: 2rem; }

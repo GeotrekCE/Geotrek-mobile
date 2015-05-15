@@ -67,7 +67,10 @@
                     <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
                 </li>
                 <li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
-                    <div><img src="{{trek.properties.route.pictogram}}"></div>
+                    <div ng-if="trek.properties.route.pictogram">
+                        <img ng-if="!isSVG(trek.properties.route.pictogram)" ng-src="trek.properties.route.pictogram">
+                        <ng-include ng-if="isSVG(trek.properties.route.pictogram)" src="trek.properties.route.pictogram"></ng-include>
+                    </div>
                     <div><span>{{ trek.properties.route.label }}</span></div>
                 </li>
                 <li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">

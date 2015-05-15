@@ -230,6 +230,17 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         return false;
     };
 
+    var isSVG = function (file) {
+        var regexp = /\.(svg)$/i;
+        if (file) {
+            if (file.toString().match(regexp)) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     return {
         downloadFile: downloadFile,
         getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
@@ -241,7 +252,8 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         getTrekFilename: getTrekFilename,
         showSpinner: showSpinner,
         hideSpinner: hideSpinner,
-        isAbsoluteURL: isAbsoluteURL
+        isAbsoluteURL: isAbsoluteURL,
+        isSVG: isSVG
     };
 
 }]);

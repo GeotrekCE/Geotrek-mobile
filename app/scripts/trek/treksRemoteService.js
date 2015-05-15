@@ -9,7 +9,6 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
 
         // Parse trek pictures, and change their URL
         angular.forEach(copy.features, function(trek) {
-            console.log(trek);
             var currentTrekId = trek.id;
             angular.forEach(trek.properties.pictures, function(picture) {
                 picture.url = settings.DOMAIN_NAME + picture.url;

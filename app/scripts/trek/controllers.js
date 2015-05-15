@@ -113,7 +113,7 @@ geotrekTreks.controller('TrekController',
     $scope.network_available = $rootScope.network_available;
 
     $scope.isAndroid = ionic.Platform.isAndroid();
-
+    $scope.isSVG = utils.isSVG;
     $scope.trekId = $stateParams.trekId;
     $scope.trek = trek;
     $scope.children = [];

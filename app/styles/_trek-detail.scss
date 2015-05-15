@@ -104,8 +104,12 @@
   		&:first-child {
   			margin-right: 0.6rem;
   		}
-  		img {
+  		img, svg {
 			height: 2rem;
+  		}
+  		svg {
+  			width: 2rem;
+  			fill: white;
   		}
   		i {
   			color: inherit;

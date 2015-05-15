@@ -40,6 +40,20 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
+.config(['$sceDelegateProvider', 'globalSettings',
+    function ($sceDelegateProvider, globalSettings) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            globalSettings.DOMAIN_NAME + '/**'
+        ]);
+
+        // resrources blacklisted for our app
+        $sceDelegateProvider.resourceUrlBlacklist([
+
+        ]);
+    }
+])
 .filter('externalLinks', function() {
     return function(text) {
         return String(text).replace(/href=/gm, 'class="external-link" href=');
