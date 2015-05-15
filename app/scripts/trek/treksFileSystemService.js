@@ -2,7 +2,7 @@
 
 var geotrekTreks = angular.module('geotrekTreks');
 
-geotrekTreks.service('treksFileSystemService', 
+geotrekTreks.service('treksFileSystemService',
     function ($resource, $rootScope, $window, $q, $cordovaFile, settings, utils, globalizationSettings, mapFactory) {
     var _treks;
 
@@ -122,11 +122,16 @@ geotrekTreks.service('treksFileSystemService',
                         function(trekCollection) {
                             deferred.resolve(trekCollection);
                         }, function(error) {
-                            deferred.refect();
+                            deferred.reject(error);
                         }
                     );
                 },
-                deferred.reject
+                function(error){
+                    if(error.code === 1){
+                        error.message = "treks_file_not_found";
+                    }
+                    deferred.reject(error)
+                }
             );
         } else {
             self.updateDownloadedTreks(_treks)
@@ -134,10 +139,10 @@ geotrekTreks.service('treksFileSystemService',
                 function(trekCollection) {
                     deferred.resolve(trekCollection);
                 }, function(error) {
-                    deferred.refect();
+                    deferred.reject(error);
                 }
             );
-            
+
         }
 
         return deferred.promise;
@@ -257,7 +262,7 @@ geotrekTreks.service('treksFileSystemService',
             }
         );
 
-        
+
 
         return deferred.promise;
 
