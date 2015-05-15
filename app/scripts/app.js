@@ -45,6 +45,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
             'self',
+            'cdvfile://localhost/persistent/**',
             globalSettings.DOMAIN_NAME + '/**'
         ]);
 
