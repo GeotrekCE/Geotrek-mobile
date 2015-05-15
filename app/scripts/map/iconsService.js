@@ -10,16 +10,22 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
     var trek_icons = {
         default_icon: {},
         departure_icon: L.icon({
-            iconUrl: 'images/marker-source.png',
-            iconSize: [64, 64],
-            iconAnchor: [32, 64],
-            labelAnchor: [20, -50]
+            iconUrl: 'images/depart_rando.svg',
+            iconSize: [60, 50],
+            iconAnchor: [38, 50],
+            labelAnchor: [38, 50]
         }),
         arrival_icon: L.icon({
-            iconUrl: 'images/marker-target.png',
-            iconSize: [64, 64],
-            iconAnchor: [32, 64],
-            labelAnchor: [20, -50]
+            iconUrl: 'images/arrivee_rando.svg',
+            iconSize: [60, 50],
+            iconAnchor: [18, 50],
+            labelAnchor: [18, 50]
+        }),
+        departure_arrival_icon: L.icon({
+            iconUrl: 'images/arrivee_depart_rando_boucle.svg',
+            iconSize: [60, 50],
+            iconAnchor: [30, 50],
+            labelAnchor: [30, 50]
         }),
         parking_icon: L.icon({
             iconUrl: 'images/parking.png',
@@ -68,6 +74,10 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getArrivalIcon = function() {
         return trek_icons.arrival_icon;
+    };
+
+    this.getDepartureArrivalIcon = function() {
+        return trek_icons.departure_arrival_icon;
     };
 
     this.getParkingIcon = function() {

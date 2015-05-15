@@ -46,24 +46,32 @@ geotrekMap.service('leafletService',
         var endPoint = treksFactory.getEndPoint(trek);
         var parkingPoint = treksFactory.getParkingPoint(trek);
 
-        markers.push(L.marker([endPoint.lat, endPoint.lng], {
-            icon: iconsService.getArrivalIcon(),
-            name: trek.properties.arrival,
-            markerType: 'arrival'
-        }));
+        if (endPoint.lat === startPoint.lat && endPoint.lng === startPoint.lng) {
+            markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                icon: iconsService.getDepartureArrivalIcon(),
+                name: trek.properties.departure,
+                markerType: 'departure-arrival'
+            }));
+        } else {
+            markers.push(L.marker([endPoint.lat, endPoint.lng], {
+                icon: iconsService.getArrivalIcon(),
+                name: trek.properties.arrival,
+                markerType: 'arrival'
+            }));
 
-        markers.push(L.marker([startPoint.lat, startPoint.lng], {
-            icon: iconsService.getDepartureIcon(),
-            name: trek.properties.departure,
-            markerType: 'departure'
-        }));
+            markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                icon: iconsService.getDepartureIcon(),
+                name: trek.properties.departure,
+                markerType: 'departure'
+            }));
+        }
 
         if(parkingPoint) {
             markers.push(L.marker([parkingPoint.lat, parkingPoint.lng], {
-            icon: iconsService.getParkingIcon(),
-            name: "Parking",
-            description: trek.properties.advised_parking,
-            markerType: 'parking'
+                icon: iconsService.getParkingIcon(),
+                name: "Parking",
+                description: trek.properties.advised_parking,
+                markerType: 'parking'
             }));
         };
 
