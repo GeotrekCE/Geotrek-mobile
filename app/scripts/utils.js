@@ -190,7 +190,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         return defered.promise;
     };
 
-    // open external links in device default browser 
+    // open external links in device default browser
     var openLinkInSystemBrowser = function(container) {
 
         var parent = container;
@@ -221,6 +221,31 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         $ionicLoading.hide();
     }
 
+    var is_first_time;
+
+    var isFirstTime =  function(){
+        var deferred = $q.defer();
+        if(angular.isUndefined(is_first_time)){
+            // check if file treks.json is found
+            $cordovaFile.checkFile(settings.device.RELATIVE_TREK_ROOT_FILE).then(function(value){
+                is_first_time = value.isDirectory;
+                deferred.resolve(is_first_time);
+            }, function(error){
+                // error code 1 : file not found
+                if(error.code === 1){
+                    is_first_time = true;
+                    deferred.resolve(true);
+                }
+                else{
+                    deferred.reject(error);
+                }
+            })
+        }
+        else{
+            deferred.resolve(is_first_time);
+        }
+        return deferred.promise;
+    }
 
     return {
         downloadFile: downloadFile,
@@ -232,7 +257,8 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         openLinkInSystemBrowser: openLinkInSystemBrowser,
         getTrekFilename: getTrekFilename,
         showSpinner: showSpinner,
-        hideSpinner: hideSpinner
+        hideSpinner: hideSpinner,
+        isFirstTime: isFirstTime
     };
 
 }]);
