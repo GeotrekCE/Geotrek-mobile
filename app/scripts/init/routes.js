@@ -10,22 +10,26 @@ geotrekInit.config(function($stateProvider) {
         templateUrl: 'views/preload.html',
         controller: 'AssetsController'
     });
-}).controller('AssetsController', [ '$rootScope', '$scope', '$state', '$window', '$q', 'logging', 'treksFactory', 'staticPagesFactory', 'syncDataService', 'globalizationService', 'globalizationSettings', '$translate',
-function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, syncDataService, globalizationService, globalizationSettings, $translate) {
+}).controller('AssetsController', [ '$rootScope', '$scope', '$state', '$window', '$q', 'logging', 'treksFactory', 'staticPagesFactory', 'syncDataService', 'globalizationService', 'globalizationSettings', '$translate', 'utils',
+function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, syncDataService, globalizationService, globalizationSettings, $translate, utils) {
 
     $translate('init.loading').then(function(msg) {
         $scope.message = msg;
+    });
+
+    utils.isFirstTime().then(function(value){
+        $scope.isFirstTime = value;
     });
 
     $scope.progress = "0%";
 
     var displayProgress = function(label) {
         return function(progress) {
-
-            $translate('init.' + label).then(function(msg) {
-                $scope.progress = msg + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
-            });
-            
+            if (!(label === "map" && !$scope.isFirstTime)) {
+                $translate('init.' + label).then(function(msg) {
+                    $scope.progress = msg + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+                });
+            }
         }
     };
 
