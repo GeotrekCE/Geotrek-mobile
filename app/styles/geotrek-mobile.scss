@@ -86,14 +86,14 @@ $bar-dark-active-border:          transparent;
     }
 }
 
-h1.app-title {
+h1.app-title, .button.button-icon.app-title {
     font-size: 140%;
     margin: 0 0.5em;
 }
 
 // Prevent head title from collapsing into search icon on small mobiles
 @media (max-width: 400px) {
-  h1.app-title {
+  h1.app-title, .button.button-icon.app-title{
     font-size: 130%;
     margin: 0 0;
   }
