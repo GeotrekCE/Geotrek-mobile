@@ -225,7 +225,10 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
 
     var isFirstTime =  function(){
         var deferred = $q.defer();
-        if(angular.isUndefined(is_first_time)){
+        if (!window.cordova){
+            deferred.resolve(true);
+        }
+        else if(angular.isUndefined(is_first_time)){
             // check if file treks.json is found
             $cordovaFile.checkFile(settings.device.RELATIVE_TREK_ROOT_FILE).then(function(value){
                 is_first_time = value.isDirectory;
