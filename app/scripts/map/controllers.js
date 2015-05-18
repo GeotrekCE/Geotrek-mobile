@@ -151,7 +151,7 @@ geotrekMap.controller('MapController',
         });
 
     if (settings.leaflet.HIGHLIGHT_DETAIL_LINEAR) {
-        L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
+        var overHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
             .addTo(map)
             .bringToBack();
     }
@@ -186,6 +186,7 @@ geotrekMap.controller('MapController',
     // Reinitialize focus and markers of a trek on state-change
     $rootScope.$on('$stateChangeStart', function() {
         map.removeLayer(currentHighlight);
+        map.removeLayer(overHighlight);
         map.removeLayer(treksMarkers);
         if ($scope.$parent) {
             map.addLayer($scope.$parent.treks);
