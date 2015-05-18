@@ -14,13 +14,11 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     };
 
     this.convertServerUrlToPoiFileSystemUrl = function(trekId, serverUrl) {
-        var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
-        return settings.device.CDV_POI_MEDIA + '/' + trekId.toString() + '/' + filename;
+        return settings.device.CDV_APP_ROOT + serverUrl;
     };
 
     this.convertServerUrlToPictoFileSystemUrl = function(serverUrl) {
-        var filename = serverUrl.substr(serverUrl.lastIndexOf('/') + 1);
-        return settings.device.CDV_PICTO_POI_ROOT + '/' + filename;
+        return settings.device.CDV_APP_ROOT + serverUrl;
     };
 
     this.replaceImgURLs = function(poiData, isLocal, trekId) {
