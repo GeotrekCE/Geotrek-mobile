@@ -33,7 +33,7 @@
 
             <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
             <p class="trek-detail__ambiance" ng-bind-html="trek.properties.ambiance"></p>
-            <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities.0.name }}</p>
+            <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities[0].name }}</p>
             <p class="trek-detail__departure-arrival">{{ trek.properties.departure }} <span ng-if="trek.properties.arrival">→</span> {{ trek.properties.arrival }}</p>
 
             <ul class="trek-detail__main-infos">
@@ -125,7 +125,7 @@
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
 
-            <ion-item class="poi-detail" ng-repeat="poi in pois.features">
+            <ion-item class="poi-detail" ng-repeat="poi in pois.features" ng-init="picture=poi.properties.pictures[0]">
                 <div class="header">
                     <div class="title row">
                         <div class="col-10">
@@ -137,14 +137,14 @@
                             <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }}km)</span>
                         </div>
                     </div>
-                    <div class="picture" ng-init="picture=poi.properties.pictures[0]">
-                         <img ng-if="picture" ng-src="{{ picture.url }}"/>
-                         <span ng-if="picture" class="picture-legend">{{ picture.legend }} ({{ picture.author }})</span>
+                    <div class="picture" ng-if="picture">
+                         <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}"/>
                          <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
                             <span>
                                 {{ 'image.connect' | translate }}
                             </span>
                         </div>
+                        <span class="picture-legend">{{ picture.legend }} ({{ picture.author }})</span>
                     </div>
                 </div>
                 <div class="row content">
