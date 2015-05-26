@@ -8,7 +8,7 @@ var geotrekApp = angular.module('geotrekMobileApp');
  */
 geotrekApp.factory('socialSharingService', function ($rootScope, $window, logging) {
     if (!$window.cordova) {
-        return;
+        return { };
     }
 
     var cordova = window.cordova;
