@@ -29,6 +29,8 @@ geotrekTreks.controller('TrekController',
         search : 0 // Hidden by default
     };
 
+    $rootScope.sanitizeData = utils.sanitizeData;
+
     // Filter treks everytime our filters change
     $scope.filterTreks = function () {
         $rootScope.filteredTreks = treksFiltersService.filterTreks(treks.features, $scope.activeFilters);

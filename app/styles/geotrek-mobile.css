@@ -732,6 +732,8 @@
     margin-bottom: 1em; }
 .static-pages img {
   max-width: 100%; }
+.static-pages .row {
+  display: block; }
 
 .leaflet-control-layers.leaflet-control {
   display: none; }

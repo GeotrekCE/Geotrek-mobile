@@ -15,7 +15,8 @@
 
         <div class='page-content padding static-pages'>
             <h1>{{ title }}</h1>
-            <div ng-bind-html="description | externalLinks"></div>
+            <div ng-if="description" ng-bind-html="$root.sanitizeData(description, true)"></div>
+            <div ng-if="externalLinks" ng-bind-html="$root.sanitizeData(externalLinks, true)"></div>
         </div>
 
     </ion-content>

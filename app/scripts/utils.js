@@ -8,8 +8,8 @@ var geotrekApp = angular.module('geotrekMobileApp');
  *
  */
 
-geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', '$translate', '$ionicPopup',
-    function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading, $translate, $ionicPopup) {
+geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', '$translate', '$ionicPopup',
+    function ($q, settings, $sce, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading, $translate, $ionicPopup) {
 
     var downloadFile = function(url, filepath, forceDownload) {
 
@@ -241,6 +241,13 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         return false;
     };
 
+    var sanitizeData = function (data, removeStyle) {
+        if (removeStyle) {
+            var data = data.replace(/[a-zA-Z0-9\-\_]*style="[^\"]*"/gim, '');
+        }
+        return $sce.trustAsHtml(data);
+    };
+
     return {
         downloadFile: downloadFile,
         getDistanceFromLatLonInKm: getDistanceFromLatLonInKm,
@@ -253,7 +260,8 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
         showSpinner: showSpinner,
         hideSpinner: hideSpinner,
         isAbsoluteURL: isAbsoluteURL,
-        isSVG: isSVG
+        isSVG: isSVG,
+        sanitizeData: sanitizeData
     };
 
 }]);
