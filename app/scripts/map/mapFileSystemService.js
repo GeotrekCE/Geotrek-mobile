@@ -32,7 +32,7 @@ geotrekMap.service('mapFileSystemService',
 
             angular.forEach(listFiles, function(mbtileFile) {
                 // Remove the zip file
-                if (mbtileFile.name != settings.TILES_FILE_NAME) {
+                if (mbtileFile.name.match(/\.zip$/i) && mbtileFile.name != settings.TILES_FILE_NAME) {
                     promises.push($cordovaFile.removeFile(settings.device.RELATIVE_TILES_ROOT + "/" + mbtileFile.name));
                 }
                 // Remove the tiles foldes

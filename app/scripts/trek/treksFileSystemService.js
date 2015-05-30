@@ -211,34 +211,33 @@ geotrekTreks.service('treksFileSystemService',
             _this = this;
 
         $q.all([
-            $cordovaFile.listDir(settings.device.RELATIVE_POI_ROOT)
+            $cordovaFile.listDir(settings.device.RELATIVE_PAPERCLIP_DIR)
             .then(function(listFiles) {
                 var promises = [];
-
-                angular.forEach(listFiles, function(poiFile) {
-                    // Remove pois
-                    if (poiFile.name != settings.PICTOGRAM_DIR) {
-                        promises.push(utils.removeDir(settings.device.RELATIVE_POI_ROOT + "/" + poiFile.name));
+                angular.forEach(listFiles, function(mediaFolder) {
+                    // Remove Media Folder
+                    if (mediaFolder.name != settings.MEDIA_TREK_DIR) {
+                        promises.push(utils.removeDir(settings.device.RELATIVE_PAPERCLIP_DIR + "/" + mediaFolder.name));
                     }
                 });
 
                 $q.all(promises)
-                .then(function(pois) {
-                    promise.push(pois);
+                .then(function(folder) {
+                    promise.push(folder);
                 });
 
             }, function(error) {
                 logging.error(error);
-                deferred.reject({message: 'Couldnt delete pois', data: error});
+                deferred.reject({message: 'Couldnt delete media', data: error});
             }),
             $cordovaFile.listDir(settings.device.RELATIVE_ROOT)
             .then(function(listFiles) {
                 var promises = [];
 
-                angular.forEach(listFiles, function(trekFile) {
+                angular.forEach(listFiles, function(rootFile) {
                     // Remove the zip file
-                    if (trekFile.name != settings.TREKS_FILE_NAME && trekFile.name != settings.TREKS_ZIP_NAME && trekFile.name != settings.LOGS_FILENAME ) {
-                        promises.push($cordovaFile.removeFile(settings.device.RELATIVE_ROOT + "/" + trekFile.name));
+                    if (rootFile.name.match(/\.zip$/i) && rootFile.name != settings.TREKS_ZIP_NAME) {
+                        promises.push($cordovaFile.removeFile(settings.device.RELATIVE_ROOT + "/" + rootFile.name));
                     }
                 });
 
@@ -250,27 +249,6 @@ geotrekTreks.service('treksFileSystemService',
             }, function(error) {
                 logging.error(error);
                 deferred.reject({message: 'Couldnt delete treks zip', data: error});
-            }),
-            $cordovaFile.listDir(settings.device.RELATIVE_TREK_MEDIA)
-            .then(function(listFiles) {
-                var promises = [];
-
-                angular.forEach(listFiles, function(trekFile) {
-                    // Remove the zip file
-                    console.log(settings.device.RELATIVE_TREK_MEDIA + "/" + 'listFiles' + '/' + trekFile.name);
-                    if (trekFile.name != settings.TREKS_FILE_NAME) {
-                        promises.push(_this.removeTrekDownloadedFiles(settings.device.RELATIVE_TREK_MEDIA + "/" + 'listFiles' + '/' + trekFile.name));
-                    }
-                });
-
-                $q.all(promises)
-                .then(function(layers) {
-                    promise.push(layers);
-                });
-
-            }, function(error) {
-                logging.error(error);
-                deferred.reject({message: 'Couldnt delete treks images', data: error});
             })
         ])
         .then(
