@@ -51,23 +51,23 @@
 
             <ul class="trek-detail__main-infos">
                 <li ng-if="trek.properties.duration_pretty" class="trek-detail__main-infos__item duration">
-                    <div><i class="icon ion-android-clock"></i></div>
+                    <div><ng-include src="'images/duration.svg'"></ng-include></div>
                     <div><span>{{ trek.properties.duration_pretty }}</span></div>
                 </li>
                 <li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item difficulty">
-                    <div><i class="icon ion-speedometer"></i></div>
+                    <div><ng-include src="trek.properties.difficulty.pictogram"></ng-include></i></div>
                     <div><span>{{ trek.properties.difficulty.label }}</span></div>
                 </li>
                 <li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
-                    <div><i class="icon ion-arrow-graph-up-right"></i></div>
+                    <div><ng-include src="'images/ascent.svg'"></ng-include></div>
                     <div><span>{{ trek.properties.ascent }}m</span></div>
                 </li>
                 <li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
-                    <div><img src="images/length.svg"></div>
+                    <div><ng-include src="'images/length.svg'"></ng-include></div>
                     <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
                 </li>
                 <li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
-                    <div><i class="icon ion-arrow-swap"></i></div>
+                    <div><ng-include src="trek.properties.route.pictogram"></ng-include></i></div>
                     <div><span>{{ trek.properties.route.label }}</span></div>
                 </li>
                 <li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
