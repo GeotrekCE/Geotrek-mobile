@@ -13,7 +13,9 @@ geotrekInit.config(function($stateProvider) {
 }).controller('AssetsController', [ '$rootScope', '$scope', '$state', '$window', '$q', 'logging', 'treksFactory', 'staticPagesFactory', 'syncDataService', 'globalizationService', 'globalizationSettings', '$translate',
 function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, syncDataService, globalizationService, globalizationSettings, $translate) {
 
-    $translate('init.loading').then(function(msg) {
+    globalizationService.init().then(function(){
+        return $translate('init.loading');
+    }).then(function(msg) { 
         $scope.message = msg;
     });
 
