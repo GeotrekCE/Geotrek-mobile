@@ -109,7 +109,6 @@ geotrekTreks.controller('TrekController',
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, settings, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
-
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
 
     $scope.network_available = $rootScope.network_available;
