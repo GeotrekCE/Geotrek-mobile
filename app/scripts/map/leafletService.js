@@ -29,8 +29,12 @@ geotrekMap.service('leafletService',
             maxZoom: settings.leaflet.GLOBAL_MAP_DEFAULT_MAX_ZOOM,
             scrollWheelZoom: true,
             zoomControl: false,
-            layers: L.tileLayer(mapFactory.getGlobalTileLayerURL())
+            layers: []
         };
+
+        angular.forEach(mapFactory.getGlobalTileLayerURL(), function (layer) {
+            map_parameters.layers.push(L.tileLayer(layer));
+        });
 
         return map_parameters;
     };

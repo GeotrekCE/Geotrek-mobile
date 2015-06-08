@@ -7,7 +7,10 @@ geotrekMap.service('mapFileSystemService',
     function ($q, $cordovaFile, logging, utils, settings) {
 
     this.getGlobalTileLayerURL = function() {
-        return settings.device.LEAFLET_BACKGROUND_URL;
+        return [
+            settings.remote.LEAFLET_BACKGROUND_URL,
+            settings.device.LEAFLET_BACKGROUND_URL
+        ];
     };
 
     this.downloadGlobalBackground = function(url, progress) {

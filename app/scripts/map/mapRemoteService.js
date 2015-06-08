@@ -12,7 +12,7 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', 'settings', funct
     }
 
     this.getGlobalTileLayerURL = function() {
-        return settings.remote.LEAFLET_BACKGROUND_URL;
+        return [settings.remote.LEAFLET_BACKGROUND_URL];
     };
 
     // We don't have to download Map Background in Remote version, only for device offline mode
@@ -31,7 +31,7 @@ geotrekMap.service('mapRemoteService', ['$q', '$localStorage', 'settings', funct
 
     this._getLocalStorageKey = function(trekId) {
         return EMULATED_DOWNLOAD_LOCALSTORAGE_KEY + trekId.toString();
-    }
+    };
 
     // We want to simulate correct trek background downloading
     this.downloadTrekPreciseBackground = function(trekId) {
