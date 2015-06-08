@@ -37,13 +37,32 @@
             <p class="trek-detail__ambiance" ng-bind-html="trek.properties.ambiance"></p>
 
             <ul class="trek-detail__main-infos">
-                <li class="trek-detail__main-infos__item icon-duration">{{ trek.properties.duration_pretty }}</li>
-                <li class="trek-detail__main-infos__item icon-difficulty">{{ trek.properties.difficulty.label }}</li>
-                <li class="trek-detail__main-infos__item icon-ascent">{{ trek.properties.ascent }}m</li>
-                <li class="trek-detail__main-infos__item icon-total-length">{{ 'trek_list.distance.to' | translate }} {{ trek.properties.length/1000 | number:2 }}km</li>
-                <li class="trek-detail__main-infos__item icon-route">{{ trek.properties.route.label }}</li>
-                <li class="trek-detail__main-infos__item icon ion-android-locate" ng-if="trek.distanceFromUser">{{ trek.distanceFromUser }}km</li>
+                <li ng-if="trek.properties.duration_pretty" class="trek-detail__main-infos__item duration">
+                    <div><i class="icon ion-android-clock"></i></div>
+                    <div><span>{{ trek.properties.duration_pretty }}</span></div>
+                </li>
+                <li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item difficulty">
+                    <div><i class="icon ion-speedometer"></i></div>
+                    <div><span>{{ trek.properties.difficulty.label }}</span></div>
+                </li>
+                <li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
+                    <div><i class="icon ion-arrow-graph-up-right"></i></div>
+                    <div><span>{{ trek.properties.ascent }}m</span></div>
+                </li>
+                <li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
+                    <div><img src="images/length.svg"></div>
+                    <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
+                </li>
+                <li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
+                    <div><i class="icon ion-arrow-swap"></i></div>
+                    <div><span>{{ trek.properties.route.label }}</span></div>
+                </li>
+                <li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
+                    <div><i class="icon ion-android-locate"></i></div>
+                    <div><span>{{ trek.distanceFromUser }}km</span></div>
+                </li>
             </ul>
+
 
             <ul class="trek-detail__extra-infos">
                 <li ng-if="trek.properties.usages" class="trek-detail__extra-infos__item">
@@ -95,13 +114,21 @@
             <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
             <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
 
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.public_transport' | translate }}</h2>
+            <h2 class="trek-detail__section-title" ng-if="trek.properties.public_transport || trek.properties.access || trek.properties.advised_parking">
+            {{ 'trek_detail.transport' | translate }}
+            </h2>
             <p ng-if="trek.properties.public_transport">
                 <span>{{ 'trek_detail.public_transport' | translate }} : </span>
                 <span ng-bind-html="trek.properties.public_transport"></span>
             </p>
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
-            <p ng-if="trek.properties.advised_parking">{{ 'trek_detail.advised_parking' | translate }} : {{ trek.properties.advised_parking }}</p>
+            <p ng-if="trek.properties.access">
+                <span>{{ 'trek_detail.road_access' | translate }}</span>
+                <span> {{ trek.properties.access }}</span>
+            </p>
+            <p ng-if="trek.properties.advised_parking">
+                <span>{{ 'trek_detail.advised_parking' | translate }}</span>
+                <span> {{ trek.properties.advised_parking }}</span>
+            </p>
 
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
             <p ng-bind-html="trek.properties.advice" ></p>
