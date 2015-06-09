@@ -141,10 +141,10 @@ h1.app-title, .button.button-icon.app-title {
 
 .bar .button.button-logo {
 	width: 45px;
-	background:url(../images/logo_pn.svg) top right no-repeat;
+	background:url(../images/logo_pn.svg) 20px center no-repeat;
 	border: none;
-    padding-left: 45px;
-
+  padding-left: 45px;
+  background-size: auto 140%;
 	&:before {
         position: absolute;
         top: 0;
