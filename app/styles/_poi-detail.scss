@@ -7,51 +7,51 @@
   .header {
     border-bottom: 1px solid #eee;
     padding: 0;
-    .title {
-      width: 100%;
-      padding: 0;
-      line-height: 1em;
-      align-items: center;
-      justify-content: center;
-      .poi-detail__name {
-        display: inline;
-        vertical-align: middle;
-        color: $complementaryColor2;
-        font-weight: bold;
-        white-space: normal;
-        margin: 0;
-        padding: 0;
-      }
-      .poi-detail__distance {
-        display: inline;
-        vertical-align: middle;
-        font-size: 14px;
-        margin: 0 0 2px 2px;
-      }
-      .pictogram {
-        width: 30px;
-        height: auto;
-      }
-    }
-    .picture-legend {
-      line-height: 2em;
-      display: block;
-      text-align: center;
-      font-style: italic;
-      font-size: 14px;
+  }
+  .title {
+    width: 100%;
+    padding: 0;
+    line-height: 1em;
+    align-items: center;
+    justify-content: center;
+    .poi-detail__name {
+      display: inline;
+      vertical-align: middle;
       color: $complementaryColor2;
+      font-weight: bold;
+      white-space: normal;
+      margin: 0;
+      padding: 0;
     }
-    .picture {
+    .poi-detail__distance {
+      display: inline;
+      vertical-align: middle;
+      font-size: 14px;
+      margin: 0 0 2px 2px;
+    }
+    .pictogram {
+      width: 30px;
+      height: auto;
+    }
+  }
+  .picture-legend {
+    line-height: 2em;
+    display: block;
+    text-align: center;
+    font-style: italic;
+    font-size: 14px;
+    color: $complementaryColor2;
+  }
+  .picture {
+    width: 100%;
+    display: block;
+    line-height: 0em;
+    img {
       width: 100%;
-      display: block;
-      line-height: 0em;
-      img {
-        width: 100%;
-        height: auto;
-      }
-      img[src=""], img[ng-src=""] {
-         display: none;
-      }
+      height: auto;
+    }
+    img[src=""], img[ng-src=""] {
+       display: none;
     }
   }
   .poi-detail__description {
@@ -73,6 +73,9 @@
       &.thumbnail {
         margin: 20px auto;  
       }
+    }
+    .picture-legend {
+      border-bottom: 1px solid #eee;
     }
     .poi-detail__description {
       padding: 10px;

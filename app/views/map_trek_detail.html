@@ -44,6 +44,10 @@
                     <div ng-if="network_available || downloaded">
                         <img  ng-if="objectToDisplay.img" ng-src="{{ objectToDisplay.img.url }}" ng-alt="{{ objectToDisplay.img.title }}"/>
                         <img  ng-if="objectToDisplay.thumbnail && !objectToDisplay.img" class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
+                        <div class="picture-legend" ng-if="objectToDisplay.img.legend || objectToDisplay.img.author">
+                            <span ng-if="objectToDisplay.img.legend">{{objectToDisplay.img.legend}}</span>
+                            <span ng-if="objectToDisplay.img.author"> ({{objectToDisplay.img.author}})</span>
+                        </div>
                     </div>
                     <p ng-if="objectToDisplay.description" class="poi-detail__description" ng-bind-html="objectToDisplay.description"></p>
                 </ion-item>
