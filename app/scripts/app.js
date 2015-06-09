@@ -6,6 +6,7 @@ var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
      'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings', 'geotrekStaticPages',
+     'angulartics', 'angulartics.google.analytics.cordova',
      'geotrekLog', 'geotrekNotification',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
@@ -45,8 +46,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         return String(text).replace(/href=/gm, 'class="external-link" href=');
     };
 })
-.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
-function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
+.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'settings', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
+function($rootScope, logging, $window, $timeout, $state, settings, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -108,6 +109,17 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
         utils.hideSpinner();
     });
 
-    
+    function initAnalytics() {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', settings.GOOGLE_ANALYTICS_ID, 'auto');
+    }
+
+    if (settings.GOOGLE_ANALYTICS_ID) {
+        initAnalytics();
+    }
 
 }]);

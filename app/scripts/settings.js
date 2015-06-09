@@ -33,6 +33,8 @@ geotrekAppSettings.constant('globalSettings', {
         TREK_COLOR: '#F89406'
     };
 
+    var GOOGLE_ANALYTICS_ID = 'UA-7988554-7';
+
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
      * <GEOTREK_DIR>
@@ -94,6 +96,7 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
 
     return {
+        GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
         DOMAIN_NAME: DOMAIN_NAME,
         POI_FILE_NAME: POI_FILE_NAME,
         TREKS_FILE_NAME: TREKS_FILE_NAME,
