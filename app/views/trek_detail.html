@@ -29,10 +29,11 @@
     <ion-content overflow-scroll="false" class="modal-content">
 
         <div class="trek-detail padding">
-            <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
-            <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} : {{ trek.properties.cities[0].name }}</p>
-            <p class="trek-detail__departure-arrival">{{ trek.properties.departure }} <span ng-if="trek.properties.arrival">→</span> {{ trek.properties.arrival }}</p>
-
+            <div class="trek-detail__header">
+                <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
+                <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} {{ trek.properties.cities[0].name }}</p>
+                <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival"><span ng-if="trek.properties.departure">{{ 'trek_detail.departure' | translate }} {{ trek.properties.departure }}</span><span ng-if="trek.properties.departure && trek.properties.arrival"> → </span><span ng-if="trek.properties.arrival">{{ 'trek_detail.arrival' | translate }} {{ trek.properties.arrival }}</span></p>
+            </div>
             <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
             <p class="trek-detail__ambiance" ng-bind-html="trek.properties.ambiance"></p>
 
@@ -42,7 +43,7 @@
                     <div><span>{{ trek.properties.duration_pretty }}</span></div>
                 </li>
                 <li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item difficulty">
-                    <div><i class="icon ion-speedometer"></i></div>
+                    <div><i class="icon ion-connection-bars"></i></div>
                     <div><span>{{ trek.properties.difficulty.label }}</span></div>
                 </li>
                 <li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
@@ -78,14 +79,6 @@
                         <img class="icon" ng-src="{{ theme.pictogram }}"/>
                     </span>
                 </li>
-
-                <li ng-if="trek.properties.networks" class="trek-detail__extra-infos__item">
-                    <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
-                        <span class="net-name">{{network.name}}</span>&nbsp;
-                        <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
-                    </span>
-                </li>
             </ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
@@ -104,30 +97,40 @@
             <p class="description" ng-bind-html="mainDescription">
                 {{ trek.properties.description }}
             </p>
+            <ul class="trek-detail__extra-infos">
+                <li ng-if="trek.properties.networks" class="trek-detail__extra-infos__item">
+                    <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
+                    <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
+                        <span class="net-name">{{network.name}}</span>&nbsp;
+                        <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
+                    </span>
+                </li>
+            </ul>
             <p ng-repeat="district in trek.properties.districts">
                 {{ district.name.join(', ') }}
             </p>
-            <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
             <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
             <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
             <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
 
-            <h2 class="trek-detail__section-title" ng-if="trek.properties.public_transport || trek.properties.access || trek.properties.advised_parking">
-            {{ 'trek_detail.transport' | translate }}
-            </h2>
             <p ng-if="trek.properties.public_transport">
-                <span>{{ 'trek_detail.public_transport' | translate }} : </span>
+                <h2 class="trek-detail__section-title">
+                    {{ 'trek_detail.public_transport' | translate }}
+                </h2>
                 <span ng-bind-html="trek.properties.public_transport"></span>
             </p>
-            <p ng-if="trek.properties.access">
-                <span>{{ 'trek_detail.road_access' | translate }}</span>
-                <span> {{ trek.properties.access }}</span>
+            <p ng-if="trek.properties.access || trek.properties.advised_parking">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
+                <span>{{ trek.properties.access }}</span>
+                <span>{{ trek.properties.advised_parking }}</span>
             </p>
-            <p ng-if="trek.properties.advised_parking">
-                <span>{{ 'trek_detail.advised_parking' | translate }}</span>
-                <span> {{ trek.properties.advised_parking }}</span>
+
+            <p class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.rules' | translate }}</h2>
+                <span>{{ 'trek_detail.park_centered' | translate }}</span>
+                <img class="rules-picture" src="images/reglementation.jpg" alt="rules">
             </p>
 
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
