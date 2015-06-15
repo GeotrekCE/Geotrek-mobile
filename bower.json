@@ -11,7 +11,7 @@
     "angular-animate": "~1.2.16",
     "angular-sanitize": "~1.2.16",
     "angulartics": "^0.17.2",
-    "ionic": "1.0.0-beta.13",
+    "ionic": "1.0.0-beta.9",
     "ngCordova": "~0.1.2-alpha",
     "angular-translate": "~2.2.0",
     "ngstorage": "~0.3.0"
