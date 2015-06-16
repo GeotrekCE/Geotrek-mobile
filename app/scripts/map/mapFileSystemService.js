@@ -34,17 +34,23 @@ geotrekMap.service('mapFileSystemService',
                 // Remove the zip file
                 if (mbtileFile.name != settings.TILES_FILE_NAME) {
                     promises.push($cordovaFile.removeFile(settings.device.RELATIVE_TILES_ROOT + "/" + mbtileFile.name));
-                };
-                // Remove the tiles foldes
-                for (var i = 13; i <= 16; i++) {
-                    promises.push(_this._deleteTiles(i));
-                };
+                }
             });
 
+            // Remove the tiles foldes
+            for (var i = 13; i <= 16; i++) {
+                promises.push(_this._deleteTiles(i));
+            }
+
             $q.all(promises)
-            .then(function(layers) {
-                deferred.resolve(layers);
-            })
+            .then(
+                function (layers) {
+                    deferred.resolve(layers);
+                }, function (err) {
+                    console.error(err);
+                    deferred.reject(err);
+                }
+            );
 
         }, function(error) {
             logging.error(error);

@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$q', '$ionicPopup', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
-    function ($ionicPlatform, $rootScope, $state, $scope, $q, $ionicPopup, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
+    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$q', '$ionicPopup', 'utils', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
+    function ($ionicPlatform, $rootScope, $state, $scope, $q, $ionicPopup, utils, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
@@ -47,11 +47,11 @@ geotrekUserSettings.controller('UserSettingsController',
 
             confirmPopup.then(function(confirmed) {
                 if(confirmed) {
+                    utils.showSpinner();
                     $q.all([
                         mapFactory.cleanDownloadedLayers()
                         .then(
                             function(result) {
-                                
                             }, function(error) {
                                 logging.error(error);
                             }
@@ -59,7 +59,6 @@ geotrekUserSettings.controller('UserSettingsController',
                         treksFactory.removeDownloadedImages()
                         .then(
                             function() {
-
                             }, function(error) {
                                 console.error(error);
                             }
@@ -69,6 +68,7 @@ geotrekUserSettings.controller('UserSettingsController',
                         function(result) {
                             // Disabling delete button to inform user that delete is done
                             $scope.cleanIsDisabled = true;
+                            utils.hideSpinner();
                         }, function(error) {
                             console.error(error);
                         }
