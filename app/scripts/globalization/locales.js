@@ -48,7 +48,7 @@ geotrekGlobalization.constant('locales', {
         'trek_list.trek': 'Itinéraire',
         'trek_list.departure': 'Départ',
         'trek_list.distance': 'Distance',
-        'trek_list.distance.to': 'à',
+        'trek_list.distance.to': 'à ',
         'trek_controller_no_network_title': 'Réseau inaccessible',
         'trek_controller_no_network_label': 'Vérifiez votre connexion, elle est nécessaire pour obtenir la carte détaillée de l\'itinéraire.',
         'trek_controller_download_confirm_title': 'Télécharger la carte de l\'itinéraire',
