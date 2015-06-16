@@ -78,7 +78,7 @@ geotrekGlobalization.constant('locales', {
         'error_title': 'Erreur',
         'cancel': 'Retour',
         'maj_title': 'Données mises à jour',
-        'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer puis les re-télécharger pour mettre à jour leurs images et leurs fonds de carte.'
+        'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer via les paramètres de l\'application puis les re-télécharger pour mettre à jour leurs images et leurs fonds de carte.'
     },
     'en': {
         'init.loading': 'Loading data...',
