@@ -184,15 +184,15 @@ geotrekAppSettings.constant('globalSettings', {
             ],
             eLength :  [
                 { id: 0, name: '<5km', interval: [0, 5000] },
-                { id: 10000, name: '5km-10km', interval: [5001, 10000] },
+                { id: 5000, name: '5km-10km', interval: [5001, 10000] },
                 { id: 10000, name: '10km-15km', interval: [10001, 15000] },
-                { id: 10000, name: '15km-20km', interval: [15001, 20000] },
-                { id: 10000, name: '20km-25km', interval: [20001, 25000] },
-                { id: 10000, name: '25km-30km', interval: [25001, 30000] },
-                { id: 10000, name: '30km-35km', interval: [30001, 35000] },
-                { id: 20000, name: '35km-40km', interval: [35001, 40000] },
-                { id: 20000, name: '40km-45km', interval: [40001, 45000] },
-                { id: 30000, name: '>45km', interval: [45001, 99999] },
+                { id: 15000, name: '15km-20km', interval: [15001, 20000] },
+                { id: 20000, name: '20km-25km', interval: [20001, 25000] },
+                { id: 25000, name: '25km-30km', interval: [25001, 30000] },
+                { id: 30000, name: '30km-35km', interval: [30001, 35000] },
+                { id: 35000, name: '35km-40km', interval: [35001, 40000] },
+                { id: 40000, name: '40km-45km', interval: [40001, 45000] },
+                { id: 45000, name: '>45km', interval: [45001, 99999] },
             ]
         }
     };
