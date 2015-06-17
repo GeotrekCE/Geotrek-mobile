@@ -44,6 +44,10 @@ $bar-dark-active-border:          transparent;
 // Global styles
 // --------------------------------------------------
 
+body {
+  background: white;
+}
+
 .flex-wrapper {
 	@include display-flex();
 	@include flex(1, 0);
