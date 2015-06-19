@@ -23,6 +23,14 @@ $bar-dark-active-border:          transparent;
 	margin-top: 1px!important;
 }
 
+.platform-ios.platform-cordova:not(.fullscreen) .app-title {
+	margin: 6px 0;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-main .buttons.pull-right {
+	position: static;
+}
+
 // Fix a bug on scale in animation
 
 // Scale In

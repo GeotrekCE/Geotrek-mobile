@@ -8169,6 +8169,12 @@ a.button {
 .platform-ios7.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
   margin-top: 1px !important; }
 
+.platform-ios.platform-cordova:not(.fullscreen) .app-title {
+  margin: 6px 0; }
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-main .buttons.pull-right {
+  position: static; }
+
 @-webkit-keyframes scaleIn {
   from {
     -webkit-transform: scale(0);
