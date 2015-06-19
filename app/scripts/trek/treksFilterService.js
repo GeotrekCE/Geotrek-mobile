@@ -146,14 +146,15 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
 
         if (typeof filter === 'object') {
             var result = false;
-            for (var i = filter.length - 1; i >= 0; i--) {
-                var value = filter[i];
+            angular.forEach(filter, function (value) {
                 if (value.checked) {
-                    return (result = true);
+                    result = true;
                 }
-            }
+            });
             return result;
         }
+
+        return true;
     };
 
     // Function called each time a filter is modified, to know which treks to display
