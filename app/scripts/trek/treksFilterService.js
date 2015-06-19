@@ -139,22 +139,39 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         return false;
     };
 
+    this.filterIsActive = function (filter) {
+        if (!filter) {
+            return false;
+        }
+
+        if (typeof filter === 'object') {
+            var result = false;
+            for (var i = filter.length - 1; i >= 0; i--) {
+                var value = filter[i];
+                if (value.checked) {
+                    return (result = true);
+                }
+            }
+            return result;
+        }
+    };
+
     // Function called each time a filter is modified, to know which treks to display
     this.filterTreks = function(treks, activeFilters) {
         var self = this;
         var filteredTreks = [];
         angular.forEach(treks, function(trek) {
             if (
-                (!activeFilters.difficulty || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
-                (!activeFilters.duration || (trek.properties.duration && self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration))) &&
-                (!activeFilters.elevation || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
-                (!activeFilters.eLength || (trek.properties.eLength && self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength))) &&
-                (!activeFilters.download || (trek.tiles && self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download))) &&
-                (!activeFilters.theme || (trek.properties.properties && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
-                (!activeFilters.use || (trek.properties.usages && self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id'))) &&
-                (!activeFilters.route || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
-                (!activeFilters.valley || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
-                (!activeFilters.municipality || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')))
+                (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
+                (!self.filterIsActive(activeFilters.duration) || (trek.properties.duration && self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration))) &&
+                (!self.filterIsActive(activeFilters.elevation) || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
+                (!self.filterIsActive(activeFilters.eLength) || (trek.properties.eLength && self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength))) &&
+                (!self.filterIsActive(activeFilters.download) || (trek.tiles && self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download))) &&
+                (!self.filterIsActive(activeFilters.theme) || (trek.properties.properties && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
+                (!self.filterIsActive(activeFilters.use) || (trek.properties.usages && self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id'))) &&
+                (!self.filterIsActive(activeFilters.route) || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
+                (!self.filterIsActive(activeFilters.valley) || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
+                (!self.filterIsActive(activeFilters.municipality) || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')))
             ) {
                 filteredTreks.push(trek);
             }
