@@ -8,7 +8,19 @@ geotrekUserSettings.controller('UserSettingsController',
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
-    $scope.languages = localeSettings;
+    function getAvailableLanguages() {
+        var availableLanguages = {},
+            langLength = 0;
+        angular.forEach(localeSettings, function (language, languageCode) {
+            if (globalSettings.AVAILABLE_LANGUAGES.indexOf(languageCode) > -1) {
+                availableLanguages[languageCode] = language;
+                langLength ++;
+            }
+        });
+        $scope.languages = availableLanguages;
+        $scope.langLength = langLength;
+    }
+    getAvailableLanguages();
     $scope.connections = networkSettings;
 
     function somethingToDelete () {

@@ -18,11 +18,9 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                             }
                         })
                         .then(function() {
-                            console.log('download global zip');
                             return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL, progress('map'));
                         })
                         .then(function() {
-                            console.log('resolve !');
                             deferred.resolve();
                         })
                         .catch(function(error) {
@@ -40,9 +38,7 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                                 $cordovaDialogs.alert(msg, 'Info', 'OK')
                                     .then(
                                         function () {
-                                            console.log('Wait for Netwotk');
                                             document.addEventListener('online', function () {
-                                                console.log('Netwotk found !');
                                                 utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
                                                     .then(function(response) {
                                                         if(!response.useCache) {
@@ -50,11 +46,9 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                                                         }
                                                     })
                                                     .then(function() {
-                                                        console.log('download global zip');
                                                         return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL, progress('map'));
                                                     })
                                                     .then(function() {
-                                                        console.log('resolve !');
                                                         deferred.resolve();
                                                     })
                                                     .catch(function(error) {

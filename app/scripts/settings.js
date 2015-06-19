@@ -11,6 +11,7 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 // so we put in globalSettings some project constants.
 geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr',
+    AVAILABLE_LANGUAGES: ['fr'],
     GOOGLE_ANALYTICS_ID: 'UA-7988554-7'
 })
 .factory('settings', function () {

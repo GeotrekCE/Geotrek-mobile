@@ -27,6 +27,10 @@ geotrekGlobalization.factory('globalizationFactory', ['$injector', '$window', 'l
                     }
                     language = language.substring(0, 2);
                 }
+
+                if (globalSettings.AVAILABLE_LANGUAGES.indexOf(language) === -1) {
+                    language = globalSettings.DEFAULT_LANGUAGE;
+                }
             }
             catch(e) {
                 logging.error(e);
