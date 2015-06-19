@@ -241,6 +241,13 @@ CORDOVA DIALOGS PLUGIN
 cordova plugin add org.apache.cordova.dialogs
 ```
 
+CORDOVA DIALOGS PLUGIN
+==================================
+If you want a scheme url on your app
+```bash
+cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=mySchemeURL
+```
+
 
 CREDITS
 =======

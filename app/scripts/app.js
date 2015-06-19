@@ -31,6 +31,9 @@ ionic.Platform.ready(function() {
 
 });
 
+function handleOpenURL(url) {
+}
+
 geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     function($urlRouterProvider, $compileProvider) {
 
