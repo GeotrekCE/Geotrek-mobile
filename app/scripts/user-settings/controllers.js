@@ -3,18 +3,30 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$q', '$ionicPopup', 'utils', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
-    function ($ionicPlatform, $rootScope, $state, $scope, $q, $ionicPopup, utils, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
+    ['$ionicPlatform', '$rootScope', '$state', '$scope', '$q', '$ionicPopup', 'utils', 'globalSettings', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
+    function ($ionicPlatform, $rootScope, $state, $scope, $q, $ionicPopup, utils, globalSettings, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
-    $scope.languages = localeSettings;
+    function getAvailableLanguages() {
+        var availableLanguages = {},
+            langLength = 0;
+        angular.forEach(localeSettings, function (language, languageCode) {
+            if (globalSettings.AVAILABLE_LANGUAGES.indexOf(languageCode) > -1) {
+                availableLanguages[languageCode] = language;
+                langLength ++;
+            }
+        });
+        $scope.languages = availableLanguages;
+        $scope.langLength = langLength;
+    }
+    getAvailableLanguages();
     $scope.connections = networkSettings;
     $scope.cleanIsDisabled = false;
 
     // AND
     // 2/ initialize select with saved user settings
-     userSettingsService.getUserSettings().then(function(userSettings){
+    userSettingsService.getUserSettings().then(function(userSettings){
             var scopeUserSettings = {
                 currentLanguage: localeSettings[userSettings.currentLanguage],
                 synchronizationMode: networkSettings[userSettings.synchronizationMode],

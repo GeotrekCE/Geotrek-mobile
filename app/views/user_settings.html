@@ -12,11 +12,11 @@
 
         <ion-list class="user-parameters">
 
-            <div class="item item-divider">
+            <div class="item item-divider" ng-if="langLength > 1">
                 {{ 'user_parameters.global' | translate }}
             </div>
 
-            <ion-item class="item item-input item-select">
+            <ion-item ng-if="langLength > 1" class="item item-input item-select">
                 <div class="input-label">
                   {{ 'user_parameters.language' | translate }}
                 </div>
@@ -80,11 +80,11 @@
                 </label>
             </ion-item>
 
-            <div class="item item-divider">
+            <div ng-if="!$root.isIOS" class="item item-divider">
                   {{ 'user_parameters.exit' | translate }}
             </div>
 
-            <ion-item class="item-toggle">
+            <ion-item ng-if="!$root.isIOS" class="item-toggle">
                 <div class="input-label">
                   {{ 'user_parameters.exit_label' | translate }}
                 </div>

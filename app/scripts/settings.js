@@ -11,6 +11,7 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 // so we put in globalSettings some project constants.
 geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr',
+    AVAILABLE_LANGUAGES: ['fr'],
     DOMAIN_NAME: 'http://rando-cg44.makina-corpus.net/data'
 })
 .factory('settings', function () {
