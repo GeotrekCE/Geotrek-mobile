@@ -36,17 +36,17 @@ geotrekTreks.service('treksFileSystemService',
                         var filename = networkUrl.substr(networkUrl.lastIndexOf('/') + 1);
                         network.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
                     });
-                    if(angular.isDefined(trek.properties.difficulty)){
+                    if(trek.properties.difficulty){
                         var difficultyUrl = trek.properties.difficulty.pictogram;
                         var filename = difficultyUrl.substr(difficultyUrl.lastIndexOf('/') + 1);
                         trek.properties.difficulty.pictogram = settings.device.CDV_PICTO_TREK_ROOT + '/' + filename;
                     }
-                    if(angular.isDefined(trek.properties.altimetric_profile)){
+                    if(trek.properties.altimetric_profile){
                         var altimetric_profileUrl = trek.properties.altimetric_profile;
                         var filename = altimetric_profileUrl.substr(altimetric_profileUrl.lastIndexOf('/') + 1).replace(".json", ".png");
                         trek.properties.altimetric_profile = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
                     }
-                    if(angular.isDefined(trek.properties.thumbnail)) {
+                    if(trek.properties.thumbnail) {
                         var thumbUrl = trek.properties.thumbnail;
                         var filename = thumbUrl.substr(thumbUrl.lastIndexOf('/') + 1);
                         trek.properties.thumbnail = settings.device.CDV_TREK_ROOT + '/' + currentTrekId.toString() + '/' + filename;
