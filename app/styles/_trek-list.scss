@@ -19,6 +19,9 @@
     bottom: 10px;
     font-size: 1.5em;
     opacity: 0.6;
+    i {
+        color: $download-button-color;
+    }
 }
 
 .item-thumbnail-left, .item-thumbnail-left .item-content {

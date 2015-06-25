@@ -59,6 +59,35 @@
 	}
 }
 
+.download-advice {
+	padding: 1rem;
+	background-color: transparentize($download-button-color, 0.4);
+	font-size: 1.1rem;
+	text-align: center;
+	color: darken($download-button-color, 20);
+	.icon {
+		color: currentColor;
+		margin-right: 1rem;
+		font-size: 1.5rem;
+	}
+	button {
+		display: block;
+		max-width: 70%;
+		line-height: 1.5rem;
+		margin: auto;
+		text-align: center;
+		vertical-align: middle;
+		padding: 0.6rem;
+		background: $download-button-color;
+		border: none;
+		color: white;
+		text-decoration: none;
+		&:active, &:focus, &.activated {
+			background-color: darken($download-button-color, 20);
+		}
+	}
+}
+
 .trek-detail__title {
 	font-size: $font-size-large;
 }

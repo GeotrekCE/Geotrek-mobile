@@ -7,14 +7,6 @@
             {{ 'cancel' | translate }}
         </button>
         <div class="buttons pull-right modal__actions">
-            <span ng-if="trek.tiles.inDownloadProgress">{{ trek.tiles.realProgress }}%</span>
-            <button ng-if="!trek.tiles.isDownloaded || trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button button-icon" ng-click="downloadFiles()">
-                <i class="icon ion-archive"></i>
-            </button>
-            <button ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="button button-icon">
-                <i class="icon ion-archive low-op"></i>
-                <i class="icon ion-checkmark-round overicon"></i>
-            </button>
             <button ng-if="false" class="button button-icon" ng-click="newTask()">
                 <i class="icon ion-android-forums"></i>
             </button>
@@ -26,7 +18,13 @@
 
     <!-- Modal content area -->
     <ion-content overflow-scroll="false" class="modal-content">
-
+        <div class="download-advice">
+            <button ng-if="!trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button" ng-click="downloadFiles()">
+                <span >{{'trek_detail.download_trek' | translate}}</span>
+            </button>
+            <span ng-if="trek.tiles.inDownloadProgress">{{'trek_detail.download_in_progress' | translate}} {{ trek.tiles.realProgress }}%</span>
+            <span ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress">{{'trek_detail.trek_downloaded' | translate}}</span>
+        </div>
         <div class="trek-detail padding">
             <div ng-if="next || previous" class="net-prev-elements">
                 <div class="row">
