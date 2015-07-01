@@ -26,7 +26,9 @@ geotrekTreks.service('treksRemoteService', ['$resource', '$rootScope', '$window'
                 information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
             });
             trek.properties.thumbnail = settings.DOMAIN_NAME + trek.properties.thumbnail;
-            trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
+            if (trek.properties.difficulty) {
+                trek.properties.difficulty.pictogram = settings.DOMAIN_NAME + trek.properties.difficulty.pictogram;
+            }
             trek.properties.altimetric_profile = settings.DOMAIN_NAME + trek.properties.altimetric_profile.replace(".json", ".png");
         });
         return copy;

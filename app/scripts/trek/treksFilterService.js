@@ -138,22 +138,43 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         return false;
     };
 
+    this.filterIsActive = function (filter) {
+        if (!filter) {
+            return false;
+        }
+
+        if (typeof filter === 'object') {
+            var result = false;
+            angular.forEach(filter, function (value) {
+                if (value.checked || value === true) {
+                    result = true;
+                }
+            });
+            return result;
+        }
+
+        return true;
+    };
+
     // Function called each time a filter is modified, to know which treks to display
     this.filterTreks = function(treks, activeFilters) {
         var self = this;
         var filteredTreks = [];
         angular.forEach(treks, function(trek) {
-            if (self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty) &&
-            self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration) &&
-            self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation) &&
-            self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download) &&
-            self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id') &&
-            self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id') &&
-            self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id') &&
-            self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id') &&
-            self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')) {
+            if (
+                (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
+                (!self.filterIsActive(activeFilters.duration) || (trek.properties.duration && self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration))) &&
+                (!self.filterIsActive(activeFilters.elevation) || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
+                (!self.filterIsActive(activeFilters.eLength) || (trek.properties.eLength && self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength))) &&
+                (!self.filterIsActive(activeFilters.download) || (trek.tiles && self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download))) &&
+                (!self.filterIsActive(activeFilters.theme) || (trek.properties.properties && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
+                (!self.filterIsActive(activeFilters.use) || (trek.properties.usages && self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id'))) &&
+                (!self.filterIsActive(activeFilters.route) || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
+                (!self.filterIsActive(activeFilters.valley) || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
+                (!self.filterIsActive(activeFilters.municipality) || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')))
+            ) {
                 filteredTreks.push(trek);
-            };
+            }
         });
         return filteredTreks;
     };
@@ -219,7 +240,9 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             // Diffulties init
 
             var difficulty = trek.properties.difficulty;
-            trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
+            if (difficulty) {
+                trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
+            }
 
             // Uses init
             angular.forEach(trek.properties.usages, function(usage) {
@@ -228,7 +251,9 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
 
             // Route init
             var route = trek.properties.route;
-            trekRoute.push({value: route.id, name: route.label});
+            if (route) {
+                trekRoute.push({value: route.id, name: route.label});
+            }
 
             // Valleys init
             angular.forEach(trek.properties.districts, function(district) {
