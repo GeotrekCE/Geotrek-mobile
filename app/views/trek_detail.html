@@ -18,7 +18,7 @@
 
     <!-- Modal content area -->
     <ion-content overflow-scroll="false" class="modal-content">
-        <div class="download-advice">
+        <div class="download-advice" ng-if="network_available || trek.tiles.isDownloaded">
             <button ng-if="!trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button" ng-click="downloadFiles()">
                 <span >{{'trek_detail.download_trek' | translate}}</span>
             </button>
