@@ -228,7 +228,8 @@ geotrekTreks.controller('TrekController',
 
                 return confirmPopup.then(function(confirmed) {
                     if(confirmed) {
-
+                        var dlPercent = 0,
+                            hasDownloadedButNotUnzipped = [false, false];
                         currentTrek.tiles.inDownloadProgress = true;
                         return $q.all([
                             mapFactory.downloadTrekPreciseBackground($scope.trekId)
@@ -239,8 +240,13 @@ geotrekTreks.controller('TrekController',
                                     currentTrek.tiles.inDownloadProgress = false;
                                 }, function(progress) {
                                     currentTrek.tiles.inDownloadProgress = true;
-                                    loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 2);
-                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1];
+                                    loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 4);
+                                    currentTrek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
+                                    if (loadCounter[0] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[0]) {
+                                        hasDownloadedButNotUnzipped[0] = true;
+                                        dlPercent += 25;
+                                    }
+                                    console.log(dlPercent, '+', loadCounter[0], '+', loadCounter[1]);
                                 }
                             ),
                             treksFactory.downloadTrekDetails($scope.trekId)
@@ -251,8 +257,13 @@ geotrekTreks.controller('TrekController',
                                     currentTrek.tiles.inDownloadProgress = false;
                                 }, function(progress) {
                                     currentTrek.tiles.inDownloadProgress = true;
-                                    loadCounter[1] = Math.floor((progress.loaded / progress.total * 100) / 2);
-                                    currentTrek.tiles.realProgress = loadCounter[0]+loadCounter[1];
+                                    loadCounter[1] = Math.floor((progress.loaded / progress.total * 100) / 4);
+                                    currentTrek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
+                                    if (loadCounter[1] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[1]) {
+                                        hasDownloadedButNotUnzipped[1] = true;
+                                        dlPercent += 25;
+                                    }
+                                    console.log(dlPercent, '+', loadCounter[0], '+', loadCounter[1]);
                                 }
                             )
 
