@@ -145,13 +145,17 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         }
 
         if (typeof filter === 'object') {
-            var result = false;
-            angular.forEach(filter, function (value) {
-                if (value.checked) {
-                    result = true;
-                }
-            });
-            return result;
+            if (filter.value) {
+                return true
+            } else {
+                var result = false;
+                angular.forEach(filter, function (value) {
+                    if (value.checked) {
+                        result = true;
+                    }
+                });
+                return result;
+            }
         }
 
         return true;
@@ -161,6 +165,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
     this.filterTreks = function(treks, activeFilters) {
         var self = this;
         var filteredTreks = [];
+        console.log(activeFilters);
         angular.forEach(treks, function(trek) {
             if (
                 (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
