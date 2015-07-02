@@ -146,7 +146,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
 
         if (typeof filter === 'object') {
             if (filter.value) {
-                return true
+                return true;
             } else {
                 var result = false;
                 angular.forEach(filter, function (value) {
