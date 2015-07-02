@@ -165,7 +165,6 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
     this.filterTreks = function(treks, activeFilters) {
         var self = this;
         var filteredTreks = [];
-        console.log(activeFilters);
         angular.forEach(treks, function(trek) {
             if (
                 (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
