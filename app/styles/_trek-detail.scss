@@ -25,6 +25,7 @@
 		.trek-detail__extra-infos__item {
 			display: inline-block;
 			margin: 0px 10px;
+			vertical-align: top;
 			@media (max-width: 680px) {
 				width: 48%;
 				margin: 0px;
@@ -46,6 +47,7 @@
 					position: relative;
 	    			max-width: 30px;
   					max-height: 30px;
+  					vertical-align: middle;
 					&.icon-network {
 						border: 1px $grayLight solid;
 						background: white;
