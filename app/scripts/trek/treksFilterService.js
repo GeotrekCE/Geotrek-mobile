@@ -134,7 +134,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             if (angular.isUndefined(fieldValue) || (fieldValue === formValue.value)) {
                 return true;
             }
-        };
+        }
 
         return false;
     };
@@ -172,7 +172,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
                 (!self.filterIsActive(activeFilters.elevation) || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
                 (!self.filterIsActive(activeFilters.eLength) || (trek.properties.eLength && self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength))) &&
                 (!self.filterIsActive(activeFilters.download) || (trek.tiles && self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download))) &&
-                (!self.filterIsActive(activeFilters.theme) || (trek.properties.properties && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
+                (!self.filterIsActive(activeFilters.theme) || (trek.properties.themes && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
                 (!self.filterIsActive(activeFilters.use) || (trek.properties.usages && self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id'))) &&
                 (!self.filterIsActive(activeFilters.route) || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
                 (!self.filterIsActive(activeFilters.valley) || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
