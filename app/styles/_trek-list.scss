@@ -11,6 +11,14 @@
 	p {
 		margin-bottom: 0;
 	}
+
+    .infos span {
+        &:not(:first-child) {
+            &:before {
+                content: ' - ';
+            }
+        }
+    }
 }
 
 .trek-list__item__detail__actions {
