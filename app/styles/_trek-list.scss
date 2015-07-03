@@ -3,6 +3,7 @@
 }
 
 .trek-list__item {
+    width: 100%;
     h3 {
         color: $highlight-text-color;
     }
@@ -11,8 +12,19 @@
 		margin-bottom: 0;
 	}
 	.difficulty {
-		margin-bottom: 0;
+		
 	}
+
+    .infos {
+        margin-bottom: 0;
+        span {
+            &:not(:first-child) {
+                &:before {
+                    content: ' - ';
+                }
+            }
+        }
+    }
 }
 
 .trek-list__item__detail__actions {
