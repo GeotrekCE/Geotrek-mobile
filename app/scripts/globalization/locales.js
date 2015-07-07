@@ -52,7 +52,7 @@ geotrekGlobalization.constant('locales', {
         'trek_controller_no_network_title': 'Réseau inaccessible',
         'trek_controller_no_network_label': 'Vérifiez votre connexion, elle est nécessaire pour obtenir la carte détaillée de l\'itinéraire.',
         'trek_controller_download_confirm_title': 'Télécharger la carte de l\'itinéraire',
-        'trek_controller_download_confirm_message': 'Vous allez télécharger la carte détaillée de ce itinéraire. Êtes-vous sûr ?',
+        'trek_controller_download_confirm_message': 'Vous allez télécharger la carte détaillée de cet itinéraire. Êtes-vous sûr ?',
         'trek_controller_donwload_warning_title': 'Attention',
         'trek_controller_donwload_warning_message': 'vous n\'êtes pas connecté en Wifi, veuillez noter que le volume de données transféré sera important.',
         'trek_controller_donwload_cancel': 'Annuler',
