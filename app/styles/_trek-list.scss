@@ -4,6 +4,12 @@
 
 .trek-list__item {
     width: 100%;
+    a.item-content {
+        height: 111px;
+        .thumbnail {
+            top: 15px;
+        }
+    }
     h3 {
         color: $highlight-text-color;
     }
