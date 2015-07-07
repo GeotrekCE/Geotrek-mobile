@@ -17,6 +17,9 @@
     &.switch-detail-map {
         bottom: 20px;
         right: 20px;
+        a {
+            padding: 5px;
+        }
     }
 
     &.switch-detail-userlocation {
