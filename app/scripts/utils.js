@@ -11,6 +11,8 @@ var geotrekApp = angular.module('geotrekMobileApp');
 geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', '$translate', '$ionicPopup',
     function ($q, settings, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading, $translate, $ionicPopup) {
 
+    var fileChangedPopup = false;
+
     var downloadFile = function(url, filepath, forceDownload) {
 
         if (angular.isUndefined(forceDownload)) {
@@ -51,13 +53,16 @@ geotrekApp.factory('utils', ['$q', 'settings', '$cordovaFile', '$http', 'logging
                         'maj_title',
                         'maj_message'
                     ]).then(function(translations) {
-                        var alertPopup = $ionicPopup.alert({
-                            title: translations.maj_title,
-                            template: translations.maj_message
-                        });
-                        alertPopup.then(function(res) {
-                            console.log('User knows !');
-                        });
+                        if (!fileChangedPopup) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: translations.maj_title,
+                                template: translations.maj_message
+                            });
+                            fileChangedPopup = true;
+                            alertPopup.then(function(res) {
+                                console.log('User knows !');
+                            });
+                        }
                     });
                     return $cordovaFile.downloadFile(url, filepath);
 
