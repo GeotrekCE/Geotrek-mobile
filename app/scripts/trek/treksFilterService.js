@@ -297,3 +297,29 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         }
     };
 }]);
+
+geotrekTreks.filter('treksSearchFilter', ['$filter', function($filter) {
+    return function (list, search) {
+        if (!search) return list;
+
+        var regex = new RegExp(search, 'gi'),
+            results = [];
+
+        angular.forEach(list, function (element) {
+            if (
+                (element.properties.name && element.properties.name.match(regex) !== null) ||
+                (element.properties.departure && element.properties.departure.match(regex) !== null) ||
+                (element.properties.arrival && element.properties.arrival.match(regex) !== null) ||
+                (element.properties.ambiance && element.properties.ambiance.match(regex) !== null) ||
+                (element.properties.description_teaser && element.properties.description_teaser.match(regex) !== null) ||
+                (element.properties.description && element.properties.description.match(regex) !== null) ||
+                (element.properties.access && element.properties.access.match(regex) !== null) ||
+                (element.properties.advice && element.properties.advice.match(regex) !== null)
+                ) {
+                results.push(element);
+            }
+        });
+
+        return results;
+    };
+}]);
