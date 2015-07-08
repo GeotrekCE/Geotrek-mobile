@@ -10,7 +10,8 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 // settings is a factory, we cannot use it in other modules config part,
 // so we put in globalSettings some project constants.
 geotrekAppSettings.constant('globalSettings', {
-    DEFAULT_LANGUAGE: 'fr'
+    DEFAULT_LANGUAGE: 'fr',
+    GOOGLE_ANALYTICS_ID: 'UA-7988554-7'
 })
 .factory('settings', function () {
 
@@ -32,8 +33,6 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_ATTRIBUTION: '(c) IGN Geoportail',
         TREK_COLOR: '#F89406'
     };
-
-    var GOOGLE_ANALYTICS_ID = 'UA-7988554-7';
 
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
@@ -96,7 +95,6 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
 
     return {
-        GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
         DOMAIN_NAME: DOMAIN_NAME,
         POI_FILE_NAME: POI_FILE_NAME,
         TREKS_FILE_NAME: TREKS_FILE_NAME,

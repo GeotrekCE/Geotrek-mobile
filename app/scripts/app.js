@@ -6,8 +6,7 @@ var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
      'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings', 'geotrekStaticPages',
-     'angulartics', 'angulartics.google.analytics.cordova',
-     'geotrekLog', 'geotrekNotification',
+     'angular-google-analytics', 'geotrekLog', 'geotrekNotification',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
@@ -41,6 +40,22 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
     // Add cdvfile to allowed protocols in ng-src directive
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 }])
+.config(['AnalyticsProvider', 'globalSettings', function (AnalyticsProvider, globalSettings) {
+
+    if (globalSettings.GOOGLE_ANALYTICS_ID) {
+        if (!!window["cordova"]) {
+            window.analytics.debugMode();
+            window.analytics.startTrackerWithId(account);
+        } else {
+            AnalyticsProvider.useAnalytics(true);
+            AnalyticsProvider.setAccount(globalSettings.GOOGLE_ANALYTICS_ID);
+            // track all routes (or not)
+            AnalyticsProvider.trackPages(true);
+            AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+        }
+    }
+}])
+.run(['Analytics', function (Analytics) {}])
 .filter('externalLinks', function() {
     return function(text) {
         return String(text).replace(/href=/gm, 'class="external-link" href=');
@@ -108,18 +123,5 @@ function($rootScope, logging, $window, $timeout, $state, settings, globalization
     $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
         utils.hideSpinner();
     });
-
-    function initAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', settings.GOOGLE_ANALYTICS_ID, 'auto');
-    }
-
-    if (settings.GOOGLE_ANALYTICS_ID) {
-        initAnalytics();
-    }
 
 }]);
