@@ -1,4 +1,4 @@
-[state^='home.map'] .modal-backdrop {
+[state='home.map'] .modal-backdrop, [state='home.map.trek'] .modal-backdrop {
 
     .modal-fullheight {
         min-height: 100%;
