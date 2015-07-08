@@ -12,7 +12,8 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr',
     AVAILABLE_LANGUAGES: ['fr'],
-    DOMAIN_NAME: 'http://rando-cg44.makina-corpus.net/data'
+    DOMAIN_NAME: 'http://rando-cg44.makina-corpus.net/data',
+    GOOGLE_ANALYTICS_ID: 'UA-46270573-6'
 })
 .factory('settings', function () {
 

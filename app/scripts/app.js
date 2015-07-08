@@ -6,7 +6,7 @@ var geotrekApp = angular.module('geotrekMobileApp',
     ['ionic', 'ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap.buttons', 'geotrekTreks',
      'geotrekPois', 'geotrekMap', 'geotrekInit', 'geotrekGeolocation', 'ngCordova',
      'geotrekGlobalization', 'geotrekAppSettings', 'geotrekUserSettings', 'geotrekStaticPages',
-     'geotrekLog', 'geotrekNotification',
+     'angular-google-analytics', 'geotrekLog', 'geotrekNotification',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
@@ -58,6 +58,22 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         ]);
     }
 ])
+.config(['AnalyticsProvider', 'globalSettings', function (AnalyticsProvider, globalSettings) {
+
+    if (globalSettings.GOOGLE_ANALYTICS_ID) {
+        if (!!window["cordova"]) {
+            window.analytics.debugMode();
+            window.analytics.startTrackerWithId(account);
+        } else {
+            AnalyticsProvider.useAnalytics(true);
+            AnalyticsProvider.setAccount(globalSettings.GOOGLE_ANALYTICS_ID);
+            // track all routes (or not)
+            AnalyticsProvider.trackPages(true);
+            AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+        }
+    }
+}])
+.run(['Analytics', function (Analytics) {}])
 .filter('externalLinks', function() {
     return function(text) {
         return String(text).replace(/href=/gm, 'class="external-link" href=');
@@ -125,7 +141,5 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
     $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
         utils.hideSpinner();
     });
-
-    
 
 }]);
