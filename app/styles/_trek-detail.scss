@@ -155,6 +155,7 @@
 .trek-detail__header {
     background: $complementaryColor5;
     margin: -15px;
+    margin-bottom: 0;
     padding: 15px;
 }
 
@@ -166,11 +167,13 @@
 
 .trek-detail__subtitle {
 	font-size: $font-size-base;
+    font-weight: bolder;
 }
 
 .trek-detail__ambiance {
 	font-size: $font-size-base;
     color: $complementaryColor2;
+    font-style: italic;
 }
 
 .trek-detail__section-title {
@@ -197,10 +200,11 @@ img.rules-picture {
 }
 
 .trek-detail__main-infos__item {
-	padding: 5px 0 5px 10px;
+	// padding: 5px 0 5px 10px;
+	padding: 10px 15px 10px 15px;
 	display: inline-block;
 	@media (max-width: 680px) {
-		width: 48%;
+		width: 50%;
 	}
 	position: relative;
 	color: white;
@@ -221,7 +225,7 @@ img.rules-picture {
   			color: inherit;
   			font-size: 2rem;
   		}
-	}	
+	}
 }
 
 .trek-detail__main-infos__item.icon {
