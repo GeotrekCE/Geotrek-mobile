@@ -62,3 +62,28 @@
         }
     }
 }
+
+.user-location-marker {
+    div {
+        border-radius: 50%;
+        position: absolute;
+        
+        &.marker-background {
+            background: black;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        &.marker-front {
+            top: 50%;
+            left: 50%;
+            height: 80%;
+            width: 80%;
+            margin-top: -40%;
+            margin-left: -40%;
+            background: $primaryColor;
+            border: 2px solid white;
+        }
+    }
+}

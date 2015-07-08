@@ -145,19 +145,16 @@ geotrekMap.service('leafletService',
         map.attributionControl.setPrefix(settings.leaflet.GLOBAL_MAP_ATTRIBUTION);
     };
 
-    this.setPositionMarker = function() {
+    this.getPositionMarker = function() {
 
         // Pulsing marker inspired by
         // http://blog.thematicmapping.org/2014/06/real-time-tracking-with-spot-and-leafet.html
-        return {
-            radius: 7,
-            color: 'black',
-            fillColor: '#981d97',
-            fillOpacity: 1,
-            type: 'circleMarker',
-            className: 'leaflet-live-user',
-            weight: 2
-        };
-    }
+        return L.divIcon({
+            iconSize:     [24, 24], // size of the icon
+            iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
+            className: 'user-location-marker',
+            html: '<div class="marker-background"></div><div class="marker-front"></div>'
+        });
+    };
 
 }]);

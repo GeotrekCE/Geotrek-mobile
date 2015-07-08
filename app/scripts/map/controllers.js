@@ -55,7 +55,7 @@ geotrekMap.controller('MapController',
     // Adding user current position
     geolocationFactory.getLatLngPosition()
         .then(function(result) {
-            userPosition = L.circleMarker(result, leafletService.setPositionMarker()).addTo(map);
+            userPosition = L.marker(result, {icon: leafletService.getPositionMarker()}).addTo(map);
         }, function(error) {
             logging.warn(error);
         });
