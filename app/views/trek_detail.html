@@ -106,8 +106,8 @@
                     </span>
                 </li>
             </ul>
-            <p ng-repeat="district in trek.properties.districts">
-                {{ district.name.join(', ') }}
+            <p ng-if="trek.properties.districts">
+                <span ng-repeat="district in trek.properties.districts">{{ district.name.join(', ') }}</span>
             </p>
 
             <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
@@ -123,8 +123,8 @@
             </p>
             <p ng-if="trek.properties.access || trek.properties.advised_parking">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
-                <span>{{ trek.properties.access }}</span>
-                <span>{{ trek.properties.advised_parking }}</span>
+                <span ng-bind-html="trek.properties.access"></span>
+                <span ng-bind-html="trek.properties.advised_parking"></span>
             </p>
 
             <p class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
