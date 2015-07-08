@@ -17,16 +17,18 @@
         img {
             vertical-align: top;
             display: inline-block;
-            margin-top: 5px;
+            margin-top: 4px;
+            height: 34px;
+            width: 34px;
         }
     }
 
-    h3 {
+    .bar-header h3 {
         margin-top: 0em;
         margin-left: 0.2em;
         padding-right: 30px;
-        color: grey;
-        font-size: 16px;
+        color: $dark;
+        font-size: 18px;
         margin-bottom: 0px;
         display: table-cell;
         vertical-align: middle;
