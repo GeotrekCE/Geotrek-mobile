@@ -61,10 +61,7 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
 .config(['AnalyticsProvider', 'globalSettings', function (AnalyticsProvider, globalSettings) {
 
     if (globalSettings.GOOGLE_ANALYTICS_ID) {
-        if (!!window["cordova"]) {
-            window.analytics.debugMode();
-            window.analytics.startTrackerWithId(account);
-        } else {
+        if (!window.cordova) {
             AnalyticsProvider.useAnalytics(true);
             AnalyticsProvider.setAccount(globalSettings.GOOGLE_ANALYTICS_ID);
             // track all routes (or not)
@@ -79,8 +76,8 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
         return String(text).replace(/href=/gm, 'class="external-link" href=');
     };
 })
-.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
-function($rootScope, logging, $window, $timeout, $state, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
+.run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'settings', 'globalSettings', '$location', '$cordovaGoogleAnalytics', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
+function($rootScope, logging, $window, $timeout, $state, settings, globalSettings, $location, $cordovaGoogleAnalytics, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -99,9 +96,17 @@ function($rootScope, logging, $window, $timeout, $state, globalizationSettings, 
         }
     });
     globalizationSettings.setDefaultPrefix();
+    if (!!window.cordova) {
+        $cordovaGoogleAnalytics.debugMode();
+        $cordovaGoogleAnalytics.startTrackerWithId(globalSettings.GOOGLE_ANALYTICS_ID);
+    }
     $rootScope.$on('$stateChangeSuccess', function (evt, to, toParams, from, fromParams, error) {
         // Adding state current name on html body markup to design some elements according to current state.
         $rootScope.statename = $state.current.name;
+
+        if (!!window.cordova) {
+            $cordovaGoogleAnalytics.trackView($location.path());
+        }
     });
 
     $rootScope.network_available = true;
