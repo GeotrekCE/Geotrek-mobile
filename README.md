@@ -241,6 +241,12 @@ CORDOVA DIALOGS PLUGIN
 cordova plugin add org.apache.cordova.dialogs
 ```
 
+CORDOVA GOOGLE ANALYTICS PLUGIN
+==================================
+```bash
+cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
+```
+
 
 CREDITS
 =======
