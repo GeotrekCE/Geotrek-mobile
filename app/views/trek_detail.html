@@ -115,23 +115,23 @@
             <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
             <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
 
-            <p ng-if="trek.properties.public_transport">
+            <div ng-if="trek.properties.public_transport">
                 <h2 class="trek-detail__section-title">
                     {{ 'trek_detail.public_transport' | translate }}
                 </h2>
                 <span ng-bind-html="trek.properties.public_transport"></span>
-            </p>
-            <p ng-if="trek.properties.access || trek.properties.advised_parking">
+            </div>
+            <div ng-if="trek.properties.access || trek.properties.advised_parking">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
                 <span ng-bind-html="trek.properties.access"></span>
                 <span ng-bind-html="trek.properties.advised_parking"></span>
-            </p>
+            </div>
 
-            <p class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
+            <div class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.rules' | translate }}</h2>
                 <span>{{ 'trek_detail.park_centered' | translate }}</span>
                 <img class="rules-picture" src="images/reglementation.jpg" alt="rules">
-            </p>
+            </div>
 
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
             <p ng-bind-html="trek.properties.advice" ></p>
