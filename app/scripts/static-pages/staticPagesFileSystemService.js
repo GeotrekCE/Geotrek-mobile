@@ -62,13 +62,14 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
             .then(function(jsonData) {
                 var staticPages = [];
                 angular.forEach(jsonData, function(page) {
-
-                    staticPages.push({
-                        text: page.title,
-                        title: page.title,
-                        description: page.content
-                    });
-                })
+                    if (page.target !== 'rando') {
+                        staticPages.push({
+                            text: page.title,
+                            title: page.title,
+                            description: page.content
+                        });
+                    }
+                });
                 _staticPages = staticPages;
                 deferred.resolve(_staticPages);
             }, function(error) {
