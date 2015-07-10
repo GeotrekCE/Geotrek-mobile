@@ -97,7 +97,7 @@
             <p class="description" ng-bind-html="mainDescription">
                 {{ trek.properties.description }}
             </p>
-            <ul class="trek-detail__extra-infos">
+            <ul class="trek-detail__extra-infos" ng-if="trek.properties.networks">
                 <li ng-if="trek.properties.networks" class="trek-detail__extra-infos__item">
                     <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
                     <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
