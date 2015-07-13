@@ -3,8 +3,8 @@
 var geotrekUserSettings = angular.module('geotrekUserSettings');
 
 geotrekUserSettings.controller('UserSettingsController',
-    ['$ionicPlatform', '$rootScope', '$state', '$scope', 'settings', '$q', '$ionicPopup', 'utils', '$cordovaFile', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
-    function ($ionicPlatform, $rootScope, $state, $scope, settings, $q, $ionicPopup, utils, $cordovaFile, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
+    ['$ionicPlatform', '$rootScope', '$state', '$scope', 'settings', 'globalSettings', '$q', '$ionicPopup', 'utils', '$cordovaFile', '$translate','localeSettings', 'userSettingsService', 'networkSettings', 'globalizationService', 'mapFactory', 'treksFactory', 'logging',
+    function ($ionicPlatform, $rootScope, $state, $scope, settings, globalSettings, $q, $ionicPopup, utils, $cordovaFile, $translate, localeSettings, userSettingsService, networkSettings, globalizationService, mapFactory, treksFactory, logging) {
 
     // To have a correct 2-ways binding, localeSettings and networkSettings are used for
     // 1/ select markup initialization
