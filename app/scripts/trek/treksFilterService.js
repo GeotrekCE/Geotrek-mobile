@@ -150,7 +150,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             } else {
                 var result = false;
                 angular.forEach(filter, function (value) {
-                    if (value.checked) {
+                    if ((typeof value === 'object' && value.checked) || (typeof value === 'boolean' && value)) {
                         result = true;
                     }
                 });
