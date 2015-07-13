@@ -66,6 +66,7 @@
 }
 
 .user-location-marker {
+    z-index: 9999999999999999;
     div {
         border-radius: 50%;
         position: absolute;
