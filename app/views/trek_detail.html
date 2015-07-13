@@ -124,7 +124,10 @@
             <div ng-if="trek.properties.access || trek.properties.advised_parking">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
                 <span ng-bind-html="trek.properties.access"></span>
-                <span ng-bind-html="trek.properties.advised_parking"></span>
+                <p>
+                    <span>{{'trek_detail.advised_parking' | translate}} </span>
+                    <span ng-bind-html="trek.properties.advised_parking"></span>
+                </p>
             </div>
 
             <div class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
