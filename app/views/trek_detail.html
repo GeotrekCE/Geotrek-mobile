@@ -32,7 +32,10 @@
             <div class="trek-detail__header">
                 <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
                 <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} {{ trek.properties.cities[0].name }}</p>
-                <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival"><span ng-if="trek.properties.departure">{{ 'trek_detail.departure' | translate }} {{ trek.properties.departure }}</span><span ng-if="trek.properties.departure && trek.properties.arrival"> → </span><span ng-if="trek.properties.arrival">{{ 'trek_detail.arrival' | translate }} {{ trek.properties.arrival }}</span></p>
+                <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival">
+                    <span ng-if="trek.properties.departure">{{ 'trek_detail.departure' | translate }} {{ trek.properties.departure }}</span>
+                    <span ng-if="trek.properties.departure && trek.properties.arrival"> → </span><span ng-if="trek.properties.arrival">{{ 'trek_detail.arrival' | translate }} {{ trek.properties.arrival }}</span>
+                </p>
             </div>
             <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
             <p class="trek-detail__ambiance" ng-bind-html="trek.properties.ambiance"></p>
