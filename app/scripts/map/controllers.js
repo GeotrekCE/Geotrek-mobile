@@ -151,13 +151,19 @@ geotrekMap.controller('MapController',
 
     poisFactory.getPoisFromTrek(trek.id)
     .then(function(pois) {
-        var pois = leafletService.createMarkersFromTrek(trek, pois.features);
-        angular.forEach(pois, function(poi) {
-            if (['departure', 'arrival', 'parking'].indexOf(poi.options.type) === -1) {
-                poi.on('click', function(e) {poiModal(e.target.options)})
-            }
-            treksMarkers.addLayer(poi);
-        });
+        leafletService.createMarkersFromTrek(trek, pois.features)
+            .then(
+                function (markers) {
+                    var pois = markers;
+
+                    angular.forEach(pois, function(poi) {
+                        if (['departure', 'arrival', 'parking'].indexOf(poi.options.type) === -1) {
+                            poi.on('click', function(e) {poiModal(e.target.options)});
+                        }
+                        treksMarkers.addLayer(poi);
+                    });
+                }
+            );
     });
 
     // Reinitialize focus and markers of a trek on state-change
