@@ -171,16 +171,19 @@ geotrekMap.controller('MapController',
 
     poisFactory.getPoisFromTrek(trek.id)
     .then(function(pois) {
-        var pois = leafletService.createMarkersFromTrek(trek, pois.features);
-        angular.forEach(pois, function(poi) {
-            if (poi._latlng) {
-                if (poi.options.markerType === 'poi' || poi.options.markerType === 'information') {
-                    poi.on('click', function(e) {poiModal(e.target.options)});
+        leafletService.createMarkersFromTrek(trek, pois.features)
+            .then(
+                function (markers) {
+                    var pois = markers;
+
+                    angular.forEach(pois, function(poi) {
+                        if (poi.options.markerType === 'poi' || poi.options.markerType === 'information') {
+                            poi.on('click', function(e) {poiModal(e.target.options)});
+                        }
+                        treksMarkers.addLayer(poi);
+                    });
                 }
-                treksMarkers.addLayer(poi);
-            }
-            
-        });
+            );
     });
 
     // Reinitialize focus and markers of a trek on state-change

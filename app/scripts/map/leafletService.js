@@ -6,8 +6,8 @@ var geotrekMap = angular.module('geotrekMap');
  * Service that persists and retrieves treks from data source
  */
 geotrekMap.service('leafletService',
-    ['$q', 'logging', 'settings', 'treksFactory', 'iconsService', 'mapFactory',
-    function ($q, logging, settings, treksFactory, iconsService, mapFactory) {
+    ['$q', 'logging', 'settings', 'treksFactory', 'iconsService', 'mapFactory', '$translate',
+    function ($q, logging, settings, treksFactory, iconsService, mapFactory, $translate) {
 
     var _markers = [];
 
@@ -40,6 +40,7 @@ geotrekMap.service('leafletService',
     };
 
     this.createMarkersFromTrek = function(trek, pois) {
+        var deferred = $q.defer();
         var markers = [];
 
         var startPoint = treksFactory.getStartPoint(trek);
@@ -75,23 +76,6 @@ geotrekMap.service('leafletService',
             }));
         };
 
-        var informationCount = 0;
-        angular.forEach(trek.properties.information_desks, function(information) {
-            var informationDescription = "<p>" + information.description + "</p>"
-                + "<p>" + information.street + "</p>"
-                + "<p>" + information.postal_code + " " + information.municipality + "</p>"
-                + "<p><a href='" + information.website + "'>Web</a> - <a href='tel:" + information.phone + "'>" + information.phone + "</a></p>";
-
-            markers.push(L.marker([information.latitude, information.longitude], {
-                icon: iconsService.getInformationIcon(),
-                name: information.name,
-                thumbnail: information.photo_url,
-                description: informationDescription,
-                markerType: 'information'
-            }));
-            informationCount += 1;
-        });
-
         angular.forEach(pois, function(poi) {
             var poiCoords = {
                 'lat': poi.geometry.coordinates[1],
@@ -109,7 +93,38 @@ geotrekMap.service('leafletService',
             }));
         });
 
-        return markers;
+        $translate([
+                'trek_detail.website',
+                'trek_detail.email'
+            ])
+            .then(
+                function (translations) {
+                    var informationCount = 0;
+                    angular.forEach(trek.properties.information_desks, function(information) {
+                        if (information.latitude && information.longitude) {
+                            var informationDescription = '<p>' + information.description + '</p>'
+                                + '<p>' + information.street + '</p>'
+                                + '<p>' + information.postal_code + ' ' + information.municipality + '</p>'
+                                + '<p><a href="' + information.website + '">' + translations['trek_detail.website'] + '</a>' + ' - ' 
+                                + '<a href="mailto:' + information.email + '">' + translations['trek_detail.email'] + '</a>' + ' - '
+                                + '<a href="tel:' + information.phone + '">' + information.phone + '</a></p>';
+
+                            markers.push(L.marker([information.latitude, information.longitude], {
+                                icon: iconsService.getInformationIcon(),
+                                name: information.name,
+                                thumbnail: information.photo_url,
+                                description: informationDescription,
+                                markerType: 'information'
+                            }));
+                            informationCount += 1;
+                        }
+                    });
+                    
+                    deferred.resolve(markers);
+                }
+            );
+
+        return deferred.promise;
     };
 
     this.createClusterMarkerFromTrek = function(trek) {
