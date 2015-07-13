@@ -69,11 +69,13 @@ geotrekUserSettings.controller('UserSettingsController',
     $scope.cleanFiles = function() {
         $translate([
             'usersettings_controller_cleanmaps_confirm_title',
-            'usersettings_controller_cleanmaps_confirm_label'
+            'usersettings_controller_cleanmaps_confirm_label',
+            'user_parameters.cancel'
         ]).then(function(translations) {
             var confirmPopup = $ionicPopup.confirm({
                 title: translations.usersettings_controller_cleanmaps_confirm_title,
-                template: translations.usersettings_controller_cleanmaps_confirm_label
+                template: translations.usersettings_controller_cleanmaps_confirm_label,
+                cancelText: translations['user_parameters.cancel']
             });
 
             confirmPopup.then(function(confirmed) {
