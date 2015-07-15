@@ -145,7 +145,7 @@ geotrekTreks.controller('TrekController',
     }
 
     $scope.share = function() {
-        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.thumbnail, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.slug);
+        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, null, "http://rando.ecrins-parcnational.fr/"+$scope.trek.properties.slug);
     };
 
     $scope.downloadFiles = function() {
