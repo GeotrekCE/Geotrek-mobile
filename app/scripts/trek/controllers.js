@@ -184,7 +184,7 @@ geotrekTreks.controller('TrekController',
     }
 
     $scope.share = function() {
-        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.thumbnail, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
+        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, null, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
     };
 
     $scope.downloadFiles = function() {
