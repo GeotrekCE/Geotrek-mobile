@@ -221,7 +221,7 @@
                                 {{ 'image.connect' | translate }}
                             </span>
                         </div>
-                        <span class="picture-legend">{{ picture.legend }} ({{ picture.author }})</span>
+                        <span class="picture-legend">{{ picture.legend }} <span ng-if="picture.author">({{ picture.author }})</span></span>
                     </div>
                 </div>
                 <div class="row content">
