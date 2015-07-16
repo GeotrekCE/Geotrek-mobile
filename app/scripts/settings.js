@@ -12,14 +12,14 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr',
     AVAILABLE_LANGUAGES: ['fr'],
-    DOMAIN_NAME: 'http://rando-cg44.makina-corpus.net/data',
+    DOMAIN_NAME: 'http://qa-rando-cg44.makina-corpus.net/data',
     GOOGLE_ANALYTICS_ID: 'UA-46270573-6'
 })
 .factory('settings', function () {
 
     // Variables that user can change
-    var DOMAIN_NAME = /*'http://geotrek-admin.alpesrando.net',*/'http://rando-cg44.makina-corpus.net/data',
-        PUBLIC_WEBSITE = /*'http://itinerance.alpesrando.net',*/'http://rando-cg44.makina-corpus.net',
+    var DOMAIN_NAME = /*'http://geotrek-admin.alpesrando.net',*/'http://qa-rando-cg44.makina-corpus.net/data',
+        PUBLIC_WEBSITE = /*'http://itinerance.alpesrando.net',*/'http://qa-rando-cg44.makina-corpus.net',
         API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
