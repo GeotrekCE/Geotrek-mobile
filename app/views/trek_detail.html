@@ -20,7 +20,12 @@
     <ion-content overflow-scroll="false" class="modal-content">
         <div class="download-advice" ng-if="network_available || trek.tiles.isDownloaded">
             <button ng-if="!trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button" ng-click="downloadFiles()">
-                <span >{{'trek_detail.download_trek' | translate}}</span>
+                <div class="icon-container">
+                    <i class="icon ion-android-download"></i>
+                </div>
+                <div class="text-container">
+                    <span >{{'trek_detail.download_trek' | translate}}</span>
+                </div>
             </button>
             <span ng-if="trek.tiles.inDownloadProgress">{{'trek_detail.download_in_progress' | translate}} {{ trek.tiles.realProgress }}%</span>
             <span ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress">{{'trek_detail.trek_downloaded' | translate}}</span>

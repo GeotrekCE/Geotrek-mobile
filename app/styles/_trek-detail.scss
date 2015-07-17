@@ -67,15 +67,26 @@
 	font-size: 1.1rem;
 	text-align: center;
 	color: darken($download-button-color, 20);
+	.icon-container, .text-container {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.icon-container {
+		width: calc(20% - 0.3rem);
+	}
+	.text-container {
+		line-height: 1.5rem;
+		width: calc(80% - 0.3rem);
+		text-align: left;
+	}
 	.icon {
 		color: currentColor;
-		margin-right: 1rem;
 		font-size: 1.5rem;
 	}
 	button {
 		display: block;
-		max-width: 70%;
-		line-height: 1.5rem;
+		max-width: 80%;
+		line-height: 1rem;
 		margin: auto;
 		text-align: center;
 		vertical-align: middle;
