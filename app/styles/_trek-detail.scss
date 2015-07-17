@@ -32,7 +32,6 @@
 			}
 			.net-name {
 				position: relative;
-				top: -9px;
 			}
 			.trek-detail__extra-infos__item__label {
 				display: block;
@@ -54,7 +53,8 @@
 					}
 				}
 				&.wrapper {
-					width: 80px;
+					width: auto;
+					height: auto;
 				}
 			}
 		}
