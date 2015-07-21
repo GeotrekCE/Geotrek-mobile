@@ -103,6 +103,14 @@ h1.app-title, .button.button-icon.app-title {
   }
 }
 
+.bar-header .row > * {
+    padding: 0;
+}
+
+h1.app-title {
+    line-height: 2em;
+}
+
 .list .item-toggle {
     padding: 8px;
 }
