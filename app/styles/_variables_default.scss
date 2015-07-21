@@ -2,13 +2,42 @@
 // Variables
 // --------------------------------------------------
 
+
+// Colors
+// -------------------------
+
+$grayDarker:            #222;
+$grayDark:              #333;
+$gray:                  #555;
+$grayLight:             #999;
+$grayLighter:           #eee;
+$white:                 #fff;
+
+$green:                 #7da013;
+$greenDarker:           #7da013;
+
+
+// Ionic overrides
+// -------------------------
+$dark:                            #494645;
+
+$bar-dark-text:                   #868383;
+$bar-dark-border:                 transparent;
+$bar-dark-active-bg:              transparent;
+$bar-dark-active-border:          transparent;
+
+
+
+// App variables
+// -------------------------
+
 $primaryColor:			$green;
 $secondaryColor:		$greenDarker;
 $complementaryColor:    white;
 $complementaryColor2:   grey;
-$complementaryColor3:   orange;
-$complementaryColor4:   blue;
-$complementaryColor5:   #E0CDA9;
+$complementaryColor3:   $dark;
+$complementaryColor4:   orange;
+$complementaryColor5:   $grayLighter;
 
 $tabs-color:			$dark;
 $tabs-border-color:		$complementaryColor;
@@ -18,4 +47,7 @@ $icon-bt-color:			$dark;
 $highlight-text-color:  $green;
 
 $menu-left-bg: 			$secondaryColor;
+$filters-select-background-color: $dark;
+
 $loading-bar-color:     $primaryColor;
+$numbers-color: $dark;

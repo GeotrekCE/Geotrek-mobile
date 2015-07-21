@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.makinacorpus.randoecrins" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Rando Ecrins</name>
+<widget id="com.makinacorpus.geotrek" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Geotrek Rando</name>
     <description>
-        Toutes les randonnées du Parc des Écrins.
+        Geotrek Rando
     </description>
     <author email="contact@makina-corpus.com" href="http://makina-corpus.com">
         Makina Corpus Cordova Team
@@ -69,20 +69,20 @@
         <icon src="images/icons/ios/icon-50.png" width="50" height="50" />
         <icon src="images/icons/ios/icon-50@2x.png" width="100" height="100" />
 
-        <splash src="images/splashscreen/ios/splash-portrait.png" width="320" height="480"/>
-        <splash src="images/splashscreen/ios/splash-landscape.png" width="480" height="320"/>
-        <splash src="images/splashscreen/ios/splash-portrait-r@2x.png" width="640" height="960"/>
-        <splash src="images/splashscreen/ios/splash-landscape-r@2x.png" width="960" height="640"/>
-        <splash src="images/splashscreen/ios/splash-portrait~ipad.png" width="768" height="1024"/>
-        <splash src="images/splashscreen/ios/splash-landscape~ipad.png" width="1024" height="768"/>
-        <splash src="images/splashscreen/ios/splash-portrait@2x~ipad.png" width="1536" height="2048"/>
-        <splash src="images/splashscreen/ios/splash-landscape@2x~ipad.png" width="2048" height="1536"/>
-        <splash src="images/splashscreen/ios/splash-portrait-5r@2x.png" width="640" height="1136"/>
-        <splash src="images/splashscreen/ios/splash-landscape-5r@2x.png" width="1136" height="640"/>
-        <splash src="images/splashscreen/ios/splash-portrait@2x.png" width="750" height="1334"/>
-        <splash src="images/splashscreen/ios/splash-landscape@2x.png" width="1334" height="750"/>
-        <splash src="images/splashscreen/ios/splash-portrait@3x.png" width="1242" height="2208"/>
-        <splash src="images/splashscreen/ios/splash-landscape@3x.png" width="2208" height="1242"/>
+        <splash src="images/splashscreens/ios/splash-portrait.png" width="320" height="480"/>
+        <splash src="images/splashscreens/ios/splash-landscape.png" width="480" height="320"/>
+        <splash src="images/splashscreens/ios/splash-portrait-r@2x.png" width="640" height="960"/>
+        <splash src="images/splashscreens/ios/splash-landscape-r@2x.png" width="960" height="640"/>
+        <splash src="images/splashscreens/ios/splash-portrait~ipad.png" width="768" height="1024"/>
+        <splash src="images/splashscreens/ios/splash-landscape~ipad.png" width="1024" height="768"/>
+        <splash src="images/splashscreens/ios/splash-portrait@2x~ipad.png" width="1536" height="2048"/>
+        <splash src="images/splashscreens/ios/splash-landscape@2x~ipad.png" width="2048" height="1536"/>
+        <splash src="images/splashscreens/ios/splash-portrait-5r@2x.png" width="640" height="1136"/>
+        <splash src="images/splashscreens/ios/splash-landscape-5r@2x.png" width="1136" height="640"/>
+        <splash src="images/splashscreens/ios/splash-portrait@2x.png" width="750" height="1334"/>
+        <splash src="images/splashscreens/ios/splash-landscape@2x.png" width="1334" height="750"/>
+        <splash src="images/splashscreens/ios/splash-portrait@3x.png" width="1242" height="2208"/>
+        <splash src="images/splashscreens/ios/splash-landscape@3x.png" width="2208" height="1242"/>
     </platform>
 
     <platform name="android">
@@ -92,16 +92,16 @@
         <icon src="images/icons/android/ic_launcher-xx-high.png" density="xxhdpi" />
         <icon src="images/icons/android/ic_launcher-xxx-high.png" density="xxxhdpi" />
 
-        <splash src="images/splashscreen/android/splash-landscape-mdpi.png" density="land-mdpi"/>
-        <splash src="images/splashscreen/android/splash-landscape-hdpi.png" density="land-hdpi"/>
-        <splash src="images/splashscreen/android/splash-landscape-xhdpi.png" density="land-xhdpi"/>
-        <splash src="images/splashscreen/android/splash-landscape-xxhdpi.png" density="land-xxhdpi"/>
-        <splash src="images/splashscreen/android/splash-landscape-xxxhdpi.png" density="land-xxxhdpi"/>
+        <splash src="images/splashscreens/android/splash-landscape-mdpi.png" density="land-mdpi"/>
+        <splash src="images/splashscreens/android/splash-landscape-hdpi.png" density="land-hdpi"/>
+        <splash src="images/splashscreens/android/splash-landscape-xhdpi.png" density="land-xhdpi"/>
+        <splash src="images/splashscreens/android/splash-landscape-xxhdpi.png" density="land-xxhdpi"/>
+        <splash src="images/splashscreens/android/splash-landscape-xxxhdpi.png" density="land-xxxhdpi"/>
 
-        <splash src="images/splashscreen/android/splash-portrait-mdpi.png" density="port-mdpi"/>
-        <splash src="images/splashscreen/android/splash-portrait-hdpi.png" density="port-hdpi"/>
-        <splash src="images/splashscreen/android/splash-portrait-xhdpi.png" density="port-xhdpi"/>
-        <splash src="images/splashscreen/android/splash-portrait-xxhdpi.png" density="port-xxhdpi"/>
-        <splash src="images/splashscreen/android/splash-portrait-xxxhdpi.png" density="port-xxxhdpi"/>
+        <splash src="images/splashscreens/android/splash-portrait-mdpi.png" density="port-mdpi"/>
+        <splash src="images/splashscreens/android/splash-portrait-hdpi.png" density="port-hdpi"/>
+        <splash src="images/splashscreens/android/splash-portrait-xhdpi.png" density="port-xhdpi"/>
+        <splash src="images/splashscreens/android/splash-portrait-xxhdpi.png" density="port-xxhdpi"/>
+        <splash src="images/splashscreens/android/splash-portrait-xxxhdpi.png" density="port-xxxhdpi"/>
     </platform>
 </widget>

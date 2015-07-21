@@ -13,12 +13,12 @@ geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'en',
     AVAILABLE_LANGUAGES: ['fr', 'en', 'it'],
     GOOGLE_ANALYTICS_ID: '',
-    APP_NAME: 'Geotrek Rando'
+    APP_NAME: 'Geotrek Rando',
 })
 .factory('settings', function () {
 
     // Variables that user can change
-    var DOMAIN_NAME = '',
+    var DOMAIN_NAME = 'http://rando.ecrins-parcnational.fr',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
         LOGS = true,  // if true, console logs are also saved in a file (device only)
@@ -32,9 +32,8 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_DEFAULT_ZOOM: 12,
         GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
         GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
-        GLOBAL_MAP_ATTRIBUTION: '(c) openstreetmap',
-        TREK_COLOR: '#F89406',
-        BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        GLOBAL_MAP_ATTRIBUTION: '(c) IGN Geoportail',
+        TREK_COLOR: '#F89406'
     };
 
     /* Variables for filesystem tree on device
@@ -113,7 +112,7 @@ geotrekAppSettings.constant('globalSettings', {
             MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/files/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
-            LEAFLET_BACKGROUND_URL: leaflet_conf.BACKGROUND_URL
+            LEAFLET_BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
         device: {
             CDV_ROOT: CDV_ROOT,

@@ -3,8 +3,63 @@
 
 OVERVIEW
 ========
-This repository only contains source code for geotrek mobile cordova app.
-Before using it, you have to configure your cordova environment.
+Geotrek mobile is a mobile hybride app. This repository contain the source files but not the cordova project. Please follow the README to know how to use it.
+
+
+
+INSTALLATION
+===================
+
+### Install Node
+See https://gist.github.com/isaacs/579814 depending on your environment. 
+(Read last comments as some links may change over time)
+
+### Install grunt-cli
+`npm install -g grunt-cli`
+
+### Clone the current repository
+
+
+
+CONFIGURATION
+===================
+
+Configurations of the app are available in the file `app/scripts/settings.js`.
+
+Here are the main things you need to configure :
+* `DEFAULT_LANGUAGE: 'en'` - defines the fallback language in case the user's favorite is not available. (it needs to be present in the available languages).
+* `AVAILABLE_LANGUAGES: ['fr', 'en', 'it']` - defines available languages for the app interface. (please be aware that de translation of the data only depends of the API)
+* `GOOGLE_ANALYTICS_ID: 'UA-1234567-8'` - you can link your app to a Google Analytics account. You just need to put your GA ID. (this account needs to be an App type account and not a web one)
+* `APP_NAME: 'Geotrek Rando'` - the app name that will be displayed on the top bar of the app
+* `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use.
+
+
+
+CUSTOMISATION
+=================================
+
+### Change app colors
+
+You can edit the sass file `app/styles/_variables_customs.scss` in which you can override the colors variables present in `app/styles/_variables_default.scss`.
+This will allows you to customize the main colors used in the app.
+
+
+### Advanced style customisation
+
+You can also add your custom style to the app by adding custom sass and css in the file `app/styles/customisation.scss`.
+This will be applyed last and override default app rules.
+
+
+### Use customs images in app
+
+You can use custom images in the app (for exemple use your favorite bakground for the loading page of the app). We dedicated a folder `app/images/custom` to this. It's not mandatory but advised.
+
+
+### More options available in this file to be documented...
+
+
+Once you have the app ready you are going to create a Cordova project and use the `www` folder as the app sources. Let's see this.
+
 
 
 CREATING CORDOVA PROJECT
@@ -12,21 +67,111 @@ CREATING CORDOVA PROJECT
 
 ### Requirements
 
-- npm (version > 1.2.10)
-- cordova (`npm install -g cordova`)
+* npm (version > 1.2.10)
+* cordova (`npm install -g cordova`)
 
+Once you're ready, be sure to be in the folder where you want your project to be (for example the same parent folder as this repo clone)
+
+### Create project
 ```
-$ pwd
-/home/toto/cordova_root
-$ cordova create geotrek_dir com.makinacorpus.geotrekmobile Geotrek-mobile
-$ ls geotrek_dir
-config.xml  hooks  merges  platforms  plugins  www
+cordova create folderName com.idYouWant.forYourApp App-Name
 ```
 
-The most important parts are :
-- `www` is where the source code, which will be deployed on each platform, lives.
-- `plugins` is where plugins live, and will also be deployed with source code on each platform build.
-- `platforms` contains each cordova platform dependant code (for android, ios, ...)
+### Go into project folder
+```
+cd folderName
+```
+In the created folder you can find :
+* `www` - where the source code, which will be deployed on each platform, lives.
+* `plugins` - where plugins live, and will also be deployed with source code on each platform build.
+* `platforms` - contains each cordova platform dependant code (for android, ios, ...)
+
+### Link your cordova project and your clone of this repository
+Be sure to be in your cordova project folder
+```
+rm -r www
+ln -s ~/Absolute/Path/To/Github-clone www
+```
+
+
+Now that you have created the project and linked it to the app core, you need to add plugins to be sure that it will works on real devices.
+
+
+
+APP PLUGINS REQUIREMENTS
+===========================
+
+### Cordova files plugin
+
+```bash
+cordova plugin add org.apache.cordova.file@1.2.0
+cordova plugin add org.apache.cordova.file-transfer@0.4.4
+```
+
+
+### Cordova network information plugin
+
+```bash
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+(cordova plugin add cordova-plugin-network-information crashes on android, due to https://git-wip-us.apache.org/repos/asf?p=cordova-plugin-network-information.git;a=commit;h=a5e9631258691890f08d94bc784f96aa304c2868)
+```
+
+
+### CORDOVA GEOLOCATION PLUGIN
+
+```bash
+cordova plugin add org.apache.cordova.geolocation
+```
+
+
+### CORDOVA GLOBALIZATION PLUGIN
+
+```bash
+cordova plugin add org.apache.cordova.globalization
+```
+
+
+### PHONEGAP SOCIAL SHARING
+
+```bash
+cordova plugin add nl.x-services.plugins.socialsharing
+```
+
+
+### CORDOVA LOCAL NOTIFICATION PLUGIN
+
+```bash
+cordova plugin add de.appplant.cordova.plugin.local-notification
+```
+
+
+### CORDOVA ZIP PLUGIN
+
+```bash
+cordova plugin add https://github.com/MobileChromeApps/zip.git
+```
+
+
+### CORDOVA INAPPBROWSER PLUGIN
+
+```bash
+cordova plugin add org.apache.cordova.inappbrowser
+```
+
+
+### CORDOVA DIALOGS PLUGIN
+
+```bash
+cordova plugin add org.apache.cordova.dialogs
+```
+
+
+### CORDOVA GOOGLE ANALYTICS PLUGIN
+
+```bash
+cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
+```
+
 
 
 GENERATING CORDOVA PROJECT
@@ -97,6 +242,7 @@ CordovaLib cordova geotrek-mobile.xcodeproj www build geotrek-mobile platform_ww
 Cordova has generated lot of files, and your source code lives now in `www` directory.
 
 
+
 BUILDING CORDOVA PROJECT
 ========================
 
@@ -125,6 +271,7 @@ cordova build ios
 From XCode
 - Open geotrek-mobile.xcodeproj with XCode.
 - Just do 'Play', it will compile and run.
+
 
 
 RUNNING CORDOVA PROJECT
@@ -162,6 +309,7 @@ From XCode :
 - You can connect an iOS device or use emulators that come with XCode.
 
 
+
 CORDOVA SOURCE CODE DEVELOPMENT
 ===============================
 This part is only for source code deployment process
@@ -182,76 +330,6 @@ This project is generated using Yeoman (http://yeoman.io/)
     - look your browser
 
 
-GEOTREK-MOBILE REQUIREMENTS
-===========================
-
-CORDOVA FILES PLUGIN
-====================
-```bash
-cordova plugin add org.apache.cordova.file@1.2.0
-cordova plugin add org.apache.cordova.file-transfer@0.4.4
-```
-
-CORDOVA NETWORK INFORMATION PLUGIN
-==================================
-```bash
-cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
-(cordova plugin add cordova-plugin-network-information crashes on android, due to https://git-wip-us.apache.org/repos/asf?p=cordova-plugin-network-information.git;a=commit;h=a5e9631258691890f08d94bc784f96aa304c2868)
-```
-
-CORDOVA GEOLOCATION PLUGIN
-==================================
-```bash
-cordova plugin add org.apache.cordova.geolocation
-```
-
-CORDOVA GLOBALIZATION PLUGIN
-==================================
-```bash
-cordova plugin add org.apache.cordova.globalization
-```
-
-PHONEGAP SOCIAL SHARING
-==================================
-```bash
-cordova plugin add nl.x-services.plugins.socialsharing
-```
-
-CORDOVA LOCAL NOTIFICATION PLUGIN
-==================================
-```bash
-cordova plugin add de.appplant.cordova.plugin.local-notification
-```
-
-CORDOVA ZIP PLUGIN
-==================================
-```bash
-cordova plugin add https://github.com/MobileChromeApps/zip.git
-```
-
-CORDOVA INAPPBROWSER PLUGIN
-==================================
-```bash
-cordova plugin add org.apache.cordova.inappbrowser
-```
-
-CORDOVA DIALOGS PLUGIN
-==================================
-```bash
-cordova plugin add org.apache.cordova.dialogs
-```
-
-CORDOVA GOOGLE ANALYTICS PLUGIN
-==================================
-```bash
-cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
-```
-
-
-CREDITS
-=======
-
-
 
 AUTHORS
 =======
@@ -264,6 +342,8 @@ AUTHORS
 * Simon Bats
 
 [<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
+
+
 
 LICENCE
 =======
