@@ -49,7 +49,7 @@ Here are the main things you need to configure :
 * `APP_NAME: 'Geotrek Rando'` - the app name that will be displayed on the top bar of the app
 * `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use.
 
-### More options available in this file to be documented...
+*More options available in this file to be documented...*
 
 
 CUSTOMISATION
@@ -135,56 +135,56 @@ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-networ
 ```
 
 
-### CORDOVA GEOLOCATION PLUGIN
+### Cordova geolocation plugin
 
 ```bash
 cordova plugin add org.apache.cordova.geolocation
 ```
 
 
-### CORDOVA GLOBALIZATION PLUGIN
+### Cordova globalization plugin
 
 ```bash
 cordova plugin add org.apache.cordova.globalization
 ```
 
 
-### PHONEGAP SOCIAL SHARING
+### Phonegap social sharing
 
 ```bash
 cordova plugin add nl.x-services.plugins.socialsharing
 ```
 
 
-### CORDOVA LOCAL NOTIFICATION PLUGIN
+### Cordova local notification plugin
 
 ```bash
 cordova plugin add de.appplant.cordova.plugin.local-notification
 ```
 
 
-### CORDOVA ZIP PLUGIN
+### Cordova zip plugin
 
 ```bash
 cordova plugin add https://github.com/MobileChromeApps/zip.git
 ```
 
 
-### CORDOVA INAPPBROWSER PLUGIN
+### Cordova inappbrowser plugin
 
 ```bash
 cordova plugin add org.apache.cordova.inappbrowser
 ```
 
 
-### CORDOVA DIALOGS PLUGIN
+### Cordova dialogs plugin
 
 ```bash
 cordova plugin add org.apache.cordova.dialogs
 ```
 
 
-### CORDOVA GOOGLE ANALYTICS PLUGIN
+### Cordova google analytics plugin
 
 ```bash
 cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
@@ -327,7 +327,7 @@ From XCode :
 
 
 
-DEVELOPMENT AND LIVERELOAD
+DEVELOPMENT AND LIVE-RELOAD
 ===============================
 In order to simplify develoment we also provide a grunt tasks that will serve the app in the browser and reload the page each time you modify a file.
 `$ grunt serve`
