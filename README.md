@@ -5,6 +5,8 @@ OVERVIEW
 ========
 Geotrek mobile is a mobile hybride app. This repository contain the source files but not the cordova project. Please follow the README to know how to use it.
 
+Note: Geotrek mobile v1.X is compatible only with v1.X of Geotrek Rando and Geotrek mobile v2.X is compatible only with v2.X of Geotrek Admin
+
 
 
 INSTALLATION
@@ -22,7 +24,7 @@ See https://gist.github.com/isaacs/579814 depending on your environment.
 
 ### Install Sass for Node
 `npm install -g node-sass` - Stylesheets preprocessor
-sass (version > 3.3, we use bourbon lib on v4.0.1 : https://github.com/thoughtbot/bourbon/issues/419, https://github.com/thoughtbot/bourbon/issues/404)
+sass (version > 3.3, we use <b></b>ourbon lib on v4.0.1 : https://github.com/thoughtbot/bourbon/issues/419, https://github.com/thoughtbot/bourbon/issues/404)
 
 ### Clone the current repository
 
@@ -32,6 +34,7 @@ sass (version > 3.3, we use bourbon lib on v4.0.1 : https://github.com/thoughtbo
 
 ### Generate compiled files
 `grunt build`
+
 
 
 CONFIGURATION
@@ -47,9 +50,13 @@ Here are the main things you need to configure :
 * `AVAILABLE_LANGUAGES: ['fr', 'en', 'it']` - defines available languages for the app interface. (please be aware that de translation of the data only depends of the API)
 * `GOOGLE_ANALYTICS_ID: 'UA-1234567-8'` - you can link your app to a Google Analytics account. You just need to put your GA ID. (this account needs to be an App type account and not a web one)
 * `APP_NAME: 'Geotrek Rando'` - the app name that will be displayed on the top bar of the app
-* `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use.
+* `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use. 
+Note: If you're using Geotrek suite (Geotrek Admin and Geotrek Rando), it's the url of your Geotrek Rando website + `/data`. Geotrek mobile V1.X is compatible with Geotrek Admin 0.XX and Geotrek mobile v2.X is compatible with Geotrek Admin 2.XX
+* `GEOTREK_DIR = 'geotrek-rando'` - The name of the folder containing your app on the filesystem
+* `LOGS_FILENAME = 'geotrek-rando.log'` - The name of the app log file
 
 *More options available in this file to be documented...*
+
 
 
 CUSTOMISATION
@@ -334,6 +341,26 @@ In order to simplify develoment we also provide a grunt tasks that will serve th
 
 It will launch a node server. It's IP will be displayed in the terminal.
 Usually a tab will open automativcaly in your brower, but if it doesn't, you can juste use the given IP to access it.
+
+
+
+UPDATE YOUR APP
+===============================
+### minor versions (ex: 1.2 -> 1.6)
+You just need to pull changes and then use:
+
+* `grunt build` in the git clone folder
+* move to the cordova Folder (ex: `cd MyCordovaFolder`)
+* `cordova build android` and/or `cordova build ios` depending on the platforms you want to upgrade.
+
+### major versions (ex: 1.X -> 2.X)
+Be aware that majors versions change means that you may need to change your config and change your API.
+
+For this you just need to :
+* `git checkout v2.X` where v2.X is the branch name.
+* `grunt build` in the git clone folder
+* move to the cordova Folder (ex: `cd MyCordovaFolder`)
+* `cordova build android` and/or `cordova build ios` depending on the platforms you want to upgrade.
 
 
 
