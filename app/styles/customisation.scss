@@ -1,0 +1,96 @@
+// .leaflet-marker-icon {
+//     &.trek-icon {
+//         background: transparent top left no-repeat;
+//         background-size: 100% auto;
+//         &.cat-T1 {
+//             background-image: url(../images/custom/rando_pedestre_repere.svg);
+//         }
+//         &.cat-T2 {
+//             background-image: url(../images/custom/rando_velo_repere.svg);
+//         }
+//         &.cat-T3 {
+//             background-image: url(../images/custom/rando_vtt_repere.svg);
+//         }
+//         &.cat-T4 {
+//             background-image: url(../images/custom/rando_equestre_repere.svg);
+//         }
+//     }
+
+//     &.poi-icon {
+//         background: transparent top left no-repeat;
+//         background-size: 100% auto;
+//         &.poi-1 {
+//             background-image: url(../images/custom/visites_repere.svg);
+//         }
+//         &.poi-2 {
+//             background-image: url(../images/custom/activites_repere.svg);
+//         }
+//         &.poi-4 {
+//             background-image: url(../images/custom/restauration_repere.svg);
+//         }
+//         &.poi-3 {
+//             background-image: url(../images/custom/hebergement_repere.svg);
+//         }
+//     }
+
+//     &.trek-cluster {
+//         border-color: $complementaryColor3;
+//         border-radius: 50%;
+//         border-style: solid;
+//         border-width: 2px;
+//         border-color: black;
+//         background: #ffd400;
+//         &::before {
+//             content: "";
+//             display: block;
+//             position: absolute;
+//             width: 28px;
+//             height: 28px;
+//             border-radius: 50%;
+//             top: 4px;
+//             left: 4px;
+//             background: white;
+//             border: 2px solid black;
+//         }
+//         .count {
+//             color: black;
+//               text-align: center;
+//               font-weight: bold;
+//               width: 25px;
+//               height: 1rem;
+//               font-size: 12px;
+//               display: block;
+//               position: absolute;
+//               top: 9px;
+//               left: 5px;
+//               line-height: initial;
+//         }
+//     }
+// }
+
+// .trek-list__item .departure {
+//     display: none;
+// }
+
+// .filters-list__item.elevation {
+//     display: none;
+// }
+
+// .filters-list__item.valleys {
+//     display: none;
+// }
+
+// .filters-list__bt .difficulty-icon {
+//     img, svg {
+//         padding: 8px;
+//     }
+// }
+
+// .app-title {
+//     h1 {
+//         display: none;
+//     }
+//     background: url('../images/custom/logo-cg44-mobile.svg') left center no-repeat;
+//     background-size: contain;
+//     max-width: 100%;
+// }

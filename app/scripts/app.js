@@ -95,6 +95,7 @@ function($rootScope, logging, $window, $timeout, $state, settings, globalSetting
             console.error('$stateChangeError :', error);
         }
     });
+    $rootScope.applicationName = globalSettings.APP_NAME;
     globalizationSettings.setDefaultPrefix();
     if (!!window.cordova) {
         $cordovaGoogleAnalytics.debugMode();

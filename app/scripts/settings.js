@@ -13,7 +13,8 @@ geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'fr',
     AVAILABLE_LANGUAGES: ['fr'],
     DOMAIN_NAME: 'http://qa-rando-cg44.makina-corpus.net/data',
-    GOOGLE_ANALYTICS_ID: 'UA-46270573-6'
+    GOOGLE_ANALYTICS_ID: 'UA-46270573-6',
+    APP_NAME: 'Rando Loire-Atlantique'
 })
 .factory('settings', function () {
 

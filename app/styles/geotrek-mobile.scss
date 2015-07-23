@@ -3,22 +3,12 @@
 // --------------------------------------------------
 
 
-// Ionic overrides
-// -------------------------
-$dark:                            #494645;
-
-$bar-dark-text:					  #868383;
-$bar-dark-border:				  transparent;
-$bar-dark-active-bg:              transparent;
-$bar-dark-active-border:          transparent;
-
-
 //
 // Imports
 // --------------------------------------------------
 
 @import "_variables_default";
-//@import "_variables_ecrins";
+@import "_variables_customs";
 @import "bourbon/dist/_bourbon";
 @import "ionic/scss/_variables";
 @import "ionic/scss/_mixins";
@@ -77,16 +67,17 @@ body {
 }
 
 .app-title {
-  max-height: 24px;
-  max-width: 100%;
-  vertical-align: middle;
+  line-height: 2em;
+  h1 {
+    font-size: 1.1rem;
+  }
 }
 
 .bar-header {
   padding-left: 0;
   padding-right: 0;
   .button {
-    padding: 0 4px;
+    padding: 0 6px;
     &:before, i:before {
       font-size: 24px !important;
       vertical-align: middle;
@@ -98,26 +89,19 @@ body {
   }
   .button-menu {
     height: 100%;
+    width: 40px;
     margin-top: -10px;
   }
   .row {
     padding: 0;
     height: 100%;
+    & > * {
+      padding: 0;
+    }
   }
   .col {
     padding: 0;
-    padding: 0 5px;
-    &:first-child {
-      padding-left: 0;
-    }
-    &:last-child {
-      padding-right: 0;
-    }
   }
-}
-
-.list .item-toggle {
-    padding: 8px;
 }
 
 .item p {
@@ -231,4 +215,4 @@ body {
   content: "e";
 }
 
-@import "_custo";
+@import "customisation";

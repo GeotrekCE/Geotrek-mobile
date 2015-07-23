@@ -3,8 +3,7 @@
 // --------------------------------------------------
 
 
-
-// Grays
+// Colors
 // -------------------------
 
 $grayDarker:            #222;
@@ -14,29 +13,48 @@ $grayLight:             #999;
 $grayLighter:           #eee;
 $white:                 #fff;
 
-$green:                 #aec900;
+$green:                 #7da013;
 $greenDarker:           #7da013;
 
 
-// App colors
+// Ionic overrides
+// -------------------------
+$dark:                            #494645;
+
+$bar-dark-text:                   #868383;
+$bar-dark-border:                 transparent;
+$bar-dark-active-bg:              transparent;
+$bar-dark-active-border:          transparent;
+
+
+
+// App variables
 // -------------------------
 
-$primaryColor:			$green;
-$secondaryColor:		$greenDarker;
+$primaryColor:          $green;
+$secondaryColor:        $greenDarker;
 $complementaryColor:    white;
 $complementaryColor2:   grey;
-$complementaryColor3:   #F07F00;
+$complementaryColor3:   $dark;
 $complementaryColor4:   #1C72BC;
-$complementaryColor5:   #E0CDA9;
+$complementaryColor5:   $grayLighter;
 
-$tabs-color:			$dark;
-$tabs-border-color:		$complementaryColor;
+$tabs-color:            $dark;
+$tabs-border-color:     $complementaryColor;
 $tabs-border-active-color: $primaryColor;
 
-$icon-bt-color:			$dark;
+$marker-border-color:  $complementaryColor3;
+
+$cluster-color: $primaryColor;
+$cluster-border-color: darken($cluster-color, 10);
+
+$icon-bt-color:         $dark;
 $highlight-text-color:  $green;
 
 $download-button-color: $complementaryColor4;
 
-$menu-left-bg: 			$primaryColor;
+$menu-left-bg:          $secondaryColor;
+$filters-select-background-color: $dark;
+
 $loading-bar-color:     $primaryColor;
+$numbers-color: $dark;
