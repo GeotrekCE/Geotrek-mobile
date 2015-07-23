@@ -10,17 +10,17 @@ var geotrekAppSettings = angular.module('geotrekAppSettings', []);
 // settings is a factory, we cannot use it in other modules config part,
 // so we put in globalSettings some project constants.
 geotrekAppSettings.constant('globalSettings', {
-    DEFAULT_LANGUAGE: 'fr',
-    AVAILABLE_LANGUAGES: ['fr'],
-    DOMAIN_NAME: 'http://qa-rando-cg44.makina-corpus.net/data',
-    GOOGLE_ANALYTICS_ID: 'UA-46270573-6',
-    APP_NAME: 'Rando Loire-Atlantique'
+    DEFAULT_LANGUAGE: 'en',
+    AVAILABLE_LANGUAGES: ['fr', 'en'],
+    DOMAIN_NAME: '',
+    GOOGLE_ANALYTICS_ID: '',
+    APP_NAME: 'Geotrek Rando'
 })
 .factory('settings', function () {
 
     // Variables that user can change
-    var DOMAIN_NAME = /*'http://geotrek-admin.alpesrando.net',*/'http://qa-rando-cg44.makina-corpus.net/data',
-        PUBLIC_WEBSITE = /*'http://itinerance.alpesrando.net',*/'http://qa-rando-cg44.makina-corpus.net',
+    var DOMAIN_NAME = '',
+        PUBLIC_WEBSITE = '',
         API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
@@ -37,9 +37,10 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_DL_TILES_ZOOM: 12,
         GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
         GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
-        GLOBAL_MAP_ATTRIBUTION: '(c) IGN Geoportail',
+        BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        GLOBAL_MAP_ATTRIBUTION: '(c) osm',
         TREK_COLOR: '#aec900',
-        HIGHLIGHT_DETAIL_LINEAR: true,
+        HIGHLIGHT_DETAIL_LINEAR: false,
         HIGHLIGHT_COLOR: '#000000'
     };
 
@@ -79,7 +80,7 @@ geotrekAppSettings.constant('globalSettings', {
         TREKS_ZIP_NAME = 'global.zip',
         TILES_FILE_NAME = 'global.zip';
 
-    var GEOTREK_DIR = 'rando-loire-atlantique',
+    var GEOTREK_DIR = 'geotrek-rando',
         API_DIR = 'api',
         LANG_DIR = 'fr',
         MEDIA_DIR = 'media',
@@ -87,7 +88,7 @@ geotrekAppSettings.constant('globalSettings', {
         PAPERCLIP_DIR = 'paperclip',
         MEDIA_TREK_DIR = 'trekking_trek',
         MEDIA_POI_DIR = 'trekking_poi',
-        LOGS_FILENAME = 'rando-loire-atlantique.log',
+        LOGS_FILENAME = 'geotrek-rando.log',
         TILES_DIR = 'tiles',
         TREK_DIR = 'treks',
         POI_DIR = 'poi',
@@ -135,7 +136,7 @@ geotrekAppSettings.constant('globalSettings', {
             MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/zip/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
-            LEAFLET_BACKGROUND_URL: 'http://rando.loire-atlantique.fr/tiles?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.CLASSIQUE&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={    z}&TILEROW={y}&TILECOL={x}'//'http://gpp3-wxs.ign.fr/mt31gongul3grvjwuhfur21a/geoportail/wmts?LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.CLASSIQUE&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={    z}&TILEROW={y}&TILECOL={x}'
+            LEAFLET_BACKGROUND_URL: leaflet_conf.BACKGROUND_URL
         },
         device: {
             CDV_ROOT: CDV_ROOT,
