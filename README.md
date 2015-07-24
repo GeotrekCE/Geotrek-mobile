@@ -198,12 +198,28 @@ cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
 ```
 
 
-### Custom url scheme plugin
+### (OPTIONAL) Custom url scheme plugin
 
-If you want a scheme url on your app
+If you want a scheme url on your app (replace mySchemeURL with the one desired)
 ```bash
 cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=mySchemeURL
 ```
+
+
+
+APP CONFIGURATION
+============================
+In order to customise and configure your app you need to edit and add few files
+
+### Config.xml
+Copy the `config.xml.default` file in your Cordova project folder and rename it `config.xml`. Inside you need to change at least the following fields :
+* `<widget id="com.makinacorpus.geotrek" >` - This id is your package name. Chose it wisely as you will not be able to change it later (once you've uploaded your app on the store). It's the app unique identifier.
+* `<name>` - The name of your app
+* `<description>` - The description of your app
+
+### Icons and splashscreens
+They should be placed inside the `images` folder of your Cordova project folder. You have the list of all the required files in the config.xml file and their names.
+
 
 
 GENERATING PATFORMS VERSIONS
