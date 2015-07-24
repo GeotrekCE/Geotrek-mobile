@@ -16,6 +16,8 @@ $white:                 #fff;
 $green:                 #7da013;
 $greenDarker:           #7da013;
 
+$blue: #1C72BC;
+
 
 // Ionic overrides
 // -------------------------
@@ -36,7 +38,7 @@ $secondaryColor:        $greenDarker;
 $complementaryColor:    white;
 $complementaryColor2:   grey;
 $complementaryColor3:   $dark;
-$complementaryColor4:   #1C72BC;
+$complementaryColor4:   $blue;
 $complementaryColor5:   $grayLighter;
 
 $tabs-color:            $dark;
@@ -44,6 +46,7 @@ $tabs-border-color:     $complementaryColor;
 $tabs-border-active-color: $primaryColor;
 
 $marker-border-color:  $complementaryColor3;
+$user-location-color: $blue;
 
 $cluster-color: $primaryColor;
 $cluster-border-color: darken($cluster-color, 10);
