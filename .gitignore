@@ -3,5 +3,6 @@ bower_components
 .tmp
 .sass-cache
 .DS_Store
+config.xml
 app/styles/geotrek-mobile.css
 app/styles/geotrek-mobile.css.map
