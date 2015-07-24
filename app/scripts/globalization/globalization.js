@@ -6,7 +6,7 @@ geotrekGlobalization.config(['$translateProvider', 'locales', 'globalSettings', 
 
     // Initialize app languages
     $translateProvider.translations('fr', locales['fr']);
-    $translateProvider.translations('fr', locales['fr']);
+    $translateProvider.translations('en', locales['en']);
     $translateProvider.translations('it', locales['it']);
     $translateProvider.preferredLanguage(globalSettings.DEFAULT_LANGUAGE);
 }]);
