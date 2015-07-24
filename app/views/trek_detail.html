@@ -141,11 +141,11 @@
             </p>
             <p ng-if="trek.properties.access">
                 <span>{{ 'trek_detail.road_access' | translate }}</span>
-                <span> {{ trek.properties.access }}</span>
+                <span ng-bind-html="trek.properties.access"></span>
             </p>
             <p ng-if="trek.properties.advised_parking">
                 <span>{{ 'trek_detail.advised_parking' | translate }}</span>
-                <span> {{ trek.properties.advised_parking }}</span>
+                <span ng-bind-html="trek.properties.advised_parking"></span>
             </p>
 
             <h2 ng-if="trek.properties.advice" class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
