@@ -44,7 +44,7 @@
                 </div>
             </div>
             <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
-            <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} : 
+            <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} 
                 <span ng-repeat="city in trek.properties.cities">{{ city.name }}<span ng-if="!$last">, </span></span>
             </p>
             <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival">{{ trek.properties.departure }} <span ng-if="trek.properties.arrival">→</span> {{ trek.properties.arrival }}</p>
