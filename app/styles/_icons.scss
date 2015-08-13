@@ -1,6 +1,6 @@
 
 .icon-geotrek {
-    
+
     vertical-align: middle;
     text-decoration: none;
 
@@ -21,7 +21,7 @@
 .switch-detail-map {
     a::before {
           line-height: 42px;
-    } 
+    }
 }
 
 .icon-text {
@@ -38,9 +38,19 @@
     }
 
     &.poi-icon {
-        background: transparent top left no-repeat;
+        background: transparent top center no-repeat;
         background-size: 100% auto;
-        background-image: url(../images/marker-poi.svg);
+        background-image: url(../images/marker-poi-bg.svg);
+        .type-icon {
+            margin: 5px;
+            border-radius: 50%;
+            overflow: hidden;
+            height: 24px;
+            width: 24px;
+            img {
+                width: 100%;
+            }
+        }
     }
 
     &.trek-cluster {
@@ -67,7 +77,7 @@
     div {
         border-radius: 50%;
         position: absolute;
-        
+
         &.marker-background {
             background: $user-location-color;
             height: 200%;

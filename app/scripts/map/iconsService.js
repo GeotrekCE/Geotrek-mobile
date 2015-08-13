@@ -44,15 +44,8 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
     };
 
     this.getPOIIcon = function(poi) {
-        //var pictogramUrl = poi.properties.type.pictogram;
-        console.log(poi);
-        // return L.icon({
-        //     iconUrl: pictogramUrl,
-        //     iconSize: [32, 32],
-        //     iconAnchor: [16, 16]
-        // })
-
         return new L.DivIcon({
+            html: '<div class="type-icon"><img src="' + poi.properties.type.pictogram + '"/></div>',
             iconSize: [34, 50],
             iconAnchor: [17, 50],
             className: 'poi-icon poi-' + poi.properties.type.id
