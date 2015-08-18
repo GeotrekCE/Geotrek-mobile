@@ -43,7 +43,7 @@
                 <a class="button" ui-sref="home.map" ng-class="{ active: $state.includes('home.map')}">{{ 'nav_trek_map.map' | translate }}</a>
             </div>
         </ion-header-bar>
-        
+
         <ui-view></ui-view>
     </ion-side-menu-content>
 
@@ -52,6 +52,9 @@
         <ion-content scroll="true" scrollbar-x="false" scrollbar-y="false">
             <ul class="filters-list">
                 <li class="filters-list__item difficulty">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.difficulty' | translate }}
+                    </div>
                     <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox ng-click="filterTreks" uncheckable>
                         <div class="difficulty-icon" ng-include="difficulty.icon"></div>
                         <span>{{ difficulty.name }}</span>
@@ -59,6 +62,9 @@
                 </li>
 
                 <li class="filters-list__item duration">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.duration' | translate }}
+                    </div>
                     <button class="filters-list__bt button button-icon icon-top {{ duration.icon }}" ng-init="activeFilters.duration[duration.id] = duration" ng-repeat="duration in filtersData.durations" ng-model="activeFilters.duration[duration.id].checked" btn-checkbox ng-click="filterTreks" uncheckable>
                         <img src="images/duration-{{ $index+1 }}.svg" alt="{{ duration.name }}">
                         <span>{{ duration.name }}</span>
@@ -66,18 +72,27 @@
                 </li>
 
                 <li class="filters-list__item elevation">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.elevation' | translate }}
+                    </div>
                     <button class="filters-list__bt-no-icon button" ng-init="activeFilters.elevation[elevation.id] = elevation" ng-repeat="elevation in filtersData.elevations" btn-checkbox ng-model="activeFilters.elevation[elevation.id].checked" ng-click="filterTreks" uncheckable>
                         {{ elevation.name }}
                     </button>
                 </li>
 
                 <li class="filters-list__item length">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.length' | translate }}
+                    </div>
                     <button class="filters-list__bt-no-icon button" ng-init="activeFilters.eLength[eLength.id] = eLength" ng-repeat="eLength in filtersData.eLength" btn-checkbox ng-model="activeFilters.eLength[eLength.id].checked" ng-click="filterTreks" uncheckable>
                         {{ eLength.name }}
                     </button>
                 </li>
 
                 <li class="filters-list__item downloaded">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.advanced' | translate }}
+                    </div>
                     <button class="filters-list__bt button button-icon icon-top {{ download.icon }}" ng-repeat="download in filtersData.downloads" ng-model="activeFilters.download" btn-radio="{{ download.value }}" ng-click="filterTreks" uncheckable>
                         <img src="images/{{ download.icon }}" alt="{{ download.name | translate }}">
                         <span>{{ download.name | translate }}</span>
