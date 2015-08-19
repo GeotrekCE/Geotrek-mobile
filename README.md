@@ -173,7 +173,7 @@ cordova plugin add de.appplant.cordova.plugin.local-notification
 ### Cordova zip plugin
 
 ```bash
-cordova plugin add https://github.com/MobileChromeApps/zip.git
+cordova plugin add org.chromium.zip
 ```
 
 
