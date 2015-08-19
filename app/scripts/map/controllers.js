@@ -188,9 +188,15 @@ geotrekMap.controller('MapController',
 
     // Reinitialize focus and markers of a trek on state-change
     $rootScope.$on('$stateChangeStart', function() {
-        map.removeLayer(currentHighlight);
-        map.removeLayer(overHighlight);
-        map.removeLayer(treksMarkers);
+        if (map.hasLayer(currentHighlight)) {
+            map.removeLayer(currentHighlight);
+        }
+        if (map.hasLayer(overHighlight)) {
+            map.removeLayer(overHighlight);
+        }
+        if (map.hasLayer(treksMarkers)) {
+            map.removeLayer(treksMarkers);
+        }
         if ($scope.$parent) {
             map.addLayer($scope.$parent.treks);
         }
@@ -200,7 +206,7 @@ geotrekMap.controller('MapController',
     function centerMapTrek() {
         map.fitBounds(currentHighlight);
     }
-    
+
     $scope.centerMapTrek = centerMapTrek;
 
     centerMapTrek();
