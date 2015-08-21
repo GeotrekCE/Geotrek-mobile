@@ -51,7 +51,7 @@ Here are the main things you need to configure :
 * `GOOGLE_ANALYTICS_ID: 'UA-1234567-8'` - you can link your app to a Google Analytics account. You just need to put your GA ID. (this account needs to be an App type account and not a web one)
 * `APP_NAME: 'Geotrek Rando'` - the app name that will be displayed on the top bar of the app
 * `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use. 
-Note: If you're using Geotrek suite (Geotrek Admin and Geotrek Rando), it's the url of your Geotrek Rando website + `/data`. Geotrek mobile V1.X is compatible with Geotrek Admin 0.XX and Geotrek mobile v2.X is compatible with Geotrek Admin 2.XX
+Note: If you're using Geotrek suite (Geotrek Admin and Geotrek Rando), it's the url of your Geotrek Rando website + `/data`. Geotrek mobile V1.X is compatible with Geotrek Admin 0.XX and 1.X. Geotrek mobile v2.X is compatible with Geotrek Admin 2.XX
 * `GEOTREK_DIR = 'geotrek-rando'` - The name of the folder containing your app on the filesystem
 * `LOGS_FILENAME = 'geotrek-rando.log'` - The name of the app log file
 
