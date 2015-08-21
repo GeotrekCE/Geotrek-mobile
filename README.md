@@ -9,6 +9,17 @@ Note: Geotrek mobile v1.X is compatible only with v1.X of Geotrek Rando and Geot
 
 
 
+SYNCHRONIZATION
+===============
+
+If you are using Geotrek-mobile v1.X with Geotrek-Rando v1.X, you have to synchronize them.
+First your Geotrek-Rando must be up-to-date with your Geotrek-Admin. 
+Then you can launch the command to build mobile file. 
+
+See Geotrek-Rando v1.X documentation at https://github.com/makinacorpus/Geotrek-rando/tree/v1.X#synchronization.
+
+
+
 INSTALLATION
 ===================
 
