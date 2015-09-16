@@ -90,8 +90,13 @@ geotrekTreks.controller('TrekController',
     function ($rootScope, $state, $scope, $ionicPopup, $q, $translate, mapFactory, treks, userSettingsService) {
 
     // Ordering by distance
-    // If distance is not available, default ordering is trek.geojson one
-    $scope.orderProp = 'distanceFromUser';
+    // If distance is not available, default ordering is by name
+    $scope.orderByDistanceIfAvailable = function (trek) {
+        if (trek.distanceFromUser) {
+            return parseInt(trek.distanceFromUser);
+        }
+        return trek.properties.name;
+    };
 
     var getTrekById = function(treks, trekId) {
         var currentTrek;

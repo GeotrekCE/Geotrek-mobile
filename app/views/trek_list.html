@@ -1,6 +1,6 @@
 <ion-content overflow-scroll="false">
     <ion-list class="trek-list">
-        <ion-item collection-repeat="trek in filteredTreks | filter:{properties:activeFilters.search} | orderBy:orderProp" ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item item-thumbnail-left" collection-item-height="110" collection-item-width="'100%'">
+        <ion-item collection-repeat="trek in filteredTreks | filter:{properties:activeFilters.search} | orderBy:orderByDistanceIfAvailable" ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item item-thumbnail-left" collection-item-height="110" collection-item-width="'100%'">
             <img class="thumbnail" ng-src="{{ trek.properties.thumbnail }}"/>
             <h3>{{ trek.properties.name }}</h3>
             <p ng-if="trek.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ trek.properties.departure }}</p>
