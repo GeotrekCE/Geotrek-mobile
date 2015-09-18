@@ -167,6 +167,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         var filteredTreks = [];
         angular.forEach(treks, function(trek) {
             if (
+                trek.properties.published &&
                 (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
                 (!self.filterIsActive(activeFilters.duration) || (trek.properties.duration && self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration))) &&
                 (!self.filterIsActive(activeFilters.elevation) || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
