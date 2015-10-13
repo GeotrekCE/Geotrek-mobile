@@ -115,6 +115,26 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         return is_valid;
     };
 
+    this.filterTrekContains = function (trekProperty, filter, valueToTest) {
+
+        var is_valid = false;
+        if (this.isValidFilter(trekProperty, filter)) {
+            angular.forEach(filter, function (filterValue, filterKey) {
+                if (filterValue) {
+                    for (var i = 0; i < trekProperty.length; i++) {
+                        var propertyId = trekProperty[i][valueToTest];
+
+                        if (parseFloat(propertyId) === parseFloat(filterKey)) {
+                            is_valid = true;
+                        }
+                    }
+                }
+            });
+        }
+
+        return is_valid;
+    };
+
     // Generic function that is called on select filters
     this.filterTrekWithSelect = function(selectOptionValues, formValue, fieldToCheck) {
         // Trek considered as matching if filter not set or if
