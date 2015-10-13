@@ -46,10 +46,12 @@ geotrekTreks.controller('TrekController',
         angular.forEach($scope.activeFilters['difficulty'], function(value, key) {
             $scope.activeFilters['difficulty'][key] = false;
         });
+        angular.forEach($scope.activeFilters['use'], function(value, key) {
+            $scope.activeFilters['use'][key] = false;
+        });
         $scope.activeFilters.download =     undefined;
         $scope.activeFilters.theme =        undefined;
         $scope.activeFilters.municipality = null;
-        $scope.activeFilters.use =          null;
         $scope.activeFilters.valley =       null;
         $scope.activeFilters.route =        null;
         $scope.activeFilters.search =       '';

@@ -15,10 +15,10 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             duration:     {},
             elevation:    {},
             eLength:      {},
+            use:          {},
             download:     undefined,
             theme:        undefined,
             municipality: null,
-            use:          null,
             valley:       null,
             route:        null,
             search:       ''
@@ -188,13 +188,13 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         angular.forEach(treks, function(trek) {
             if (
                 trek.properties.published &&
+                (!self.filterIsActive(activeFilters.use) || (trek.properties.usages && self.filterTrekContains(trek.properties.usages, activeFilters.use, 'id'))) &&
                 (!self.filterIsActive(activeFilters.difficulty) || (trek.properties.difficulty && self.filterTrekEquals(trek.properties.difficulty.id, activeFilters.difficulty))) &&
                 (!self.filterIsActive(activeFilters.duration) || (trek.properties.duration && self.filterTrekWithInterval(trek.properties.duration, activeFilters.duration))) &&
                 (!self.filterIsActive(activeFilters.elevation) || (trek.properties.ascent && self.filterTrekWithInterval(trek.properties.ascent, activeFilters.elevation))) &&
                 (!self.filterIsActive(activeFilters.eLength) || (trek.properties.eLength && self.filterTrekWithInterval(trek.properties.eLength, activeFilters.eLength))) &&
                 (!self.filterIsActive(activeFilters.download) || (trek.tiles && self.filterTrekEquals((trek.tiles && trek.tiles.isDownloaded) ? 1 : 0, activeFilters.download))) &&
                 (!self.filterIsActive(activeFilters.theme) || (trek.properties.themes && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
-                (!self.filterIsActive(activeFilters.use) || (trek.properties.usages && self.filterTrekWithSelect(trek.properties.usages, activeFilters.use, 'id'))) &&
                 (!self.filterIsActive(activeFilters.route) || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
                 (!self.filterIsActive(activeFilters.valley) || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
                 (!self.filterIsActive(activeFilters.municipality) || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')))
@@ -274,7 +274,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             if (trek.properties.usages) {
                 // Uses init
                 angular.forEach(trek.properties.usages, function(usage) {
-                    trekUses.push({value: usage.id, name: usage.label});
+                    trekUses.push({value: usage.id, name: usage.label, icon: $sce.trustAsResourceUrl(usage.pictogram)});
                 });
             }
 

@@ -51,6 +51,15 @@
     <ion-side-menu side="left" width="245">
         <ion-content scroll="true" scrollbar-x="false" scrollbar-y="false">
             <ul class="filters-list">
+                <li class="filters-list__item uses">
+                    <div class="filter-name">
+                        {{ 'nav_trek_map.use' | translate }}
+                    </div>
+                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="use in filtersData.uses" ng-model="activeFilters.use[use.value]" btn-checkbox ng-click="filterTreks" uncheckable>
+                        <div class="use-icon" ng-include="use.icon"></div>
+                        <span>{{ use.name }}</span>
+                    </button>
+                </li>
                 <li class="filters-list__item difficulty">
                     <div class="filter-name">
                         {{ 'nav_trek_map.difficulty' | translate }}
@@ -103,14 +112,6 @@
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.theme' | translate }}</option>
-                        </select>
-                    </label>
-                </li>
-
-                <li class="filters-list__item filters-list__item--select uses">
-                    <label class="item-input item-select">
-                        <select ng-model="activeFilters.use" ng-options="use.name for use in filtersData.uses" ng-change="filterTreks">
-                            <option value="">{{ 'nav_trek_map.use' | translate }}</option>
                         </select>
                     </label>
                 </li>
