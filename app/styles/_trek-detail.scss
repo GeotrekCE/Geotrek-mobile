@@ -55,6 +55,51 @@
 			}
 		}
 	}
+
+	.collapsable-container {
+		margin-bottom: 5px;
+		&:first-child {
+			margin-top: 20px;
+		}
+	}
+
+	.collapsable-title {
+		position: relative;
+		h2 {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	.collapsable-icon {
+		position: absolute;
+		top: 50%;
+		margin-top: -0.65rem;
+		right: 10px;
+		font-size: 1.3rem;
+		line-height: 1.3rem;
+		vertical-align: middle;
+		color: white;
+		transition: transform ease-in-out 0.4s;
+		&.rotated {
+			transform: rotate(180deg);
+		}
+	}
+
+	.collapsable-content {
+		max-height: 10000px;
+		overflow: hidden;
+		transition: max-height ease-in-out 0.5s, padding ease-in-out 0.3s;
+		padding: 1rem 0;
+		margin: 0 -10px;
+		&.collapsed {
+			max-height: 0;
+			padding: 0;
+		}
+		& > p, & > div, & > span {
+			padding: 1rem;
+		}
+	}
 }
 
 .download-advice {

@@ -114,10 +114,20 @@ geotrekTreks.controller('TrekController',
 
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, settings, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
     console.log(trek);
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
+
+    $scope.descriptionCollapse = true;
+    $scope.elevationCollapse = true;
+    $scope.trasnportCollapse = true;
+    $scope.adviceCollapse = true;
+    $scope.infrastructureCollapse = true;
+    $scope.desksCollapse = true;
+    $scope.childrenCollapse = true;
+    $scope.parentCollapse = true;
+    $scope.poiCollapse = true;
 
     $scope.network_available = $rootScope.network_available;
 
@@ -185,6 +195,13 @@ geotrekTreks.controller('TrekController',
     $scope.$on('$destroy', function() {
         $scope.modal.remove();
     });
+
+    $scope.toggleCollapse = function (toggleName) {
+        $scope[toggleName] = !$scope[toggleName];
+        $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+        }, 500);
+    };
 
     $scope.back = function() {
         $window.history.go(-1);
