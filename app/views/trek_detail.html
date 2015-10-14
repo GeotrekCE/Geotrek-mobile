@@ -118,12 +118,9 @@
                 </ion-slide>
             </ion-slide-box>
 
-            <div class="collapsable-container">
-                <div class="collapsable-title" ng-click="toggleCollapse('descriptionCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !descriptionCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.description' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: descriptionCollapse}">
+            <div>
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.description' | translate }}</h2>
+                <div>
                     <p class="description" ng-bind-html="mainDescription">
                         {{ trek.properties.description }}
                     </p>
@@ -134,24 +131,18 @@
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="activateElevation">
-                <div class="collapsable-title" ng-click="toggleCollapse('elevationCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !elevationCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: elevationCollapse}">
+            <div ng-if="activateElevation">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
+                <div>
                     <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
                     <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
                     <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="trek.properties.public_transport || trek.properties.access || trek.properties.advised_parking">
-                <div class="collapsable-title" ng-click="toggleCollapse('trasnportCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !trasnportCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: trasnportCollapse}">
+            <div ng-if="trek.properties.public_transport || trek.properties.access || trek.properties.advised_parking">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
+                <div>
                     <p ng-if="trek.properties.public_transport">
                         <span>{{ 'trek_detail.public_transport' | translate }} : </span>
                         <span ng-bind-html="trek.properties.public_transport"></span>
@@ -167,32 +158,23 @@
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="trek.properties.advice">
-                <div class="collapsable-title" ng-click="toggleCollapse('adviceCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !adviceCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: adviceCollapse}">
+            <div ng-if="trek.properties.advice">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
+                <div>
                     <p ng-bind-html="trek.properties.advice"></p>
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="trek.properties.disabled_infrastructure">
-                <div class="collapsable-title" ng-click="toggleCollapse('infrastructureCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !infrastructureCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: infrastructureCollapse}">
+            <div ng-if="trek.properties.disabled_infrastructure">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
+                <div>
                     <p ng-bind-html="trek.properties.disabled_infrastructure"></p>
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="trek.properties.information_desks.length > 0">
-                <div class="collapsable-title" ng-click="toggleCollapse('desksCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
-                </div>
-                <div class="collapsable-content" ng-class="{collapsed: desksCollapse}">
+            <div ng-if="trek.properties.information_desks.length > 0">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
+                <div>
                     <ion-item ng-if="trek.properties.information_desks.length > 0" class="" ng-repeat="information_desk in trek.properties.information_desks">
                         <div class="information-desk">
                             <h3 ng-bind-html="information_desk.name"></h3>

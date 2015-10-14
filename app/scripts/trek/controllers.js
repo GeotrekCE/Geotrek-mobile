@@ -119,12 +119,6 @@ geotrekTreks.controller('TrekController',
     console.log(trek);
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
 
-    $scope.descriptionCollapse = true;
-    $scope.elevationCollapse = true;
-    $scope.trasnportCollapse = true;
-    $scope.adviceCollapse = true;
-    $scope.infrastructureCollapse = true;
-    $scope.desksCollapse = true;
     $scope.childrenCollapse = true;
     $scope.parentCollapse = true;
     $scope.poiCollapse = true;
