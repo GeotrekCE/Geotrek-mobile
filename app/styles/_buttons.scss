@@ -10,7 +10,7 @@
     text-align: center;
     position: fixed;
     padding: 5px;
-    z-index: 99999;
+    z-index: 100;
     @include border-radius(50%);
     background-color: $dark;
 
@@ -26,6 +26,11 @@
 
     &.switch-detail-treklocation {
         top: 168px;
+        left: 20px;
+    }
+
+    &.switch-detail-markers-menu {
+        top: 230px;
         left: 20px;
     }
 

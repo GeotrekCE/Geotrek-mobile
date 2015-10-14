@@ -160,7 +160,16 @@ geotrekMap.controller('MapController',
     // Remove the treks cluster on detail view
     map.removeLayer($scope.$parent.treks);
 
-    var treksMarkers = L.featureGroup().addTo(map);
+    $scope.markersLayers = {
+        poisMarkers: {
+            layer: L.featureGroup().addTo(map),
+            visible: true
+        },
+        treksMarkers: {
+            layer: L.featureGroup().addTo(map),
+            visible: true
+        }
+    };
 
     function poiModal(feature) {
         var modalScope = {
@@ -174,13 +183,14 @@ geotrekMap.controller('MapController',
         leafletService.createMarkersFromTrek(trek, pois.features)
             .then(
                 function (markers) {
-                    var pois = markers;
 
-                    angular.forEach(pois, function(poi) {
-                        if (poi.options.markerType === 'poi' || poi.options.markerType === 'information') {
-                            poi.on('click', function(e) {poiModal(e.target.options)});
+                    angular.forEach(markers, function(marker) {
+                        if (marker.options.markerType === 'poi' || marker.options.markerType === 'information') {
+                            marker.on('click', function(e) {poiModal(e.target.options)});
+                            $scope.markersLayers.poisMarkers.layer.addLayer(marker);
+                        } else {
+                            $scope.markersLayers.treksMarkers.layer.addLayer(marker);
                         }
-                        treksMarkers.addLayer(poi);
                     });
                 }
             );
@@ -194,8 +204,11 @@ geotrekMap.controller('MapController',
         if (map.hasLayer(overHighlight)) {
             map.removeLayer(overHighlight);
         }
-        if (map.hasLayer(treksMarkers)) {
-            map.removeLayer(treksMarkers);
+        if (map.hasLayer($scope.markersLayers.treksMarkers.layer)) {
+            map.removeLayer($scope.markersLayers.treksMarkers.layer);
+        }
+        if (map.hasLayer($scope.markersLayers.poisMarkers.layer)) {
+            map.removeLayer($scope.markersLayers.poisMarkers.layer);
         }
         if ($scope.$parent) {
             map.addLayer($scope.$parent.treks);
@@ -207,6 +220,39 @@ geotrekMap.controller('MapController',
         map.fitBounds(currentHighlight);
     }
 
+    function toggleMarkersMenu() {
+        if ($scope.markersMenuIsOpened) {
+            closeMarkersMenu();
+        } else {
+            openMarkersMenu();
+        }
+    }
+
+    function openMarkersMenu() {
+        $scope.markersMenuIsOpened = true;
+    }
+
+    function closeMarkersMenu() {
+        $scope.markersMenuIsOpened = false;
+    }
+
+    function toggleMarkerLayer(layerName) {
+        var markerLayer = $scope.markersLayers[layerName];
+        if (markerLayer) {
+            markerLayer.visible = !markerLayer.visible;
+            if (!markerLayer.visible && map.hasLayer(markerLayer.layer)) {
+                map.removeLayer(markerLayer.layer);
+            }
+            if (markerLayer.visible && !map.hasLayer(markerLayer.layer)) {
+                map.addLayer(markerLayer.layer);
+            }
+        }
+    }
+
+    $scope.toggleMarkersMenu = toggleMarkersMenu;
+    $scope.openMarkersMenu = openMarkersMenu;
+    $scope.closeMarkersMenu = closeMarkersMenu;
+    $scope.toggleMarkerLayer = toggleMarkerLayer;
     $scope.centerMapTrek = centerMapTrek;
 
     centerMapTrek();

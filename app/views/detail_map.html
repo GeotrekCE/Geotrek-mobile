@@ -5,3 +5,22 @@
 <div class="switch-detail switch-detail-treklocation">
     <button ng-click="centerMapTrek()" class="button-icon icon ion-arrow-shrink"></button>
 </div>
+<div class="switch-detail switch-detail-markers-menu">
+    <button ng-click="toggleMarkersMenu()" class="button-icon icon ion-location"></button>
+</div>
+<div class="markers-menu" ng-class="{opened: markersMenuIsOpened}">
+    <div class="markers-menu-title">
+        <span>Markers display</span>
+        <div class="markers-menu-close" ng-click="closeMarkersMenu()">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <ul class="list markers-menu-list">
+        <li class="pois-toggle" ng-click="toggleMarkerLayer('poisMarkers')">
+            <div class="checked-or-not" ng-class="{checked: markersLayers.poisMarkers.visible}">
+                <i class="ion-checkmark-round"></i>
+            </div>
+            <span>Pois</span>
+        </li>
+    </ul>
+</div>
