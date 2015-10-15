@@ -122,6 +122,12 @@ geotrekTreks.controller('TrekController',
     $scope.childrenCollapse = true;
     $scope.parentCollapse = true;
     $scope.poiCollapse = true;
+    var collapsers_settings = settings.DETAIL_COLLAPSER_DEFAULT_OPENED;
+    if (collapsers_settings) {
+        for (var i = 0; i < collapsers_settings.length; i++) {
+            $scope[collapsers_settings[i] + 'Collapse'] = false;
+        }
+    }
 
     $scope.network_available = $rootScope.network_available;
 
