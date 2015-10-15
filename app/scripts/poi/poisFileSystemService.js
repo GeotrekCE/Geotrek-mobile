@@ -2,7 +2,7 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings, utils, mapFactory) {
+geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalSettings, globalizationSettings, utils, mapFactory) {
     var _pois = {};
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
@@ -41,11 +41,11 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
                 }
             }else {
                 angular.forEach(poi.properties.pictures, function(picture) {
-                    picture.url = settings.DOMAIN_NAME + picture.url;
+                    picture.url = globalSettings.DOMAIN_NAME + picture.url;
                 });
 
                 if(poi.properties.thumbnail) {
-                    poi.properties.thumbnail = settings.DOMAIN_NAME + poi.properties.thumbnail;
+                    poi.properties.thumbnail = globalSettings.DOMAIN_NAME + poi.properties.thumbnail;
                 }
             }
 

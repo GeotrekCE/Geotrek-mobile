@@ -3,8 +3,8 @@
  */
 
 geotrekStaticPages.service('staticPagesFileSystemService', [
-    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'utils',
-    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, utils) {
+    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'globalSettings', 'utils',
+    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, globalSettings, utils) {
 
     var _staticPages;
 
@@ -38,7 +38,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
                 var currentUrl = element.src;
                 if (!utils.isAbsoluteURL(currentUrl)) {
                     var filename = currentUrl.substr(currentUrl.indexOf('media'));
-                    element.src = settings.DOMAIN_NAME + '/' + filename;
+                    element.src = globalSettings.DOMAIN_NAME + '/' + filename;
                 }
             });
 

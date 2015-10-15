@@ -3,7 +3,7 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.service('treksFileSystemService',
-    function ($resource, $rootScope, $window, $q, $cordovaFile, settings, utils, globalizationSettings, mapFactory) {
+    function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalSettings, utils, globalizationSettings, mapFactory) {
     var _treks;
 
     this.getTrekSubdir = function(trekId) {
@@ -83,12 +83,12 @@ geotrekTreks.service('treksFileSystemService',
                 }
             }else {
                 angular.forEach(copy.properties.pictures, function(picture) {
-                    picture.url = settings.DOMAIN_NAME + picture.url;
+                    picture.url = globalSettings.DOMAIN_NAME + picture.url;
                 });
                 if(copy.properties.information_desks){
                     angular.forEach(copy.properties.information_desks, function(information_desk) {
                         if(information_desk.photo_url) {
-                            information_desk.photo_url = settings.DOMAIN_NAME + information_desk.photo_url;
+                            information_desk.photo_url = globalSettings.DOMAIN_NAME + information_desk.photo_url;
                         }
                     });
                 }

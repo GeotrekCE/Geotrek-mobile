@@ -2,10 +2,10 @@
 
 var geotrekPois = angular.module('geotrekPois');
 
-geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $window, $q, $cordovaFile, settings, globalizationSettings) {
+geotrekPois.service('poisRemoteService', function ($resource, $rootScope, $window, $q, $cordovaFile, globalSettings, settings, globalizationSettings) {
 
     this.convertServerUrlToRemoteUrl = function(serverUrl) {
-        return settings.DOMAIN_NAME + serverUrl;
+        return globalSettings.DOMAIN_NAME + serverUrl;
     };
 
     this.replaceImgURLs = function(poiData) {
