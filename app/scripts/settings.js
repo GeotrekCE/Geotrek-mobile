@@ -16,11 +16,10 @@ geotrekAppSettings.constant('globalSettings', {
     GOOGLE_ANALYTICS_ID: '',
     APP_NAME: 'Geotrek Rando'
 })
-.factory('settings', function () {
+.factory('settings', function (globalSettings) {
 
     // Variables that user can change
-    var DOMAIN_NAME = '',
-        PUBLIC_WEBSITE = '',
+    var PUBLIC_WEBSITE = '',
         API_FOLDER = 'api',
         FORCE_DOWNLOAD = false,
         DEBUG = false,
@@ -43,6 +42,8 @@ geotrekAppSettings.constant('globalSettings', {
         HIGHLIGHT_DETAIL_LINEAR: false,
         HIGHLIGHT_COLOR: '#000000'
     };
+
+    var DETAIL_COLLAPSER_DEFAULT_OPENED = []; // can contains 'children', 'parent', 'poi', 'touristic' or be empty;
 
     /* Variables for filesystem tree on device
      * FileSystem is created as follows:
@@ -117,7 +118,6 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
 
     return {
-        DOMAIN_NAME: DOMAIN_NAME,
         PUBLIC_WEBSITE: PUBLIC_WEBSITE,
         API_FOLDER: API_FOLDER,
         POI_FILE_NAME: POI_FILE_NAME,
@@ -131,9 +131,9 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         ACTIVE_ELEVATION: ACTIVE_ELEVATION,
         remote: {
-            TILES_REMOTE_PATH_URL: DOMAIN_NAME + '/zip/tiles',
+            TILES_REMOTE_PATH_URL: globalSettings.DOMAIN_NAME + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: DOMAIN_NAME + '/zip/tiles/global.zip',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: globalSettings.DOMAIN_NAME + '/zip/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
             LEAFLET_BACKGROUND_URL: leaflet_conf.BACKGROUND_URL
@@ -193,9 +193,10 @@ geotrekAppSettings.constant('globalSettings', {
                 { id: 15000, name: '30km-40km', interval: [30001, 40000] },
                 { id: 40000, name: '>40km', interval: [40001, 99999] },
             ]
-        }
+        },
+        DETAIL_COLLAPSER_DEFAULT_OPENED: DETAIL_COLLAPSER_DEFAULT_OPENED
     };
-}).service('globalizationSettings', [ 'globalizationFactory', 'settings', '$q', function(globalizationFactory, settings, $q){
+}).service('globalizationSettings', [ 'globalizationFactory', 'globalSettings', '$q', function(globalizationFactory, globalSettings, $q){
     var self = this;
 
     self.I18N_PREFIX;
@@ -205,10 +206,10 @@ geotrekAppSettings.constant('globalSettings', {
 
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix
-        self.TREK_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/api/' + self.I18N_PREFIX + '/treks.geojson';
-        self.TREK_REMOTE_FILE_URL_BASE = settings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
-        self.TREK_REMOTE_API_FILE_URL_BASE = settings.DOMAIN_NAME + '/' + 'api/' + self.I18N_PREFIX + '/treks';
-        self.FULL_DATA_REMOTE_FILE_URL = settings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
+        self.TREK_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/api/' + self.I18N_PREFIX + '/treks.geojson';
+        self.TREK_REMOTE_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
+        self.TREK_REMOTE_API_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + 'api/' + self.I18N_PREFIX + '/treks';
+        self.FULL_DATA_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
     }
 
     this.setDefaultPrefix = function(){
