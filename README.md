@@ -5,7 +5,7 @@ OVERVIEW
 ========
 Geotrek mobile is a mobile hybride app. This repository contain the source files but not the cordova project. Please follow the README to know how to use it.
 
-Note: Geotrek mobile v1.X is compatible only with v1.X of Geotrek Rando and Geotrek mobile v2.X is compatible only with v2.X of Geotrek Admin
+Note: Geotrek mobile V1.X is compatible with Geotrek Admin 0.XX and Geotrek mobile v2.X is compatible with Geotrek Admin 2.XX.
 
 
 
@@ -13,7 +13,7 @@ INSTALLATION
 ===================
 
 ### Install Node
-See https://gist.github.com/isaacs/579814 depending on your environment. 
+See https://gist.github.com/isaacs/579814 depending on your environment.
 (Read last comments as some links may change over time)
 
 ### Install grunt-cli
@@ -50,7 +50,7 @@ Here are the main things you need to configure :
 * `AVAILABLE_LANGUAGES: ['fr', 'en', 'it']` - defines available languages for the app interface. (please be aware that de translation of the data only depends of the API)
 * `GOOGLE_ANALYTICS_ID: 'UA-1234567-8'` - you can link your app to a Google Analytics account. You just need to put your GA ID. (this account needs to be an App type account and not a web one)
 * `APP_NAME: 'Geotrek Rando'` - the app name that will be displayed on the top bar of the app
-* `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use. 
+* `DOMAIN_NAME = 'http://api-url.com'` - This parameters tells the app where to get the data it will use.
 Note: If you're using Geotrek suite (Geotrek Admin and Geotrek Rando), it's the url of your Geotrek Rando website + `/data`. Geotrek mobile V1.X is compatible with Geotrek Admin 0.XX and Geotrek mobile v2.X is compatible with Geotrek Admin 2.XX
 * `GEOTREK_DIR = 'geotrek-rando'` - The name of the folder containing your app on the filesystem
 * `LOGS_FILENAME = 'geotrek-rando.log'` - The name of the app log file
@@ -233,7 +233,7 @@ Android
 -------
 There is some ways to configure Android platform, but the core component is always android sdk.
 
-### Requirements 
+### Requirements
 
 - Android Studio (http://developer.android.com/sdk/installing/studio.html)
 - JDK (6+)
