@@ -114,14 +114,15 @@ geotrekTreks.controller('TrekController',
 
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'touristics', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, touristics, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
     console.log(trek);
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
 
     $scope.childrenCollapse = true;
     $scope.parentCollapse = true;
     $scope.poiCollapse = true;
+    $scope.touristicCollapse = true;
     var collapsers_settings = settings.DETAIL_COLLAPSER_DEFAULT_OPENED;
     if (collapsers_settings) {
         for (var i = 0; i < collapsers_settings.length; i++) {
@@ -173,6 +174,7 @@ geotrekTreks.controller('TrekController',
     $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
     $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
     $scope.pois = pois;
+    $scope.touristics = touristics;
 
     // get distance to treks and pois
     treksFactory.getTrekDistance($scope.trek).then(function(userPosition) {

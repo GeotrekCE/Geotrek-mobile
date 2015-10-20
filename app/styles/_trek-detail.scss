@@ -102,6 +102,16 @@
 	}
 }
 
+.touristic-category-pictogram {
+	padding: 5px;
+	background: $trousiticsColor;
+	svg {
+	    fill: white;
+		height: 100%;
+		max-width: 100%;
+	}
+}
+
 .download-advice {
 	padding: 1rem;
 	background-color: transparentize($download-button-color, 0.4);

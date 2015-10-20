@@ -274,6 +274,42 @@
                 </div>
             </div>
 
+            <div class="collapsable-container" ng-if="touristics.length > 0">
+                <div class="collapsable-title" ng-click="toggleCollapse('touristicCollapse');">
+                    <div class="collapsable-icon" ng-class="{rotated: !touristicCollapse}"><i class="ion-chevron-down"></i></div>
+                    <h2 class="trek-detail__section-title">{{ 'trek_detail.touristics' | translate }}</h2>
+                </div>
+                <div class="collapsable-content" ng-class="{collapsed: touristicCollapse}">
+                    <ion-item ng-if="touristics.length > 0" class="poi-detail" ng-repeat="touristic in touristics" ng-init="picture=touristic.properties.pictures[0]">
+                        <div class="header">
+                            <div class="title row">
+                                <div class="col-10">
+                                    <div class="touristic-category-pictogram">
+                                        <ng-include src="touristic.properties.category.pictogram"></ng-include>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h3 class="poi-detail__name">{{ touristic.properties.name}}</h3>
+                                    <span ng-if="touristic.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ touristic.distanceFromUser }}km)</span>
+                                </div>
+                            </div>
+                            <div class="picture" ng-if="picture">
+                                 <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}"/>
+                                 <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                                    <span>
+                                        {{ 'image.connect' | translate }}
+                                    </span>
+                                </div>
+                                <span class="picture-legend">{{ picture.legend }} <span ng-if="picture.author">({{ picture.author }})</span></span>
+                            </div>
+                        </div>
+                        <div class="row content">
+                            <div class="poi-detail__description" ng-bind-html="touristic.properties.description"></div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
         </div>
 
     </ion-content>
