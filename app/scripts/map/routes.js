@@ -36,6 +36,9 @@ geotrekMap.config(function($stateProvider) {
             pois: function(poisFactory, $stateParams) {
                 return poisFactory.getPoisFromTrek($stateParams.trekId);
             },
+            touristics: function(touristicsFactory, $stateParams) {
+                return touristicsFactory.getAllTouristicsContentsFromATrek($stateParams.trekId);
+            },
             downloadedTrek: function($q, trek, mapFactory) {
                 var promises = [];
                 promises.push(mapFactory.hasTrekPreciseBackground(trek.id));
