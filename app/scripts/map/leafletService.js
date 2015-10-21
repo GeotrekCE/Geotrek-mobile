@@ -39,7 +39,7 @@ geotrekMap.service('leafletService',
         return map_parameters;
     };
 
-    this.createMarkersFromTrek = function(trek, pois) {
+    this.createMarkersFromTrek = function(trek, markersData) {
         var deferred = $q.defer();
         var markers = [];
 
@@ -76,11 +76,8 @@ geotrekMap.service('leafletService',
             }));
         };
 
-        angular.forEach(pois, function(poi) {
-            var poiCoords = {
-                'lat': poi.geometry.coordinates[1],
-                'lng': poi.geometry.coordinates[0]
-            };
+        angular.forEach(markersData.pois.features, function(poi) {
+            var poiCoords = treksFactory.getStartPoint(poi);
             var poiIcon = iconsService.getPOIIcon(poi);
             markers.push(L.marker([poiCoords.lat, poiCoords.lng], {
                 icon: poiIcon,
@@ -90,6 +87,21 @@ geotrekMap.service('leafletService',
                 img: poi.properties.pictures[0],
                 pictogram: poi.properties.type.pictogram,
                 markerType: 'poi'
+            }));
+        });
+
+        angular.forEach(markersData.touristics, function(touristic) {
+            var touristicCoords = treksFactory.getStartPoint(touristic);
+            var touristicIcon = iconsService.getTouristicIcon(touristic);
+            markers.push(L.marker([touristicCoords.lat, touristicCoords.lng], {
+                icon: touristicIcon,
+                id_category: touristic.properties.category.id,
+                name: touristic.properties.name,
+                description: touristic.properties.description,
+                thumbnail: touristic.properties.thumbnail,
+                img: touristic.properties.pictures[0],
+                pictogram: touristic.properties.category.pictogram,
+                markerType: 'touristic'
             }));
         });
 
@@ -119,7 +131,7 @@ geotrekMap.service('leafletService',
                             informationCount += 1;
                         }
                     });
-                    
+
                     deferred.resolve(markers);
                 }
             );

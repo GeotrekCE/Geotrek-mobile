@@ -3,7 +3,7 @@
 var geotrekMap = angular.module('geotrekMap');
 var map;
 
-geotrekMap.controller('MapController', 
+geotrekMap.controller('MapController',
     ['$rootScope', '$state', '$scope', 'logging', '$window', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, logging, $window, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
     $rootScope.statename = $state.current.name;
@@ -137,8 +137,8 @@ geotrekMap.controller('MapController',
     });
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$window', 'treksFactory', 'poisFactory','leafletService', 'trek', 'utils', 'settings',
-            function ($rootScope, $state, $scope, $stateParams, $window, treksFactory, poisFactory, leafletService, trek, utils, settings) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$q', '$window', 'treksFactory', 'poisFactory', 'touristicsFactory', 'leafletService', 'trek', 'utils', 'settings',
+            function ($rootScope, $state, $scope, $stateParams, $q, $window, treksFactory, poisFactory, touristicsFactory, leafletService, trek, utils, settings) {
 
     $scope.currentTrek = $stateParams.trekId;
 
@@ -149,6 +149,10 @@ geotrekMap.controller('MapController',
             repeat:true,
             offset: 4
         });
+
+    var markersPromises = [];
+    var pois;
+    var touristics;
 
     if (settings.leaflet.HIGHLIGHT_DETAIL_LINEAR) {
         var overHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
@@ -165,6 +169,10 @@ geotrekMap.controller('MapController',
             layer: L.featureGroup().addTo(map),
             visible: true
         },
+        touristicMarkers: {
+            layer: L.featureGroup().addTo(map),
+            visible: true
+        },
         treksMarkers: {
             layer: L.featureGroup().addTo(map),
             visible: true
@@ -178,23 +186,51 @@ geotrekMap.controller('MapController',
         utils.createModal('views/map_trek_detail.html', modalScope);
     }
 
-    poisFactory.getPoisFromTrek(trek.id)
-    .then(function(pois) {
-        leafletService.createMarkersFromTrek(trek, pois.features)
+    markersPromises.push(
+        poisFactory.getPoisFromTrek(trek.id)
             .then(
-                function (markers) {
-
-                    angular.forEach(markers, function(marker) {
-                        if (marker.options.markerType === 'poi' || marker.options.markerType === 'information') {
-                            marker.on('click', function(e) {poiModal(e.target.options)});
-                            $scope.markersLayers.poisMarkers.layer.addLayer(marker);
-                        } else {
-                            $scope.markersLayers.treksMarkers.layer.addLayer(marker);
-                        }
-                    });
+                function(poisData) {
+                    pois = poisData;
                 }
-            );
-    });
+            )
+    );
+
+    markersPromises.push(
+        touristicsFactory.getAllTouristicsContentsFromATrek(trek.id)
+            .then(
+                function (touristicsData) {
+                    touristics = touristicsData;
+                }
+            )
+    );
+
+    $q.all(markersPromises)
+        .then(
+            function () {
+                var markersData = {
+                    pois: pois,
+                    touristics: touristics
+                };
+
+                leafletService.createMarkersFromTrek(trek, markersData)
+                    .then(
+                        function (markers) {
+
+                            angular.forEach(markers, function(marker) {
+                                if (marker.options.markerType === 'poi' || marker.options.markerType === 'information') {
+                                    marker.on('click', function(e) {poiModal(e.target.options)});
+                                    $scope.markersLayers.poisMarkers.layer.addLayer(marker);
+                                } else if (marker.options.markerType === 'touristic') {
+                                    marker.on('click', function(e) {poiModal(e.target.options)});
+                                    $scope.markersLayers.touristicMarkers.layer.addLayer(marker);
+                                } else {
+                                    $scope.markersLayers.treksMarkers.layer.addLayer(marker);
+                                }
+                            });
+                        }
+                    );
+            }
+        );
 
     // Reinitialize focus and markers of a trek on state-change
     $rootScope.$on('$stateChangeStart', function() {
@@ -204,12 +240,11 @@ geotrekMap.controller('MapController',
         if (map.hasLayer(overHighlight)) {
             map.removeLayer(overHighlight);
         }
-        if (map.hasLayer($scope.markersLayers.treksMarkers.layer)) {
-            map.removeLayer($scope.markersLayers.treksMarkers.layer);
-        }
-        if (map.hasLayer($scope.markersLayers.poisMarkers.layer)) {
-            map.removeLayer($scope.markersLayers.poisMarkers.layer);
-        }
+        angular.forEach($scope.markersLayers, function (markerLayer) {
+            if (map.hasLayer(markerLayer.layer)) {
+                map.removeLayer(markerLayer.layer);
+            }
+        });
         if ($scope.$parent) {
             map.addLayer($scope.$parent.treks);
         }
@@ -256,5 +291,6 @@ geotrekMap.controller('MapController',
     $scope.centerMapTrek = centerMapTrek;
 
     centerMapTrek();
+    toggleMarkerLayer('touristicMarkers');
 
 }]);

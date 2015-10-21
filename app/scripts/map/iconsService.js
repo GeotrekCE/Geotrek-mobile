@@ -52,6 +52,15 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         });
     };
 
+    this.getTouristicIcon = function(touristic) {
+        return new L.DivIcon({
+            html: '<div class="category-icon"><object data="' + touristic.properties.category.pictogram + '"></object></div>',
+            iconSize: [34, 50],
+            iconAnchor: [17, 50],
+            className: 'touristic-icon touristic-' + touristic.properties.category.id
+        });
+    };
+
     this.getClusterIcon = function(cluster) {
         return new L.DivIcon({
             iconSize: [40, 40],

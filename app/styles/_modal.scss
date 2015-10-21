@@ -11,11 +11,12 @@
         padding-left: 0.3em;
         overflow: hidden;
         min-height: 40px;
+        line-height: 36px;
         width: 100%;
         display: table;
 
         img {
-            vertical-align: top;
+            vertical-align: middle;
             display: inline-block;
         }
     }
