@@ -13,6 +13,7 @@ geotrekAppSettings.constant('globalSettings', {
     DEFAULT_LANGUAGE: 'en',
     AVAILABLE_LANGUAGES: ['fr', 'en'],
     DOMAIN_NAME: '',
+    ZIP_URL_PREFIX: '',
     GOOGLE_ANALYTICS_ID: '',
     APP_NAME: 'Geotrek Rando'
 })
@@ -77,6 +78,8 @@ geotrekAppSettings.constant('globalSettings', {
      */
 
     var POI_FILE_NAME = 'pois.geojson',
+        TOURISTIC_CONTENTS_FILE_NAME = 'touristiccontents.geojson',
+        TOURISTIC_EVENTS_FILE_NAME = 'touristicevents.geojson',
         TREKS_FILE_NAME = 'treks.geojson',
         TREKS_ZIP_NAME = 'global.zip',
         TILES_FILE_NAME = 'global.zip';
@@ -89,6 +92,8 @@ geotrekAppSettings.constant('globalSettings', {
         PAPERCLIP_DIR = 'paperclip',
         MEDIA_TREK_DIR = 'trekking_trek',
         MEDIA_POI_DIR = 'trekking_poi',
+        MEDIA_TOURISTIC_CONTENTS_DIR = 'trekking_touristiccontent',
+        MEDIA_TOURISTIC_EVENTS_DIR = 'trekking_touristicevent',
         LOGS_FILENAME = 'geotrek-rando.log',
         TILES_DIR = 'tiles',
         TREK_DIR = 'treks',
@@ -109,8 +114,14 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_TREK_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_TREK_DIR,
         RELATIVE_POI_ROOT = RELATIVE_API_DIR + '/' + TREK_DIR,
         RELATIVE_POI_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_POI_DIR,
+        RELATIVE_TOURISTIC_CONTENTS_ROOT = RELATIVE_API_DIR + '/' + TREK_DIR,
+        RELATIVE_TOURISTIC_CONTENTS_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_TOURISTIC_CONTENTS_DIR,
+        RELATIVE_TOURISTIC_EVENTS_ROOT = RELATIVE_API_DIR + '/' + TREK_DIR,
+        RELATIVE_TOURISTIC_EVENTS_MEDIA = RELATIVE_MEDIA_DIR + '/' + PAPERCLIP_DIR + '/' + MEDIA_TOURISTIC_EVENTS_DIR,
         RELATIVE_PICTO_TREK_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
         RELATIVE_PICTO_POI_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
+        RELATIVE_PICTO_TOURISTIC_CONTENTS_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
+        RELATIVE_PICTO_TOURISTIC_EVENTS_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
         RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
         RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME,
         RELATIVE_STATIC_PAGES_ROOT = RELATIVE_API_DIR + '/' + STATIC_PAGES_DIR,
@@ -121,6 +132,8 @@ geotrekAppSettings.constant('globalSettings', {
         PUBLIC_WEBSITE: PUBLIC_WEBSITE,
         API_FOLDER: API_FOLDER,
         POI_FILE_NAME: POI_FILE_NAME,
+        TOURISTIC_CONTENTS_FILE_NAME: TOURISTIC_CONTENTS_FILE_NAME,
+        TOURISTIC_EVENTS_FILE_NAME: TOURISTIC_EVENTS_FILE_NAME,
         MEDIA_TREK_DIR: MEDIA_TREK_DIR,
         TREKS_FILE_NAME: TREKS_FILE_NAME,
         PICTOGRAM_DIR: PICTOGRAM_DIR,
@@ -131,9 +144,9 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         ACTIVE_ELEVATION: ACTIVE_ELEVATION,
         remote: {
-            TILES_REMOTE_PATH_URL: globalSettings.DOMAIN_NAME + '/zip/tiles',
+            TILES_REMOTE_PATH_URL: globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
-            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: globalSettings.DOMAIN_NAME + '/zip/tiles/global.zip',
+            MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/zip/tiles/global.zip',
             //MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL: "http://192.168.100.18:8888/files/tiles/global.zip",
             //FULL_DATA_REMOTE_FILE_URL: "http://192.168.100.18:8888/fr/files/api/trek/trek.zip",
             LEAFLET_BACKGROUND_URL: leaflet_conf.BACKGROUND_URL
@@ -147,7 +160,13 @@ geotrekAppSettings.constant('globalSettings', {
             CDV_PICTO_TREK_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_TREK_ROOT,
             CDV_POI_ROOT: CDV_ROOT + '/' + RELATIVE_POI_ROOT,
             CDV_POI_MEDIA: CDV_ROOT + '/' + RELATIVE_POI_MEDIA,
+            CDV_TOURISTIC_CONTENTS_ROOT: CDV_ROOT + '/' + RELATIVE_TOURISTIC_CONTENTS_ROOT,
+            CDV_TOURISTIC_CONTENTS_MEDIA: CDV_ROOT + '/' + RELATIVE_TOURISTIC_CONTENTS_MEDIA,
+            CDV_TOURISTIC_EVENTS_ROOT: CDV_ROOT + '/' + RELATIVE_TOURISTIC_EVENTS_ROOT,
+            CDV_TOURISTIC_EVENTS_MEDIA: CDV_ROOT + '/' + RELATIVE_TOURISTIC_EVENTS_MEDIA,
             CDV_PICTO_POI_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_POI_ROOT,
+            CDV_PICTO_TOURISTIC_CONTENTS_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_TOURISTIC_CONTENTS_ROOT,
+            CDV_PICTO_TOURISTIC_EVENTS_ROOT: CDV_ROOT + '/' + RELATIVE_PICTO_TOURISTIC_EVENTS_ROOT,
             CDV_TILES_ROOT: CDV_ROOT + '/' + RELATIVE_TILES_ROOT,
             CDV_TILES_ROOT_FILE: CDV_ROOT + '/' + RELATIVE_TILES_ROOT_FILE,
             CDV_STATIC_PAGES_ROOT: CDV_ROOT + '/' + RELATIVE_STATIC_PAGES_ROOT,
@@ -207,9 +226,9 @@ geotrekAppSettings.constant('globalSettings', {
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix
         self.TREK_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/api/' + self.I18N_PREFIX + '/treks.geojson';
-        self.TREK_REMOTE_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
+        self.TREK_REMOTE_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
         self.TREK_REMOTE_API_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + 'api/' + self.I18N_PREFIX + '/treks';
-        self.FULL_DATA_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
+        self.FULL_DATA_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
     }
 
     this.setDefaultPrefix = function(){
