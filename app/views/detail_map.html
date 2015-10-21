@@ -10,7 +10,7 @@
 </div>
 <div class="markers-menu" ng-class="{opened: markersMenuIsOpened}">
     <div class="markers-menu-title">
-        <span>Markers display</span>
+        <span ng-bind="'map_trek_detail.markers_display' | translate"></span>
         <div class="markers-menu-close" ng-click="closeMarkersMenu()">
             <i class="ion-close-round"></i>
         </div>
@@ -20,13 +20,13 @@
             <div class="checked-or-not" ng-class="{checked: markersLayers.poisMarkers.visible}">
                 <i class="ion-checkmark-round"></i>
             </div>
-            <span>Pois</span>
+            <span ng-bind="'trek_detail.on_road' | translate"></span>
         </li>
         <li class="touristics-toggle" ng-click="toggleMarkerLayer('touristicMarkers')">
             <div class="checked-or-not" ng-class="{checked: markersLayers.touristicMarkers.visible}">
                 <i class="ion-checkmark-round"></i>
             </div>
-            <span>Touristics Content</span>
+            <span ng-bind="'trek_detail.touristics' | translate"></span>
         </li>
     </ul>
 </div>
