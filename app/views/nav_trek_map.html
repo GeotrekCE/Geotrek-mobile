@@ -79,7 +79,7 @@
                     </button>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select" ng-if="filtersData.themes.length > 0">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.theme" ng-options="theme.name for theme in filtersData.themes" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.theme' | translate }}</option>
@@ -87,7 +87,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select" ng-if="filtersData.uses.length > 0">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.use" ng-options="use.name for use in filtersData.uses" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.use' | translate }}</option>
@@ -95,7 +95,7 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select" ng-if="filtersData.routes.length > 0">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.route" ng-options="route.name for route in filtersData.routes" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.route' | translate }}</option>
@@ -103,15 +103,15 @@
                     </label>
                 </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select" ng-if="filtersData.valleys.length > 0">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.valley" ng-options="valley.name for valley in filtersData.valleys" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.valley' | translate }}</option>
                         </select>
                     </label>
-                </li>                
+                </li>
 
-                <li class="filters-list__item filters-list__item--select">
+                <li class="filters-list__item filters-list__item--select" ng-if="filtersData.municipalities.length > 0">
                     <label class="item-input item-select">
                         <select ng-model="activeFilters.municipality" ng-options="municipality.name for municipality in filtersData.municipalities" ng-change="filterTreks">
                             <option value="">{{ 'nav_trek_map.city' | translate }}</option>
