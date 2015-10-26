@@ -256,7 +256,8 @@ img.rules-picture {
         font-weight: bolder;
     }
     h3, img {
-        margin-bottom: 15px;
+    	display: block;
+        margin: 15px auto;
     }
 	p {
 		white-space: normal;

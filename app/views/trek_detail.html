@@ -95,13 +95,6 @@
                         <img class="icon" ng-src="{{ theme.pictogram }}"/>
                     </span>
                 </li>
-                <li ng-if="trek.properties.networks" class="trek-detail__extra-infos__item">
-                    <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
-                        <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
-                        <div class="net-name">{{network.name}}</div>
-                    </span>
-                </li>
             </ul>
 
             <ion-slide-box show-pager="true" disable-scroll="false">
@@ -125,7 +118,15 @@
                     <p ng-repeat="district in trek.properties.districts">
                         {{ district.name.join(', ') }}
                     </p>
-                    <p class="park_centered" ng-if="trek.properties.is_park_centered">{{ 'trek_detail.park_centered' | translate }}</p>
+                </div>
+                <div ng-if="trek.properties.networks" class="trek-detail__extra-infos">
+                    <div class="trek-detail__extra-infos__item">
+                        <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
+                        <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
+                            <span class="net-name">{{network.name}}</span>
+                            <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -146,21 +147,21 @@
                 </div>
             </div>
 
-            <div ng-if="trek.properties.public_transport || trek.properties.access || trek.properties.advised_parking">
-                <h2 class="trek-detail__section-title">{{ 'trek_detail.transport' | translate }}</h2>
-                <div>
-                    <p ng-if="trek.properties.public_transport">
-                        <span>{{ 'trek_detail.public_transport' | translate }} : </span>
-                        <span ng-bind-html="trek.properties.public_transport"></span>
-                    </p>
-                    <p ng-if="trek.properties.access">
-                        <span>{{ 'trek_detail.road_access' | translate }}</span>
-                        <span ng-bind-html="trek.properties.access"></span>
-                    </p>
-                    <p ng-if="trek.properties.advised_parking">
-                        <span>{{ 'trek_detail.advised_parking' | translate }}</span>
-                        <span ng-bind-html="trek.properties.advised_parking"></span>
-                    </p>
+            <div ng-if="trek.properties.public_transport">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.public_transport' | translate }}</h2>
+                <div ng-bind-html="trek.properties.public_transport">
+                </div>
+            </div>
+
+            <div ng-if="trek.properties.access">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
+                <div ng-bind-html="trek.properties.access">
+                </div>
+            </div>
+
+            <div ng-if="trek.properties.advised_parking">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.advised_parking' | translate }}</h2>
+                <div ng-bind-html="trek.properties.advised_parking">
                 </div>
             </div>
 
