@@ -10,19 +10,19 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
     var trek_icons = {
         default_icon: {},
         departure_icon: L.icon({
-            iconUrl: 'images/depart_rando.svg',
+            iconUrl: 'images/departure.svg',
             iconSize: [60, 50],
             iconAnchor: [38, 50],
             labelAnchor: [38, 50]
         }),
         arrival_icon: L.icon({
-            iconUrl: 'images/arrivee_rando.svg',
+            iconUrl: 'images/arrival.svg',
             iconSize: [60, 50],
             iconAnchor: [18, 50],
             labelAnchor: [18, 50]
         }),
         departure_arrival_icon: L.icon({
-            iconUrl: 'images/arrivee_depart_rando_boucle.svg',
+            iconUrl: 'images/departure_arrival.svg',
             iconSize: [60, 50],
             iconAnchor: [30, 50],
             labelAnchor: [30, 50]
