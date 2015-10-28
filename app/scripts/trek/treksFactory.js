@@ -33,12 +33,26 @@ function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils
         };
     };
 
-    treksFactory.getEndPoint = function(trek) {
-        var nbPts = trek.geometry.coordinates.length;
-        var lastPointCoordinates = trek.geometry.coordinates[nbPts-1];
+    treksFactory.getEndPoint = function(element) {
+        var lastPointCoordinates = [];
+        var lastArrayPoint;
+        var nbArray;
+        var nbPts;
+
+        if (element.geometry.type === 'Point') {
+            lastPointCoordinates = element.geometry.coordinates;
+        } else if (element.geometry.type === 'LineString') {
+            nbPts = element.geometry.coordinates.length;
+            lastPointCoordinates = element.geometry.coordinates[nbPts - 1];
+        } else if (element.geometry.type === 'Polygon' || element.geometry.type === 'MultiLineString') {
+            nbArray = element.geometry.coordinates.length;
+            lastArrayPoint = element.geometry.coordinates[nbArray - 1];
+            nbPts = lastArrayPoint.length;
+            lastPointCoordinates = lastArrayPoint[nbPts - 1];
+        }
 
         return {'lat': lastPointCoordinates[1],
-                'lng': lastPointCoordinates[0]}
+                'lng': lastPointCoordinates[0]};
     };
 
     treksFactory.getParkingPoint = function(trek) {
