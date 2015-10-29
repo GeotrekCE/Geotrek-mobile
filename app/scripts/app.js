@@ -78,6 +78,11 @@ geotrekApp.config(['$urlRouterProvider', '$compileProvider',
 })
 .run(['$rootScope', 'logging', '$window', '$timeout', '$state', 'settings', 'globalSettings', '$location', '$cordovaGoogleAnalytics', 'globalizationSettings', '$ionicPlatform', '$translate', 'utils', '$cordovaDialogs',
 function($rootScope, logging, $window, $timeout, $state, settings, globalSettings, $location, $cordovaGoogleAnalytics, globalizationSettings, $ionicPlatform, $translate, utils, $cordovaDialogs) {
+    function onBackKeyDown() {
+        if ($rootScope.statename === 'home.trek') {
+            ionic.Platform.exitApp();
+        }
+    }
     $rootScope.$on('$stateChangeError', function (evt, to, toParams, from, fromParams, error) {
         if (!!window.cordova) {
             if (error.message) {
@@ -100,6 +105,7 @@ function($rootScope, logging, $window, $timeout, $state, settings, globalSetting
     if (!!window.cordova) {
         $cordovaGoogleAnalytics.debugMode();
         $cordovaGoogleAnalytics.startTrackerWithId(globalSettings.GOOGLE_ANALYTICS_ID);
+        document.addEventListener("backbutton", onBackKeyDown, false);
     }
     $rootScope.$on('$stateChangeSuccess', function (evt, to, toParams, from, fromParams, error) {
         // Adding state current name on html body markup to design some elements according to current state.

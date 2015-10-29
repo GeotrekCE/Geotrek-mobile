@@ -68,6 +68,9 @@
 		h2 {
 			margin-top: 0;
 			margin-bottom: 0;
+			background: none;
+			color: $primaryColor;
+			border-bottom: 3px solid $primaryColor;
 		}
 	}
 
@@ -79,7 +82,7 @@
 		font-size: 1.3rem;
 		line-height: 1.3rem;
 		vertical-align: middle;
-		color: white;
+		color: $primaryColor;
 		transition: transform ease-in-out 0.4s;
 		&.rotated {
 			transform: rotate(180deg);
@@ -152,17 +155,28 @@
 	}
 }
 
+.trek-detail__header {
+    background: $complementaryColor5;
+    margin: -15px;
+    margin-bottom: 0;
+    padding: 15px;
+}
+
 .trek-detail__title {
 	font-size: $font-size-large;
+    color: $primaryColor;
+    font-weight: bolder;
 }
 
 .trek-detail__subtitle {
 	font-size: $font-size-base;
+    font-weight: bolder;
 }
 
 .trek-detail__ambiance {
 	font-size: $font-size-base;
     color: $complementaryColor2;
+    font-style: italic;
 }
 
 .trek-detail__section-title {
@@ -183,11 +197,17 @@
     width: auto;
 }
 
+img.rules-picture {
+    margin-top: 1rem;
+    max-width: 100%;
+}
+
 .trek-detail__main-infos__item {
-	padding: 5px 0 5px 10px;
+	// padding: 5px 0 5px 10px;
+	padding: 10px 15px 10px 15px;
 	display: inline-block;
 	@media (max-width: 680px) {
-		width: 48%;
+		width: 50%;
 	}
 	position: relative;
 	color: white;
@@ -208,7 +228,7 @@
   			color: inherit;
   			font-size: 2rem;
   		}
-	}	
+	}
 }
 
 .trek-detail__main-infos__item.icon {
@@ -235,6 +255,13 @@
 }
 
 .information-desk {
+    h3 {
+        font-weight: bolder;
+    }
+    h3, img {
+    	display: block;
+        margin: 15px auto;
+    }
 	p {
 		white-space: normal;
 	}
