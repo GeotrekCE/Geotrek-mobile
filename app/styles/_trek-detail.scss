@@ -312,11 +312,36 @@ img.rules-picture {
 	background: $dark;
 }
 
-.children-detail, .parent-detail {
-	.item-content {
-		padding: 0;
+.child-list__item, .parent-list__item {
+    width: 100%;
+    h3 {
+        color: $highlight-text-color;
+    }
+
+	p {
+		margin-bottom: 0;
 	}
-	.thumbnail {
-		height: 3rem;
-	}
+
+    .infos span {
+        &:not(:first-child) {
+            &:before {
+                content: ' - ';
+            }
+        }
+    }
+}
+
+.child-list__item__detail__actions, .parent-list__item__detail__actions {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 1.5em;
+    opacity: 0.6;
+    i {
+        color: $download-button-color;
+    }
+}
+
+.item-thumbnail-left, .item-thumbnail-left .item-content {
+    min-height: 110px;
 }

@@ -205,19 +205,19 @@
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
-                    <ion-item ng-if="children.length > 0" class="children-detail" ng-repeat="child in children" ui-sref="home.trek.detail({ trekId: child.id })">
-                        <div class="header">
-                            <div class="title row">
-                                <div class="col-20">
-                                    <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
-                                </div>
-                                <div class="col">
-                                    <h3 class="child-detail__name">{{ child.properties.name}}</h3>
-                                    <span ng-if="child.properties.difficulty" class="child-detail__difficulty">{{ child.properties.difficulty.label }}</span>
-                                    <span ng-if="child.properties.duration_pretty" class="child-detail__duration">&nbsp;{{ child.properties.duration_pretty }}</span>
-                                    <span ng-if="child.properties.eLength" class="child-detail__duration">&nbsp;{{ child.properties.eLength | number:0}} km</span>
-                                </div>
-                            </div>
+                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left" ng-repeat="child in children" ui-sref="home.trek.detail({ trekId: child.id })">
+                        <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
+                        <h3>{{ child.properties.name }}</h3>
+                        <p ng-if="child.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ child.properties.departure }}</p>
+                        <p ng-if="child.properties.category.label" class="category">{{ 'trek_list.trek' | translate }} {{ child.properties.category.label }}</p>
+                        <p class="infos">
+                            <span ng-if="child.properties.difficulty.label">{{ child.properties.difficulty.label }}</span>
+                            <span ng-if="child.properties.duration_pretty">{{ child.properties.duration_pretty }}</span>
+                            <span ng-if="child.properties.length">{{ child.properties.length/1000 | number:2 }}km</span>
+                        </p>
+                        <p ng-if="child.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ child.distanceFromUser }}km</p>
+                        <div class="child-list__item__detail__actions">
+                            <i ng-if="child.tiles.isDownloaded && !child.tiles.inDownloadProgress" class="icon ion-android-download"></i>
                         </div>
                     </ion-item>
                 </div>
@@ -229,19 +229,19 @@
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.parent' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: parentCollapse}">
-                    <ion-item ng-if="parent" class="parent-detail" ui-sref="home.trek.detail({ trekId: parent.id })">
-                        <div class="header">
-                            <div class="title row">
-                                <div class="col-20">
-                                    <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
-                                </div>
-                                <div class="col">
-                                    <h3 class="parent-detail__name">{{ parent.properties.name}}</h3>
-                                    <span ng-if="parent.properties.difficulty" class="parent-detail__difficulty">{{ parent.properties.difficulty.label }}</span>
-                                    <span ng-if="parent.properties.duration_pretty" class="parent-detail__duration">&nbsp;{{ parent.properties.duration_pretty }}</span>
-                                    <span ng-if="parent.properties.eLength" class="parent-detail__duration">&nbsp;{{ parent.properties.eLength | number:0}} km</span>
-                                </div>
-                            </div>
+                    <ion-item ng-if="parent" class="parent-list__item item-thumbnail-left" ui-sref="home.trek.detail({ trekId: parent.id })">
+                        <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
+                        <h3>{{ parent.properties.name }}</h3>
+                        <p ng-if="parent.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ parent.properties.departure }}</p>
+                        <p ng-if="parent.properties.category.label" class="category">{{ 'trek_list.trek' | translate }} {{ parent.properties.category.label }}</p>
+                        <p class="infos">
+                            <span ng-if="parent.properties.difficulty.label">{{ parent.properties.difficulty.label }}</span>
+                            <span ng-if="parent.properties.duration_pretty">{{ parent.properties.duration_pretty }}</span>
+                            <span ng-if="parent.properties.length">{{ parent.properties.length/1000 | number:2 }}km</span>
+                        </p>
+                        <p ng-if="parent.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ parent.distanceFromUser }}km</p>
+                        <div class="parent-list__item__detail__actions">
+                            <i ng-if="parent.tiles.isDownloaded && !parent.tiles.inDownloadProgress" class="icon ion-android-download"></i>
                         </div>
                     </ion-item>
                 </div>
