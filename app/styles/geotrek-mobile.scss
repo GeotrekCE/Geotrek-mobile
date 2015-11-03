@@ -102,10 +102,11 @@ body {
   .col {
     padding: 0;
   }
-  .col.buttons {
-    position: relative;
-  }
-  .buttons.pull-right {
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-main .col.buttons {
+  position: relative;
+  .pull-right {
     position: absolute !important;
   }
 }
