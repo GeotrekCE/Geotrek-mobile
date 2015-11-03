@@ -27,6 +27,18 @@ geotrekTouristics.service('touristicsRemoteService', function ($resource, $rootS
         return copy;
     };
 
+    this.replaceCategoriesImgURLs = function(touristicData) {
+        var _this = this;
+
+        // Parse trek pictures, and change their URL
+        angular.forEach(touristicData.features, function(category) {
+            if (category.pictogram) {
+                category.pictogram = _this.convertServerUrlToRemoteUrl(category.pictogram);
+            }
+        });
+        return touristicData;
+    };
+
     this.getTouristicContentsFromTrek = function(trekId) {
 
         var trek_touristics_contents_url = globalizationSettings.TREK_REMOTE_API_FILE_URL_BASE + '/' + trekId + '/' + settings.TOURISTIC_CONTENTS_FILE_NAME,
@@ -45,6 +57,26 @@ geotrekTouristics.service('touristicsRemoteService', function ($resource, $rootS
                 var convertedData = _this.replaceImgURLs(data);
                 deferred.resolve(convertedData);
             });
+
+        return deferred.promise;
+    };
+
+    this.getTouristicCategoriesData = function() {
+
+        var trek_touristics_categories_url = globalizationSettings.REMOTE_API_FILE_URL_BASE + '/' + settings.TOURISTIC_CATEGORIES_DIR,
+            requests = $resource(trek_touristics_categories_url, {}, {
+                query: {
+                    method: 'GET',
+                    cache: true
+                }
+            }),
+            deferred = $q.defer();
+
+        requests.query().$promise
+            .then(function(data) {
+                var jsonData = angular.fromJson(data);
+                deferred.resolve(jsonData);
+            }, deferred.reject);
 
         return deferred.promise;
     };

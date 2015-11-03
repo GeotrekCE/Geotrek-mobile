@@ -117,16 +117,22 @@ geotrekTreks.controller('TrekController',
     ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'touristics', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, touristics, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
     console.log(trek);
+    console.log('touristics', touristics);
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
 
     $scope.childrenCollapse = true;
     $scope.parentCollapse = true;
     $scope.poiCollapse = true;
-    $scope.touristicCollapse = true;
+    $scope.touristicCollapse = [];
     var collapsers_settings = settings.DETAIL_COLLAPSER_DEFAULT_OPENED;
+    for (var i = 0; i < touristics.length; i++) {
+        var id = touristics[i].id;
+        var value = collapsers_settings.indexOf(id) > -1 ? false : true;
+        $scope.touristicCollapse[id] = value;
+    }
     if (collapsers_settings) {
-        for (var i = 0; i < collapsers_settings.length; i++) {
-            $scope[collapsers_settings[i] + 'Collapse'] = false;
+        for (var j = 0; j < collapsers_settings.length; j++) {
+            $scope[collapsers_settings[j] + 'Collapse'] = false;
         }
     }
 
@@ -175,6 +181,7 @@ geotrekTreks.controller('TrekController',
     $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
     $scope.pois = pois;
     $scope.touristics = touristics;
+    console.log(touristics);
 
     // get distance to treks and pois
     treksFactory.getTrekDistance($scope.trek).then(function(userPosition) {
@@ -200,6 +207,13 @@ geotrekTreks.controller('TrekController',
 
     $scope.toggleCollapse = function (toggleName) {
         $scope[toggleName] = !$scope[toggleName];
+        $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+        }, 500);
+    };
+
+    $scope.toggleTouristicCollapse = function (touristicId) {
+        $scope.touristicCollapse[touristicId] = !$scope.touristicCollapse[touristicId];
         $timeout(function () {
             $ionicScrollDelegate.$getByHandle('modalScroll').resize();
         }, 500);

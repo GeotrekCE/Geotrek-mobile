@@ -21,8 +21,13 @@ geotrekMap.config(function($stateProvider) {
         controller: 'MapControllerDetail',
         resolve: {
             trek: function($stateParams, treksFactory) {
-                var trekId = $stateParams.trekId;
-                return treksFactory.getTrek(trekId);
+                return treksFactory.getTrek($stateParams.trekId);
+            },
+            pois: function(poisFactory, $stateParams) {
+                return poisFactory.getPoisFromTrek($stateParams.trekId);
+            },
+            touristics: function(touristicsFactory, $stateParams) {
+                return touristicsFactory.getAllTouristicsContentsFromATrek($stateParams.trekId);
             }
         }
     })

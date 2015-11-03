@@ -137,10 +137,11 @@ geotrekMap.controller('MapController',
     });
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$q', '$window', 'treksFactory', 'poisFactory', 'touristicsFactory', 'leafletService', 'trek', 'utils', 'settings',
-            function ($rootScope, $state, $scope, $stateParams, $q, $window, treksFactory, poisFactory, touristicsFactory, leafletService, trek, utils, settings) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$q', '$window', 'pois', 'touristics', 'treksFactory', 'poisFactory', 'touristicsFactory', 'leafletService', 'trek', 'utils', 'settings',
+            function ($rootScope, $state, $scope, $stateParams, $q, $window, pois, touristics, treksFactory, poisFactory, touristicsFactory, leafletService, trek, utils, settings) {
 
     $scope.currentTrek = $stateParams.trekId;
+    $scope.touristicCategories = touristics;
 
     // Draw a polyline to highlight the selected trek
     var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 9, 'opacity': settings.leaflet.HIGHLIGHT_DETAIL_LINEAR ? 1 : 0.8}})
@@ -149,10 +150,6 @@ geotrekMap.controller('MapController',
             repeat:true,
             offset: 4
         });
-
-    var markersPromises = [];
-    var pois;
-    var touristics;
 
     if (settings.leaflet.HIGHLIGHT_DETAIL_LINEAR) {
         var overHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
@@ -169,15 +166,30 @@ geotrekMap.controller('MapController',
             layer: L.featureGroup().addTo(map),
             visible: true
         },
-        touristicMarkers: {
-            layer: L.featureGroup().addTo(map),
-            visible: true
-        },
         treksMarkers: {
             layer: L.featureGroup().addTo(map),
             visible: true
         }
     };
+
+    var markersData = {
+        pois: pois,
+        touristics: []
+    };
+
+    angular.forEach(touristics, function (touristicCategory) {
+        if (touristicCategory.values && touristicCategory.values.length > 0) {
+            var markerLayer = {
+                layer: L.featureGroup().addTo(map),
+                visible: true
+            };
+            $scope.markersLayers[touristicCategory.id + 'Markers'] = markerLayer;
+
+            for (var i = 0; i < touristicCategory.values.length; i++) {
+                markersData.touristics.push(touristicCategory.values[i]);
+            }
+        }
+    });
 
     function poiModal(feature) {
         var modalScope = {
@@ -186,49 +198,21 @@ geotrekMap.controller('MapController',
         utils.createModal('views/map_trek_detail.html', modalScope);
     }
 
-    markersPromises.push(
-        poisFactory.getPoisFromTrek(trek.id)
-            .then(
-                function(poisData) {
-                    pois = poisData;
-                }
-            )
-    );
-
-    markersPromises.push(
-        touristicsFactory.getAllTouristicsContentsFromATrek(trek.id)
-            .then(
-                function (touristicsData) {
-                    touristics = touristicsData;
-                }
-            )
-    );
-
-    $q.all(markersPromises)
+    leafletService.createMarkersFromTrek(trek, markersData)
         .then(
-            function () {
-                var markersData = {
-                    pois: pois,
-                    touristics: touristics
-                };
+            function (markers) {
 
-                leafletService.createMarkersFromTrek(trek, markersData)
-                    .then(
-                        function (markers) {
-
-                            angular.forEach(markers, function(marker) {
-                                if (marker.options.markerType === 'poi' || marker.options.markerType === 'information') {
-                                    marker.on('click', function(e) {poiModal(e.target.options)});
-                                    $scope.markersLayers.poisMarkers.layer.addLayer(marker);
-                                } else if (marker.options.markerType === 'touristic') {
-                                    marker.on('click', function(e) {poiModal(e.target.options)});
-                                    $scope.markersLayers.touristicMarkers.layer.addLayer(marker);
-                                } else {
-                                    $scope.markersLayers.treksMarkers.layer.addLayer(marker);
-                                }
-                            });
-                        }
-                    );
+                angular.forEach(markers, function(marker) {
+                    if (marker.options.markerType === 'poi' || marker.options.markerType === 'information') {
+                        marker.on('click', function(e) {poiModal(e.target.options)});
+                        $scope.markersLayers.poisMarkers.layer.addLayer(marker);
+                    } else if (marker.options.markerType === 'touristic') {
+                        marker.on('click', function(e) {poiModal(e.target.options)});
+                        $scope.markersLayers[marker.options.id_category + 'Markers'].layer.addLayer(marker);
+                    } else {
+                        $scope.markersLayers.treksMarkers.layer.addLayer(marker);
+                    }
+                });
             }
         );
 

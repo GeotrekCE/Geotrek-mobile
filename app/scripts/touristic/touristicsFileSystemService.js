@@ -22,10 +22,6 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
         return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.TOURISTIC_EVENTS_FILE_NAME;
     };
 
-    this.convertServerUrlToTouristicFileSystemUrl = function(trekId, serverUrl) {
-        return settings.device.CDV_APP_ROOT + serverUrl;
-    };
-
     this.convertServerUrlToPictoFileSystemUrl = function(serverUrl) {
         return settings.device.CDV_APP_ROOT + serverUrl;
     };
@@ -42,11 +38,11 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
 
             if (isLocal) {
                 angular.forEach(touristic.properties.pictures, function(picture) {
-                    picture.url = _this.convertServerUrlToTouristicFileSystemUrl(trekId, picture.url);
+                    picture.url = _this.convertServerUrlToPictoFileSystemUrl(picture.url);
                 });
 
                 if(touristic.properties.thumbnail) {
-                    touristic.properties.thumbnail = _this.convertServerUrlToTouristicFileSystemUrl(trekId, touristic.properties.thumbnail);
+                    touristic.properties.thumbnail = _this.convertServerUrlToPictoFileSystemUrl(touristic.properties.thumbnail);
                 }
             }else {
                 angular.forEach(touristic.properties.pictures, function(picture) {
@@ -60,6 +56,18 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
 
         });
         return copy;
+    };
+
+    this.replaceCategoriesImgURLs = function(touristicData) {
+        var _this = this;
+
+        // Parse trek pictures, and change their URL
+        angular.forEach(touristicData.features, function(category) {
+            if (category.pictogram) {
+                category.pictogram = _this.convertServerUrlToPictoFileSystemUrl(category.pictogram);
+            }
+        });
+        return touristicData;
     };
 
 
@@ -88,7 +96,6 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
                 deferred.resolve(_touristicContents[trekId]);
             }
         });
-        var deferred = $q.defer();
 
         return deferred.promise;
     };
@@ -118,7 +125,23 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
                 deferred.resolve(_touristicEvents[trekId]);
             }
         });
+
+        return deferred.promise;
+    };
+
+    this.getTouristicCategoriesData = function() {
         var deferred = $q.defer();
+
+        var touristicCategoriesFilepath = settings.CDV_TOURISTIC_CATEGORIES_ROOT;
+
+        $cordovaFile.readAsText(touristicCategoriesFilepath)
+        .then(
+            function(file) {
+                var jsonData = JSON.parse(file);
+                deferred.resolve(jsonData);
+            },
+            deferred.reject
+        );
 
         return deferred.promise;
     };

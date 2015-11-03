@@ -91,7 +91,7 @@ function ($injector, $window, $rootScope, $q, logging, geolocationFactory, utils
             self = this,
             trek,
             deferred = $q.defer();
-            
+
         if (angular.isDefined($rootScope.treks)) {
             angular.forEach($rootScope.treks.features, function(_trek) {
                 if (_trek.id === trekId) {

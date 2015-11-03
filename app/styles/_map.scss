@@ -26,6 +26,8 @@
 }
 
 .markers-menu-list {
+    max-height: calc(100% - 1.3rem - 32px);
+    overflow-y: auto;
     li {
         font-size: 1.2rem;
         padding: 14px 20px;

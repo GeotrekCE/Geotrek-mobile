@@ -281,13 +281,13 @@
                 </div>
             </div>
 
-            <div class="collapsable-container" ng-if="touristics.length > 0">
-                <div class="collapsable-title" ng-click="toggleCollapse('touristicCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !touristicCollapse}"><i class="ion-chevron-down"></i></div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.touristics' | translate }}</h2>
+            <div class="collapsable-container" ng-repeat="touristicCategory in touristics track by touristicCategory.id" ng-if="touristicCategory.values.length > 0">
+                <div class="collapsable-title" ng-click="toggleTouristicCollapse(touristicCategory.id);">
+                    <div class="collapsable-icon" ng-class="{rotated: !touristicCollapse[touristicCategory.id]}"><i class="ion-chevron-down"></i></div>
+                    <h2 class="trek-detail__section-title" ng-bind="touristicCategory.label"></h2>
                 </div>
-                <div class="collapsable-content" ng-class="{collapsed: touristicCollapse}">
-                    <ion-item ng-if="touristics.length > 0" class="poi-detail" ng-repeat="touristic in touristics" ng-init="picture=touristic.properties.pictures[0]">
+                <div class="collapsable-content" ng-class="{collapsed: touristicCollapse[touristicCategory.id]}">
+                    <ion-item ng-if="touristicCategory.values.length > 0" class="poi-detail" ng-repeat="touristic in touristicCategory.values track by touristic.id" ng-init="picture=touristic.properties.pictures[0]">
                         <div class="header">
                             <div class="title row">
                                 <div class="col-10">
@@ -296,7 +296,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <h3 class="poi-detail__name">{{ touristic.properties.name}}</h3>
+                                    <h3 class="poi-detail__name">{{touristic.properties.name}}</h3>
                                     <span ng-if="touristic.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ touristic.distanceFromUser }}km)</span>
                                 </div>
                             </div>
