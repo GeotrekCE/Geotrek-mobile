@@ -11,20 +11,25 @@
 		min-height: 32px;
 
 		&:after {
-			color: white;
+			color: black;
 		}
 
 		select {
-			border: 1px solid white;
+			border: 1px solid black;
 			max-width: 100%;
 			width: 100%;
 			padding: 4px 45px 5px 15px;
-			color: white;
+			color: black;
 			direction: ltr;
-			background-color: $filters-select-background-color;
-			border: 1px solid white;
+			background-color: white;
 		}
 	}
+
+}
+
+.filters-list + .reset-button {
+	margin: 1rem 0 3rem 0;
+	padding: 1rem;
 }
 
 	.filters-list__item {
