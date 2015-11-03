@@ -109,8 +109,14 @@ geotrekTreks.controller('TrekController',
 
 }])
 .controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$ionicModal', '$q', 'mapFactory', '$ionicPopup', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'utils', 'settings', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $ionicModal, $q, mapFactory, $ionicPopup, $stateParams, $window, $translate, $sce, trek, pois, utils, settings, socialSharingService, treksFactory, poisFactory, userSettingsService) {
+
+    $scope.showCommentsMessage = settings.SHOW_COMMENTS_MESSAGE;
+    $scope.websiteUrl = {
+        label: settings.DOMAIN_NAME.split('://')[1],
+        url: settings.DOMAIN_NAME
+    };
 
     $scope.network_available = $rootScope.network_available;
 

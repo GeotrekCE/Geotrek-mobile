@@ -163,3 +163,13 @@ img.rules-picture {
 		white-space: normal;
 	}
 }
+
+.comments-message {
+    display: block;
+    padding: 1rem;
+    background: $primaryColor;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+}

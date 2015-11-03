@@ -190,6 +190,10 @@
                 </div>
             </ion-item>
 
+            <a ng-if="showCommentsMessage" class="comments-message" href="{{websiteUrl.url}}">
+                <span ng-bind="'trek_detail.comments_message' | translate"></span><span ng-bind="websiteUrl.label" ></span>
+            </a>
+
         </div>
 
     </ion-content>
