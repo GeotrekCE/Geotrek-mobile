@@ -102,6 +102,12 @@ body {
   .col {
     padding: 0;
   }
+  .col.buttons {
+    position: relative;
+  }
+  .buttons.pull-right {
+    position: absolute !important;
+  }
 }
 
 .item p {
