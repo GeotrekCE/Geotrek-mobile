@@ -63,11 +63,12 @@ geotrekTouristics.service('touristicsRemoteService', function ($resource, $rootS
 
     this.getTouristicCategoriesData = function() {
 
-        var trek_touristics_categories_url = globalizationSettings.REMOTE_API_FILE_URL_BASE + '/' + settings.TOURISTIC_CATEGORIES_DIR,
+        var trek_touristics_categories_url = globalizationSettings.REMOTE_API_FILE_URL_BASE + '/' + settings.TOURISTIC_CATEGORIES_FILE_NAME + '?events=1',
             requests = $resource(trek_touristics_categories_url, {}, {
                 query: {
                     method: 'GET',
-                    cache: true
+                    cache: true,
+                    isArray: true
                 }
             }),
             deferred = $q.defer();

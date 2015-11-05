@@ -88,24 +88,6 @@ geotrekTouristics.factory('touristicsFactory',
         return deferred.promise;
     };
 
-    touristicsFactory.addEventCategory = function (categories) {
-        var result = categories;
-        var eventCategory = {
-            id: "E",
-            label: "Evennements",
-            pictogram: "/static/tourism/touristicevent.svg",
-            slug: "events"
-        };
-
-        if (typeof result !== 'object') {
-            result = [result];
-        }
-
-        result.push(eventCategory);
-
-        return result;
-    };
-
     touristicsFactory.getTouristicCategories = function() {
         var deferred = $q.defer();
 
@@ -116,90 +98,12 @@ geotrekTouristics.factory('touristicsFactory',
             .then(
                 function (touristicCategories) {
                     var convertedData = touristicsFactory.replaceCategoriesImgURLs(touristicCategories);
-                    convertedData = touristicsFactory.addEventCategory(convertedData);
+                    // convertedData = touristicsFactory.addEventCategory(convertedData);
                     touristicsFactory.touristicsCategories = convertedData;
                     deferred.resolve(convertedData);
                 },
                 function () {
-                    var testData = [
-                        {
-                            id: "C1",
-                            label: "H\u00e9bergement",
-                            type1_label: "Type d'usage",
-                            type2_label: "Label",
-                            pictogram: "/media/upload/touristiccontent-accommodation.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C8",
-                            label: "Mus\u00e9e",
-                            type1_label: "Type d'usage",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-museum.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C2",
-                            label: "Pleine Nature",
-                            type1_label: "Type d'usage",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-outdoor.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C6",
-                            label: "Produits",
-                            type1_label: "Type d'usage",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-products.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C5",
-                            label: "Restaurants",
-                            type1_label: "Type d'usage",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-restaurants.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C7",
-                            label: "S\u00e9jours",
-                            type1_label: "Th\u00e9matique",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-destination.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C4",
-                            label: "Sites recommand\u00e9s",
-                            type1_label: "Type d'usage",
-                            type2_label: "",
-                            pictogram: "/media/upload/touristiccontent-sites.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        },
-                        {
-                            id: "C3",
-                            label: "Sorties",
-                            type1_label: "Type d'usage",
-                            type2_label: "Service",
-                            pictogram: "/media/upload/touristiccontent-visits.svg",
-                            order: null,
-                            slug: "contenu-touristique"
-                        }
-                    ];
-
-                    var convertedData = touristicsFactory.replaceCategoriesImgURLs(testData);
-                    convertedData = touristicsFactory.addEventCategory(convertedData);
-                    touristicsFactory.touristicsCategories = convertedData;
-                    deferred.resolve(convertedData);
+                    console.error('error');
                 }
             );
         }
