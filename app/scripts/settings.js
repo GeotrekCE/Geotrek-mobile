@@ -78,7 +78,7 @@ geotrekAppSettings.constant('globalSettings', {
      */
 
     var POI_FILE_NAME = 'pois.geojson',
-        TOURISTIC_CATEGORIES_FILE_NAME = 'touristiccontentcategories.json',
+        TOURISTIC_CATEGORIES_FILE_NAME = 'touristiccategories.json',
         TOURISTIC_CONTENTS_FILE_NAME = 'touristiccontents.geojson',
         TOURISTIC_EVENTS_FILE_NAME = 'touristicevents.geojson',
         TREKS_FILE_NAME = 'treks.geojson',
@@ -99,7 +99,6 @@ geotrekAppSettings.constant('globalSettings', {
         TILES_DIR = 'tiles',
         TREK_DIR = 'treks',
         POI_DIR = 'poi',
-        TOURISTIC_CATEGORIES_DIR = 'touristiccontentcategories',
         STATIC_PAGES_DIR = 'staticpages',
         STATIC_PAGES_FILE = 'flatpages.geojson',
         STATIC_PAGES_IMAGES_DIR = 'images',
@@ -126,7 +125,7 @@ geotrekAppSettings.constant('globalSettings', {
         RELATIVE_PICTO_TOURISTIC_EVENTS_ROOT = RELATIVE_MEDIA_DIR + '/' + UPLOAD_DIR,
         RELATIVE_TILES_ROOT = GEOTREK_DIR + '/' + TILES_DIR,
         RELATIVE_TILES_ROOT_FILE = RELATIVE_TILES_ROOT + '/' + TILES_FILE_NAME,
-        RELATIVE_TOURISTIC_CATEGORIES_ROOT = RELATIVE_API_DIR + '/' + TOURISTIC_CATEGORIES_DIR,
+        RELATIVE_TOURISTIC_CATEGORIES_ROOT = RELATIVE_API_DIR + '/' + TOURISTIC_CATEGORIES_FILE_NAME,
         RELATIVE_STATIC_PAGES_ROOT = RELATIVE_API_DIR + '/' + STATIC_PAGES_DIR,
         RELATIVE_STATIC_PAGES_ROOT_FILE = RELATIVE_API_DIR + '/' + STATIC_PAGES_FILE,
         RELATIVE_STATIC_PAGES_IMG_ROOT = RELATIVE_STATIC_PAGES_ROOT + '/' + STATIC_PAGES_IMAGES_DIR;
