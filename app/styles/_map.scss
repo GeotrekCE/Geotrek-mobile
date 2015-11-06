@@ -68,9 +68,11 @@
         overflow: hidden;
         height: 24px;
         width: 24px;
-        object {
-            width: 100%;
-            height: 100%;
+        img {
+            width: 80%;
+            margin: 10%;
+            height: 80%;
+            display: block;
         }
     }
 }

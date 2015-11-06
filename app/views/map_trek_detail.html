@@ -3,7 +3,9 @@
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
         <div class="object-title">
-            <img ng-if="objectToDisplay.pictogram" class="pictogram pictogram-title" ng-src="{{ objectToDisplay.pictogram }}"/>
+            <div class="icon {{objectToDisplay.markerType}}">
+                <img ng-if="objectToDisplay.pictogram" class="pictogram pictogram-title" ng-src="{{ objectToDisplay.pictogram }}"/>
+            </div>
             <h3 class="poi-detail__name">{{ objectToDisplay.name}}</h3>
         </div>
         <a ng-if="$root.isIOS" class="button button-clear button-positive pull-right" ng-click="modal.remove()">{{ 'static_page.cancel' | translate }}</a>

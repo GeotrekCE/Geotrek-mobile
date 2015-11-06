@@ -102,8 +102,8 @@ geotrekTouristics.factory('touristicsFactory',
                     touristicsFactory.touristicsCategories = convertedData;
                     deferred.resolve(convertedData);
                 },
-                function () {
-                    console.error('error');
+                function (err) {
+                    console.error('error: ', err);
                 }
             );
         }

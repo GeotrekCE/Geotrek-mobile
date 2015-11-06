@@ -132,7 +132,7 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
     this.getTouristicCategoriesData = function() {
         var deferred = $q.defer();
 
-        var touristicCategoriesFilepath = settings.CDV_TOURISTIC_CATEGORIES_ROOT;
+        var touristicCategoriesFilepath = settings.device.RELATIVE_TOURISTIC_CATEGORIES_ROOT;
 
         $cordovaFile.readAsText(touristicCategoriesFilepath)
         .then(

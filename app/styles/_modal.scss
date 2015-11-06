@@ -14,10 +14,17 @@
         line-height: 36px;
         width: 100%;
         display: table;
-
-        img {
-            vertical-align: middle;
-            display: inline-block;
+        .icon {
+            &.touristic {
+                background-color: $dark;
+                width: 40px;
+                text-align: center;
+            }
+            img {
+                vertical-align: middle;
+                display: inline-block;
+                margin: 0;
+            }
         }
     }
 

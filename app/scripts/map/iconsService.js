@@ -54,7 +54,7 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
 
     this.getTouristicIcon = function(touristic) {
         return new L.DivIcon({
-            html: '<div class="category-icon"><object data="' + touristic.properties.category.pictogram + '"></object></div>',
+            html: '<div class="category-icon"><img src="' + touristic.properties.category.pictogram + '"></div>',
             iconSize: [34, 50],
             iconAnchor: [17, 50],
             className: 'touristic-icon touristic-' + touristic.properties.category.id
