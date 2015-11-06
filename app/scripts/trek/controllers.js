@@ -8,7 +8,6 @@ geotrekTreks.controller('TrekController',
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
-    console.log(treks);
     $rootScope.staticPages = staticPages;
     $rootScope.filteredTreks = treks.features;
 
@@ -37,7 +36,6 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.resetFilters = function () {
-        console.log($scope.activeFilters);
         angular.forEach(['duration', 'elevation'], function(field){
             angular.forEach($scope.activeFilters[field], function(value, key) {
                 $scope.activeFilters[field][key].checked = false;
@@ -116,8 +114,6 @@ geotrekTreks.controller('TrekController',
 .controller('TrekDetailController',
     ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'touristics', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
     function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, touristics, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
-    console.log(trek);
-    console.log('touristics', touristics);
     $scope.activateElevation = settings.ACTIVE_ELEVATION;
 
     $scope.childrenCollapse = true;
@@ -181,7 +177,6 @@ geotrekTreks.controller('TrekController',
     $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
     $scope.pois = pois;
     $scope.touristics = touristics;
-    console.log(touristics);
 
     // get distance to treks and pois
     treksFactory.getTrekDistance($scope.trek).then(function(userPosition) {
@@ -286,7 +281,6 @@ geotrekTreks.controller('TrekController',
                                         hasDownloadedButNotUnzipped[0] = true;
                                         dlPercent += 25;
                                     }
-                                    console.log(dlPercent, '+', loadCounter[0], '+', loadCounter[1]);
                                 }
                             ),
                             treksFactory.downloadTrekDetails($scope.trekId)
@@ -303,7 +297,6 @@ geotrekTreks.controller('TrekController',
                                         hasDownloadedButNotUnzipped[1] = true;
                                         dlPercent += 25;
                                     }
-                                    console.log(dlPercent, '+', loadCounter[0], '+', loadCounter[1]);
                                 }
                             )
 
