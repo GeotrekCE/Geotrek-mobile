@@ -12,7 +12,7 @@ geotrekGlobalization.constant('locales', {
         'init.error_first_loading': 'Connectez-vous au réseau lors du premier lancement de l\'application.',
         'map_trek_detail.more_details': ' + de détails',
         'map_trek_detail.usages': 'Usages : ',
-        'map_trek_detail.markers_display': 'Catégories à aficher',
+        'map_trek_detail.markers_display': 'Catégories à afficher',
         'nav_trek_map.ways': 'Itinéraires',
         'nav_trek_map.map': 'Carte',
         'nav_trek_map.cancel': 'Annuler',
