@@ -259,6 +259,8 @@ img.rules-picture {
 .information-desk {
     h3 {
         font-weight: bolder;
+        text-overflow: initial;
+        white-space: normal;
     }
     h3, img {
     	display: block;
