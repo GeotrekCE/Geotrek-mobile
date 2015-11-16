@@ -33,7 +33,15 @@
 }
 
 .item-thumbnail-left, .item-thumbnail-left .item-content {
-    min-height: 110px;
+    min-height: 130px;
+}
+
+.item-thumbnail-left .item-content {
+    padding: 15px 15px 15px 132px;
+    img:first-child {
+        max-width: 110px;
+        max-height: 110px;
+    }
 }
 
 .trek-list__item__detail-bt {
