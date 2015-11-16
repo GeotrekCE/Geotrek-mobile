@@ -20,7 +20,11 @@
 // Global styles
 // --------------------------------------------------
 
-body {
+html, body {
+  background: black;
+}
+
+body > div > ion-content {
   background: white;
 }
 
