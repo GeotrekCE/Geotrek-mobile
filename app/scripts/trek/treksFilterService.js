@@ -257,45 +257,46 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             trekDifficulties = [];
 
         angular.forEach(treks.features, function(trek) {
+            if (trek.properties.published) {
+                // Themes init
+                if (trek.properties.themes) {
+                    angular.forEach(trek.properties.themes, function(theme) {
+                        trekThemes.push({value: theme.id, name: theme.label});
+                    });
+                }
 
-            // Themes init
-            if (trek.properties.themes) {
-                angular.forEach(trek.properties.themes, function(theme) {
-                    trekThemes.push({value: theme.id, name: theme.label});
-                });
-            }
+                // Diffulties init
+                if (trek.properties.difficulty) {
+                    var difficulty = trek.properties.difficulty;
+                    trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
+                }
 
-            // Diffulties init
-            if (trek.properties.difficulty) {
-                var difficulty = trek.properties.difficulty;
-                trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
-            }
+                if (trek.properties.usages) {
+                    // Uses init
+                    angular.forEach(trek.properties.usages, function(usage) {
+                        trekUses.push({value: usage.id, name: usage.label, icon: $sce.trustAsResourceUrl(usage.pictogram)});
+                    });
+                }
 
-            if (trek.properties.usages) {
-                // Uses init
-                angular.forEach(trek.properties.usages, function(usage) {
-                    trekUses.push({value: usage.id, name: usage.label, icon: $sce.trustAsResourceUrl(usage.pictogram)});
-                });
-            }
+                // Route init
+                if (trek.properties.route) {
+                    var route = trek.properties.route;
+                    trekRoute.push({value: route.id, name: route.label});
+                }
 
-            // Route init
-            if (trek.properties.route) {
-                var route = trek.properties.route;
-                trekRoute.push({value: route.id, name: route.label});
-            }
+                // Valleys init
+                if (trek.properties.districts) {
+                    angular.forEach(trek.properties.districts, function(district) {
+                        trekValleys.push({value: district.id, name: district.name});
+                    });
+                }
 
-            // Valleys init
-            if (trek.properties.districts) {
-                angular.forEach(trek.properties.districts, function(district) {
-                    trekValleys.push({value: district.id, name: district.name});
-                });
-            }
-
-            // Municipalities init
-            if (trek.properties.cities) {
-                angular.forEach(trek.properties.cities, function(city) {
-                    trekMunicipalities.push({value: city.code, name: city.name});
-                });
+                // Municipalities init
+                if (trek.properties.cities) {
+                    angular.forEach(trek.properties.cities, function(city) {
+                        trekMunicipalities.push({value: city.code, name: city.name});
+                    });
+                }
             }
         });
 
