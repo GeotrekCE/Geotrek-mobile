@@ -201,7 +201,10 @@
 
             <div class="collapsable-container" ng-if="children.length > 0">
                 <div class="collapsable-title" ng-click="toggleCollapse('childrenCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !childrenCollapse}"><i class="ion-chevron-down"></i></div>
+                    <div class="collapsable-icon">
+                        <i ng-if="childrenCollapse" class="ion-plus"></i>
+                        <i ng-if="!childrenCollapse" class="ion-minus"></i>
+                    </div>
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
@@ -227,7 +230,10 @@
 
             <div class="collapsable-container" ng-if="parents.length > 0">
                 <div class="collapsable-title" ng-click="toggleCollapse('parentCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !parentCollapse}"><i class="ion-chevron-down"></i></div>
+                    <div class="collapsable-icon">
+                        <i ng-if="parentCollapse" class="ion-plus"></i>
+                        <i ng-if="!parentCollapse" class="ion-minus"></i>
+                    </div>
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.parent' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: parentCollapse}">
@@ -253,7 +259,10 @@
 
             <div class="collapsable-container" ng-if="pois.features.length > 0">
                 <div class="collapsable-title" ng-click="toggleCollapse('poiCollapse');">
-                    <div class="collapsable-icon" ng-class="{rotated: !poiCollapse}"><i class="ion-chevron-down"></i></div>
+                    <div class="collapsable-icon">
+                        <i ng-if="poiCollapse" class="ion-plus"></i>
+                        <i ng-if="!poiCollapse" class="ion-minus"></i>
+                    </div>
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: poiCollapse}">
@@ -287,7 +296,10 @@
 
             <div class="collapsable-container" ng-repeat="touristicCategory in touristics track by touristicCategory.id" ng-if="touristicCategory.values.length > 0">
                 <div class="collapsable-title" ng-click="toggleTouristicCollapse(touristicCategory.id);">
-                    <div class="collapsable-icon" ng-class="{rotated: !touristicCollapse[touristicCategory.id]}"><i class="ion-chevron-down"></i></div>
+                    <div class="collapsable-icon">
+                        <i ng-if="touristicCollapse[touristicCategory.id]" class="ion-plus"></i>
+                        <i ng-if="!touristicCollapse[touristicCategory.id]" class="ion-minus"></i>
+                    </div>
                     <h2 class="trek-detail__section-title" ng-bind="touristicCategory.label"></h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: touristicCollapse[touristicCategory.id]}">
