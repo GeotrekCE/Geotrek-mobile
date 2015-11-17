@@ -85,32 +85,20 @@ geotrekTreks.controller('TrekController',
         $rootScope.$broadcast('OnFilter');
     },true);
 }])
-.controller('TrekListController',
-    ['$rootScope', '$state', '$scope', '$ionicPopup', '$q', '$translate', 'mapFactory', 'treks', 'userSettingsService',
-    function ($rootScope, $state, $scope, $ionicPopup, $q, $translate, mapFactory, treks, userSettingsService) {
+.controller('TrekListController', ['$scope',
+    function ($scope) {
 
-    // Ordering by distance
-    // If distance is not available, default ordering is by name
-    $scope.orderByDistanceIfAvailable = function (trek) {
-        if (trek.distanceFromUser) {
-            return parseInt(trek.distanceFromUser);
-        }
-        return trek.properties.name;
-    };
-
-    var getTrekById = function(treks, trekId) {
-        var currentTrek;
-        angular.forEach(treks, function(trek) {
-            if (trek.id == trekId) {
-                currentTrek = trek;
-                return;
+        // Ordering by distance
+        // If distance is not available, default ordering is by name
+        $scope.orderByDistanceIfAvailable = function (trek) {
+            if (trek.distanceFromUser) {
+                return parseInt(trek.distanceFromUser);
             }
-        });
+            return trek.properties.name;
+        };
 
-        return currentTrek;
-    };
-
-}])
+    }
+])
 .controller('TrekDetailController', [
     '$rootScope',
     '$state',
