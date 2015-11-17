@@ -47,8 +47,13 @@
             overflow: hidden;
             height: 24px;
             width: 24px;
+            position: relative;
             img {
-                width: 100%;
+                width: 110%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
         }
     }
