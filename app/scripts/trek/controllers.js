@@ -220,8 +220,16 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.back = function() {
-        $window.history.go(-1);
-    }
+        var backState = '';
+
+        if ($rootScope.statename === 'home.map.detail') {
+            backState = 'home.map';
+        } else {
+            backState = 'home.trek';
+        }
+
+        $state.go(backState);
+    };
 
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, null, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
