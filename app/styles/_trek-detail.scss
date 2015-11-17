@@ -280,7 +280,6 @@ img.rules-picture {
 	.col {
 		text-align: center;
 		height: 40px;
-		line-height: 40px;
 		&:first-child {
 			border-right: 1px solid $grayLight;
 			i {
@@ -300,13 +299,13 @@ img.rules-picture {
 		font-size: 28px;
 	}
 	i, p {
-		line-height: normal;
+		line-height: 1.1em;
+        max-height: 30px;
 		max-width: 70%;
 		display: inline-block;
-		vertical-align: top;
+		vertical-align: middle;
 	}
 	p {
-		height: 30px;
 		margin: 0;
 		overflow: hidden;
 		-o-text-overflow: ellipsis; /* pour Opera 9 */
