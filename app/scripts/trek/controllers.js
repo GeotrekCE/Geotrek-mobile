@@ -111,260 +111,342 @@ geotrekTreks.controller('TrekController',
     };
 
 }])
-.controller('TrekDetailController',
-    ['$rootScope', '$state', '$scope', '$timeout', '$ionicModal', '$q', 'mapFactory', 'settings', '$ionicPopup', '$ionicScrollDelegate', '$stateParams', '$window', '$translate', '$sce', 'trek', 'pois', 'touristics', 'utils', 'socialSharingService', 'treksFactory', 'poisFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, $timeout, $ionicModal, $q, mapFactory, settings, $ionicPopup, $ionicScrollDelegate, $stateParams, $window, $translate, $sce, trek, pois, touristics, utils, socialSharingService, treksFactory, poisFactory, userSettingsService) {
-    $scope.activateElevation = settings.ACTIVE_ELEVATION;
+.controller('TrekDetailController', [
+    '$rootScope',
+    '$state',
+    '$scope',
+    '$timeout',
+    '$q',
+    '$stateParams',
+    '$sce',
+    '$translate',
+    '$ionicModal',
+    '$ionicPopup',
+    '$ionicScrollDelegate',
+    'trek',
+    'pois',
+    'touristics',
+    'settings',
+    'utils',
+    'mapFactory',
+    'socialSharingService',
+    'treksFactory',
+    'poisFactory',
+    'userSettingsService',
+    function (
+        $rootScope,
+        $state,
+        $scope,
+        $timeout,
+        $q,
+        $stateParams,
+        $sce,
+        $translate,
+        $ionicModal,
+        $ionicPopup,
+        $ionicScrollDelegate,
+        trek,
+        pois,
+        touristics,
+        settings,
+        utils,
+        mapFactory,
+        socialSharingService,
+        treksFactory,
+        poisFactory,
+        userSettingsService) {
 
-    $scope.childrenCollapse = true;
-    $scope.parentCollapse = true;
-    $scope.poiCollapse = true;
-    $scope.touristicCollapse = [];
-    var collapsers_settings = settings.DETAIL_COLLAPSER_DEFAULT_OPENED;
-    for (var i = 0; i < touristics.length; i++) {
-        var id = touristics[i].id;
-        var value = collapsers_settings.indexOf(id) > -1 ? false : true;
-        $scope.touristicCollapse[id] = value;
-    }
-    if (collapsers_settings) {
-        for (var j = 0; j < collapsers_settings.length; j++) {
-            $scope[collapsers_settings[j] + 'Collapse'] = false;
-        }
-    }
+        function initCollapser () {
+            var collapsers_settings = settings.DETAIL_COLLAPSER_DEFAULT_OPENED;
 
-    if ($stateParams.parentId) {
-        $scope.parentId = $stateParams.parentId;
-    }
-    $scope.network_available = $rootScope.network_available;
-    $scope.isAndroid = ionic.Platform.isAndroid();
-    $scope.isSVG = utils.isSVG;
-    $scope.trekId = $stateParams.trekId;
-    $scope.trek = trek;
-    $scope.children = [];
-    angular.forEach(trek.properties.children, function (child) {
-        treksFactory.getTrek(child)
-            .then(
-                function (childData) {
-                    $scope.children.push(childData);
-                }
-            );
-    });
-    if (trek.properties.previous[$scope.parentId]) {
-        treksFactory.getTrek(trek.properties.previous[$scope.parentId])
-            .then(
-                function (previousData) {
-                    $scope.previous = previousData;
-                }
-            );
-    }
-    if (trek.properties.next[$scope.parentId]) {
-        treksFactory.getTrek(trek.properties.next[$scope.parentId])
-            .then(
-                function (nextData) {
-                    $scope.next = nextData;
-                }
-            );
-    }
-    if (trek.properties.parents) {
-        $scope.parents = [];
-        angular.forEach(trek.properties.parents, function (parent) {
-            treksFactory.getTrek(parent)
-                .then(
-                    function (parentData) {
-                        $scope.parents.push(parentData);
-                    }
-                );
-        });
-    }
+            $scope.childrenCollapse = true;
+            $scope.parentCollapse = true;
+            $scope.poiCollapse = true;
+            $scope.touristicCollapse = [];
 
-    // We need to declare our json HTML data as safe using $sce
-    $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
-    $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
-    $scope.pois = pois;
-    $scope.touristics = touristics;
-
-    // get distance to treks and pois
-    treksFactory.getTrekDistance($scope.trek).then(function(userPosition) {
-        poisFactory.getPoisDistance($scope.pois, userPosition);
-    });
-
-    // Display the modal (this is the entire view here)
-    $ionicModal.fromTemplateUrl('views/trek_detail.html', {
-        scope: $scope,
-        animation: 'no-animation'
-    }).then(function(modal) {
-
-        utils.openLinkInSystemBrowser('.trek-detail p');
-
-        $scope.modal = modal;
-        $scope.modal.show();
-    });
-
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-        $scope.modal.remove();
-    });
-
-    $scope.toggleCollapse = function (toggleName) {
-        $scope[toggleName] = !$scope[toggleName];
-        $timeout(function () {
-            $ionicScrollDelegate.$getByHandle('modalScroll').resize();
-        }, 500);
-    };
-
-    $scope.toggleTouristicCollapse = function (touristicId) {
-        $scope.touristicCollapse[touristicId] = !$scope.touristicCollapse[touristicId];
-        $timeout(function () {
-            $ionicScrollDelegate.$getByHandle('modalScroll').resize();
-        }, 500);
-    };
-
-    $scope.back = function() {
-        var backState = '';
-
-        if ($rootScope.statename === 'home.map.detail') {
-            backState = 'home.map';
-        } else {
-            backState = 'home.trek';
-        }
-
-        $state.go(backState);
-    };
-
-    $scope.goToPrevious = function() {
-        $state.go($rootScope.statename, { trekId: $scope.previous.id , parentId: $scope.parentId });
-    };
-
-    $scope.goToNext = function() {
-        $state.go($rootScope.statename, { trekId: $scope.next.id , parentId: $scope.parentId });
-    };
-
-    $scope.goToTrekById = function (trekId, parentId) {
-        $state.go($rootScope.statename, { trekId: trekId, parentId: parentId });
-    };
-
-    $scope.share = function() {
-        socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, null, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
-    };
-
-    $scope.downloadFiles = function() {
-        $translate([
-            'trek_controller_no_network_title',
-            'trek_controller_no_network_label',
-            'trek_controller_download_confirm_message',
-            'trek_controller_donwload_warning_title',
-            'trek_controller_donwload_warning_message',
-            'trek_controller_download_confirm_title',
-            'trek_controller_donwload_cancel'
-        ]).then(function(translations) {
-            // We prevent tile download if network is not available
-            if (!$rootScope.network_available) {
-                $ionicPopup.alert({
-                    title: translations.trek_controller_no_network_title,
-                    template: translations.trek_controller_no_network_label
-                });
+            for (var i = 0; i < touristics.length; i++) {
+                var id = touristics[i].id;
+                var value = collapsers_settings.indexOf(id) > -1 ? false : true;
+                $scope.touristicCollapse[id] = value;
             }
-            else {
-
-                // Getting user connection settings, to know if we are in WiFi only mode
-                var template = translations.trek_controller_download_confirm_message;
-                if (userSettingsService.warnForDownload()) {
-                    template += '<br/><strong>' + translations.trek_controller_donwload_warning_title +'</strong>: ' + translations.trek_controller_donwload_warning_message;
+            if (collapsers_settings) {
+                for (var j = 0; j < collapsers_settings.length; j++) {
+                    $scope[collapsers_settings[j] + 'Collapse'] = false;
                 }
+            }
+        }
 
-                var confirmPopup = $ionicPopup.confirm({
-                    cancelText: translations.trek_controller_donwload_cancel,
-                    title: translations.trek_controller_download_confirm_title,
-                    template: template
-                });
+        function initFiliation () {
+            $scope.children = [];
+            $scope.parents = [];
+            $scope.previous = null;
+            $scope.next = null;
 
-                var loadCounter = [0,0],
-                    imgLoaded = false,
-                    tilesLoaded = false;
-
-                var currentTrek = trek;
-                    currentTrek.tiles.realProgress = 0;
-                    currentTrek.tiles.inDownloadProgress = false;
-
-                return confirmPopup.then(function(confirmed) {
-                    if(confirmed) {
-                        var dlPercent = 0,
-                            hasDownloadedButNotUnzipped = [false, false];
-                        currentTrek.tiles.inDownloadProgress = true;
-                        return $q.all([
-                            mapFactory.downloadTrekPreciseBackground($scope.trekId)
-                            .then(
-                                function(resultTiles){
-                                    imgLoaded = true;
-                                }, function(error) {
-                                    currentTrek.tiles.inDownloadProgress = false;
-                                }, function(progress) {
-                                    currentTrek.tiles.inDownloadProgress = true;
-                                    loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 4);
-                                    currentTrek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
-                                    if (loadCounter[0] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[0]) {
-                                        hasDownloadedButNotUnzipped[0] = true;
-                                        dlPercent += 25;
-                                    }
-                                }
-                            ),
-                            treksFactory.downloadTrekDetails($scope.trekId)
-                            .then(
-                                function(resultImgs) {
-                                    tilesLoaded = true;
-                                }, function(error) {
-                                    currentTrek.tiles.inDownloadProgress = false;
-                                }, function(progress) {
-                                    currentTrek.tiles.inDownloadProgress = true;
-                                    loadCounter[1] = Math.floor((progress.loaded / progress.total * 100) / 4);
-                                    currentTrek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
-                                    if (loadCounter[1] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[1]) {
-                                        hasDownloadedButNotUnzipped[1] = true;
-                                        dlPercent += 25;
-                                    }
-                                }
-                            )
-
-                        ])
+            if (trek.properties.previous[$scope.parentId]) {
+                treksFactory.getTrek(trek.properties.previous[$scope.parentId])
+                    .then(
+                        function (previousData) {
+                            $scope.previous = previousData;
+                        }
+                    );
+            }
+            if (trek.properties.next[$scope.parentId]) {
+                treksFactory.getTrek(trek.properties.next[$scope.parentId])
+                    .then(
+                        function (nextData) {
+                            $scope.next = nextData;
+                        }
+                    );
+            }
+            if (trek.properties.parents && trek.properties.parents.length > 0) {
+                angular.forEach(trek.properties.parents, function (parent) {
+                    treksFactory.getTrek(parent)
                         .then(
-                            function(resultGlobal) {
-
-                                if (imgLoaded && tilesLoaded) {
-                                    currentTrek.tiles.inDownloadProgress = false;
-                                    currentTrek.tiles.isDownloaded = true;
-                                    treksFactory.getTreks()
-                                    .then(
-                                        function(trekCollection) {
-                                            $rootScope.treks = trekCollection;
-                                        }, function(errorMsg) {
-                                            console.error(errorMsg);
-                                        }
-                                    );
-                                }else {
-                                    var isWrong = '';
-                                    if (!imgLoaded) {
-                                        isWrong = 'images';
-                                    }
-                                    if (!TilesLoaded) {
-                                        isWrong = 'tiles';
-                                    }
-                                    if (!TilesLoaded && !imgLoaded) {
-                                        isWrong = 'images and tiles';
-                                    }
-
-                                    currentTrek.tiles.inDownloadProgress = false;
-                                    console.error('issue with download of ' + isWrong);
-                                }
-
-                            }, function(error) {
-                                currentTrek.tiles.inDownloadProgress = false;
+                            function (parentData) {
+                                $scope.parents.push(parentData);
                             }
                         );
-
-                    }
                 });
             }
-        });
-    };
+            if (trek.properties.children && trek.properties.children.length > 0) {
+                angular.forEach(trek.properties.children, function (child) {
+                    treksFactory.getTrek(child)
+                        .then(
+                            function (childData) {
+                                $scope.children.push(childData);
+                            }
+                        );
+                });
+            }
+        }
 
-}]);
+        function initModal () {
+            // Display the modal (this is the entire view here)
+            $ionicModal.fromTemplateUrl('views/trek_detail.html', {
+                scope: $scope,
+                animation: 'no-animation'
+            }).then(function(modal) {
+
+                utils.openLinkInSystemBrowser('.trek-detail p');
+
+                $scope.modal = modal;
+                $scope.modal.show();
+            });
+
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+        }
+
+        function initView () {
+            $scope.activateElevation = settings.ACTIVE_ELEVATION;
+
+            if ($stateParams.parentId) {
+                $scope.parentId = $stateParams.parentId;
+            }
+            $scope.network_available = $rootScope.network_available;
+            $scope.isAndroid = ionic.Platform.isAndroid();
+            $scope.isSVG = utils.isSVG;
+            $scope.trekId = $stateParams.trekId;
+            $scope.trek = trek;
+            $scope.pois = pois;
+            $scope.touristics = touristics;
+
+            // We need to declare our json HTML data as safe using $sce
+            $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
+            $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
+
+            // get distance to treks and pois
+            treksFactory.getTrekDistance($scope.trek)
+            .then(function (userPosition) {
+                poisFactory.getPoisDistance($scope.pois, userPosition);
+            });
+
+            initCollapser();
+            initFiliation();
+            initModal();
+        }
+
+        $scope.toggleCollapse = function (toggleName) {
+            $scope[toggleName] = !$scope[toggleName];
+            $timeout(function () {
+                $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+            }, 500);
+        };
+
+        $scope.toggleTouristicCollapse = function (touristicId) {
+            $scope.touristicCollapse[touristicId] = !$scope.touristicCollapse[touristicId];
+            $timeout(function () {
+                $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+            }, 500);
+        };
+
+        $scope.back = function () {
+            var backState = '';
+
+            if ($rootScope.statename === 'home.map.detail') {
+                backState = 'home.map';
+            } else {
+                backState = 'home.trek';
+            }
+
+            $state.go(backState);
+        };
+
+        $scope.goToTrekById = function (trekId, parentId) {
+            $state.go($rootScope.statename, { trekId: trekId, parentId: parentId });
+        };
+
+        $scope.share = function () {
+            socialSharingService.share(
+                $scope.trek.properties.name+' : ',
+                $scope.trek.properties.name, null,
+                settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug
+            );
+        };
+
+        function downloadError(error, currentTrek) {
+            console.error(error);
+            currentTrek.tiles.inDownloadProgress = false;
+        }
+
+        function downloadSuccess(imgLoaded, tilesLoaded) {
+
+            if (imgLoaded && tilesLoaded) {
+                trek.tiles.inDownloadProgress = false;
+                trek.tiles.isDownloaded = true;
+                treksFactory.getTreks()
+                    .then(
+                        function (trekCollection) {
+                            $rootScope.treks = trekCollection;
+                        },
+                        function (errorMsg) {
+                            console.error(errorMsg);
+                        }
+                    );
+            }else {
+                var isWrong = '';
+                if (!imgLoaded) {
+                    isWrong = 'images';
+                }
+                if (!tilesLoaded) {
+                    isWrong = 'tiles';
+                }
+                if (!tilesLoaded && !imgLoaded) {
+                    isWrong = 'images and tiles';
+                }
+
+                trek.tiles.inDownloadProgress = false;
+                console.error('issue with download of ' + isWrong);
+            }
+
+        }
+
+        function downloadFiles() {
+            var dlPercent = 0;
+            var loadCounter = [0,0];
+            var imgLoaded = false;
+            var tilesLoaded = false;
+            var hasDownloadedButNotUnzipped = [false, false];
+            trek.tiles.realProgress = 0;
+            trek.tiles.inDownloadProgress = true;
+
+            var promises = [];
+
+            promises.push(
+                mapFactory.downloadTrekPreciseBackground($scope.trekId)
+                    .then(
+                        function (resultTiles){
+                            imgLoaded = true;
+                        }, function (error) {
+                            trek.tiles.inDownloadProgress = false;
+                        }, function (progress) {
+                            trek.tiles.inDownloadProgress = true;
+                            loadCounter[0] = Math.floor((progress.loaded / progress.total * 100) / 4);
+                            trek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
+                            if (loadCounter[0] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[0]) {
+                                hasDownloadedButNotUnzipped[0] = true;
+                                dlPercent += 25;
+                            }
+                        }
+                    )
+            );
+
+            promises.push(
+                treksFactory.downloadTrekDetails($scope.trekId)
+                    .then(
+                        function (resultImgs) {
+                            tilesLoaded = true;
+                        }, function (error) {
+                            trek.tiles.inDownloadProgress = false;
+                        }, function (progress) {
+                            trek.tiles.inDownloadProgress = true;
+                            loadCounter[1] = Math.floor((progress.loaded / progress.total * 100) / 4);
+                            trek.tiles.realProgress = dlPercent + loadCounter[0] + loadCounter[1];
+                            if (loadCounter[1] >= 25 && dlPercent < 50 && !hasDownloadedButNotUnzipped[1]) {
+                                hasDownloadedButNotUnzipped[1] = true;
+                                dlPercent += 25;
+                            }
+                        }
+                    )
+            );
+
+
+            return $q.all(promises)
+                .then(
+                    function () {
+                        downloadSuccess(trek, imgLoaded, tilesLoaded);
+                    },
+                    function (error) {
+                        downloadError(error, trek);
+                    }
+                );
+        }
+
+        $scope.downloadFiles = function () {
+            $translate([
+                'trek_controller_no_network_title',
+                'trek_controller_no_network_label',
+                'trek_controller_download_confirm_message',
+                'trek_controller_donwload_warning_title',
+                'trek_controller_donwload_warning_message',
+                'trek_controller_download_confirm_title',
+                'trek_controller_donwload_cancel'
+            ]).then(function (translations) {
+                // We prevent tile download if network is not available
+                if (!$rootScope.network_available) {
+                    $ionicPopup.alert({
+                        title: translations.trek_controller_no_network_title,
+                        template: translations.trek_controller_no_network_label
+                    });
+                }
+                else {
+
+                    // Getting user connection settings, to know if we are in WiFi only mode
+                    var template = translations.trek_controller_download_confirm_message;
+                    if (userSettingsService.warnForDownload()) {
+                        template += '<br/><strong>' + translations.trek_controller_donwload_warning_title +'</strong>: ' + translations.trek_controller_donwload_warning_message;
+                    }
+
+                    var confirmPopup = $ionicPopup.confirm({
+                        cancelText: translations.trek_controller_donwload_cancel,
+                        title: translations.trek_controller_download_confirm_title,
+                        template: template
+                    });
+
+                    trek.tiles.inDownloadProgress = false;
+
+                    return confirmPopup.then(function (confirmed) {
+                        if (confirmed) {
+                            downloadFiles();
+                        }
+                    });
+                }
+            });
+        };
+
+        initView();
+
+    }
+]);
