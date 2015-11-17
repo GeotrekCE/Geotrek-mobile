@@ -69,9 +69,6 @@
 		h2 {
 			margin-top: 0;
 			margin-bottom: 0;
-			background: none;
-			color: $primaryColor;
-			border-bottom: 3px solid $primaryColor;
 		}
 	}
 
@@ -83,7 +80,7 @@
 		font-size: 1.3rem;
 		line-height: 1.3rem;
 		vertical-align: middle;
-		color: $primaryColor;
+		color: white;
 		transition: transform ease-in-out 0.4s;
 		&.rotated {
 			transform: rotate(180deg);
