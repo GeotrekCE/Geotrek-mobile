@@ -231,6 +231,18 @@ geotrekTreks.controller('TrekController',
         $state.go(backState);
     };
 
+    $scope.goToPrevious = function() {
+        $state.go($rootScope.statename, { trekId: $scope.previous.id , parentId: $scope.parentId });
+    };
+
+    $scope.goToNext = function() {
+        $state.go($rootScope.statename, { trekId: $scope.next.id , parentId: $scope.parentId });
+    };
+
+    $scope.goToTrekById = function (trekId, parentId) {
+        $state.go($rootScope.statename, { trekId: trekId, parentId: parentId });
+    };
+
     $scope.share = function() {
         socialSharingService.share($scope.trek.properties.name+' : ', $scope.trek.properties.name, null, settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug);
     };

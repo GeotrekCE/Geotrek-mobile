@@ -33,11 +33,11 @@
         <div class="trek-detail padding">
             <div ng-if="parentId && (next || previous)" class="next-prev-elements">
                 <div class="row">
-                    <div class="col" ui-sref="home.trek.detail({ trekId: previous.id , parentId: parentId })" ng-if="previous">
+                    <div class="col" ng-click="goToPrevious()" ng-if="previous">
                         <i class="icon ion-chevron-left"></i>
                         <p>{{previous.properties.name}}</p>
                     </div>
-                    <div class="col" ui-sref="home.trek.detail({ trekId: next.id, parentId: parentId })" ng-if="next">
+                    <div class="col" ng-click="goToNext()" ui-sref="home.trek.detail({ trekId: next.id, parentId: parentId })" ng-if="next">
                         <p>{{next.properties.name}}</p>
                         <i class="icon ion-chevron-right"></i>
                     </div>
@@ -205,7 +205,7 @@
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
-                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left" ng-repeat="child in children" ui-sref="home.trek.detail({ trekId: child.id, parentId: trek.id})">
+                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left" ng-repeat="child in children" ng-click="goToTrekById(child.id, trek.id)">
                         <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
                         <h3>{{ child.properties.name }}</h3>
                         <p ng-if="child.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ child.properties.departure }}</p>
@@ -229,7 +229,7 @@
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.parent' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: parentCollapse}">
-                    <ion-item ng-if="parents.length > 0" class="parent-list__item item-thumbnail-left" ng-repeat="parent in parents track by parent.id" ui-sref="home.trek.detail({ trekId: parent.id })">
+                    <ion-item ng-if="parents.length > 0" class="parent-list__item item-thumbnail-left" ng-click="goToTrekById(parent.id)" ng-repeat="parent in parents track by parent.id">
                         <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
                         <h3>{{ parent.properties.name }}</h3>
                         <p ng-if="parent.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ parent.properties.departure }}</p>
