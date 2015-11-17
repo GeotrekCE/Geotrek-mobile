@@ -32,7 +32,7 @@ geotrekMap.config(function($stateProvider) {
         }
     })
     .state('home.map.detail', {
-        url: '/trek-:trekId',
+        url: '/trek-:trekId?parentId',
         controller: 'TrekDetailController',
         resolve: {
             trek: function(treksFactory, $stateParams) {

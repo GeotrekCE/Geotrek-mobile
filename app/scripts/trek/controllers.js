@@ -132,8 +132,10 @@ geotrekTreks.controller('TrekController',
         }
     }
 
+    if ($stateParams.parentId) {
+        $scope.parentId = $stateParams.parentId;
+    }
     $scope.network_available = $rootScope.network_available;
-
     $scope.isAndroid = ionic.Platform.isAndroid();
     $scope.isSVG = utils.isSVG;
     $scope.trekId = $stateParams.trekId;
@@ -147,29 +149,32 @@ geotrekTreks.controller('TrekController',
                 }
             );
     });
-    if (trek.properties.previous) {
-        treksFactory.getTrek(trek.properties.previous)
+    if (trek.properties.previous[$scope.parentId]) {
+        treksFactory.getTrek(trek.properties.previous[$scope.parentId])
             .then(
                 function (previousData) {
                     $scope.previous = previousData;
                 }
             );
     }
-    if (trek.properties.next) {
-        treksFactory.getTrek(trek.properties.next)
+    if (trek.properties.next[$scope.parentId]) {
+        treksFactory.getTrek(trek.properties.next[$scope.parentId])
             .then(
                 function (nextData) {
                     $scope.next = nextData;
                 }
             );
     }
-    if (trek.properties.parent) {
-        treksFactory.getTrek(trek.properties.parent)
-            .then(
-                function (parentData) {
-                    $scope.parent = parentData;
-                }
-            );
+    if (trek.properties.parents) {
+        $scope.parents = [];
+        angular.forEach(trek.properties.parents, function (parent) {
+            treksFactory.getTrek(parent)
+                .then(
+                    function (parentData) {
+                        $scope.parents.push(parentData);
+                    }
+                );
+        });
     }
 
     // We need to declare our json HTML data as safe using $sce

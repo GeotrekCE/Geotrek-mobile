@@ -25,7 +25,7 @@ geotrekTreks.config(function($stateProvider) {
         controller: 'TrekListController'
     })
     .state('home.trek.detail', {
-        url: '/trek-:trekId',
+        url: '/trek-:trekId?parentId',
         controller: 'TrekDetailController',
         resolve: {
             trek: function(treksFactory, $stateParams) {
