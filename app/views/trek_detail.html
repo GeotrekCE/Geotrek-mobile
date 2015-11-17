@@ -33,11 +33,11 @@
         <div class="trek-detail padding">
             <div ng-if="parentId && (next || previous)" class="next-prev-elements">
                 <div class="row">
-                    <div class="col" ng-click="goToPrevious()" ng-if="previous">
+                    <div class="col" ng-click="goToTrekById(previous.id, parentId)" ng-if="previous">
                         <i class="icon ion-chevron-left"></i>
                         <p>{{previous.properties.name}}</p>
                     </div>
-                    <div class="col" ng-click="goToNext()" ui-sref="home.trek.detail({ trekId: next.id, parentId: parentId })" ng-if="next">
+                    <div class="col" ng-click="goToTrekById(next.id, parentId)" ng-if="next">
                         <p>{{next.properties.name}}</p>
                         <i class="icon ion-chevron-right"></i>
                     </div>
