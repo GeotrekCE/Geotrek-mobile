@@ -149,34 +149,27 @@
 
             <div ng-if="trek.properties.public_transport">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.public_transport' | translate }}</h2>
-                <div ng-bind-html="trek.properties.public_transport">
-                </div>
+                <p ng-bind-html="trek.properties.public_transport"></p>
             </div>
 
             <div ng-if="trek.properties.access">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
-                <div ng-bind-html="trek.properties.access">
-                </div>
+                <p ng-bind-html="trek.properties.access"></p>
             </div>
 
             <div ng-if="trek.properties.advised_parking">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.advised_parking' | translate }}</h2>
-                <p ng-bind-html="trek.properties.advised_parking">
-                </p>
+                <p ng-bind-html="trek.properties.advised_parking"></p>
             </div>
 
             <div ng-if="trek.properties.advice">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
-                <div>
-                    <p ng-bind-html="trek.properties.advice"></p>
-                </div>
+                <p ng-bind-html="trek.properties.advice"></p>
             </div>
 
             <div ng-if="trek.properties.disabled_infrastructure">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
-                <div>
-                    <p ng-bind-html="trek.properties.disabled_infrastructure"></p>
-                </div>
+                <p ng-bind-html="trek.properties.disabled_infrastructure"></p>
             </div>
 
             <div ng-if="trek.properties.information_desks.length > 0">
