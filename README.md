@@ -194,7 +194,9 @@ cordova plugin add org.apache.cordova.dialogs
 ### Cordova google analytics plugin
 
 ```bash
-cordova plugin add https://github.com/danwilson/google-analytics-plugin.git
+cordova plugin add https://github.com/floatinghotpot/google-play-services.git#41c19152c21981c9a2f6497cc2100c317f5c660d
+
+cordova plugin add https://github.com/makinacorpus/google-analytics-plugin.git#geoversion
 ```
 
 
@@ -256,7 +258,7 @@ You can now add the Android platform to your project
 (As always be sur to be in your Cordova project folder)
 
 ```
-cordova platform add android
+cordova platform add android@3.6.0
 ```
 
 now if you go in `platforms`, you should see an `android` folder
