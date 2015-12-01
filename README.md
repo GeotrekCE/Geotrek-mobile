@@ -16,11 +16,15 @@ INSTALLATION
 See https://gist.github.com/isaacs/579814 depending on your environment.
 (Read last comments as some links may change over time)
 
+### Install Ruby-Sass
+See http://sass-lang.com/install
+
 ### Install grunt-cli
 `npm install -g grunt-cli` - tasks automnation
 
 ### Install bower
 `npm install -g bower` - package manager to manage project js dependencies
+In case of error :'Unable to find  suitable version for angular please choose one :' Choose angular 1.2.16
 
 ### Install Sass for Node
 `npm install -g node-sass` - Stylesheets preprocessor
@@ -114,7 +118,7 @@ In the created folder you can find :
 Be sure to be in your cordova project folder
 ```
 rm -r www
-ln -s ~/Absolute/Path/To/Github-clone www
+ln -s ~/Absolute/Path/To/Github-clone/app www
 ```
 
 
@@ -166,7 +170,7 @@ cordova plugin add nl.x-services.plugins.socialsharing
 ### Cordova local notification plugin
 
 ```bash
-cordova plugin add de.appplant.cordova.plugin.local-notification
+cordova plugin add de.appplant.cordova.plugin.local-notification@0.8.1
 ```
 
 
