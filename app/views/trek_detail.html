@@ -201,7 +201,7 @@
                     <h2 class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
-                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left item-complex" ng-repeat="child in children" ng-click="goToTrekById(child.id, trek.id)">
+                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left item-complex" ng-repeat="child in children track by child.id" ng-click="goToTrekById(child.id, trek.id)">
                         <div class="item-content">
                             <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
                             <h3>{{ child.properties.name }}</h3>

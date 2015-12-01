@@ -174,7 +174,9 @@ geotrekTreks.controller('TrekController',
                 treksFactory.getTrek(trek.properties.previous[$scope.parentId])
                     .then(
                         function (previousData) {
-                            $scope.previous = previousData;
+                            if (previousData) {
+                                $scope.previous = previousData;
+                            }
                         }
                     );
             }
@@ -182,7 +184,9 @@ geotrekTreks.controller('TrekController',
                 treksFactory.getTrek(trek.properties.next[$scope.parentId])
                     .then(
                         function (nextData) {
-                            $scope.next = nextData;
+                            if (nextData) {
+                                $scope.next = nextData;
+                            }
                         }
                     );
             }
@@ -191,7 +195,9 @@ geotrekTreks.controller('TrekController',
                     treksFactory.getTrek(parent)
                         .then(
                             function (parentData) {
-                                $scope.parents.push(parentData);
+                                if (parentData) {
+                                    $scope.parents.push(parentData);
+                                }
                             }
                         );
                 });
@@ -201,7 +207,9 @@ geotrekTreks.controller('TrekController',
                     treksFactory.getTrek(child)
                         .then(
                             function (childData) {
-                                $scope.children.push(childData);
+                                if (childData) {
+                                    $scope.children.push(childData);
+                                }
                             }
                         );
                 });
