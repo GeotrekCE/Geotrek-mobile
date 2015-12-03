@@ -28,7 +28,8 @@ geotrekAppSettings.constant('globalSettings', {
         LOGS = true,  // if true, console logs are also saved in a file (device only)
         // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
         LOG_POOL_TIME = 6000,  // in ms
-        POI_ALERT_RADIUS = 0.05;  // in km
+        POI_ALERT_RADIUS = 0.05,  // in km
+        TOURISTIC = false;
 
     var leaflet_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 44.83,
@@ -146,6 +147,7 @@ geotrekAppSettings.constant('globalSettings', {
         FORCE_DOWNLOAD: FORCE_DOWNLOAD,
         DEBUG: DEBUG,
         ACTIVE_ELEVATION: ACTIVE_ELEVATION,
+        TOURISTIC: TOURISTIC,
         remote: {
             TILES_REMOTE_PATH_URL: globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",
