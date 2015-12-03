@@ -11,21 +11,27 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
             var deferred = $q.defer();
             if (angular.isDefined($window.cordova)){
                 if ($cordovaNetwork.isOnline()) {
+                    logging.warn('GEOTREK - start downloading files');
                     utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
                         .then(function(response) {
+                            logging.warn('GEOTREK - response: ' + response);
                             if(!response.useCache) {
+                                logging.warn('GEOTREK - refresh data');
                                 return treksFactory.replaceImgURLs();
                             }
                         })
                         .then(function() {
+                            logging.warn('GEOTREK - start downloading tiles');
                             return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL, progress('map'));
                         })
                         .then(function() {
+                            logging.warn('GEOTREK - downloading success');
                             deferred.resolve();
                         })
                         .catch(function(error) {
-                            logging.warn(error);
                             deferred.resolve(error);
+                            logging.warn('GEOTREK - error:' + error);
+                            alert('L\'application a rencontré un problème lors du téléchargement des données:' + error);
                         });
 
                 } else {
