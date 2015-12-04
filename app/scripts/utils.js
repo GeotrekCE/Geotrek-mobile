@@ -143,9 +143,12 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
 
             if (result == 0) {
                 deferred.resolve("unzip complete");
+                logging.warn('GEOTREK - unzip success');
             }
             else {
                 deferred.reject("unzip failed");
+                logging.warn('GEOTREK - unzip fail');
+                alert('L\'application a rencontré un problème lors du dezzipage des données.');
             }
 
         }, function(eventProgress) {

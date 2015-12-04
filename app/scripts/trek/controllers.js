@@ -3,8 +3,8 @@
 var geotrekTreks = angular.module('geotrekTreks');
 
 geotrekTreks.controller('TrekController',
-    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$timeout','logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
-     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
+    ['$rootScope', '$scope', '$state', '$window', '$ionicActionSheet', '$ionicModal', '$timeout', '$ionicScrollDelegate', 'logging', 'treks', 'staticPages', 'localeSettings', 'utils', 'treksFiltersService', 'treksFactory',
+     function ($rootScope, $scope, $state, $window, $ionicActionSheet, $ionicModal, $timeout, $ionicScrollDelegate, logging, treks, staticPages, localeSettings, utils, treksFiltersService, treksFactory) {
 
     // treks and staticPages come from TrekController routing resolve
     $rootScope.treks = treks;
@@ -33,6 +33,8 @@ geotrekTreks.controller('TrekController',
     // Filter treks everytime our filters change
     $scope.filterTreks = function () {
         $rootScope.filteredTreks = treksFiltersService.filterTreks(treks.features, $scope.activeFilters);
+        // Reset scroll each time we filtered
+        $ionicScrollDelegate.$getByHandle('trekListScroll').scrollTop();
     };
 
     $scope.resetFilters = function () {
