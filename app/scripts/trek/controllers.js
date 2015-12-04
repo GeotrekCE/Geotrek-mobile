@@ -52,6 +52,7 @@ geotrekTreks.controller('TrekController',
         $scope.activeFilters.municipality = null;
         $scope.activeFilters.valley =       null;
         $scope.activeFilters.route =        null;
+        $scope.activeFilters.accessibility =        null;
         $scope.activeFilters.search =       '';
     };
 
