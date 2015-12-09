@@ -270,6 +270,11 @@ geotrekTreks.controller('TrekController',
             $scope[toggleName] = !$scope[toggleName];
             $timeout(function () {
                 $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+
+                //Scroll to element
+                if (!$scope[toggleName] && document.querySelector("#" + toggleName) !== null) {
+                    $ionicScrollDelegate.$getByHandle('modalScroll').scrollTo(0, angular.element(document.querySelector("#" + toggleName))[0].offsetTop);
+                }
             }, 500);
         };
 
@@ -277,6 +282,11 @@ geotrekTreks.controller('TrekController',
             $scope.touristicCollapse[touristicId] = !$scope.touristicCollapse[touristicId];
             $timeout(function () {
                 $ionicScrollDelegate.$getByHandle('modalScroll').resize();
+               
+                //Scroll to element
+                if (!$scope[touristicId] && document.querySelector("#" + touristicId) !== null) {
+                    $ionicScrollDelegate.$getByHandle('modalScroll').scrollTo(0, angular.element(document.querySelector("#" + touristicId))[0].offsetTop);
+                }             
             }, 500);
         };
 

@@ -193,7 +193,7 @@
             </div>
 
             <div class="collapsable-container" ng-if="children.length > 0">
-                <div class="collapsable-title" ng-click="toggleCollapse('childrenCollapse');">
+                <div class="collapsable-title" id="childrenCollapse" ng-click="toggleCollapse('childrenCollapse');">
                     <div class="collapsable-icon">
                         <i ng-if="childrenCollapse" class="ion-plus"></i>
                         <i ng-if="!childrenCollapse" class="ion-minus"></i>
@@ -222,7 +222,7 @@
             </div>
 
             <div class="collapsable-container" ng-if="parents.length > 0">
-                <div class="collapsable-title" ng-click="toggleCollapse('parentCollapse');">
+                <div class="collapsable-title" id="parentCollapse" ng-click="toggleCollapse('parentCollapse');">
                     <div class="collapsable-icon">
                         <i ng-if="parentCollapse" class="ion-plus"></i>
                         <i ng-if="!parentCollapse" class="ion-minus"></i>
@@ -251,7 +251,7 @@
             </div>
 
             <div class="collapsable-container" ng-if="pois.features.length > 0">
-                <div class="collapsable-title" ng-click="toggleCollapse('poiCollapse');">
+                <div class="collapsable-title" id="poiCollapse" ng-click="toggleCollapse('poiCollapse');">
                     <div class="collapsable-icon">
                         <i ng-if="poiCollapse" class="ion-plus"></i>
                         <i ng-if="!poiCollapse" class="ion-minus"></i>
@@ -288,7 +288,7 @@
             </div>
 
             <div class="collapsable-container" ng-repeat="touristicCategory in touristics track by touristicCategory.id" ng-if="touristicCategory.values.length > 0">
-                <div class="collapsable-title" ng-click="toggleTouristicCollapse(touristicCategory.id);">
+                <div class="collapsable-title" id="{{touristicCategory.id}}" ng-click="toggleTouristicCollapse(touristicCategory.id);">
                     <div class="collapsable-icon">
                         <i ng-if="touristicCollapse[touristicCategory.id]" class="ion-plus"></i>
                         <i ng-if="!touristicCollapse[touristicCategory.id]" class="ion-minus"></i>
