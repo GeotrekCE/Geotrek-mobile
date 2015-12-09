@@ -99,6 +99,8 @@ geotrekTouristics.service('touristicsRemoteService', function ($resource, $rootS
                 var data = angular.fromJson(file);
                 var convertedData = _this.replaceImgURLs(data);
                 deferred.resolve(convertedData);
+            }, function(error){
+                deferred.reject(error);
             });
 
         return deferred.promise;

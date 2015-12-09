@@ -66,11 +66,20 @@ geotrekTouristics.factory('touristicsFactory',
         promises.push(touristicsFactory.getTouristicEventsFromTrek(trekId).then(
             function (events) {
                 touristicEvents = events;
+            },
+            function (events){
+                //no events
             }
         ));
 
         $q.all(promises).then(function() {
-            var touristics = touristicContents.features.concat(touristicEvents.features);
+            var touristics;
+            if (touristicEvents !== undefined) {
+                touristics = touristicContents.features.concat(touristicEvents.features);
+            } else {
+                touristics = touristicContents.features
+            }
+
             angular.forEach(touristics, function(touristic) {
                 angular.forEach(touristicCategories, function(category) {
                     if (touristic.properties.category.id === category.id) {
