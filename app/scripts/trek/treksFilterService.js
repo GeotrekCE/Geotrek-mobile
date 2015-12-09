@@ -197,7 +197,8 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
                 (!self.filterIsActive(activeFilters.theme) || (trek.properties.themes && self.filterTrekWithSelect(trek.properties.themes, activeFilters.theme, 'id'))) &&
                 (!self.filterIsActive(activeFilters.route) || (trek.properties.route && self.filterTrekWithSelect(trek.properties.route, activeFilters.route, 'id'))) &&
                 (!self.filterIsActive(activeFilters.valley) || (trek.properties.districts && self.filterTrekWithSelect(trek.properties.districts, activeFilters.valley, 'id'))) &&
-                (!self.filterIsActive(activeFilters.municipality) || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code')))
+                (!self.filterIsActive(activeFilters.municipality) || (trek.properties.cities && self.filterTrekWithSelect(trek.properties.cities, activeFilters.municipality, 'code'))) && 
+                (!self.filterIsActive(activeFilters.accessibility) || (trek.properties.accessibilities && self.filterTrekWithSelect(trek.properties.accessibilities, activeFilters.accessibility, 'id')))
             ) {
                 filteredTreks.push(trek);
             }
@@ -254,9 +255,11 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             trekRoute = [],
             trekValleys = [],
             trekMunicipalities = [],
-            trekDifficulties = [];
+            trekDifficulties = [],
+            trekAccessibility = [];
 
         angular.forEach(treks.features, function(trek) {
+         
             if (trek.properties.published) {
                 // Themes init
                 if (trek.properties.themes) {
@@ -297,6 +300,13 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
                         trekMunicipalities.push({value: city.code, name: city.name});
                     });
                 }
+
+                 // Accessibilities init
+                if (trek.properties.accessibilities) {
+                    angular.forEach(trek.properties.accessibilities, function(accessibility) {
+                        trekAccessibility.push({value: accessibility.id, name: accessibility.label});
+                    });
+                }
             }
         });
 
@@ -307,6 +317,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         trekValleys = this.removeFilterDuplicates(trekValleys);
         trekMunicipalities = this.removeFilterDuplicates(trekMunicipalities);
         trekDifficulties =  this.removeFilterDuplicates(trekDifficulties);
+        trekAccessibility = this.removeFilterDuplicates(trekAccessibility);
 
         // Sort values by their name
         trekThemes = this.sortFilterNames(trekThemes);
@@ -315,6 +326,7 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
         trekValleys = this.sortFilterNames(trekValleys);
         trekMunicipalities = this.sortFilterNames(trekMunicipalities);
         trekDifficulties = this.sortFilterValues(trekDifficulties);
+        trekAccessibility = this.sortFilterValues(trekAccessibility);
 
         return {
             difficulties : trekDifficulties,
@@ -328,7 +340,8 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
             uses: trekUses,
             routes: trekRoute,
             valleys: trekValleys,
-            municipalities: trekMunicipalities
+            municipalities: trekMunicipalities,
+            accessibilities : trekAccessibility
         }
     };
 }]);
