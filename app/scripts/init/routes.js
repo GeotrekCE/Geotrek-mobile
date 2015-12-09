@@ -12,6 +12,7 @@ geotrekInit.config(function($stateProvider) {
     });
 }).controller('AssetsController', [ '$rootScope', '$scope', '$state', '$window', '$q', 'logging', 'treksFactory', 'staticPagesFactory', 'syncDataService', 'globalizationService', 'globalizationSettings', '$translate', 'utils',
 function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, staticPagesFactory, syncDataService, globalizationService, globalizationSettings, $translate, utils) {
+    $scope.showProgress = false;
 
     globalizationService.init().then(function(){
         return $translate('init.loading');
@@ -29,7 +30,12 @@ function ($rootScope, $scope, $state, $window, $q, logging, treksFactory, static
         return function(progress) {
             if (!(label === "map" && !$scope.isFirstTime)) {
                 $translate('init.' + label).then(function(msg) {
-                    $scope.progress = msg + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+                    if (progress.total !== progress.loaded) {
+                        $scope.showProgress = true;
+                        $scope.progress = msg + ' ' + Math.round(100 * progress.loaded/progress.total) + '%';
+                    } else {
+                        $scope.showProgress = false;
+                   }
                 });
             }
         }
