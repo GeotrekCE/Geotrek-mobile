@@ -35,7 +35,7 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.advice': 'Recommandation',
         'trek_detail.transport': 'Transport',
         'trek_detail.advised_parking': 'Parking :',
-        'trek_detail.public_transport': 'Transport public',
+        'trek_detail.public_transport': 'Transports en commun',
         'trek_detail.road_access': 'Accès routier',
         'trek_detail.park_centered': 'Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.',
         'trek_detail.networks': 'Balisage : ',
