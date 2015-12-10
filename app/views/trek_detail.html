@@ -51,11 +51,11 @@
                 </li><!--
                 --><li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
                     <div><i class="icon ion-arrow-graph-up-right"></i></div>
-                    <div><span>{{ trek.properties.ascent }}m</span></div>
+                    <div><span>{{ trek.properties.ascent }} m</span></div>
                 </li><!--
                 --><li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
                     <div><img src="images/length.svg"></div>
-                    <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
+                    <div><span>{{ trek.properties.length/1000 | number:2 }} km</span></div>
                 </li><!--
                 --><li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
                     <div><i class="icon ion-arrow-swap"></i></div>
@@ -63,7 +63,7 @@
                 </li><!--
                 --><li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
                     <div><i class="icon ion-android-locate"></i></div>
-                    <div><span>{{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }}km</span></div>
+                    <div><span>{{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }} km</span></div>
                 </li>
             </ul>
 
@@ -172,7 +172,7 @@
                         </div>
                         <div class="col">
                             <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
-                            <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }}km)</span>
+                            <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }} km)</span>
                         </div>
                     </div>
                     <div class="picture" ng-if="picture">
