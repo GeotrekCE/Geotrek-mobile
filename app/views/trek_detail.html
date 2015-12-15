@@ -161,7 +161,7 @@
                 </div>
             </ion-item>
 
-            <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
+            <h2 class="trek-detail__section-title" ng-if="pois.features.length>0">{{ 'trek_detail.on_road' | translate }}</h2>
 
             <ion-item class="poi-detail" ng-repeat="poi in pois.features" ng-init="picture=poi.properties.pictures[0]">
                 <div class="header">
