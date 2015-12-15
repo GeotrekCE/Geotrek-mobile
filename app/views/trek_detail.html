@@ -62,11 +62,11 @@
                 </li><!--
                 --><li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
                     <div><i class="icon ion-arrow-graph-up-right"></i></div>
-                    <div><span>{{ trek.properties.ascent }}m</span></div>
+                    <div><span>{{ trek.properties.ascent }} m</span></div>
                 </li><!--
                 --><li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
                     <div><img src="images/length.svg"></div>
-                    <div><span>{{ trek.properties.length/1000 | number:2 }}km</span></div>
+                    <div><span>{{ trek.properties.length/1000 | number:2 }} km</span></div>
                 </li><!--
                 --><li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
                     <div><i class="icon ion-arrow-swap"></i></div>
@@ -74,7 +74,7 @@
                 </li><!--
                 --><li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
                     <div><i class="icon ion-android-locate"></i></div>
-                    <div><span>{{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }}km</span></div>
+                    <div><span>{{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }} km</span></div>
                 </li>
             </ul>
 
@@ -134,8 +134,8 @@
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
                 <div>
                     <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
-                    <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }}m</p>
-                    <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }}m</p>
+                    <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }} m</p>
+                    <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }} m</p>
                 </div>
             </div>
 
@@ -210,9 +210,9 @@
                             <p class="infos">
                                 <span ng-if="child.properties.difficulty.label">{{ child.properties.difficulty.label }}</span>
                                 <span ng-if="child.properties.duration_pretty">{{ child.properties.duration_pretty }}</span>
-                                <span ng-if="child.properties.length">{{ child.properties.length/1000 | number:2 }}km</span>
+                                <span ng-if="child.properties.length">{{ child.properties.length/1000 | number:2 }} km</span>
                             </p>
-                            <p ng-if="child.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ child.distanceFromUser }}km</p>
+                            <p ng-if="child.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ child.distanceFromUser }} km</p>
                             <div class="child-list__item__detail__actions">
                                 <i ng-if="child.tiles.isDownloaded && !child.tiles.inDownloadProgress" class="icon ion-android-download"></i>
                             </div>
@@ -239,9 +239,9 @@
                             <p class="infos">
                                 <span ng-if="parent.properties.difficulty.label">{{ parent.properties.difficulty.label }}</span>
                                 <span ng-if="parent.properties.duration_pretty">{{ parent.properties.duration_pretty }}</span>
-                                <span ng-if="parent.properties.length">{{ parent.properties.length/1000 | number:2 }}km</span>
+                                <span ng-if="parent.properties.length">{{ parent.properties.length/1000 | number:2 }} km</span>
                             </p>
-                            <p ng-if="parent.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ parent.distanceFromUser }}km</p>
+                            <p ng-if="parent.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ parent.distanceFromUser }} km</p>
                             <div class="parent-list__item__detail__actions">
                                 <i ng-if="parent.tiles.isDownloaded && !parent.tiles.inDownloadProgress" class="icon ion-android-download"></i>
                             </div>
@@ -267,7 +267,7 @@
                                 </div>
                                 <div class="col">
                                     <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
-                                    <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }}km)</span>
+                                    <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }} km)</span>
                                 </div>
                             </div>
                             <div class="picture" ng-if="picture">
@@ -306,7 +306,7 @@
                                 </div>
                                 <div class="col">
                                     <h3 class="poi-detail__name">{{touristic.properties.name}}</h3>
-                                    <span ng-if="touristic.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ touristic.distanceFromUser }}km)</span>
+                                    <span ng-if="touristic.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ touristic.distanceFromUser }} km)</span>
                                 </div>
                             </div>
                             <div class="picture" ng-if="picture">

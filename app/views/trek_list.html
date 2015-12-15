@@ -8,9 +8,9 @@
             <p class="infos">
                 <span ng-if="trek.properties.difficulty.label">{{ trek.properties.difficulty.label }}</span>
                 <span ng-if="trek.properties.duration_pretty">{{ trek.properties.duration_pretty }}</span>
-                <span ng-if="trek.properties.length">{{ trek.properties.length/1000 | number:2 }}km</span>
+                <span ng-if="trek.properties.length">{{ trek.properties.length/1000 | number:2 }} km</span>
             </p>
-            <p ng-if="trek.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }}km</p>
+            <p ng-if="trek.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }} km</p>
             <div class="trek-list__item__detail__actions">
                 <i ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" class="icon ion-android-download"></i>
             </div>
