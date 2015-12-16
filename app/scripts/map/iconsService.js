@@ -52,6 +52,15 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
         });
     };
 
+    this.getStepIcon = function(numberStep) {
+        return new L.DivIcon({
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            className: 'step-icon',
+            html: '<span class="count">' + numberStep + '</span>'
+        });
+    };
+
     this.getTouristicIcon = function(touristic) {
         return new L.DivIcon({
             html: '<div class="category-icon"><img src="' + touristic.properties.category.pictogram + '"></div>',
