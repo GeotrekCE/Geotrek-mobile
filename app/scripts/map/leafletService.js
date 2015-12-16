@@ -53,6 +53,16 @@ geotrekMap.service('leafletService',
                 name: trek.properties.departure,
                 markerType: 'departure-arrival'
             }));
+            //Create marker for each trek inside
+            angular.forEach(trek.properties.children, function (childrenTrek,numberStep){
+                treksFactory.getTrek(childrenTrek).then(function (step) {
+                    startPoint=treksFactory.getStartPoint(step)
+                    markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                    icon: iconsService.getStepIcon(numberStep+1),
+                    name: childrenTrek.id
+                  }));
+                })
+            });
         } else {
             markers.push(L.marker([endPoint.lat, endPoint.lng], {
                 icon: iconsService.getArrivalIcon(),
@@ -117,7 +127,7 @@ geotrekMap.service('leafletService',
                             var informationDescription = '<p>' + information.description + '</p>'
                                 + '<p>' + information.street + '</p>'
                                 + '<p>' + information.postal_code + ' ' + information.municipality + '</p>'
-                                + '<p><a href="' + information.website + '">' + translations['trek_detail.website'] + '</a>' + ' - ' 
+                                + '<p><a href="' + information.website + '">' + translations['trek_detail.website'] + '</a>' + ' - '
                                 + '<a href="mailto:' + information.email + '">' + translations['trek_detail.email'] + '</a>' + ' - '
                                 + '<a href="tel:' + information.phone + '">' + information.phone + '</a></p>';
 
