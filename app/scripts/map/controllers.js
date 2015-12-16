@@ -209,6 +209,9 @@ geotrekMap.controller('MapController',
                     } else if (marker.options.markerType === 'touristic') {
                         marker.on('click', function(e) {poiModal(e.target.options)});
                         $scope.markersLayers[marker.options.id_category + 'Markers'].layer.addLayer(marker);
+                    } else if (marker.options.markerType==='step'){
+                        marker.on({click: function(e) { $state.go("home.map.detail", { trekId: e.target.options.name });}});
+                        $scope.markersLayers.treksMarkers.layer.addLayer(marker);
                     } else {
                         $scope.markersLayers.treksMarkers.layer.addLayer(marker);
                     }
