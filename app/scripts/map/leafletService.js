@@ -56,10 +56,11 @@ geotrekMap.service('leafletService',
             //Create marker for each trek inside
             angular.forEach(trek.properties.children, function (childrenTrek,numberStep){
                 treksFactory.getTrek(childrenTrek).then(function (step) {
-                    startPoint=treksFactory.getStartPoint(step)
-                    markers.push(L.marker([startPoint.lat, startPoint.lng], {
-                    icon: iconsService.getStepIcon(numberStep+1),
-                    name: childrenTrek.id
+                  startPoint=treksFactory.getStartPoint(step);
+                  markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                  icon: iconsService.getStepIcon(numberStep+1),
+                  name: childrenTrek,
+                  markerType:'step'
                   }));
                 })
             });
