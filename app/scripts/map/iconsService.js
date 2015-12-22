@@ -22,7 +22,7 @@ geotrekMap.service('iconsService', ['$window', 'settings', function ($window, se
             labelAnchor: [18, 50]
         }),
         departure_arrival_icon: L.icon({
-            iconUrl: 'images/departure_arrival.svg',
+            iconUrl: 'images/departure-arrival.svg',
             iconSize: [60, 50],
             iconAnchor: [30, 50],
             labelAnchor: [30, 50]
