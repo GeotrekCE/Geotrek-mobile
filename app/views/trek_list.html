@@ -3,8 +3,14 @@
         <ion-item collection-repeat="trek in filteredTreks | filter:{properties:activeFilters.search} | orderBy: [orderByDistanceIfAvailable, 'properties.name']" ui-sref="home.trek.detail({ trekId: trek.id })" class="trek-list__item item-thumbnail-left" collection-item-height="130" collection-item-width="'100%'">
             <img class="thumbnail" ng-src="{{ trek.properties.thumbnail }}"/>
             <h3>{{ trek.properties.name }}</h3>
-            <p ng-if="trek.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ trek.properties.departure }}</p>
-            <p ng-if="trek.properties.category.label" class="category">{{ 'trek_list.trek' | translate }} {{ trek.properties.category.label }}</p>
+            <p ng-if="trek.properties.departure" class="departure">
+                <span>{{ 'trek_list.departure' | translate }} : </span>
+                <span>{{ trek.properties.departure }}</span>
+            </p>
+            <p ng-if="trek.properties.category.label" class="category">
+                <span>{{ 'trek_list.trek' | translate }}</span>
+                <span>{{ trek.properties.category.label }}</span>
+            </p>
             <p class="infos">
                 <span ng-if="trek.properties.difficulty.label">{{ trek.properties.difficulty.label }}</span>
                 <span ng-if="trek.properties.duration_pretty">{{ trek.properties.duration_pretty }}</span>
