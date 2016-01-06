@@ -143,6 +143,10 @@ geotrekMap.controller('MapController',
     $scope.currentTrek = $stateParams.trekId;
     $scope.touristicCategories = touristics;
 
+    if ($stateParams.parentId) {
+        $scope.parentId = $stateParams.parentId;
+    }
+
     // Draw a polyline to highlight the selected trek
     var currentHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.TREK_COLOR, 'weight': 9, 'opacity': settings.leaflet.HIGHLIGHT_DETAIL_LINEAR ? 1 : 0.8}})
         .addTo(map)

@@ -16,7 +16,7 @@ geotrekMap.config(function($stateProvider) {
             }
         })
         .state('home.map.trek', {
-            url: '/map-:trekId',
+            url: '/map-:trekId?parentId',
             templateUrl: 'views/detail_map.html',
             controller: 'MapControllerDetail',
             resolve: {
