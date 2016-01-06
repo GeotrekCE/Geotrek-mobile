@@ -198,7 +198,10 @@
                         <i ng-if="childrenCollapse" class="ion-plus"></i>
                         <i ng-if="!childrenCollapse" class="ion-minus"></i>
                     </div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.children' | translate }}</h2>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.children' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{children.length}})</span>
+                    </h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
                     <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left item-complex" ng-repeat="child in children track by child.id" ng-click="goToTrekById(child.id, trek.id)">
@@ -227,7 +230,10 @@
                         <i ng-if="parentCollapse" class="ion-plus"></i>
                         <i ng-if="!parentCollapse" class="ion-minus"></i>
                     </div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.parent' | translate }}</h2>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.parent' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{parents.length}})</span>
+                    </h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: parentCollapse}">
                     <ion-item ng-if="parents.length > 0" class="parent-list__item item-thumbnail-left item-complex" ng-click="goToTrekById(parent.id)" ng-repeat="parent in parents track by parent.id">
@@ -256,7 +262,10 @@
                         <i ng-if="poiCollapse" class="ion-plus"></i>
                         <i ng-if="!poiCollapse" class="ion-minus"></i>
                     </div>
-                    <h2 class="trek-detail__section-title">{{ 'trek_detail.on_road' | translate }}</h2>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.on_road' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{pois.features.length}})</span>
+                    </h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: poiCollapse}">
                     <ion-item ng-if="pois.features.length > 0" class="poi-detail" ng-repeat="poi in pois.features" ng-init="picture=poi.properties.pictures[0]">
@@ -293,7 +302,10 @@
                         <i ng-if="touristicCollapse[touristicCategory.id]" class="ion-plus"></i>
                         <i ng-if="!touristicCollapse[touristicCategory.id]" class="ion-minus"></i>
                     </div>
-                    <h2 class="trek-detail__section-title" ng-bind="touristicCategory.label"></h2>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{touristicCategory.label}}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{touristicCategory.values.length}})</span>
+                    </h2>
                 </div>
                 <div class="collapsable-content" ng-class="{collapsed: touristicCollapse[touristicCategory.id]}">
                     <ion-item ng-if="touristicCategory.values.length > 0" class="poi-detail" ng-repeat="touristic in touristicCategory.values track by touristic.id" ng-init="picture=touristic.properties.pictures[0]">

@@ -240,6 +240,7 @@ geotrekTreks.controller('TrekController',
 
         function initView () {
             $scope.activateElevation = settings.ACTIVE_ELEVATION;
+            $scope.showCollapseableCounter = settings.SHOW_COLLASPABLE_COUNTER;
 
             if ($stateParams.parentId) {
                 $scope.parentId = $stateParams.parentId;

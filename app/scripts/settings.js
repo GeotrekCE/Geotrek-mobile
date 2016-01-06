@@ -29,7 +29,8 @@ geotrekAppSettings.constant('globalSettings', {
         // logs are moved each LOG_POOL_TIME ms from local storage to file (device only)
         LOG_POOL_TIME = 6000,  // in ms
         POI_ALERT_RADIUS = 0.05,  // in km
-        TOURISTIC = false;
+        TOURISTIC = false,
+        SHOW_COLLASPABLE_COUNTER = true;
 
     var leaflet_conf = {
         GLOBAL_MAP_CENTER_LATITUDE: 44.83,
@@ -148,6 +149,7 @@ geotrekAppSettings.constant('globalSettings', {
         DEBUG: DEBUG,
         ACTIVE_ELEVATION: ACTIVE_ELEVATION,
         TOURISTIC: TOURISTIC,
+        SHOW_COLLASPABLE_COUNTER: SHOW_COLLASPABLE_COUNTER,
         remote: {
             TILES_REMOTE_PATH_URL: globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/zip/tiles',
             //TILES_REMOTE_PATH_URL: "http://192.168.100.18:8888/files/tiles",

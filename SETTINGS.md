@@ -22,3 +22,4 @@ GOOGLE_ANALYTICS_ID | String (GA code) | `''` | Code of the google analytics you
 Option     | Type      | Default   | Description
 --------|----------|-----------|------------
 DETAIL_COLLAPSER_DEFAULT_OPENED | Array of string | `[]` | Tell geotrek mobile which collapser should be opene by default on detail page. The array can contains 'children', 'parent', 'poi', or be empty.
+SHOW_COLLASPABLE_COUNTER | Boolean | `false` | Display elements counter on collapsable title in detail page.
