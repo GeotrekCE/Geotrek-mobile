@@ -3,8 +3,8 @@
  */
 
 geotrekStaticPages.service('staticPagesRemoteService', [
-    '$resource', '$rootScope', '$window', '$q', '$http', 'settings', 'globalizationSettings',
-    function ($resource, $rootScope, $window, $q, $http, settings, globalizationSettings) {
+    '$q',
+    function ($q) {
 
     this.getStaticPages = function() {
         var deferred = $q.defer();
