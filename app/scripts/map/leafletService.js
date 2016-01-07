@@ -41,41 +41,33 @@ geotrekMap.service('leafletService',
 
     this.createMarkersFromTrek = function(trek, markersData) {
         var deferred = $q.defer();
+        var promises = [];
         var markers = [];
 
         var startPoint = treksFactory.getStartPoint(trek);
         var endPoint = treksFactory.getEndPoint(trek);
         var parkingPoint = treksFactory.getParkingPoint(trek);
 
-        if (endPoint.lat === startPoint.lat && endPoint.lng === startPoint.lng) {
-            markers.push(L.marker([startPoint.lat, startPoint.lng], {
-                icon: iconsService.getDepartureArrivalIcon(),
-                name: trek.properties.departure,
-                markerType: 'departure-arrival'
-            }));
-            //Create marker for each trek inside
-            angular.forEach(trek.properties.children, function (childrenTrek,numberStep){
-                treksFactory.getTrek(childrenTrek).then(function (step) {
-                  startPoint=treksFactory.getStartPoint(step);
-                  markers.push(L.marker([startPoint.lat, startPoint.lng], {
-                  icon: iconsService.getStepIcon(numberStep+1),
-                  name: childrenTrek,
-                  markerType:'step'
-                  }));
-                })
-            });
-        } else {
-            markers.push(L.marker([endPoint.lat, endPoint.lng], {
-                icon: iconsService.getArrivalIcon(),
-                name: trek.properties.arrival,
-                markerType: 'arrival'
-            }));
+        if (startPoint && endPoint) {
+            if (endPoint.lat === startPoint.lat && endPoint.lng === startPoint.lng) {
+                markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                    icon: iconsService.getDepartureArrivalIcon(),
+                    name: trek.properties.departure,
+                    markerType: 'departure-arrival'
+                }));
+            } else {
+                markers.push(L.marker([endPoint.lat, endPoint.lng], {
+                    icon: iconsService.getArrivalIcon(),
+                    name: trek.properties.arrival,
+                    markerType: 'arrival'
+                }));
 
-            markers.push(L.marker([startPoint.lat, startPoint.lng], {
-                icon: iconsService.getDepartureIcon(),
-                name: trek.properties.departure,
-                markerType: 'departure'
-            }));
+                markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                    icon: iconsService.getDepartureIcon(),
+                    name: trek.properties.departure,
+                    markerType: 'departure'
+                }));
+            }
         }
 
         if(parkingPoint) {
@@ -86,6 +78,24 @@ geotrekMap.service('leafletService',
                 markerType: 'parking'
             }));
         };
+
+        //Create marker for each trek inside
+        angular.forEach(trek.properties.children, function (childrenTrek, numberStep){
+            if (childrenTrek) {
+                promises.push(
+                    treksFactory.getTrek(childrenTrek).then(function (step) {
+                        if (step) {
+                            startPoint = treksFactory.getStartPoint(step);
+                            markers.push(L.marker([startPoint.lat, startPoint.lng], {
+                                icon: iconsService.getStepIcon(numberStep+1),
+                                name: childrenTrek,
+                                markerType: 'step'
+                            }));
+                        }
+                    })
+                );
+            }
+        });
 
         angular.forEach(markersData.pois.features, function(poi) {
             var poiCoords = treksFactory.getStartPoint(poi);
@@ -116,34 +126,39 @@ geotrekMap.service('leafletService',
             }));
         });
 
-        $translate([
-                'trek_detail.website',
-                'trek_detail.email'
-            ])
+        $q.all(promises)
             .then(
-                function (translations) {
-                    var informationCount = 0;
-                    angular.forEach(trek.properties.information_desks, function(information) {
-                        if (information.latitude && information.longitude) {
-                            var informationDescription = '<p>' + information.description + '</p>'
-                                + '<p>' + information.street + '</p>'
-                                + '<p>' + information.postal_code + ' ' + information.municipality + '</p>'
-                                + '<p><a href="' + information.website + '">' + translations['trek_detail.website'] + '</a>' + ' - '
-                                + '<a href="mailto:' + information.email + '">' + translations['trek_detail.email'] + '</a>' + ' - '
-                                + '<a href="tel:' + information.phone + '">' + information.phone + '</a></p>';
+                function() {
+                    $translate([
+                        'trek_detail.website',
+                        'trek_detail.email'
+                    ])
+                    .then(
+                        function (translations) {
+                            var informationCount = 0;
+                            angular.forEach(trek.properties.information_desks, function(information) {
+                                if (information.latitude && information.longitude) {
+                                    var informationDescription = '<p>' + information.description + '</p>'
+                                        + '<p>' + information.street + '</p>'
+                                        + '<p>' + information.postal_code + ' ' + information.municipality + '</p>'
+                                        + '<p><a href="' + information.website + '">' + translations['trek_detail.website'] + '</a>' + ' - '
+                                        + '<a href="mailto:' + information.email + '">' + translations['trek_detail.email'] + '</a>' + ' - '
+                                        + '<a href="tel:' + information.phone + '">' + information.phone + '</a></p>';
 
-                            markers.push(L.marker([information.latitude, information.longitude], {
-                                icon: iconsService.getInformationIcon(),
-                                name: information.name,
-                                thumbnail: information.photo_url,
-                                description: informationDescription,
-                                markerType: 'information'
-                            }));
-                            informationCount += 1;
+                                    markers.push(L.marker([information.latitude, information.longitude], {
+                                        icon: iconsService.getInformationIcon(),
+                                        name: information.name,
+                                        thumbnail: information.photo_url,
+                                        description: informationDescription,
+                                        markerType: 'information'
+                                    }));
+                                    informationCount += 1;
+                                }
+                            });
+
+                            deferred.resolve(markers);
                         }
-                    });
-
-                    deferred.resolve(markers);
+                    );
                 }
             );
 

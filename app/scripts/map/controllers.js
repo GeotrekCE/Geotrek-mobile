@@ -142,6 +142,7 @@ geotrekMap.controller('MapController',
 
     $scope.currentTrek = $stateParams.trekId;
     $scope.touristicCategories = touristics;
+    $scope.hasChildren = trek.properties.children.length > 0;
 
     if ($stateParams.parentId) {
         $scope.parentId = $stateParams.parentId;
@@ -171,6 +172,10 @@ geotrekMap.controller('MapController',
             visible: true
         },
         treksMarkers: {
+            layer: L.featureGroup().addTo(map),
+            visible: true
+        },
+        stepsMarkers: {
             layer: L.featureGroup().addTo(map),
             visible: true
         }
@@ -213,7 +218,7 @@ geotrekMap.controller('MapController',
                     } else if (marker.options.markerType === 'touristic') {
                         marker.on('click', function(e) {poiModal(e.target.options)});
                         $scope.markersLayers[marker.options.id_category + 'Markers'].layer.addLayer(marker);
-                    } else if (marker.options.markerType==='step'){
+                    } else if (marker.options.markerType === 'step'){
                         marker.on({
                             click: function(e) {
                                 $state.go("home.map.detail", {
@@ -222,7 +227,7 @@ geotrekMap.controller('MapController',
                                 });
                             }
                         });
-                        $scope.markersLayers.treksMarkers.layer.addLayer(marker);
+                        $scope.markersLayers.stepsMarkers.layer.addLayer(marker);
                     } else {
                         $scope.markersLayers.treksMarkers.layer.addLayer(marker);
                     }

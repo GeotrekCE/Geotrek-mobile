@@ -22,6 +22,12 @@
             </div>
             <span ng-bind="'trek_detail.on_road' | translate"></span>
         </li>
+        <li class="touristics-toggle" ng-if="hasChildren" ng-click="toggleMarkerLayer('stepsMarkers')">
+            <div class="checked-or-not" ng-class="{checked: markersLayers['stepsMarkers'].visible}">
+                <i class="ion-checkmark-round"></i>
+            </div>
+            <span ng-bind="'trek_detail.children' | translate"></span>
+        </li>
         <li class="touristics-toggle" ng-if="touristicCategory.values && touristicCategory.values.length > 0" ng-repeat="touristicCategory in touristicCategories track by touristicCategory.id" ng-click="toggleMarkerLayer(touristicCategory.id + 'Markers')">
             <div class="checked-or-not" ng-class="{checked: markersLayers[touristicCategory.id + 'Markers'].visible}">
                 <i class="ion-checkmark-round"></i>
