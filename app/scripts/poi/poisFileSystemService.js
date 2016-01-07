@@ -6,11 +6,28 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
     var _pois = {};
 
     this._getPoisTrekAbsoluteURL = function(trekId) {
-        return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.CDV_TREK_ROOT.replace(/\$lang/, currentLang) + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+        return deferred.promise;
     };
 
     this._getPoisTrekRelativeURL = function(trekId) {
-        return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.RELATIVE_TREK_ROOT.replace(/\$lang/, currentLang)  + '/' + trekId.toString() + '/' + settings.POI_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+
+        return deferred.promise;
     };
 
     this.convertServerUrlToPoiFileSystemUrl = function(trekId, serverUrl) {
@@ -66,26 +83,28 @@ geotrekPois.service('poisFileSystemService', function ($resource, $rootScope, $w
         mapFactory.hasTrekPreciseBackground(trekId).
         then(function(isLocal) {
             if(!_pois[trekId] || (_pois[trekId] && _pois[trekId].localFiles !== isLocal)) {
-                var trekPoisFilepath = self._getPoisTrekRelativeURL(trekId),
-                    _this = self;
 
-                $cordovaFile.readAsText(trekPoisFilepath)
-                .then(
-                    function(data) {
-                        var jsonData = JSON.parse(data);
-                        jsonData = _this.replaceImgURLs(jsonData, isLocal, trekId);
-                        _pois[trekId] = jsonData;
-                        _pois[trekId].localFiles = isLocal;
-                        deferred.resolve(_pois[trekId]);
-                    },
-                    deferred.reject
-                );
+                self._getPoisTrekRelativeURL(trekId)
+                    .then(
+                        function (trekPoisFilepath) {
+                            $cordovaFile.readAsText(trekPoisFilepath)
+                            .then(
+                                function(data) {
+                                    var jsonData = JSON.parse(data);
+                                    jsonData = self.replaceImgURLs(jsonData, isLocal, trekId);
+                                    _pois[trekId] = jsonData;
+                                    _pois[trekId].localFiles = isLocal;
+                                    deferred.resolve(_pois[trekId]);
+                                },
+                                deferred.reject
+                            );
+                        }
+                    );
             } else {
                 deferred.resolve(_pois[trekId]);
             }
         });
         var deferred = $q.defer();
-        
 
         return deferred.promise;
     };

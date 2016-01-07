@@ -3,20 +3,25 @@
  */
 
 geotrekStaticPages.service('staticPagesFileSystemService', [
-    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'globalSettings', 'utils',
-    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, globalSettings, utils) {
+    '$resource', '$rootScope', '$window', '$q', '$http', '$cordovaFile', 'logging', 'settings', 'globalSettings', 'utils', 'globalizationSettings',
+    function ($resource, $rootScope, $window, $q, $http, $cordovaFile, logging, settings, globalSettings, utils, globalizationSettings) {
 
     var _staticPages;
 
     this.downloadStaticPages = function(url) {
         var _this = this;
-
-        return utils.downloadFile(url, settings.device.CDV_STATIC_PAGES_ROOT_FILE)
-        .then(function() {
-            return _this.downloadStaticPagesPictures();
-        }).catch(function(error){
-            logging.error(error);
-        });
+        return globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var fileUrl = settings.device.CDV_STATIC_PAGES_ROOT_FILE.replace(/\$lang/, currentLang);
+                    return utils.downloadFile(url, fileUrl)
+                    .then(function() {
+                        return _this.downloadStaticPagesPictures();
+                    }).catch(function(error){
+                        logging.error(error);
+                    });
+                }
+            );
     };
 
    this.replaceImgURLs = function(staticPagesData) {
@@ -89,21 +94,26 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
     };
 
     this._getStaticPages = function(replaceUrls) {
-        var filePath = settings.device.RELATIVE_STATIC_PAGES_ROOT_FILE,
-            deferred = $q.defer(),
+        var deferred = $q.defer(),
             _this = this;
 
-        $cordovaFile.readAsText(filePath)
-        .then(
-            function(data) {
-                var jsonData = JSON.parse(data);
-                if (replaceUrls) {
-                    jsonData = _this.replaceImgURLs(jsonData);
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var filePath = settings.device.RELATIVE_STATIC_PAGES_ROOT_FILE.replace(/\$lang/, currentLang);
+                    $cordovaFile.readAsText(filePath)
+                    .then(
+                        function(data) {
+                            var jsonData = JSON.parse(data);
+                            if (replaceUrls) {
+                                jsonData = _this.replaceImgURLs(jsonData);
+                            }
+                            deferred.resolve(jsonData);
+                        },
+                        deferred.reject
+                    );
                 }
-                deferred.resolve(jsonData);
-            },
-            deferred.reject
-        );
+            );
 
         return deferred.promise;
     };    

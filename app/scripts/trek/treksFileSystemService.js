@@ -12,59 +12,64 @@ geotrekTreks.service('treksFileSystemService',
 
     this.replaceImgURLs = function() {
         var deferred = $q.defer();
-        var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
-            _this = this;
-        console.log(filePath);
-        $cordovaFile.readAsText(filePath)
-        .then(
-            function(data) {
-                var data = JSON.parse(data);
-                console.log(data);
-                angular.forEach(data.features, function(trek) {
-                    angular.forEach(trek.properties.usages, function(usage) {
-                        usage.pictogram = settings.device.CDV_APP_ROOT + usage.pictogram;
-                    });
-                    angular.forEach(trek.properties.accessibilities, function(accessibility) {
-                        accessibility.pictogram = settings.device.CDV_APP_ROOT + accessibility.pictogram;
-                    });
-                    angular.forEach(trek.properties.themes, function(theme) {
-                        theme.pictogram = settings.device.CDV_APP_ROOT + theme.pictogram;
-                    });
-                    angular.forEach(trek.properties.networks, function(network) {
-                        network.pictogram = settings.device.CDV_APP_ROOT + network.pictogram;
-                    });
-                    if(trek.properties.difficulty && trek.properties.difficulty.pictogram){
-                        trek.properties.difficulty.pictogram = settings.device.CDV_APP_ROOT + trek.properties.difficulty.pictogram;
-                    }
-                    if(trek.properties.category && trek.properties.category.pictogram) {
-                        trek.properties.category.pictogram = settings.CDV_APP_ROOT + trek.properties.category.pictogram;
-                    }
-                    if(trek.properties['length']){
-                        trek.properties.eLength = trek.properties['length'];
-                    }
-                    if(trek.properties.altimetric_profile){
-                        var filename = trek.properties.altimetric_profile.replace(".json", ".png");
-                        trek.properties.altimetric_profile = settings.device.CDV_APP_ROOT + filename;
-                    }
-                    if(trek.properties.route){
-                        trek.properties.route.pictogram = settings.device.CDV_APP_ROOT + trek.properties.route.pictogram;
-                    }
-                    if(trek.properties.thumbnail) {
-                        trek.properties.thumbnail = settings.device.CDV_APP_ROOT + trek.properties.thumbnail;
-                    }
-                });
-                $cordovaFile.writeFile(filePath, JSON.stringify(data), {append: false})
-                .then(deferred.resolve, deferred.reject);
-            },
-            deferred.reject
-        );
+
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var filePath = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
+
+                    console.log(filePath);
+                    $cordovaFile.readAsText(filePath)
+                    .then(
+                        function(data) {
+                            var data = JSON.parse(data);
+                            console.log(data);
+                            angular.forEach(data.features, function(trek) {
+                                angular.forEach(trek.properties.usages, function(usage) {
+                                    usage.pictogram = settings.device.CDV_APP_ROOT + usage.pictogram;
+                                });
+                                angular.forEach(trek.properties.accessibilities, function(accessibility) {
+                                    accessibility.pictogram = settings.device.CDV_APP_ROOT + accessibility.pictogram;
+                                });
+                                angular.forEach(trek.properties.themes, function(theme) {
+                                    theme.pictogram = settings.device.CDV_APP_ROOT + theme.pictogram;
+                                });
+                                angular.forEach(trek.properties.networks, function(network) {
+                                    network.pictogram = settings.device.CDV_APP_ROOT + network.pictogram;
+                                });
+                                if(trek.properties.difficulty && trek.properties.difficulty.pictogram){
+                                    trek.properties.difficulty.pictogram = settings.device.CDV_APP_ROOT + trek.properties.difficulty.pictogram;
+                                }
+                                if(trek.properties.category && trek.properties.category.pictogram) {
+                                    trek.properties.category.pictogram = settings.CDV_APP_ROOT + trek.properties.category.pictogram;
+                                }
+                                if(trek.properties['length']){
+                                    trek.properties.eLength = trek.properties['length'];
+                                }
+                                if(trek.properties.altimetric_profile){
+                                    var filename = trek.properties.altimetric_profile.replace(".json", ".png");
+                                    trek.properties.altimetric_profile = settings.device.CDV_APP_ROOT + filename;
+                                }
+                                if(trek.properties.route){
+                                    trek.properties.route.pictogram = settings.device.CDV_APP_ROOT + trek.properties.route.pictogram;
+                                }
+                                if(trek.properties.thumbnail) {
+                                    trek.properties.thumbnail = settings.device.CDV_APP_ROOT + trek.properties.thumbnail;
+                                }
+                            });
+                            $cordovaFile.writeFile(filePath, JSON.stringify(data), {append: false})
+                            .then(deferred.resolve, deferred.reject);
+                        },
+                        deferred.reject
+                    );
+                }
+            );
 
         return deferred.promise;
     };
 
     this.replaceGalleryURLs = function(trekData) {
         var copy = angular.copy(trekData, {}),
-            _this = this,
             deferred = $q.defer();
 
         mapFactory.hasTrekPreciseBackground(trekData.id)
@@ -110,29 +115,33 @@ geotrekTreks.service('treksFileSystemService',
         var self = this,
             deferred = $q.defer();
         if(!_treks) {
-            var filePath = settings.device.RELATIVE_TREK_ROOT_FILE,
-                _this = this;
+            globalizationSettings.getCurrentLang()
+                .then(
+                    function (currentLang) {
+                        var filePath = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
 
-            $cordovaFile.readAsText(filePath)
-            .then(
-                function(data) {
-                    _treks = JSON.parse(data);
-                    self.updateDownloadedTreks(_treks)
-                    .then(
-                        function(trekCollection) {
-                            deferred.resolve(trekCollection);
-                        }, function(error) {
-                            deferred.reject(error);
-                        }
-                    );
-                },
-                function(error){
-                    if(error.code === 1){
-                        error.message = "treks_file_not_found";
+                        $cordovaFile.readAsText(filePath)
+                        .then(
+                            function(data) {
+                                _treks = JSON.parse(data);
+                                self.updateDownloadedTreks(_treks)
+                                .then(
+                                    function(trekCollection) {
+                                        deferred.resolve(trekCollection);
+                                    }, function(error) {
+                                        deferred.reject(error);
+                                    }
+                                );
+                            },
+                            function(error){
+                                if(error.code === 1){
+                                    error.message = "treks_file_not_found";
+                                }
+                                deferred.reject(error)
+                            }
+                        );
                     }
-                    deferred.reject(error)
-                }
-            );
+                );
         } else {
             self.updateDownloadedTreks(_treks)
             .then(
@@ -212,8 +221,7 @@ geotrekTreks.service('treksFileSystemService',
     this.removeDownloadedImages = function() {
 
         var deferred = $q.defer(),
-            promise = [],
-            _this = this;
+            promise = [];
 
         $q.all([
             $cordovaFile.listDir(settings.device.RELATIVE_PAPERCLIP_DIR)

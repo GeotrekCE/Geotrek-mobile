@@ -7,19 +7,51 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
     var _touristicEvents = {};
 
     this._getTouristicContentsTrekAbsoluteURL = function(trekId) {
-        return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.TOURISTIC_CONTENTS_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.CDV_TREK_ROOT.replace(/\$lang/, currentLang) + '/' + trekId.toString() + '/' + settings.TOURISTIC_CONTENTS_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+        return deferred.promise;
     };
 
     this._getTouristicContentsTrekRelativeURL = function(trekId) {
-        return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.TOURISTIC_CONTENTS_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.RELATIVE_TREK_ROOT.replace(/\$lang/, currentLang) + '/' + trekId.toString() + '/' + settings.TOURISTIC_CONTENTS_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+        return deferred.promise;
     };
 
     this._getTouristicEventsTrekAbsoluteURL = function(trekId) {
-        return settings.device.CDV_TREK_ROOT + '/' + trekId.toString() + '/' + settings.TOURISTIC_EVENTS_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.CDV_TREK_ROOT.replace(/\$lang/, currentLang) + '/' + trekId.toString() + '/' + settings.TOURISTIC_EVENTS_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+        return deferred.promise;
     };
 
     this._getTouristicEventsTrekRelativeURL = function(trekId) {
-        return settings.device.RELATIVE_TREK_ROOT + '/' + trekId.toString() + '/' + settings.TOURISTIC_EVENTS_FILE_NAME;
+        var deferred = $q.defer();
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var url = settings.device.RELATIVE_TREK_ROOT.replace(/\$lang/, currentLang) + '/' + trekId.toString() + '/' + settings.TOURISTIC_EVENTS_FILE_NAME;
+                    deferred.resolve(url);
+                }
+            );
+        return deferred.promise;
     };
 
     this.convertServerUrlToPictoFileSystemUrl = function(serverUrl) {
@@ -78,19 +110,22 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
         mapFactory.hasTrekPreciseBackground(trekId).
         then(function(isLocal) {
             if(!_touristicContents[trekId] || (_touristicContents[trekId] && _touristicContents[trekId].localFiles !== isLocal)) {
-                var trekTouristicsFilepath = self._getTouristicContentsTrekRelativeURL(trekId),
-                    _this = self;
 
-                $cordovaFile.readAsText(trekTouristicsFilepath)
+                self._getTouristicContentsTrekRelativeURL(trekId)
                 .then(
-                    function(data) {
-                        var jsonData = JSON.parse(data);
-                        jsonData = _this.replaceImgURLs(jsonData, isLocal, trekId);
-                        _touristicContents[trekId] = jsonData;
-                        _touristicContents[trekId].localFiles = isLocal;
-                        deferred.resolve(_touristicContents[trekId]);
-                    },
-                    deferred.reject
+                    function (trekTouristicsFilepath) {
+                        $cordovaFile.readAsText(trekTouristicsFilepath)
+                        .then(
+                            function(data) {
+                                var jsonData = JSON.parse(data);
+                                jsonData = self.replaceImgURLs(jsonData, isLocal, trekId);
+                                _touristicContents[trekId] = jsonData;
+                                _touristicContents[trekId].localFiles = isLocal;
+                                deferred.resolve(_touristicContents[trekId]);
+                            },
+                            deferred.reject
+                        );
+                    }
                 );
             } else {
                 deferred.resolve(_touristicContents[trekId]);
@@ -107,20 +142,25 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
         mapFactory.hasTrekPreciseBackground(trekId).
         then(function(isLocal) {
             if(!_touristicEvents[trekId] || (_touristicEvents[trekId] && _touristicEvents[trekId].localFiles !== isLocal)) {
-                var trekTouristicsFilepath = self._getTouristicEventsTrekRelativeURL(trekId),
-                    _this = self;
 
-                $cordovaFile.readAsText(trekTouristicsFilepath)
-                .then(
-                    function(data) {
-                        var jsonData = JSON.parse(data);
-                        jsonData = _this.replaceImgURLs(jsonData, isLocal, trekId);
-                        _touristicEvents[trekId] = jsonData;
-                        _touristicEvents[trekId].localFiles = isLocal;
-                        deferred.resolve(_touristicEvents[trekId]);
-                    },
-                    deferred.reject
-                );
+                self._getTouristicEventsTrekRelativeURL(trekId)
+                    .then(
+                        function (trekTouristicsFilepath) {
+                            $cordovaFile.readAsText(trekTouristicsFilepath)
+                            .then(
+                                function(data) {
+                                    var jsonData = JSON.parse(data);
+                                    jsonData = self.replaceImgURLs(jsonData, isLocal, trekId);
+                                    _touristicEvents[trekId] = jsonData;
+                                    _touristicEvents[trekId].localFiles = isLocal;
+                                    deferred.resolve(_touristicEvents[trekId]);
+                                },
+                                deferred.reject
+                            );
+
+                        }
+                    );
+
             } else {
                 deferred.resolve(_touristicEvents[trekId]);
             }
@@ -132,16 +172,21 @@ geotrekTouristics.service('touristicsFileSystemService', function ($resource, $r
     this.getTouristicCategoriesData = function() {
         var deferred = $q.defer();
 
-        var touristicCategoriesFilepath = settings.device.RELATIVE_TOURISTIC_CATEGORIES_ROOT;
+        globalizationSettings.getCurrentLang()
+            .then(
+                function (currentLang) {
+                    var touristicCategoriesFilepath = settings.device.RELATIVE_TOURISTIC_CATEGORIES_ROOT.replace(/\$lang/, currentLang);
 
-        $cordovaFile.readAsText(touristicCategoriesFilepath)
-        .then(
-            function(file) {
-                var jsonData = JSON.parse(file);
-                deferred.resolve(jsonData);
-            },
-            deferred.reject
-        );
+                    $cordovaFile.readAsText(touristicCategoriesFilepath)
+                    .then(
+                        function(file) {
+                            var jsonData = JSON.parse(file);
+                            deferred.resolve(jsonData);
+                        },
+                        deferred.reject
+                    );
+                }
+            );
 
         return deferred.promise;
     };

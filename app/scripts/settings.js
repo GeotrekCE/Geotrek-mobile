@@ -89,7 +89,7 @@ geotrekAppSettings.constant('globalSettings', {
 
     var GEOTREK_DIR = 'geotrek-rando',
         API_DIR = 'api',
-        LANG_DIR = 'fr',
+        LANG_DIR = '$lang',
         MEDIA_DIR = 'media',
         UPLOAD_DIR = 'upload',
         PAPERCLIP_DIR = 'paperclip',
@@ -244,5 +244,25 @@ geotrekAppSettings.constant('globalSettings', {
         return globalizationFactory.detectLanguage().then(function(i18n_prefix){
             self.setPrefix(i18n_prefix);
         });
+    }
+
+    this.getCurrentLang = function () {
+        var deferred = $q.defer();
+
+        if (!self.I18N_PREFIX) {
+            self.setDefaultPrefix()
+                .then(
+                    function () {
+                        deferred.resolve(self.I18N_PREFIX);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                );
+        } else {
+            deferred.resolve(self.I18N_PREFIX);
+        }
+
+        return deferred.promise;
     }
 }]);
