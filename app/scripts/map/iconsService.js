@@ -5,7 +5,7 @@ var geotrekMap = angular.module('geotrekMap');
 /**
  * Service that persists and retrieves treks from data source
  */
-geotrekMap.service('iconsService', ['$window', 'settings', function ($window, settings) {
+geotrekMap.service('iconsService', ['$window', function ($window) {
 
     var trek_icons = {
         default_icon: {},
