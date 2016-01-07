@@ -14,7 +14,7 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                     logging.warn('GEOTREK - start downloading files');
                     utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
                         .then(function(response) {
-                            logging.warn('GEOTREK - response: ' + response);
+                            logging.warn('GEOTREK - response: ' + JSON.stringify(response));
                             if(!response.useCache) {
                                 logging.warn('GEOTREK - refresh data');
                                 return treksFactory.replaceImgURLs();
@@ -30,8 +30,9 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                         })
                         .catch(function(error) {
                             deferred.resolve(error);
-                            logging.warn('GEOTREK - error:' + error);
-                            alert('L\'application a rencontré un problème lors du téléchargement des données:' + error);
+                            console.log(error);
+                            logging.warn('GEOTREK - error:' + JSON.stringify(error));
+                            alert('L\'application a rencontré un problème lors du téléchargement des données: ' + JSON.stringify(error));
                         });
 
                 } else {
