@@ -11,6 +11,8 @@ var geotrekApp = angular.module('geotrekMobileApp');
 geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 'logging', '$rootScope', '$ionicModal', '$timeout', '$ionicLoading', '$translate', '$ionicPopup', 'globalizationSettings',
     function ($q, settings, $sce, $cordovaFile, $http, logging, $rootScope, $ionicModal, $timeout, $ionicLoading, $translate, $ionicPopup, globalizationSettings) {
 
+    var updateMessageWasShown = false;
+
     var downloadFile = function(url, filepath, forceDownload) {
 
         if (angular.isUndefined(forceDownload)) {
@@ -47,18 +49,21 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
                     // We download it so !
                     // We could have used $cordovaFile 'writeFile' function, as response contains our data,
                     // but we prefer 'downloadFile' call to be consistent with other cases.
-                    $translate([
-                        'maj_title',
-                        'maj_message'
-                    ]).then(function(translations) {
-                        var alertPopup = $ionicPopup.alert({
-                            title: translations.maj_title,
-                            template: translations.maj_message
+                    if (!updateMessageWasShown) {
+                        updateMessageWasShown = true;
+                        $translate([
+                            'maj_title',
+                            'maj_message'
+                        ]).then(function(translations) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: translations.maj_title,
+                                template: translations.maj_message
+                            });
+                            alertPopup.then(function(res) {
+                                console.log('User knows !');
+                            });
                         });
-                        alertPopup.then(function(res) {
-                            console.log('User knows !');
-                        });
-                    });
+                    }
                     return $cordovaFile.downloadFile(url, filepath);
 
                 }, function(response) {
