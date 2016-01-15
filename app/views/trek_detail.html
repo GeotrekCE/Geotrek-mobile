@@ -209,7 +209,10 @@
                             <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
                             <h3>{{ child.properties.name }}</h3>
                             <p ng-if="child.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ child.properties.departure }}</p>
-                            <p ng-if="child.properties.category.label" class="category">{{ 'trek_list.trek' | translate }} {{ child.properties.category.label }}</p>
+                            <p ng-if="child.properties.category.label" class="category">
+                                <span>{{ 'trek_list.trek' | translate }}</span>
+                                <span>{{ child.properties.category.label }}</span>
+                            </p>
                             <p class="infos">
                                 <span ng-if="child.properties.difficulty.label">{{ child.properties.difficulty.label }}</span>
                                 <span ng-if="child.properties.duration_pretty">{{ child.properties.duration_pretty }}</span>
@@ -241,7 +244,10 @@
                             <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
                             <h3>{{ parent.properties.name }}</h3>
                             <p ng-if="parent.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ parent.properties.departure }}</p>
-                            <p ng-if="parent.properties.category.label" class="category">{{ 'trek_list.trek' | translate }} {{ parent.properties.category.label }}</p>
+                            <p ng-if="parent.properties.category.label" class="category">
+                                <span>{{ 'trek_list.trek' | translate }}</span>
+                                <span>{{ parent.properties.category.label }}</span>
+                            </p>
                             <p class="infos">
                                 <span ng-if="parent.properties.difficulty.label">{{ parent.properties.difficulty.label }}</span>
                                 <span ng-if="parent.properties.duration_pretty">{{ parent.properties.duration_pretty }}</span>
