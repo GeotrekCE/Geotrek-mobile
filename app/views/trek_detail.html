@@ -31,6 +31,10 @@
             <span ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress">{{'trek_detail.trek_downloaded' | translate}}</span>
         </div>
         <div class="trek-detail padding">
+            <div ng-if="parentId && currentParent" class="current-parent-element" ng-click="goToTrekById(currentParent.id)">
+                <i class="icon ion-chevron-up"></i>
+                <span>{{'trek_detail.parent' | translate}}</span> <span>{{currentParent.properties.name}}</span>
+            </div>
             <div ng-if="parentId && (next || previous)" class="next-prev-elements">
                 <div class="row">
                     <div class="col" ng-click="goToTrekById(previous.id, parentId)" ng-if="previous">
@@ -234,7 +238,7 @@
                         <i ng-if="!parentCollapse" class="ion-minus"></i>
                     </div>
                     <h2 class="trek-detail__section-title">
-                        <span>{{ 'trek_detail.parent' | translate }}</span>
+                        <span>{{ 'trek_detail.parents' | translate }}</span>
                         <span class="collapsable-counter" ng-if="showCollapseableCounter">({{parents.length}})</span>
                     </h2>
                 </div>

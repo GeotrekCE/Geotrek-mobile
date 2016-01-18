@@ -229,6 +229,7 @@ geotrekTreks.controller('TrekController',
                                 if (parentData) {
 
                                     if ($scope.parentId && parentData.id === parseInt($scope.parentId)) {
+                                        $scope.currentParent = parentData;
                                         angular.forEach(parentData.properties.children, function (childId, stepNumber) {
                                             if (childId === $scope.trek.id) {
                                                 $scope.trek.stepNumber = stepNumber + 1;

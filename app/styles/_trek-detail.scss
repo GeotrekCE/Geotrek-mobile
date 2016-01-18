@@ -286,6 +286,17 @@ img.rules-picture {
 	}
 }
 
+.current-parent-element {
+    text-align: center;
+    color: $primaryColor;
+    padding: 1rem;
+    font-weight: bolder;
+    i {
+        color: $primaryColor;
+        font-size: 1rem;
+    }
+}
+
 .next-prev-elements {
 	margin-left: -10px;
 	margin-right: -10px;
@@ -294,7 +305,7 @@ img.rules-picture {
 	}
 	.col {
 		text-align: center;
-		height: 40px;
+		//height: 40px;
 		&:first-child {
 			border-right: 1px solid $grayLight;
 			i {
@@ -315,7 +326,7 @@ img.rules-picture {
 	}
 	i, p {
 		line-height: 1.1em;
-        max-height: 30px;
+        //max-height: 30px;
 		max-width: 70%;
 		display: inline-block;
 		vertical-align: middle;
