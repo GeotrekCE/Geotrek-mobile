@@ -168,18 +168,22 @@ geotrekMap.controller('MapController',
 
     $scope.markersLayers = {
         poisMarkers: {
-            layer: L.featureGroup().addTo(map),
+            layer: L.featureGroup(),
             visible: true
         },
         treksMarkers: {
-            layer: L.featureGroup().addTo(map),
+            layer: L.featureGroup(),
             visible: true
         },
         stepsMarkers: {
-            layer: L.featureGroup().addTo(map),
+            layer: L.featureGroup(),
             visible: true
         }
     };
+
+    $scope.markersLayers.poisMarkers.layer.addTo(map);
+    $scope.markersLayers.treksMarkers.layer.addTo(map);
+    $scope.markersLayers.stepsMarkers.layer.addTo(map);
 
     var markersData = {
         pois: pois,
