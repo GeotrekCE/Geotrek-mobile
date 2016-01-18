@@ -174,20 +174,48 @@ geotrekTreks.controller('TrekController',
             $scope.next = null;
 
             if (trek.properties.previous[$scope.parentId]) {
-                treksFactory.getTrek(trek.properties.previous[$scope.parentId])
+                $q.all({
+                    previousData: treksFactory.getTrek(trek.properties.previous[$scope.parentId]),
+                    parentData: treksFactory.getTrek($scope.parentId)
+                    })
                     .then(
-                        function (previousData) {
+                        function (promisesData) {
+                            var previousData = promisesData.previousData;
+                            var parentData = promisesData.parentData;
                             if (previousData) {
+
+                                if (parentData) {
+                                    angular.forEach(parentData.properties.children, function (childId, stepNumber) {
+                                        if (childId === previousData.id) {
+                                            previousData.stepNumber = stepNumber + 1;
+                                        }
+                                    });
+                                }
+
                                 $scope.previous = previousData;
                             }
                         }
                     );
             }
             if (trek.properties.next[$scope.parentId]) {
-                treksFactory.getTrek(trek.properties.next[$scope.parentId])
+                $q.all({
+                    nextData: treksFactory.getTrek(trek.properties.next[$scope.parentId]),
+                    parentData: treksFactory.getTrek($scope.parentId)
+                    })
                     .then(
-                        function (nextData) {
+                        function (promisesData) {
+                            var nextData = promisesData.nextData;
+                            var parentData = promisesData.parentData;
                             if (nextData) {
+
+                                if (parentData) {
+                                    angular.forEach(parentData.properties.children, function (childId, stepNumber) {
+                                        if (childId === nextData.id) {
+                                            nextData.stepNumber = stepNumber + 1;
+                                        }
+                                    });
+                                }
+
                                 $scope.next = nextData;
                             }
                         }
@@ -199,6 +227,15 @@ geotrekTreks.controller('TrekController',
                         .then(
                             function (parentData) {
                                 if (parentData) {
+
+                                    if ($scope.parentId && parentData.id === parseInt($scope.parentId)) {
+                                        angular.forEach(parentData.properties.children, function (childId, stepNumber) {
+                                            if (childId === $scope.trek.id) {
+                                                $scope.trek.stepNumber = stepNumber + 1;
+                                            }
+                                        });
+                                    }
+
                                     $scope.parents.push(parentData);
                                 }
                             }
@@ -206,11 +243,12 @@ geotrekTreks.controller('TrekController',
                 });
             }
             if (trek.properties.children && trek.properties.children.length > 0) {
-                angular.forEach(trek.properties.children, function (child) {
+                angular.forEach(trek.properties.children, function (child, stepNumber) {
                     treksFactory.getTrek(child)
                         .then(
                             function (childData) {
                                 if (childData) {
+                                    childData.stepNumber = stepNumber + 1;
                                     $scope.children.push(childData);
                                 }
                             }

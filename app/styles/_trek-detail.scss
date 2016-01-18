@@ -105,6 +105,19 @@
 	}
 }
 
+.step-number {
+    display: inline-block;
+    min-width: 1.4em;
+    height: 1.4em;
+    padding: 0.2rem;
+    background: $primaryColor;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    margin-bottom: 2px;
+}
+
 .touristic-category-pictogram {
 	padding: 5px;
 	background: $trousiticsColor;

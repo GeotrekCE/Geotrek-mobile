@@ -35,16 +35,16 @@
                 <div class="row">
                     <div class="col" ng-click="goToTrekById(previous.id, parentId)" ng-if="previous">
                         <i class="icon ion-chevron-left"></i>
-                        <p>{{previous.properties.name}}</p>
+                        <p><span class="step-number" ng-bind="previous.stepNumber"></span>{{previous.properties.name}}</p>
                     </div>
                     <div class="col" ng-click="goToTrekById(next.id, parentId)" ng-if="next">
-                        <p>{{next.properties.name}}</p>
+                        <p><span class="step-number" ng-bind="next.stepNumber"></span>{{next.properties.name}}</p>
                         <i class="icon ion-chevron-right"></i>
                     </div>
                 </div>
             </div>
             <div class="trek-detail__header">
-                <h1 class="trek-detail__title">{{ trek.properties.name }}</h1>
+                <h1 class="trek-detail__title"><span class="step-number" ng-if="trek.stepNumber" ng-bind="trek.stepNumber"></span>{{ trek.properties.name }}</h1>
                 <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} {{ trek.properties.cities[0].name }}</p>
                 <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival"><span ng-if="trek.properties.departure">{{ 'trek_detail.departure' | translate }} {{ trek.properties.departure }}</span><span ng-if="trek.properties.departure && trek.properties.arrival"> → </span><span ng-if="trek.properties.arrival">{{ 'trek_detail.arrival' | translate }} {{ trek.properties.arrival }}</span></p>
             </div>
@@ -207,7 +207,7 @@
                     <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left item-complex" ng-repeat="child in children track by child.id" ng-click="goToTrekById(child.id, trek.id)">
                         <div class="item-content">
                             <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
-                            <h3>{{ child.properties.name }}</h3>
+                            <h3><span class="step-number" ng-bind="child.stepNumber"></span>{{ child.properties.name }}</h3>
                             <p ng-if="child.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ child.properties.departure }}</p>
                             <p ng-if="child.properties.category.label" class="category">
                                 <span>{{ 'trek_list.trek' | translate }}</span>
