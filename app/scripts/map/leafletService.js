@@ -89,7 +89,8 @@ geotrekMap.service('leafletService',
                             markers.push(L.marker([startPoint.lat, startPoint.lng], {
                                 icon: iconsService.getStepIcon(numberStep+1),
                                 name: childrenTrek,
-                                markerType: 'step'
+                                markerType: 'step',
+                                zIndexOffset: 2000
                             }));
                         }
                     })
