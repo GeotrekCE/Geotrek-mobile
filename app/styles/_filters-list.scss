@@ -59,7 +59,6 @@
 
 	.filters-list__bt {
 		position: relative;
-		width: 56px;
 		color: white;
 		padding: 0;
 		font-size: 13px;
@@ -94,7 +93,7 @@
 			}
 		}
 
-		.difficulty-icon {
+		.difficulty-icon, .use-icon {
 			width: 56px;
 			height: 56px;
 		}
