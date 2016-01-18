@@ -187,7 +187,7 @@ geotrekTreks.controller('TrekController',
                                 if (parentData) {
                                     angular.forEach(parentData.properties.children, function (childId, stepNumber) {
                                         if (childId === previousData.id) {
-                                            previousData.stepNumber = stepNumber + 1;
+                                            previousData.stepNumber = parseInt(stepNumber + 1);
                                         }
                                     });
                                 }
@@ -211,7 +211,7 @@ geotrekTreks.controller('TrekController',
                                 if (parentData) {
                                     angular.forEach(parentData.properties.children, function (childId, stepNumber) {
                                         if (childId === nextData.id) {
-                                            nextData.stepNumber = stepNumber + 1;
+                                            nextData.stepNumber = parseInt(stepNumber + 1);
                                         }
                                     });
                                 }
@@ -232,7 +232,7 @@ geotrekTreks.controller('TrekController',
                                         $scope.currentParent = parentData;
                                         angular.forEach(parentData.properties.children, function (childId, stepNumber) {
                                             if (childId === $scope.trek.id) {
-                                                $scope.trek.stepNumber = stepNumber + 1;
+                                                $scope.trek.stepNumber = parseInt(stepNumber + 1);
                                             }
                                         });
                                     }
@@ -249,7 +249,7 @@ geotrekTreks.controller('TrekController',
                         .then(
                             function (childData) {
                                 if (childData) {
-                                    childData.stepNumber = stepNumber + 1;
+                                    childData.stepNumber = parseInt(stepNumber + 1);
                                     $scope.children.push(childData);
                                 }
                             }
