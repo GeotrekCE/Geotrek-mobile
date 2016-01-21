@@ -171,14 +171,6 @@ h1.app-title {
 	}
 }
 
-.ion-android-share {
-	.platform-ios & { // Switch to iOS icon
-		&:before {
-			content: "\f1f1";
-		}
-	}
-}
-
 @media (max-width: 567px) {
   .responsive-sm.row {
     flex-direction: row;
