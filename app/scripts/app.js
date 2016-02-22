@@ -10,8 +10,28 @@ var geotrekApp = angular.module('geotrekMobileApp',
      // angular-translate module for i18n/l10n (http://angular-translate.github.io/)
      'pascalprecht.translate']);
 
+function onSetMetadataSuccess() {
+   console.log("success setting metadata - DONE DONE DONE!");
+}
+function onSetMetadataFail() {
+   console.log("error setting metadata");
+}
+function onFileSystemSuccess(fileSystem) {
+   console.log("onFileSystemSuccess()", fileSystem);
+
+   fileSystem.root.setMetadata(onSetMetadataSuccess, onSetMetadataFail, { "com.apple.MobileBackup": 1});
+}
+function onFileSystemFail(evt) {
+   console.log("!!!!! onFileSystem fail...")
+   console.log(evt.target.error.code);
+}
+
 // Wait for 'deviceready' Cordova event
 ionic.Platform.ready(function() {
+
+    if (window.requestFileSystem) {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onFileSystemFail);
+    }
 
     if(window.StatusBar) {
         // org.apache.cordova.statusbar required
