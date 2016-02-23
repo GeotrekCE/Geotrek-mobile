@@ -65,7 +65,7 @@
                         {{ 'nav_trek_map.difficulty' | translate }}
                     </div>
                     <button class="filters-list__bt button button-icon icon-top" ng-repeat="difficulty in filtersData.difficulties" ng-model="activeFilters.difficulty[difficulty.value]" btn-checkbox ng-click="filterTreks" uncheckable>
-                        <div class="difficulty-icon" ng-include="difficulty.icon"></div>
+                        <img class="difficulty-icon" ng-src="{{ difficulty.icon }}" alt="{{ difficulty.name }}"></div>
                         <span>{{ difficulty.name }}</span>
                     </button>
                 </li>
