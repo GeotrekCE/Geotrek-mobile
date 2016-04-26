@@ -176,7 +176,11 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
             } else {
                 return unzip(folderPath + "/" + filename, folderPath);
             }
-        }, null, progress);
+        }, function (err) {
+          console.error('downloadFile Error', err);
+          return $q.defer().reject('Download Failed: ' + err);
+          logging.warn('Download Failed: ' + err);
+        }, progress);
     };
 
 

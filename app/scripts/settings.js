@@ -234,10 +234,10 @@ geotrekAppSettings.constant('globalSettings', {
     this.setPrefix = function(i18n_prefix){
         self.I18N_PREFIX = i18n_prefix
         self.TREK_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/api/' + self.I18N_PREFIX + '/treks.geojson';
-        self.TREK_REMOTE_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/' + 'zip/treks' + '/' + self.I18N_PREFIX;
+        self.TREK_REMOTE_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + 'zip/treks' + '/' + self.I18N_PREFIX;
         self.REMOTE_API_FILE_URL_BASE = globalSettings.DOMAIN_NAME + '/' + 'api/' + self.I18N_PREFIX;
         self.TREK_REMOTE_API_FILE_URL_BASE = self.REMOTE_API_FILE_URL_BASE + '/treks';
-        self.FULL_DATA_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + '/' + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
+        self.FULL_DATA_REMOTE_FILE_URL = globalSettings.DOMAIN_NAME + '/' + globalSettings.ZIP_URL_PREFIX + 'zip/treks' + '/' + self.I18N_PREFIX + '/global.zip';
     }
 
     this.setDefaultPrefix = function(){

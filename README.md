@@ -133,76 +133,81 @@ To install a plugin, be sure to be in the folder of your Cordova Project
 ### Cordova files plugin
 
 ```bash
-cordova plugin add org.apache.cordova.file@1.2.0
-cordova plugin add org.apache.cordova.file-transfer@0.4.4
+cordova plugin add cordova-plugin-file
+cordova plugin add cordova-plugin-file-transfer
 ```
-
 
 ### Cordova network information plugin
 
 ```bash
-cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
-(cordova plugin add cordova-plugin-network-information crashes on android, due to https://git-wip-us.apache.org/repos/asf?p=cordova-plugin-network-information.git;a=commit;h=a5e9631258691890f08d94bc784f96aa304c2868)
+cordova plugin add cordova-plugin-network-information
 ```
-
 
 ### Cordova geolocation plugin
 
 ```bash
-cordova plugin add org.apache.cordova.geolocation
+cordova plugin add cordova-plugin-geolocation
 ```
-
 
 ### Cordova globalization plugin
 
 ```bash
-cordova plugin add org.apache.cordova.globalization
+cordova plugin add cordova-plugin-globalization
 ```
-
 
 ### Phonegap social sharing
 
 ```bash
-cordova plugin add nl.x-services.plugins.socialsharing
+cordova plugin add cordova-plugin-x-socialsharing
 ```
-
 
 ### Cordova local notification plugin
 
 ```bash
-cordova plugin add de.appplant.cordova.plugin.local-notification@0.8.1
+cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications
 ```
-
 
 ### Cordova zip plugin
 
 ```bash
-cordova plugin add org.chromium.zip
+cordova plugin add cordova-plugin-zip
 ```
-
 
 ### Cordova inappbrowser plugin
 
 ```bash
-cordova plugin add org.apache.cordova.inappbrowser
+cordova plugin add cordova-plugin-inappbrowser
 ```
-
 
 ### Cordova dialogs plugin
 
 ```bash
-cordova plugin add org.apache.cordova.dialogs
+cordova plugin add cordova-plugin-dialogs
 ```
-
 
 ### Cordova google analytics plugin
 
 ```bash
-cordova plugin add https://github.com/floatinghotpot/google-play-services.git#41c19152c21981c9a2f6497cc2100c317f5c660d
-
-cordova plugin add https://github.com/makinacorpus/google-analytics-plugin.git#geoversion
+cordova plugin add cordova-plugin-google-analytics
 ```
 
+### Cordova google analytics plugin
+
+```bash
+cordova plugin add cordova-plugin-whitelist
+```
+
+### Cordova whitelist plugin
+
+```bash
+cordova plugin add cordova-plugin-whitelist
+```
+
+### Crosswalk webview
+
+```bash
+cordova plugin add cordova-plugin-crosswalk-webview
+```
 
 ### (OPTIONAL) Custom url scheme plugin
 
@@ -222,6 +227,7 @@ Copy the `config.xml.default` file in your Cordova project folder and rename it 
 * `<widget id="com.makinacorpus.geotrek" >` - This id is your package name. Chose it wisely as you will not be able to change it later (once you've uploaded your app on the store). It's the app unique identifier.
 * `<name>` - The name of your app
 * `<description>` - The description of your app
+* `<allow-navigation href="http://base-api-url/*" />` - This is the url you're app is allowed to contact and offer navigation to
 
 ### Icons and splashscreens
 They should be placed inside the `images` folder of your Cordova project folder. You have the list of all the required files in the config.xml file and their names.
@@ -262,7 +268,7 @@ You can now add the Android platform to your project
 (As always be sur to be in your Cordova project folder)
 
 ```
-cordova platform add android@3.6.0
+cordova platform add android
 ```
 
 now if you go in `platforms`, you should see an `android` folder
@@ -274,7 +280,6 @@ iOS
 ### Requirements
 
 - XCode
-- ant (version ?)
 
 You can now add the IOS platform to your project
 (As always be sur to be in your Cordova project folder)
