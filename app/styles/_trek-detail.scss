@@ -25,34 +25,30 @@
 		width: auto;
 		.trek-detail__extra-infos__item {
 			display: inline-block;
-			margin: 0px 10px;
 			vertical-align: top;
-			@media (max-width: 680px) {
-				width: 48%;
-				margin: 0px;
-			}
-			.net-name {
-				position: relative;
-			}
-			.trek-detail__extra-infos__item__label {
-				display: block;
-			}
-			.trek-detail__extra-infos__item__icon {
-				width: 30px;
-			    height: 30px;
-			    overflow: hidden;
-			    display: inline-block;
-			    position: relative;
-				.icon {
+			.trek-detail__extra-infos__item__value {
+				width: 100%;
+		    overflow: hidden;
+		    display: inline-block;
+		    position: relative;
+				.icon, .label {
+					display: inline-block;
 					position: relative;
-	    			max-width: 30px;
-  					max-height: 30px;
-  					vertical-align: middle;
+					vertical-align: middle;
+				}
+				.icon {
+					height: 30px;
+					width: auto;
+					max-width: 30px;
+				}
+				.label {
+					line-height: 1rem;
+					max-width: calc(100% - 40px);
 				}
 				&.wrapper {
 					width: auto;
 					height: auto;
-                    white-space: nowrap;
+        	white-space: nowrap;
 				}
 			}
 		}

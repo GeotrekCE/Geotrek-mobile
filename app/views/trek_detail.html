@@ -82,22 +82,25 @@
                 </li>
             </ul>
 
-            <ul class="trek-detail__extra-infos">
-                <li ng-if="trek.properties.usages.length > 0 || trek.properties.accessibilities.length > 0" class="trek-detail__extra-infos__item">
-                    <span class="trek-detail__extra-infos__item__label">{{ 'map_trek_detail.usages' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon" ng-repeat="usage in trek.properties.usages">
-                        <img class="icon" ng-src="{{ usage.pictogram }}"/>
-                    </span>
-                    <span class="trek-detail__extra-infos__item__icon" ng-repeat="accessibility in trek.properties.accessibilities">
+            <ul class="trek-detail__extra-infos row">
+                <li ng-if="trek.properties.usages.length > 0 || trek.properties.accessibilities.length > 0" class="col trek-detail__extra-infos__item">
+                    <div class="trek-detail__extra-infos__item__title">{{ 'map_trek_detail.usages' | translate }}</div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="usage in trek.properties.usages">
+                        <img ng-if="usage.pictogram" class="icon" ng-src="{{ usage.pictogram }}"/>
+                        <span ng-if="usage.label" class="label">{{ usage.label }}</span>
+                    </div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="accessibility in trek.properties.accessibilities">
                         <img ng-if="accessibility.pictogram" class="icon" ng-src="{{ accessibility.pictogram }}"/>
-                    </span>
+                        <span ng-if="accessibility.label" class="label">{{ accessibility.label }}</span>
+                    </div>
                 </li>
 
-                <li ng-if="trek.properties.themes" class="trek-detail__extra-infos__item">
-                    <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.themes' | translate }}</span>
-                    <span class="trek-detail__extra-infos__item__icon" ng-repeat="theme in trek.properties.themes">
-                        <img class="icon" ng-src="{{ theme.pictogram }}"/>
-                    </span>
+                <li ng-if="trek.properties.themes" class="col trek-detail__extra-infos__item">
+                    <div class="trek-detail__extra-infos__item__title">{{ 'trek_detail.themes' | translate }}</div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="theme in trek.properties.themes">
+                        <img ng-if="theme.pictogram" class="icon" ng-src="{{ theme.pictogram }}"/>
+                        <span ng-if="theme.label" class="label">{{ theme.label }}</span>
+                    </div>
                 </li>
             </ul>
 
@@ -125,11 +128,11 @@
                 </div>
                 <div ng-if="trek.properties.networks" class="trek-detail__extra-infos">
                     <div class="trek-detail__extra-infos__item">
-                        <span class="trek-detail__extra-infos__item__label">{{ 'trek_detail.networks' | translate }}</span>
-                        <span class="trek-detail__extra-infos__item__icon wrapper" ng-repeat="network in trek.properties.networks">
-                            <span class="net-name">{{network.name}}</span>
+                        <div class="trek-detail__extra-infos__item__title">{{ 'trek_detail.networks' | translate }}</div>
+                        <div class="trek-detail__extra-infos__item__value wrapper" ng-repeat="network in trek.properties.networks">
                             <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
-                        </span>
+                            <span class="label">{{network.name}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
