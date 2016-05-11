@@ -206,7 +206,8 @@ geotrekMap.controller('MapController',
 
     function poiModal(feature) {
         var modalScope = {
-            objectToDisplay: feature
+            objectToDisplay: feature,
+            downloaded: trek.tiles.isDownloaded
         };
         utils.createModal('views/map_trek_detail.html', modalScope);
     }
