@@ -67,7 +67,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
             .then(function(jsonData) {
                 var staticPages = [];
                 angular.forEach(jsonData, function(page) {
-                    if (page.target !== 'rando') {
+                    if ((page.target === 'all' || page.target === 'mobile') && page.published) {
                         staticPages.push({
                             text: page.title,
                             title: page.title,
