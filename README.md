@@ -191,12 +191,6 @@ cordova plugin add cordova-plugin-dialogs
 cordova plugin add cordova-plugin-google-analytics
 ```
 
-### Cordova google analytics plugin
-
-```bash
-cordova plugin add cordova-plugin-whitelist
-```
-
 ### Cordova whitelist plugin
 
 ```bash
@@ -207,6 +201,12 @@ cordova plugin add cordova-plugin-whitelist
 
 ```bash
 cordova plugin add cordova-plugin-crosswalk-webview
+```
+
+### Android permission Cordova plugin
+
+```bash
+cordova plugin add cordova-plugin-android-permissions@0.10.0
 ```
 
 ### (OPTIONAL) Custom url scheme plugin
