@@ -40,7 +40,14 @@ ionic.Platform.ready(function() {
 
     // Now launch the app
     try {
+      if (window.ionic.Platform.isAndroid()) {
+        var permissions = window.cordova.plugins.permissions;
+        permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {
+            checkPermissionCallback(status, permissions);
+        }, null);
+      } else {
         angular.bootstrap(document, ['geotrekMobileApp']);
+      }
     }
     catch(e) {
         console.log(e);
@@ -50,6 +57,27 @@ ionic.Platform.ready(function() {
     }
 
 });
+
+function checkPermissionCallback(status, permissions) {
+  if(!status.hasPermission) {
+    var errorCallback = function() {
+      console.warn('Storge permission is not granted');
+    }
+ 
+    permissions.requestPermission(
+      permissions.WRITE_EXTERNAL_STORAGE,
+      function(status) {
+        if(!status.hasPermission) {
+          errorCallback();
+        } else {
+          angular.bootstrap(document, ['geotrekMobileApp']);
+        }
+      },
+      errorCallback);
+  } else {
+    angular.bootstrap(document, ['geotrekMobileApp']);
+  }
+}
 
 function handleOpenURL(url) {
 }
