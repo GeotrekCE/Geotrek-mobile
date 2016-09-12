@@ -200,7 +200,7 @@ cordova plugin add cordova-plugin-whitelist
 ### Crosswalk webview
 
 ```bash
-cordova plugin add cordova-plugin-crosswalk-webview
+cordova plugin add cordova-plugin-crosswalk-webview@1.6.1
 ```
 
 ### Android permission Cordova plugin
