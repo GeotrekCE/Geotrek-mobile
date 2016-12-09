@@ -348,11 +348,19 @@ geotrekTreks.controller('TrekController',
         };
 
         $scope.share = function () {
+            console.log($scope.trek)
             socialSharingService.share(
                 $scope.trek.properties.name+' : ',
                 $scope.trek.properties.name, null,
-                settings.PUBLIC_WEBSITE + '/' + $scope.trek.properties.slug
+                settings.PUBLIC_WEBSITE + '/' + accentsTidy($scope.trek.properties.practice.label) + '/' + $scope.trek.properties.slug
             );
+        };
+
+        function accentsTidy(s){
+            var r = s.toLowerCase();
+            var non_asciis = {'a': '[àáâãäå]', 'ae': 'æ', 'c': 'ç', 'e': '[èéêë]', 'i': '[ìíîï]', 'n': 'ñ', 'o': '[òóôõö]', 'oe': 'œ', 'u': '[ùúûűü]', 'y': '[ýÿ]'};
+            for (var i in non_asciis) { r = r.replace(new RegExp(non_asciis[i], 'g'), i); }
+            return r;
         };
 
         function downloadError(error, currentTrek) {
