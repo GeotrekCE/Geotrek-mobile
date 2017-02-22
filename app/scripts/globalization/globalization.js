@@ -5,9 +5,10 @@ var geotrekGlobalization = angular.module('geotrekGlobalization', ['geotrekAppSe
 geotrekGlobalization.config(['$translateProvider', 'locales', 'globalSettings', function($translateProvider, locales, globalSettings) {
 
     // Initialize app languages
-    $translateProvider.translations('fr', locales['fr']);
-    $translateProvider.translations('en', locales['en']);
-    $translateProvider.translations('it', locales['it']);
+    globalSettings.AVAILABLE_LANGUAGES.map(function(value, index) {
+      $translateProvider.translations(value, locales[value]);
+    })
+
     $translateProvider.preferredLanguage(globalSettings.DEFAULT_LANGUAGE);
 }]);
 
