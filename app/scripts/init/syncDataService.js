@@ -11,30 +11,46 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
             var deferred = $q.defer();
             if (angular.isDefined($window.cordova)){
                 if ($cordovaNetwork.isOnline()) {
-                    logging.warn('GEOTREK - start downloading files');
-                    utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
-                        .then(function(response) {
+                     utils.isFirstTime().then(function(firstLaunch){
+                        if (!firstLaunch) {
+                          logging.warn('GEOTREK - start downloading files');
+                          utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
+                          .then(function(response) {
                             logging.warn('GEOTREK - response: ' + JSON.stringify(response));
-                            if(!response.useCache) {
                                 logging.warn('GEOTREK - refresh data');
-                                return treksFactory.replaceImgURLs();
-                            }
-                        })
-                        .then(function() {
+                                //return treksFactory.replaceImgURLs();
+                          })
+                          .then(function() {
                             logging.warn('GEOTREK - start downloading tiles');
                             return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL, progress('map'));
-                        })
-                        .then(function() {
+                          })
+                          .then(function() {
                             logging.warn('GEOTREK - downloading success');
                             deferred.resolve();
-                        })
-                        .catch(function(error) {
+                          })
+                          .catch(function(error) {
                             deferred.resolve(error);
-                            console.log(error);
                             logging.warn('GEOTREK - error:' + JSON.stringify(error));
                             alert('L\'application a rencontré un problème lors du téléchargement des données: ' + JSON.stringify(error));
-                        });
-
+                          });
+                        } else {
+                          utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, true, progress('data'))
+                          .then(function(response) {
+                                logging.warn('GEOTREK - refresh data');
+                                return treksFactory.replaceImgURLs();
+                          })
+                          .then(function() {
+                            return mapFactory.downloadGlobalBackground(settings.remote.MAP_GLOBAL_BACKGROUND_REMOTE_FILE_URL, progress('map'), true);
+                          })
+                          .then(function() {
+                            deferred.resolve();
+                          })
+                          .catch(function(error) {
+                            deferred.resolve(error);
+                            alert('L\'application a rencontré un problème lors du téléchargement des données: ' + JSON.stringify(error));
+                          });
+                        }
+                    });
                 } else {
                     utils.isFirstTime().then(function(firstLaunch){
                         if (!firstLaunch) {

@@ -166,7 +166,7 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
 
     var downloadAndUnzip = function(url, folderPath, forceUnzip, progress) {
         var filename = url.split(/[\/]+/).pop();
-        return downloadFile(url, folderPath + "/" + filename)
+        return downloadFile(url, folderPath + "/" + filename, forceUnzip)
         .then(function(response) {
             if(response.data && response.data.status && response.data.status == 304 && !forceUnzip) {
                 progress({loaded: 100, total: 100});
@@ -272,10 +272,15 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
                     function (currentLang) {
                         var url = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
                         // check if file treks.json is found
+                        console.log(url)
                         $cordovaFile.checkFile(url).then(function(value){
+                        console.log("value", value)
+                            
                             is_first_time = value.isDirectory;
                             deferred.resolve(is_first_time);
                         }, function(error){
+                        console.log("error", error)
+                            
                             // error code 1 : file not found
                             if(error.code === 1){
                                 is_first_time = true;

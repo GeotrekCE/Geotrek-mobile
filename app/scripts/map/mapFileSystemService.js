@@ -13,8 +13,8 @@ geotrekMap.service('mapFileSystemService',
         ];
     };
 
-    this.downloadGlobalBackground = function(url, progress) {
-        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT, false, progress);
+    this.downloadGlobalBackground = function(url, progress, forceDownload) {
+        return utils.downloadAndUnzip(url, settings.device.CDV_TILES_ROOT, forceDownload, progress);
     };
 
     this._deleteTiles = function(zoomLevel) {
