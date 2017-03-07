@@ -39,7 +39,7 @@ geotrekAppSettings.constant('globalSettings', {
         GLOBAL_MAP_DL_TILES_ZOOM: 12,
         GLOBAL_MAP_DEFAULT_MIN_ZOOM: 8,
         GLOBAL_MAP_DEFAULT_MAX_ZOOM: 16,
-        BACKGROUND_URL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        BACKGROUND_URL: ['http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'],
         GLOBAL_MAP_ATTRIBUTION: '(c) osm',
         TREK_COLOR: '#aec900',
         HIGHLIGHT_DETAIL_LINEAR: false,
@@ -198,7 +198,7 @@ geotrekAppSettings.constant('globalSettings', {
             LOG_POOL_TIME: LOG_POOL_TIME,
             LOGS: LOGS,
             POI_ALERT_RADIUS : POI_ALERT_RADIUS,
-            LEAFLET_BACKGROUND_URL: CDV_ROOT + '/' + RELATIVE_TILES_ROOT + '/{z}/{x}/{y}.png'
+            LEAFLET_BACKGROUND_URL: [CDV_ROOT + '/' + RELATIVE_TILES_ROOT + '/{z}/{x}/{y}.png']
         },
         leaflet: leaflet_conf,
         filters: {
