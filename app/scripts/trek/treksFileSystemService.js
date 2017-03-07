@@ -18,12 +18,10 @@ geotrekTreks.service('treksFileSystemService',
                 function (currentLang) {
                     var filePath = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
 
-                    console.log(filePath);
                     $cordovaFile.readAsText(filePath)
                     .then(
                         function(data) {
                             var data = JSON.parse(data);
-                            console.log(data);
                             angular.forEach(data.features, function(trek) {
                                 angular.forEach(trek.properties.usages, function(usage) {
                                     usage.pictogram = settings.device.CDV_APP_ROOT + usage.pictogram;
@@ -57,7 +55,7 @@ geotrekTreks.service('treksFileSystemService',
                                     trek.properties.thumbnail = settings.device.CDV_APP_ROOT + trek.properties.thumbnail;
                                 }
                             });
-                            $cordovaFile.writeFile(filePath, JSON.stringify(data), {append: false})
+                            $cordovaFile.writeFile(filePath, JSON.stringify(data), true)
                             .then(deferred.resolve, deferred.reject);
                         },
                         deferred.reject
@@ -119,7 +117,7 @@ geotrekTreks.service('treksFileSystemService',
                 .then(
                     function (currentLang) {
                         var filePath = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
-
+                        console.log(filePath)
                         $cordovaFile.readAsText(filePath)
                         .then(
                             function(data) {
