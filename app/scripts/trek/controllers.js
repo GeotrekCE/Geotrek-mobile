@@ -38,7 +38,7 @@ geotrekTreks.controller('TrekController',
     };
 
     $scope.resetFilters = function () {
-        angular.forEach(['duration', 'elevation'], function(field){
+        angular.forEach(['duration', 'elevation', 'eLength'], function(field){
             angular.forEach($scope.activeFilters[field], function(value, key) {
                 $scope.activeFilters[field][key].checked = false;
             });
