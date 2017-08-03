@@ -18,7 +18,7 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                           .then(function(response) {
                             logging.warn('GEOTREK - response: ' + JSON.stringify(response));
                                 logging.warn('GEOTREK - refresh data');
-                                //return treksFactory.replaceImgURLs();
+                                return treksFactory.replaceImgURLs();
                           })
                           .then(function() {
                             logging.warn('GEOTREK - start downloading tiles');
