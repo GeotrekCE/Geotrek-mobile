@@ -17,8 +17,9 @@ geotrekInit.service('syncDataService', ['$q', '$window', '$cordovaDialogs', '$co
                           utils.downloadAndUnzip(globalizationSettings.FULL_DATA_REMOTE_FILE_URL, settings.device.CDV_ROOT + "/" + settings.device.RELATIVE_ROOT, false, progress('data'))
                           .then(function(response) {
                             logging.warn('GEOTREK - response: ' + JSON.stringify(response));
-                                logging.warn('GEOTREK - refresh data');
-                                return treksFactory.replaceImgURLs();
+                            if(!response.useCache) {
+                              return treksFactory.replaceImgURLs();
+                            }
                           })
                           .then(function() {
                             logging.warn('GEOTREK - start downloading tiles');
