@@ -6,7 +6,6 @@
     "grunt": "~0.4.1",
     "grunt-concurrent": "~0.5.0",
     "grunt-contrib-connect": "~0.5.0",
-    "grunt-contrib-imagemin": "~0.3.0",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-sass": "^0.7.3",
     "grunt-contrib-watch": "~0.5.2",
