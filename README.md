@@ -197,7 +197,7 @@ cordova plugin add cordova-plugin-google-analytics
 cordova plugin add cordova-plugin-whitelist
 ```
 
-### Crosswalk webview
+### (OPTIONAL) Crosswalk webview
 
 ```bash
 cordova plugin add cordova-plugin-crosswalk-webview@1.6.1
@@ -268,7 +268,7 @@ You can now add the Android platform to your project
 (As always be sur to be in your Cordova project folder)
 
 ```
-cordova platform add android
+cordova platform add android@6.2.3
 ```
 
 now if you go in `platforms`, you should see an `android` folder
