@@ -117,8 +117,7 @@ geotrekTreks.service('treksFileSystemService',
                 .then(
                     function (currentLang) {
                         var filePath = settings.device.RELATIVE_TREK_ROOT_FILE.replace(/\$lang/, currentLang);
-                        console.log(filePath)
-                        $cordovaFile.readAsText(filePath)
+                        $cordovaFile.readAsBinaryString(filePath)
                         .then(
                             function(data) {
                                 _treks = JSON.parse(data);
