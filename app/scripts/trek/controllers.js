@@ -280,6 +280,7 @@ geotrekTreks.controller('TrekController',
         function initView () {
             $scope.activateElevation = settings.ACTIVE_ELEVATION;
             $scope.showCollapseableCounter = settings.SHOW_COLLASPABLE_COUNTER;
+            $scope.showOnlyTextRules = settings.SHOW_ONLY_TEXT_RULES;
 
             if ($stateParams.parentId) {
                 $scope.parentId = $stateParams.parentId;
