@@ -149,8 +149,8 @@
             <div class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
                 <h2 class="trek-detail__section-title">{{ 'trek_detail.rules' | translate }}</h2>
                 <div>
-                    <span>{{ 'trek_detail.park_centered' | translate }}</span>
-                    <img class="rules-picture" src="images/reglementation.jpg" alt="rules">
+                    <p>{{ 'trek_detail.park_centered' | translate }}</p>
+                    <img ng-if="!showOnlyTextRules" class="rules-picture" src="images/reglementation.jpg" alt="rules">
                 </div>
             </div>
 
