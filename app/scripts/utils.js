@@ -32,7 +32,6 @@ geotrekApp.factory('utils', ['$q', 'settings', '$sce', '$cordovaFile', '$http', 
                     config = {
                         headers: {
                             'If-Modified-Since': lastModifiedDate.toUTCString(),
-                            "Accept-Encoding": "deflate" 
                         }
                     };
 
