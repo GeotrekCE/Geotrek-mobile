@@ -9,7 +9,7 @@ geotrekNotification.service('notificationDeviceService', ['$q', '$timeout', func
         window.plugin.notification.local.schedule({
             id:      id,
             title:   title || 'Title',
-            message:    msg,
+            text:    msg,
         });
     };
 

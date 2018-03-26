@@ -9,7 +9,7 @@ geotrekGeolocation.factory('geolocationFactory', ['$injector', '$window', '$q', 
     // On Android, HTML5 geolocation is better than native one, support for android
     // has been dropped (https://issues.apache.org/jira/browse/CB-5977)
     // That's why we test if platform is Android
-    if (angular.isDefined($window.cordova) && (!$window.ionic.Platform.isAndroid())) {
+    if (angular.isDefined($window.cordova)) {
         geolocationFactory = $injector.get('geolocationDeviceService');
     }
     else {
