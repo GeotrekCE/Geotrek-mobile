@@ -146,7 +146,7 @@ cordova plugin add cordova-plugin-network-information
 ### Cordova geolocation plugin
 
 ```bash
-cordova plugin add cordova-plugin-geolocation
+cordova plugin add cordova-plugin-geolocation@2.4.2
 ```
 
 ### Cordova globalization plugin
@@ -164,7 +164,7 @@ cordova plugin add cordova-plugin-x-socialsharing
 ### Cordova local notification plugin
 
 ```bash
-cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications
+cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications@0.8.4
 ```
 
 ### Cordova zip plugin
