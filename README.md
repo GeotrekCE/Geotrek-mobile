@@ -203,6 +203,13 @@ cordova plugin add cordova-plugin-whitelist
 cordova plugin add cordova-plugin-android-permissions@0.10.0
 ```
 
+### Cordova android support gradle release (To build project with cordova 7+)
+
+```bash
+cordova plugin add cordova-android-support-gradle-release
+```
+
+
 APP CONFIGURATION
 ============================
 In order to customise and configure your app you need to edit and add few files
