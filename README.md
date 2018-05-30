@@ -146,7 +146,7 @@ cordova plugin add cordova-plugin-network-information
 ### Cordova geolocation plugin
 
 ```bash
-cordova plugin add cordova-plugin-geolocation@2.4.2
+cordova plugin add cordova-plugin-geolocation@2.4.3
 ```
 
 ### Cordova globalization plugin
@@ -164,7 +164,7 @@ cordova plugin add cordova-plugin-x-socialsharing
 ### Cordova local notification plugin
 
 ```bash
-cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications@0.8.4
+cordova plugin add cordova-plugin-local-notification@0.9.0-beta.3
 ```
 
 ### Cordova zip plugin
@@ -197,26 +197,11 @@ cordova plugin add cordova-plugin-google-analytics
 cordova plugin add cordova-plugin-whitelist
 ```
 
-### (OPTIONAL) Crosswalk webview
-
-```bash
-cordova plugin add cordova-plugin-crosswalk-webview@1.6.1
-```
-
 ### Android permission Cordova plugin
 
 ```bash
 cordova plugin add cordova-plugin-android-permissions@0.10.0
 ```
-
-### (OPTIONAL) Custom url scheme plugin
-
-If you want a scheme url on your app (replace mySchemeURL with the one desired)
-```bash
-cordova plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=mySchemeURL
-```
-
-
 
 APP CONFIGURATION
 ============================
@@ -268,7 +253,7 @@ You can now add the Android platform to your project
 (As always be sur to be in your Cordova project folder)
 
 ```
-cordova platform add android@6.2.3
+cordova platform add android
 ```
 
 now if you go in `platforms`, you should see an `android` folder
