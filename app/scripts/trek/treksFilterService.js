@@ -274,11 +274,9 @@ geotrekTreks.service('treksFiltersService', ['$q', '$sce', 'settings', function(
                     trekDifficulties.push({value: difficulty.id, name: difficulty.label, icon: $sce.trustAsResourceUrl(difficulty.pictogram)});
                 }
 
-                if (trek.properties.usages) {
+                if (trek.properties.category) {
                     // Uses init
-                    angular.forEach(trek.properties.usages, function(usage) {
-                        trekUses.push({value: usage.id, name: usage.label, icon: $sce.trustAsResourceUrl(usage.pictogram)});
-                    });
+                    trekUses.push({value: trek.properties.category.order, name: trek.properties.category.label, icon: $sce.trustAsResourceUrl(trek.properties.category.pictogram)});
                 }
 
                 // Route init

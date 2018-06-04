@@ -55,7 +55,7 @@
                     <div class="filter-name">
                         {{ 'nav_trek_map.use' | translate }}
                     </div>
-                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="use in filtersData.uses" ng-model="activeFilters.use[use.value]" btn-checkbox ng-click="filterTreks" uncheckable>
+                    <button class="filters-list__bt button button-icon icon-top" ng-repeat="use in filtersData.uses | orderBy : 'value'" ng-model="activeFilters.use[use.value]" btn-checkbox ng-click="filterTreks" uncheckable>
                         <img class="use-icon" ng-src="{{ use.icon }}" alt="{{ use.name }}"/>
                         <span>{{ use.name }}</span>
                     </button>
