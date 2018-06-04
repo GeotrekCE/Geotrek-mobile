@@ -295,7 +295,12 @@ geotrekTreks.controller('TrekController',
 
             // We need to declare our json HTML data as safe using $sce
             $scope.teaser = $sce.trustAsHtml(trek.properties.description_teaser);
-            $scope.mainDescription = $sce.trustAsHtml(trek.properties.description);
+            
+            var mainDescription = trek.properties.description;
+           
+            mainDescription = trek.properties.description.replace(new RegExp('src="/media', 'g'),'src="' + settings.device.CDV_APP_ROOT + '/media' )
+
+            $scope.mainDescription = $sce.trustAsHtml(mainDescription);
 
             // get distance to treks and pois
             treksFactory.getTrekDistance($scope.trek)
