@@ -4,8 +4,8 @@ var geotrekMap = angular.module('geotrekMap');
 var map;
 
 geotrekMap.controller('MapController',
-    ['$rootScope', '$state', '$scope', 'logging', '$window', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
-    function ($rootScope, $state, $scope, logging, $window, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
+    ['$rootScope', '$state', '$scope', '$http', 'logging', '$window', 'filterFilter', 'settings', 'geolocationFactory', 'treksFactory', 'iconsService', 'treks', 'utils', 'leafletService', 'mapParameters', 'mapFactory', 'poisFactory', 'notificationFactory', 'userSettingsService',
+    function ($rootScope, $state, $scope, $http, logging, $window, filterFilter, settings, geolocationFactory, treksFactory, iconsService, treks, utils, leafletService, mapParameters, mapFactory, poisFactory, notificationFactory, userSettingsService) {
     $rootScope.statename = $state.current.name;
 
     // Initializing leaflet map
@@ -21,6 +21,33 @@ geotrekMap.controller('MapController',
         }
     });
     $scope.treks = treks;
+
+    if (settings.ADD_GEOJSON) {
+        $http.get("images/custom/add.geojson").success(function(data, status) {
+            L.geoJson(data, {
+                style: function (feature) {
+                    var styles = {};
+                    if (feature.properties.stroke) {
+                        styles.color = feature.properties.stroke;
+                    }
+                    if (feature.properties.fill) {
+                        styles.fillColor = feature.properties.fill;
+                    }
+                    // if (feature.properties["stroke-width"] !== null) {
+                    //     styles.weight = feature.properties["stroke-width"];
+                    // }
+                    // if (feature.properties["stroke-opacity" !== null]) {
+                    //     styles.strokeOpacity = feature.properties["stroke-opacity"];
+                    // }
+                    // if (feature.properties["fill-opacity"] !== null) {
+                    //     styles.fillOpacity = feature.properties["fill-opacity"];
+                    // }
+                    return styles;
+                }
+            }).addTo(map)
+        });
+    }
+
     // Add treks geojson to the map
     function showTreks(updateBounds) {
         // Remove all markers so the displayed markers can fit the search results
