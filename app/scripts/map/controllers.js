@@ -137,8 +137,8 @@ geotrekMap.controller('MapController',
     });
 
 }])
-.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$q', '$window', 'pois', 'touristics', 'treksFactory', 'poisFactory', 'touristicsFactory', 'leafletService', 'trek', 'utils', 'settings',
-            function ($rootScope, $state, $scope, $stateParams, $q, $window, pois, touristics, treksFactory, poisFactory, touristicsFactory, leafletService, trek, utils, settings) {
+.controller('MapControllerDetail', ['$rootScope', '$state', '$scope', '$stateParams', '$q', '$window', '$http', 'pois', 'touristics', 'treksFactory', 'poisFactory', 'touristicsFactory', 'leafletService', 'trek', 'utils', 'settings',
+            function ($rootScope, $state, $scope, $stateParams, $q, $window, $http, pois, touristics, treksFactory, poisFactory, touristicsFactory, leafletService, trek, utils, settings) {
 
     $scope.currentTrek = $stateParams.trekId;
     $scope.touristicCategories = touristics;
@@ -155,6 +155,32 @@ geotrekMap.controller('MapController',
             repeat:true,
             offset: 4
         });
+
+    if (settings.ADD_GEOJSON) {
+        $http.get("images/custom/add.geojson").success(function(data, status) {
+            L.geoJson(data, {
+                style: function (feature) {
+                    var styles = {};
+                    if (feature.properties.stroke) {
+                        styles.color = feature.properties.stroke;
+                    }
+                    if (feature.properties.fill) {
+                        styles.fillColor = feature.properties.fill;
+                    }
+                    // if (feature.properties["stroke-width"] !== null) {
+                    //     styles.weight = feature.properties["stroke-width"];
+                    // }
+                    // if (feature.properties["stroke-opacity" !== null]) {
+                    //     styles.strokeOpacity = feature.properties["stroke-opacity"];
+                    // }
+                    // if (feature.properties["fill-opacity"] !== null) {
+                    //     styles.fillOpacity = feature.properties["fill-opacity"];
+                    // }
+                    return styles;
+                }
+            }).addTo(map)
+        });
+    }
 
     if (settings.leaflet.HIGHLIGHT_DETAIL_LINEAR) {
         var overHighlight = L.geoJson(trek, {style: {'color': settings.leaflet.HIGHLIGHT_COLOR, 'weight': 15, 'opacity': 0.8}})
