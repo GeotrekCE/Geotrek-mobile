@@ -21,7 +21,6 @@ geotrekMap.controller('MapController',
         }
     });
     $scope.treks = treks;
-
     if (settings.ADD_GEOJSON) {
         $http.get("images/custom/add.geojson").success(function(data, status) {
             L.geoJson(data, {
@@ -110,8 +109,9 @@ geotrekMap.controller('MapController',
                     });
                 }
             });
-
-            userPosition.setLatLng(position);
+            if (userPosition) {
+                userPosition.setLatLng(position);
+            }
         }
     });
 
