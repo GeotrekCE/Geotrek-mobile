@@ -87,6 +87,10 @@ geotrekMap.controller('MapController',
         });
 
     $scope.$on('watchPosition', function(scope, position) {
+        debouncedWatch(position)
+    });
+
+    var debouncedWatch = _.debounce(function(position) {
         if (position.lat && position.lng) {
             var alertOnPois;
             userSettingsService.getUserSettings().then(function(userSettings) {
@@ -112,15 +116,13 @@ geotrekMap.controller('MapController',
             if (userPosition) {
                 userPosition.setLatLng(position);
             }
-        }
-    });
-
+        }}, 3000) 
     // README: watchPosition has a weird issue : if we get user CurrentPosition while watch is activated
     // we get no callback for geolocation browser service
     // This callback is used to reactivate watching after getLatLngPosition call, as this call desactivate
     // watch to avoid that issue
     var watchCallback = function() {
-
+        
         var watchOptions = {
             enableHighAccuracy: true
         };
