@@ -140,6 +140,9 @@ geotrekMap.controller('MapController',
         geolocationFactory.getLatLngPosition({}, watchCallback)
         .then(function(result) {
             map.setView(result);
+            if (!userPosition)  {
+                userPosition = L.marker(result, {icon: leafletService.getPositionMarker()}).addTo(map);
+            }
             userPosition.setLatLng(result);
         })
         .catch(function(error) {
