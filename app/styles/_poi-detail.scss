@@ -3,6 +3,7 @@
   margin-bottom: 20px;
   .row.content {
     padding: 10px;
+    flex-direction: column;
   }
   .header {
     border-bottom: 1px solid #eee;
@@ -63,6 +64,11 @@
           white-space: normal;
           color: black;
       }
+  }
+  .poi-detail__title {
+      color: $officialPurple;
+      font-weight: bold;
+      padding: 10px 0 10px 0
   }
   &.map-poi {
     img {

@@ -11,8 +11,8 @@
 
 .splashscreen__text {
 	position: absolute;
-	bottom: 20%;
-	left: 50%;
+	bottom: 0;
+	left: 0;
 	@include transform(translateX(-50%));
 	color: white;
     background-color: black;

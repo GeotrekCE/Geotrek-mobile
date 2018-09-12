@@ -44,6 +44,7 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.parent': 'Séjour :',
         'trek_detail.departure': 'Départ :',
         'trek_detail.arrival': 'Arrivée :',
+        'trek_detail.departure_arrival': 'Départ / Arrivée :',
         'trek_detail.themes': 'Thématiques : ',
         'trek_detail.rules': 'Règlementation',
         'trek_detail.advice': 'Recommandations',
@@ -95,7 +96,9 @@ geotrekGlobalization.constant('locales', {
         'error_title': 'Erreur',
         'cancel': 'Retour',
         'maj_title': 'Données mises à jour',
-        'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer via les paramètres de l\'application puis les re-télécharger pour mettre à jour leurs images et leurs fonds de carte.'
+        'maj_message': 'Les données concernant les randonnées ont été mises à jour. Si vous avez téléchargé des contenus détaillés, veuillez les supprimer via les paramètres de l\'application puis les re-télécharger pour mettre à jour leurs images et leurs fonds de carte.',
+        'contact': 'Contact',
+        'pratical_infos':'Informations pratiques'
     },
     'en': {
         'init.loading': 'Loading data...',
@@ -112,7 +115,7 @@ geotrekGlobalization.constant('locales', {
         'nav_trek_map.theme': 'All thematics',
         'nav_trek_map.use': 'Practice',
         'nav_trek_map.route': 'All routes',
-        'nav_trek_map.valley': 'All valleys',
+        'nav_trek_map.valley': 'All valley',
         'nav_trek_map.city': 'All municipalities',
         'nav_trek_map.accessibility': 'All accessibility',
         'nav_trek_map.reset': 'Reset',
@@ -132,6 +135,7 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Cities:',
         'trek_detail.departure': 'Departure:',
         'trek_detail.arrival': 'Arrival:',
+        'trek_detail.departure_arrival': 'Departure / Arrival :',
         'trek_detail.on_road': 'Heritages',
         'trek_detail.touristics': 'Services',
         'trek_detail.children': 'Steps',
@@ -188,7 +192,9 @@ geotrekGlobalization.constant('locales', {
         'error_title': 'Error',
         'cancel': 'Cancel',
         'maj_title': 'Data updated',
-        'maj_message': 'Treks data where updated. If you had downloaded details informations on a trek, please remove them and download again in order to have updated pictures and detailed map layers'
+        'maj_message': 'Treks data where updated. If you had downloaded details informations on a trek, please remove them and download again in order to have updated pictures and detailed map layers',
+        'contact': 'Contact',
+        'pratical_infos':'Practical informations'
     },
     'it': {
         'init.loading': 'Caricamento dei dati in corso...',
@@ -225,6 +231,7 @@ geotrekGlobalization.constant('locales', {
         'trek_detail.cities': 'Communi :',
         'trek_detail.departure': 'Partenza:',
         'trek_detail.arrival': 'Arrivo :',
+        'trek_detail.departure_arrival': 'Partenza / Arrivo :',
         'trek_detail.on_road': 'Sull cammino',
         'trek_detail.touristics': 'Servizi',
         'trek_detail.children': 'Tappe',
@@ -280,7 +287,9 @@ geotrekGlobalization.constant('locales', {
         'error_title': 'Errore',
         'cancel': 'Cancellare',
         'maj_title': 'Dati aggiornati',
-        'maj_message': 'I dati concernando l\'escusione sono stati aggiornati. Se lei ha caricato dei contenuti dettagliati, per favore, rimuoverli poi caricarli di nuovo per aggiornare le loro immagini et le loro mappe.'
+        'maj_message': 'I dati concernando l\'escusione sono stati aggiornati. Se lei ha caricato dei contenuti dettagliati, per favore, rimuoverli poi caricarli di nuovo per aggiornare le loro immagini et le loro mappe.',
+        'contact': 'Contatti',
+        'pratical_infos':'Informazioni pratiche'
     }
 })
 
