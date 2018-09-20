@@ -123,6 +123,10 @@ geotrekMap.service('leafletService',
                 thumbnail: touristic.properties.thumbnail,
                 img: touristic.properties.pictures[0],
                 pictogram: touristic.properties.category.pictogram,
+                practical_info:touristic.properties.practical_info,
+                contact:touristic.properties.contact,
+                email:touristic.properties.email,
+                website:touristic.properties.website,
                 markerType: 'touristic'
             }));
         });

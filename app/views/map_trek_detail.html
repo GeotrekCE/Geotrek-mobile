@@ -48,6 +48,15 @@
                         <img  ng-if="objectToDisplay.thumbnail && !objectToDisplay.img" class="thumbnail" ng-src="{{ objectToDisplay.thumbnail }}"/>
                     </div>
                     <p ng-if="objectToDisplay.description" class="poi-detail__description" ng-bind-html="objectToDisplay.description"></p>
+
+                     <div ng-if="objectToDisplay.markerType==='touristic'" class="row content">
+                            <div class="poi-detail__title">{{ 'pratical_infos' | translate }}</div>
+                            <div ng-if="objectToDisplay.practical_info" class="poi-detail__description" ng-bind-html="objectToDisplay.practical_info"></div>
+                            <div class="poi-detail__title">{{ 'contact' | translate }}</div>
+                            <div ng-if="objectToDisplay.contact" class="poi-detail__description" ng-bind-html="objectToDisplay.contact"></div>
+                            <a ng-if="objectToDisplay.email" href="mailto:{{objectToDisplay.email}}" ng-bind-html="objectToDisplay.email"></a>
+                            <a ng-if="objectToDisplay.website" href="{{objectToDisplay.website}}" ng-bind-html="objectToDisplay.website"></a>
+                        </div>
                 </ion-item>
 
                 <a ng-if="objectToDisplay.id" ng-click="modal.remove()" ui-sref="home.trek.detail({ trekId: objectToDisplay.id })" class="trek-detail__back-bt button-icon icon icon-text icon-geotrek icon-binoculars-2">{{ 'map_trek_detail.more_details' | translate }}</a>
