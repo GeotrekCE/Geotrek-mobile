@@ -358,8 +358,16 @@
                             <div ng-if="touristic.properties.practical_info" class="poi-detail__description" ng-bind-html="touristic.properties.practical_info"></div>
                             <div class="poi-detail__title">{{ 'contact' | translate }}</div>
                             <div ng-if="touristic.properties.contact" class="poi-detail__description" ng-bind-html="touristic.properties.contact"></div>
-                            <a ng-if="touristic.properties.email" href="mailto:{{touristic.properties.email}}" ng-bind-html="touristic.properties.email"></a>
-                            <a ng-if="touristic.properties.website" href="{{touristic.properties.website}}" ng-bind-html="touristic.properties.website"></a>
+                            <div>
+                                <p>
+                                    <a ng-if="touristic.properties.email" href="mailto:{{touristic.properties.email}}">{{touristic.properties.email}}</a>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <a ng-if="touristic.properties.website" href="{{touristic.properties.website}}" >{{touristic.properties.website}}</a>
+                                </p>
+                            </div>
                         </div>
                     </ion-item>
                 </div>

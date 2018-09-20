@@ -54,8 +54,16 @@
                             <div ng-if="objectToDisplay.practical_info" class="poi-detail__description" ng-bind-html="objectToDisplay.practical_info"></div>
                             <div class="poi-detail__title">{{ 'contact' | translate }}</div>
                             <div ng-if="objectToDisplay.contact" class="poi-detail__description" ng-bind-html="objectToDisplay.contact"></div>
-                            <a ng-if="objectToDisplay.email" href="mailto:{{objectToDisplay.email}}" ng-bind-html="objectToDisplay.email"></a>
-                            <a ng-if="objectToDisplay.website" href="{{objectToDisplay.website}}" ng-bind-html="objectToDisplay.website"></a>
+                            <div>
+                                <p>
+                                    <a ng-if="objectToDisplay.email" href="mailto:{{objectToDisplay.email}}">{{objectToDisplay.email}}</a>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <a ng-if="objectToDisplay.website" href="{{objectToDisplay.website}}" >{{objectToDisplay.website}}</a>
+                                </p>
+                            </div>
                         </div>
                 </ion-item>
 
