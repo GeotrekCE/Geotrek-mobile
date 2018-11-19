@@ -71,7 +71,7 @@ geotrekStaticPages.service('staticPagesFileSystemService', [
                         staticPages.push({
                             text: page.title,
                             title: page.title,
-                            description: page.content
+                            description: page.content && page.content.length > 0 && page.content !== "null" ? page.content : "<a href='" + page.external_url+"'>" + page.external_url + "<a/>"
                         });
                     }
                 });
