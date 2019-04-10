@@ -1,0 +1,7 @@
+{
+  "name": "geotrek-mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

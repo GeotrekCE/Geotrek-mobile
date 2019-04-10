@@ -1,0 +1,31 @@
+.trash-button {
+  position: absolute;
+  z-index: 10;
+  top: 12px;
+  right: 12px;
+}
+
+.extand-card {
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.picto-practice {
+  max-width: 24px;
+  max-height: 24px;
+}
+
+.extra-content-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

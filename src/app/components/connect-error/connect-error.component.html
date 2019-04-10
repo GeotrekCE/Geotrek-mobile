@@ -1,0 +1,26 @@
+<ion-grid class="flex-container" fixed>
+  <ion-row>
+    <ion-col>
+      <ion-icon class="icon-size" [name]="icon"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      {{title}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      {{content}}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button 
+        (click)="retry.emit()" 
+        color="light">
+        {{buttonText}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

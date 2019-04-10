@@ -1,0 +1,83 @@
+{
+  "toolbar": {
+    "filters": "Filters",
+    "search": "Search"
+  },
+  "tabbar": {
+    "treks": "Treks",
+    "offline": "Offline",
+    "more": "Informations"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Name of the trek",
+    "noResult": "No trek corresponds to your search",
+    "contentPlaceHolder": ""
+  },
+  "filters": {
+    "title": "Filters",
+    "erase": "Erase all",
+    "results": "Show {{nb}} treks",
+    "oneresult": "Display the trek",
+    "zeroresult": "No trek matches those filters"
+  },
+  "mapTreks": {
+    "treksAlert": {
+      "title": "Treks",
+      "confirmButton": "Ok",
+      "cancelButton": "Cancel"
+    }
+  },
+  "mapTrek": {
+    "enableNotification": "Enable notifications",
+    "disableNotification": "Disable notifications"
+  },
+  "trek": {
+    "downloadAlert": {
+      "title": "Offline",
+      "content": "Download this trek for offline access",
+      "confirmButton": "Download",
+      "cancelButton": "Cancel",
+      "success": "The trek is available offline",
+      "error": "An error occurred while downloading",
+      "confirmError": "Ok",
+      "loading": "Downloading ...",
+      "storage": "Decompressing ..."
+    },
+    "details": {
+      "city": "Cities :",
+      "departure": "Departure :",
+      "arrival": "Arrival :",
+      "departureArrival": "Departure / Arrival :",
+      "practice": "Practices",
+      "theme": "Themes",
+      "description": "Description",
+      "rules": "Regulation",
+      "access": "Road access",
+      "parking": "Parking advised",
+      "advice": "Advices",
+      "desk": "Places of information",
+      "profile": "Altimetric profile",
+      "poi": {
+        "name": "Heritage",
+        "showAllLabel": "Show all heritages",
+        "hideAllLabel": "Do not show all patrimonies anymore"
+      },
+      "touristicContent": {
+        "showAllLabel": "Show all",
+        "hideAllLabel": "Do not show all anymore"
+      }
+    }
+  },
+  "treks": {
+    "showAllLabel": "Show the {{nb}} next treks",
+    "hideAllLabel": "Do not show all treks anymore"
+  },
+  "geolocate": {
+    "askLocatePermission": "You didn't allow the application to locate you. Do you want to open settings ?",
+    "cancel": "Cancel",
+    "open": "Open",
+    "poiNearBy": "Point of interest near by",
+    "notificationTitle": "Geolocation"
+  }
+}

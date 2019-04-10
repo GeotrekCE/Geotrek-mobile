@@ -1,0 +1,42 @@
+.list-mode-card {
+  position: relative;
+}
+
+.icon-list-square {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.icon-list-card {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.list-mode-card .icon-list-card {
+  transform: scale(0);
+}
+
+.list-mode-card .icon-list-square {
+  transform: scale(1);
+}
+
+.list-mode-disabled {
+  cursor: default;
+  opacity: .5;
+  pointer-events: none;
+}
+
+.custom-button {
+  width: 100px;
+  text-transform: capitalize;
+}
+
+.button-margin-left {
+  margin-left: 12px;
+}

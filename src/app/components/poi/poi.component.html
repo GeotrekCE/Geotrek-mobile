@@ -1,0 +1,14 @@
+<ion-card>
+  <div *ngIf="picture !== null">
+    <ion-img [src]="picture.url"></ion-img>
+    <span>{{ picture.legend }}
+      <span *ngIf="!!picture.author">({{ picture.author }})</span>
+    </span>
+  </div>
+  <ion-card-header>
+    <ion-card-title>{{ poi.properties.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div [innerHTML]="poi.properties.description"></div>
+  </ion-card-content>
+</ion-card>

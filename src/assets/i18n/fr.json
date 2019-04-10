@@ -1,0 +1,83 @@
+{
+  "toolbar": {
+    "filters": "Filtres",
+    "search": "Recherche"
+  },
+  "tabbar": {
+    "treks": "Randonnées",
+    "offline": "Hors ligne",
+    "more": "Informations"
+  },
+  "search": {
+    "title": "Recherche",
+    "placeholder": "nom de la randonnée",
+    "noResult": "Aucune randonnée ne correspond à votre recherche",
+    "contentPlaceHolder": ""
+  },
+  "filters": {
+    "title": "Filtres",
+    "erase": "Effacer tout",
+    "results": "Afficher les {{nb}} randonnées",
+    "oneresult": "Afficher la randonnée",
+    "zeroresult": "Aucune randonnée ne correspond à ces filtres"
+  },
+  "mapTreks": {
+    "treksAlert": {
+      "title": "Randonnées",
+      "confirmButton": "Ok",
+      "cancelButton": "Annuler"
+    }
+  },
+  "mapTrek": {
+    "enableNotification": "Activer les notifications",
+    "disableNotification": "Désactiver les notifications"
+  },
+  "trek": {
+    "downloadAlert": {
+      "title": "Mode hors ligne",
+      "content": "Télécharger cette randonnée afin d'y avoir accès hors connexion",
+      "confirmButton": "Télécharger",
+      "cancelButton": "Annuler",
+      "success": "La randonnée est disponible hors ligne",
+      "error": "Une erreur est survenue lors du téléchargement",
+      "confirmError": "Ok",
+      "loading": "Téléchargement en cours ...",
+      "storage": "Décompression des données en cours..."
+    },
+    "details": {
+      "city": "Communes :",
+      "departure": "Départ",
+      "arrival": "Arrivée",
+      "departureArrival": "Départ / Arrivée",
+      "practice": "Pratiques",
+      "theme": "Thématiques",
+      "description": "Description",
+      "rules": "Réglementation",
+      "access": "Accès routier",
+      "parking": "Parking conseillé",
+      "advice": "Recommandations",
+      "desk": "Lieux de renseignement",
+      "profile": "Profil altimétrique",
+      "poi": {
+        "name": "Patrimoines",
+        "showAllLabel": "Afficher tous les patrimoines",
+        "hideAllLabel": "Ne plus afficher tous les patrimoines"
+      },
+      "touristicContent": {
+        "showAllLabel": "Afficher tout",
+        "hideAllLabel": "Ne plus tout afficher"
+      }
+    }
+  },
+  "treks": {
+    "showAllLabel": "Afficher les {{nb}} randonnées suivantes",
+    "hideAllLabel": "Ne plus afficher toutes les randonnées"
+  },
+  "geolocate": {
+    "askLocatePermission": "Vous n'avez pas autorisé l'application à suivre votre localisation. Voulez vous ouvrir vos paramètres ?",
+    "cancel": "Annuler",
+    "open": "Ouvrir",
+    "poiNearBy": "Point d'intérêt à proximité",
+    "notificationTitle": "Géoréférencement"
+  }
+}

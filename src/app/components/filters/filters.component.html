@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon size="large" slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'filters.title' | translate | uppercase }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="eraseFilters()" class="none-transform" color="primary" fill="solid">
+        {{ 'filters.erase' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="inset">
+    <ion-item *ngFor="let filter of filters">
+      <app-filter [commonSrc]="commonSrc" class="full-width" [filter]="filter"
+        (valueChange)="handleFiltersState($event.checked, filter, $event.value)">
+      </app-filter>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button [disabled]="nbTemporaryFiltersTreks === 0" (click)="applyFilters()" expand="full">
+    <ion-icon color="white" slot="start" name="funnel"></ion-icon>
+    <span *ngIf="nbTemporaryFiltersTreks === 0" translate>filters.zeroresult</span>
+    <span *ngIf="nbTemporaryFiltersTreks === 1" translate>filters.oneresult</span>
+    <span *ngIf="nbTemporaryFiltersTreks > 1" translate
+      [translateParams]="{ nb: nbTemporaryFiltersTreks }">filters.results</span>
+  </ion-button>
+</ion-footer>

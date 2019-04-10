@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> {{ appName }} </ion-title>
+  </ion-toolbar>
+  <ion-toolbar
+    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col size="10">
+          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">
+            {{ 'toolbar.filters' | translate }}
+            {{ numberOfActiveFilters }}</ion-button>
+          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">
+            {{ 'toolbar.search' | translate }} </ion-button>
+        </ion-col>
+        <ion-col size="2" text-right
+          [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled' : loaderStatus }">
+          <ion-icon name="reorder" size="large" class="icon-list-card" (click)="changeColSize()"></ion-icon>
+          <ion-icon name="apps" size="large" class="icon-list-square" (click)="changeColSize()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="position : relative" #content>
+  <app-loader></app-loader>
+  <ng-container *ngIf="!offline; else treksList">
+    <app-connect-error *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList" icon="wifi"
+      title="Problème de connexion"
+      content="Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées"
+      buttonText="Réessayez" (retry)="onlineTreks.loadTreks()">
+    </app-connect-error>
+  </ng-container>
+
+  <ng-template #treksList>
+    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">
+      <ion-list>
+        <ion-grid fixed>
+          <ion-row align-items-stretch>
+            <ion-col [size]="colSize" [sizeMd]="getMdColSize()"
+              *ngFor="let trek of filteredTreks | slice:0:currentMaxTreks; trackBy: trackTrek">
+              <app-trek-card [showAllData]="(this.colSize === 12)" [trek]="trek" [offline]="offline"></app-trek-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </div>
+
+    <div *ngIf="!!filteredTreks && filteredTreks.length > treksByStep">
+      <ion-button fill="clear" (click)="expandTreks()" [ngSwitch]="filteredTreks.length === this.currentMaxTreks">
+        <ng-container *ngSwitchCase="false">
+          <div translate *ngIf="filteredTreks.length - this.currentMaxTreks >= treksByStep"
+            [translateParams]="{ nb: treksByStep}">
+            treks.showAllLabel
+          </div>
+          <div translate *ngIf="filteredTreks.length - this.currentMaxTreks < treksByStep"
+            [translateParams]="{ nb: filteredTreks.length - this.currentMaxTreks}">
+            treks.showAllLabel
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          {{ 'treks.hideAllLabel' | translate }}
+        </ng-container>
+      </ion-button>
+    </div>
+    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0;" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
+        <ion-icon name="map"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-template>
+
+  <ng-template #noTreks>
+    <ng-container *ngIf="offline">
+      <ng-container>
+        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">
+          <ng-container *ngSwitchCase="true">
+            <ion-row>
+              <ion-col *ngIf="nbOfflineTreks === 1">
+                Les filtres sélectionnés ne correspondent pas à votre randonnée enregistrée.
+              </ion-col>
+              <ion-col *ngIf="nbOfflineTreks > 1">
+                Les filtres sélectionnés ne correspondent à aucune de vos {{ nbOfflineTreks }} randonnées enregistrées.
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button (click)="resetFilters()" color="light">
+                  Afficher toutes les randonnées enregistrées
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+          <ion-row *ngSwitchCase="false">
+            <ion-col>
+              Ici, vous retrouverez vos randonnées disponibles hors ligne
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</ion-content>

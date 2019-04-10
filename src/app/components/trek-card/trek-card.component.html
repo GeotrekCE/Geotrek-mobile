@@ -1,0 +1,37 @@
+<ion-card class="no-outline pointer extand-card  ion-activatable" [routerLink]="this.routerLink">
+  <ion-ripple-effect></ion-ripple-effect>
+  <div>
+    <ion-button *ngIf="offline" (click)="clickDeleteConfirm($event)" color="light" fill="clear" class="trash-button">
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-button>
+    <ion-img *ngIf="this.imgSrc" [src]="this.imgSrc"></ion-img>
+  </div>
+  <div>
+    <ion-card-header>
+      <ion-card-title class="ellipsis">{{ hydratedTrek.properties?.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <div class="ellipsis">Départ</div>
+        <div class="ellipsis" *ngIf="hydratedTrek.properties.departure_city">
+          {{hydratedTrek.properties.departure_city?.name }}</div>
+        <div class="ellipsis" *ngIf="showAllData">{{ hydratedTrek.properties.departure }}</div>
+      </div>
+      <div class="extra-content-card ion-padding-top">
+        <div>
+          <ion-img *ngIf="this.imgPracticeSrc" class="picto-practice"
+            [style.background-color]="hydratedTrek.properties.practice.color" [src]="imgPracticeSrc"></ion-img>
+        </div>
+        <div class="ion-padding-start">{{ hydratedTrek.properties.difficulty?.name }}</div>
+        <div class="ion-padding-start" *ngIf="hydratedTrek.properties.duration < 24 && showAllData">
+          {{ hydratedTrek.properties.duration | number: '1.0-0' }}h<span
+            *ngIf="hydratedTrek.properties.duration % 1 > 0">{{ 60 * (hydratedTrek.properties.duration % 1).toFixed(1) }}min</span>
+        </div>
+        <div class="ion-padding-start" *ngIf="hydratedTrek.properties.duration >= 24 && showAllData">
+          {{ hydratedTrek.properties.duration / 24 | number: '1.0-0' }}j</div>
+        <div *ngIf="showAllData" class="ion-padding-start">{{ hydratedTrek.properties.length / 1000 | number: '1.2-2' }}
+          km</div>
+      </div>
+    </ion-card-content>
+  </div>
+</ion-card>

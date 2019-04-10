@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon size="large" slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ poi.properties.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-img *ngIf="poiImg !== ''" [src]="poiImg"></ion-img>
+    <ion-card-content>
+      <div [innerHTML]="poi.properties.description"></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

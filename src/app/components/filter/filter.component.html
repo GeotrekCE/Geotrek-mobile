@@ -1,0 +1,23 @@
+<ion-label>
+  <ion-text>
+    <h1>{{ filter.name }}</h1>
+  </ion-text>
+
+  <ng-template #poiTemplate let-value="item">
+    <app-filter-value
+      [commonSrc]="commonSrc"
+      [value]="value"
+      (valueChange)="valueChanged($event);"
+    >
+    </app-filter-value>
+  </ng-template>
+
+  <app-collapsible-list
+    [items]="filter.values"
+    [showAllLabel]="filter.showAllLabel"
+    [hideAllLabel]="filter.hideAllLabel"
+    [itemTemplate]="poiTemplate"
+    [initialState]="expanded ? 'expanded': 'collapsed'">
+  </app-collapsible-list>
+
+</ion-label>

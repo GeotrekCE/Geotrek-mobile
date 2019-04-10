@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon size="large" slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'search.title' | translate | uppercase }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar placeholder="{{ 'search.placeholder' | translate }}" (ionChange)="search($event.detail.value)">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else loading">
+    <ion-card class="pointer ion-activatable" *ngFor="let trek of filteredTreks; trackBy: trackTrek"
+      (click)="navigateToTrek(trek.properties.id)">
+      <ion-card-header class="ion-activatable" color="light">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-card-subtitle>{{ trek.properties.name }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </ion-list>
+
+  <ng-template #loading>
+    <ion-grid class="flex-container" fixed>
+      <ion-row>
+        <ion-col *ngIf="currentSearchValue">
+          {{ 'search.noResult' | translate }}
+        </ion-col>
+        <ion-col *ngIf="!(!!currentSearchValue)">
+          {{ 'search.contentPlaceHolder' | translate }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+</ion-content>

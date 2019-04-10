@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> {{ appName }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loader></app-loader>
+  <app-connect-error *ngIf="connectionError" icon="wifi" title="Problème de connexion"
+                     content="Veuillez vous assurer d’être connecté afin d’accéder aux informations supplémentaires"
+                     buttonText="Réessayez" (retry)="refresh()">
+  </app-connect-error>
+
+  <div *ngIf="moreInformationsIntro">
+    <ion-list>
+      <ion-item class="no-outline" detail="true" *ngFor="let moreInformationIntro of moreInformationsIntro"
+                routerLink="/app/tabs/more/{{ moreInformationIntro.id }}">
+        <ion-label>
+          <h3>{{ moreInformationIntro.title }}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

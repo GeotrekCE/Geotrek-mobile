@@ -1,0 +1,9 @@
+<ion-button *ngIf="!notificationsModeIsActive" expand="full" (click)="changeNotificationsMode()">
+  <ion-icon color="white" slot="start" name="notifications"></ion-icon>
+  {{ 'mapTrek.enableNotification' | translate }}
+</ion-button>
+
+<ion-button *ngIf="notificationsModeIsActive" expand="full" (click)="changeNotificationsMode()">
+  <ion-icon color="white" *ngIf="notificationsModeIsActive" slot="start" name="notifications-off"></ion-icon>
+  {{ 'mapTrek.disableNotification' | translate }}
+</ion-button>
