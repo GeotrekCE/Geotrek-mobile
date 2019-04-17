@@ -216,7 +216,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       filter: ['!', ['has', 'point_count']],
       layout: {
         'icon-image': ['get', 'practice'],
-        'icon-size': 0.5,
+        'icon-size': environment.map.globalMapIconSize,
       },
     });
 

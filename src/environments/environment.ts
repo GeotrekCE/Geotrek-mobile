@@ -74,6 +74,7 @@ export const environment = {
   },
   map: {
     iconSize: 0.8, // check your icon size, ideally it would be 48px*48px
+    globalMapIconSize: 0.5,
     clusterPaint: {
       // cluster style on map treks
       'circle-color': '#8e44ad',
