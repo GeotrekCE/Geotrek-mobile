@@ -1,0 +1,1297 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>geotrek-mobile documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">geotrek-mobile documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>HydratedTrekProperties</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/interfaces/interfaces.ts</code>
+        </p>
+
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#access">access</a>
+                                </li>
+                                <li>
+                                        <a href="#accessibilities">accessibilities</a>
+                                </li>
+                                <li>
+                                        <a href="#advice">advice</a>
+                                </li>
+                                <li>
+                                        <a href="#advised_parking">advised_parking</a>
+                                </li>
+                                <li>
+                                        <a href="#arrival">arrival</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#arrival_city">arrival_city</a>
+                                </li>
+                                <li>
+                                        <a href="#ascent">ascent</a>
+                                </li>
+                                <li>
+                                        <a href="#cities">cities</a>
+                                </li>
+                                <li>
+                                        <a href="#departure">departure</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#departure_city">departure_city</a>
+                                </li>
+                                <li>
+                                        <a href="#description">description</a>
+                                </li>
+                                <li>
+                                        <a href="#description_teaser">description_teaser</a>
+                                </li>
+                                <li>
+                                        <a href="#difficulty">difficulty</a>
+                                </li>
+                                <li>
+                                        <a href="#duration">duration</a>
+                                </li>
+                                <li>
+                                        <a href="#id">id</a>
+                                </li>
+                                <li>
+                                        <a href="#information_desks">information_desks</a>
+                                </li>
+                                <li>
+                                        <a href="#is_park_centered">is_park_centered</a>
+                                </li>
+                                <li>
+                                        <a href="#length">length</a>
+                                </li>
+                                <li>
+                                        <a href="#name">name</a>
+                                </li>
+                                <li>
+                                        <a href="#networks">networks</a>
+                                </li>
+                                <li>
+                                        <a href="#parking_location">parking_location</a>
+                                </li>
+                                <li>
+                                        <a href="#pictures">pictures</a>
+                                </li>
+                                <li>
+                                        <a href="#practice">practice</a>
+                                </li>
+                                <li>
+                                        <a href="#route">route</a>
+                                </li>
+                                <li>
+                                        <a href="#themes">themes</a>
+                                </li>
+                                <li>
+                                        <a href="#thumbnail">thumbnail</a>
+                                </li>
+                                <li>
+                                        <a href="#usages">usages</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="access"></a>
+                                        <span class="name"><b>access</b><a href="#access"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>access:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="accessibilities"></a>
+                                        <span class="name"><b>accessibilities</b><a href="#accessibilities"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>accessibilities:         <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="advice"></a>
+                                        <span class="name"><b>advice</b><a href="#advice"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>advice:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="advised_parking"></a>
+                                        <span class="name"><b>advised_parking</b><a href="#advised_parking"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>advised_parking:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="arrival"></a>
+                                        <span class="name"><b>arrival</b><a href="#arrival"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>arrival:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="arrival_city"></a>
+                                        <span class="name"><b>arrival_city</b><a href="#arrival_city"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>arrival_city:         <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="ascent"></a>
+                                        <span class="name"><b>ascent</b><a href="#ascent"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>ascent:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cities"></a>
+                                        <span class="name"><b>cities</b><a href="#cities"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cities:         <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="departure"></a>
+                                        <span class="name"><b>departure</b><a href="#departure"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>departure:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="departure_city"></a>
+                                        <span class="name"><b>departure_city</b><a href="#departure_city"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>departure_city:         <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description"></a>
+                                        <span class="name"><b>description</b><a href="#description"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="description_teaser"></a>
+                                        <span class="name"><b>description_teaser</b><a href="#description_teaser"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>description_teaser:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="difficulty"></a>
+                                        <span class="name"><b>difficulty</b><a href="#difficulty"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>difficulty:         <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="duration"></a>
+                                        <span class="name"><b>duration</b><a href="#duration"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>duration:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name"><b>id</b><a href="#id"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="information_desks"></a>
+                                        <span class="name"><b>information_desks</b><a href="#information_desks"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>information_desks:         <code><a href="../interfaces/InformationDesk.html" target="_self" >InformationDesk[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/InformationDesk.html" target="_self" >InformationDesk[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="is_park_centered"></a>
+                                        <span class="name"><b>is_park_centered</b><a href="#is_park_centered"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>is_park_centered:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="length"></a>
+                                        <span class="name"><b>length</b><a href="#length"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>length:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name"><b>name</b><a href="#name"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="networks"></a>
+                                        <span class="name"><b>networks</b><a href="#networks"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>networks:         <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="parking_location"></a>
+                                        <span class="name"><b>parking_location</b><a href="#parking_location"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>parking_location:     <code>number[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>number[]</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pictures"></a>
+                                        <span class="name"><b>pictures</b><a href="#pictures"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pictures:         <code><a href="../interfaces/Picture.html" target="_self" >Picture[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Picture.html" target="_self" >Picture[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="practice"></a>
+                                        <span class="name"><b>practice</b><a href="#practice"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>practice:         <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="route"></a>
+                                        <span class="name"><b>route</b><a href="#route"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>route:         <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="themes"></a>
+                                        <span class="name"><b>themes</b><a href="#themes"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>themes:         <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Property.html" target="_self" >Property[]</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="thumbnail"></a>
+                                        <span class="name"><b>thumbnail</b><a href="#thumbnail"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>thumbnail:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="usages"></a>
+                                        <span class="name"><b>usages</b><a href="#usages"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>usages:     <code>number[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>number[]</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Feature, FeatureCollection, MultiPoint, Point } from &#x27;geojson&#x27;;
+import { Observable } from &#x27;rxjs/internal/Observable&#x27;;
+import { MapboxOptions } from &#x27;mapbox-gl&#x27;;
+
+export interface MinimalTreks {
+  type: string;
+  name: string;
+  features: MinimalTrek[];
+}
+
+export interface MinimalTrekProperties {
+  id: number;
+  first_picture: { author: string; legend: string; title: string; url: string };
+  name: string;
+  departure: string;
+  accessibilities: number[];
+  difficulty: number;
+  practice: number;
+  themes: number[];
+  usages: number[];
+  length: number;
+}
+
+export interface MinimalTrek extends Feature&lt;Point&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;Point&#x27;; coordinates: number[] };
+  properties: MinimalTrekProperties;
+}
+
+export interface TrekProperties extends MinimalTrekProperties {
+  departure: string;
+  pictures: Picture[];
+  description_teaser: string;
+  duration: number;
+  arrival: string;
+  ascent: number;
+  route: number;
+  description: string;
+  is_park_centered: boolean;
+  access: string;
+  advised_parking: string;
+  advice: string;
+  networks: number[];
+  cities: string[];
+  information_desks: InformationDesk[];
+  departure_city?: string;
+  arrival_city?: string;
+}
+
+export interface Trek extends Feature&lt;MultiPoint&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;MultiPoint&#x27;; coordinates: number[][] };
+  properties: TrekProperties;
+}
+
+export interface HydratedTrek extends Feature&lt;MultiPoint&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;MultiPoint&#x27;; coordinates: number[][] };
+  properties: HydratedTrekProperties;
+}
+
+export interface HydratedTrekProperties {
+  id: number;
+  thumbnail: string;
+  name: string;
+  usages: number[];
+  length: number;
+  departure: string;
+  pictures: Picture[];
+  description_teaser: string;
+  duration: number;
+  arrival: string;
+  ascent: number;
+  description: string;
+  is_park_centered: boolean;
+  access: string;
+  advised_parking: string;
+  advice: string;
+  difficulty: Property;
+  practice: Property;
+  route: Property;
+  accessibilities: Property[];
+  cities: Property[];
+  networks: Property[];
+  themes: Property[];
+  information_desks: InformationDesk[];
+  departure_city?: Property;
+  arrival_city?: Property;
+  parking_location: number[];
+}
+
+export interface InformationDesk {
+  id: number;
+  description: string;
+  email: string;
+  latitude: number;
+  longitude: number;
+  municipality: string;
+  name: string;
+  phone: string;
+  photo_url: string;
+  postal_code: string;
+  street: string;
+  website: string;
+  type: number | Property;
+  picture: string;
+}
+
+export interface Picture {
+  author: string;
+  legend: string;
+  title: string;
+  url: string;
+}
+
+export interface Filter {
+  id: string;
+  name: string;
+  type: &#x27;contains&#x27; | &#x27;interval&#x27;;
+  values: FilterValue[];
+  showAllLabel: string;
+  hideAllLabel: string;
+}
+
+export interface IntervalFilter extends Filter {
+  id: &#x27;length&#x27;; // TODO: complete this
+  type: &#x27;interval&#x27;;
+}
+
+export interface ContainsFilter extends Filter {
+  id: &#x27;difficulty&#x27; | &#x27;themes&#x27; | &#x27;usages&#x27; | &#x27;accessibilities&#x27;; // TODO: complete this or change this
+  type: &#x27;contains&#x27;;
+}
+
+export interface FilterValue {
+  id: number;
+  name: string;
+  checked: boolean;
+  interval?: [number, number];
+  pictogram?: string;
+}
+
+export interface InformationIntro {
+  id: number;
+  title: string;
+}
+
+export interface InformationItem {
+  id: number;
+  title: string;
+  content: string;
+}
+
+export interface Settings {
+  data: DataSetting[];
+  filters: Filter[];
+}
+
+export interface DataSetting {
+  id: string;
+  name: string;
+  values: Property[];
+}
+
+export interface Property {
+  id: number;
+  name: string;
+  pictogram?: string;
+  color?: string;
+}
+
+export interface Pois extends FeatureCollection {
+  type: &#x27;FeatureCollection&#x27;;
+  features: Poi[];
+}
+
+export interface Poi extends Feature&lt;Point&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;Point&#x27;; coordinates: number[] };
+  properties: {
+    id: number;
+    pictures: Picture[];
+    name: string;
+    description: string;
+    thumbnail: string;
+  };
+}
+
+export interface TouristicContents extends FeatureCollection {
+  type: &#x27;FeatureCollection&#x27;;
+  features: TouristicContent[];
+}
+
+export interface TouristicContent extends Feature&lt;Point&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;Point&#x27;; coordinates: number[] };
+  properties: {
+    id: number;
+    pictures: Picture[];
+    name: string;
+    description: string;
+    description_teaser: string;
+    category: number;
+  };
+}
+
+export interface TouristicCategorie {
+  id: number;
+  name: string;
+}
+
+export interface TouristicCategoryWithFeatures {
+  id: number;
+  name: string;
+  features: TouristicContent[];
+}
+
+export interface TouristicEvents extends FeatureCollection {
+  type: &#x27;FeatureCollection&#x27;;
+  features: TouristicEvent[];
+}
+
+export interface TouristicEvent extends Feature&lt;Point&gt; {
+  type: &#x27;Feature&#x27;;
+  geometry: { type: &#x27;Point&#x27;; coordinates: number[] };
+  properties: {
+    id: number;
+  };
+}
+
+export interface TreksService {
+  offline: boolean;
+  treks$: Observable&lt;MinimalTreks | null&gt;;
+  filteredTreks$: Observable&lt;MinimalTrek[]&gt;;
+  getTrekById(id: number): Observable&lt;Trek | null&gt;;
+  getPoisForTrekById(id: number): Observable&lt;Pois&gt;;
+  getTouristicContentsForTrekById(id: number): Observable&lt;TouristicContents&gt;;
+  getTouristicEventsForTrekById(id: number): Observable&lt;TouristicEvents&gt;;
+  getTreksUrl(): string;
+  getTrekDetailsUrl(trekId: number): string;
+  getTrekImageSrc(trek: Trek, picture?: Picture): string;
+  getTreksMapUrl(): string;
+  getTrekMapUrl(trekId: number): string;
+  getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
+  getCommonImgSrc(): string;
+}
+
+/* Navigation contexts */
+
+export interface TrekContext {
+  offline: boolean;
+  pois: Pois;
+  originalTrek: Trek;
+  trek: HydratedTrek;
+  treksTool: TreksService;
+  mapConfig: MapboxOptions;
+  touristicContents: TouristicContents;
+  touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
+  touristicEvents: TouristicEvents;
+  commonSrc: string;
+}
+
+export interface TreksContext {
+  offline: boolean;
+  treksTool: TreksService;
+  mapConfig: any;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'HydratedTrekProperties.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

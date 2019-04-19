@@ -4,23 +4,19 @@
 
 _Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_
 
-```
-npm install -g ionic
+    npm install -g ionic
 
-git clone git@github.com:GeotrekCE/Geotrek-mobile.git
+    git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 
-cd geotrek-mobile-refonte-ionic
+    cd geotrek-mobile-refonte-ionic
 
-npm install
-```
+    npm install
 
 # RUN THE APP IN THE BROWSER
 
 _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.ts'_ with your personal api url
 
-```
-ionic serve
-```
+    ionic serve
 
 # RUN THE APP ON DEVICE
 
@@ -28,17 +24,13 @@ ionic serve
 
 _Need [iOS environment setup](https://ionicframework.com/docs/installation/ios) available only on macOS_
 
-```
-ionic cordova run ios
-```
+    ionic cordova run ios
 
 ## Android
 
 _Need [Android environment setup](https://ionicframework.com/docs/installation/android) available on Windows, macOS and Linux_
 
-```
-ionic cordova run android
-```
+    ionic cordova run android
 
 # BUILD RELEASE APP
 
@@ -46,15 +38,11 @@ _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment
 
 ## iOS
 
-```
-ionic cordova build ios --prod --release
-```
+    ionic cordova build ios --prod --release
 
 ## Android
 
-```
-ionic cordova build android --prod --release
-```
+    ionic cordova build android --prod --release
 
 # CUSTOMIZATION OPTIONS
 
@@ -64,15 +52,11 @@ You can find below all available options. You can easily overwrite them to custo
 
 App id
 
-```
-<widget  id="io.geotrek.starter" ...>
-```
+    <widget  id="io.geotrek.starter" ...>
 
 App name
 
-```
-<name>Geotrek Starter</name>
-```
+    <name>Geotrek Starter</name>
 
 ## src/environments/environment.ts & environment.prod.ts
 
@@ -108,11 +92,7 @@ _The most important point here is the primary color to customize your applicatio
 
 Then you just have to run
 
-```
-
-ionic cordova resources
-
-```
+    ionic cordova resources
 
 ## Other resources
 

@@ -1,0 +1,1995 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>geotrek-mobile documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">geotrek-mobile documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TreksPage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/treks/treks.page.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+                <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+    </p>
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/FilterTreksService.html" target="_self" >FilterTreksService</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-treks</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>treks.page.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>treks.page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#appName">appName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#colSize">colSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#content">content</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currentMaxTreks">currentMaxTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#filteredTreks">filteredTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#loaderStatus">loaderStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#loading">loading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#mapLink">mapLink</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#nbOfflineTreks">nbOfflineTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#noNetwork">noNetwork</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#numberOfActiveFilters">numberOfActiveFilters</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#offline">offline</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#offlineTreks">offlineTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#onlineTreks">onlineTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#platform">platform</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#treksByStep">treksByStep</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#treksTool">treksTool</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#subscriptions$$">subscriptions$$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#changeColSize">changeColSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#expandTreks">expandTreks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getMdColSize">getMdColSize</a>
+                            </li>
+                            <li>
+                                <a href="#ionViewWillEnter">ionViewWillEnter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#navigateToTrek">navigateToTrek</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#presentFilters">presentFilters</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#presentSearch">presentSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#resetFilters">resetFilters</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trackTrek">trackTrek</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(filterTreks: <a href="../injectables/FilterTreksService.html">FilterTreksService</a>, loading: <a href="../injectables/LoadingService.html">LoadingService</a>, modalController: ModalController, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, settings: <a href="../injectables/SettingsService.html">SettingsService</a>, network: Network, platform: Platform)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/treks/treks.page.ts:40</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>filterTreks</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FilterTreksService.html" target="_self" >FilterTreksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>loading</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LoadingService.html" target="_self" >LoadingService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>offlineTreks</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OfflineTreksService.html" target="_self" >OfflineTreksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>onlineTreks</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OnlineTreksService.html" target="_self" >OnlineTreksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>settings</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SettingsService.html" target="_self" >SettingsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>network</td>
+                                                  
+                                                        <td>
+                                                                    <code>Network</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeColSize"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            changeColSize
+                        </b>
+                        <a href="#changeColSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeColSize()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:116</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expandTreks"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            expandTreks
+                        </b>
+                        <a href="#expandTreks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>expandTreks()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:104</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMdColSize"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getMdColSize
+                        </b>
+                        <a href="#getMdColSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMdColSize()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:121</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ionViewWillEnter"></a>
+                    <span class="name">
+                        <b>
+                            ionViewWillEnter
+                        </b>
+                        <a href="#ionViewWillEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ionViewWillEnter()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateToTrek"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            navigateToTrek
+                        </b>
+                        <a href="#navigateToTrek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>navigateToTrek(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:154</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:63</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="presentFilters"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            presentFilters
+                        </b>
+                        <a href="#presentFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>presentFilters()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="presentSearch"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            presentSearch
+                        </b>
+                        <a href="#presentSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>presentSearch()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:139</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetFilters"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            resetFilters
+                        </b>
+                        <a href="#resetFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetFilters()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:158</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trackTrek"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            trackTrek
+                        </b>
+                        <a href="#trackTrek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>trackTrek(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, element: <a href="../interfaces/MinimalTrek.html">MinimalTrek</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:162</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                                <code><a href="../interfaces/MinimalTrek.html" target="_self" >MinimalTrek</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>number | null</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:17</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:11</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="appName"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            appName</b>
+                            <a href="#appName"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.appName</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/treks/treks.page.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="colSize"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            colSize</b>
+                            <a href="#colSize"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>12</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/treks/treks.page.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="content"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            content</b>
+                            <a href="#content"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>IonContent</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;content&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/treks/treks.page.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentMaxTreks"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            currentMaxTreks</b>
+                            <a href="#currentMaxTreks"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.treksByStep</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/treks/treks.page.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filteredTreks"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            filteredTreks</b>
+                            <a href="#filteredTreks"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MinimalTrek[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/treks/treks.page.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loaderStatus"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            loaderStatus</b>
+                            <a href="#loaderStatus"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" target="_blank" >Boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/treks/treks.page.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loading"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            loading</b>
+                            <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/LoadingService.html" target="_self" >LoadingService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/treks/treks.page.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mapLink"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            mapLink</b>
+                            <a href="#mapLink"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/treks/treks.page.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nbOfflineTreks"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            nbOfflineTreks</b>
+                            <a href="#nbOfflineTreks"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/treks/treks.page.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="noNetwork"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            noNetwork</b>
+                            <a href="#noNetwork"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/treks/treks.page.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="numberOfActiveFilters"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            numberOfActiveFilters</b>
+                            <a href="#numberOfActiveFilters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/treks/treks.page.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="offline"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            offline</b>
+                            <a href="#offline"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/treks/treks.page.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="offlineTreks"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            offlineTreks</b>
+                            <a href="#offlineTreks"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/OfflineTreksService.html" target="_self" >OfflineTreksService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/treks/treks.page.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onlineTreks"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            onlineTreks</b>
+                            <a href="#onlineTreks"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/OnlineTreksService.html" target="_self" >OnlineTreksService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/treks/treks.page.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="platform"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            platform</b>
+                            <a href="#platform"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Platform</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/treks/treks.page.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="treksByStep"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            treksByStep</b>
+                            <a href="#treksByStep"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.treksByStep</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/treks/treks.page.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="treksTool"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            treksTool</b>
+                            <a href="#treksTool"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TreksService.html" target="_self" >TreksService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/treks/treks.page.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions$$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                            subscriptions$$</b>
+                            <a href="#subscriptions$$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:5</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
+import { SettingsService } from &#x27;@app/services/settings/settings.service&#x27;;
+import { IonContent, ModalController } from &#x27;@ionic/angular&#x27;;
+import { combineLatest } from &#x27;rxjs&#x27;;
+import { map, mergeMap, delay } from &#x27;rxjs/operators&#x27;;
+import { Network } from &#x27;@ionic-native/network/ngx&#x27;;
+import { Platform } from &#x27;@ionic/angular&#x27;;
+
+import { environment } from &#x27;@env/environment&#x27;;
+import { UnSubscribe } from &#x27;@app/components/abstract/unsubscribe&#x27;;
+import { FiltersComponent } from &#x27;@app/components/filters/filters.component&#x27;;
+import { SearchComponent } from &#x27;@app/components/search/search.component&#x27;;
+import { MinimalTrek, TreksContext, TreksService } from &#x27;@app/interfaces/interfaces&#x27;;
+import { FilterTreksService } from &#x27;@app/services/filter-treks/filter-treks.service&#x27;;
+import { OnlineTreksService } from &#x27;@app/services/online-treks/online-treks.service&#x27;;
+import { OfflineTreksService } from &#x27;@app/services/offline-treks/offline-treks.service&#x27;;
+import { LoadingService } from &#x27;@app/services/loading/loading.service&#x27;;
+
+@Component({
+  selector: &#x27;app-treks&#x27;,
+  templateUrl: &#x27;treks.page.html&#x27;,
+  styleUrls: [&#x27;treks.page.scss&#x27;],
+  providers: [FilterTreksService],
+})
+export class TreksPage extends UnSubscribe implements OnInit {
+  public noNetwork &#x3D; false;
+  public appName: string &#x3D; environment.appName;
+  public treksByStep: number &#x3D; environment.treksByStep;
+  public colSize &#x3D; 12;
+  public filteredTreks: MinimalTrek[];
+  public mapLink: string;
+  public nbOfflineTreks &#x3D; 0;
+  public numberOfActiveFilters: string;
+  public offline &#x3D; false;
+  public currentMaxTreks: number &#x3D; environment.treksByStep;
+  public loaderStatus: Boolean;
+
+  private treksTool: TreksService;
+  @ViewChild(&#x27;content&#x27;) private content: IonContent;
+
+  constructor(
+    private filterTreks: FilterTreksService,
+    public loading: LoadingService,
+    private modalController: ModalController,
+    public offlineTreks: OfflineTreksService,
+    public onlineTreks: OnlineTreksService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private settings: SettingsService,
+    private network: Network,
+    public platform: Platform,
+  ) {
+    super();
+  }
+
+  ionViewWillEnter() {
+    if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
+      this.noNetwork &#x3D; this.network.type &#x3D;&#x3D;&#x3D; &#x27;none&#x27;;
+    }
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.subscriptions$$.push(
+      // load tools when enter route
+      this.route.data.subscribe(data &#x3D;&gt; {
+        const context: TreksContext &#x3D; data.context;
+        this.treksTool &#x3D; context.treksTool;
+        this.mapLink &#x3D; context.treksTool.getTreksMapUrl();
+        this.offline &#x3D; context.offline;
+      }),
+
+      // select treks when filter change or when we enter route
+      combineLatest(
+        this.route.data.pipe(
+          map(data &#x3D;&gt; data.context),
+          mergeMap((context: TreksContext) &#x3D;&gt; context.treksTool.filteredTreks$),
+        ),
+        this.filterTreks.activeFiltersNumber$,
+        this.settings.data$,
+      ).subscribe(([filteredTreks, numberOfActiveFilters, settings]) &#x3D;&gt; {
+        if (settings) {
+          if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
+            this.noNetwork &#x3D; this.network.type &#x3D;&#x3D;&#x3D; &#x27;none&#x27;;
+          }
+          this.numberOfActiveFilters &#x3D; !!numberOfActiveFilters ? &#x60;(${numberOfActiveFilters})&#x60; : &#x27;&#x27;;
+          this.filteredTreks &#x3D; &lt;MinimalTrek[]&gt;[...filteredTreks];
+        }
+      }),
+
+      // get number of offline treks
+      this.offlineTreks.treks$.subscribe(treks &#x3D;&gt; {
+        if (!treks) {
+          this.nbOfflineTreks &#x3D; 0;
+        } else {
+          this.nbOfflineTreks &#x3D; treks.features.length;
+        }
+      }),
+      this.loading.status.pipe(delay(0)).subscribe(status &#x3D;&gt; (this.loaderStatus &#x3D; status)),
+    );
+  }
+
+  public expandTreks() {
+    if (this.currentMaxTreks &lt; this.filteredTreks.length) {
+      if (this.currentMaxTreks + this.treksByStep &gt; this.filteredTreks.length) {
+        this.currentMaxTreks &#x3D; this.filteredTreks.length;
+      } else {
+        this.currentMaxTreks +&#x3D; this.treksByStep;
+      }
+    } else {
+      this.currentMaxTreks &#x3D; this.treksByStep;
+    }
+  }
+
+  public changeColSize(): void {
+    this.colSize &#x3D; this.colSize &#x3D;&#x3D;&#x3D; 12 ? 6 : 12;
+    this.content.scrollToTop();
+  }
+
+  public getMdColSize(): number {
+    return this.colSize / 2;
+  }
+
+  public async presentFilters(): Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: FiltersComponent,
+      componentProps: { isOnline: !this.offline },
+    });
+    await modal.present();
+
+    const { data } &#x3D; await modal.onDidDismiss();
+
+    if (data) {
+      this.content.scrollToTop();
+    }
+  }
+
+  public async presentSearch(): Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: SearchComponent,
+      componentProps: { isOnline: !this.offline },
+    });
+
+    await modal.present();
+
+    const { data } &#x3D; await modal.onDidDismiss();
+
+    if (data) {
+      this.navigateToTrek(data);
+    }
+  }
+
+  private navigateToTrek(id: number) {
+    this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
+  }
+
+  public resetFilters() {
+    this.settings.resetFilters();
+  }
+
+  public trackTrek(index: number, element: MinimalTrek): number | null {
+    return element ? element.properties.id : null;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;primary&quot;&gt;
+    &lt;ion-title&gt; {{ appName }} &lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+  &lt;ion-toolbar
+    *ngIf&#x3D;&quot;(!(onlineTreks.onlineTreksError$ | async) &amp;&amp; !offline &amp;&amp; !noNetwork) || (offline &amp;&amp; nbOfflineTreks &gt; 0)&quot;&gt;
+    &lt;ion-grid no-padding&gt;
+      &lt;ion-row&gt;
+        &lt;ion-col size&#x3D;&quot;10&quot;&gt;
+          &lt;ion-button (click)&#x3D;&quot;presentFilters()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button&quot;&gt;
+            {{ &#x27;toolbar.filters&#x27; | translate }}
+            {{ numberOfActiveFilters }}&lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;presentSearch()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button button-margin-left&quot;&gt;
+            {{ &#x27;toolbar.search&#x27; | translate }} &lt;/ion-button&gt;
+        &lt;/ion-col&gt;
+        &lt;ion-col size&#x3D;&quot;2&quot; text-right
+          [ngClass]&#x3D;&quot;{ &#x27;list-mode-card&#x27;: this.colSize &#x3D;&#x3D;&#x3D; 12, &#x27;list-mode-disabled&#x27; : loaderStatus }&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;reorder&quot; size&#x3D;&quot;large&quot; class&#x3D;&quot;icon-list-card&quot; (click)&#x3D;&quot;changeColSize()&quot;&gt;&lt;/ion-icon&gt;
+          &lt;ion-icon name&#x3D;&quot;apps&quot; size&#x3D;&quot;large&quot; class&#x3D;&quot;icon-list-square&quot; (click)&#x3D;&quot;changeColSize()&quot;&gt;&lt;/ion-icon&gt;
+        &lt;/ion-col&gt;
+      &lt;/ion-row&gt;
+    &lt;/ion-grid&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+&lt;ion-content style&#x3D;&quot;position : relative&quot; #content&gt;
+  &lt;app-loader&gt;&lt;/app-loader&gt;
+  &lt;ng-container *ngIf&#x3D;&quot;!offline; else treksList&quot;&gt;
+    &lt;app-connect-error *ngIf&#x3D;&quot;(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList&quot; icon&#x3D;&quot;wifi&quot;
+      title&#x3D;&quot;Problème de connexion&quot;
+      content&#x3D;&quot;Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées&quot;
+      buttonText&#x3D;&quot;Réessayez&quot; (retry)&#x3D;&quot;onlineTreks.loadTreks()&quot;&gt;
+    &lt;/app-connect-error&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-template #treksList&gt;
+    &lt;div *ngIf&#x3D;&quot;!!filteredTreks &amp;&amp; filteredTreks.length &gt; 0; else noTreks&quot;&gt;
+      &lt;ion-list&gt;
+        &lt;ion-grid fixed&gt;
+          &lt;ion-row align-items-stretch&gt;
+            &lt;ion-col [size]&#x3D;&quot;colSize&quot; [sizeMd]&#x3D;&quot;getMdColSize()&quot;
+              *ngFor&#x3D;&quot;let trek of filteredTreks | slice:0:currentMaxTreks; trackBy: trackTrek&quot;&gt;
+              &lt;app-trek-card [showAllData]&#x3D;&quot;(this.colSize &#x3D;&#x3D;&#x3D; 12)&quot; [trek]&#x3D;&quot;trek&quot; [offline]&#x3D;&quot;offline&quot;&gt;&lt;/app-trek-card&gt;
+            &lt;/ion-col&gt;
+          &lt;/ion-row&gt;
+        &lt;/ion-grid&gt;
+      &lt;/ion-list&gt;
+    &lt;/div&gt;
+
+    &lt;div *ngIf&#x3D;&quot;!!filteredTreks &amp;&amp; filteredTreks.length &gt; treksByStep&quot;&gt;
+      &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;expandTreks()&quot; [ngSwitch]&#x3D;&quot;filteredTreks.length &#x3D;&#x3D;&#x3D; this.currentMaxTreks&quot;&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;false&quot;&gt;
+          &lt;div translate *ngIf&#x3D;&quot;filteredTreks.length - this.currentMaxTreks &gt;&#x3D; treksByStep&quot;
+            [translateParams]&#x3D;&quot;{ nb: treksByStep}&quot;&gt;
+            treks.showAllLabel
+          &lt;/div&gt;
+          &lt;div translate *ngIf&#x3D;&quot;filteredTreks.length - this.currentMaxTreks &lt; treksByStep&quot;
+            [translateParams]&#x3D;&quot;{ nb: filteredTreks.length - this.currentMaxTreks}&quot;&gt;
+            treks.showAllLabel
+          &lt;/div&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;true&quot;&gt;
+          {{ &#x27;treks.hideAllLabel&#x27; | translate }}
+        &lt;/ng-container&gt;
+      &lt;/ion-button&gt;
+    &lt;/div&gt;
+    &lt;ion-fab *ngIf&#x3D;&quot;!!filteredTreks &amp;&amp; filteredTreks.length &gt; 0;&quot; vertical&#x3D;&quot;bottom&quot; horizontal&#x3D;&quot;end&quot; slot&#x3D;&quot;fixed&quot;&gt;
+      &lt;ion-fab-button class&#x3D;&quot;no-outline&quot; [routerLink]&#x3D;&quot;[mapLink]&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;map&quot;&gt;&lt;/ion-icon&gt;
+      &lt;/ion-fab-button&gt;
+    &lt;/ion-fab&gt;
+  &lt;/ng-template&gt;
+
+  &lt;ng-template #noTreks&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;offline&quot;&gt;
+      &lt;ng-container&gt;
+        &lt;ion-grid class&#x3D;&quot;flex-container&quot; [ngSwitch]&#x3D;&quot;nbOfflineTreks &gt; 0&quot;&gt;
+          &lt;ng-container *ngSwitchCase&#x3D;&quot;true&quot;&gt;
+            &lt;ion-row&gt;
+              &lt;ion-col *ngIf&#x3D;&quot;nbOfflineTreks &#x3D;&#x3D;&#x3D; 1&quot;&gt;
+                Les filtres sélectionnés ne correspondent pas à votre randonnée enregistrée.
+              &lt;/ion-col&gt;
+              &lt;ion-col *ngIf&#x3D;&quot;nbOfflineTreks &gt; 1&quot;&gt;
+                Les filtres sélectionnés ne correspondent à aucune de vos {{ nbOfflineTreks }} randonnées enregistrées.
+              &lt;/ion-col&gt;
+            &lt;/ion-row&gt;
+            &lt;ion-row&gt;
+              &lt;ion-col&gt;
+                &lt;ion-button (click)&#x3D;&quot;resetFilters()&quot; color&#x3D;&quot;light&quot;&gt;
+                  Afficher toutes les randonnées enregistrées
+                &lt;/ion-button&gt;
+              &lt;/ion-col&gt;
+            &lt;/ion-row&gt;
+          &lt;/ng-container&gt;
+          &lt;ion-row *ngSwitchCase&#x3D;&quot;false&quot;&gt;
+            &lt;ion-col&gt;
+              Ici, vous retrouverez vos randonnées disponibles hors ligne
+            &lt;/ion-col&gt;
+          &lt;/ion-row&gt;
+        &lt;/ion-grid&gt;
+      &lt;/ng-container&gt;
+    &lt;/ng-container&gt;
+  &lt;/ng-template&gt;
+&lt;/ion-content&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>treks.page.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.list-mode-card {
+  position: relative;
+}
+
+.icon-list-square {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.icon-list-card {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.list-mode-card .icon-list-card {
+  transform: scale(0);
+}
+
+.list-mode-card .icon-list-square {
+  transform: scale(1);
+}
+
+.list-mode-disabled {
+  cursor: default;
+  opacity: .5;
+  pointer-events: none;
+}
+
+.custom-button {
+  width: 100px;
+  text-transform: capitalize;
+}
+
+.button-margin-left {
+  margin-left: 12px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)">    <ion-grid no-padding>      <ion-row>        <ion-col size="10">          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">            {{ \'toolbar.filters\' | translate }}            {{ numberOfActiveFilters }}</ion-button>          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">            {{ \'toolbar.search\' | translate }} </ion-button>        </ion-col>        <ion-col size="2" text-right          [ngClass]="{ \'list-mode-card\': this.colSize === 12, \'list-mode-disabled\' : loaderStatus }">          <ion-icon name="reorder" size="large" class="icon-list-card" (click)="changeColSize()"></ion-icon>          <ion-icon name="apps" size="large" class="icon-list-square" (click)="changeColSize()"></ion-icon>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content style="position : relative" #content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksList">    <app-connect-error *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList" icon="wifi"      title="Problème de connexion"      content="Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées"      buttonText="Réessayez" (retry)="onlineTreks.loadTreks()">    </app-connect-error>  </ng-container>  <ng-template #treksList>    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">      <ion-list>        <ion-grid fixed>          <ion-row align-items-stretch>            <ion-col [size]="colSize" [sizeMd]="getMdColSize()"              *ngFor="let trek of filteredTreks | slice:0:currentMaxTreks; trackBy: trackTrek">              <app-trek-card [showAllData]="(this.colSize === 12)" [trek]="trek" [offline]="offline"></app-trek-card>            </ion-col>          </ion-row>        </ion-grid>      </ion-list>    </div>    <div *ngIf="!!filteredTreks && filteredTreks.length > treksByStep">      <ion-button fill="clear" (click)="expandTreks()" [ngSwitch]="filteredTreks.length === this.currentMaxTreks">        <ng-container *ngSwitchCase="false">          <div translate *ngIf="filteredTreks.length - this.currentMaxTreks >= treksByStep"            [translateParams]="{ nb: treksByStep}">            treks.showAllLabel          </div>          <div translate *ngIf="filteredTreks.length - this.currentMaxTreks < treksByStep"            [translateParams]="{ nb: filteredTreks.length - this.currentMaxTreks}">            treks.showAllLabel          </div>        </ng-container>        <ng-container *ngSwitchCase="true">          {{ \'treks.hideAllLabel\' | translate }}        </ng-container>      </ion-button>    </div>    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0;" vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">        <ion-icon name="map"></ion-icon>      </ion-fab-button>    </ion-fab>  </ng-template>  <ng-template #noTreks>    <ng-container *ngIf="offline">      <ng-container>        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">          <ng-container *ngSwitchCase="true">            <ion-row>              <ion-col *ngIf="nbOfflineTreks === 1">                Les filtres sélectionnés ne correspondent pas à votre randonnée enregistrée.              </ion-col>              <ion-col *ngIf="nbOfflineTreks > 1">                Les filtres sélectionnés ne correspondent à aucune de vos {{ nbOfflineTreks }} randonnées enregistrées.              </ion-col>            </ion-row>            <ion-row>              <ion-col>                <ion-button (click)="resetFilters()" color="light">                  Afficher toutes les randonnées enregistrées                </ion-button>              </ion-col>            </ion-row>          </ng-container>          <ion-row *ngSwitchCase="false">            <ion-col>              Ici, vous retrouverez vos randonnées disponibles hors ligne            </ion-col>          </ion-row>        </ion-grid>      </ng-container>    </ng-container>  </ng-template></ion-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TreksPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TreksPage.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

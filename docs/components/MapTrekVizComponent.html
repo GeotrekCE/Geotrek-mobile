@@ -1,0 +1,1577 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>geotrek-mobile documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">geotrek-mobile documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>MapTrekVizComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/map-trek-viz/map-trek-viz.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+                <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+    </p>
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                    <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-map-trek-viz</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./map-trek-viz.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./map-trek-viz.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#map">map</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#markerPosition">markerPosition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#subscriptions$$">subscriptions$$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createMap">createMap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initializeLayers">initializeLayers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initializeSources">initializeSources</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateSources">updateSources</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#commonSrc">commonSrc</a>
+                            </li>
+                            <li>
+                                <a href="#currentPois">currentPois</a>
+                            </li>
+                            <li>
+                                <a href="#currentTrek">currentTrek</a>
+                            </li>
+                            <li>
+                                <a href="#dataSettings">dataSettings</a>
+                            </li>
+                            <li>
+                                <a href="#mapConfig">mapConfig</a>
+                            </li>
+                            <li>
+                                <a href="#touristicCategoriesWithFeatures">touristicCategoriesWithFeatures</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#mapIsLoaded">mapIsLoaded</a>
+                            </li>
+                            <li>
+                                <a href="#presentInformationDeskDetails">presentInformationDeskDetails</a>
+                            </li>
+                            <li>
+                                <a href="#presentPoiDetails">presentPoiDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(screenOrientation: ScreenOrientation, platform: Platform, geolocate: <a href="../injectables/GeolocateService.html">GeolocateService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>screenOrientation</td>
+                                                  
+                                                        <td>
+                                                                    <code>ScreenOrientation</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>geolocate</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GeolocateService.html" target="_self" >GeolocateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="commonSrc"></a>
+                        <b>commonSrc</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:42</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentPois"></a>
+                        <b>currentPois</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Pois.html" target="_self" >Pois</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:38</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentTrek"></a>
+                        <b>currentTrek</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HydratedTrek | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataSettings"></a>
+                        <b>dataSettings</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/DataSetting.html" target="_self" >DataSetting[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:40</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mapConfig"></a>
+                        <b>mapConfig</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MapboxOptions</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:41</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="touristicCategoriesWithFeatures"></a>
+                        <b>touristicCategoriesWithFeatures</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TouristicCategoryWithFeatures.html" target="_self" >TouristicCategoryWithFeatures[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:39</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mapIsLoaded"></a>
+                        <b>mapIsLoaded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:45</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="presentInformationDeskDetails"></a>
+                        <b>presentInformationDeskDetails</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:44</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="presentPoiDetails"></a>
+                        <b>presentPoiDetails</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:43</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createMap"></a>
+                    <span class="name">
+                        <b>
+                            createMap
+                        </b>
+                        <a href="#createMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createMap()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:84</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeLayers"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initializeLayers
+                        </b>
+                        <a href="#initializeLayers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initializeLayers()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="286"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:286</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeSources"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initializeSources
+                        </b>
+                        <a href="#initializeSources"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initializeSources()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="242"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:242</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <b>
+                            ngOnChanges
+                        </b>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>changes</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:74</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSources"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateSources
+                        </b>
+                        <a href="#updateSources"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateSources()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="368"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:368</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:17</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:11</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="map"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            map</b>
+                            <a href="#map"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Map</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="markerPosition"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            markerPosition</b>
+                            <a href="#markerPosition"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Marker</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions$$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                            subscriptions$$</b>
+                            <a href="#subscriptions$$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:5</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from &#x27;@angular/core&#x27;;
+import { GeolocateService } from &#x27;@app/services/geolocate/geolocate.service&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { UnSubscribe } from &#x27;@app/components/abstract/unsubscribe&#x27;;
+import {
+  Pois,
+  DataSetting,
+  HydratedTrek,
+  TouristicCategoryWithFeatures,
+  TouristicContent,
+} from &#x27;@app/interfaces/interfaces&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
+import { ScreenOrientation } from &#x27;@ionic-native/screen-orientation/ngx&#x27;;
+import { Platform } from &#x27;@ionic/angular&#x27;;
+import { FeatureCollection } from &#x27;geojson&#x27;;
+import { GeoJSONSource, Map, MapLayerMouseEvent, MapboxOptions, Marker } from &#x27;mapbox-gl&#x27;;
+
+const mapboxgl &#x3D; require(&#x27;mapbox-gl&#x27;);
+
+@Component({
+  selector: &#x27;app-map-trek-viz&#x27;,
+  templateUrl: &#x27;./map-trek-viz.component.html&#x27;,
+  styleUrls: [&#x27;./map-trek-viz.component.scss&#x27;],
+})
+export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
+  private map: Map;
+  private markerPosition: Marker;
+  @Input() currentTrek: HydratedTrek | null &#x3D; null;
+  @Input() currentPois: Pois;
+  @Input() touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
+  @Input() public dataSettings: DataSetting[];
+  @Input() public mapConfig: MapboxOptions;
+  @Input() private commonSrc: string;
+  @Output() presentPoiDetails &#x3D; new EventEmitter&lt;any&gt;();
+  @Output() presentInformationDeskDetails &#x3D; new EventEmitter&lt;any&gt;();
+  @Output() mapIsLoaded &#x3D; new EventEmitter&lt;any&gt;();
+
+  constructor(
+    private screenOrientation: ScreenOrientation,
+    private platform: Platform,
+    private geolocate: GeolocateService,
+  ) {
+    super();
+    if (environment &amp;&amp; environment.mapbox &amp;&amp; environment.mapbox.accessToken) {
+      mapboxgl.accessToken &#x3D; environment.mapbox.accessToken;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const changesCurrentTrek: SimpleChange &#x3D; changes.currentTrek;
+    const changesCurrentPois: SimpleChange &#x3D; changes.currentPois;
+    const touristicCategoriesWithFeatures: SimpleChange &#x3D; changes.touristicCategoriesWithFeatures;
+    if (
+      !!this.currentTrek &amp;&amp;
+      !!this.currentPois &amp;&amp;
+      !!this.touristicCategoriesWithFeatures &amp;&amp;
+      ((changesCurrentTrek &amp;&amp; !changesCurrentTrek.previousValue) ||
+        (changesCurrentPois &amp;&amp; !changesCurrentPois.previousValue) ||
+        (touristicCategoriesWithFeatures &amp;&amp; !touristicCategoriesWithFeatures.previousValue))
+    ) {
+      this.createMap();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
+    }
+
+    this.geolocate.stopTracking();
+
+    super.ngOnDestroy();
+  }
+
+  createMap(): void {
+    if (this.mapConfig &amp;&amp; this.mapConfig.style) {
+      this.map &#x3D; new Map({
+        ...this.mapConfig,
+        container: &#x27;map-trek&#x27;,
+      });
+
+      this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : &#x27;&#x27;);
+
+      if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
+        this.subscriptions$$.push(
+          this.screenOrientation.onChange().subscribe(() &#x3D;&gt; {
+            // Need to delay before resize ...
+            window.setTimeout(() &#x3D;&gt; {
+              this.map.resize();
+            }, 50);
+          }),
+        );
+      }
+
+      this.map.on(&#x27;click&#x27;, &#x27;pois-icon&#x27;, (e: MapLayerMouseEvent) &#x3D;&gt; {
+        if (!!e.features &amp;&amp; e.features.length &gt; 0) {
+          const poi &#x3D; { ...e.features[0] };
+          if (poi.properties &amp;&amp; poi.properties.pictures) {
+            poi.properties.pictures &#x3D; JSON.parse(poi.properties.pictures);
+          }
+          this.presentPoiDetails.emit(poi);
+        }
+      });
+
+      this.map.on(&#x27;click&#x27;, &#x27;information-desk-icon&#x27;, (e: MapLayerMouseEvent) &#x3D;&gt; {
+        if (!!e.features &amp;&amp; e.features.length &gt; 0) {
+          if (e.features[0] &amp;&amp; e.features[0].properties &amp;&amp; e.features[0].properties.id &amp;&amp; this.currentTrek) {
+            const informationDesk &#x3D; this.currentTrek.properties.information_desks.find(
+              informationDeskProperty &#x3D;&gt; informationDeskProperty.id &#x3D;&#x3D;&#x3D; (e as any).features[0].properties.id,
+            );
+            this.presentInformationDeskDetails.emit(informationDesk);
+          }
+        }
+      });
+
+      this.map.on(&#x27;click&#x27;, &#x27;touristics-content-icon&#x27;, (e: MapLayerMouseEvent) &#x3D;&gt; {
+        if (!!e.features &amp;&amp; e.features.length &gt; 0) {
+          const touristicContent &#x3D; { ...e.features[0] };
+          if (touristicContent.properties &amp;&amp; touristicContent.properties.pictures) {
+            touristicContent.properties.pictures &#x3D; JSON.parse(touristicContent.properties.pictures);
+          }
+          this.presentPoiDetails.emit(touristicContent);
+        }
+      });
+
+      this.map.on(&#x27;mouseenter&#x27;, &#x27;pois-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;pointer&#x27;;
+      });
+
+      this.map.on(&#x27;mouseleave&#x27;, &#x27;pois-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;&#x27;;
+      });
+
+      this.map.on(&#x27;mouseenter&#x27;, &#x27;information-desk-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;pointer&#x27;;
+      });
+
+      this.map.on(&#x27;mouseleave&#x27;, &#x27;information-desk-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;&#x27;;
+      });
+
+      this.map.on(&#x27;mouseenter&#x27;, &#x27;touristics-content-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;pointer&#x27;;
+      });
+
+      this.map.on(&#x27;mouseleave&#x27;, &#x27;touristics-content-icon&#x27;, () &#x3D;&gt; {
+        this.map.getCanvas().style.cursor &#x3D; &#x27;&#x27;;
+      });
+
+      this.map.on(&#x27;load&#x27;, () &#x3D;&gt; {
+        const loadImages: Observable&lt;any&gt; &#x3D; Observable.create((observer: any) &#x3D;&gt; {
+          const imagesToLoad: any[] &#x3D; [];
+          const typePois: DataSetting | undefined &#x3D; this.dataSettings.find(data &#x3D;&gt; data.id &#x3D;&#x3D;&#x3D; &#x27;poi_types&#x27;);
+          if (typePois) {
+            typePois.values.forEach(typePoi &#x3D;&gt; {
+              imagesToLoad.push({ id: &#x60;pois${typePoi.id}&#x60;, pictogram: typePoi.pictogram });
+            });
+          }
+
+          const typeInformationDesks: DataSetting | undefined &#x3D; this.dataSettings.find(
+            data &#x3D;&gt; data.id &#x3D;&#x3D;&#x3D; &#x27;information_desk_types&#x27;,
+          );
+          if (typeInformationDesks) {
+            typeInformationDesks.values.forEach(typeInformationDesk &#x3D;&gt; {
+              imagesToLoad.push({
+                id: &#x60;informationDesk${typeInformationDesk.id}&#x60;,
+                pictogram: typeInformationDesk.pictogram,
+              });
+            });
+          }
+
+          const touristicsContent: DataSetting | undefined &#x3D; this.dataSettings.find(
+            data &#x3D;&gt; data.id &#x3D;&#x3D;&#x3D; &#x27;touristiccontent_categories&#x27;,
+          );
+          if (touristicsContent) {
+            touristicsContent.values.forEach(touristicContent &#x3D;&gt; {
+              imagesToLoad.push({
+                id: &#x60;touristicContent${touristicContent.id}&#x60;,
+                pictogram: touristicContent.pictogram,
+              });
+            });
+          }
+
+          imagesToLoad.push({ id: &#x27;arrival&#x27;, pictogram: &#x27;./assets/map/icons/departure.png&#x27;, fromAssets: true });
+          imagesToLoad.push({ id: &#x27;departure&#x27;, pictogram: &#x27;./assets/map/icons/arrival.png&#x27;, fromAssets: true });
+          imagesToLoad.push({
+            id: &#x27;departureArrival&#x27;,
+            pictogram: &#x27;./assets/map/icons/departureArrival.png&#x27;,
+            fromAssets: true,
+          });
+          imagesToLoad.push({ id: &#x27;parking&#x27;, pictogram: &#x27;./assets/map/icons/parking.png&#x27;, fromAssets: true });
+
+          imagesToLoad.forEach((imageToLoad: any, index: number) &#x3D;&gt; {
+            this.map.loadImage(
+              imageToLoad.fromAssets ? imageToLoad.pictogram : &#x60;${this.commonSrc}${imageToLoad.pictogram}&#x60;,
+              (error: any, image: any) &#x3D;&gt; {
+                observer.next({ id: imageToLoad.id.toString(), image });
+                if (index + 1 &#x3D;&#x3D;&#x3D; imagesToLoad.length) {
+                  observer.complete();
+                }
+              },
+            );
+          });
+        });
+
+        this.subscriptions$$.push(
+          this.geolocate.currentPosition$.subscribe(coordinates &#x3D;&gt; {
+            if (coordinates) {
+              if (this.markerPosition) {
+                this.markerPosition.setLngLat(coordinates);
+              } else {
+                const el &#x3D; document.createElement(&#x27;div&#x27;);
+                el.className &#x3D; &#x27;pulse&#x27;;
+                this.markerPosition &#x3D; new mapboxgl.Marker({ element: el }).setLngLat(coordinates);
+                this.markerPosition.addTo(this.map);
+              }
+            }
+          }),
+          loadImages.subscribe({
+            next: value &#x3D;&gt; this.map.addImage(value.id, value.image),
+            complete: () &#x3D;&gt; {
+              this.initializeSources();
+              this.initializeLayers();
+              this.updateSources();
+              this.mapIsLoaded.emit(true);
+            },
+          }),
+        );
+      });
+    }
+  }
+
+  private initializeSources(): void {
+    const data: FeatureCollection &#x3D; {
+      type: &#x27;FeatureCollection&#x27;,
+      features: [],
+    };
+
+    this.map.addSource(&#x27;zone&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data: &#x27;assets/map/zone/zone.geojson&#x27;,
+    });
+
+    this.map.addSource(&#x27;trek&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+    });
+
+    this.map.addSource(&#x27;departure-arrival&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+    });
+
+    this.map.addSource(&#x27;pois&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+      maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
+    });
+
+    this.map.addSource(&#x27;touristics-content&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+      maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
+    });
+
+    this.map.addSource(&#x27;information-desk&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+    });
+
+    this.map.addSource(&#x27;parking&#x27;, {
+      type: &#x27;geojson&#x27;,
+      data,
+    });
+  }
+
+  private initializeLayers(): void {
+    this.map.addLayer({
+      id: &#x27;zone&#x27;,
+      source: &#x27;zone&#x27;,
+      ...(environment.map.zoneLayerProperties as any),
+    });
+
+    this.map.addLayer({
+      id: &#x27;zone-outline&#x27;,
+      source: &#x27;zone&#x27;,
+      ...(environment.map.zoneOutlineLayerProperties as any),
+    });
+
+    this.map.addLayer({
+      id: &#x27;trek-line&#x27;,
+      type: &#x27;line&#x27;,
+      source: &#x27;trek&#x27;,
+      ...(environment.map.trekLineLayerProperties as any),
+    });
+
+    this.map.addLayer({
+      id: &#x27;pois-icon&#x27;,
+      type: &#x27;symbol&#x27;,
+      source: &#x27;pois&#x27;,
+      layout: {
+        &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;pois&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;]],
+        &#x27;icon-size&#x27;: environment.map.iconSize,
+        &#x27;icon-allow-overlap&#x27;: true,
+      },
+    });
+
+    this.map.addLayer({
+      id: &#x27;touristics-content-icon&#x27;,
+      type: &#x27;symbol&#x27;,
+      source: &#x27;touristics-content&#x27;,
+      layout: {
+        &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;touristicContent&#x27;, [&#x27;get&#x27;, &#x27;category&#x27;]],
+        &#x27;icon-size&#x27;: 1,
+        &#x27;icon-allow-overlap&#x27;: true,
+      },
+    });
+
+    this.map.addLayer({
+      id: &#x27;information-desk-icon&#x27;,
+      type: &#x27;symbol&#x27;,
+      source: &#x27;information-desk&#x27;,
+      layout: {
+        &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;informationDesk&#x27;, [&#x27;get&#x27;, &#x27;id&#x27;, [&#x27;object&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;]]]],
+        &#x27;icon-size&#x27;: 0.5,
+        &#x27;icon-allow-overlap&#x27;: true,
+      },
+    });
+
+    this.map.addLayer({
+      id: &#x27;parking-icon&#x27;,
+      type: &#x27;symbol&#x27;,
+      source: &#x27;parking&#x27;,
+      layout: {
+        &#x27;icon-image&#x27;: &#x27;parking&#x27;,
+        &#x27;icon-size&#x27;: 0.6,
+        &#x27;icon-allow-overlap&#x27;: true,
+      },
+    });
+
+    this.map.addLayer({
+      id: &#x27;departure-arrival-icon&#x27;,
+      type: &#x27;symbol&#x27;,
+      source: &#x27;departure-arrival&#x27;,
+      layout: {
+        &#x27;icon-image&#x27;: [
+          &#x27;case&#x27;,
+          [&#x27;&#x3D;&#x3D;&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;], &#x27;departure&#x27;],
+          &#x27;departure&#x27;,
+          [&#x27;&#x3D;&#x3D;&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;], &#x27;arrival&#x27;],
+          &#x27;arrival&#x27;,
+          &#x27;departureArrival&#x27;,
+        ],
+        &#x27;icon-size&#x27;: 0.8,
+      },
+    });
+  }
+
+  private updateSources(): void {
+    if (!!this.map &amp;&amp; !!this.currentTrek) {
+      const trekSource &#x3D; this.map.getSource(&#x27;trek&#x27;) as GeoJSONSource;
+      if (trekSource) {
+        trekSource.setData(this.currentTrek);
+      }
+      const departureArrivalSource &#x3D; this.map.getSource(&#x27;departure-arrival&#x27;) as GeoJSONSource;
+      if (departureArrivalSource) {
+        const departure &#x3D; this.currentTrek.geometry.coordinates[0];
+        const arrival &#x3D; this.currentTrek.geometry.coordinates.slice(-1)[0];
+        const departureArrivalData: FeatureCollection &#x3D; {
+          type: &#x27;FeatureCollection&#x27;,
+          features: [],
+        };
+        if (departure[0] &#x3D;&#x3D;&#x3D; arrival[0] &amp;&amp; departure[1] &#x3D;&#x3D;&#x3D; arrival[1]) {
+          // same departure arrival
+          departureArrivalData.features.push({
+            type: &#x27;Feature&#x27;,
+            geometry: { type: &#x27;Point&#x27;, coordinates: departure },
+            properties: {
+              type: &#x27;departure-arrival&#x27;,
+            },
+          });
+        } else {
+          departureArrivalData.features.push({
+            type: &#x27;Feature&#x27;,
+            geometry: { type: &#x27;Point&#x27;, coordinates: departure },
+            properties: {
+              type: &#x27;departure&#x27;,
+            },
+          });
+          departureArrivalData.features.push({
+            type: &#x27;Feature&#x27;,
+            geometry: { type: &#x27;Point&#x27;, coordinates: arrival },
+            properties: {
+              type: &#x27;arrival&#x27;,
+            },
+          });
+        }
+        departureArrivalSource.setData(departureArrivalData);
+      }
+      const poisSource &#x3D; this.map.getSource(&#x27;pois&#x27;) as GeoJSONSource;
+      if (poisSource) {
+        poisSource.setData(this.currentPois);
+      }
+
+      const touristicsContent &#x3D; this.map.getSource(&#x27;touristics-content&#x27;) as GeoJSONSource;
+      if (touristicsContent) {
+        let touristicsContentFeatures: TouristicContent[] &#x3D; [];
+        this.touristicCategoriesWithFeatures.forEach(touristicCategoryWithFeatures &#x3D;&gt; {
+          touristicsContentFeatures &#x3D; touristicsContentFeatures.concat(touristicCategoryWithFeatures.features);
+        });
+
+        const touristics_content: FeatureCollection &#x3D; {
+          type: &#x27;FeatureCollection&#x27;,
+          features: touristicsContentFeatures,
+        };
+
+        touristicsContent.setData(touristics_content);
+      }
+
+      const parkingSource &#x3D; this.map.getSource(&#x27;parking&#x27;) as GeoJSONSource;
+      if (parkingSource) {
+        const parking: FeatureCollection &#x3D; {
+          type: &#x27;FeatureCollection&#x27;,
+          features: [],
+        };
+        parking.features.push({
+          type: &#x27;Feature&#x27;,
+          geometry: { type: &#x27;Point&#x27;, coordinates: this.currentTrek.properties.parking_location },
+          properties: {},
+        });
+        parkingSource.setData(parking);
+      }
+
+      const information_desk &#x3D; this.map.getSource(&#x27;information-desk&#x27;) as GeoJSONSource;
+      if (
+        information_desk &amp;&amp;
+        this.currentTrek.properties.information_desks &amp;&amp;
+        this.currentTrek.properties.information_desks.length &gt; 0
+      ) {
+        const information_desks: FeatureCollection &#x3D; {
+          type: &#x27;FeatureCollection&#x27;,
+          features: [],
+        };
+
+        this.currentTrek.properties.information_desks.forEach(information_desk_property &#x3D;&gt; {
+          if (information_desk_property.longitude &amp;&amp; information_desk_property.latitude) {
+            information_desks.features.push({
+              type: &#x27;Feature&#x27;,
+              geometry: {
+                type: &#x27;Point&#x27;,
+                coordinates: [information_desk_property.longitude, information_desk_property.latitude],
+              },
+              properties: {
+                type: information_desk_property.type,
+                id: information_desk_property.id,
+              },
+            });
+          }
+        });
+
+        information_desk.setData(information_desks);
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div id&#x3D;&quot;map-trek&quot; class&#x3D;&quot;map-viz&quot;&gt;&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./map-trek-viz.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div id="map-trek" class="map-viz"></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MapTrekVizComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MapTrekVizComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

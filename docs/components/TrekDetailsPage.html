@@ -1,0 +1,1783 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>geotrek-mobile documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">geotrek-mobile documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TrekDetailsPage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/trek-details/trek-details.page.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+                <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+    </p>
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-trek-details</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./trek-details.page.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./trek-details.page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#baseUrl">baseUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#commonSrc">commonSrc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#connectionError">connectionError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currentPois">currentPois</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currentTrek">currentTrek</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#mapLink">mapLink</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#modalController">modalController</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#offline">offline</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#originalTrek">originalTrek</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#touristicCategoriesWithFeatures">touristicCategoriesWithFeatures</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#touristicContents">touristicContents</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#touristicEvents">touristicEvents</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trekDownloading">trekDownloading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#treksTool">treksTool</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#treksUrl">treksUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#subscriptions$$">subscriptions$$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadTrek">downloadTrek</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getPictureSrc">getPictureSrc</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#presentDownloadConfirm">presentDownloadConfirm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#refresh">refresh</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, alertController: AlertController, translate: TranslateService, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, modalController: ModalController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>onlineTreks</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OnlineTreksService.html" target="_self" >OnlineTreksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>offlineTreks</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OfflineTreksService.html" target="_self" >OfflineTreksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>alertController</td>
+                                                  
+                                                        <td>
+                                                                    <code>AlertController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadTrek"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            downloadTrek
+                        </b>
+                        <a href="#downloadTrek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadTrek()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="85"
+                            class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:85</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPictureSrc"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getPictureSrc
+                        </b>
+                        <a href="#getPictureSrc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPictureSrc(picture: <a href="../interfaces/Picture.html">Picture</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:139</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>picture</td>
+                                    <td>
+                                                <code><a href="../interfaces/Picture.html" target="_self" >Picture</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:56</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="presentDownloadConfirm"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            presentDownloadConfirm
+                        </b>
+                        <a href="#presentDownloadConfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>presentDownloadConfirm(isAlert?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, success?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:113</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>isAlert</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>success</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refresh"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            refresh
+                        </b>
+                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>refresh()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:143</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:17</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:11</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="baseUrl"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            baseUrl</b>
+                            <a href="#baseUrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.onlineBaseUrl</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="commonSrc"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            commonSrc</b>
+                            <a href="#commonSrc"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="connectionError"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            connectionError</b>
+                            <a href="#connectionError"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentPois"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            currentPois</b>
+                            <a href="#currentPois"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Poi.html" target="_self" >Poi[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentTrek"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            currentTrek</b>
+                            <a href="#currentTrek"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/HydratedTrek.html" target="_self" >HydratedTrek</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mapLink"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            mapLink</b>
+                            <a href="#mapLink"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modalController"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            modalController</b>
+                            <a href="#modalController"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ModalController</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:51</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="offline"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            offline</b>
+                            <a href="#offline"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="originalTrek"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            originalTrek</b>
+                            <a href="#originalTrek"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Trek.html" target="_self" >Trek</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="touristicCategoriesWithFeatures"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            touristicCategoriesWithFeatures</b>
+                            <a href="#touristicCategoriesWithFeatures"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TouristicCategoryWithFeatures.html" target="_self" >TouristicCategoryWithFeatures[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="touristicContents"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            touristicContents</b>
+                            <a href="#touristicContents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TouristicContents.html" target="_self" >TouristicContents</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="touristicEvents"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            touristicEvents</b>
+                            <a href="#touristicEvents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TouristicEvent.html" target="_self" >TouristicEvent[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="trekDownloading"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            trekDownloading</b>
+                            <a href="#trekDownloading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="treksTool"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            treksTool</b>
+                            <a href="#treksTool"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/TreksService.html" target="_self" >TreksService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="treksUrl"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            treksUrl</b>
+                            <a href="#treksUrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/trek-details/trek-details.page.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions$$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                            subscriptions$$</b>
+                            <a href="#subscriptions$$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/UnSubscribe.html" target="_self" >UnSubscribe</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/UnSubscribe.html#source" target="_self" >UnSubscribe:5</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute, Data, Router } from &#x27;@angular/router&#x27;;
+import { AlertController } from &#x27;@ionic/angular&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { UnSubscribe } from &#x27;@app/components/abstract/unsubscribe&#x27;;
+import {
+  HydratedTrek,
+  Picture,
+  Poi,
+  Trek,
+  TrekContext,
+  TreksService,
+  TouristicEvent,
+  TouristicCategoryWithFeatures,
+  TouristicContents,
+} from &#x27;@app/interfaces/interfaces&#x27;;
+import { OfflineTreksService } from &#x27;@app/services/offline-treks/offline-treks.service&#x27;;
+import { OnlineTreksService } from &#x27;@app/services/online-treks/online-treks.service&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
+import { ModalController } from &#x27;@ionic/angular&#x27;;
+import { ProgressComponent } from &#x27;@app/components/progress/progress.component&#x27;;
+
+@Component({
+  selector: &#x27;app-trek-details&#x27;,
+  templateUrl: &#x27;./trek-details.page.html&#x27;,
+  styleUrls: [&#x27;./trek-details.page.scss&#x27;],
+})
+export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
+  public originalTrek: Trek;
+  public currentTrek: HydratedTrek;
+  public offline &#x3D; false;
+  public currentPois: Poi[];
+  public touristicEvents: TouristicEvent[];
+  public touristicContents: TouristicContents;
+  public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
+  public baseUrl &#x3D; environment.onlineBaseUrl;
+  public mapLink: string;
+  public treksTool: TreksService; // the accurate treks service
+  public treksUrl &#x3D; &#x27;&#x27;;
+  public connectionError &#x3D; false;
+  public commonSrc: string;
+  public trekDownloading &#x3D; false;
+
+  constructor(
+    private onlineTreks: OnlineTreksService,
+    private offlineTreks: OfflineTreksService,
+    private route: ActivatedRoute,
+    private alertController: AlertController,
+    private translate: TranslateService,
+    private router: Router,
+    public modalController: ModalController,
+  ) {
+    super();
+  }
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    this.subscriptions$$.push(
+      this.route.data.subscribe(
+        (data: Data): void &#x3D;&gt; {
+          const context: TrekContext | null | &#x27;connectionError&#x27; &#x3D; data.context;
+          if (context &#x3D;&#x3D;&#x3D; &#x27;connectionError&#x27;) {
+            this.connectionError &#x3D; true;
+          } else {
+            this.connectionError &#x3D; false;
+            if (context !&#x3D;&#x3D; null) {
+              this.offline &#x3D; context.offline;
+              this.currentTrek &#x3D; context.trek;
+              this.originalTrek &#x3D; context.originalTrek;
+              this.currentPois &#x3D; context.pois.features;
+              this.treksTool &#x3D; context.treksTool;
+              this.touristicContents &#x3D; context.touristicContents;
+              this.touristicCategoriesWithFeatures &#x3D; context.touristicCategoriesWithFeatures;
+              this.touristicEvents &#x3D; context.touristicEvents.features;
+              this.treksUrl &#x3D; this.treksTool.getTreksUrl();
+              this.commonSrc &#x3D; context.commonSrc;
+              this.mapLink &#x3D; context.treksTool.getTrekMapUrl(context.trek.properties.id);
+            }
+          }
+        },
+      ),
+    );
+  }
+
+  async downloadTrek() {
+    const simpleTrek &#x3D; this.onlineTreks.getMinimalTrekById(this.currentTrek.properties.id);
+    if (!simpleTrek) {
+      return;
+    }
+    this.offlineTreks.createNewProgressStream();
+
+    this.trekDownloading &#x3D; true;
+    const modalProgress &#x3D; await this.modalController.create({
+      component: ProgressComponent,
+      cssClass: &#x27;progress-modal&#x27;,
+    });
+    await modalProgress.present();
+
+    this.offlineTreks.saveTrek(simpleTrek, this.originalTrek, this.currentPois, this.touristicContents).subscribe(
+      saveResult &#x3D;&gt; {
+        this.trekDownloading &#x3D; false;
+        modalProgress.dismiss();
+        this.presentDownloadConfirm(true, saveResult);
+      },
+      saveResult &#x3D;&gt; {
+        this.trekDownloading &#x3D; false;
+        modalProgress.dismiss();
+        this.presentDownloadConfirm(true, saveResult);
+      },
+    );
+  }
+
+  public async presentDownloadConfirm(isAlert?: boolean, success?: boolean) {
+    await this.translate.get(&#x27;trek.downloadAlert&#x27;).subscribe(async trad &#x3D;&gt; {
+      const downloadConfirm &#x3D; await this.alertController.create({
+        header: trad.title,
+        message: isAlert ? (success ? trad.success : trad.error) : trad.content,
+        buttons: isAlert
+          ? [trad.confirmError]
+          : [
+              {
+                text: trad.cancelButton,
+                role: &#x27;cancel&#x27;,
+                cssClass: &#x27;secondary&#x27;,
+              },
+              {
+                text: trad.confirmButton,
+                handler: () &#x3D;&gt; {
+                  this.downloadTrek();
+                },
+              },
+            ],
+      });
+
+      await downloadConfirm.present();
+    });
+  }
+
+  public getPictureSrc(picture: Picture): string {
+    return this.treksTool.getTrekImageSrc(this.originalTrek, picture);
+  }
+
+  public refresh() {
+    this.router.navigate([this.router.url]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;primary&quot;&gt;
+    &lt;ion-buttons slot&#x3D;&quot;start&quot;&gt;
+      &lt;ion-back-button [defaultHref]&#x3D;&quot;treksUrl&quot;&gt;&lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+    &lt;ion-title *ngIf&#x3D;&quot;currentTrek&quot;&gt;{{ currentTrek.properties.name }}&lt;/ion-title&gt;
+    &lt;ion-buttons slot&#x3D;&quot;primary&quot; *ngIf&#x3D;&quot;!connectionError &amp;&amp; !offline&quot;&gt;
+      &lt;ion-button (click)&#x3D;&quot;presentDownloadConfirm()&quot;&gt;
+        &lt;ion-icon slot&#x3D;&quot;icon-only&quot; name&#x3D;&quot;download&quot;&gt;&lt;/ion-icon&gt;
+      &lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+&lt;ion-content&gt;
+  &lt;app-loader *ngIf&#x3D;&quot;!trekDownloading&quot;&gt;&lt;/app-loader&gt;
+
+  &lt;ng-container *ngIf&#x3D;&quot;connectionError &amp;&amp; !offline; else trekDetail&quot;&gt;
+    &lt;app-connect-error icon&#x3D;&quot;wifi&quot; title&#x3D;&quot;Problème de connexion&quot;
+      content&#x3D;&quot;Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée&quot;
+      buttonText&#x3D;&quot;Réessayez&quot; (retry)&#x3D;&quot;refresh()&quot;&gt;
+    &lt;/app-connect-error&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-template #trekDetail&gt;
+    &lt;div&gt;
+      &lt;ion-slides *ngIf&#x3D;&quot;currentTrek.properties.pictures &amp;&amp; currentTrek.properties.pictures.length &gt; 0&quot; pager&#x3D;&quot;true&quot;&gt;
+        &lt;ion-slide *ngFor&#x3D;&quot;let picture of currentTrek.properties.pictures&quot;&gt;
+          &lt;ion-img [src]&#x3D;&quot;getPictureSrc(picture)&quot; [alt]&#x3D;&quot;picture.title&quot;&gt;&lt;/ion-img&gt;
+        &lt;/ion-slide&gt;
+      &lt;/ion-slides&gt;
+      &lt;ion-fab *ngIf&#x3D;&quot;currentTrek&quot; class&#x3D;&quot;margin-fab&quot; vertical&#x3D;&quot;top&#x3D;&#x3D;&quot; horizontal&#x3D;&quot;end&quot; slot&#x3D;&quot;fixed&quot;&gt;
+        &lt;ion-fab-button class&#x3D;&quot;no-outline&quot; [routerLink]&#x3D;&quot;[mapLink]&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;map&quot;&gt;&lt;/ion-icon&gt;
+        &lt;/ion-fab-button&gt;
+      &lt;/ion-fab&gt;
+      &lt;ion-grid fixed&gt;
+        &lt;!-- Teaser --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.description_teaser&quot;&gt;
+          &lt;ion-col class&#x3D;&quot;bold&quot;&gt;
+            &lt;div [innerHTML]&#x3D;&quot;currentTrek.properties.description_teaser&quot;&gt;&lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Informations --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.departure || currentTrek.properties.arrival&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;div *ngIf&#x3D;&quot;
+              (currentTrek.properties.departure || currentTrek.properties.arrival) &amp;&amp;
+              currentTrek.properties.departure !&#x3D;&#x3D; currentTrek.properties.arrival
+            &quot;&gt;
+              &lt;div *ngIf&#x3D;&quot;currentTrek.properties.departure &amp;&amp; currentTrek.properties.departure.length &gt; 0&quot;&gt;
+                &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                  &lt;h5&gt;{{ &#x27;trek.details.departure&#x27; | translate }}&lt;/h5&gt;
+                &lt;/ion-text&gt;
+                &lt;div class&#x3D;&quot;inline&quot; *ngIf&#x3D;&quot;currentTrek.properties.departure_city&quot;&gt;
+                  {{ currentTrek.properties.departure_city.name }}
+                &lt;/div&gt;
+                {{ currentTrek.properties.departure }}
+              &lt;/div&gt;
+
+              &lt;div *ngIf&#x3D;&quot;currentTrek.properties.arrival &amp;&amp; currentTrek.properties.arrival.length &gt; 0&quot;&gt;
+                &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                  &lt;h5&gt;{{ &#x27;trek.details.arrival&#x27; | translate }}&lt;/h5&gt;
+                &lt;/ion-text&gt;
+                &lt;div class&#x3D;&quot;inline&quot; *ngIf&#x3D;&quot;currentTrek.properties.arrival_city&quot;&gt;
+                  {{ currentTrek.properties.departure_city.arrival_city }}
+                &lt;/div&gt;
+                {{currentTrek.properties.arrival }}
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;
+              (currentTrek.properties.departure || currentTrek.properties.arrival) &amp;&amp;
+              currentTrek.properties.departure &#x3D;&#x3D;&#x3D; currentTrek.properties.arrival
+            &quot;&gt;
+              &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                &lt;h5 class&#x3D;&quot;inline&quot;&gt;{{ &#x27;trek.details.departureArrival&#x27; | translate }}&lt;/h5&gt;
+              &lt;/ion-text&gt;
+              &lt;div&gt;
+                &lt;div class&#x3D;&quot;inline&quot; *ngIf&#x3D;&quot;currentTrek.properties.departure_city&quot;&gt;
+                  {{ currentTrek.properties.departure_city.name }}
+                &lt;/div&gt;
+                &lt;div&gt;
+                  {{ currentTrek.properties.departure }}
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;ion-row marginTop class&#x3D;&quot;font-medium ion-margin-top&quot;&gt;
+          &lt;ion-col size&#x3D;&quot;6&quot;&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.duration&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-icon class&#x3D;&quot;icon-detail&quot; name&#x3D;&quot;hourglass&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span *ngIf&#x3D;&quot;currentTrek.properties.duration &lt; 24&quot;&gt;
+                {{ currentTrek.properties.duration | number: &#x27;1.0-0&#x27; }}h&lt;span
+                  *ngIf&#x3D;&quot;currentTrek.properties.duration % 1 &gt; 0&quot;&gt;{{ 60 * (currentTrek.properties.duration % 1).toFixed(1) }}min&lt;/span&gt;
+              &lt;/span&gt;
+              &lt;span *ngIf&#x3D;&quot;currentTrek.properties.duration &gt;&#x3D; 24&quot;&gt;
+                {{ currentTrek.properties.duration / 24 | number: &#x27;1.0-0&#x27; }}j&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.ascent&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-icon class&#x3D;&quot;icon-detail&quot; name&#x3D;&quot;trending-up&quot;&gt;&lt;/ion-icon&gt;
+              {{ currentTrek.properties.ascent }} m
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.route&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-icon class&#x3D;&quot;icon-detail&quot; name&#x3D;&quot;swap&quot;&gt;&lt;/ion-icon&gt;
+              {{ currentTrek.properties.route.name }}
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+          &lt;ion-col size&#x3D;&quot;6&quot;&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.difficulty&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-img *ngIf&#x3D;&quot;currentTrek.properties.difficulty.pictogram&quot; class&#x3D;&quot;icon-detail&quot;
+                [src]&#x3D;&quot;commonSrc + currentTrek.properties.difficulty.pictogram&quot;&gt;&lt;/ion-img&gt;
+              {{ currentTrek.properties.difficulty.name }}
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.length&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-icon class&#x3D;&quot;icon-detail&quot; name&#x3D;&quot;resize&quot;&gt;&lt;/ion-icon&gt;
+              {{ currentTrek.properties.length / 1000 | number: &#x27;1.2-2&#x27; }} km
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.practice&quot; class&#x3D;&quot;extra-details&quot;&gt;
+              &lt;ion-img *ngIf&#x3D;&quot;currentTrek.properties.practice.pictogram&quot;
+                [style.background-color]&#x3D;&quot;currentTrek.properties.practice.color&quot; class&#x3D;&quot;icon-detail&quot;
+                [src]&#x3D;&quot;commonSrc + currentTrek.properties.practice.pictogram&quot;&gt;&lt;/ion-img&gt;
+              {{ currentTrek.properties.practice.name }}
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.themes &amp;&amp; currentTrek.properties.themes.length &gt; 0&quot;&gt;
+          &lt;ion-col size&#x3D;&quot;12&quot;&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h5&gt;{{ &#x27;trek.details.theme&#x27; | translate }}&lt;/h5&gt;
+            &lt;/ion-text&gt;
+          &lt;/ion-col&gt;
+          &lt;ion-col size&#x3D;&quot;6&quot; *ngFor&#x3D;&quot;let theme of currentTrek.properties.themes&quot;&gt;
+            &lt;div&gt;
+              &lt;ion-img *ngIf&#x3D;&quot;theme.pictogram&quot; class&#x3D;&quot;icon-detail&quot; [src]&#x3D;&quot;commonSrc + theme.pictogram&quot;&gt;&lt;/ion-img&gt;
+              {{ theme.name }}
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Description --&gt;
+        &lt;ion-row&gt;
+          &lt;ion-col&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.description&quot;&gt;
+              &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                &lt;h2&gt;{{ &#x27;trek.details.description&#x27; | translate }}&lt;/h2&gt;
+              &lt;/ion-text&gt;
+              &lt;div [innerHTML]&#x3D;&quot;currentTrek.properties.description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;currentTrek.properties.networks &amp;&amp; currentTrek.properties.networks.length &gt; 0&quot;&gt;
+              &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                &lt;h5 class&#x3D;&quot;inline&quot;&gt;Balisage&lt;/h5&gt;
+              &lt;/ion-text&gt;
+              &lt;div *ngFor&#x3D;&quot;let network of currentTrek.properties.networks&quot;&gt;
+                &lt;ion-img class&#x3D;&quot;icon-detail&quot; [src]&#x3D;&quot;commonSrc + network.pictogram&quot;&gt;&lt;/ion-img&gt;
+                &lt;span&gt;{{ network.name }}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Profile --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.profile &amp;&amp; currentTrek.properties.profile !&#x3D;&#x3D; &#x27;&#x27;&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.profile&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;div&gt;
+              &lt;ion-img [src]&#x3D;&quot;getPictureSrc({url : currentTrek.properties.profile})&quot; [alt]&#x3D;&quot;profile&quot;&gt;&lt;/ion-img&gt;
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Rules --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.is_park_centered&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.rules&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;p&gt;Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.&lt;/p&gt;
+            &lt;div&gt;
+              &lt;ion-img src&#x3D;&quot;assets/image/reglementation.jpg&quot; alt&#x3D;&quot;rules&quot;&gt;
+              &lt;/ion-img&gt;
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Access --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.access&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.access&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;div [innerHTML]&#x3D;&quot;currentTrek.properties.access&quot;&gt;&lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Parking --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.advised_parking&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.parking&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;div [innerHTML]&#x3D;&quot;currentTrek.properties.advised_parking&quot;&gt;&lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Recommandations --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentTrek.properties.advice&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.advice&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;div [innerHTML]&#x3D;&quot;currentTrek.properties.advice&quot;&gt;&lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Lieux de renseignement --&gt;
+        &lt;ion-row
+          *ngIf&#x3D;&quot;currentTrek.properties.information_desks &amp;&amp; currentTrek.properties.information_desks.length &gt; 0&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.desk&#x27; | translate }}&lt;/h2&gt;
+            &lt;/ion-text&gt;
+            &lt;div *ngFor&#x3D;&quot;let information_desk of currentTrek.properties.information_desks&quot;&gt;
+              &lt;h3 [innerHTML]&#x3D;&quot;information_desk.name&quot;&gt;&lt;/h3&gt;
+              &lt;ion-img *ngIf&#x3D;&quot;information_desk.picture &amp;&amp; information_desk.picture !&#x3D;&#x3D;&#x27;&#x27;&quot;
+                [src]&#x3D;&quot;baseUrl + information_desk.picture&quot;&gt;&lt;/ion-img&gt;
+              &lt;div [innerHTML]&#x3D;&quot;information_desk.description&quot;&gt;&lt;/div&gt;
+              &lt;div [innerHTML]&#x3D;&quot;information_desk.street&quot;&gt;&lt;/div&gt;
+              &lt;p&gt;{{ information_desk.postal_code }} {{ information_desk.municipality }}&lt;/p&gt;
+              &lt;p&gt;
+                &lt;a [href]&#x3D;&quot;information_desk.website&quot;&gt; Site web &lt;/a&gt; -
+                &lt;a [href]&#x3D;&quot;&#x27;mailto:&#x27; + information_desk.email&quot;&gt; Email &lt;/a&gt; -
+                &lt;a [href]&#x3D;&quot;&#x27;tel:&#x27; + information_desk.phone&quot;&gt;{{ information_desk.phone }}&lt;/a&gt;
+              &lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Pois --&gt;
+        &lt;ion-row *ngIf&#x3D;&quot;currentPois &amp;&amp; currentPois.length &gt; 0&quot;&gt;
+          &lt;ion-col&gt;
+            &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+              &lt;h2&gt;{{ &#x27;trek.details.poi.name&#x27; | translate }} ({{ currentPois.length }})&lt;/h2&gt;
+            &lt;/ion-text&gt;
+
+            &lt;ng-template #poiTemplate let-poi&#x3D;&quot;item&quot;&gt;
+              &lt;app-poi [poi]&#x3D;&quot;poi&quot; [offline]&#x3D;&quot;offline&quot;&gt;&lt;/app-poi&gt;
+            &lt;/ng-template&gt;
+
+            &lt;app-collapsible-list [items]&#x3D;&quot;currentPois&quot; [showAllLabel]&#x3D;&quot;&#x27;trek.details.poi.showAllLabel&#x27; | translate&quot;
+              [hideAllLabel]&#x3D;&quot;&#x27;trek.details.poi.hideAllLabel&#x27; | translate&quot; [itemTemplate]&#x3D;&quot;poiTemplate&quot;&gt;
+            &lt;/app-collapsible-list&gt;
+
+          &lt;/ion-col&gt;
+        &lt;/ion-row&gt;
+
+        &lt;!-- Touristic Contens --&gt;
+        &lt;div *ngIf&#x3D;&quot;touristicCategoriesWithFeatures &amp;&amp; touristicCategoriesWithFeatures.length &gt; 0&quot;&gt;
+          &lt;ion-row *ngFor&#x3D;&quot;let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures&quot;&gt;
+            &lt;ion-col&gt;
+              &lt;ion-text color&#x3D;&quot;primary&quot;&gt;
+                &lt;h2&gt;{{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})&lt;/h2&gt;
+              &lt;/ion-text&gt;
+
+              &lt;ng-template #touristicContentTemplate let-touristicContent&#x3D;&quot;item&quot;&gt;
+                &lt;app-poi [poi]&#x3D;&quot;touristicContent&quot; [offline]&#x3D;&quot;offline&quot;&gt;&lt;/app-poi&gt;
+              &lt;/ng-template&gt;
+
+              &lt;app-collapsible-list [items]&#x3D;&quot;touristicCategoryWithFeatures.features&quot;
+                [showAllLabel]&#x3D;&quot;(&#x27;trek.details.touristicContent.showAllLabel&#x27; | translate)&quot;
+                [hideAllLabel]&#x3D;&quot;(&#x27;trek.details.touristicContent.hideAllLabel&#x27; | translate)&quot;
+                [itemTemplate]&#x3D;&quot; touristicContentTemplate&quot;&gt;
+              &lt;/app-collapsible-list&gt;
+            &lt;/ion-col&gt;
+          &lt;/ion-row&gt;
+        &lt;/div&gt;
+      &lt;/ion-grid&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ion-content&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./trek-details.page.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.bold {
+  font-weight: 500;
+}
+
+.font-medium {
+  font-size: 18px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.margin-fab {
+  margin-top: -28px;
+}
+
+.extra-details {
+  line-height: 1.5;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.icon-detail {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  margin-right: 5px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-back-button [defaultHref]="treksUrl"></ion-back-button>    </ion-buttons>    <ion-title *ngIf="currentTrek">{{ currentTrek.properties.name }}</ion-title>    <ion-buttons slot="primary" *ngIf="!connectionError && !offline">      <ion-button (click)="presentDownloadConfirm()">        <ion-icon slot="icon-only" name="download"></ion-icon>      </ion-button>    </ion-buttons>  </ion-toolbar></ion-header><ion-content>  <app-loader *ngIf="!trekDownloading"></app-loader>  <ng-container *ngIf="connectionError && !offline; else trekDetail">    <app-connect-error icon="wifi" title="Problème de connexion"      content="Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée"      buttonText="Réessayez" (retry)="refresh()">    </app-connect-error>  </ng-container>  <ng-template #trekDetail>    <div>      <ion-slides *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0" pager="true">        <ion-slide *ngFor="let picture of currentTrek.properties.pictures">          <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>        </ion-slide>      </ion-slides>      <ion-fab *ngIf="currentTrek" class="margin-fab" vertical="top==" horizontal="end" slot="fixed">        <ion-fab-button class="no-outline" [routerLink]="[mapLink]">          <ion-icon name="map"></ion-icon>        </ion-fab-button>      </ion-fab>      <ion-grid fixed>        <!-- Teaser -->        <ion-row *ngIf="currentTrek.properties.description_teaser">          <ion-col class="bold">            <div [innerHTML]="currentTrek.properties.description_teaser"></div>          </ion-col>        </ion-row>        <!-- Informations -->        <ion-row *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival">          <ion-col>            <div *ngIf="              (currentTrek.properties.departure || currentTrek.properties.arrival) &&              currentTrek.properties.departure !== currentTrek.properties.arrival            ">              <div *ngIf="currentTrek.properties.departure && currentTrek.properties.departure.length > 0">                <ion-text color="primary">                  <h5>{{ \'trek.details.departure\' | translate }}</h5>                </ion-text>                <div class="inline" *ngIf="currentTrek.properties.departure_city">                  {{ currentTrek.properties.departure_city.name }}                </div>                {{ currentTrek.properties.departure }}              </div>              <div *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0">                <ion-text color="primary">                  <h5>{{ \'trek.details.arrival\' | translate }}</h5>                </ion-text>                <div class="inline" *ngIf="currentTrek.properties.arrival_city">                  {{ currentTrek.properties.departure_city.arrival_city }}                </div>                {{currentTrek.properties.arrival }}              </div>            </div>            <div *ngIf="              (currentTrek.properties.departure || currentTrek.properties.arrival) &&              currentTrek.properties.departure === currentTrek.properties.arrival            ">              <ion-text color="primary">                <h5 class="inline">{{ \'trek.details.departureArrival\' | translate }}</h5>              </ion-text>              <div>                <div class="inline" *ngIf="currentTrek.properties.departure_city">                  {{ currentTrek.properties.departure_city.name }}                </div>                <div>                  {{ currentTrek.properties.departure }}                </div>              </div>            </div>          </ion-col>        </ion-row>        <ion-row marginTop class="font-medium ion-margin-top">          <ion-col size="6">            <div *ngIf="currentTrek.properties.duration" class="extra-details">              <ion-icon class="icon-detail" name="hourglass"></ion-icon>              <span *ngIf="currentTrek.properties.duration < 24">                {{ currentTrek.properties.duration | number: \'1.0-0\' }}h<span                  *ngIf="currentTrek.properties.duration % 1 > 0">{{ 60 * (currentTrek.properties.duration % 1).toFixed(1) }}min</span>              </span>              <span *ngIf="currentTrek.properties.duration >= 24">                {{ currentTrek.properties.duration / 24 | number: \'1.0-0\' }}j</span>            </div>            <div *ngIf="currentTrek.properties.ascent" class="extra-details">              <ion-icon class="icon-detail" name="trending-up"></ion-icon>              {{ currentTrek.properties.ascent }} m            </div>            <div *ngIf="currentTrek.properties.route" class="extra-details">              <ion-icon class="icon-detail" name="swap"></ion-icon>              {{ currentTrek.properties.route.name }}            </div>          </ion-col>          <ion-col size="6">            <div *ngIf="currentTrek.properties.difficulty" class="extra-details">              <ion-img *ngIf="currentTrek.properties.difficulty.pictogram" class="icon-detail"                [src]="commonSrc + currentTrek.properties.difficulty.pictogram"></ion-img>              {{ currentTrek.properties.difficulty.name }}            </div>            <div *ngIf="currentTrek.properties.length" class="extra-details">              <ion-icon class="icon-detail" name="resize"></ion-icon>              {{ currentTrek.properties.length / 1000 | number: \'1.2-2\' }} km            </div>            <div *ngIf="currentTrek.properties.practice" class="extra-details">              <ion-img *ngIf="currentTrek.properties.practice.pictogram"                [style.background-color]="currentTrek.properties.practice.color" class="icon-detail"                [src]="commonSrc + currentTrek.properties.practice.pictogram"></ion-img>              {{ currentTrek.properties.practice.name }}            </div>          </ion-col>        </ion-row>        <ion-row *ngIf="currentTrek.properties.themes && currentTrek.properties.themes.length > 0">          <ion-col size="12">            <ion-text color="primary">              <h5>{{ \'trek.details.theme\' | translate }}</h5>            </ion-text>          </ion-col>          <ion-col size="6" *ngFor="let theme of currentTrek.properties.themes">            <div>              <ion-img *ngIf="theme.pictogram" class="icon-detail" [src]="commonSrc + theme.pictogram"></ion-img>              {{ theme.name }}            </div>          </ion-col>        </ion-row>        <!-- Description -->        <ion-row>          <ion-col>            <div *ngIf="currentTrek.properties.description">              <ion-text color="primary">                <h2>{{ \'trek.details.description\' | translate }}</h2>              </ion-text>              <div [innerHTML]="currentTrek.properties.description"></div>            </div>            <div *ngIf="currentTrek.properties.networks && currentTrek.properties.networks.length > 0">              <ion-text color="primary">                <h5 class="inline">Balisage</h5>              </ion-text>              <div *ngFor="let network of currentTrek.properties.networks">                <ion-img class="icon-detail" [src]="commonSrc + network.pictogram"></ion-img>                <span>{{ network.name }}</span>              </div>            </div>          </ion-col>        </ion-row>        <!-- Profile -->        <ion-row *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== \'\'">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.profile\' | translate }}</h2>            </ion-text>            <div>              <ion-img [src]="getPictureSrc({url : currentTrek.properties.profile})" [alt]="profile"></ion-img>            </div>          </ion-col>        </ion-row>        <!-- Rules -->        <ion-row *ngIf="currentTrek.properties.is_park_centered">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.rules\' | translate }}</h2>            </ion-text>            <p>Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.</p>            <div>              <ion-img src="assets/image/reglementation.jpg" alt="rules">              </ion-img>            </div>          </ion-col>        </ion-row>        <!-- Access -->        <ion-row *ngIf="currentTrek.properties.access">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.access\' | translate }}</h2>            </ion-text>            <div [innerHTML]="currentTrek.properties.access"></div>          </ion-col>        </ion-row>        <!-- Parking -->        <ion-row *ngIf="currentTrek.properties.advised_parking">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.parking\' | translate }}</h2>            </ion-text>            <div [innerHTML]="currentTrek.properties.advised_parking"></div>          </ion-col>        </ion-row>        <!-- Recommandations -->        <ion-row *ngIf="currentTrek.properties.advice">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.advice\' | translate }}</h2>            </ion-text>            <div [innerHTML]="currentTrek.properties.advice"></div>          </ion-col>        </ion-row>        <!-- Lieux de renseignement -->        <ion-row          *ngIf="currentTrek.properties.information_desks && currentTrek.properties.information_desks.length > 0">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.desk\' | translate }}</h2>            </ion-text>            <div *ngFor="let information_desk of currentTrek.properties.information_desks">              <h3 [innerHTML]="information_desk.name"></h3>              <ion-img *ngIf="information_desk.picture && information_desk.picture !==\'\'"                [src]="baseUrl + information_desk.picture"></ion-img>              <div [innerHTML]="information_desk.description"></div>              <div [innerHTML]="information_desk.street"></div>              <p>{{ information_desk.postal_code }} {{ information_desk.municipality }}</p>              <p>                <a [href]="information_desk.website"> Site web </a> -                <a [href]="\'mailto:\' + information_desk.email"> Email </a> -                <a [href]="\'tel:\' + information_desk.phone">{{ information_desk.phone }}</a>              </p>            </div>          </ion-col>        </ion-row>        <!-- Pois -->        <ion-row *ngIf="currentPois && currentPois.length > 0">          <ion-col>            <ion-text color="primary">              <h2>{{ \'trek.details.poi.name\' | translate }} ({{ currentPois.length }})</h2>            </ion-text>            <ng-template #poiTemplate let-poi="item">              <app-poi [poi]="poi" [offline]="offline"></app-poi>            </ng-template>            <app-collapsible-list [items]="currentPois" [showAllLabel]="\'trek.details.poi.showAllLabel\' | translate"              [hideAllLabel]="\'trek.details.poi.hideAllLabel\' | translate" [itemTemplate]="poiTemplate">            </app-collapsible-list>          </ion-col>        </ion-row>        <!-- Touristic Contens -->        <div *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0">          <ion-row *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures">            <ion-col>              <ion-text color="primary">                <h2>{{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})</h2>              </ion-text>              <ng-template #touristicContentTemplate let-touristicContent="item">                <app-poi [poi]="touristicContent" [offline]="offline"></app-poi>              </ng-template>              <app-collapsible-list [items]="touristicCategoryWithFeatures.features"                [showAllLabel]="(\'trek.details.touristicContent.showAllLabel\' | translate)"                [hideAllLabel]="(\'trek.details.touristicContent.hideAllLabel\' | translate)"                [itemTemplate]=" touristicContentTemplate">              </app-collapsible-list>            </ion-col>          </ion-row>        </div>      </ion-grid>    </div>  </ng-template></ion-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TrekDetailsPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TrekDetailsPage.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
