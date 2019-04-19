@@ -1,5 +1,7 @@
 # Geotrek Mobile
 
+Mobile application of *Geotrek Rando* (http://geotrek.fr).
+
 # INSTALLATION
 
 _Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_
@@ -102,3 +104,25 @@ Then you just have to run
 ## Documentation
 
 [Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
+
+AUTHORS
+=======
+
+* Adrien Denat
+* Mathieu Leplatre
+* Romain Garrigues
+* Éric Bréhault
+* Frédéric Bonifas
+* Simon Bats
+* Bastien Alvez
+* Gael Utard
+
+LICENCE
+=======
+
+* OpenSource - BSD
+* Copyright (c) Parc National des Écrins - Makina Corpus
+
+[<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
+
+[<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
