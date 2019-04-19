@@ -98,3 +98,7 @@ Then you just have to run
 
 - All others resources are provided by the api
   _We download a global package for offline mode when user downloads his first trek_
+
+## Documentation
+
+[Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile/docs/)
