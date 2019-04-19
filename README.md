@@ -101,4 +101,4 @@ Then you just have to run
 
 ## Documentation
 
-[Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile/docs/)
+[Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
