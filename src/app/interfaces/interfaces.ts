@@ -87,6 +87,8 @@ export interface HydratedTrekProperties {
   departure_city?: Property;
   arrival_city?: Property;
   parking_location: number[];
+  profile: string;
+  slug?: string;
 }
 
 export interface InformationDesk {
@@ -167,6 +169,7 @@ export interface Property {
   name: string;
   pictogram?: string;
   color?: string;
+  slug?: string;
 }
 
 export interface Pois extends FeatureCollection {

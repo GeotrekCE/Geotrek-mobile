@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
   HydratedTrek,
@@ -49,6 +50,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     private translate: TranslateService,
     private router: Router,
     public modalController: ModalController,
+    private socialSharing: SocialSharing,
+    private platform: Platform,
   ) {
     super();
   }
@@ -140,7 +143,26 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     return this.treksTool.getTrekImageSrc(this.originalTrek, picture);
   }
 
-  public refresh() {
+  public refresh(): void {
     this.router.navigate([this.router.url]);
+  }
+
+  public shareTrek(): void {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      const shareWithImg: string | undefined =
+        this.currentTrek.properties.pictures && this.currentTrek.properties.pictures.length > 0
+          ? this.currentTrek.properties.pictures[0].url
+          : undefined;
+      const onlineUrl = this.baseUrl.replace('mobile', '');
+      const sharingOptions = {
+        message: this.currentTrek.properties.name,
+        subject: environment.appName,
+        files: shareWithImg
+          ? [`${onlineUrl}${shareWithImg.slice(shareWithImg.indexOf('media'), shareWithImg.length)}`]
+          : [],
+        url: `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`,
+      };
+      this.socialSharing.shareWithOptions(sharingOptions);
+    }
   }
 }

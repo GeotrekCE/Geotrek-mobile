@@ -25,6 +25,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Zip } from '@ionic-native/zip/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { Globalization } from '@ionic-native/globalization/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Network } from '@ionic-native/network/ngx';
 
 import { AppRoutingModule } from '@app/app-routing.module';
@@ -87,6 +88,7 @@ export function createTranslateLoader(http: HttpClient) {
     LocalNotifications,
     ScreenOrientation,
     Globalization,
+    SocialSharing,
     Network,
     MoreResolver,
     MoreItemResolver,
