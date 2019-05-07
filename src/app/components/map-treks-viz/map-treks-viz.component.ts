@@ -201,12 +201,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       type: 'circle',
       source: 'treks-points',
       filter: ['!', ['has', 'point_count']],
-      paint: {
-        'circle-color': '#ff7675',
-        'circle-stroke-color': '#fff',
-        'circle-radius': 20,
-        'circle-stroke-width': 1,
-      },
+      paint: environment.map.clusterPaint,
     });
 
     this.map.addLayer({
