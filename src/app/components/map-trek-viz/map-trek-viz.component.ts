@@ -160,33 +160,42 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         const loadImages: Observable<any> = Observable.create((observer: any) => {
           const imagesToLoad: any[] = [];
           const typePois: DataSetting | undefined = this.dataSettings.find(data => data.id === 'poi_types');
+
           if (typePois) {
             typePois.values.forEach(typePoi => {
-              imagesToLoad.push({ id: `pois${typePoi.id}`, pictogram: typePoi.pictogram });
+              if (typePoi.pictogram) {
+                imagesToLoad.push({ id: `pois${typePoi.id}`, pictogram: typePoi.pictogram });
+              }
             });
           }
 
           const typeInformationDesks: DataSetting | undefined = this.dataSettings.find(
             data => data.id === 'information_desk_types',
           );
+
           if (typeInformationDesks) {
             typeInformationDesks.values.forEach(typeInformationDesk => {
-              imagesToLoad.push({
-                id: `informationDesk${typeInformationDesk.id}`,
-                pictogram: typeInformationDesk.pictogram,
-              });
+              if (typeInformationDesk.pictogram) {
+                imagesToLoad.push({
+                  id: `informationDesk${typeInformationDesk.id}`,
+                  pictogram: typeInformationDesk.pictogram,
+                });
+              }
             });
           }
 
           const touristicsContent: DataSetting | undefined = this.dataSettings.find(
             data => data.id === 'touristiccontent_categories',
           );
+
           if (touristicsContent) {
             touristicsContent.values.forEach(touristicContent => {
-              imagesToLoad.push({
-                id: `touristicContent${touristicContent.id}`,
-                pictogram: touristicContent.pictogram,
-              });
+              if (touristicContent.pictogram) {
+                imagesToLoad.push({
+                  id: `touristicContent${touristicContent.id}`,
+                  pictogram: touristicContent.pictogram,
+                });
+              }
             });
           }
 
@@ -427,7 +436,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       }
 
       const parkingSource = this.map.getSource('parking') as GeoJSONSource;
-      if (parkingSource) {
+      if (parkingSource && this.currentTrek.properties.parking_location) {
         const parking: FeatureCollection = {
           type: 'FeatureCollection',
           features: [],
