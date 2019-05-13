@@ -207,6 +207,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             fromAssets: true,
           });
           imagesToLoad.push({ id: 'parking', pictogram: './assets/map/icons/parking.png', fromAssets: true });
+          imagesToLoad.push({ id: 'arrow', pictogram: './assets/map/icons/arrow.png', fromAssets: true });
 
           imagesToLoad.forEach((imageToLoad: any, index: number) => {
             this.map.loadImage(
@@ -310,6 +311,16 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'line',
       source: 'trek',
       ...(environment.map.trekLineLayerProperties as any),
+    });
+
+    this.map.addLayer({
+      id: 'arrow-layer',
+      type: 'symbol',
+      source: 'trek',
+      layout: {
+        'icon-image': 'arrow',
+        ...(environment.map.trekArrowLayerProperties.layout as any),
+      },
     });
 
     this.map.addLayer({

@@ -107,6 +107,13 @@ export const environment = {
         'line-color': '#61B22F',
       },
     },
+    trekArrowLayerProperties: {
+      layout: {
+        'symbol-placement': 'line',
+        'symbol-spacing': 250,
+        'icon-size': 0.5,
+      },
+    },
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
