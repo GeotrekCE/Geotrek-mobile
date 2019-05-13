@@ -491,4 +491,27 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       }
     }
   }
+
+  /**
+   * Fly to user location else fitbounds to trek
+   */
+  public flyToUserLocation(): void {
+    const userLocation = this.geolocate.currentPosition$.getValue();
+    if (userLocation) {
+      this.map.flyTo({
+        center: userLocation,
+        animate: false,
+      });
+    }
+  }
+
+  /**
+   * Fit to trek bounds
+   */
+  public FitToTrekBounds(): void {
+    this.map.fitBounds((this.mapConfig as any).bounds, {
+      ...(this.mapConfig as any).fitBoundsOptions,
+      animate: false,
+    });
+  }
 }
