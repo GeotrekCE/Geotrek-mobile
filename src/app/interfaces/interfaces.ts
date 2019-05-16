@@ -89,6 +89,7 @@ export interface HydratedTrekProperties {
   parking_location: number[];
   profile: string;
   slug?: string;
+  points_reference?: number[][];
 }
 
 export interface InformationDesk {

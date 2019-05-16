@@ -291,6 +291,11 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'geojson',
       data,
     });
+
+    this.map.addSource('points-reference', {
+      type: 'geojson',
+      data,
+    });
   }
 
   private initializeLayers(): void {
@@ -321,6 +326,20 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'icon-image': 'arrow',
         ...(environment.map.trekArrowLayerProperties.layout as any),
       },
+    });
+
+    this.map.addLayer({
+      id: 'points-reference-circle',
+      type: 'circle',
+      source: 'points-reference',
+      ...(environment.map.pointReferenceLayersProperties.circle as any),
+    });
+
+    this.map.addLayer({
+      id: 'points-reference-text',
+      type: 'symbol',
+      source: 'points-reference',
+      ...(environment.map.pointReferenceLayersProperties.text as any),
     });
 
     this.map.addLayer({
@@ -488,6 +507,32 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         });
 
         information_desk.setData(information_desks);
+      }
+
+      const points_referenceSource = this.map.getSource('points-reference') as GeoJSONSource;
+      if (
+        points_referenceSource &&
+        this.currentTrek.properties.points_reference &&
+        this.currentTrek.properties.points_reference.length > 0
+      ) {
+        const points_reference: FeatureCollection = {
+          type: 'FeatureCollection',
+          features: [],
+        };
+
+        this.currentTrek.properties.points_reference.forEach((point_reference, index) => {
+          points_reference.features.push({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [point_reference[0], point_reference[1]],
+            },
+            properties: {
+              index: index + 1,
+            },
+          });
+        });
+        points_referenceSource.setData(points_reference);
       }
     }
   }
