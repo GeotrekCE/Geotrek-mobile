@@ -187,6 +187,10 @@ export interface Poi extends Feature<Point> {
     name: string;
     description: string;
     thumbnail: string;
+    practical_info?: string;
+    contact?: string;
+    email?: string;
+    website?: string;
   };
 }
 

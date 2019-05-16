@@ -1,14 +1,41 @@
 <ion-card>
   <div *ngIf="picture !== null">
-    <ion-img [src]="picture.url"></ion-img>
-    <span>{{ picture.legend }}
-      <span *ngIf="!!picture.author">({{ picture.author }})</span>
+    <ion-img [src]="picture!.url"></ion-img>
+    <span
+      >{{ picture!.legend }}
+      <span *ngIf="!!picture.author">({{ picture!.author }})</span>
     </span>
   </div>
   <ion-card-header>
     <ion-card-title>{{ poi.properties.name }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <div [innerHTML]="poi.properties.description"></div>
+    <div *ngIf="poi.properties.description" class="ion-margin-bottom">
+      <ion-text>
+        {{ poi.properties.description }}
+      </ion-text>
+    </div>
+
+    <div *ngIf="poi.properties.practical_info" class="ion-margin-bottom">
+      <ion-text>
+        <ion-label><h1>Information pratiques</h1></ion-label>
+        {{ poi.properties.practical_info }}
+      </ion-text>
+    </div>
+
+    <div *ngIf="poi.properties.contact || poi.properties.email || poi.properties.website">
+      <ion-text>
+        <ion-label><h1>Contact</h1></ion-label>
+        <div
+          *ngIf="poi.properties.contact && poi.properties.contact !== 'null'"
+          [innerHTML]="poi.properties.contact"
+        ></div>
+        <div *ngIf="poi.properties.email && poi.properties.email !== 'null'" [innerHTML]="poi.properties.email"></div>
+        <div
+          *ngIf="poi.properties.website && poi.properties.website !== 'null'"
+          [innerHTML]="poi.properties.website"
+        ></div>
+      </ion-text>
+    </div>
   </ion-card-content>
 </ion-card>
