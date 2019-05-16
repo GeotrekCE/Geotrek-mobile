@@ -1,0 +1,83 @@
+{
+  "toolbar": {
+    "filters": "Filtri",
+    "search": "Cercare"
+  },
+  "tabbar": {
+    "treks": "Escursione",
+    "offline": "Offline",
+    "more": "Informazioni"
+  },
+  "search": {
+    "title": "Cercare",
+    "placeholder": "nome dell'escursione",
+    "noResult": "Nessuna escursione corrisponde alla sua ricerca",
+    "contentPlaceHolder": ""
+  },
+  "filters": {
+    "title": "Filtri",
+    "erase": "Chiaro tutto",
+    "results": "Affiggere le{{nb}} escursioni",
+    "oneresult": "Affigere l'escursione",
+    "zeroresult": "Nessuna escursione corrisponde a questi filtri"
+  },
+  "mapTreks": {
+    "treksAlert": {
+      "title": "Escursione",
+      "confirmButton": "OK",
+      "cancelButton": "Cancellare"
+    }
+  },
+  "mapTrek": {
+    "enableNotification": "Attivare le notifiche",
+    "disableNotification": "Disattivare le notifiche"
+  },
+  "trek": {
+    "downloadAlert": {
+      "title": "Modo offline",
+      "content": "Scaricare questa escursione per consultarla offline",
+      "confirmButton": "Scaricare ",
+      "cancelButton": "Cancellare",
+      "success": "L'escursione è disponibile in modo offline",
+      "error": "Si è verificato un errore durante lo scaricamento",
+      "confirmError": "Ok",
+      "loading": " Scaricamento in corso ...",
+      "storage": "Decompressione dei dati in corso ..."
+    },
+    "details": {
+      "city": "Comuni :",
+      "departure": "Partenza",
+      "arrival": "Arrivo",
+      "departureArrival": "Partenza / Arrivo",
+      "practice": "Prassi",
+      "theme": "Tematiche",
+      "description": "Descrizione",
+      "rules": "Regolamentazione",
+      "access": "Accesso stradale",
+      "parking": "Parcheggio consigliato",
+      "advice": "Raccomandazioni",
+      "desk": "Punto informativo",
+      "profile": "Profilo altimetrico",
+      "poi": {
+        "name": "Patrimoni",
+        "showAllLabel": "Tutto affigere",
+        "hideAllLabel": "Tutto mascherare"
+      },
+      "touristicContent": {
+        "showAllLabel": "Tutto affigere",
+        "hideAllLabel": "Tutto mascherare"
+      }
+    }
+  },
+  "treks": {
+    "showAllLabel": "Affiggere le {{nb}} seguenti escursioni",
+    "hideAllLabel": "Tutto mascherare"
+  },
+  "geolocate": {
+    "askLocatePermission": "L’app non è autorizzata a geolocalizzarla. Vuole modificare i suoi parametri ?",
+    "cancel": "Cancellare",
+    "open": "Aprire",
+    "poiNearBy": "Punto di interesse nelle vicinanze",
+    "notificationTitle": "Georeferimento"
+  }
+}
