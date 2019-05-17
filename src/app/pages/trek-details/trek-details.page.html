@@ -37,7 +37,13 @@
     <div>
       <ion-slides *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0" pager="true">
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
-          <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>
+            <div class="ion-padding-top">
+              {{ picture!.legend }}
+              <span *ngIf="!!picture.author">({{ picture!.author }})</span>
+            </div>
+          </div>
         </ion-slide>
       </ion-slides>
 

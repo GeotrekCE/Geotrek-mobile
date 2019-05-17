@@ -127,3 +127,12 @@ app-trek-card {
     }
   }
 }
+
+app-trek-details {
+  ion-slides {
+    .swiper-pagination {
+      position: relative;
+      margin-top: 16px;
+    }
+  }
+}
