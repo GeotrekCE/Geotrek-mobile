@@ -105,18 +105,6 @@ Then you just have to run
 
 [Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
 
-AUTHORS
-=======
-
-* Adrien Denat
-* Mathieu Leplatre
-* Romain Garrigues
-* Éric Bréhault
-* Frédéric Bonifas
-* Simon Bats
-* Bastien Alvez
-* Gael Utard
-
 LICENCE
 =======
 
