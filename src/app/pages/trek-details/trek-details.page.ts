@@ -14,12 +14,14 @@ import {
   TouristicEvent,
   TouristicCategoryWithFeatures,
   TouristicContents,
+  DataSetting,
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { environment } from '@env/environment';
 import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
+import { SettingsService } from '@app/services/settings/settings.service';
 
 @Component({
   selector: 'app-trek-details',
@@ -41,6 +43,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public connectionError = false;
   public commonSrc: string;
   public trekDownloading = false;
+  public typePois: DataSetting | undefined;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -52,6 +55,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     public modalController: ModalController,
     private socialSharing: SocialSharing,
     private platform: Platform,
+    public settings: SettingsService,
   ) {
     super();
   }
@@ -82,6 +86,11 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
           }
         },
       ),
+      this.settings.data$.subscribe(settings => {
+        if (settings) {
+          this.typePois = settings.find(setting => setting.id === 'poi_types');
+        }
+      }),
     );
   }
 

@@ -7,7 +7,12 @@
     </div>
   </div>
   <ion-card-header>
-    <ion-card-title>{{ poi.properties.name }}</ion-card-title>
+    <div class="card-header-container">
+      <img class="img-header" *ngIf="typeImgSrc" [src]="typeImgSrc" />
+      <ion-card-title>
+        {{ poi.properties.name }}
+      </ion-card-title>
+    </div>
   </ion-card-header>
   <ion-card-content>
     <div *ngIf="poi.properties.description" class="ion-margin-bottom">

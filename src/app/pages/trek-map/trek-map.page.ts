@@ -33,6 +33,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
   public modalPoiDetails: HTMLIonModalElement | null;
   public mapConfig: MapboxOptions;
   public commonSrc: string;
+  public offline = false;
 
   constructor(
     private loading: LoadingService,
@@ -55,6 +56,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
             this.loading.finish('trek-map'); // if there is a connection error, map won't be loaded
           } else {
             this.connectionError = false;
+            this.offline = context.offline;
             this.currentTrek = context.trek;
             this.currentPois = context.pois;
             this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
@@ -79,7 +81,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
     this.modalPoiDetails = await this.modalController.create({
       component: PoiDetailsComponent,
-      componentProps: { poi },
+      componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc },
     });
 
     this.modalPoiDetails.onDidDismiss().then(() => {

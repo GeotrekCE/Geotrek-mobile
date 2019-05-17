@@ -279,7 +279,7 @@
             </ion-text>
 
             <ng-template #poiTemplate let-poi="item">
-              <app-poi [poi]="poi" [offline]="offline"></app-poi>
+              <app-poi [poi]="poi" [commonSrc]="commonSrc" [typePois]="typePois" [offline]="offline"></app-poi>
             </ng-template>
 
             <app-collapsible-list

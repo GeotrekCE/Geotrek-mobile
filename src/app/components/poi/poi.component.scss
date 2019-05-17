@@ -1,0 +1,9 @@
+.card-header-container {
+  align-items: flex-end;
+  display: flex;
+  .img-header {
+    max-width: 32px;
+    max-height: 32px;
+    margin-right: 16px;
+  }
+}

@@ -11,9 +11,10 @@
 
 <ion-content>
   <ion-card>
-    <div *ngIf="poiImg !== ''">
-      <ion-img [src]="poiImg"></ion-img>
-      <div class="ion-padding-start ion-padding-top">
+    <div *ngIf="picture && picture?.url !== ''">
+      <ion-img [src]="picture?.url"></ion-img>
+      <div class="card-legend ion-padding-start ion-padding-top">
+        <ion-img class="img-legend" [src]="typeImgSrc"></ion-img>
         {{ poi.properties.pictures[0]?.legend }}
         <span *ngIf="!!poi.properties.pictures[0]?.author">({{ poi.properties.pictures[0].author }})</span>
       </div>
