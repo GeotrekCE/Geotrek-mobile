@@ -11,7 +11,14 @@
 
 <ion-content>
   <ion-card>
-    <ion-img *ngIf="poiImg !== ''" [src]="poiImg"></ion-img>
+    <div *ngIf="poiImg !== ''">
+      <ion-img [src]="poiImg"></ion-img>
+      <div class="ion-padding-start ion-padding-top">
+        {{ poi.properties.pictures[0]?.legend }}
+        <span *ngIf="!!poi.properties.pictures[0]?.author">({{ poi.properties.pictures[0].author }})</span>
+      </div>
+    </div>
+
     <ion-card-content>
       <div *ngIf="poi.properties.description" class="ion-margin-bottom">
         <ion-text>
