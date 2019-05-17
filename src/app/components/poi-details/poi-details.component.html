@@ -15,14 +15,14 @@
     <ion-card-content>
       <div *ngIf="poi.properties.description" class="ion-margin-bottom">
         <ion-text>
-          {{ poi.properties.description }}
+          <div [innerHTML]="poi.properties.description"></div>
         </ion-text>
       </div>
 
       <div *ngIf="poi.properties.practical_info" class="ion-margin-bottom">
         <ion-text>
           <ion-label><h1>Information pratiques</h1></ion-label>
-          {{ poi.properties.practical_info }}
+          <div [innerHTML]="poi.properties.practical_info"></div>
         </ion-text>
       </div>
 
