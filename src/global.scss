@@ -116,3 +116,14 @@ ion-fab {
 .custom-toast-container {
   height: calc(100% - 56px);
 }
+
+app-trek-card {
+  ion-card {
+    .card-native {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+  }
+}
