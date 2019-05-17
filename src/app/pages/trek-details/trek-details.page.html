@@ -28,17 +28,19 @@
     </app-connect-error>
   </ng-container>
   <ng-template #trekDetail>
+    <ion-fab *ngIf="currentTrek" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
+        <ion-icon name="map"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
     <div>
       <ion-slides *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0" pager="true">
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
           <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>
         </ion-slide>
       </ion-slides>
-      <ion-fab *ngIf="currentTrek" class="margin-fab" vertical="top==" horizontal="end" slot="fixed">
-        <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
-          <ion-icon name="map"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+
       <ion-grid fixed>
         <!-- Teaser -->
         <ion-row *ngIf="currentTrek.properties.description_teaser">
