@@ -108,8 +108,6 @@ export class TreksPage extends UnSubscribe implements OnInit {
       } else {
         this.currentMaxTreks += this.treksByStep;
       }
-    } else {
-      this.currentMaxTreks = this.treksByStep;
     }
   }
 
