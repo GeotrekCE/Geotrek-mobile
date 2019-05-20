@@ -70,7 +70,7 @@
     }
   },
   "treks": {
-    "numberOftreks": "{{nb}} escursioni",
+    "numberOftreks": "escursioni",
     "numberOftrek": "Un'escursione"
   },
   "geolocate": {

@@ -101,7 +101,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     );
   }
 
-  public expandTreks() {
+  public expandTreks(infiniteScroll: any) {
     if (this.currentMaxTreks < this.filteredTreks.length) {
       if (this.currentMaxTreks + this.treksByStep > this.filteredTreks.length) {
         this.currentMaxTreks = this.filteredTreks.length;
@@ -109,6 +109,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
         this.currentMaxTreks += this.treksByStep;
       }
     }
+    infiniteScroll.target.complete();
   }
 
   public changeColSize(): void {

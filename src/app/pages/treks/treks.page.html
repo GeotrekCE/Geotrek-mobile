@@ -51,8 +51,8 @@
               <h1 *ngIf="filteredTreks.length === 1" translate>
                 treks.numberOftrek
               </h1>
-              <h1 *ngIf="filteredTreks.length > 1" translate [translateParams]="{ nb: filteredTreks.length }">
-                treks.numberOftreks
+              <h1 *ngIf="filteredTreks.length > 1">
+                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>
               </h1>
             </ion-text>
           </ion-row>
@@ -76,9 +76,9 @@
     </ion-fab>
 
     <ion-infinite-scroll
-      [disabled]="filteredTreks.length >= this.currentMaxTreks || filteredTreks.length < treksByStep"
+      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"
       threshold="100px"
-      (ionInfinite)="expandTreks()"
+      (ionInfinite)="expandTreks($event)"
     >
       <ion-infinite-scroll-content> </ion-infinite-scroll-content>
     </ion-infinite-scroll>
