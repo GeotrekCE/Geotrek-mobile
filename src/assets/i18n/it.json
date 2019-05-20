@@ -71,7 +71,7 @@
   },
   "treks": {
     "numberOftreks": "{{nb}} escursioni",
-    "numberOftrek": "Una escursione"
+    "numberOftrek": "Un'escursione"
   },
   "geolocate": {
     "askLocatePermission": "L’app non è autorizzata a geolocalizzarla. Vuole modificare i suoi parametri ?",
