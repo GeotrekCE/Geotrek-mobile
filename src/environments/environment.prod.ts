@@ -88,15 +88,15 @@ export const environment = {
       // optionnal geojson to display on map
       type: 'fill',
       paint: {
-        'fill-color': '#833569',
-        'fill-outline-color': '#898083',
-        'fill-opacity': 0.6,
+        'fill-color': '#898083',
+        'fill-outline-color': '#625b5d',
+        'fill-opacity': 0.3,
       },
     },
     zoneOutlineLayerProperties: {
       type: 'line',
       paint: {
-        'line-color': '#833569',
+        'line-color': '#898083',
         'line-opacity': 1,
         'line-width': 8,
       },
