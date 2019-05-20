@@ -354,14 +354,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     });
 
     this.map.addLayer({
+      id: 'touristics-content-circle',
+      type: 'circle',
+      source: 'touristics-content',
+      ...(environment.map.touristicContentLayersProperties.circle as any),
+    });
+
+    this.map.addLayer({
       id: 'touristics-content-icon',
       type: 'symbol',
       source: 'touristics-content',
-      layout: {
-        'icon-image': ['concat', 'touristicContent', ['get', 'category']],
-        'icon-size': 1,
-        'icon-allow-overlap': true,
-      },
+      ...(environment.map.touristicContentLayersProperties.icon as any),
     });
 
     this.map.addLayer({
@@ -461,7 +464,6 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           type: 'FeatureCollection',
           features: touristicsContentFeatures,
         };
-
         touristicsContent.setData(touristics_content);
       }
 

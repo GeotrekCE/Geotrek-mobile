@@ -114,6 +114,46 @@ export const environment = {
         'icon-size': 0.5,
       },
     },
+    pointReferenceLayersProperties: {
+      text: {
+        paint: {
+          'text-color': '#fff',
+        },
+        layout: {
+          'text-ignore-placement': true,
+          'text-allow-overlap': true,
+          'text-field': ['get', 'index'],
+          'text-font': ['Roboto Regular'],
+          'text-size': 12,
+          'text-offset': [0, 0.1],
+        },
+      },
+      circle: {
+        paint: {
+          'circle-color': '#8e44ad',
+          'circle-stroke-color': '#fff',
+          'circle-radius': 12,
+          'circle-stroke-width': 1,
+        },
+      },
+    },
+    touristicContentLayersProperties: {
+      icon: {
+        layout: {
+          'icon-image': ['concat', 'touristicContent', ['get', 'category']],
+          'icon-size': 0.8,
+          'icon-allow-overlap': true,
+        },
+      },
+      circle: {
+        paint: {
+          'circle-color': '#898083',
+          'circle-stroke-color': '#fff',
+          'circle-radius': 16,
+          'circle-stroke-width': 1,
+        },
+      },
+    },
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]

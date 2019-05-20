@@ -137,6 +137,23 @@ export const environment = {
         },
       },
     },
+    touristicContentLayersProperties: {
+      icon: {
+        layout: {
+          'icon-image': ['concat', 'touristicContent', ['get', 'category']],
+          'icon-size': 0.8,
+          'icon-allow-overlap': true,
+        },
+      },
+      circle: {
+        paint: {
+          'circle-color': '#898083',
+          'circle-stroke-color': '#fff',
+          'circle-radius': 16,
+          'circle-stroke-width': 1,
+        },
+      },
+    },
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
