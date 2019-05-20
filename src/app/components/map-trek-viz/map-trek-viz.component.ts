@@ -26,6 +26,7 @@ import { Platform } from '@ionic/angular';
 import { FeatureCollection } from 'geojson';
 import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
+import { TranslateService } from '@ngx-translate/core';
 
 const mapboxgl = require('mapbox-gl');
 
@@ -53,6 +54,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     private platform: Platform,
     private geolocate: GeolocateService,
     public popoverController: PopoverController,
+    private translate: TranslateService,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -576,19 +578,34 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   }
 
   async showLayersVisibility(event: any) {
+    const layers: { name: string; visibility: boolean; layersName: string }[] = [
+      {
+        name: await this.translate.get('trek.details.poi.name').toPromise(),
+        visibility: this.map.getLayoutProperty('pois-icon', 'visibility') === 'visible',
+        layersName: ['pois-icon'].toString(),
+      },
+      {
+        name: await this.translate.get('trek.details.touristicContent.name').toPromise(),
+        visibility: this.map.getLayoutProperty('touristics-content-circle', 'visibility') === 'visible',
+        layersName: ['touristics-content-circle', 'touristics-content-icon'].toString(),
+      },
+    ];
+
     const popover = await this.popoverController.create({
       component: LayersVisibilityComponent,
       event: event,
       translucent: true,
       componentProps: {
-        changeLayerVisibility: (checked: boolean, layers: string) => this.changeLayerVisibility(checked, layers),
+        changeLayerVisibility: (checked: boolean, layersName: string) =>
+          this.changeLayerVisibility(checked, layersName),
+        layers,
       },
     });
     return await popover.present();
   }
 
-  public changeLayerVisibility(checked: boolean, layers: string): void {
-    layers
+  public changeLayerVisibility(checked: boolean, layersName: string): void {
+    layersName
       .split(',')
       .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
   }

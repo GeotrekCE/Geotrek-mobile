@@ -8,11 +8,13 @@ import { NavParams } from '@ionic/angular';
 })
 export class LayersVisibilityComponent {
   changeLayerVisibility: any;
+  layers: any;
 
   constructor(private navParams: NavParams) {}
 
   ionViewWillEnter() {
     this.changeLayerVisibility = this.navParams.get('changeLayerVisibility');
+    this.layers = this.navParams.get('layers');
   }
 
   public layerVisibilityChange(event: any) {
