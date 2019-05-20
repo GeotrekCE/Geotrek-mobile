@@ -70,8 +70,8 @@
     }
   },
   "treks": {
-    "showAllLabel": "Afficher les {{nb}} randonnées suivantes",
-    "hideAllLabel": "Ne plus afficher toutes les randonnées"
+    "numberOftreks": "{{nb}} Randonnées",
+    "numberOftrek": "Une randonnée"
   },
   "geolocate": {
     "askLocatePermission": "Vous n'avez pas autorisé l'application à suivre votre localisation. Voulez vous ouvrir vos paramètres ?",

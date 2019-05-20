@@ -141,6 +141,7 @@ export interface FilterValue {
   checked: boolean;
   interval?: [number, number];
   pictogram?: string;
+  color?: string;
 }
 
 export interface InformationIntro {

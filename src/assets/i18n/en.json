@@ -70,8 +70,8 @@
     }
   },
   "treks": {
-    "showAllLabel": "Show the {{nb}} next treks",
-    "hideAllLabel": "Do not show all treks anymore"
+    "numberOftreks": "{{nb}} treks",
+    "numberOftrek": "One trek"
   },
   "geolocate": {
     "askLocatePermission": "You didn't allow the application to locate you. Do you want to open settings ?",

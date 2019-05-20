@@ -46,6 +46,16 @@
     <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">
       <ion-list>
         <ion-grid fixed>
+          <ion-row class="ion-padding-start" size="12">
+            <ion-text>
+              <h1 *ngIf="filteredTreks.length === 1" translate>
+                treks.numberOftrek
+              </h1>
+              <h1 *ngIf="filteredTreks.length > 1" translate [translateParams]="{ nb: filteredTreks.length }">
+                treks.numberOftreks
+              </h1>
+            </ion-text>
+          </ion-row>
           <ion-row align-items-stretch>
             <ion-col
               [size]="colSize"
