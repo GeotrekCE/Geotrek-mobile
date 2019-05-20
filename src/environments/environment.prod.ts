@@ -73,6 +73,7 @@ export const environment = {
     zoom: 13,
   },
   map: {
+    addSoustractMaxBounds: 0.01,
     iconSize: 0.8, // check your icon size, ideally it would be 48px*48px
     globalMapIconSize: 0.5,
     clusterPaint: {
@@ -141,7 +142,7 @@ export const environment = {
       icon: {
         layout: {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],
-          'icon-size': 0.8,
+          'icon-size': 0.6,
           'icon-allow-overlap': true,
         },
       },

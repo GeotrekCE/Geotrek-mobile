@@ -38,7 +38,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   @Input() currentPois: Pois;
   @Input() touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   @Input() public dataSettings: DataSetting[];
-  @Input() public mapConfig: MapboxOptions;
+  @Input() public mapConfig: any;
   @Input() private commonSrc: string;
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
@@ -83,9 +83,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
   createMap(): void {
     if (this.mapConfig && this.mapConfig.style) {
+      const { addSoustractMaxBounds } = environment.map;
+      const maxBounds = [
+        this.mapConfig.bounds[0] - addSoustractMaxBounds,
+        this.mapConfig.bounds[1] - addSoustractMaxBounds,
+        this.mapConfig.bounds[2] + addSoustractMaxBounds,
+        this.mapConfig.bounds[3] + addSoustractMaxBounds,
+      ];
       this.map = new Map({
         ...this.mapConfig,
         container: 'map-trek',
+        maxBounds,
       });
 
       this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');
@@ -556,8 +564,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
    * Fit to trek bounds
    */
   public FitToTrekBounds(): void {
-    this.map.fitBounds((this.mapConfig as any).bounds, {
-      ...(this.mapConfig as any).fitBoundsOptions,
+    this.map.fitBounds(this.mapConfig.bounds, {
+      ...this.mapConfig.fitBoundsOptions,
       animate: false,
     });
   }
