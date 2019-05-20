@@ -37,6 +37,7 @@ import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.com
 import { InformationDeskDetailsComponent } from '@app/components/information-desk-details/information-desk-details.component';
 import { SearchComponent } from '@app/components/search/search.component';
 import { ProgressComponent } from '@app/components/progress/progress.component';
+import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 
 import { FilterValueComponent } from './components/filter-value/filter-value.component';
 
@@ -54,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
     FilterComponent,
     FilterValueComponent,
     InformationDeskDetailsComponent,
+    LayersVisibilityComponent,
   ],
   entryComponents: [
     FiltersComponent,
@@ -61,6 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
     SearchComponent,
     ProgressComponent,
     InformationDeskDetailsComponent,
+    LayersVisibilityComponent,
   ],
   imports: [
     BrowserModule,

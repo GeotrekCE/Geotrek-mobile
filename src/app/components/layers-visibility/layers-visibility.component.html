@@ -1,0 +1,20 @@
+<ion-list lines="inset">
+  <ion-item class="no-lines">
+    <ion-label translate>trek.details.poi.name</ion-label>
+    <ion-checkbox
+      (ionChange)="layerVisibilityChange($event, 'name')"
+      [checked]="true"
+      value="pois-icon"
+      slot="end"
+    ></ion-checkbox>
+  </ion-item>
+  <ion-item class="no-lines">
+    <ion-label translate>trek.details.touristicContent.name</ion-label>
+    <ion-checkbox
+      (ionChange)="layerVisibilityChange($event, 'name')"
+      [checked]="true"
+      value="touristics-content-circle,touristics-content-icon"
+      slot="end"
+    ></ion-checkbox>
+  </ion-item>
+</ion-list>

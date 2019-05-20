@@ -78,7 +78,7 @@ export const environment = {
     globalMapIconSize: 0.5,
     clusterPaint: {
       // cluster style on map treks
-      'circle-color': '#8e44ad',
+      'circle-color': '#898083',
       'circle-stroke-color': '#fff',
       'circle-radius': 23,
       'circle-stroke-width': 1,
@@ -131,7 +131,7 @@ export const environment = {
       },
       circle: {
         paint: {
-          'circle-color': '#8e44ad',
+          'circle-color': '#898083',
           'circle-stroke-color': '#fff',
           'circle-radius': 12,
           'circle-stroke-width': 1,

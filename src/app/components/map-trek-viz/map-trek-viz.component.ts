@@ -10,6 +10,8 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable } from 'rxjs';
+import { PopoverController } from '@ionic/angular';
+
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
   Pois,
@@ -22,7 +24,8 @@ import { environment } from '@env/environment';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Platform } from '@ionic/angular';
 import { FeatureCollection } from 'geojson';
-import { GeoJSONSource, Map, MapLayerMouseEvent, MapboxOptions, Marker } from 'mapbox-gl';
+import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
+import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 
 const mapboxgl = require('mapbox-gl');
 
@@ -34,6 +37,7 @@ const mapboxgl = require('mapbox-gl');
 export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
   private map: Map;
   private markerPosition: Marker;
+
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois: Pois;
   @Input() touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
@@ -48,6 +52,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     private screenOrientation: ScreenOrientation,
     private platform: Platform,
     private geolocate: GeolocateService,
+    public popoverController: PopoverController,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -568,5 +573,23 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       ...this.mapConfig.fitBoundsOptions,
       animate: false,
     });
+  }
+
+  async showLayersVisibility(event: any) {
+    const popover = await this.popoverController.create({
+      component: LayersVisibilityComponent,
+      event: event,
+      translucent: true,
+      componentProps: {
+        changeLayerVisibility: (checked: boolean, layers: string) => this.changeLayerVisibility(checked, layers),
+      },
+    });
+    return await popover.present();
+  }
+
+  public changeLayerVisibility(checked: boolean, layers: string): void {
+    layers
+      .split(',')
+      .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
   }
 }

@@ -64,6 +64,7 @@
         "hideAllLabel": "Do not show all patrimonies anymore"
       },
       "touristicContent": {
+        "name": "Near by",
         "showAllLabel": "Show all",
         "hideAllLabel": "Do not show all anymore"
       }
