@@ -5,7 +5,7 @@ import { TrekContextResolver } from '@app/resolvers/trek.resolver';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from '@app/shared/shared.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { TrekMapPage } from './trek-map.page';
 
 const routes: Routes = [
@@ -14,13 +14,20 @@ const routes: Routes = [
     component: TrekMapPage,
     runGuardsAndResolvers: 'always',
     resolve: {
-      context: TrekContextResolver
+      context: TrekContextResolver,
     },
   },
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedModule, SharedUiModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    SharedUiModule,
+    TranslateModule.forRoot(),
+  ],
   declarations: [TrekMapPage],
 })
 export class TrekMapPageModule {}

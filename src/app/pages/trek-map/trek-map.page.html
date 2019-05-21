@@ -13,9 +13,9 @@
     <app-connect-error
       *ngIf="connectionError; else trekMap"
       icon="wifi"
-      title="Problème de connexion"
-      content="Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée"
-      buttonText="Réessayez"
+      [title]="'error.title' | translate"
+      [content]="'error.TrekMap' | translate"
+      [buttonText]="'error.buttonText' | translate"
       (retry)="refresh()"
     >
     </app-connect-error>

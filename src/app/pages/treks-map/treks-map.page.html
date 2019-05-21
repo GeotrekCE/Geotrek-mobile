@@ -3,14 +3,20 @@
     <ion-title> {{ appName }} </ion-title>
   </ion-toolbar>
   <ion-toolbar
-    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && this.filteredTreks && this.filteredTreks.length > 0)">
+    *ngIf="
+      (!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) ||
+      (offline && this.filteredTreks && this.filteredTreks.length > 0)
+    "
+  >
     <ion-grid no-padding>
       <ion-row>
         <ion-col size="10">
           <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">
-            {{ 'toolbar.filters' | translate }} {{ numberOfActiveFilters }}</ion-button>
+            {{ 'toolbar.filters' | translate }} {{ numberOfActiveFilters }}</ion-button
+          >
           <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">
-            {{ 'toolbar.search' | translate }}</ion-button>
+            {{ 'toolbar.search' | translate }}</ion-button
+          >
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -20,16 +26,27 @@
 <ion-content>
   <app-loader></app-loader>
   <ng-container *ngIf="!offline; else treksMap">
-    <app-connect-error *ngIf="onlineTreks.onlineTreksError$ | async; else treksMap" icon="wifi"
-      title="Problème de connexion"
-      content="Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées non enregistrées"
-      buttonText="Réessayez" (retry)="onlineTreks.loadTreks()">
+    <app-connect-error
+      *ngIf="(onlineTreks.onlineTreksError$ | async); else treksMap"
+      icon="wifi"
+      [title]="'error.title' | translate"
+      [content]="'error.TreksMap' | translate"
+      [buttonText]="'error.buttonText' | translate"
+      (retry)="onlineTreks.loadTreks()"
+    >
     </app-connect-error>
   </ng-container>
   <ng-template #treksMap>
-    <app-map-treks-viz *ngIf="isInView" [offline]="offline" [filteredTreks]="filteredTreks"
-      (navigateToTrek)="navigateToTrek($event)" (mapIsLoaded)="mapIsLoaded($event)" [mapConfig]="mapConfig"
-      [dataSettings]="settings.data$.value" [commonSrc]="commonSrc">
+    <app-map-treks-viz
+      *ngIf="isInView"
+      [offline]="offline"
+      [filteredTreks]="filteredTreks"
+      (navigateToTrek)="navigateToTrek($event)"
+      (mapIsLoaded)="mapIsLoaded($event)"
+      [mapConfig]="mapConfig"
+      [dataSettings]="settings.data$.value"
+      [commonSrc]="commonSrc"
+    >
     </app-map-treks-viz>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button class="no-outline" [routerLink]="treksUrl">

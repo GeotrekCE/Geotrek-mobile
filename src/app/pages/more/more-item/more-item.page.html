@@ -10,9 +10,12 @@
   <app-loader></app-loader>
   <app-connect-error
     *ngIf="connectionError; else moreItemTemplate"
-    icon="wifi" title="Problème de connexion"
-    content="Veuillez vous assurer d’être connecté afin d’accéder à l'information"
-    buttonText="Réessayez" (retry)="refresh()">
+    icon="wifi"
+    [title]="'error.title' | translate"
+    [content]="'error.contentMoreItem' | translate"
+    [buttonText]="'error.retry' | translate"
+    (retry)="refresh()"
+  >
   </app-connect-error>
   <ng-template #moreItemTemplate>
     <ion-grid fixed *ngIf="!!moreItem">

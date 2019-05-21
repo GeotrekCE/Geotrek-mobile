@@ -17,7 +17,7 @@
       <div [innerHTML]="informationDesk.street"></div>
       <p>{{ informationDesk.postal_code }} {{ informationDesk.municipality }}</p>
       <p>
-        <a [href]="informationDesk.website"> Site web </a> -
+        <a [href]="informationDesk.website"> {{ 'trek.details.informationDesk.website' | translate }} </a> -
         <a [href]="'mailto:' + informationDesk.email"> Email </a> -
         <a [href]="'tel:' + informationDesk.phone">{{ informationDesk.phone }}</a>
       </p>

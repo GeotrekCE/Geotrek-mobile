@@ -34,9 +34,9 @@
     <app-connect-error
       *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"
       icon="wifi"
-      title="Problème de connexion"
-      content="Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées"
-      buttonText="Réessayez"
+      [title]="'error.title' | translate"
+      [content]="'error.contentTreks' | translate"
+      [buttonText]="'error.buttonText' | translate"
       (retry)="onlineTreks.loadTreks()"
     >
     </app-connect-error>
@@ -90,24 +90,28 @@
         <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">
           <ng-container *ngSwitchCase="true">
             <ion-row>
-              <ion-col *ngIf="nbOfflineTreks === 1">
-                Les filtres sélectionnés ne correspondent pas à votre randonnée enregistrée.
+              <ion-col *ngIf="nbOfflineTreks === 1" translate>
+                treks.noOfflineResult
               </ion-col>
-              <ion-col *ngIf="nbOfflineTreks > 1">
-                Les filtres sélectionnés ne correspondent à aucune de vos {{ nbOfflineTreks }} randonnées enregistrées.
+              <ion-col *ngIf="nbOfflineTreks > 1" translate>
+                treks.noOfflineResults
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
                 <ion-button (click)="resetFilters()" color="light">
-                  Afficher toutes les randonnées enregistrées
+                  <span translate>
+                    treks.showAllTreks
+                  </span>
                 </ion-button>
               </ion-col>
             </ion-row>
           </ng-container>
           <ion-row *ngSwitchCase="false">
             <ion-col>
-              Ici, vous retrouverez vos randonnées disponibles hors ligne
+              <span translate>
+                treks.emptyOfflineTreks
+              </span>
             </ion-col>
           </ion-row>
         </ion-grid>

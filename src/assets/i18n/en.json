@@ -67,12 +67,20 @@
         "name": "Near by",
         "showAllLabel": "Show all",
         "hideAllLabel": "Do not show all anymore"
-      }
+      },
+      "informationDesk": { "website": "Website" },
+      "usefulInformation": "Useful Information",
+      "contact": "Contact"
     }
   },
   "treks": {
     "numberOftreks": "treks",
-    "numberOftrek": "One trek"
+    "numberOftrek": "One trek",
+    "noOfflineResult": "The selected filters do not match your recorded hike",
+    "noOfflineResults": "The selected filters do not match any of your recorded {{nbOfflineTreks}} hikes.",
+    "showAllTreks": "View all recorded hikes",
+    "emptyOfflineTreks": "You will find your offline hikes here",
+    "departure": "Departure"
   },
   "geolocate": {
     "askLocatePermission": "You didn't allow the application to locate you. Do you want to open settings ?",
@@ -80,5 +88,24 @@
     "open": "Open",
     "poiNearBy": "Point of interest near by",
     "notificationTitle": "Geolocation"
+  },
+  "error": {
+    "title": "Connection problem",
+    "contentTreks": "Please make sure you are logged in to access the full list of unsaved hikes",
+    "contentMore": "Please make sure you are logged in to access additional information",
+    "contentMoreItem": "Please make sure you are logged in to access the information",
+    "contentTrekMap": "Please make sure you are logged in to access the undownloaded map",
+    "contentTreksMap": "Please make sure you are logged in to access the full map of unsaved hikes",
+    "buttonText": "Retry"
+  },
+  "trekCard": {
+    "deleteTitle": "Suppression",
+    "deleteLabel": "Remove",
+    "askDelete": "Remove this hike from offline mode?",
+    "deletionInProgress": "Deletion in progress",
+    "trekIsDelete": "The hike is removed from the offline mode",
+    "errorWhileDeleting": "An error occurred while removing the hike",
+    "cancelButton": "Cancel",
+    "confirmButton": "Ok"
   }
 }

@@ -29,14 +29,14 @@
 
       <div *ngIf="poi.properties.practical_info" class="ion-margin-bottom">
         <ion-text>
-          <ion-label><h1>Information pratiques</h1></ion-label>
+          <ion-label><h1 translate>trek.details.usefulInformation</h1></ion-label>
           <div [innerHTML]="poi.properties.practical_info"></div>
         </ion-text>
       </div>
 
       <div *ngIf="poi.properties.contact || poi.properties.email || poi.properties.website">
         <ion-text>
-          <ion-label><h1>Contact</h1></ion-label>
+          <ion-label><h1 translate>trek.details.contact</h1></ion-label>
           <div
             *ngIf="poi.properties.contact && poi.properties.contact !== 'null'"
             [innerHTML]="poi.properties.contact"

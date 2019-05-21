@@ -67,12 +67,20 @@
         "name": "Vicino",
         "showAllLabel": "Tutto affigere",
         "hideAllLabel": "Tutto mascherare"
-      }
+      },
+      "informationDesk": { "website": "Sito web" },
+      "usefulInformation": "Informazioni pratiche",
+      "contact": "contatto"
     }
   },
   "treks": {
     "numberOftreks": "escursioni",
-    "numberOftrek": "Un'escursione"
+    "numberOftrek": "Un'escursione",
+    "noOfflineResult": "I filtri selezionati non corrispondono alla sua escursione registrata",
+    "noOfflineResults": "I filtri selezionati non corrispondono a nessuna delle sue {{nbOfflineTreks}} escursioni registrate.",
+    "showAllTreks": "Visualizza tutte le escursioni registrate",
+    "emptyOfflineTreks": "Qui, troverà le sue escursioni disponibili offline",
+    "departure": "Partenza"
   },
   "geolocate": {
     "askLocatePermission": "L’app non è autorizzata a geolocalizzarla. Vuole modificare i suoi parametri ?",
@@ -80,5 +88,23 @@
     "open": "Aprire",
     "poiNearBy": "Punto di interesse nelle vicinanze",
     "notificationTitle": "Georeferimento"
+  },
+  "error": {
+    "title": "Problema di connessione",
+    "contentTreks": "Assicurasi di essere connesso per accedere all'elenco completo di escursioni non salvate",
+    "contentMore": "Assicurasi di essere connesso per accedere a ulteriori informazioni",
+    "contentMoreItem": "Assicurasi di essere connesso per accedere alle informazioni",
+    "contentTrekMap": "Assicurasi di essere connesso per accedere al percorso non scaricato",
+    "contentTreksMap": "Assicurasi di essere connesso per accedere alla mappa completa delle escursioni non salvate",
+    "buttonText": "Riprovare"
+  },
+  "trekCard": {
+    "deleteTitle": "Soppressione",
+    "deleteLabel": "Rimuovere questa escursione dalla modalità offline ?",
+    "deletionInProgress": "Eliminazione in corso",
+    "trekIsDelete": "L'escursione è soppressa dalla modalità offline",
+    "errorWhileDeleting": "Si è verificato un errore durante l'eliminazione dell'escursione",
+    "cancelButton": "Annullare",
+    "confirmButton": "Ok"
   }
 }

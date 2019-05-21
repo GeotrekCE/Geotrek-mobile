@@ -4,6 +4,7 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { SettingsService } from '@app/services/settings/settings.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trek-card',
@@ -25,6 +26,7 @@ export class TrekCardComponent implements OnInit {
     public offlineTreks: OfflineTreksService,
     public onlineTreks: OnlineTreksService,
     public settings: SettingsService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -56,8 +58,10 @@ export class TrekCardComponent implements OnInit {
   }
 
   private async deleteTrek() {
+    const translationTrekCard = await this.translate.get('trekCard').toPromise();
+
     const loader = await this.loadingController.create({
-      message: 'Suppression en cours',
+      message: translationTrekCard.deletionInProgress,
     });
     await loader.present();
 
@@ -65,27 +69,26 @@ export class TrekCardComponent implements OnInit {
       loader.dismiss();
       this.presentDeleteConfirm(
         true,
-        trekRemoved
-          ? 'La randonnée est supprimée du mode hors ligne'
-          : 'Une erreur est survenue lors de la suppression de la randonnée',
+        trekRemoved ? translationTrekCard.trekIsDelete : translationTrekCard.errorWhileDeleting,
       );
     });
   }
 
   private async presentDeleteConfirm(isAlert?: boolean, alertMsg?: string) {
+    const translationTrekCard = await this.translate.get('trekCard').toPromise();
     const deleteConfirm = await this.alertController.create({
-      header: 'Suppression',
-      message: isAlert ? alertMsg : `Supprimer cette randonnée du mode hors ligne ?`,
+      header: translationTrekCard.deleteTitle,
+      message: isAlert ? alertMsg : translationTrekCard.askDelete,
       buttons: isAlert
-        ? ['OK']
+        ? [translationTrekCard.confirmButton]
         : [
             {
-              text: 'Annuler',
+              text: translationTrekCard.cancelButton,
               role: 'cancel',
               cssClass: 'secondary',
             },
             {
-              text: 'Supprimer',
+              text: translationTrekCard.deleteLabel,
               handler: () => {
                 this.deleteTrek();
               },

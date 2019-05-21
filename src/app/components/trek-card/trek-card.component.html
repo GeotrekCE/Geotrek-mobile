@@ -1,9 +1,10 @@
+<ion-button *ngIf="offline" (click)="clickDeleteConfirm($event)" color="light" fill="clear" class="trash-button">
+  <ion-icon slot="icon-only" name="trash"></ion-icon>
+</ion-button>
+
 <ion-card class="no-outline pointer extand-card  ion-activatable" [routerLink]="this.routerLink">
   <ion-ripple-effect></ion-ripple-effect>
   <div>
-    <ion-button *ngIf="offline" (click)="clickDeleteConfirm($event)" color="light" fill="clear" class="trash-button">
-      <ion-icon slot="icon-only" name="trash"></ion-icon>
-    </ion-button>
     <ion-img *ngIf="this.imgSrc" [src]="this.imgSrc"></ion-img>
     <ion-card-header>
       <ion-card-title>{{ hydratedTrek.properties?.name }}</ion-card-title>
@@ -12,7 +13,7 @@
   <div>
     <ion-card-content>
       <div>
-        <div class="ellipsis">Départ</div>
+        <div class="ellipsis">{{ 'treks.departure' | translate }}</div>
         <div class="ellipsis" *ngIf="hydratedTrek.properties.departure_city">
           {{ hydratedTrek.properties.departure_city?.name }}
         </div>

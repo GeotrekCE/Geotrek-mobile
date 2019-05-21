@@ -67,12 +67,20 @@
         "name": "À proximité",
         "showAllLabel": "Afficher tout",
         "hideAllLabel": "Ne plus tout afficher"
-      }
+      },
+      "informationDesk": { "website": "Site web" },
+      "usefulInformation": "Information pratiques",
+      "contact": "Contact"
     }
   },
   "treks": {
     "numberOftreks": "Randonnées",
-    "numberOftrek": "Une randonnée"
+    "numberOftrek": "Une randonnée",
+    "noOfflineResult": "Les filtres sélectionnés ne correspondent pas à votre randonnée enregistrée",
+    "noOfflineResults": "Les filtres sélectionnés ne correspondent à aucune de vos {{ nbOfflineTreks }} randonnées enregistrées.",
+    "showAllTreks": "Afficher toutes les randonnées enregistrées",
+    "emptyOfflineTreks": "Ici, vous retrouverez vos randonnées disponibles hors ligne",
+    "departure": "Départ"
   },
   "geolocate": {
     "askLocatePermission": "Vous n'avez pas autorisé l'application à suivre votre localisation. Voulez vous ouvrir vos paramètres ?",
@@ -80,5 +88,24 @@
     "open": "Ouvrir",
     "poiNearBy": "Point d'intérêt à proximité",
     "notificationTitle": "Géoréférencement"
+  },
+  "error": {
+    "title": "Problème de connexion",
+    "contentTreks": "Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées",
+    "contentMore": "Veuillez vous assurer d’être connecté afin d’accéder aux informations supplémentaires",
+    "contentMoreItem": "Veuillez vous assurer d’être connecté afin d’accéder à l'information",
+    "contentTrekMap": "Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée",
+    "contentTreksMap": "Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées non enregistrées",
+    "buttonText": "Réessayer"
+  },
+  "trekCard": {
+    "deleteTitle": "Suppression",
+    "deleteLabel": "Supprimer",
+    "askDelete": "Supprimer cette randonnée du mode hors ligne ?",
+    "deletionInProgress": "Suppression en cours",
+    "trekIsDelete": "La randonnée est supprimée du mode hors ligne",
+    "errorWhileDeleting": "Une erreur est survenue lors de la suppression de la randonnée",
+    "cancelButton": "Annuler",
+    "confirmButton": "Ok"
   }
 }
