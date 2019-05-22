@@ -26,7 +26,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     SharedUiModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forChild(),
   ],
   declarations: [TrekMapPage],
 })
