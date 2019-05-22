@@ -8,7 +8,7 @@ _Before proceeding, make sure the latest version of [Node.js and npm](https://no
 
     git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 
-    cd geotrek-mobile-refonte-ionic
+    cd Geotrek-mobile
 
     npm install
 
