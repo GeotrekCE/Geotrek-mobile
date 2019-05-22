@@ -4,7 +4,9 @@
 
 _Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_
 
-    npm install -g ionic
+    npm install -g ionic@4.12.0
+
+    npm install -g cordova@8.1.2
 
     git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 
