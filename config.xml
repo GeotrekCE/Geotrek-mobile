@@ -104,8 +104,8 @@
         <variable name="ACCOUNT_LABEL" value="@string/app_name" />
         <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account" />
         <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
-        <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app always requires location tracking" />
-        <variable name="MOTION_USAGE_DESCRIPTION" value="This app requires motion detection" />
+        <variable name="ALWAYS_USAGE_DESCRIPTION" value="In order to locate or track you while hiking, this app always requires location tracking" />
+        <variable name="MOTION_USAGE_DESCRIPTION" value="In order to locate or track you while hiking, this app requires motion detection" />
     </plugin>
     <plugin name="cordova-plugin-local-notification" spec="https://github.com/Steffaan/cordova-plugin-local-notifications.git">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.+" />
