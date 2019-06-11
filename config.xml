@@ -113,6 +113,5 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="5.4.4">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
     </plugin>
-    <engine name="android" spec="7.1.4" />
-    <engine name="ios" spec="^4.5.5" />
+    <plugin name="cordova-plugin-firebase-analytics" spec="2.0.4" />
 </widget>
