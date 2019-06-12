@@ -101,6 +101,12 @@ Then you just have to run
 - All others resources are provided by the api
   _We download a global package for offline mode when user downloads his first trek_
 
+## Firebase Analytics
+
+In order to use Firebase analytics, you had to create a Firebase App.
+Then store google-services.json and GoogleService-Info.plist in ./Analytics/
+Uncomment the concerned line in config.xml and set true to useFirebase variable in environment files
+
 ## Documentation
 
 [Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
