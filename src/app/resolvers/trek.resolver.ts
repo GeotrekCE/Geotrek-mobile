@@ -18,6 +18,9 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { LoadingService } from '@app/services/loading/loading.service';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+import { Platform } from '@ionic/angular';
+import { environment } from '@env/environment';
 
 @Injectable()
 export class TrekContextResolver implements Resolve<TrekContext | null | 'connectionError'> {
@@ -27,6 +30,8 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
     private onlineTreks: OnlineTreksService,
     private router: Router,
     private settingsService: SettingsService,
+    private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
@@ -57,6 +62,11 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
             const touristicCategoriesWithFeatures = this.settingsService.getTouristicCategoriesWithFeatures(
               touristicContents,
             );
+
+            if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
+              this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name}  ${trek.properties.name}`);
+            }
+
             return {
               treksTool: treksService,
               offline: offline,

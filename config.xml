@@ -21,6 +21,8 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <platform name="android">
+        <resource-file src="resources/android_ic_notification/drawable-hdpi/ic_stat_panorama.png" target="app/src/main/res/mipmap/icon.png" />
+        <!-- <resource-file src="analytics/google-services.json" target="app/google-services.json" /> -->
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -48,6 +50,7 @@
         <resource-file src="resources/android_ic_notification/drawable-xxxhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_panorama.png" />
     </platform>
     <platform name="ios">
+        <!-- <resource-file src="analytics/GoogleService-Info.plist" /> -->
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />

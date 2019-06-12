@@ -3,6 +3,7 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
   HydratedTrek,
@@ -56,6 +57,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     private socialSharing: SocialSharing,
     private platform: Platform,
     public settings: SettingsService,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) {
     super();
   }
@@ -63,29 +65,27 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   ngOnInit(): void {
     super.ngOnInit();
     this.subscriptions$$.push(
-      this.route.data.subscribe(
-        (data: Data): void => {
-          const context: TrekContext | null | 'connectionError' = data.context;
-          if (context === 'connectionError') {
-            this.connectionError = true;
-          } else {
-            this.connectionError = false;
-            if (context !== null) {
-              this.offline = context.offline;
-              this.currentTrek = context.trek;
-              this.originalTrek = context.originalTrek;
-              this.currentPois = context.pois.features;
-              this.treksTool = context.treksTool;
-              this.touristicContents = context.touristicContents;
-              this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
-              this.touristicEvents = context.touristicEvents.features;
-              this.treksUrl = this.treksTool.getTreksUrl();
-              this.commonSrc = context.commonSrc;
-              this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id);
-            }
+      this.route.data.subscribe((data: Data): void => {
+        const context: TrekContext | null | 'connectionError' = data.context;
+        if (context === 'connectionError') {
+          this.connectionError = true;
+        } else {
+          this.connectionError = false;
+          if (context !== null) {
+            this.offline = context.offline;
+            this.currentTrek = context.trek;
+            this.originalTrek = context.originalTrek;
+            this.currentPois = context.pois.features;
+            this.treksTool = context.treksTool;
+            this.touristicContents = context.touristicContents;
+            this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
+            this.touristicEvents = context.touristicEvents.features;
+            this.treksUrl = this.treksTool.getTreksUrl();
+            this.commonSrc = context.commonSrc;
+            this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id);
           }
-        },
-      ),
+        }
+      }),
       this.settings.data$.subscribe(settings => {
         if (settings) {
           this.typePois = settings.find(setting => setting.id === 'poi_types');
@@ -113,6 +113,11 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         this.trekDownloading = false;
         modalProgress.dismiss();
         this.presentDownloadConfirm(true, saveResult);
+        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
+          this.firebaseAnalytics.logEvent(`Download ${this.currentTrek.properties.name}`, {
+            download: this.currentTrek.properties.name,
+          });
+        }
       },
       saveResult => {
         this.trekDownloading = false;
@@ -171,7 +176,13 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
           : [],
         url: `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`,
       };
-      this.socialSharing.shareWithOptions(sharingOptions);
+      this.socialSharing.shareWithOptions(sharingOptions).then(() => {
+        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
+          this.firebaseAnalytics.logEvent(`Share ${this.currentTrek.properties.name}`, {
+            name: this.currentTrek.properties.name,
+          });
+        }
+      });
     }
   }
 }

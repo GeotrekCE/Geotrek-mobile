@@ -27,6 +27,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Globalization } from '@ionic-native/globalization/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
@@ -93,6 +94,7 @@ export function createTranslateLoader(http: HttpClient) {
     Globalization,
     SocialSharing,
     Network,
+    FirebaseAnalytics,
     MoreResolver,
     MoreItemResolver,
     TrekContextResolver,
