@@ -104,8 +104,9 @@ Then you just have to run
 ## Firebase Analytics
 
 In order to use Firebase analytics, you had to create a Firebase App.
-Then store google-services.json and GoogleService-Info.plist in ./Analytics/
-Uncomment the concerned line in config.xml and set true to useFirebase variable in environment files
+* Then store google-services.json and GoogleService-Info.plist in ./Analytics/
+* Uncomment the concerned line in config.xml
+* Set true to useFirebase variable in environment files
 
 ## Documentation
 
