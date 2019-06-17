@@ -40,6 +40,7 @@
     "@ionic-native/zip": "^5.8.0",
     "@ionic/angular": "^4.4.2",
     "@ionic/storage": "^2.2.0",
+    "@mauron85/cordova-plugin-background-geolocation": "^3.0.3",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@turf/distance": "^6.0.1",
