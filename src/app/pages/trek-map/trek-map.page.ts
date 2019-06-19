@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform, PopoverController } from '@ionic/angular';
+
 import { MapboxOptions } from 'mapbox-gl';
 
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
@@ -41,6 +42,8 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     public settings: SettingsService,
+    private platform: Platform,
+    private popoverCtrl: PopoverController
   ) {
     super();
   }
@@ -67,6 +70,22 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
         },
       ),
     );
+
+    if (this.platform.is('android')) {
+      this.subscriptions$$.push(
+        this.platform.backButton.subscribeWithPriority(99999, async () => {
+          // close popover
+          try {
+            const element = await this.popoverCtrl.getTop();
+            if (element) {
+                element.dismiss();
+                return;
+            }
+          } catch (error) {
+          }
+        })
+      )
+    }
   }
 
   ngOnDestroy() {
