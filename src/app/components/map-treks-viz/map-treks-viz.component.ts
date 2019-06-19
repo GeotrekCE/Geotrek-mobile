@@ -316,4 +316,17 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       await alert.present();
     });
   }
+
+  /**
+   * Fly to user location else fitbounds to trek
+   */
+  public flyToUserLocation(): void {
+    const userLocation = this.geolocate.currentPosition$.getValue();
+    if (userLocation) {
+      this.map.flyTo({
+        center: userLocation,
+        animate: false,
+      });
+    }
+  }
 }
