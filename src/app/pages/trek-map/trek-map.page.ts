@@ -76,10 +76,16 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
         this.platform.backButton.subscribeWithPriority(99999, async () => {
           // close popover
           try {
-            const element = await this.popoverCtrl.getTop();
-            if (element) {
-                element.dismiss();
-                return;
+            const popover = await this.popoverCtrl.getTop();
+            if (popover) {
+              popover.dismiss();
+              return;
+            }
+
+            const modal = await this.modalController.getTop();
+            if (modal) {
+              modal.dismiss();
+              return;
             }
           } catch (error) {
           }
