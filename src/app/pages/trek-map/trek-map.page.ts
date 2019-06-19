@@ -18,6 +18,7 @@ import {
 } from '@app/interfaces/interfaces';
 import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-trek-map',
@@ -43,7 +44,8 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     private router: Router,
     public settings: SettingsService,
     private platform: Platform,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private location: Location
   ) {
     super();
   }
@@ -87,6 +89,8 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
               modal.dismiss();
               return;
             }
+
+            this.location.back();
           } catch (error) {
           }
         })

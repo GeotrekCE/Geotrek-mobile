@@ -132,7 +132,7 @@ export const environment = {
       },
       circle: {
         paint: {
-          'circle-color': '#898083',
+          'circle-color': '#f04141',
           'circle-stroke-color': '#fff',
           'circle-radius': 12,
           'circle-stroke-width': 1,
