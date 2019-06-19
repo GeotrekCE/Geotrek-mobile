@@ -22,7 +22,7 @@ export class AppComponent {
     private globalization: Globalization,
     private onlineTreks: OnlineTreksService,
     private settings: SettingsService,
-  ) {
+    ) {
     this.initializeApp();
   }
 
