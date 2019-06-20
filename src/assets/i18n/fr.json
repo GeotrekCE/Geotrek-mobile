@@ -1,7 +1,10 @@
 {
   "toolbar": {
     "filters": "Filtres",
-    "search": "Recherche"
+    "search": "Recherche",
+    "orderTitle": "Trier par",
+    "orderByAlphabet": "Ordre alphabéthique",
+    "orderByLocation": "Distance"
   },
   "tabbar": {
     "treks": "Randonnées",

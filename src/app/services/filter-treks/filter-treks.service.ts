@@ -1,9 +1,12 @@
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { point } from '@turf/helpers';
 
-import { ContainsFilter, Filter, IntervalFilter, MinimalTrek, MinimalTreks } from '@app/interfaces/interfaces';
+import { ContainsFilter, Filter, IntervalFilter, MinimalTrek, MinimalTreks, Order } from '@app/interfaces/interfaces';
 import { SettingsService } from '@app/services/settings/settings.service';
+
+const distance = require('@turf/distance').default;
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +40,32 @@ export class FilterTreksService {
     }
 
     return filteredFeatures;
+  }
+
+  public static sort(filteredTreks: MinimalTrek[], order: Order, orderGeolocation: number[]): MinimalTrek[] {
+    return filteredTreks.sort((a: MinimalTrek, b: MinimalTrek) => {
+      // Sort by user location
+      if (order === 'location' && orderGeolocation && orderGeolocation !== null) {
+        const distanceFromTrekA = distance(point(a.geometry.coordinates), point(orderGeolocation))
+        const distanceFromTrekB = distance(point(b.geometry.coordinates), point(orderGeolocation))
+
+        if (distanceFromTrekA < distanceFromTrekB) {
+          return -1
+        }
+        if (distanceFromTrekA > distanceFromTrekB) {
+          return 1
+        }
+        return 0
+      }
+      // Default order (alphabetically)
+      if (a.properties.name < b.properties.name) {
+        return -1
+      } 
+      if (a.properties.name > b.properties.name) {
+        return 1
+      } 
+      return 0
+    })
   }
 
   private static isFilterActive(filter: Filter): boolean {
@@ -94,8 +123,10 @@ export class FilterTreksService {
   }
 
   public getFilteredTreks(treks$: Observable<MinimalTreks | null>): Observable<MinimalTrek[]> {
-    return combineLatest(treks$, this.settings.filters$).pipe(
-      map(([treks, filters]) => FilterTreksService.filter(treks, filters)),
+    return combineLatest(treks$, this.settings.filters$, this.settings.order$, this.settings.orderGeolocation$).pipe(
+      map(([treks, filters, order, orderGeolocation]) => {
+        return FilterTreksService.sort(FilterTreksService.filter(treks, filters), order, orderGeolocation)
+      }),
     );
   }
 }

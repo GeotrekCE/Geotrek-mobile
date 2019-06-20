@@ -125,6 +125,8 @@ export interface Filter {
   hideAllLabel: string;
 }
 
+export type Order = 'default' | 'location' | null
+
 export interface IntervalFilter extends Filter {
   id: 'length'; // TODO: complete this
   type: 'interval';

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { IonContent, ModalController } from '@ionic/angular';
+import { IonContent, ModalController, PopoverController } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { map, mergeMap, delay } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
@@ -16,6 +16,8 @@ import { FilterTreksService } from '@app/services/filter-treks/filter-treks.serv
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { LoadingService } from '@app/services/loading/loading.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TreksOrderComponent } from '@app/components/treks-order/treks-order.component';
 
 @Component({
   selector: 'app-treks',
@@ -50,6 +52,8 @@ export class TreksPage extends UnSubscribe implements OnInit {
     private settings: SettingsService,
     private network: Network,
     public platform: Platform,
+    private popoverController: PopoverController,
+    private translate: TranslateService
   ) {
     super();
   }
@@ -78,7 +82,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
           mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
         ),
         this.filterTreks.activeFiltersNumber$,
-        this.settings.data$,
+        this.settings.data$
       ).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
         if (settings) {
           if (this.platform.is('ios') || this.platform.is('android')) {
@@ -160,5 +164,37 @@ export class TreksPage extends UnSubscribe implements OnInit {
 
   public trackTrek(index: number, element: MinimalTrek): number | null {
     return element ? element.properties.id : null;
+  }
+
+  public changeTreksOrder(checked: boolean, value: string): void {
+    console.log('change trek order', checked, value)
+    // value
+    //   .split(',')
+    //   .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
+  }
+
+  async showTreksOrder(event: any) {
+    const orders: { name: string; value: string }[] = [
+      {
+        name: await this.translate.get('toolbar.orderByAlphabet').toPromise(),
+        value: 'default'
+      },
+      {
+        name: await this.translate.get('toolbar.orderByLocation').toPromise(),
+        value: 'location',
+      },
+    ];
+
+    const popover = await this.popoverController.create({
+      component: TreksOrderComponent,
+      event: event,
+      translucent: true,
+      componentProps: {
+        changeTreksOrder: (checked: boolean, value: string) =>
+          this.changeTreksOrder(checked, value),
+          orders,
+      },
+    });
+    return await popover.present();
   }
 }

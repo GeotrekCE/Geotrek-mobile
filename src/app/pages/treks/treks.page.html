@@ -7,7 +7,7 @@
   >
     <ion-grid no-padding>
       <ion-row>
-        <ion-col size="10">
+        <ion-col size="auto">
           <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">
             {{ 'toolbar.filters' | translate }}
             {{ numberOfActiveFilters }}</ion-button
@@ -17,12 +17,17 @@
           </ion-button>
         </ion-col>
         <ion-col
-          size="2"
-          text-right
-          [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
+        text-right
+        [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
         >
-          <ion-icon name="reorder" size="large" class="icon-list-card" (click)="changeColSize()"></ion-icon>
-          <ion-icon name="apps" size="large" class="icon-list-square" (click)="changeColSize()"></ion-icon>
+          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>
+          </ion-button>
+
+          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">
+            <ion-icon [name]="colSize === 12 ? 'reorder': 'apps'" size="large"></ion-icon>
+            <!-- <ion-icon *ngIf="colSize !== 12" name="apps" size="large"></ion-icon> -->
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

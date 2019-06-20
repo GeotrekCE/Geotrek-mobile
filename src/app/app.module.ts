@@ -41,6 +41,7 @@ import { ProgressComponent } from '@app/components/progress/progress.component';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 
 import { FilterValueComponent } from './components/filter-value/filter-value.component';
+import { TreksOrderComponent } from './components/treks-order/treks-order.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,6 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
     FilterValueComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
+    TreksOrderComponent
   ],
   entryComponents: [
     FiltersComponent,
@@ -65,6 +67,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
+    TreksOrderComponent
   ],
   imports: [
     BrowserModule,
