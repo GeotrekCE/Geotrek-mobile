@@ -17,6 +17,7 @@ import {
   TouristicCategoryWithFeatures,
   TouristicContents,
   TouristicCategorie,
+  Order,
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 
@@ -27,6 +28,9 @@ export class SettingsService {
   private apiUrl = `${environment.onlineBaseUrl}`;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
+  public order$ = new BehaviorSubject<Order>('default');
+  // User location, used for ordering treks by distance
+  public userLocation$ = new BehaviorSubject<number[]>([0,0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
 
   constructor(public http: HttpClient, public storage: Storage, private translate: TranslateService) {}
@@ -79,6 +83,13 @@ export class SettingsService {
 
   public saveFiltersState(filters: Filter[]): void {
     this.filters$.next(filters);
+  }
+
+  public saveOrderState(order: Order, geolocation?: number[]): void {
+    this.order$.next(order);
+    if (geolocation && geolocation !== null) {
+      this.userLocation$.next(geolocation)
+    }
   }
 
   public resetFilters(): void {
