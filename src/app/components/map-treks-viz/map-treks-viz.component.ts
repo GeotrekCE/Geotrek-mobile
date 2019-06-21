@@ -326,6 +326,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       this.map.flyTo({
         center: userLocation,
         animate: false,
+        zoom: environment.trekZoom.zoom,
       });
     }
   }

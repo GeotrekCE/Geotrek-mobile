@@ -563,6 +563,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       this.map.flyTo({
         center: userLocation,
         animate: false,
+        zoom: environment.trekZoom.zoom,
       });
     }
   }
