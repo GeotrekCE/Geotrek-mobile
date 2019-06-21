@@ -2,30 +2,6 @@
   position: relative;
 }
 
-.icon-list-square {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  transform: scale(0);
-  transition: transform 0.3s ease;
-}
-
-.icon-list-card {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  transform: scale(1);
-  transition: transform 0.3s ease;
-}
-
-.list-mode-card .icon-list-card {
-  transform: scale(0);
-}
-
-.list-mode-card .icon-list-square {
-  transform: scale(1);
-}
-
 .list-mode-disabled {
   cursor: default;
   opacity: .5;
@@ -33,10 +9,21 @@
 }
 
 .custom-button {
-  width: 100px;
   text-transform: capitalize;
+} 
+
+@media screen and (min-width: 340px) {
+  .custom-button {
+    width: 100px;
+  } 
 }
 
 .button-margin-left {
   margin-left: 12px;
 }
+
+.toolbar-button {
+  --padding-start: .5em;
+  --padding-end: .5em;
+}
+

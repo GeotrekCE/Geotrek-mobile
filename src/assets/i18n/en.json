@@ -1,7 +1,10 @@
 {
   "toolbar": {
     "filters": "Filters",
-    "search": "Search"
+    "search": "Search",
+    "orderTitle": "Order by",
+    "orderByAlphabet": "A-Z",
+    "orderByLocation": "Distance"
   },
   "tabbar": {
     "treks": "Treks",
