@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable } from 'rxjs';
-import { PopoverController } from '@ionic/angular';
-
+import { PopoverController, AlertController } from '@ionic/angular';
+import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
   Pois,
@@ -55,6 +55,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     private geolocate: GeolocateService,
     public popoverController: PopoverController,
     private translate: TranslateService,
+    private alertController: AlertController,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -146,6 +147,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           this.presentPoiDetails.emit(touristicContent);
         }
       });
+
+      this.handleClustersInteraction();
 
       this.map.on('mouseenter', 'pois-icon', () => {
         this.map.getCanvas().style.cursor = 'pointer';
@@ -289,12 +292,16 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'geojson',
       data,
       maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
+      cluster: true,
+      clusterRadius: 50,
     });
 
     this.map.addSource('touristics-content', {
       type: 'geojson',
       data,
       maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
+      cluster: true,
+      clusterRadius: 50,
     });
 
     this.map.addSource('information-desk', {
@@ -361,6 +368,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       id: 'pois-icon',
       type: 'symbol',
       source: 'pois',
+      filter: ['!', ['has', 'point_count']],
       layout: {
         'icon-image': ['concat', 'pois', ['get', 'type']],
         'icon-size': environment.map.iconSize,
@@ -369,9 +377,34 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     });
 
     this.map.addLayer({
+      id: 'clusters-circle-pois',
+      type: 'circle',
+      source: 'pois',
+      filter: ['has', 'point_count'],
+      paint: environment.map.clusterPaint,
+    });
+
+    this.map.addLayer({
+      id: 'cluster-text-count-pois',
+      type: 'symbol',
+      source: 'pois',
+      filter: ['has', 'point_count'],
+      paint: {
+        'text-color': '#fff',
+      },
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['Roboto Regular'],
+        'text-size': 18,
+        'text-offset': [0, 0.1],
+      },
+    });
+
+    this.map.addLayer({
       id: 'touristics-content-circle',
       type: 'circle',
       source: 'touristics-content',
+      filter: ['!', ['has', 'point_count']],
       ...(environment.map.touristicContentLayersProperties.circle as any),
     });
 
@@ -379,7 +412,32 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       id: 'touristics-content-icon',
       type: 'symbol',
       source: 'touristics-content',
+      filter: ['!', ['has', 'point_count']],
       ...(environment.map.touristicContentLayersProperties.icon as any),
+    });
+
+    this.map.addLayer({
+      id: 'clusters-circle-touristics-content',
+      type: 'circle',
+      source: 'touristics-content',
+      filter: ['has', 'point_count'],
+      paint: environment.map.clusterPaint,
+    });
+
+    this.map.addLayer({
+      id: 'cluster-text-count-touristics-content',
+      type: 'symbol',
+      source: 'touristics-content',
+      filter: ['has', 'point_count'],
+      paint: {
+        'text-color': '#fff',
+      },
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['Roboto Regular'],
+        'text-size': 18,
+        'text-offset': [0, 0.1],
+      },
     });
 
     this.map.addLayer({
@@ -609,5 +667,102 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     layersName
       .split(',')
       .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
+  }
+
+  public handleClustersInteraction(): void {
+    [
+      { id: 'pois', translateId: 'trek.details.poi.name' },
+      { id: 'touristics-content', translateId: 'trek.details.touristicContent.name' },
+    ].forEach(clusterSource => {
+      this.map.on('click', `clusters-circle-${clusterSource.id}`, e => {
+        const features = this.map.queryRenderedFeatures(e.point, {
+          layers: [`clusters-circle-${clusterSource.id}`],
+        });
+
+        const featureProperties = features[0].properties;
+        if (!!featureProperties) {
+          const clusterId = featureProperties.cluster_id;
+
+          if (this.map.getZoom() === this.mapConfig.maxZoom) {
+            // no more zoom, display features inside cluster
+            (this.map.getSource(clusterSource.id) as GeoJSONSource).getClusterLeaves(
+              featureProperties.cluster_id,
+              Infinity,
+              0,
+              (err: any, featuresInCluster: Feature<Geometry, GeoJsonProperties>[]) => {
+                if (err) {
+                  throw err;
+                }
+                this.presentConfirmFeatures(
+                  featuresInCluster as Feature<Geometry, { [name: string]: any }>[],
+                  clusterSource.translateId,
+                );
+              },
+            );
+          } else {
+            // zoom to next cluster expansion
+            (this.map.getSource(clusterSource.id) as GeoJSONSource).getClusterExpansionZoom(
+              clusterId,
+              (err: any, zoom: number) => {
+                if (err) {
+                  return;
+                }
+                const coordinates = (features[0].geometry as Point).coordinates;
+                this.map.easeTo({
+                  center: [coordinates[0], coordinates[1]],
+                  zoom: zoom,
+                });
+              },
+            );
+          }
+        }
+      });
+
+      this.map.on('mouseenter', `clusters-circle-${clusterSource.id}`, () => {
+        this.map.getCanvas().style.cursor = 'pointer';
+      });
+      this.map.on('mouseleave', `clusters-circle-${clusterSource.id}`, () => {
+        this.map.getCanvas().style.cursor = '';
+      });
+    });
+  }
+
+  async presentConfirmFeatures(features: Feature<Geometry, { [name: string]: any }>[], translateId: string) {
+    const featuresRadio: Object[] = []; // can't import AlertOption
+
+    features.forEach((feature, index: number) => {
+      featuresRadio.push({
+        name: feature.properties.name,
+        type: 'radio',
+        label: feature.properties.name,
+        value: feature,
+        checked: index === 0,
+      });
+    });
+
+    await this.translate
+      .get([translateId, 'mapTreks.treksAlert.confirmButton', 'mapTreks.treksAlert.cancelButton'])
+      .subscribe(async trad => {
+        console.log(trad);
+        const alert = await this.alertController.create({
+          header: trad[translateId],
+          inputs: featuresRadio,
+          buttons: [
+            {
+              text: trad['mapTreks.treksAlert.cancelButton'],
+              role: 'cancel',
+              cssClass: 'secondary',
+            },
+            {
+              text: trad['mapTreks.treksAlert.confirmButton'],
+              handler: feature => {
+                this.presentPoiDetails.emit(feature);
+              },
+            },
+          ],
+        });
+
+        await alert.present();
+      });
   }
 }
