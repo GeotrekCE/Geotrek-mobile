@@ -42,12 +42,12 @@ export class FilterTreksService {
     return filteredFeatures;
   }
 
-  public static sort(filteredTreks: MinimalTrek[], order: Order, orderGeolocation: number[]): MinimalTrek[] {
+  public static sort(filteredTreks: MinimalTrek[], order: Order, userLocation: number[]): MinimalTrek[] {
     return filteredTreks.sort((a: MinimalTrek, b: MinimalTrek) => {
       // Sort by user location
-      if (order === 'location' && orderGeolocation && orderGeolocation !== null) {
-        const distanceFromTrekA = distance(point(a.geometry.coordinates), point(orderGeolocation))
-        const distanceFromTrekB = distance(point(b.geometry.coordinates), point(orderGeolocation))
+      if (order === 'location' && userLocation && userLocation !== null) {
+        const distanceFromTrekA = distance(point(a.geometry.coordinates), point(userLocation))
+        const distanceFromTrekB = distance(point(b.geometry.coordinates), point(userLocation))
 
         if (distanceFromTrekA < distanceFromTrekB) {
           return -1
@@ -123,9 +123,9 @@ export class FilterTreksService {
   }
 
   public getFilteredTreks(treks$: Observable<MinimalTreks | null>): Observable<MinimalTrek[]> {
-    return combineLatest(treks$, this.settings.filters$, this.settings.order$, this.settings.orderGeolocation$).pipe(
-      map(([treks, filters, order, orderGeolocation]) => {
-        return FilterTreksService.sort(FilterTreksService.filter(treks, filters), order, orderGeolocation)
+    return combineLatest(treks$, this.settings.filters$, this.settings.order$, this.settings.userLocation$).pipe(
+      map(([treks, filters, order, userLocation]) => {
+        return FilterTreksService.sort(FilterTreksService.filter(treks, filters), order, userLocation)
       }),
     );
   }

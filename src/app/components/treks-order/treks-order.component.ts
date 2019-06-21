@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+import { NavParams, Platform } from '@ionic/angular';
+
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { Order } from '@app/interfaces/interfaces';
-import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 
 @Component({
   selector: 'app-treks-order',
@@ -17,7 +18,8 @@ export class TreksOrderComponent extends UnSubscribe {
   constructor(
     private navParams: NavParams,
     private settings: SettingsService,
-    private geolocate: GeolocateService
+    private platform: Platform,
+    private backgroundGeolocation: BackgroundGeolocation
   ) {
     super();
   }
@@ -32,16 +34,22 @@ export class TreksOrderComponent extends UnSubscribe {
     );
   }
 
-  public treksOrderChange(event: any) {
+  public async treksOrderChange(event: any) {
     if (event.detail.value === 'location') {
-      this.geolocate.startTracking('');
-      this.subscriptions$$.push(
-        this.geolocate.currentPosition$.subscribe(coordinates => {
-          this.settings.saveOrderState(event.detail.value, coordinates);
-        })
-      );
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        const startLocation = await this.backgroundGeolocation.getCurrentLocation();
+        if (startLocation) {
+          this.settings.saveOrderState(event.detail.value, [startLocation.longitude, startLocation.latitude]);
+        } else {
+          // If location not provided, reset default order
+          this.settings.saveOrderState('default');
+        }
+      } else if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.settings.saveOrderState(event.detail.value, [position.coords.longitude, position.coords.latitude]);
+        });
+      }
     } else {
-      this.geolocate.stopTracking();
       this.settings.saveOrderState(event.detail.value);
     }
   }
