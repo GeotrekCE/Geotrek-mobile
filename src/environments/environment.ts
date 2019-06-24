@@ -145,6 +145,7 @@ export const environment = {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],
           'icon-size': 0.6,
           'icon-allow-overlap': true,
+          'icon-ignore-placement': true,
         },
       },
       circle: {
