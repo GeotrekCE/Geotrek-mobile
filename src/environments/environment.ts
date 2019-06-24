@@ -58,7 +58,7 @@ export const environment = {
           type: 'raster',
           source: 'tiles-background',
           minzoom: 0,
-          maxzoom: 17,
+          maxzoom: 13,
         },
       ],
     },

@@ -92,7 +92,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   createMap(): void {
     if (this.mapConfig && this.mapConfig.style) {
       const { addSoustractMaxBounds } = environment.map;
-      const maxBounds = [
+      const bounds = [
         this.mapConfig.bounds[0] - addSoustractMaxBounds,
         this.mapConfig.bounds[1] - addSoustractMaxBounds,
         this.mapConfig.bounds[2] + addSoustractMaxBounds,
@@ -101,7 +101,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       this.map = new Map({
         ...this.mapConfig,
         container: 'map-trek',
-        maxBounds,
+        bounds,
       });
 
       this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');

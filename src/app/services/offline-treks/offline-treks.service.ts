@@ -413,6 +413,7 @@ export class OfflineTreksService implements TreksService {
 
     if (isOffline && this.isMobile) {
       mapConfig = { ...cloneDeep(environment.offlineMapConfig), zoom: environment.trekZoom.zoom };
+
       if (mapConfig.style && typeof mapConfig.style !== 'string' && mapConfig.style.sources) {
         (mapConfig.style as any).sources['tiles-background'].tiles[0] =
           this.getCommonImgSrc() + (environment.offlineMapConfig.style as any).sources['tiles-background'].tiles[0];
@@ -423,6 +424,7 @@ export class OfflineTreksService implements TreksService {
             this.getTilesDirectoryForTrekById(trek.properties.id, mapConfig.style.sources['tiles-background'].type),
           ],
         } as any;
+
         if (mapConfig.style.layers) {
           mapConfig.style.layers.push({
             id: 'tiles-background-trek',

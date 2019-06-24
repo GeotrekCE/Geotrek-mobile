@@ -198,7 +198,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       },
     });
 
-    const circleColorExpression = [];
+    const circleColorExpression: any[] = [];
     circleColorExpression.push('match');
     circleColorExpression.push(['get', 'practice']);
     this.practices.values.forEach(practice => {
