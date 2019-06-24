@@ -30,6 +30,7 @@ const mapboxgl = require('mapbox-gl');
 export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDestroy {
   private map: Map;
   private markerPosition: Marker;
+  private practices: DataSetting;
 
   @Input() public filteredTreks: MinimalTrek[] | null = null;
   @Input() public mapConfig: MapboxOptions;
@@ -107,6 +108,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
         const loadImages: Observable<any> = Observable.create((observer: any) => {
           const practices: DataSetting | undefined = this.dataSettings.find(data => data.id === 'practice');
           if (practices) {
+            this.practices = practices;
             practices.values.forEach((practice, index: number) => {
               this.map.loadImage(`${this.commonSrc}${practice.pictogram}`, (error: any, image: any) => {
                 observer.next({ id: practice.id.toString(), image });
@@ -196,12 +198,24 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       },
     });
 
+    const circleColorExpression = [];
+    circleColorExpression.push('match');
+    circleColorExpression.push(['get', 'practice']);
+    this.practices.values.forEach(practice => {
+      circleColorExpression.push(practice.id);
+      circleColorExpression.push(practice.color);
+    });
+    circleColorExpression.push(environment.map.clusterPaint['circle-color']);
+
     this.map.addLayer({
       id: 'trek-point',
       type: 'circle',
       source: 'treks-points',
       filter: ['!', ['has', 'point_count']],
-      paint: environment.map.clusterPaint,
+      paint: {
+        ...environment.map.clusterPaint,
+        'circle-color': circleColorExpression as any,
+      },
     });
 
     this.map.addLayer({

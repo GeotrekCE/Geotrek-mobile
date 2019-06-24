@@ -743,7 +743,6 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     await this.translate
       .get([translateId, 'mapTreks.treksAlert.confirmButton', 'mapTreks.treksAlert.cancelButton'])
       .subscribe(async trad => {
-        console.log(trad);
         const alert = await this.alertController.create({
           header: trad[translateId],
           inputs: featuresRadio,

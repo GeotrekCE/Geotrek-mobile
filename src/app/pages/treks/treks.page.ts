@@ -53,7 +53,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     private network: Network,
     public platform: Platform,
     private popoverController: PopoverController,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     super();
   }
@@ -82,7 +82,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
           mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
         ),
         this.filterTreks.activeFiltersNumber$,
-        this.settings.data$
+        this.settings.data$,
       ).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
         if (settings) {
           if (this.platform.is('ios') || this.platform.is('android')) {
@@ -166,18 +166,11 @@ export class TreksPage extends UnSubscribe implements OnInit {
     return element ? element.properties.id : null;
   }
 
-  public changeTreksOrder(checked: boolean, value: string): void {
-    console.log('change trek order', checked, value)
-    // value
-    //   .split(',')
-    //   .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
-  }
-
   async showTreksOrder(event: any) {
     const orders: { name: string; value: string }[] = [
       {
         name: await this.translate.get('toolbar.orderByAlphabet').toPromise(),
-        value: 'default'
+        value: 'default',
       },
       {
         name: await this.translate.get('toolbar.orderByLocation').toPromise(),
@@ -190,9 +183,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
       event: event,
       translucent: true,
       componentProps: {
-        changeTreksOrder: (checked: boolean, value: string) =>
-          this.changeTreksOrder(checked, value),
-          orders,
+        orders,
       },
     });
     return await popover.present();
