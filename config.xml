@@ -50,7 +50,7 @@
         <resource-file src="resources/android_ic_notification/drawable-xxxhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_panorama.png" />
     </platform>
     <platform name="ios">
-        <resource-file src="analytics/GoogleService-Info.plist" />
+        <!-- <resource-file src="analytics/GoogleService-Info.plist" /> -->
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />

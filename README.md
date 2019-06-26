@@ -101,12 +101,52 @@ Then you just have to run
 - All others resources are provided by the api
   _We download a global package for offline mode when user downloads his first trek_
 
-## Firebase Analytics
+## Firebase Analytics Configuration
 
 In order to use Firebase analytics, you had to create a Firebase App.
-* Then store google-services.json and GoogleService-Info.plist in ./Analytics/
-* Uncomment the concerned line in config.xml
-* Set true to useFirebase variable in environment files
+
+- Then store google-services.json and GoogleService-Info.plist in ./Analytics/
+- In config.xml, add
+
+```
+  <platform name="android">
+    <resource-file src="analytics/google-services.json" target="app/google-services.json" />
+    ...
+  </platform>
+  <platform name="ios">
+    <resource-file src="analytics/GoogleService-Info.plist" />
+    ...
+  </platform>
+```
+
+- Set true to useFirebase variable in environment files
+
+## Remove Firebase Analytics
+
+In order to build the app without Firebase you had to
+
+- Set false to useFirebase variable in environment files
+
+- Run this list of command
+  (If you add platforms previously, be sure to delete them)
+
+```
+    ionic cordova platform rm android
+
+    ionic cordova platform rm ios
+
+    ionic cordova plugin rm cordova-plugin-firebase-analytics
+
+    ionic cordova plugin rm cordova-android-play-services-gradle-release
+
+    ionic cordova plugin rm cordova-support-google-services
+
+    ionic cordova plugin rm cordova-support-android-plugin
+
+    ionic cordova platform add android
+
+    ionic cordova platform build android
+```
 
 ## Documentation
 
