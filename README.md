@@ -4,7 +4,7 @@
 
 _Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_
 
-    npm install -g ionic@5.0.2
+    npm install -g ionic@5.1.0
 
     npm install -g cordova@9.0.0
 
