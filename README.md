@@ -109,8 +109,28 @@ LICENCE
 =======
 
 * OpenSource - BSD
-* Copyright (c) Parc National des Écrins - Makina Corpus
+* Copyright (c) Makina Corpus - Parc National des Écrins
+
+[<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
 
 [<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
 
-[<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
+AUTHORS
+=======
+
+V3 (totally rewritten with Ionic):
+
+* Bastien Alvez
+* Alexandra Janin
+* Lise Le Lann
+
+V1 and V2:
+
+* Adrien Denat
+* Mathieu Leplatre
+* Romain Garrigues
+* Éric Bréhault
+* Frédéric Bonifas
+* Simon Bats
+* Bastien Alvez
+* Gael Utard
