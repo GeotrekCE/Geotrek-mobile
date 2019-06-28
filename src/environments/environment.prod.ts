@@ -75,13 +75,13 @@ export const environment = {
   },
   map: {
     addSoustractMaxBounds: 0.01,
-    iconSize: 0.8, // check your icon size, ideally it would be 48px*48px
-    globalMapIconSize: 0.5,
+    iconSize: 1, // check your icon size, ideally it would be 48px*48px
+    globalMapIconSize: 1,
     clusterPaint: {
       // cluster style on map treks
       'circle-color': '#898083',
       'circle-stroke-color': '#fff',
-      'circle-radius': 23,
+      'circle-radius': 18,
       'circle-stroke-width': 1,
     },
     zoneLayerProperties: {
@@ -141,7 +141,7 @@ export const environment = {
       icon: {
         layout: {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],
-          'icon-size': 0.6,
+          'icon-size': 1,
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
         },

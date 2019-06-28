@@ -193,7 +193,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       layout: {
         'text-field': '{point_count_abbreviated}',
         'text-font': ['Roboto Regular'],
-        'text-size': 18,
+        'text-size': 16,
         'text-offset': [0, 0.1],
       },
     });
@@ -215,6 +215,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
       paint: {
         ...environment.map.clusterPaint,
         'circle-color': circleColorExpression as any,
+        'circle-radius': 16,
       },
     });
 
