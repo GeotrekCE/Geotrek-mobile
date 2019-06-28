@@ -402,12 +402,31 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       },
     });
 
+    const touristicsContent: DataSetting | undefined = this.dataSettings.find(
+      data => data.id === 'touristiccontent_categories',
+    );
+
+    const circleColorExpression: any[] = [];
+
+    if (touristicsContent) {
+      circleColorExpression.push('match');
+      circleColorExpression.push(['get', 'category']);
+      touristicsContent.values.forEach(touristicContent => {
+        circleColorExpression.push(touristicContent.id);
+        circleColorExpression.push(touristicContent.color);
+      });
+      circleColorExpression.push(environment.map.clusterPaint['circle-color']);
+    }
+
     this.map.addLayer({
       id: 'touristics-content-circle',
       type: 'circle',
       source: 'touristics-content',
       filter: ['!', ['has', 'point_count']],
-      ...(environment.map.touristicContentLayersProperties.circle as any),
+      paint: {
+        ...environment.map.touristicContentLayersProperties.circle.paint,
+        'circle-color': touristicsContent ? (circleColorExpression as any) : '#000000',
+      },
     });
 
     this.map.addLayer({
