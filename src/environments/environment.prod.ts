@@ -1,3 +1,5 @@
+import { primaryColor } from './variables';
+
 export const environment = {
   appName: 'Geotrek Starter', // app name used for app header
   production: true,
@@ -79,7 +81,7 @@ export const environment = {
     globalMapIconSize: 1,
     clusterPaint: {
       // cluster style on map treks
-      'circle-color': '#898083',
+      'circle-color': primaryColor,
       'circle-stroke-color': '#fff',
       'circle-radius': 18,
       'circle-stroke-width': 1,
@@ -89,7 +91,7 @@ export const environment = {
       // optionnal geojson to display on map
       type: 'fill',
       paint: {
-        'fill-color': '#898083',
+        'fill-color': primaryColor,
         'fill-outline-color': '#625b5d',
         'fill-opacity': 0.3,
       },
@@ -97,7 +99,7 @@ export const environment = {
     zoneOutlineLayerProperties: {
       type: 'line',
       paint: {
-        'line-color': '#898083',
+        'line-color': primaryColor,
         'line-opacity': 1,
         'line-width': 8,
       },
@@ -148,7 +150,7 @@ export const environment = {
       },
       circle: {
         paint: {
-          'circle-color': '#898083',
+          'circle-color': primaryColor,
           'circle-stroke-color': '#fff',
           'circle-radius': 16,
           'circle-stroke-width': 1,
