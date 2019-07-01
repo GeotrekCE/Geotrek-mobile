@@ -16,17 +16,13 @@
             {{ 'toolbar.search' | translate }}
           </ion-button>
         </ion-col>
-        <ion-col
-        text-right
-        [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
-        >
+        <ion-col text-right [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }">
           <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">
             <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>
           </ion-button>
 
           <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">
-            <ion-icon [name]="colSize === 12 ? 'reorder': 'apps'" size="large"></ion-icon>
-            <!-- <ion-icon *ngIf="colSize !== 12" name="apps" size="large"></ion-icon> -->
+            <ion-icon [name]="colSize === 12 ? 'apps' : 'reorder'" size="large"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -65,7 +61,7 @@
             <ion-col
               [size]="colSize"
               [sizeMd]="getMdColSize()"
-              *ngFor="let trek of (filteredTreks | slice: 0:currentMaxTreks); trackBy: trackTrek"
+              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
             >
               <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>
             </ion-col>
