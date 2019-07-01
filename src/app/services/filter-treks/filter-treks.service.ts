@@ -42,30 +42,30 @@ export class FilterTreksService {
     return filteredFeatures;
   }
 
-  public static sort(filteredTreks: MinimalTrek[], order: Order, userLocation: number[]): MinimalTrek[] {
+  public static sort(filteredTreks: MinimalTrek[], order: Order, userLocation?: number[]): MinimalTrek[] {
     return filteredTreks.sort((a: MinimalTrek, b: MinimalTrek) => {
       // Sort by user location
       if (order === 'location' && userLocation && userLocation !== null) {
-        const distanceFromTrekA = distance(point(a.geometry.coordinates), point(userLocation))
-        const distanceFromTrekB = distance(point(b.geometry.coordinates), point(userLocation))
+        const distanceFromTrekA = distance(point(a.geometry.coordinates), point(userLocation));
+        const distanceFromTrekB = distance(point(b.geometry.coordinates), point(userLocation));
 
         if (distanceFromTrekA < distanceFromTrekB) {
-          return -1
+          return -1;
         }
         if (distanceFromTrekA > distanceFromTrekB) {
-          return 1
+          return 1;
         }
-        return 0
+        return 0;
       }
       // Default order (alphabetically)
       if (a.properties.name < b.properties.name) {
-        return -1
-      } 
+        return -1;
+      }
       if (a.properties.name > b.properties.name) {
-        return 1
-      } 
-      return 0
-    })
+        return 1;
+      }
+      return 0;
+    });
   }
 
   private static isFilterActive(filter: Filter): boolean {
@@ -123,9 +123,13 @@ export class FilterTreksService {
   }
 
   public getFilteredTreks(treks$: Observable<MinimalTreks | null>): Observable<MinimalTrek[]> {
-    return combineLatest(treks$, this.settings.filters$, this.settings.order$, this.settings.userLocation$).pipe(
-      map(([treks, filters, order, userLocation]) => {
-        return FilterTreksService.sort(FilterTreksService.filter(treks, filters), order, userLocation)
+    return combineLatest(treks$, this.settings.filters$, this.settings.order$).pipe(
+      map(([treks, filters, order]) => {
+        if (treks && filters && order) {
+          return FilterTreksService.sort(FilterTreksService.filter(treks, filters), order.type, order.value);
+        } else {
+          return [];
+        }
       }),
     );
   }

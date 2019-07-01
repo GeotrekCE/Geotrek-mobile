@@ -13,7 +13,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 import { ModalController, Platform } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, first } from 'rxjs/operators';
 import { cloneDeep } from 'lodash';
 import { Network } from '@ionic-native/network/ngx';
 
@@ -86,6 +86,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     this.mapIsLoaded(false);
     this.mergeFiltersTreks$ = combineLatest(
       this.route.data.pipe(
+        first(),
         map(data => data.context),
         mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
       ),

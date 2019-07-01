@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { IonContent, ModalController, PopoverController } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
-import { map, mergeMap, delay } from 'rxjs/operators';
+import { map, mergeMap, delay, first } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
 import { Platform } from '@ionic/angular';
 
@@ -78,6 +78,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
       // select treks when filter change or when we enter route
       combineLatest(
         this.route.data.pipe(
+          first(),
           map(data => data.context),
           mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
         ),

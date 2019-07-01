@@ -28,7 +28,10 @@ export class SettingsService {
   private apiUrl = `${environment.onlineBaseUrl}`;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
-  public order$ = new BehaviorSubject<Order>('default');
+  public order$ = new BehaviorSubject<{ type: Order; value: number[] | undefined }>({
+    type: 'default',
+    value: undefined,
+  });
   // User location, used for ordering treks by distance
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
@@ -86,10 +89,7 @@ export class SettingsService {
   }
 
   public saveOrderState(order: Order, geolocation?: number[]): void {
-    this.order$.next(order);
-    if (geolocation && geolocation !== null) {
-      this.userLocation$.next(geolocation);
-    }
+    this.order$.next({ type: order, value: geolocation });
   }
 
   public resetFilters(): void {

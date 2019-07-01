@@ -14,12 +14,13 @@ import { Order } from '@app/interfaces/interfaces';
 export class TreksOrderComponent extends UnSubscribe {
   orders: any;
   currentOrder: Order;
+  isFirstCheck = true;
 
   constructor(
     private navParams: NavParams,
     private settings: SettingsService,
     private platform: Platform,
-    private backgroundGeolocation: BackgroundGeolocation
+    private backgroundGeolocation: BackgroundGeolocation,
   ) {
     super();
   }
@@ -29,28 +30,30 @@ export class TreksOrderComponent extends UnSubscribe {
 
     this.subscriptions$$.push(
       this.settings.order$.subscribe(order => {
-        this.currentOrder = order || 'default';
-      })
+        this.currentOrder = order.type;
+      }),
     );
   }
 
   public async treksOrderChange(event: any) {
-    if (event.detail.value === 'location') {
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        const startLocation = await this.backgroundGeolocation.getCurrentLocation();
-        if (startLocation) {
-          this.settings.saveOrderState(event.detail.value, [startLocation.longitude, startLocation.latitude]);
-        } else {
-          // If location not provided, reset default order
-          this.settings.saveOrderState('default');
+    if (!this.isFirstCheck) {
+      if (event.detail.value === 'location') {
+        if (this.platform.is('ios') || this.platform.is('android')) {
+          const startLocation = await this.backgroundGeolocation.getCurrentLocation();
+          if (startLocation) {
+            this.settings.saveOrderState(event.detail.value, [startLocation.longitude, startLocation.latitude]);
+          } else {
+            // If location not provided, reset default order
+            this.settings.saveOrderState('default');
+          }
+        } else if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition(position => {
+            this.settings.saveOrderState(event.detail.value, [position.coords.longitude, position.coords.latitude]);
+          });
         }
-      } else if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.settings.saveOrderState(event.detail.value, [position.coords.longitude, position.coords.latitude]);
-        });
+      } else {
+        this.settings.saveOrderState(event.detail.value);
       }
-    } else {
-      this.settings.saveOrderState(event.detail.value);
-    }
+    } else this.isFirstCheck = false;
   }
 }
