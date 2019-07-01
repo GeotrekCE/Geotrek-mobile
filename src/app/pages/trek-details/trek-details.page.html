@@ -55,6 +55,13 @@
           </ion-col>
         </ion-row>
 
+        <!-- Ambiance -->
+        <ion-row *ngIf="currentTrek.properties.ambiance">
+          <ion-col class="italic">
+            <div [innerHTML]="currentTrek.properties.ambiance"></div>
+          </ion-col>
+        </ion-row>
+
         <!-- Informations -->
         <ion-row *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival">
           <ion-col>
@@ -68,7 +75,7 @@
                 <ion-text color="primary">
                   <h5>{{ 'trek.details.departure' | translate }}</h5>
                 </ion-text>
-                <div class="inline" *ngIf="currentTrek.properties.departure_city">
+                <div *ngIf="currentTrek.properties.departure_city">
                   {{ currentTrek.properties.departure_city?.name }}
                 </div>
                 {{ currentTrek.properties.departure }}
@@ -78,7 +85,7 @@
                 <ion-text color="primary">
                   <h5>{{ 'trek.details.arrival' | translate }}</h5>
                 </ion-text>
-                <div class="inline" *ngIf="currentTrek.properties.arrival_city">
+                <div *ngIf="currentTrek.properties.arrival_city">
                   {{ currentTrek.properties.arrival_city?.name }}
                 </div>
                 {{ currentTrek.properties.arrival }}
@@ -91,10 +98,10 @@
               "
             >
               <ion-text color="primary">
-                <h5 class="inline">{{ 'trek.details.departureArrival' | translate }}</h5>
+                <h5>{{ 'trek.details.departureArrival' | translate }}</h5>
               </ion-text>
               <div>
-                <div class="inline" *ngIf="currentTrek.properties.departure_city">
+                <div *ngIf="currentTrek.properties.departure_city">
                   {{ currentTrek.properties.departure_city?.name }}
                 </div>
                 <div>

@@ -90,6 +90,7 @@ export interface HydratedTrekProperties {
   profile: string;
   slug?: string;
   points_reference?: number[][];
+  ambiance: string;
 }
 
 export interface InformationDesk {
@@ -125,7 +126,7 @@ export interface Filter {
   hideAllLabel: string;
 }
 
-export type Order = 'default' | 'location' | null
+export type Order = 'default' | 'location' | null;
 
 export interface IntervalFilter extends Filter {
   id: 'length'; // TODO: complete this
