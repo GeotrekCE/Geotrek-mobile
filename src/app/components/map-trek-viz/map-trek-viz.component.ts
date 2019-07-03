@@ -233,7 +233,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             this.map.loadImage(
               imageToLoad.fromAssets ? imageToLoad.pictogram : `${this.commonSrc}${imageToLoad.pictogram}`,
               (error: any, image: any) => {
-                observer.next({ id: imageToLoad.id.toString(), image });
+                this.map.addImage(imageToLoad.id.toString(), image);
                 if (index + 1 === imagesToLoad.length) {
                   observer.complete();
                 }
@@ -256,7 +256,6 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             }
           }),
           loadImages.subscribe({
-            next: value => this.map.addImage(value.id, value.image),
             complete: () => {
               this.initializeSources();
               this.initializeLayers();

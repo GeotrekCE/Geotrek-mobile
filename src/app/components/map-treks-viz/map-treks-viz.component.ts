@@ -113,7 +113,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
             this.practices = practices;
             practices.values.forEach((practice, index: number) => {
               this.map.loadImage(`${this.commonSrc}${practice.pictogram}`, (error: any, image: any) => {
-                observer.next({ id: practice.id.toString(), image });
+                this.map.addImage(practice.id.toString(), image);
                 if (index + 1 === practices.values.length) {
                   observer.complete();
                 }
@@ -136,7 +136,6 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
             }
           }),
           loadImages.subscribe({
-            next: value => this.map.addImage(value.id, value.image),
             complete: () => {
               this.addSourcesLayersEvents();
               this.geolocate.startTracking('');
