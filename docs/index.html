@@ -33,11 +33,13 @@
 <h1 id="geotrek-mobile">Geotrek Mobile</h1>
 <h1 id="installation">INSTALLATION</h1>
 <p><em>Before proceeding, make sure the latest version of <a href="https://nodejs.org/en/">Node.js and npm</a> are installed</em></p>
-<div><pre class="line-numbers"><code class="language-none">npm install -g ionic
+<div><pre class="line-numbers"><code class="language-none">npm install -g ionic&#64;5.1.0
+
+npm install -g cordova&#64;9.0.0
 
 git clone git&#64;github.com:GeotrekCE/Geotrek-mobile.git
 
-cd geotrek-mobile-refonte-ionic
+cd Geotrek-mobile
 
 npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN THE BROWSER</h1>
 <p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environments.ts&#39;</em> with your personal api url</p>
@@ -79,6 +81,49 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 <li>All others resources are provided by the api
 <em>We download a global package for offline mode when user downloads his first trek</em></li>
 </ul>
+<h2 id="firebase-analytics-configuration">Firebase Analytics Configuration</h2>
+<p>In order to use Firebase analytics, you had to create a Firebase App.</p>
+<ul>
+<li>Then store google-services.json and GoogleService-Info.plist in ./Analytics/</li>
+<li>In config.xml, add</li>
+</ul>
+<p><code>&lt;platform name=&quot;android&quot;&gt;
+    &lt;resource-file src=&quot;analytics/google-services.json&quot; target=&quot;app/google-services.json&quot; /&gt;
+    ...
+  &lt;/platform&gt;
+  &lt;platform name=&quot;ios&quot;&gt;
+    &lt;resource-file src=&quot;analytics/GoogleService-Info.plist&quot; /&gt;
+    ...
+  &lt;/platform&gt;</code></p>
+<ul>
+<li>Set true to useFirebase variable in environment files</li>
+</ul>
+<h2 id="remove-firebase-analytics">Remove Firebase Analytics</h2>
+<p>In order to build the app without Firebase you had to</p>
+<ul>
+<li><p>Set false to useFirebase variable in environment files</p>
+</li>
+<li><p>Run this list of command
+(If you add platforms previously, be sure to delete them)</p>
+</li>
+</ul>
+<p>```
+    ionic cordova platform rm android</p>
+<div><pre class="line-numbers"><code class="language-none">ionic cordova platform rm ios
+
+ionic cordova plugin rm cordova-plugin-firebase-analytics
+
+ionic cordova plugin rm cordova-android-play-services-gradle-release
+
+ionic cordova plugin rm cordova-support-google-services
+
+ionic cordova plugin rm cordova-support-android-plugin
+
+ionic cordova platform add android
+
+ionic cordova platform build android</code></pre></div><p>```</p>
+<h2 id="documentation">Documentation</h2>
+<p><a href="https://geotrekce.github.io/Geotrek-mobile">Access to extensive documentation</a></p>
 
 
 

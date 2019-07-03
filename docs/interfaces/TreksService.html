@@ -165,8 +165,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="245"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:245</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="258"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:258</a></div>
                 </td>
             </tr>
 
@@ -204,8 +204,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="244"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:244</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="257"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:257</a></div>
                 </td>
             </tr>
 
@@ -286,8 +286,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="236"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:236</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="249"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:249</a></div>
                 </td>
             </tr>
 
@@ -356,8 +356,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="237"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:237</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="250"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:250</a></div>
                 </td>
             </tr>
 
@@ -426,8 +426,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="238"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:238</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="251"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:251</a></div>
                 </td>
             </tr>
 
@@ -496,8 +496,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="235"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:235</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="248"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:248</a></div>
                 </td>
             </tr>
 
@@ -566,8 +566,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="240"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:240</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="253"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:253</a></div>
                 </td>
             </tr>
 
@@ -636,8 +636,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="241"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:241</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="254"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:254</a></div>
                 </td>
             </tr>
 
@@ -718,8 +718,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="243"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:243</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="256"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:256</a></div>
                 </td>
             </tr>
 
@@ -788,8 +788,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="242"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:242</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="255"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:255</a></div>
                 </td>
             </tr>
 
@@ -827,8 +827,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="239"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:239</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="252"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:252</a></div>
                 </td>
             </tr>
 
@@ -1029,6 +1029,10 @@ export interface HydratedTrekProperties {
   departure_city?: Property;
   arrival_city?: Property;
   parking_location: number[];
+  profile: string;
+  slug?: string;
+  points_reference?: number[][];
+  ambiance: string;
 }
 
 export interface InformationDesk {
@@ -1064,6 +1068,8 @@ export interface Filter {
   hideAllLabel: string;
 }
 
+export type Order &#x3D; &#x27;default&#x27; | &#x27;location&#x27; | null;
+
 export interface IntervalFilter extends Filter {
   id: &#x27;length&#x27;; // TODO: complete this
   type: &#x27;interval&#x27;;
@@ -1080,6 +1086,7 @@ export interface FilterValue {
   checked: boolean;
   interval?: [number, number];
   pictogram?: string;
+  color?: string;
 }
 
 export interface InformationIntro {
@@ -1109,6 +1116,7 @@ export interface Property {
   name: string;
   pictogram?: string;
   color?: string;
+  slug?: string;
 }
 
 export interface Pois extends FeatureCollection {
@@ -1125,6 +1133,11 @@ export interface Poi extends Feature&lt;Point&gt; {
     name: string;
     description: string;
     thumbnail: string;
+    practical_info?: string;
+    contact?: string;
+    email?: string;
+    website?: string;
+    type?: number;
   };
 }
 

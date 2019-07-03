@@ -763,8 +763,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="447"
-                            class="link-to-prism">src/app/services/offline-treks/offline-treks.service.ts:447</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="449"
+                            class="link-to-prism">src/app/services/offline-treks/offline-treks.service.ts:449</a></div>
                 </td>
             </tr>
 
@@ -2526,6 +2526,7 @@ export class OfflineTreksService implements TreksService {
 
     if (isOffline &amp;&amp; this.isMobile) {
       mapConfig &#x3D; { ...cloneDeep(environment.offlineMapConfig), zoom: environment.trekZoom.zoom };
+
       if (mapConfig.style &amp;&amp; typeof mapConfig.style !&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; mapConfig.style.sources) {
         (mapConfig.style as any).sources[&#x27;tiles-background&#x27;].tiles[0] &#x3D;
           this.getCommonImgSrc() + (environment.offlineMapConfig.style as any).sources[&#x27;tiles-background&#x27;].tiles[0];
@@ -2536,6 +2537,7 @@ export class OfflineTreksService implements TreksService {
             this.getTilesDirectoryForTrekById(trek.properties.id, mapConfig.style.sources[&#x27;tiles-background&#x27;].type),
           ],
         } as any;
+
         if (mapConfig.style.layers) {
           mapConfig.style.layers.push({
             id: &#x27;tiles-background-trek&#x27;,

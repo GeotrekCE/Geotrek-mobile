@@ -201,27 +201,17 @@
 import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule } from &#x27;@angular/router&#x27;;
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 
 import { PoiComponent } from &#x27;@app/components/poi/poi.component&#x27;;
 import { TrekCardComponent } from &#x27;@app/components/trek-card/trek-card.component&#x27;;
 
 @NgModule({
-  declarations: [
-    PoiComponent,
-    TrekCardComponent,
-  ],
-  imports: [
-    CommonModule,
-    IonicModule,
-    RouterModule,
-  ],
-  exports: [
-    PoiComponent,
-    TrekCardComponent,
-  ],
+  declarations: [PoiComponent, TrekCardComponent],
+  imports: [CommonModule, IonicModule, RouterModule, TranslateModule.forChild()],
+  exports: [PoiComponent, TrekCardComponent],
 })
-export class SharedTreksModule {
-}
+export class SharedTreksModule {}
 </code></pre>
     </div>
 </div>

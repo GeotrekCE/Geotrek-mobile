@@ -269,6 +269,7 @@
             <div *ngFor="let information_desk of currentTrek.properties.information_desks">
               <h3 [innerHTML]="information_desk.name"></h3>
               <ion-img
+                class="min-size-img"
                 *ngIf="information_desk.picture && information_desk.picture !== ''"
                 [src]="baseUrl + information_desk.picture"
               ></ion-img>

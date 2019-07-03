@@ -5,7 +5,7 @@
 <ion-card class="no-outline pointer extand-card  ion-activatable" [routerLink]="this.routerLink">
   <ion-ripple-effect></ion-ripple-effect>
   <div>
-    <ion-img *ngIf="this.imgSrc" [src]="this.imgSrc"></ion-img>
+    <ion-img *ngIf="this.imgSrc" class="min-size-img" [src]="this.imgSrc"></ion-img>
     <ion-card-header>
       <ion-card-title>{{ hydratedTrek.properties?.name }}</ion-card-title>
     </ion-card-header>

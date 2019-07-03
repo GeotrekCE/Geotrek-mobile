@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-card>
-    <ion-img *ngIf="informationDesk.picture !== ''" [src]="informationDeskPicture"></ion-img>
+    <ion-img class="min-size-img" *ngIf="informationDesk.picture !== ''" [src]="informationDeskPicture"></ion-img>
     <ion-card-content>
       <div [innerHTML]="informationDesk.description"></div>
       <div [innerHTML]="informationDesk.street"></div>

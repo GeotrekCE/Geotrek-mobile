@@ -517,19 +517,20 @@ export class InformationDeskDetailsComponent {
 
 &lt;ion-content&gt;
   &lt;ion-card&gt;
-    &lt;ion-img *ngIf&#x3D;&quot;informationDesk.picture !&#x3D;&#x3D; &#x27;&#x27;&quot; [src]&#x3D;&quot;informationDeskPicture&quot;&gt;&lt;/ion-img&gt;
+    &lt;ion-img class&#x3D;&quot;min-size-img&quot; *ngIf&#x3D;&quot;informationDesk.picture !&#x3D;&#x3D; &#x27;&#x27;&quot; [src]&#x3D;&quot;informationDeskPicture&quot;&gt;&lt;/ion-img&gt;
     &lt;ion-card-content&gt;
       &lt;div [innerHTML]&#x3D;&quot;informationDesk.description&quot;&gt;&lt;/div&gt;
       &lt;div [innerHTML]&#x3D;&quot;informationDesk.street&quot;&gt;&lt;/div&gt;
       &lt;p&gt;{{ informationDesk.postal_code }} {{ informationDesk.municipality }}&lt;/p&gt;
       &lt;p&gt;
-        &lt;a [href]&#x3D;&quot;informationDesk.website&quot;&gt; Site web &lt;/a&gt; -
+        &lt;a [href]&#x3D;&quot;informationDesk.website&quot;&gt; {{ &#x27;trek.details.informationDesk.website&#x27; | translate }} &lt;/a&gt; -
         &lt;a [href]&#x3D;&quot;&#x27;mailto:&#x27; + informationDesk.email&quot;&gt; Email &lt;/a&gt; -
         &lt;a [href]&#x3D;&quot;&#x27;tel:&#x27; + informationDesk.phone&quot;&gt;{{ informationDesk.phone }}&lt;/a&gt;
       &lt;/p&gt;
     &lt;/ion-card-content&gt;
   &lt;/ion-card&gt;
-&lt;/ion-content&gt;</code></pre>
+&lt;/ion-content&gt;
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -564,8 +565,8 @@ export class InformationDeskDetailsComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-button (click)="close()">        <ion-icon size="large" slot="start" name="close"></ion-icon>      </ion-button>    </ion-buttons>    <ion-title>{{ informationDesk.name }}</ion-title>  </ion-toolbar></ion-header><ion-content>  <ion-card>    <ion-img *ngIf="informationDesk.picture !== \'\'" [src]="informationDeskPicture"></ion-img>    <ion-card-content>      <div [innerHTML]="informationDesk.description"></div>      <div [innerHTML]="informationDesk.street"></div>      <p>{{ informationDesk.postal_code }} {{ informationDesk.municipality }}</p>      <p>        <a [href]="informationDesk.website"> Site web </a> -        <a [href]="\'mailto:\' + informationDesk.email"> Email </a> -        <a [href]="\'tel:\' + informationDesk.phone">{{ informationDesk.phone }}</a>      </p>    </ion-card-content>  </ion-card></ion-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-button (click)="close()">        <ion-icon size="large" slot="start" name="close"></ion-icon>      </ion-button>    </ion-buttons>    <ion-title>{{ informationDesk.name }}</ion-title>  </ion-toolbar></ion-header><ion-content>  <ion-card>    <ion-img class="min-size-img" *ngIf="informationDesk.picture !== \'\'" [src]="informationDeskPicture"></ion-img>    <ion-card-content>      <div [innerHTML]="informationDesk.description"></div>      <div [innerHTML]="informationDesk.street"></div>      <p>{{ informationDesk.postal_code }} {{ informationDesk.municipality }}</p>      <p>        <a [href]="informationDesk.website"> {{ \'trek.details.informationDesk.website\' | translate }} </a> -        <a [href]="\'mailto:\' + informationDesk.email"> Email </a> -        <a [href]="\'tel:\' + informationDesk.phone">{{ informationDesk.phone }}</a>      </p>    </ion-card-content>  </ion-card></ion-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'InformationDeskDetailsComponent'};
 </script>

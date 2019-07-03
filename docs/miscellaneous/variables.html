@@ -63,6 +63,9 @@
                             <a href="#cloneDeep" title="src/app/services/online-treks/online-treks.service.ts"><b>cloneDeep</b>&nbsp;&nbsp;&nbsp;(src/.../online-treks.service.ts)</a>
                         </li>
                         <li>
+                            <a href="#distance" title="src/app/services/filter-treks/filter-treks.service.ts"><b>distance</b>&nbsp;&nbsp;&nbsp;(src/.../filter-treks.service.ts)</a>
+                        </li>
+                        <li>
                             <a href="#distance" title="src/app/components/geolocate-notifications/geolocate-notifications.component.ts"><b>distance</b>&nbsp;&nbsp;&nbsp;(src/.../geolocate-notifications.component.ts)</a>
                         </li>
                         <li>
@@ -79,6 +82,9 @@
                         </li>
                         <li>
                             <a href="#mapboxgl" title="src/app/components/map-treks-viz/map-treks-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-treks-viz.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#primaryColor" title="src/environments/variables.ts"><b>primaryColor</b>&nbsp;&nbsp;&nbsp;(src/.../variables.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -135,6 +141,30 @@
             </tbody>
         </table>
 </section>
+    <h3>src/app/services/filter-treks/filter-treks.service.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="distance"></a>
+                        <span class="name">
+                            <b>
+                            distance</b>
+                            <a href="#distance"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>require(&#x27;@turf/distance&#x27;).default</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/app/components/geolocate-notifications/geolocate-notifications.component.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
@@ -184,6 +214,7 @@
                             <i>Default value : </i><code>{
   appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: true,
+  useFirebase: false,
   availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null, // only if you use mapbox vector tiles
@@ -240,7 +271,7 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 17,
+          maxzoom: 13,
         },
       ],
     },
@@ -256,13 +287,14 @@
     zoom: 13,
   },
   map: {
-    iconSize: 0.8, // check your icon size, ideally it would be 48px*48px
-    globalMapIconSize: 0.5,
+    addSoustractMaxBounds: 0.01,
+    iconSize: 1, // check your icon size, ideally it would be 48px*48px
+    globalMapIconSize: 1,
     clusterPaint: {
       // cluster style on map treks
-      &#x27;circle-color&#x27;: &#x27;#8e44ad&#x27;,
+      &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
-      &#x27;circle-radius&#x27;: 23,
+      &#x27;circle-radius&#x27;: 18,
       &#x27;circle-stroke-width&#x27;: 1,
     },
     zoneLayerProperties: {
@@ -270,15 +302,15 @@
       // optionnal geojson to display on map
       type: &#x27;fill&#x27;,
       paint: {
-        &#x27;fill-color&#x27;: &#x27;#833569&#x27;,
-        &#x27;fill-outline-color&#x27;: &#x27;#898083&#x27;,
-        &#x27;fill-opacity&#x27;: 0.6,
+        &#x27;fill-color&#x27;: primaryColor,
+        &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
+        &#x27;fill-opacity&#x27;: 0.3,
       },
     },
     zoneOutlineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
-        &#x27;line-color&#x27;: &#x27;#833569&#x27;,
+        &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
         &#x27;line-width&#x27;: 8,
       },
@@ -288,6 +320,52 @@
       paint: {
         &#x27;line-width&#x27;: 6,
         &#x27;line-color&#x27;: &#x27;#61B22F&#x27;,
+      },
+    },
+    trekArrowLayerProperties: {
+      layout: {
+        &#x27;symbol-placement&#x27;: &#x27;line&#x27;,
+        &#x27;symbol-spacing&#x27;: 250,
+        &#x27;icon-size&#x27;: 0.5,
+      },
+    },
+    pointReferenceLayersProperties: {
+      text: {
+        paint: {
+          &#x27;text-color&#x27;: &#x27;#fff&#x27;,
+        },
+        layout: {
+          &#x27;text-ignore-placement&#x27;: true,
+          &#x27;text-allow-overlap&#x27;: true,
+          &#x27;text-field&#x27;: [&#x27;get&#x27;, &#x27;index&#x27;],
+          &#x27;text-font&#x27;: [&#x27;Roboto Regular&#x27;],
+          &#x27;text-size&#x27;: 12,
+          &#x27;text-offset&#x27;: [0, 0.1],
+        },
+      },
+      circle: {
+        paint: {
+          &#x27;circle-color&#x27;: &#x27;#f04141&#x27;,
+          &#x27;circle-radius&#x27;: 12,
+        },
+      },
+    },
+    touristicContentLayersProperties: {
+      icon: {
+        layout: {
+          &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;touristicContent&#x27;, [&#x27;get&#x27;, &#x27;category&#x27;]],
+          &#x27;icon-size&#x27;: 1,
+          &#x27;icon-allow-overlap&#x27;: true,
+          &#x27;icon-ignore-placement&#x27;: true,
+        },
+      },
+      circle: {
+        paint: {
+          &#x27;circle-color&#x27;: primaryColor,
+          &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
+          &#x27;circle-radius&#x27;: 16,
+          &#x27;circle-stroke-width&#x27;: 1,
+        },
       },
     },
   },
@@ -333,11 +411,12 @@
                             <i>Default value : </i><code>{
   appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: false,
+  useFirebase: false,
   availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null, // only if you use mapbox vector tiles
   },
-  onlineBaseUrl: &#x27;https://my-rando-domain.fr/mobile&#x27;, // api url for app
+  onlineBaseUrl: &#x27;https://rando-millevaches.fr/mobile&#x27;, // api url for app
   onlineMapConfig: {
     // default online map config, for this starter we use raster tiles from open topo map
     attributionControl: false,
@@ -389,7 +468,7 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 17,
+          maxzoom: 13,
         },
       ],
     },
@@ -405,13 +484,14 @@
     zoom: 13,
   },
   map: {
-    iconSize: 0.8, // check your icon size, ideally it would be 48px*48px
-    globalMapIconSize: 0.5,
+    addSoustractMaxBounds: 0.01,
+    iconSize: 1, // check your icon size, ideally it would be 48px*48px
+    globalMapIconSize: 1,
     clusterPaint: {
       // cluster style on map treks
-      &#x27;circle-color&#x27;: &#x27;#8e44ad&#x27;,
+      &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
-      &#x27;circle-radius&#x27;: 23,
+      &#x27;circle-radius&#x27;: 18,
       &#x27;circle-stroke-width&#x27;: 1,
     },
     zoneLayerProperties: {
@@ -419,15 +499,15 @@
       // optionnal geojson to display on map
       type: &#x27;fill&#x27;,
       paint: {
-        &#x27;fill-color&#x27;: &#x27;#833569&#x27;,
-        &#x27;fill-outline-color&#x27;: &#x27;#898083&#x27;,
-        &#x27;fill-opacity&#x27;: 0.6,
+        &#x27;fill-color&#x27;: primaryColor,
+        &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
+        &#x27;fill-opacity&#x27;: 0.3,
       },
     },
     zoneOutlineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
-        &#x27;line-color&#x27;: &#x27;#833569&#x27;,
+        &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
         &#x27;line-width&#x27;: 8,
       },
@@ -437,6 +517,52 @@
       paint: {
         &#x27;line-width&#x27;: 6,
         &#x27;line-color&#x27;: &#x27;#61B22F&#x27;,
+      },
+    },
+    trekArrowLayerProperties: {
+      layout: {
+        &#x27;symbol-placement&#x27;: &#x27;line&#x27;,
+        &#x27;symbol-spacing&#x27;: 250,
+        &#x27;icon-size&#x27;: 0.5,
+      },
+    },
+    pointReferenceLayersProperties: {
+      text: {
+        paint: {
+          &#x27;text-color&#x27;: &#x27;#fff&#x27;,
+        },
+        layout: {
+          &#x27;text-ignore-placement&#x27;: true,
+          &#x27;text-allow-overlap&#x27;: true,
+          &#x27;text-field&#x27;: [&#x27;get&#x27;, &#x27;index&#x27;],
+          &#x27;text-font&#x27;: [&#x27;Roboto Regular&#x27;],
+          &#x27;text-size&#x27;: 12,
+          &#x27;text-offset&#x27;: [0, 0.1],
+        },
+      },
+      circle: {
+        paint: {
+          &#x27;circle-color&#x27;: &#x27;#f04141&#x27;,
+          &#x27;circle-radius&#x27;: 12,
+        },
+      },
+    },
+    touristicContentLayersProperties: {
+      icon: {
+        layout: {
+          &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;touristicContent&#x27;, [&#x27;get&#x27;, &#x27;category&#x27;]],
+          &#x27;icon-size&#x27;: 1,
+          &#x27;icon-allow-overlap&#x27;: true,
+          &#x27;icon-ignore-placement&#x27;: true,
+        },
+      },
+      circle: {
+        paint: {
+          &#x27;circle-color&#x27;: primaryColor,
+          &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
+          &#x27;circle-radius&#x27;: 16,
+          &#x27;circle-stroke-width&#x27;: 1,
+        },
       },
     },
   },
@@ -531,6 +657,36 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>require(&#x27;mapbox-gl&#x27;)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/environments/variables.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="primaryColor"></a>
+                        <span class="name">
+                            <b>
+                            primaryColor</b>
+                            <a href="#primaryColor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;#898083&#x27;</code>
                         </td>
                     </tr>
 

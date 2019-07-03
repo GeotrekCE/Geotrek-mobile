@@ -92,7 +92,15 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                <a href="#order$">order$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#storage">storage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#userLocation$">userLocation$</a>
                             </li>
                         </ul>
                     </td>
@@ -139,6 +147,10 @@
                                 <a href="#saveFiltersState">saveFiltersState</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#saveOrderState">saveOrderState</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Async</span>
                                 <a href="#setOfflineSettings">setOfflineSettings</a>
@@ -166,7 +178,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/services/settings/settings.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/services/settings/settings.service.ts:37</a></div>
                             </td>
                         </tr>
 
@@ -257,8 +269,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:59</a></div>
                 </td>
             </tr>
 
@@ -329,8 +341,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:128</a></div>
                 </td>
             </tr>
 
@@ -401,8 +413,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:78</a></div>
                 </td>
             </tr>
 
@@ -442,8 +454,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="179"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:179</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="190"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:190</a></div>
                 </td>
             </tr>
 
@@ -514,8 +526,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:107</a></div>
                 </td>
             </tr>
 
@@ -598,8 +610,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -639,8 +651,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:95</a></div>
                 </td>
             </tr>
 
@@ -680,8 +692,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:87</a></div>
                 </td>
             </tr>
 
@@ -732,6 +744,90 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="saveOrderState"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            saveOrderState
+                        </b>
+                        <a href="#saveOrderState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveOrderState(order: <a href="../undefineds/Order.html">Order</a>, geolocation?: number[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>order</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#Order" target="_self" >Order</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>geolocation</td>
+                                    <td>
+                                            <code>number[]</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="setOfflineSettings"></a>
                     <span class="name">
                         <b>
@@ -753,8 +849,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:51</a></div>
                 </td>
             </tr>
 
@@ -796,7 +892,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/services/settings/settings.service.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/services/settings/settings.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -823,7 +919,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/services/settings/settings.service.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/services/settings/settings.service.ts:37</a></div>
                             </td>
                         </tr>
 
@@ -850,7 +946,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/services/settings/settings.service.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/services/settings/settings.service.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -878,7 +974,37 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/services/settings/settings.service.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/services/settings/settings.service.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="order$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            order$</b>
+                            <a href="#order$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new BehaviorSubject&lt;{ type: Order; value: number[] | undefined }&gt;({
+    type: &#x27;default&#x27;,
+    value: undefined,
+  })</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/services/settings/settings.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -906,7 +1032,34 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/services/settings/settings.service.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/services/settings/settings.service.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userLocation$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            userLocation$</b>
+                            <a href="#userLocation$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new BehaviorSubject&lt;number[]&gt;([0, 0])</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/services/settings/settings.service.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -938,6 +1091,7 @@ import {
   TouristicCategoryWithFeatures,
   TouristicContents,
   TouristicCategorie,
+  Order,
 } from &#x27;@app/interfaces/interfaces&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
 
@@ -948,6 +1102,12 @@ export class SettingsService {
   private apiUrl &#x3D; &#x60;${environment.onlineBaseUrl}&#x60;;
 
   public filters$ &#x3D; new BehaviorSubject&lt;Filter[] | null&gt;(null);
+  public order$ &#x3D; new BehaviorSubject&lt;{ type: Order; value: number[] | undefined }&gt;({
+    type: &#x27;default&#x27;,
+    value: undefined,
+  });
+  // User location, used for ordering treks by distance
+  public userLocation$ &#x3D; new BehaviorSubject&lt;number[]&gt;([0, 0]);
   public data$ &#x3D; new BehaviorSubject&lt;DataSetting[] | null&gt;(null);
 
   constructor(public http: HttpClient, public storage: Storage, private translate: TranslateService) {}
@@ -1000,6 +1160,10 @@ export class SettingsService {
 
   public saveFiltersState(filters: Filter[]): void {
     this.filters$.next(filters);
+  }
+
+  public saveOrderState(order: Order, geolocation?: number[]): void {
+    this.order$.next({ type: order, value: geolocation });
   }
 
   public resetFilters(): void {

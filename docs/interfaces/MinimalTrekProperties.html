@@ -503,6 +503,10 @@ export interface HydratedTrekProperties {
   departure_city?: Property;
   arrival_city?: Property;
   parking_location: number[];
+  profile: string;
+  slug?: string;
+  points_reference?: number[][];
+  ambiance: string;
 }
 
 export interface InformationDesk {
@@ -538,6 +542,8 @@ export interface Filter {
   hideAllLabel: string;
 }
 
+export type Order &#x3D; &#x27;default&#x27; | &#x27;location&#x27; | null;
+
 export interface IntervalFilter extends Filter {
   id: &#x27;length&#x27;; // TODO: complete this
   type: &#x27;interval&#x27;;
@@ -554,6 +560,7 @@ export interface FilterValue {
   checked: boolean;
   interval?: [number, number];
   pictogram?: string;
+  color?: string;
 }
 
 export interface InformationIntro {
@@ -583,6 +590,7 @@ export interface Property {
   name: string;
   pictogram?: string;
   color?: string;
+  slug?: string;
 }
 
 export interface Pois extends FeatureCollection {
@@ -599,6 +607,11 @@ export interface Poi extends Feature&lt;Point&gt; {
     name: string;
     description: string;
     thumbnail: string;
+    practical_info?: string;
+    contact?: string;
+    email?: string;
+    website?: string;
+    type?: number;
   };
 }
 

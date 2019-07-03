@@ -189,7 +189,7 @@ import { TrekContextResolver } from &#x27;@app/resolvers/trek.resolver&#x27;;
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
 import { SharedModule } from &#x27;@app/shared/shared.module&#x27;;
 import { SharedUiModule } from &#x27;@app/shared/shared-ui.module&#x27;;
-
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 import { TrekMapPage } from &#x27;./trek-map.page&#x27;;
 
 const routes: Routes &#x3D; [
@@ -198,13 +198,20 @@ const routes: Routes &#x3D; [
     component: TrekMapPage,
     runGuardsAndResolvers: &#x27;always&#x27;,
     resolve: {
-      context: TrekContextResolver
+      context: TrekContextResolver,
     },
   },
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedModule, SharedUiModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    SharedUiModule,
+    TranslateModule.forChild(),
+  ],
   declarations: [TrekMapPage],
 })
 export class TrekMapPageModule {}

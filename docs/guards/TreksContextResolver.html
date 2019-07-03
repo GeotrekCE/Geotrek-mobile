@@ -99,12 +99,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, platform: Platform)</code>
+<code>constructor(onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, platform: Platform, firebaseAnalytics: FirebaseAnalytics)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/resolvers/treks.resolver.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/resolvers/treks.resolver.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -157,6 +157,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>firebaseAnalytics</td>
+                                                  
+                                                        <td>
+                                                                    <code>FirebaseAnalytics</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -193,8 +205,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="19"
-                            class="link-to-prism">src/app/resolvers/treks.resolver.ts:19</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/app/resolvers/treks.resolver.ts:21</a></div>
                 </td>
             </tr>
 
@@ -255,6 +267,7 @@ import { TreksContext, TreksService } from &#x27;@app/interfaces/interfaces&#x27
 import { OfflineTreksService } from &#x27;@app/services/offline-treks/offline-treks.service&#x27;;
 import { OnlineTreksService } from &#x27;@app/services/online-treks/online-treks.service&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
+import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x27;;
 
 @Injectable()
 export class TreksContextResolver implements Resolve&lt;TreksContext&gt; {
@@ -262,6 +275,7 @@ export class TreksContextResolver implements Resolve&lt;TreksContext&gt; {
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
     private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable&lt;TreksContext&gt; {
@@ -271,6 +285,11 @@ export class TreksContextResolver implements Resolve&lt;TreksContext&gt; {
       offline &amp;&amp; (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;))
         ? environment.offlineMapConfig
         : environment.onlineMapConfig;
+
+    if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
+      this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}&#x60;);
+    }
+
     return of({
       treksTool: treksService,
       offline: offline,

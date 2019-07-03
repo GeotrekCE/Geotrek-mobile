@@ -483,8 +483,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:102</a></div>
                 </td>
             </tr>
 
@@ -563,8 +563,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="133"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:133</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="134"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:134</a></div>
                 </td>
             </tr>
 
@@ -633,8 +633,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="129"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:129</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:130</a></div>
                 </td>
             </tr>
 
@@ -784,8 +784,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:107</a></div>
                 </td>
             </tr>
 
@@ -826,8 +826,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="114"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:114</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:115</a></div>
                 </td>
             </tr>
 
@@ -1418,7 +1418,7 @@ import { SettingsService } from &#x27;@app/services/settings/settings.service&#x
 import { ModalController, Platform } from &#x27;@ionic/angular&#x27;;
 import { combineLatest } from &#x27;rxjs&#x27;;
 import { Subscription } from &#x27;rxjs/internal/Subscription&#x27;;
-import { map, mergeMap } from &#x27;rxjs/operators&#x27;;
+import { map, mergeMap, first } from &#x27;rxjs/operators&#x27;;
 import { cloneDeep } from &#x27;lodash&#x27;;
 import { Network } from &#x27;@ionic-native/network/ngx&#x27;;
 
@@ -1491,6 +1491,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     this.mapIsLoaded(false);
     this.mergeFiltersTreks$ &#x3D; combineLatest(
       this.route.data.pipe(
+        first(),
         map(data &#x3D;&gt; data.context),
         mergeMap((context: TreksContext) &#x3D;&gt; context.treksTool.filteredTreks$),
       ),
@@ -1550,14 +1551,20 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     &lt;ion-title&gt; {{ appName }} &lt;/ion-title&gt;
   &lt;/ion-toolbar&gt;
   &lt;ion-toolbar
-    *ngIf&#x3D;&quot;(!(onlineTreks.onlineTreksError$ | async) &amp;&amp; !offline &amp;&amp; !noNetwork) || (offline &amp;&amp; this.filteredTreks &amp;&amp; this.filteredTreks.length &gt; 0)&quot;&gt;
+    *ngIf&#x3D;&quot;
+      (!(onlineTreks.onlineTreksError$ | async) &amp;&amp; !offline &amp;&amp; !noNetwork) ||
+      (offline &amp;&amp; this.filteredTreks &amp;&amp; this.filteredTreks.length &gt; 0)
+    &quot;
+  &gt;
     &lt;ion-grid no-padding&gt;
       &lt;ion-row&gt;
         &lt;ion-col size&#x3D;&quot;10&quot;&gt;
           &lt;ion-button (click)&#x3D;&quot;presentFilters()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button&quot;&gt;
-            {{ &#x27;toolbar.filters&#x27; | translate }} {{ numberOfActiveFilters }}&lt;/ion-button&gt;
+            {{ &#x27;toolbar.filters&#x27; | translate }} {{ numberOfActiveFilters }}&lt;/ion-button
+          &gt;
           &lt;ion-button (click)&#x3D;&quot;presentSearch()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button button-margin-left&quot;&gt;
-            {{ &#x27;toolbar.search&#x27; | translate }}&lt;/ion-button&gt;
+            {{ &#x27;toolbar.search&#x27; | translate }}&lt;/ion-button
+          &gt;
         &lt;/ion-col&gt;
       &lt;/ion-row&gt;
     &lt;/ion-grid&gt;
@@ -1567,16 +1574,27 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
 &lt;ion-content&gt;
   &lt;app-loader&gt;&lt;/app-loader&gt;
   &lt;ng-container *ngIf&#x3D;&quot;!offline; else treksMap&quot;&gt;
-    &lt;app-connect-error *ngIf&#x3D;&quot;onlineTreks.onlineTreksError$ | async; else treksMap&quot; icon&#x3D;&quot;wifi&quot;
-      title&#x3D;&quot;Problème de connexion&quot;
-      content&#x3D;&quot;Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées non enregistrées&quot;
-      buttonText&#x3D;&quot;Réessayez&quot; (retry)&#x3D;&quot;onlineTreks.loadTreks()&quot;&gt;
+    &lt;app-connect-error
+      *ngIf&#x3D;&quot;(onlineTreks.onlineTreksError$ | async); else treksMap&quot;
+      icon&#x3D;&quot;wifi&quot;
+      [title]&#x3D;&quot;&#x27;error.title&#x27; | translate&quot;
+      [content]&#x3D;&quot;&#x27;error.TreksMap&#x27; | translate&quot;
+      [buttonText]&#x3D;&quot;&#x27;error.buttonText&#x27; | translate&quot;
+      (retry)&#x3D;&quot;onlineTreks.loadTreks()&quot;
+    &gt;
     &lt;/app-connect-error&gt;
   &lt;/ng-container&gt;
   &lt;ng-template #treksMap&gt;
-    &lt;app-map-treks-viz *ngIf&#x3D;&quot;isInView&quot; [offline]&#x3D;&quot;offline&quot; [filteredTreks]&#x3D;&quot;filteredTreks&quot;
-      (navigateToTrek)&#x3D;&quot;navigateToTrek($event)&quot; (mapIsLoaded)&#x3D;&quot;mapIsLoaded($event)&quot; [mapConfig]&#x3D;&quot;mapConfig&quot;
-      [dataSettings]&#x3D;&quot;settings.data$.value&quot; [commonSrc]&#x3D;&quot;commonSrc&quot;&gt;
+    &lt;app-map-treks-viz
+      *ngIf&#x3D;&quot;isInView&quot;
+      [offline]&#x3D;&quot;offline&quot;
+      [filteredTreks]&#x3D;&quot;filteredTreks&quot;
+      (navigateToTrek)&#x3D;&quot;navigateToTrek($event)&quot;
+      (mapIsLoaded)&#x3D;&quot;mapIsLoaded($event)&quot;
+      [mapConfig]&#x3D;&quot;mapConfig&quot;
+      [dataSettings]&#x3D;&quot;settings.data$.value&quot;
+      [commonSrc]&#x3D;&quot;commonSrc&quot;
+    &gt;
     &lt;/app-map-treks-viz&gt;
     &lt;ion-fab vertical&#x3D;&quot;bottom&quot; horizontal&#x3D;&quot;end&quot; slot&#x3D;&quot;fixed&quot;&gt;
       &lt;ion-fab-button class&#x3D;&quot;no-outline&quot; [routerLink]&#x3D;&quot;treksUrl&quot;&gt;
@@ -1584,7 +1602,8 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
       &lt;/ion-fab-button&gt;
     &lt;/ion-fab&gt;
   &lt;/ng-template&gt;
-&lt;/ion-content&gt;</code></pre>
+&lt;/ion-content&gt;
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -1627,8 +1646,8 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && this.filteredTreks && this.filteredTreks.length > 0)">    <ion-grid no-padding>      <ion-row>        <ion-col size="10">          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">            {{ \'toolbar.filters\' | translate }} {{ numberOfActiveFilters }}</ion-button>          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">            {{ \'toolbar.search\' | translate }}</ion-button>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksMap">    <app-connect-error *ngIf="onlineTreks.onlineTreksError$ | async; else treksMap" icon="wifi"      title="Problème de connexion"      content="Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées non enregistrées"      buttonText="Réessayez" (retry)="onlineTreks.loadTreks()">    </app-connect-error>  </ng-container>  <ng-template #treksMap>    <app-map-treks-viz *ngIf="isInView" [offline]="offline" [filteredTreks]="filteredTreks"      (navigateToTrek)="navigateToTrek($event)" (mapIsLoaded)="mapIsLoaded($event)" [mapConfig]="mapConfig"      [dataSettings]="settings.data$.value" [commonSrc]="commonSrc">    </app-map-treks-viz>    <ion-fab vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="treksUrl">        <ion-icon name="reorder"></ion-icon>      </ion-fab-button>    </ion-fab>  </ng-template></ion-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="      (!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) ||      (offline && this.filteredTreks && this.filteredTreks.length > 0)    "  >    <ion-grid no-padding>      <ion-row>        <ion-col size="10">          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">            {{ \'toolbar.filters\' | translate }} {{ numberOfActiveFilters }}</ion-button          >          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">            {{ \'toolbar.search\' | translate }}</ion-button          >        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksMap">    <app-connect-error      *ngIf="(onlineTreks.onlineTreksError$ | async); else treksMap"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.TreksMap\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksMap>    <app-map-treks-viz      *ngIf="isInView"      [offline]="offline"      [filteredTreks]="filteredTreks"      (navigateToTrek)="navigateToTrek($event)"      (mapIsLoaded)="mapIsLoaded($event)"      [mapConfig]="mapConfig"      [dataSettings]="settings.data$.value"      [commonSrc]="commonSrc"    >    </app-map-treks-viz>    <ion-fab vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="treksUrl">        <ion-icon name="reorder"></ion-icon>      </ion-fab-button>    </ion-fab>  </ng-template></ion-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TreksMapPage'};
 </script>

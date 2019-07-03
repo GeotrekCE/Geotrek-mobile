@@ -171,6 +171,7 @@
 import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 
 import { MoreItemResolver } from &#x27;@app/resolvers/more-item.resolver&#x27;;
 import { SharedUiModule } from &#x27;@app/shared/shared-ui.module&#x27;;
@@ -183,17 +184,16 @@ const routes: Routes &#x3D; [
     component: MoreItemPage,
     runGuardsAndResolvers: &#x27;always&#x27;,
     resolve: {
-      item: MoreItemResolver
-    }
+      item: MoreItemResolver,
+    },
   },
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule],
+  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule, TranslateModule.forChild()],
   declarations: [MoreItemPage],
 })
-export class MoreItemPageModule {
-}
+export class MoreItemPageModule {}
 </code></pre>
     </div>
 </div>

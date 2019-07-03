@@ -99,12 +99,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(loading: <a href="../injectables/LoadingService.html">LoadingService</a>, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, settingsService: <a href="../injectables/SettingsService.html">SettingsService</a>)</code>
+<code>constructor(loading: <a href="../injectables/LoadingService.html">LoadingService</a>, offlineTreks: <a href="../injectables/OfflineTreksService.html">OfflineTreksService</a>, onlineTreks: <a href="../injectables/OnlineTreksService.html">OnlineTreksService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, settingsService: <a href="../injectables/SettingsService.html">SettingsService</a>, platform: Platform, firebaseAnalytics: FirebaseAnalytics)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/resolvers/trek.resolver.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/resolvers/trek.resolver.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -181,6 +181,30 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseAnalytics</td>
+                                                  
+                                                        <td>
+                                                                    <code>FirebaseAnalytics</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -217,8 +241,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/app/resolvers/trek.resolver.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/resolvers/trek.resolver.ts:37</a></div>
                 </td>
             </tr>
 
@@ -290,6 +314,9 @@ import { OfflineTreksService } from &#x27;@app/services/offline-treks/offline-tr
 import { OnlineTreksService } from &#x27;@app/services/online-treks/online-treks.service&#x27;;
 import { SettingsService } from &#x27;@app/services/settings/settings.service&#x27;;
 import { LoadingService } from &#x27;@app/services/loading/loading.service&#x27;;
+import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x27;;
+import { Platform } from &#x27;@ionic/angular&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable()
 export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x27;connectionError&#x27;&gt; {
@@ -299,6 +326,8 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
     private onlineTreks: OnlineTreksService,
     private router: Router,
     private settingsService: SettingsService,
+    private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
@@ -329,6 +358,11 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
             const touristicCategoriesWithFeatures &#x3D; this.settingsService.getTouristicCategoriesWithFeatures(
               touristicContents,
             );
+
+            if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
+              this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}  ${trek.properties.name}&#x60;);
+            }
+
             return {
               treksTool: treksService,
               offline: offline,

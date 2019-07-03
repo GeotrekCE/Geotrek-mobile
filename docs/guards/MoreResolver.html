@@ -99,12 +99,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(more: <a href="../injectables/MoreInformationsService.html">MoreInformationsService</a>)</code>
+<code>constructor(more: <a href="../injectables/MoreInformationsService.html">MoreInformationsService</a>, platform: Platform, firebaseAnalytics: FirebaseAnalytics)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/resolvers/more.resolver.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/resolvers/more.resolver.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -133,6 +133,30 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>firebaseAnalytics</td>
+                                                  
+                                                        <td>
+                                                                    <code>FirebaseAnalytics</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -149,30 +173,40 @@
         <div class="tab-pane fade  tab-source-code" id="c-source">
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpErrorResponse } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
-import { Resolve } from &#x27;@angular/router&#x27;
+import { Resolve, ActivatedRouteSnapshot } from &#x27;@angular/router&#x27;;
 
 import { InformationIntro } from &#x27;@app/interfaces/interfaces&#x27;;
 import { MoreInformationsService } from &#x27;@app/services/more-informations/more-informations.service&#x27;;
 import { of } from &#x27;rxjs/internal/observable/of&#x27;;
 import { throwError } from &#x27;rxjs/internal/observable/throwError&#x27;;
-import { catchError } from &#x27;rxjs/operators&#x27;;
+import { catchError, tap } from &#x27;rxjs/operators&#x27;;
+import { Platform } from &#x27;@ionic/angular&#x27;;
+import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x27;;
+import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable()
 export class MoreResolver implements Resolve&lt;InformationIntro[] | &#x27;connectionError&#x27;&gt; {
+  constructor(
+    private more: MoreInformationsService,
+    private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics,
+  ) {}
 
-  constructor(private more: MoreInformationsService) {
-  }
-
-  resolve &#x3D; () &#x3D;&gt; this.more.getMoreItems().pipe(
-    catchError((error: HttpErrorResponse) &#x3D;&gt; {
-      if (!error.status) {
-        return of(&#x27;connectionError&#x27; as &#x27;connectionError&#x27;)
-      } else {
-        return throwError(error)
-      }
-    })
-  )
-
+  resolve &#x3D; (route: ActivatedRouteSnapshot) &#x3D;&gt;
+    this.more.getMoreItems().pipe(
+      tap(() &#x3D;&gt; {
+        if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
+          this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}&#x60;);
+        }
+      }),
+      catchError((error: HttpErrorResponse) &#x3D;&gt; {
+        if (!error.status) {
+          return of(&#x27;connectionError&#x27; as &#x27;connectionError&#x27;);
+        } else {
+          return throwError(error);
+        }
+      }),
+    );
 }
 </code></pre>
         </div>

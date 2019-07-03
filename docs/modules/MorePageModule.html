@@ -173,6 +173,7 @@ import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 import { MoreResolver } from &#x27;@app/resolvers/more.resolver&#x27;;
 import { SharedUiModule } from &#x27;@app/shared/shared-ui.module&#x27;;
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 
 import { MorePage } from &#x27;./more.page&#x27;;
 
@@ -183,16 +184,15 @@ const routes: Routes &#x3D; [
     component: MorePage,
     resolve: {
       items: MoreResolver,
-    }
+    },
   },
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule],
+  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule, TranslateModule.forChild()],
   declarations: [MorePage],
 })
-export class MorePageModule {
-}
+export class MorePageModule {}
 </code></pre>
     </div>
 </div>

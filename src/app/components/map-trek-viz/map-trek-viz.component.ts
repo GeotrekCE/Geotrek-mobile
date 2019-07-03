@@ -399,6 +399,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-font': ['Roboto Regular'],
         'text-size': 18,
         'text-offset': [0, 0.1],
+        'text-ignore-placement': true,
+        'text-allow-overlap': true,
       },
     });
 
