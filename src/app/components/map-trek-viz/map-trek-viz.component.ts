@@ -666,12 +666,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       {
         name: await this.translate.get('trek.details.poi.name').toPromise(),
         visibility: this.map.getLayoutProperty('pois-icon', 'visibility') === 'visible',
-        layersName: ['pois-icon'].toString(),
+        layersName: ['pois-icon', 'cluster-text-count-pois', 'clusters-circle-pois'].toString(),
       },
       {
         name: await this.translate.get('trek.details.touristicContent.name').toPromise(),
         visibility: this.map.getLayoutProperty('touristics-content-circle', 'visibility') === 'visible',
-        layersName: ['touristics-content-circle', 'touristics-content-icon'].toString(),
+        layersName: [
+          'touristics-content-circle',
+          'touristics-content-icon',
+          'cluster-text-count-touristics-content',
+          'clusters-circle-touristics-content',
+        ].toString(),
       },
     ];
 
