@@ -4,18 +4,18 @@
 
 .list-mode-disabled {
   cursor: default;
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .custom-button {
   text-transform: capitalize;
-} 
+}
 
 @media screen and (min-width: 340px) {
   .custom-button {
     width: 100px;
-  } 
+  }
 }
 
 .button-margin-left {
@@ -23,7 +23,11 @@
 }
 
 .toolbar-button {
-  --padding-start: .5em;
-  --padding-end: .5em;
+  --padding-start: 0.5em;
+  --padding-end: 0.5em;
 }
 
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
