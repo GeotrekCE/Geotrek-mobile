@@ -120,7 +120,7 @@ ion-fab {
 app-trek-card {
   ion-card {
     .card-native {
-      display: flex;
+      display: flex !important;
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
