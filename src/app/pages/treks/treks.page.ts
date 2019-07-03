@@ -91,6 +91,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
           }
           this.numberOfActiveFilters = !!numberOfActiveFilters ? `(${numberOfActiveFilters})` : '';
           this.filteredTreks = <MinimalTrek[]>[...filteredTreks];
+          this.content.scrollToTop();
         }
       }),
 
@@ -132,12 +133,6 @@ export class TreksPage extends UnSubscribe implements OnInit {
       componentProps: { isOnline: !this.offline },
     });
     await modal.present();
-
-    const { data } = await modal.onDidDismiss();
-
-    if (data) {
-      this.content.scrollToTop();
-    }
   }
 
   public async presentSearch(): Promise<void> {

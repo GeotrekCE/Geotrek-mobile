@@ -54,6 +54,8 @@ export class TreksOrderComponent extends UnSubscribe {
       } else {
         this.settings.saveOrderState(event.detail.value);
       }
-    } else this.isFirstCheck = false;
+    } else {
+      this.isFirstCheck = false;
+    }
   }
 }
