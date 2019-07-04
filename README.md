@@ -112,5 +112,4 @@ LICENCE
 * Copyright (c) Makina Corpus - Parc National des Écrins
 
 [<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
-
 [<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
