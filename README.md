@@ -114,23 +114,3 @@ LICENCE
 [<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
 
 [<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
-
-AUTHORS
-=======
-
-V3 (totally rewritten with Ionic):
-
-* Bastien Alvez
-* Alexandra Janin
-* Lise Le Lann
-
-V1 and V2:
-
-* Adrien Denat
-* Mathieu Leplatre
-* Romain Garrigues
-* Éric Bréhault
-* Frédéric Bonifas
-* Simon Bats
-* Bastien Alvez
-* Gael Utard
