@@ -13,7 +13,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 import { ModalController, Platform } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { map, mergeMap, first } from 'rxjs/operators';
+import { map, mergeMap, first, delay } from 'rxjs/operators';
 import { cloneDeep } from 'lodash';
 import { Network } from '@ionic-native/network/ngx';
 
@@ -36,6 +36,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
   public commonSrc: string;
   public currentPosition$: Subscription;
   public noNetwork = false;
+  public loaderStatus: Boolean;
 
   constructor(
     public loading: LoadingService,
@@ -68,6 +69,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
           this.loading.finish(); // if there was a connection error, map could not be loaded
         }
       }),
+      this.loading.status.pipe(delay(0)).subscribe(status => (this.loaderStatus = status)),
     );
   }
 

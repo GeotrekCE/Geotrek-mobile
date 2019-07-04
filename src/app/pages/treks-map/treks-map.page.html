@@ -11,10 +11,22 @@
     <ion-grid no-padding>
       <ion-row>
         <ion-col size="10">
-          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">
+          <ion-button
+            [disabled]="loaderStatus"
+            (click)="presentFilters()"
+            color="light"
+            size="small"
+            class="custom-button"
+          >
             {{ 'toolbar.filters' | translate }} {{ numberOfActiveFilters }}</ion-button
           >
-          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">
+          <ion-button
+            [disabled]="loaderStatus"
+            (click)="presentSearch()"
+            color="light"
+            size="small"
+            class="custom-button button-margin-left"
+          >
             {{ 'toolbar.search' | translate }}</ion-button
           >
         </ion-col>
@@ -27,7 +39,7 @@
   <app-loader></app-loader>
   <ng-container *ngIf="!offline; else treksMap">
     <app-connect-error
-      *ngIf="(onlineTreks.onlineTreksError$ | async); else treksMap"
+      *ngIf="onlineTreks.onlineTreksError$ | async; else treksMap"
       icon="wifi"
       [title]="'error.title' | translate"
       [content]="'error.TreksMap' | translate"
