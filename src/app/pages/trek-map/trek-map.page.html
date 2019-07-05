@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button [defaultHref]="trekUrl"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="currentTrek">{{ currentTrek!.properties.name }}</ion-title>
+    <ion-label *ngIf="currentTrek">{{ currentTrek!.properties.name }}</ion-label>
   </ion-toolbar>
 </ion-header>
 
