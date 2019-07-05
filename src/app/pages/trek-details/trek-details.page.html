@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button [defaultHref]="treksUrl"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="currentTrek">{{ currentTrek.properties.name }}</ion-title>
+    <ion-label *ngIf="currentTrek">
+      <h2>{{ currentTrek.properties.name }}</h2>
+    </ion-label>
     <ion-buttons slot="primary">
       <ion-button (click)="presentDownloadConfirm()">
         <ion-icon slot="icon-only" name="download"></ion-icon>
@@ -288,9 +290,9 @@
         <!-- Pois -->
         <ion-row *ngIf="currentPois && currentPois.length > 0">
           <ion-col>
-            <ion-text color="primary">
+            <ion-toolbar color="primary">
               <h2>{{ 'trek.details.poi.name' | translate }} ({{ currentPois.length }})</h2>
-            </ion-text>
+            </ion-toolbar>
 
             <ng-template #poiTemplate let-poi="item">
               <app-poi [poi]="poi" [commonSrc]="commonSrc" [typePois]="typePois" [offline]="offline"></app-poi>
@@ -310,9 +312,9 @@
         <div *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0">
           <ion-row *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures">
             <ion-col>
-              <ion-text color="primary">
+              <ion-toolbar color="primary">
                 <h2>{{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})</h2>
-              </ion-text>
+              </ion-toolbar>
 
               <ng-template #touristicContentTemplate let-touristicContent="item">
                 <app-poi [poi]="touristicContent" [offline]="offline"></app-poi>
