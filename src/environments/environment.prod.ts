@@ -77,8 +77,11 @@ export const environment = {
   },
   map: {
     addSoustractMaxBounds: 0.01,
-    iconSize: 1, // check your icon size, ideally it would be 48px*48px
-    globalMapIconSize: 1,
+    globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
+    informationIconSize: 1,
+    parkingIconSize: 1,
+    departureArrivalIconSize: 1,
+    poiIconSize: 1,
     clusterPaint: {
       // cluster style on map treks
       'circle-color': primaryColor,

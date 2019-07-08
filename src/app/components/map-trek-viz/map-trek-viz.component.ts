@@ -372,7 +372,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: ['!', ['has', 'point_count']],
       layout: {
         'icon-image': ['concat', 'pois', ['get', 'type']],
-        'icon-size': environment.map.iconSize,
+        'icon-size': environment.map.poiIconSize,
         'icon-allow-overlap': true,
       },
     });
@@ -470,7 +470,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'information-desk',
       layout: {
         'icon-image': ['concat', 'informationDesk', ['get', 'id', ['object', ['get', 'type']]]],
-        'icon-size': 0.5,
+        'icon-size': environment.map.informationIconSize,
         'icon-allow-overlap': true,
       },
     });
@@ -481,7 +481,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'parking',
       layout: {
         'icon-image': 'parking',
-        'icon-size': 0.6,
+        'icon-size': environment.map.parkingIconSize,
         'icon-allow-overlap': true,
       },
     });
@@ -499,7 +499,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           'arrival',
           'departureArrival',
         ],
-        'icon-size': 0.8,
+        'icon-size': environment.map.departureArrivalIconSize,
       },
     });
   }
