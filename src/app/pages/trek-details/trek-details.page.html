@@ -185,7 +185,7 @@
           <ion-col>
             <div *ngIf="currentTrek.properties.description">
               <ion-text color="primary">
-                <h2>{{ 'trek.details.description' | translate }}</h2>
+                <h2 class="custom-divider">{{ 'trek.details.description' | translate }}</h2>
               </ion-text>
               <div [innerHTML]="currentTrek.properties.description"></div>
             </div>
@@ -209,7 +209,7 @@
         <ion-row *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.profile' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.profile' | translate }}</h2>
             </ion-text>
             <div>
               <ion-img [src]="getPictureSrc({ url: currentTrek.properties.profile })"></ion-img>
@@ -221,7 +221,7 @@
         <ion-row *ngIf="currentTrek.properties.is_park_centered">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.rules' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.rules' | translate }}</h2>
             </ion-text>
             <p>Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.</p>
             <div>
@@ -234,7 +234,7 @@
         <ion-row *ngIf="currentTrek.properties.access">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.access' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.access' | translate }}</h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.access"></div>
           </ion-col>
@@ -244,7 +244,7 @@
         <ion-row *ngIf="currentTrek.properties.advised_parking">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.parking' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.parking' | translate }}</h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.advised_parking"></div>
           </ion-col>
@@ -254,7 +254,7 @@
         <ion-row *ngIf="currentTrek.properties.advice">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.advice' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.advice' | translate }}</h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.advice"></div>
           </ion-col>
@@ -266,7 +266,7 @@
         >
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.desk' | translate }}</h2>
+              <h2 class="custom-divider">{{ 'trek.details.desk' | translate }}</h2>
             </ion-text>
             <div *ngFor="let information_desk of currentTrek.properties.information_desks">
               <h3 [innerHTML]="information_desk.name"></h3>
@@ -291,7 +291,7 @@
         <ion-row *ngIf="currentPois && currentPois.length > 0">
           <ion-col>
             <ion-text color="primary">
-              <h2>{{ 'trek.details.poi.name' | translate }} ({{ currentPois.length }})</h2>
+              <h2 class="custom-divider">{{ 'trek.details.poi.name' | translate }} ({{ currentPois.length }})</h2>
             </ion-text>
 
             <ng-template #poiTemplate let-poi="item">
@@ -313,7 +313,9 @@
           <ion-row *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures">
             <ion-col>
               <ion-text color="primary">
-                <h2>{{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})</h2>
+                <h2 class="custom-divider">
+                  {{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})
+                </h2>
               </ion-text>
 
               <ng-template #touristicContentTemplate let-touristicContent="item">
