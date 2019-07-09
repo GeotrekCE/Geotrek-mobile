@@ -5,3 +5,12 @@
   padding: 5%;
   width: 100%;
 }
+
+ion-header {
+  .custom-title {
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
+  }
+}
