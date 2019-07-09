@@ -46,6 +46,10 @@ export class FilterTreksService {
     return filteredTreks.sort((a: MinimalTrek, b: MinimalTrek) => {
       // Sort by user location
       if (order === 'location' && userLocation && userLocation !== null) {
+        if (!a.geometry || !b.geometry) {
+          return !a.geometry ? 1 : -1;
+        }
+
         const distanceFromTrekA = distance(point(a.geometry.coordinates), point(userLocation));
         const distanceFromTrekB = distance(point(b.geometry.coordinates), point(userLocation));
 
