@@ -41,11 +41,12 @@
             *ngIf="poi.properties.contact && poi.properties.contact !== 'null'"
             [innerHTML]="poi.properties.contact"
           ></div>
-          <div *ngIf="poi.properties.email && poi.properties.email !== 'null'" [innerHTML]="poi.properties.email"></div>
-          <div
-            *ngIf="poi.properties.website && poi.properties.website !== 'null'"
-            [innerHTML]="poi.properties.website"
-          ></div>
+          <div *ngIf="poi.properties.email && poi.properties.email !== 'null'">
+            <a [href]="'mailto:' + !!poi.properties.email"> {{ poi.properties.email }} </a>
+          </div>
+          <div *ngIf="poi.properties.website && poi.properties.website !== 'null'">
+            <a [href]="poi.properties.website"> {{ poi.properties.website }} </a>
+          </div>
         </ion-text>
       </div>
     </ion-card-content>
