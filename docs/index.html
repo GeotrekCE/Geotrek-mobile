@@ -31,6 +31,7 @@
                    <div class="content-data">
 
 <h1 id="geotrek-mobile">Geotrek Mobile</h1>
+<p>Mobile application of <em>Geotrek Rando</em> (http://geotrek.fr).</p>
 <h1 id="installation">INSTALLATION</h1>
 <p><em>Before proceeding, make sure the latest version of <a href="https://nodejs.org/en/">Node.js and npm</a> are installed</em></p>
 <div><pre class="line-numbers"><code class="language-none">npm install -g ionic&#64;5.1.0
@@ -44,12 +45,14 @@ cd Geotrek-mobile
 npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN THE BROWSER</h1>
 <p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environments.ts&#39;</em> with your personal api url</p>
 <div><pre class="line-numbers"><code class="language-none">ionic serve</code></pre></div><h1 id="run-the-app-on-device">RUN THE APP ON DEVICE</h1>
+<p>/!\ The <code>run</code> argument build the apk, then install it on the device</p>
 <h2 id="ios">iOS</h2>
 <p><em>Need <a href="https://ionicframework.com/docs/installation/ios">iOS environment setup</a> available only on macOS</em></p>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova run ios</code></pre></div><h2 id="android">Android</h2>
 <p><em>Need <a href="https://ionicframework.com/docs/installation/android">Android environment setup</a> available on Windows, macOS and Linux</em></p>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova run android</code></pre></div><h1 id="build-release-app">BUILD RELEASE APP</h1>
 <p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environments.prod.ts&#39;</em> with your personal api url</p>
+<p>/!\ The <code>build</code> argument just build the apk, but don&#39;t install it on the device</p>
 <h2 id="ios-1">iOS</h2>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova build ios --prod --release</code></pre></div><h2 id="android-1">Android</h2>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova build android --prod --release</code></pre></div><h1 id="customization-options">CUSTOMIZATION OPTIONS</h1>
@@ -121,9 +124,16 @@ ionic cordova plugin rm cordova-support-android-plugin
 
 ionic cordova platform add android
 
-ionic cordova platform build android</code></pre></div><p>```</p>
+ionic cordova build android</code></pre></div><p>```</p>
 <h2 id="documentation">Documentation</h2>
 <p><a href="https://geotrekce.github.io/Geotrek-mobile">Access to extensive documentation</a></p>
+<h1 id="licence">LICENCE</h1>
+<ul>
+<li>OpenSource - BSD</li>
+<li>Copyright (c) Makina Corpus - Parc National des Écrins</li>
+</ul>
+<p><a href="http://www.makina-corpus.com"><img src="http://depot.makina-corpus.org/public/logo.gif"></a>
+<a href="http://www.ecrins-parcnational.fr"><img src="http://geonature.fr/img/logo-pne.jpg"></a></p>
 
 
 

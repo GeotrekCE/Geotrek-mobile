@@ -529,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="150"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:150</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="149"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:149</a></div>
                 </td>
             </tr>
 
@@ -609,8 +609,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="340"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:340</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="339"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:339</a></div>
                 </td>
             </tr>
 
@@ -761,8 +761,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="301"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:301</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="300"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:300</a></div>
                 </td>
             </tr>
 
@@ -1145,7 +1145,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
             this.practices &#x3D; practices;
             practices.values.forEach((practice, index: number) &#x3D;&gt; {
               this.map.loadImage(&#x60;${this.commonSrc}${practice.pictogram}&#x60;, (error: any, image: any) &#x3D;&gt; {
-                observer.next({ id: practice.id.toString(), image });
+                this.map.addImage(practice.id.toString(), image);
                 if (index + 1 &#x3D;&#x3D;&#x3D; practices.values.length) {
                   observer.complete();
                 }
@@ -1168,7 +1168,6 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
             }
           }),
           loadImages.subscribe({
-            next: value &#x3D;&gt; this.map.addImage(value.id, value.image),
             complete: () &#x3D;&gt; {
               this.addSourcesLayersEvents();
               this.geolocate.startTracking(&#x27;&#x27;);

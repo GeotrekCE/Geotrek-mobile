@@ -659,7 +659,9 @@ export class TreksOrderComponent extends UnSubscribe {
       } else {
         this.settings.saveOrderState(event.detail.value);
       }
-    } else this.isFirstCheck &#x3D; false;
+    } else {
+      this.isFirstCheck &#x3D; false;
+    }
   }
 }
 </code></pre>

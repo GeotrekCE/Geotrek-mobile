@@ -501,8 +501,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:121</a></div>
                 </td>
             </tr>
 
@@ -542,8 +542,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="109"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:109</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:110</a></div>
                 </td>
             </tr>
 
@@ -614,8 +614,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="125"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:125</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="126"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:126</a></div>
                 </td>
             </tr>
 
@@ -694,8 +694,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="158"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:158</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="153"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:153</a></div>
                 </td>
             </tr>
 
@@ -806,8 +806,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="129"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:129</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:130</a></div>
                 </td>
             </tr>
 
@@ -848,8 +848,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="143"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:143</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="138"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:138</a></div>
                 </td>
             </tr>
 
@@ -889,8 +889,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="162"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:162</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="157"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:157</a></div>
                 </td>
             </tr>
 
@@ -930,8 +930,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="170"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:170</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="165"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:165</a></div>
                 </td>
             </tr>
 
@@ -1002,8 +1002,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="166"
-                            class="link-to-prism">src/app/pages/treks/treks.page.ts:166</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="161"
+                            class="link-to-prism">src/app/pages/treks/treks.page.ts:161</a></div>
                 </td>
             </tr>
 
@@ -1800,6 +1800,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
           }
           this.numberOfActiveFilters &#x3D; !!numberOfActiveFilters ? &#x60;(${numberOfActiveFilters})&#x60; : &#x27;&#x27;;
           this.filteredTreks &#x3D; &lt;MinimalTrek[]&gt;[...filteredTreks];
+          this.content.scrollToTop();
         }
       }),
 
@@ -1841,12 +1842,6 @@ export class TreksPage extends UnSubscribe implements OnInit {
       componentProps: { isOnline: !this.offline },
     });
     await modal.present();
-
-    const { data } &#x3D; await modal.onDidDismiss();
-
-    if (data) {
-      this.content.scrollToTop();
-    }
   }
 
   public async presentSearch(): Promise&lt;void&gt; {
@@ -1913,11 +1908,23 @@ export class TreksPage extends UnSubscribe implements OnInit {
     &lt;ion-grid no-padding&gt;
       &lt;ion-row&gt;
         &lt;ion-col size&#x3D;&quot;auto&quot; class&#x3D;&quot;vertical-center&quot;&gt;
-          &lt;ion-button (click)&#x3D;&quot;presentFilters()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button&quot;&gt;
+          &lt;ion-button
+            (click)&#x3D;&quot;presentFilters()&quot;
+            color&#x3D;&quot;light&quot;
+            size&#x3D;&quot;small&quot;
+            class&#x3D;&quot;custom-button&quot;
+            [disabled]&#x3D;&quot;loaderStatus&quot;
+          &gt;
             {{ &#x27;toolbar.filters&#x27; | translate }}
             {{ numberOfActiveFilters }}&lt;/ion-button
           &gt;
-          &lt;ion-button (click)&#x3D;&quot;presentSearch()&quot; color&#x3D;&quot;light&quot; size&#x3D;&quot;small&quot; class&#x3D;&quot;custom-button button-margin-left&quot;&gt;
+          &lt;ion-button
+            (click)&#x3D;&quot;presentSearch()&quot;
+            color&#x3D;&quot;light&quot;
+            size&#x3D;&quot;small&quot;
+            class&#x3D;&quot;custom-button button-margin-left&quot;
+            [disabled]&#x3D;&quot;loaderStatus&quot;
+          &gt;
             {{ &#x27;toolbar.search&#x27; | translate }}
           &lt;/ion-button&gt;
         &lt;/ion-col&gt;
@@ -2093,7 +2100,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"  >    <ion-grid no-padding>      <ion-row>        <ion-col size="auto" class="vertical-center">          <ion-button (click)="presentFilters()" color="light" size="small" class="custom-button">            {{ \'toolbar.filters\' | translate }}            {{ numberOfActiveFilters }}</ion-button          >          <ion-button (click)="presentSearch()" color="light" size="small" class="custom-button button-margin-left">            {{ \'toolbar.search\' | translate }}          </ion-button>        </ion-col>        <ion-col text-right [ngClass]="{ \'list-mode-card\': this.colSize === 12, \'list-mode-disabled\': loaderStatus }">          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>          </ion-button>          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">            <ion-icon [name]="colSize === 12 ? \'apps\' : \'reorder\'" size="large"></ion-icon>          </ion-button>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content style="position : relative" #content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksList">    <app-connect-error      *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.contentTreks\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksList>    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">      <ion-list>        <ion-grid fixed>          <ion-row class="ion-padding-start" size="12">            <ion-text>              <h1 *ngIf="filteredTreks.length === 1" translate>                treks.numberOftrek              </h1>              <h1 *ngIf="filteredTreks.length > 1">                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>              </h1>            </ion-text>          </ion-row>          <ion-row align-items-stretch>            <ion-col              [size]="colSize"              [sizeMd]="getMdColSize()"              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"            >              <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>            </ion-col>          </ion-row>        </ion-grid>      </ion-list>    </div>    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0" vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">        <ion-icon name="map"></ion-icon>      </ion-fab-button>    </ion-fab>    <ion-infinite-scroll      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"      threshold="100px"      (ionInfinite)="expandTreks($event)"    >      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-template>  <ng-template #noTreks>    <ng-container *ngIf="offline">      <ng-container>        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">          <ng-container *ngSwitchCase="true">            <ion-row>              <ion-col *ngIf="nbOfflineTreks === 1" translate>                treks.noOfflineResult              </ion-col>              <ion-col *ngIf="nbOfflineTreks > 1" translate>                treks.noOfflineResults              </ion-col>            </ion-row>            <ion-row>              <ion-col>                <ion-button (click)="resetFilters()" color="light">                  <span translate>                    treks.showAllTreks                  </span>                </ion-button>              </ion-col>            </ion-row>          </ng-container>          <ion-row *ngSwitchCase="false">            <ion-col>              <span translate>                treks.emptyOfflineTreks              </span>            </ion-col>          </ion-row>        </ion-grid>      </ng-container>    </ng-container>  </ng-template></ion-content></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"  >    <ion-grid no-padding>      <ion-row>        <ion-col size="auto" class="vertical-center">          <ion-button            (click)="presentFilters()"            color="light"            size="small"            class="custom-button"            [disabled]="loaderStatus"          >            {{ \'toolbar.filters\' | translate }}            {{ numberOfActiveFilters }}</ion-button          >          <ion-button            (click)="presentSearch()"            color="light"            size="small"            class="custom-button button-margin-left"            [disabled]="loaderStatus"          >            {{ \'toolbar.search\' | translate }}          </ion-button>        </ion-col>        <ion-col text-right [ngClass]="{ \'list-mode-card\': this.colSize === 12, \'list-mode-disabled\': loaderStatus }">          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>          </ion-button>          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">            <ion-icon [name]="colSize === 12 ? \'apps\' : \'reorder\'" size="large"></ion-icon>          </ion-button>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content style="position : relative" #content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksList">    <app-connect-error      *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.contentTreks\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksList>    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">      <ion-list>        <ion-grid fixed>          <ion-row class="ion-padding-start" size="12">            <ion-text>              <h1 *ngIf="filteredTreks.length === 1" translate>                treks.numberOftrek              </h1>              <h1 *ngIf="filteredTreks.length > 1">                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>              </h1>            </ion-text>          </ion-row>          <ion-row align-items-stretch>            <ion-col              [size]="colSize"              [sizeMd]="getMdColSize()"              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"            >              <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>            </ion-col>          </ion-row>        </ion-grid>      </ion-list>    </div>    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0" vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">        <ion-icon name="map"></ion-icon>      </ion-fab-button>    </ion-fab>    <ion-infinite-scroll      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"      threshold="100px"      (ionInfinite)="expandTreks($event)"    >      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-template>  <ng-template #noTreks>    <ng-container *ngIf="offline">      <ng-container>        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">          <ng-container *ngSwitchCase="true">            <ion-row>              <ion-col *ngIf="nbOfflineTreks === 1" translate>                treks.noOfflineResult              </ion-col>              <ion-col *ngIf="nbOfflineTreks > 1" translate>                treks.noOfflineResults              </ion-col>            </ion-row>            <ion-row>              <ion-col>                <ion-button (click)="resetFilters()" color="light">                  <span translate>                    treks.showAllTreks                  </span>                </ion-button>              </ion-col>            </ion-row>          </ng-container>          <ion-row *ngSwitchCase="false">            <ion-col>              <span translate>                treks.emptyOfflineTreks              </span>            </ion-col>          </ion-row>        </ion-grid>      </ng-container>    </ng-container>  </ng-template></ion-content></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TreksPage'};

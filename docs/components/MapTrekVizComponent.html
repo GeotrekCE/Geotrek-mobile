@@ -616,8 +616,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="691"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:691</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="695"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:695</a></div>
                 </td>
             </tr>
 
@@ -739,8 +739,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="657"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:657</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="656"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:656</a></div>
                 </td>
             </tr>
 
@@ -782,8 +782,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="643"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:643</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="642"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:642</a></div>
                 </td>
             </tr>
 
@@ -825,8 +825,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="697"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:697</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="701"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:701</a></div>
                 </td>
             </tr>
 
@@ -866,8 +866,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="325"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:325</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="324"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:324</a></div>
                 </td>
             </tr>
 
@@ -907,8 +907,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="272"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:272</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="271"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:271</a></div>
                 </td>
             </tr>
 
@@ -1057,8 +1057,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="755"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:755</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="759"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:759</a></div>
                 </td>
             </tr>
 
@@ -1141,8 +1141,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="664"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:664</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="663"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:663</a></div>
                 </td>
             </tr>
 
@@ -1213,8 +1213,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="508"
-                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:508</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="507"
+                            class="link-to-prism">src/app/components/map-trek-viz/map-trek-viz.component.ts:507</a></div>
                 </td>
             </tr>
 
@@ -1686,7 +1686,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             this.map.loadImage(
               imageToLoad.fromAssets ? imageToLoad.pictogram : &#x60;${this.commonSrc}${imageToLoad.pictogram}&#x60;,
               (error: any, image: any) &#x3D;&gt; {
-                observer.next({ id: imageToLoad.id.toString(), image });
+                this.map.addImage(imageToLoad.id.toString(), image);
                 if (index + 1 &#x3D;&#x3D;&#x3D; imagesToLoad.length) {
                   observer.complete();
                 }
@@ -1709,7 +1709,6 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             }
           }),
           loadImages.subscribe({
-            next: value &#x3D;&gt; this.map.addImage(value.id, value.image),
             complete: () &#x3D;&gt; {
               this.initializeSources();
               this.initializeLayers();
@@ -1826,7 +1825,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: [&#x27;!&#x27;, [&#x27;has&#x27;, &#x27;point_count&#x27;]],
       layout: {
         &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;pois&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;]],
-        &#x27;icon-size&#x27;: environment.map.iconSize,
+        &#x27;icon-size&#x27;: environment.map.poiIconSize,
         &#x27;icon-allow-overlap&#x27;: true,
       },
     });
@@ -1924,7 +1923,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: &#x27;information-desk&#x27;,
       layout: {
         &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;informationDesk&#x27;, [&#x27;get&#x27;, &#x27;id&#x27;, [&#x27;object&#x27;, [&#x27;get&#x27;, &#x27;type&#x27;]]]],
-        &#x27;icon-size&#x27;: 0.5,
+        &#x27;icon-size&#x27;: environment.map.informationIconSize,
         &#x27;icon-allow-overlap&#x27;: true,
       },
     });
@@ -1935,7 +1934,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: &#x27;parking&#x27;,
       layout: {
         &#x27;icon-image&#x27;: &#x27;parking&#x27;,
-        &#x27;icon-size&#x27;: 0.6,
+        &#x27;icon-size&#x27;: environment.map.parkingIconSize,
         &#x27;icon-allow-overlap&#x27;: true,
       },
     });
@@ -1953,7 +1952,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           &#x27;arrival&#x27;,
           &#x27;departureArrival&#x27;,
         ],
-        &#x27;icon-size&#x27;: 0.8,
+        &#x27;icon-size&#x27;: environment.map.departureArrivalIconSize,
       },
     });
   }
@@ -2119,12 +2118,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       {
         name: await this.translate.get(&#x27;trek.details.poi.name&#x27;).toPromise(),
         visibility: this.map.getLayoutProperty(&#x27;pois-icon&#x27;, &#x27;visibility&#x27;) &#x3D;&#x3D;&#x3D; &#x27;visible&#x27;,
-        layersName: [&#x27;pois-icon&#x27;].toString(),
+        layersName: [&#x27;pois-icon&#x27;, &#x27;cluster-text-count-pois&#x27;, &#x27;clusters-circle-pois&#x27;].toString(),
       },
       {
         name: await this.translate.get(&#x27;trek.details.touristicContent.name&#x27;).toPromise(),
         visibility: this.map.getLayoutProperty(&#x27;touristics-content-circle&#x27;, &#x27;visibility&#x27;) &#x3D;&#x3D;&#x3D; &#x27;visible&#x27;,
-        layersName: [&#x27;touristics-content-circle&#x27;, &#x27;touristics-content-icon&#x27;].toString(),
+        layersName: [
+          &#x27;touristics-content-circle&#x27;,
+          &#x27;touristics-content-icon&#x27;,
+          &#x27;cluster-text-count-touristics-content&#x27;,
+          &#x27;clusters-circle-touristics-content&#x27;,
+        ].toString(),
       },
     ];
 

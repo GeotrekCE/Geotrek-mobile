@@ -1,6 +1,6 @@
 # Geotrek Mobile
 
-Mobile application of *Geotrek Rando* (http://geotrek.fr).
+Mobile application of _Geotrek Rando_ (http://geotrek.fr).
 
 # INSTALLATION
 
@@ -24,6 +24,8 @@ _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment
 
 # RUN THE APP ON DEVICE
 
+/!\ The `run` argument build the apk, then install it on the device
+
 ## iOS
 
 _Need [iOS environment setup](https://ionicframework.com/docs/installation/ios) available only on macOS_
@@ -39,6 +41,8 @@ _Need [Android environment setup](https://ionicframework.com/docs/installation/a
 # BUILD RELEASE APP
 
 _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.prod.ts'_ with your personal api url
+
+/!\ The `build` argument just build the apk, but don't install it on the device
 
 ## iOS
 
@@ -147,18 +151,17 @@ In order to build the app without Firebase you had to
 
     ionic cordova platform add android
 
-    ionic cordova platform build android
+    ionic cordova build android
 ```
 
 ## Documentation
 
 [Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
 
-LICENCE
-=======
+# LICENCE
 
-* OpenSource - BSD
-* Copyright (c) Makina Corpus - Parc National des Écrins
+- OpenSource - BSD
+- Copyright (c) Makina Corpus - Parc National des Écrins
 
 [<img src="http://depot.makina-corpus.org/public/logo.gif">](http://www.makina-corpus.com)
 [<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
