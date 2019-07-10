@@ -19,7 +19,7 @@
             "fill-opacity":0.6
          },
          "geometry":{  
-            "type":"MultiPolygon",
+            "type":"Polygon",
             "coordinates":[  
                [  
                   [  
