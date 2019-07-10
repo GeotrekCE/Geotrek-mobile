@@ -21,7 +21,10 @@
     <ion-grid fixed *ngIf="!!moreItem">
       <ion-row>
         <ion-col>
-          <div [innerHTML]="moreItem.content"></div>
+          <div *ngIf="moreItem.content" [innerHTML]="moreItem.content"></div>
+          <div *ngIf="moreItem.external_url">
+            <a [href]="moreItem.external_url"> {{ moreItem.external_url }} </a>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>

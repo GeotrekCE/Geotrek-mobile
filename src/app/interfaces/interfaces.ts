@@ -156,6 +156,7 @@ export interface InformationItem {
   id: number;
   title: string;
   content: string;
+  external_url: string;
 }
 
 export interface Settings {
