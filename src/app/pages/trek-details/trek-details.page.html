@@ -18,13 +18,12 @@
 </ion-header>
 <ion-content>
   <app-loader *ngIf="!trekDownloading"></app-loader>
-
   <ng-container *ngIf="connectionError && !offline; else trekDetail">
     <app-connect-error
       icon="wifi"
-      title="Problème de connexion"
-      content="Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée"
-      buttonText="Réessayez"
+      title="'error.title' | translate"
+      content="'error.contentTrekMap' | translate"
+      buttonText="'error.retry' | translate"
       (retry)="refresh()"
     >
     </app-connect-error>
