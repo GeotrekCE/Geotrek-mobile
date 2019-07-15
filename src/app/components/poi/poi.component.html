@@ -1,7 +1,7 @@
 <ion-card>
   <div *ngIf="picture !== null">
     <ion-img class="min-size-img" [src]="picture!.url"></ion-img>
-    <div class="ion-padding-start ion-padding-top">
+    <div class="ion-padding-start ion-padding-top legend-text">
       {{ picture!.legend }}
       <span *ngIf="!!picture.author">({{ picture!.author }})</span>
     </div>

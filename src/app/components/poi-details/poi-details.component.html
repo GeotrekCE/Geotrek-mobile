@@ -13,7 +13,7 @@
   <ion-card>
     <div *ngIf="picture && picture?.url !== ''">
       <ion-img class="min-size-img" [src]="picture?.url"></ion-img>
-      <div class="card-legend ion-padding-start ion-padding-top">
+      <div class="card-legend ion-padding-start ion-padding-top legend-text">
         <ion-img *ngIf="typeImgSrc" class="img-legend" [src]="typeImgSrc"></ion-img>
         {{ poi.properties.pictures[0]?.legend }}
         <span *ngIf="!!poi.properties.pictures[0]?.author">({{ poi.properties.pictures[0].author }})</span>

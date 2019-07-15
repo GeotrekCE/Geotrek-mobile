@@ -40,7 +40,7 @@
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>
-            <div class="ion-padding-top">
+            <div class="ion-padding-top legend-text">
               {{ picture!.legend }}
               <span *ngIf="!!picture.author">({{ picture!.author }})</span>
             </div>
