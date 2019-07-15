@@ -137,6 +137,12 @@ app-trek-details {
   }
 }
 
+app-trek-map {
+  .mapboxgl-ctrl-scale {
+    margin: 0 0 50px 10px !important;
+  }
+}
+
 .min-size-img {
   min-width: 1px;
   min-height: 1px;

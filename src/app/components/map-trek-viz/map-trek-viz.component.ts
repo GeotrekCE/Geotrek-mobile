@@ -106,6 +106,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
       this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
+      this.map.addControl(
+        new mapboxgl.ScaleControl({
+          unit: 'metric',
+        }),
+      );
+
       this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');
 
       if (this.platform.is('ios') || this.platform.is('android')) {

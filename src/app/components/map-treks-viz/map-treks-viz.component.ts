@@ -95,6 +95,12 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
 
       this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
+      this.map.addControl(
+        new mapboxgl.ScaleControl({
+          unit: 'metric',
+        }),
+      );
+
       if (this.platform.is('ios') || this.platform.is('android')) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() => {
