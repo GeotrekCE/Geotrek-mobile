@@ -45,6 +45,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public commonSrc: string;
   public trekDownloading = false;
   public typePois: DataSetting | undefined;
+  public poiCollapseInitialSize = environment.poiCollapseInitialSize;
+  public touristicContentCollapseInitialSize = environment.touristicContentCollapseInitialSize;
 
   constructor(
     private onlineTreks: OnlineTreksService,

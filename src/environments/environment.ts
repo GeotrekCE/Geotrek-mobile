@@ -170,4 +170,6 @@ export const environment = {
     distanceFilter: 5,
     interval: 3000,
   },
+  poiCollapseInitialSize: 5,
+  touristicContentCollapseInitialSize: 5,
 };
