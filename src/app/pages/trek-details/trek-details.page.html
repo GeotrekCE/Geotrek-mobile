@@ -36,7 +36,7 @@
       </ion-fab-button>
     </ion-fab>
 
-    <div>
+    <div *ngIf="currentTrek">
       <ion-slides *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0" pager="true">
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
