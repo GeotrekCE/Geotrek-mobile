@@ -15,21 +15,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="inset">
-    <ion-item *ngFor="let filter of filters">
-      <app-filter [commonSrc]="commonSrc" class="full-width" [filter]="filter"
-        (valueChange)="handleFiltersState($event.checked, filter, $event.value)">
-      </app-filter>
-    </ion-item>
-  </ion-list>
+  <ng-container *ngIf="!filters || filters.length === 0; else filtersList">
+    <div class="loader-container">
+      <ion-progress-bar class="progress-loader" color="primary" type="indeterminate"></ion-progress-bar>
+    </div>
+  </ng-container>
+
+  <ng-template #filtersList>
+    <ion-list lines="inset">
+      <ion-item *ngFor="let filter of filters">
+        <app-filter
+          [commonSrc]="commonSrc"
+          class="full-width"
+          [filter]="filter"
+          (valueChange)="handleFiltersState($event.checked, filter, $event.value)"
+        >
+        </app-filter>
+      </ion-item>
+    </ion-list>
+  </ng-template>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="filters && filters.length !== 0">
   <ion-button [disabled]="nbTemporaryFiltersTreks === 0" (click)="applyFilters()" expand="full">
     <ion-icon color="white" slot="start" name="funnel"></ion-icon>
     <span *ngIf="nbTemporaryFiltersTreks === 0" translate>filters.zeroresult</span>
     <span *ngIf="nbTemporaryFiltersTreks === 1" translate>filters.oneresult</span>
-    <span *ngIf="nbTemporaryFiltersTreks > 1" translate
-      [translateParams]="{ nb: nbTemporaryFiltersTreks }">filters.results</span>
+    <span *ngIf="nbTemporaryFiltersTreks > 1" translate [translateParams]="{ nb: nbTemporaryFiltersTreks }"
+      >filters.results</span
+    >
   </ion-button>
 </ion-footer>

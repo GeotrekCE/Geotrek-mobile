@@ -1,12 +1,12 @@
 <ng-container *ngFor="let item of alwaysDisplayedItems">
   <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"> </ng-container>
 </ng-container>
+<ng-container *ngIf="expanded">
+  <ng-container *ngFor="let item of expandableItems">
+    <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"> </ng-container>
+  </ng-container>
+</ng-container>
 <ng-container *ngIf="expandableItems.length > 0">
-  <div [@expandCollapse]="" *ngIf="expanded">
-    <ng-container *ngFor="let item of expandableItems">
-      <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"> </ng-container>
-    </ng-container>
-  </div>
   <ion-button fill="outline" (click)="toggleExpandables()" [ngSwitch]="expanded">
     <ng-container *ngSwitchCase="false">
       {{ showAllLabel }}

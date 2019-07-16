@@ -42,6 +42,7 @@ import { LayersVisibilityComponent } from '@app/components/layers-visibility/lay
 
 import { FilterValueComponent } from './components/filter-value/filter-value.component';
 import { TreksOrderComponent } from './components/treks-order/treks-order.component';
+import { Animation } from '@ionic/core';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -58,7 +59,7 @@ export function createTranslateLoader(http: HttpClient) {
     FilterValueComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent
+    TreksOrderComponent,
   ],
   entryComponents: [
     FiltersComponent,
@@ -67,12 +68,18 @@ export function createTranslateLoader(http: HttpClient) {
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent
+    TreksOrderComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot({ mode: 'md', animated: true }),
+    IonicModule.forRoot({
+      mode: 'md',
+      animated: true,
+      navAnimation: (AnimationC: Animation): Promise<Animation> => {
+        return Promise.resolve(new AnimationC());
+      },
+    }),
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

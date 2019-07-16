@@ -1,3 +1,18 @@
 .full-width {
-    width: 100%;
+  width: 100%;
+}
+
+.loader-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+  background: rgba(189, 195, 199, 0.5);
+}
+
+.progress-loader {
+  width: 50%;
 }

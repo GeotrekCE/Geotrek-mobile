@@ -4,12 +4,7 @@
   </ion-text>
 
   <ng-template #poiTemplate let-value="item">
-    <app-filter-value
-      [commonSrc]="commonSrc"
-      [value]="value"
-      (valueChange)="valueChanged($event);"
-    >
-    </app-filter-value>
+    <app-filter-value [commonSrc]="commonSrc" [value]="value" (valueChange)="valueChanged($event)"> </app-filter-value>
   </ng-template>
 
   <app-collapsible-list
@@ -17,7 +12,7 @@
     [showAllLabel]="filter.showAllLabel"
     [hideAllLabel]="filter.hideAllLabel"
     [itemTemplate]="poiTemplate"
-    [initialState]="expanded ? 'expanded': 'collapsed'">
+    [initialState]="expanded ? 'expanded' : 'collapsed'"
+  >
   </app-collapsible-list>
-
 </ion-label>
