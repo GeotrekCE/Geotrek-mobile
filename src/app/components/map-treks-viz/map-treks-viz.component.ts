@@ -101,6 +101,13 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
         }),
       );
 
+      this.map.addControl(
+        new mapboxgl.AttributionControl({
+          compact: false,
+          customAttribution: environment.map.attributionText,
+        }),
+      );
+
       if (this.platform.is('ios') || this.platform.is('android')) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() => {

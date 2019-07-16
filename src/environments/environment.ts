@@ -76,6 +76,8 @@ export const environment = {
     zoom: 13,
   },
   map: {
+    attributionText:
+      '<a href="https://openstreetmap.org/copyright">© OpenStreetMap contributors</a> | <a href="https://opentopomap.org">© OpenTopoMap </a>',
     addSoustractMaxBounds: 0.01,
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,

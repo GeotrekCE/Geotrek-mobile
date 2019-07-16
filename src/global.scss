@@ -141,6 +141,13 @@ app-trek-map {
   .mapboxgl-ctrl-scale {
     margin: 0 0 50px 10px !important;
   }
+  .mapboxgl-ctrl-attrib-inner {
+    margin: 0 10px 50px 0 !important;
+  }
+}
+
+.mapboxgl-ctrl-attrib-inner a {
+  color: #0078a8 !important;
 }
 
 .min-size-img {

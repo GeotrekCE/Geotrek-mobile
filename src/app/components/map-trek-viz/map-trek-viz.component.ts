@@ -112,6 +112,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         }),
       );
 
+      this.map.addControl(
+        new mapboxgl.AttributionControl({
+          compact: false,
+          customAttribution: environment.map.attributionText,
+        }),
+      );
+
       this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');
 
       if (this.platform.is('ios') || this.platform.is('android')) {
