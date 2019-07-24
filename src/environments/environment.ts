@@ -4,7 +4,7 @@ export const environment = {
   appName: 'Geotrek Starter', // app name used for app header
   production: false,
   useFirebase: false,
-  availableLanguage: ['fr', 'en'], // we assume that availableLanguage[0] is default language, or 'fr' if array is empty
+  availableLanguage: ['fr', 'en', 'it'], // we assume that availableLanguage[0] is default language, or 'fr' if array is empty
   mapbox: {
     accessToken: null, // only if you use mapbox vector tiles
   },
