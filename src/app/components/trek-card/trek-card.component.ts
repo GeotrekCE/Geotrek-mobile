@@ -33,20 +33,24 @@ export class TrekCardComponent implements OnInit {
     this.hydratedTrek = this.settings.getHydratedTrek(this.trek);
     if (this.offline) {
       this.imgSrc = this.offlineTreks.getTrekImageSrc(this.trek);
-      this.imgPracticeSrc = this.offlineTreks.getTrekImageSrc(
-        {} as Trek,
-        {
-          url: this.hydratedTrek.properties.practice.pictogram,
-        } as Picture,
-      );
+      if (this.hydratedTrek.properties.practice) {
+        this.imgPracticeSrc = this.offlineTreks.getTrekImageSrc(
+          {} as Trek,
+          {
+            url: this.hydratedTrek.properties.practice.pictogram,
+          } as Picture,
+        );
+      }
     } else {
       this.imgSrc = this.onlineTreks.getTrekImageSrc(this.trek);
-      this.imgPracticeSrc = this.onlineTreks.getTrekImageSrc(
-        {} as Trek,
-        {
-          url: this.hydratedTrek.properties.practice.pictogram,
-        } as Picture,
-      );
+      if (this.hydratedTrek.properties.practice) {
+        this.imgPracticeSrc = this.onlineTreks.getTrekImageSrc(
+          {} as Trek,
+          {
+            url: this.hydratedTrek.properties.practice.pictogram,
+          } as Picture,
+        );
+      }
     }
 
     this.routerLink = `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.trek.properties.id}`;
