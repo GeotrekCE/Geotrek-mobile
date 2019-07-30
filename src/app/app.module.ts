@@ -48,6 +48,10 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+export function noAnimation(AnimationC: Animation): Promise<Animation> {
+  return Promise.resolve(new AnimationC());
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,9 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot({
       mode: 'md',
       animated: true,
-      navAnimation: (AnimationC: Animation): Promise<Animation> => {
-        return Promise.resolve(new AnimationC());
-      },
+      navAnimation: noAnimation,
     }),
     AppRoutingModule,
     HttpClientModule,
