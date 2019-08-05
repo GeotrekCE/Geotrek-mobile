@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 
 import { MinimalTrek, MinimalTreks, Trek } from '@app/interfaces/interfaces';
@@ -13,11 +13,15 @@ import { ModalController, NavParams, Platform } from '@ionic/angular';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   providers: [SearchTreksService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent extends UnSubscribe implements OnInit {
+export class SearchComponent extends UnSubscribe implements OnInit, AfterViewChecked {
   public filteredTreks: MinimalTrek[] = [];
   public currentSearchValue: string;
+  public viewIsLoad = false;
   private treks: MinimalTreks | null = null;
+  public treksByStep: number = 30;
+  public currentMaxTreks: number = 30;
 
   constructor(
     private modalCtrl: ModalController,
@@ -26,12 +30,16 @@ export class SearchComponent extends UnSubscribe implements OnInit {
     private searchTreks: SearchTreksService,
     private navParams: NavParams,
     private platform: Platform,
+    private ref: ChangeDetectorRef,
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+  }
+
+  ionViewDidEnter(): void {
     const isOnline = this.navParams.get('isOnline');
     const treksTool = isOnline ? this.onlineTreks : this.offlineTreks;
     this.subscriptions$$.push(
@@ -40,9 +48,17 @@ export class SearchComponent extends UnSubscribe implements OnInit {
       }),
       treksTool.treks$.subscribe(treks => {
         this.treks = treks;
-        this.filteredTreks = [];
+        if (this.treks) {
+          this.filteredTreks = this.searchTreks.search(this.treks.features, '');
+        }
+        this.viewIsLoad = true;
+        this.ref.detectChanges();
       }),
     );
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('echhheck');
   }
 
   public close(): void {
@@ -64,5 +80,16 @@ export class SearchComponent extends UnSubscribe implements OnInit {
 
   public trackTrek(index: number, element: Trek): number | null {
     return element ? element.properties.id : null;
+  }
+
+  public expandTreks(infiniteScroll: any) {
+    if (this.currentMaxTreks < this.filteredTreks.length) {
+      if (this.currentMaxTreks + this.treksByStep > this.filteredTreks.length) {
+        this.currentMaxTreks = this.filteredTreks.length;
+      } else {
+        this.currentMaxTreks += this.treksByStep;
+      }
+    }
+    infiniteScroll.target.complete();
   }
 }

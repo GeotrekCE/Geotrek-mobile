@@ -14,26 +14,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else loading">
-    <ion-card class="pointer ion-activatable" *ngFor="let trek of filteredTreks; trackBy: trackTrek"
-      (click)="navigateToTrek(trek.properties.id)">
-      <ion-card-header class="ion-activatable" color="light">
-        <ion-ripple-effect></ion-ripple-effect>
-        <ion-card-subtitle>{{ trek.properties.name }}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-  </ion-list>
-
-  <ng-template #loading>
-    <ion-grid class="flex-container" fixed>
-      <ion-row>
-        <ion-col *ngIf="currentSearchValue">
-          {{ 'search.noResult' | translate }}
-        </ion-col>
-        <ion-col *ngIf="!(!!currentSearchValue)">
-          {{ 'search.contentPlaceHolder' | translate }}
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ng-template>
+  <ng-container *ngIf="!viewIsLoad">
+    <div class="loader-container">
+      <ion-progress-bar class="progress-loader" color="primary" type="indeterminate"></ion-progress-bar>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="viewIsLoad">
+    <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">
+      <ion-item
+        class="ion-activatable"
+        *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
+        (click)="navigateToTrek(trek.properties.id)"
+      >
+        <ion-label>{{ trek.properties.name }}</ion-label>
+        <ion-icon name="arrow-round-forward" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <ng-template #userMsg>
+      <ion-grid class="flex-container" fixed>
+        <ion-row>
+          <ion-col *ngIf="currentSearchValue">
+            {{ 'search.noResult' | translate }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+    <ion-infinite-scroll
+      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"
+      threshold="100px"
+      (ionInfinite)="expandTreks($event)"
+    >
+      <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
 </ion-content>

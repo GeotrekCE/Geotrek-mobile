@@ -88,11 +88,7 @@
       </ion-fab-button>
     </ion-fab>
 
-    <ion-infinite-scroll
-      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"
-      threshold="100px"
-      (ionInfinite)="expandTreks($event)"
-    >
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="expandTreks($event)">
       <ion-infinite-scroll-content> </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-template>

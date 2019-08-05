@@ -14,8 +14,7 @@
   "search": {
     "title": "Cercare",
     "placeholder": "nome dell'escursione",
-    "noResult": "Nessuna escursione corrisponde alla sua ricerca",
-    "contentPlaceHolder": ""
+    "noResult": "Nessuna escursione corrisponde alla sua ricerca"
   },
   "filters": {
     "title": "Filtri",

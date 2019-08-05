@@ -14,8 +14,7 @@
   "search": {
     "title": "Search",
     "placeholder": "Name of the trek",
-    "noResult": "No trek corresponds to your search",
-    "contentPlaceHolder": ""
+    "noResult": "No trek corresponds to your search"
   },
   "filters": {
     "title": "Filters",

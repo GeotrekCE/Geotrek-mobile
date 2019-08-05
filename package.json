@@ -71,6 +71,7 @@
     "core-js": "^2.6.9",
     "es6-promise-plugin": "4.2.2",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.deburr": "^4.1.0",
     "mapbox-gl": "^0.53.1",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"

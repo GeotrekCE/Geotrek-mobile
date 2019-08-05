@@ -14,8 +14,7 @@
   "search": {
     "title": "Recherche",
     "placeholder": "nom de la randonnée",
-    "noResult": "Aucune randonnée ne correspond à votre recherche",
-    "contentPlaceHolder": ""
+    "noResult": "Aucune randonnée ne correspond à votre recherche"
   },
   "filters": {
     "title": "Filtres",
