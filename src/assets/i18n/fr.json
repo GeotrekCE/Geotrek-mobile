@@ -63,6 +63,7 @@
       "profile": "Profil altimétrique",
       "stages": "Étapes",
       "parents": "Séjours",
+      "features": "Caractéristiques",
       "poi": {
         "name": "Patrimoines",
         "showAllLabel": "Afficher tous les patrimoines",

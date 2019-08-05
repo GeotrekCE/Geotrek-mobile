@@ -63,6 +63,7 @@
       "profile": "Profilo altimetrico",
       "stages": "Tappe",
       "parents": "Escursionismo itinerante",
+      "features": "Caratteristiche",
       "poi": {
         "name": "Patrimoni",
         "showAllLabel": "Tutto affigere",
