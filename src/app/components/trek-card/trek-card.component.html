@@ -6,12 +6,14 @@
   <ion-ripple-effect></ion-ripple-effect>
   <div>
     <ion-img *ngIf="this.imgSrc" class="min-size-img" [src]="this.imgSrc"></ion-img>
-    <ion-card-header>
-      <ion-card-title>{{ hydratedTrek.properties?.name }}</ion-card-title>
+    <ion-card-header [ngClass]="{ 'minimize-padding-bottom': !showAllData }">
+      <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">{{
+        hydratedTrek.properties?.name
+      }}</ion-card-title>
     </ion-card-header>
   </div>
   <div>
-    <ion-card-content>
+    <ion-card-content class="no-padding-top">
       <div>
         <div class="ellipsis">{{ 'treks.departure' | translate }}</div>
         <div class="ellipsis" *ngIf="hydratedTrek.properties.departure_city">
