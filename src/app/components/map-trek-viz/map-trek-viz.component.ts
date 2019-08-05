@@ -36,7 +36,7 @@ const mapboxgl = require('mapbox-gl');
   styleUrls: ['./map-trek-viz.component.scss'],
 })
 export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
-  private map: Map;
+  private map: any;
   private markerPosition: Marker;
 
   @Input() currentTrek: HydratedTrek | null = null;
@@ -335,6 +335,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   }
 
   private initializeLayers(): void {
+    const visibility: string =
+      this.currentTrek &&
+      this.currentTrek.properties.children &&
+      this.currentTrek.properties.children.features.length > 0
+        ? 'none'
+        : 'visible';
+
     this.map.addLayer({
       id: 'zone',
       source: 'zone',
@@ -387,6 +394,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'icon-image': ['concat', 'pois', ['get', 'type']],
         'icon-size': environment.map.poiIconSize,
         'icon-allow-overlap': true,
+        visibility,
       },
     });
 
@@ -396,6 +404,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'pois',
       filter: ['has', 'point_count'],
       paint: environment.map.clusterPaint,
+      layout: {
+        visibility,
+      },
     });
 
     this.map.addLayer({
@@ -413,6 +424,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-offset': [0, 0.1],
         'text-ignore-placement': true,
         'text-allow-overlap': true,
+        visibility,
       },
     });
 
@@ -441,6 +453,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         ...environment.map.touristicContentLayersProperties.circle.paint,
         'circle-color': touristicsContent ? (circleColorExpression as any) : '#000000',
       },
+      layout: {
+        visibility,
+      },
     });
 
     this.map.addLayer({
@@ -448,7 +463,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'symbol',
       source: 'touristics-content',
       filter: ['!', ['has', 'point_count']],
-      ...(environment.map.touristicContentLayersProperties.icon as any),
+      layout: { visibility, ...(environment.map.touristicContentLayersProperties.icon.layout as any) },
     });
 
     this.map.addLayer({
@@ -456,6 +471,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'circle',
       source: 'touristics-content',
       filter: ['has', 'point_count'],
+      layout: {
+        visibility,
+      },
       paint: environment.map.clusterPaint,
     });
 
@@ -474,6 +492,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-offset': [0, 0.1],
         'text-allow-overlap': true,
         'text-ignore-placement': true,
+        visibility,
       },
     });
 
@@ -716,7 +735,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       { id: 'pois', translateId: 'trek.details.poi.name' },
       { id: 'touristics-content', translateId: 'trek.details.touristicContent.name' },
     ].forEach(clusterSource => {
-      this.map.on('click', `clusters-circle-${clusterSource.id}`, e => {
+      this.map.on('click', `clusters-circle-${clusterSource.id}`, (e: any) => {
         const features = this.map.queryRenderedFeatures(e.point, {
           layers: [`clusters-circle-${clusterSource.id}`],
         });

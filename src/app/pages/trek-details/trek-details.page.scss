@@ -40,3 +40,22 @@ ion-header {
   background: var(--ion-color-primary) !important;
   color: white;
 }
+
+div[scrollx='true'] {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -webkit-overflow-scrolling: touch;
+  .scroll-trek-item {
+    flex: 0 0 auto;
+    width: 250px;
+  }
+}
+
+.treks-card-container {
+  margin-left: -10px;
+  margin-right: -10px;
+}

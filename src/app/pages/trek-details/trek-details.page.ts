@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,6 +28,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
   selector: 'app-trek-details',
   templateUrl: './trek-details.page.html',
   styleUrls: ['./trek-details.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public originalTrek: Trek;
@@ -60,6 +61,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     private platform: Platform,
     public settings: SettingsService,
     private firebaseAnalytics: FirebaseAnalytics,
+    private ref: ChangeDetectorRef,
   ) {
     super();
   }
@@ -85,12 +87,14 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
             this.treksUrl = this.treksTool.getTreksUrl();
             this.commonSrc = context.commonSrc;
             this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id);
+            this.ref.markForCheck();
           }
         }
       }),
       this.settings.data$.subscribe(settings => {
         if (settings) {
           this.typePois = settings.find(setting => setting.id === 'poi_types');
+          this.ref.markForCheck();
         }
       }),
     );

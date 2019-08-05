@@ -204,6 +204,42 @@
           </ion-col>
         </ion-row>
 
+        <!-- Children -->
+        <ion-row *ngIf="currentTrek.properties.children && currentTrek.properties.children.features.length > 0">
+          <ion-col>
+            <div>
+              <ion-text color="primary">
+                <h2 class="custom-divider">
+                  {{ 'trek.details.stages' | translate }} ({{ currentTrek.properties.children.features.length }})
+                </h2>
+              </ion-text>
+            </div>
+            <div class="treks-card-container" scrollx="true">
+              <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features">
+                <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- Parents -->
+        <!-- <ion-row *ngIf="currentTrek.properties.parents && currentTrek.properties.parents.features.length > 0">
+          <ion-col>
+            <div>
+              <ion-text color="primary">
+                <h2 class="custom-divider">
+                  {{ 'trek.details.parents' | translate }} ({{ currentTrek.properties.parents.features.length }})
+                </h2>
+              </ion-text>
+            </div>
+            <div class="treks-card-container" scrollx="true">
+              <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.parents.features">
+                <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row> -->
+
         <!-- Profile -->
         <ion-row *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''">
           <ion-col>

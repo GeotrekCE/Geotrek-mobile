@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Trek, HydratedTrek, Picture } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-trek-card',
   templateUrl: './trek-card.component.html',
   styleUrls: ['./trek-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrekCardComponent implements OnInit {
   @Input() public trek: Trek;

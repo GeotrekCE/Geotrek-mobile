@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { Picture, Poi, Trek, DataSetting } from '@app/interfaces/interfaces';
@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
   selector: 'app-poi',
   templateUrl: './poi.component.html',
   styleUrls: ['./poi.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PoiComponent implements OnChanges {
   @Input() public poi: Poi;

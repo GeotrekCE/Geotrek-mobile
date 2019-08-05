@@ -91,6 +91,8 @@ export interface HydratedTrekProperties {
   slug?: string;
   points_reference?: number[][];
   ambiance: string;
+  children: Treks;
+  parents: Treks;
 }
 
 export interface InformationDesk {
@@ -240,6 +242,11 @@ export interface TouristicEvent extends Feature<Point> {
   properties: {
     id: number;
   };
+}
+
+export interface Treks extends FeatureCollection {
+  type: 'FeatureCollection';
+  features: Trek[];
 }
 
 export interface TreksService {
