@@ -33,6 +33,7 @@
       [mapConfig]="mapConfig"
       [dataSettings]="settings.data$.value"
       [commonSrc]="commonSrc"
+      (navigateToChildren)="navigateToChildren($event)"
     >
     </app-map-trek-viz>
     <div class="bottom-container">

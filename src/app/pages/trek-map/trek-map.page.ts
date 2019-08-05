@@ -15,6 +15,7 @@ import {
   TrekContext,
   InformationDesk,
   TouristicCategoryWithFeatures,
+  TreksService,
 } from '@app/interfaces/interfaces';
 import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
@@ -36,6 +37,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
   public mapConfig: MapboxOptions;
   public commonSrc: string;
   public offline = false;
+  private treksTool: TreksService;
 
   constructor(
     private loading: LoadingService,
@@ -45,7 +47,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     public settings: SettingsService,
     private platform: Platform,
     private popoverCtrl: PopoverController,
-    private location: Location
+    private location: Location,
   ) {
     super();
   }
@@ -53,24 +55,23 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
   ionViewDidEnter(): void {
     this.loading.begin('trek-map');
     this.subscriptions$$.push(
-      this.route.data.subscribe(
-        (data: Data): void => {
-          const context: TrekContext | 'connectionError' = data.context;
-          if (context === 'connectionError') {
-            this.connectionError = true;
-            this.loading.finish('trek-map'); // if there is a connection error, map won't be loaded
-          } else {
-            this.connectionError = false;
-            this.offline = context.offline;
-            this.currentTrek = context.trek;
-            this.currentPois = context.pois;
-            this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
-            this.mapConfig = context.mapConfig;
-            this.commonSrc = context.treksTool.getCommonImgSrc();
-            this.trekUrl = context.treksTool.getTrekDetailsUrl((this.currentTrek as any).properties.id);
-          }
-        },
-      ),
+      this.route.data.subscribe((data: Data): void => {
+        const context: TrekContext | 'connectionError' = data.context;
+        if (context === 'connectionError') {
+          this.connectionError = true;
+          this.loading.finish('trek-map'); // if there is a connection error, map won't be loaded
+        } else {
+          this.connectionError = false;
+          this.offline = context.offline;
+          this.currentTrek = context.trek;
+          this.currentPois = context.pois;
+          this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
+          this.mapConfig = context.mapConfig;
+          this.treksTool = context.treksTool;
+          this.commonSrc = context.treksTool.getCommonImgSrc();
+          this.trekUrl = context.treksTool.getTrekDetailsUrl((this.currentTrek as any).properties.id);
+        }
+      }),
     );
 
     if (this.platform.is('android')) {
@@ -91,10 +92,9 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
             }
 
             this.location.back();
-          } catch (error) {
-          }
-        })
-      )
+          } catch (error) {}
+        }),
+      );
     }
   }
 
@@ -134,5 +134,9 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
   public refresh() {
     this.router.navigate([this.router.url]);
+  }
+
+  public navigateToChildren(id: number) {
+    this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
   }
 }

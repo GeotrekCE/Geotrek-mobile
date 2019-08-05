@@ -36,7 +36,7 @@ const mapboxgl = require('mapbox-gl');
   styleUrls: ['./map-trek-viz.component.scss'],
 })
 export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
-  private map: any;
+  private map: Map;
   private markerPosition: Marker;
 
   @Input() currentTrek: HydratedTrek | null = null;
@@ -48,6 +48,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() mapIsLoaded = new EventEmitter<any>();
+  @Output() navigateToChildren = new EventEmitter<any>();
 
   constructor(
     private screenOrientation: ScreenOrientation,
@@ -143,7 +144,11 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       });
 
       this.map.on('click', 'information-desk-icon', (e: MapLayerMouseEvent) => {
-        if (!!e.features && e.features.length > 0) {
+        const childrenTreks = this.map.queryRenderedFeatures(e.point, {
+          layers: [`children-treks-circle`],
+        });
+
+        if (!!e.features && e.features.length > 0 && (!childrenTreks || !(childrenTreks.length > 0))) {
           if (e.features[0] && e.features[0].properties && e.features[0].properties.id && this.currentTrek) {
             const informationDesk = this.currentTrek.properties.information_desks.find(
               informationDeskProperty => informationDeskProperty.id === (e as any).features[0].properties.id,
@@ -163,31 +168,42 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         }
       });
 
+      this.map.on('click', 'children-treks-circle', (e: MapLayerMouseEvent) => {
+        if (!!e.features && e.features.length > 0) {
+          const childrenTrek = { ...e.features[0] };
+          if (childrenTrek.properties && childrenTrek.properties.id) {
+            // go to trek
+            this.navigateToChildren.emit(childrenTrek.properties.id);
+          }
+        }
+      });
+
       this.handleClustersInteraction();
 
-      this.map.on('mouseenter', 'pois-icon', () => {
-        this.map.getCanvas().style.cursor = 'pointer';
-      });
+      // on browser only
+      // this.map.on('mouseenter', 'pois-icon', () => {
+      //   this.map.getCanvas().style.cursor = 'pointer';
+      // });
 
-      this.map.on('mouseleave', 'pois-icon', () => {
-        this.map.getCanvas().style.cursor = '';
-      });
+      // this.map.on('mouseleave', 'pois-icon', () => {
+      //   this.map.getCanvas().style.cursor = '';
+      // });
 
-      this.map.on('mouseenter', 'information-desk-icon', () => {
-        this.map.getCanvas().style.cursor = 'pointer';
-      });
+      // this.map.on('mouseenter', 'information-desk-icon', () => {
+      //   this.map.getCanvas().style.cursor = 'pointer';
+      // });
 
-      this.map.on('mouseleave', 'information-desk-icon', () => {
-        this.map.getCanvas().style.cursor = '';
-      });
+      // this.map.on('mouseleave', 'information-desk-icon', () => {
+      //   this.map.getCanvas().style.cursor = '';
+      // });
 
-      this.map.on('mouseenter', 'touristics-content-icon', () => {
-        this.map.getCanvas().style.cursor = 'pointer';
-      });
+      // this.map.on('mouseenter', 'touristics-content-icon', () => {
+      //   this.map.getCanvas().style.cursor = 'pointer';
+      // });
 
-      this.map.on('mouseleave', 'touristics-content-icon', () => {
-        this.map.getCanvas().style.cursor = '';
-      });
+      // this.map.on('mouseleave', 'touristics-content-icon', () => {
+      //   this.map.getCanvas().style.cursor = '';
+      // });
 
       this.map.on('load', () => {
         const loadImages: Observable<any> = Observable.create((observer: any) => {
@@ -332,10 +348,15 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'geojson',
       data,
     });
+
+    this.map.addSource('children-treks', {
+      type: 'geojson',
+      data,
+    });
   }
 
   private initializeLayers(): void {
-    const visibility: string =
+    const visibility: 'none' | 'visible' | undefined =
       this.currentTrek &&
       this.currentTrek.properties.children &&
       this.currentTrek.properties.children.features.length > 0
@@ -534,6 +555,30 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'icon-size': environment.map.departureArrivalIconSize,
       },
     });
+
+    this.map.addLayer({
+      id: 'children-treks-circle',
+      type: 'circle',
+      source: 'children-treks',
+      paint: environment.map.clusterPaint,
+    });
+
+    this.map.addLayer({
+      id: 'children-treks-index',
+      type: 'symbol',
+      source: 'children-treks',
+      paint: {
+        'text-color': '#fff',
+      },
+      layout: {
+        'text-field': '{index}',
+        'text-font': ['Roboto Regular'],
+        'text-size': 18,
+        'text-offset': [0, 0.1],
+        'text-allow-overlap': true,
+        'text-ignore-placement': true,
+      },
+    });
   }
 
   private updateSources(): void {
@@ -543,7 +588,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         trekSource.setData(this.currentTrek);
       }
       const departureArrivalSource = this.map.getSource('departure-arrival') as GeoJSONSource;
-      if (departureArrivalSource) {
+
+      if (
+        departureArrivalSource &&
+        (!this.currentTrek.properties.children ||
+          !this.currentTrek.properties.children.features ||
+          !(this.currentTrek.properties.children.features.length > 0))
+      ) {
         const departure = this.currentTrek.geometry.coordinates[0];
         const arrival = this.currentTrek.geometry.coordinates.slice(-1)[0];
         const departureArrivalData: FeatureCollection = {
@@ -610,20 +661,20 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         parkingSource.setData(parking);
       }
 
-      const information_desk = this.map.getSource('information-desk') as GeoJSONSource;
+      const informationDeskSource = this.map.getSource('information-desk') as GeoJSONSource;
       if (
-        information_desk &&
+        informationDeskSource &&
         this.currentTrek.properties.information_desks &&
         this.currentTrek.properties.information_desks.length > 0
       ) {
-        const information_desks: FeatureCollection = {
+        const informationDesks: FeatureCollection = {
           type: 'FeatureCollection',
           features: [],
         };
 
         this.currentTrek.properties.information_desks.forEach(information_desk_property => {
           if (information_desk_property.longitude && information_desk_property.latitude) {
-            information_desks.features.push({
+            informationDesks.features.push({
               type: 'Feature',
               geometry: {
                 type: 'Point',
@@ -637,22 +688,22 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           }
         });
 
-        information_desk.setData(information_desks);
+        informationDeskSource.setData(informationDesks);
       }
 
-      const points_referenceSource = this.map.getSource('points-reference') as GeoJSONSource;
+      const pointsReferenceSource = this.map.getSource('points-reference') as GeoJSONSource;
       if (
-        points_referenceSource &&
+        pointsReferenceSource &&
         this.currentTrek.properties.points_reference &&
         this.currentTrek.properties.points_reference.length > 0
       ) {
-        const points_reference: FeatureCollection = {
+        const pointsReference: FeatureCollection = {
           type: 'FeatureCollection',
           features: [],
         };
 
         this.currentTrek.properties.points_reference.forEach((point_reference, index) => {
-          points_reference.features.push({
+          pointsReference.features.push({
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -663,7 +714,24 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             },
           });
         });
-        points_referenceSource.setData(points_reference);
+        pointsReferenceSource.setData(pointsReference);
+      }
+
+      const childrenTreksSource = this.map.getSource('children-treks') as GeoJSONSource;
+      if (
+        childrenTreksSource &&
+        this.currentTrek.properties.children &&
+        this.currentTrek.properties.children.features.length > 0
+      ) {
+        const childrenTreks: FeatureCollection = { ...this.currentTrek.properties.children };
+
+        childrenTreks.features.forEach((children, index) => {
+          if (children.properties) {
+            children.properties.index = index + 1;
+          }
+        });
+
+        childrenTreksSource.setData(childrenTreks);
       }
     }
   }
@@ -779,12 +847,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         }
       });
 
-      this.map.on('mouseenter', `clusters-circle-${clusterSource.id}`, () => {
-        this.map.getCanvas().style.cursor = 'pointer';
-      });
-      this.map.on('mouseleave', `clusters-circle-${clusterSource.id}`, () => {
-        this.map.getCanvas().style.cursor = '';
-      });
+      // on browser only
+      // this.map.on('mouseenter', `clusters-circle-${clusterSource.id}`, () => {
+      //   this.map.getCanvas().style.cursor = 'pointer';
+      // });
+      // this.map.on('mouseleave', `clusters-circle-${clusterSource.id}`, () => {
+      //   this.map.getCanvas().style.cursor = '';
+      // });
     });
   }
 

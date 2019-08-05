@@ -49,7 +49,7 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
           Trek | null,
           Pois,
           TouristicContents,
-          TouristicEvents
+          TouristicEvents,
         ]): TrekContext | null => {
           if (trek === null) {
             this.router.navigate(['/']);
