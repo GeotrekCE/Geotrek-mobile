@@ -48,6 +48,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public typePois: DataSetting | undefined;
   public poiCollapseInitialSize = environment.poiCollapseInitialSize;
   public touristicContentCollapseInitialSize = environment.touristicContentCollapseInitialSize;
+  public isItinerancy = false;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -76,6 +77,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         } else {
           this.connectionError = false;
           if (context !== null) {
+            this.isItinerancy =
+              context.trek.properties.children && context.trek.properties.children.features.length > 0;
+
             this.offline = context.offline;
             this.currentTrek = context.trek;
             this.originalTrek = context.originalTrek;

@@ -331,7 +331,7 @@
         </ion-row>
 
         <!-- Pois -->
-        <ion-row *ngIf="currentPois && currentPois.length > 0">
+        <ion-row *ngIf="currentPois && currentPois.length > 0 && !isItinerancy">
           <ion-col>
             <ion-text color="primary">
               <h2 class="custom-divider">{{ 'trek.details.poi.name' | translate }} ({{ currentPois.length }})</h2>
@@ -353,7 +353,7 @@
         </ion-row>
 
         <!-- Touristic Contens -->
-        <div *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0">
+        <div *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0 && !isItinerancy">
           <ion-row *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures">
             <ion-col>
               <ion-text color="primary">
