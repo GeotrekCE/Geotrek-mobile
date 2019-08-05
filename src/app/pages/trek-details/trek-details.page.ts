@@ -195,4 +195,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
       });
     }
   }
+
+  public scrollToStages(stages: any): void {
+    stages.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
 }

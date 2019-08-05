@@ -71,6 +71,14 @@
           </ion-col>
         </ion-row>
 
+        <ion-row *ngIf="isItinerancy">
+          <ion-col>
+            <ion-button (click)="scrollToStages(stages)" fill="outline">
+              {{ currentTrek.properties.children.features.length }} {{ 'trek.details.stages' | translate }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
         <!-- Informations -->
         <ion-row *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival">
           <ion-col>
@@ -213,22 +221,24 @@
         </ion-row>
 
         <!-- Children -->
-        <ion-row *ngIf="currentTrek.properties.children && currentTrek.properties.children.features.length > 0">
-          <ion-col>
-            <div>
-              <ion-text color="primary">
-                <h2 class="custom-divider">
-                  {{ 'trek.details.stages' | translate }} ({{ currentTrek.properties.children.features.length }})
-                </h2>
-              </ion-text>
-            </div>
-            <div class="treks-card-container" scrollx="true">
-              <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features">
-                <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
+        <div #stages>
+          <ion-row *ngIf="currentTrek.properties.children && currentTrek.properties.children.features.length > 0">
+            <ion-col>
+              <div>
+                <ion-text color="primary">
+                  <h2 class="custom-divider">
+                    {{ 'trek.details.stages' | translate }} ({{ currentTrek.properties.children.features.length }})
+                  </h2>
+                </ion-text>
               </div>
-            </div>
-          </ion-col>
-        </ion-row>
+              <div class="treks-card-container" scrollx="true">
+                <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features">
+                  <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
 
         <!-- Parents -->
         <!-- <ion-row *ngIf="currentTrek.properties.parents && currentTrek.properties.parents.features.length > 0">
