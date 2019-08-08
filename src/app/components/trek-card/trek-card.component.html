@@ -1,4 +1,10 @@
-<ion-button *ngIf="offline" (click)="clickDeleteConfirm($event)" color="light" fill="clear" class="trash-button">
+<ion-button
+  *ngIf="offline && !isStage"
+  (click)="clickDeleteConfirm($event)"
+  color="light"
+  fill="clear"
+  class="trash-button"
+>
   <ion-icon slot="icon-only" name="trash"></ion-icon>
 </ion-button>
 

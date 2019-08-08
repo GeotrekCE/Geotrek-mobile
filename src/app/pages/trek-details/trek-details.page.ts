@@ -44,11 +44,11 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public treksUrl = '';
   public connectionError = false;
   public commonSrc: string;
-  public trekDownloading = false;
   public typePois: DataSetting | undefined;
   public poiCollapseInitialSize = environment.poiCollapseInitialSize;
   public touristicContentCollapseInitialSize = environment.touristicContentCollapseInitialSize;
   public isItinerancy = false;
+  public isStage = false;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -69,6 +69,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     super.ngOnInit();
+  }
+
+  ionViewDidEnter(): void {
     this.subscriptions$$.push(
       this.route.data.subscribe((data: Data): void => {
         const context: TrekContext | null | 'connectionError' = data.context;
@@ -77,8 +80,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         } else {
           this.connectionError = false;
           if (context !== null) {
-            this.isItinerancy =
-              context.trek.properties.children && context.trek.properties.children.features.length > 0;
+            this.isItinerancy = !!(
+              context.trek.properties.children && context.trek.properties.children.features.length > 0
+            );
 
             this.offline = context.offline;
             this.currentTrek = context.trek;
@@ -90,7 +94,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
             this.touristicEvents = context.touristicEvents.features;
             this.treksUrl = this.treksTool.getTreksUrl();
             this.commonSrc = context.commonSrc;
-            this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id);
+            this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id, context.parentId);
+            this.isStage = context.isStage;
+
             this.ref.markForCheck();
           }
         }
@@ -109,9 +115,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     if (!simpleTrek) {
       return;
     }
+
     this.offlineTreks.createNewProgressStream();
 
-    this.trekDownloading = true;
     const modalProgress = await this.modalController.create({
       component: ProgressComponent,
       cssClass: 'progress-modal',
@@ -120,7 +126,6 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
 
     this.offlineTreks.saveTrek(simpleTrek, this.originalTrek, this.currentPois, this.touristicContents).subscribe(
       saveResult => {
-        this.trekDownloading = false;
         modalProgress.dismiss();
         this.presentDownloadConfirm(true, saveResult);
         if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
@@ -130,7 +135,6 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         }
       },
       saveResult => {
-        this.trekDownloading = false;
         modalProgress.dismiss();
         this.presentDownloadConfirm(true, saveResult);
       },
@@ -140,8 +144,14 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public async presentDownloadConfirm(isAlert?: boolean, success?: boolean) {
     await this.translate.get('trek.downloadAlert').subscribe(async trad => {
       const downloadConfirm = await this.alertController.create({
-        header: trad.title,
-        message: isAlert ? (success ? trad.success : trad.error) : trad.content,
+        header: trad.titleTrek,
+        message: isAlert
+          ? success
+            ? trad.success
+            : trad.error
+          : !this.isItinerancy && !this.isStage
+          ? trad.contentTrek
+          : trad.contentItinerancy,
         buttons: isAlert
           ? [trad.confirmError]
           : [

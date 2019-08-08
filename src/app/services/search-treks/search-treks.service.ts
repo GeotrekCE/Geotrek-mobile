@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MinimalTrek } from '@app/interfaces/interfaces';
-import debuur from 'lodash.deburr';
+import { deburr } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class SearchTreksService {
     searchValue = searchValue.toLowerCase();
     return treks
       .filter(trek => {
-        return debuur(trek.properties.name.toLowerCase()).includes(searchValue);
+        return deburr(trek.properties.name.toLowerCase()).includes(searchValue);
       })
       .sort(function(a, b) {
         return a.properties.name.localeCompare(b.properties.name);

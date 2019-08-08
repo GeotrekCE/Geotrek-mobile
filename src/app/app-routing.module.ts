@@ -12,9 +12,19 @@ const routes: Routes = [
     loadChildren: './pages/trek-map/trek-map.module#TrekMapPageModule',
   },
   {
+    path: 'app/map/:trekId/:stageId',
+    loadChildren: './pages/trek-map/trek-map.module#TrekMapPageModule',
+    data: { isStage: true },
+  },
+  {
     path: 'app/map-offline/:trekId',
     loadChildren: './pages/trek-map/trek-map.module#TrekMapPageModule',
     data: { offline: true },
+  },
+  {
+    path: 'app/map-offline/:trekId/:stageId',
+    loadChildren: './pages/trek-map/trek-map.module#TrekMapPageModule',
+    data: { offline: true, isStage: true },
   },
 ];
 

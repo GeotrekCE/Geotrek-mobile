@@ -63,11 +63,13 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   ngOnChanges(changes: SimpleChanges) {
     const changesCurrentPois: SimpleChange = changes.currentPois;
     if (changesCurrentPois.currentValue && !changesCurrentPois.previousValue) {
-      this.currentPoisToNotify = this.currentPois.features.map(feature => ({
-        id: feature.properties.id,
-        name: feature.properties.name,
-        coordinates: feature.geometry.coordinates,
-      }));
+      if (this.currentPois && Array.isArray(this.currentPois.features)) {
+        this.currentPoisToNotify = this.currentPois.features.map(feature => ({
+          id: feature.properties.id,
+          name: feature.properties.name,
+          coordinates: feature.geometry.coordinates,
+        }));
+      }
     }
   }
 

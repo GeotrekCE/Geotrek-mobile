@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 
 import { MinimalTrek, MinimalTreks, Trek } from '@app/interfaces/interfaces';
@@ -15,13 +15,13 @@ import { ModalController, NavParams, Platform } from '@ionic/angular';
   providers: [SearchTreksService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent extends UnSubscribe implements OnInit, AfterViewChecked {
+export class SearchComponent extends UnSubscribe implements OnInit {
   public filteredTreks: MinimalTrek[] = [];
   public currentSearchValue: string;
   public viewIsLoad = false;
   private treks: MinimalTreks | null = null;
-  public treksByStep: number = 30;
-  public currentMaxTreks: number = 30;
+  public treksByStep = 30;
+  public currentMaxTreks = 30;
 
   constructor(
     private modalCtrl: ModalController,
@@ -55,10 +55,6 @@ export class SearchComponent extends UnSubscribe implements OnInit, AfterViewChe
         this.ref.detectChanges();
       }),
     );
-  }
-
-  ngAfterViewChecked(): void {
-    console.log('echhheck');
   }
 
   public close(): void {

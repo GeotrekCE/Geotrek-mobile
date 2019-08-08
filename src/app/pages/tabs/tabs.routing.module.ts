@@ -16,12 +16,17 @@ const routes: Routes = [
             path: '',
             component: TreksPage,
             resolve: {
-              context: TreksContextResolver
-            }
+              context: TreksContextResolver,
+            },
           },
           {
             path: 'trek-details/:trekId',
             loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
+          },
+          {
+            path: 'trek-details/:trekId/:stageId',
+            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
+            data: { isStage: true },
           },
           {
             path: 'treks-map',
@@ -37,13 +42,18 @@ const routes: Routes = [
             component: TreksPage,
             data: { offline: true },
             resolve: {
-              context: TreksContextResolver
-            }
+              context: TreksContextResolver,
+            },
           },
           {
             path: 'trek-details/:trekId',
             loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
             data: { offline: true },
+          },
+          {
+            path: 'trek-details/:trekId/:stageId',
+            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
+            data: { offline: true, isStage: true },
           },
           {
             path: 'treks-map',
@@ -78,5 +88,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {
-}
+export class TabsPageRoutingModule {}

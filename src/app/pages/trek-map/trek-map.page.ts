@@ -137,6 +137,8 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
   }
 
   public navigateToChildren(id: number) {
-    this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
+    if (this.currentTrek) {
+      this.router.navigate([this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)]);
+    }
   }
 }

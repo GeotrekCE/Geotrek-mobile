@@ -35,25 +35,31 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
-    const trekId = +(<string>route.paramMap.get('trekId'));
     const offline = !!route.data['offline'];
+    const isStage = !!route.data['isStage'];
+    const trekId = +(<string>route.paramMap.get('trekId'));
+    const stageId = +(<string>route.paramMap.get('stageId'));
+    const currentTrekId = isStage ? stageId : trekId;
+    const parentId: number | undefined = isStage ? trekId : undefined;
+
     const treksService: TreksService = offline ? this.offlineTreks : this.onlineTreks;
+
     return forkJoin(
-      treksService.getTrekById(trekId),
-      treksService.getPoisForTrekById(trekId),
-      treksService.getTouristicContentsForTrekById(trekId),
-      treksService.getTouristicEventsForTrekById(trekId),
+      treksService.getTrekById(currentTrekId, parentId),
+      treksService.getPoisForTrekById(currentTrekId, parentId),
+      treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+      treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
     ).pipe(
       map(
         ([trek, pois, touristicContents, touristicEvents]: [
           Trek | null,
           Pois,
           TouristicContents,
-          TouristicEvents,
+          TouristicEvents
         ]): TrekContext | null => {
           if (trek === null) {
             this.router.navigate(['/']);
-            console.error('No trek found: ', trekId);
+            console.error('No trek found: ', currentTrekId);
             return null;
           } else {
             const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(trek, offline);
@@ -78,6 +84,8 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
               touristicEvents,
               mapConfig,
               commonSrc,
+              isStage,
+              parentId,
             };
           }
         },

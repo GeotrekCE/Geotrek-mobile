@@ -37,7 +37,8 @@
   "trek": {
     "downloadAlert": {
       "title": "Mode hors ligne",
-      "content": "Télécharger cette randonnée afin d'y avoir accès hors connexion",
+      "contentTrek": "Télécharger cette randonnée afin d'y avoir accès hors connexion",
+      "contentItinerancy": "Télécharger les randonnées itinérantes afin d'y avoir accès hors connexion",
       "confirmButton": "Télécharger",
       "cancelButton": "Annuler",
       "success": "La randonnée est disponible hors ligne",

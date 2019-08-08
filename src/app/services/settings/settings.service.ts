@@ -189,19 +189,22 @@ export class SettingsService {
 
   public getTouristicCategoriesWithFeatures(touristicContents: TouristicContents): TouristicCategoryWithFeatures[] {
     const touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[] = [];
-    const categories = touristicContents.features
-      .map(touristicContent => touristicContent.properties.category)
-      .filter((v, i, a) => a.indexOf(v) === i);
-    categories.forEach(categoryId => {
-      const category = this.getValueForPropertyById('touristiccontent_categories', categoryId) as TouristicCategorie;
-      touristicCategoriesWithFeatures.push({
-        id: categoryId,
-        name: category ? category.name : '',
-        features: touristicContents.features.filter(
-          touristicContent => touristicContent.properties.category === categoryId,
-        ),
+    if (touristicContents && Array.isArray(touristicContents.features)) {
+      const categories = touristicContents.features
+        .map(touristicContent => touristicContent.properties.category)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      categories.forEach(categoryId => {
+        const category = this.getValueForPropertyById('touristiccontent_categories', categoryId) as TouristicCategorie;
+        touristicCategoriesWithFeatures.push({
+          id: categoryId,
+          name: category ? category.name : '',
+          features: touristicContents.features.filter(
+            touristicContent => touristicContent.properties.category === categoryId,
+          ),
+        });
       });
-    });
+    }
+
     return touristicCategoriesWithFeatures;
   }
 }

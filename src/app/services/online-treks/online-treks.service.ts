@@ -68,12 +68,12 @@ export class OnlineTreksService implements TreksService {
     return '/app/tabs/treks';
   }
 
-  public getTrekDetailsUrl(trekId: number): string {
-    return `/app/tabs/treks/trek-details/${trekId}`;
+  public getTrekDetailsUrl(trekId: number, parentId?: number): string {
+    return !parentId ? `/app/tabs/treks/trek-details/${trekId}` : `/app/tabs/treks/trek-details/${parentId}/${trekId}`;
   }
 
-  public getTrekMapUrl(trekId: number): string {
-    return `/app/map/${trekId}`;
+  public getTrekMapUrl(trekId: number, parentId?: number): string {
+    return !parentId ? `/app/map/${trekId}` : `/app/map/${parentId}/${trekId}`;
   }
 
   public getTreksMapUrl(): string {
@@ -90,40 +90,63 @@ export class OnlineTreksService implements TreksService {
     return this.http.get<MinimalTreks>(`${this.apiUrl}/treks.geojson`, httpOptions);
   }
 
-  public getTrekById(trekId: number): Observable<Trek> {
+  public getTrekById(trekId: number, parentId?: number): Observable<Trek> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept-Language': this.translate.getDefaultLang(),
       }),
     };
-    return this.cache.get<Trek>(`${this.apiUrl}/${trekId}/trek.geojson`, httpOptions);
+    if (parentId) {
+      return this.cache.get<Trek>(`${this.apiUrl}/${parentId}/treks/${trekId}.geojson`, httpOptions);
+    } else {
+      return this.cache.get<Trek>(`${this.apiUrl}/${trekId}/trek.geojson`, httpOptions);
+    }
   }
 
-  public getPoisForTrekById(trekId: number): Observable<Pois> {
+  public getPoisForTrekById(trekId: number, parentId?: number): Observable<Pois> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept-Language': this.translate.getDefaultLang(),
       }),
     };
-    return this.cache.get<Pois>(`${this.apiUrl}/${trekId}/pois.geojson`, httpOptions);
+
+    if (parentId) {
+      return this.cache.get<Pois>(`${this.apiUrl}/${parentId}/pois/${trekId}.geojson`, httpOptions);
+    } else {
+      return this.cache.get<Pois>(`${this.apiUrl}/${trekId}/pois.geojson`, httpOptions);
+    }
   }
 
-  public getTouristicContentsForTrekById(trekId: number): Observable<TouristicContents> {
+  public getTouristicContentsForTrekById(trekId: number, parentId?: number): Observable<TouristicContents> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept-Language': this.translate.getDefaultLang(),
       }),
     };
-    return this.cache.get<TouristicContents>(`${this.apiUrl}/${trekId}/touristic_contents.geojson`, httpOptions);
+    if (parentId) {
+      return this.cache.get<TouristicContents>(
+        `${this.apiUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
+        httpOptions,
+      );
+    } else {
+      return this.cache.get<TouristicContents>(`${this.apiUrl}/${trekId}/touristic_contents.geojson`, httpOptions);
+    }
   }
 
-  public getTouristicEventsForTrekById(trekId: number): Observable<TouristicEvents> {
+  public getTouristicEventsForTrekById(trekId: number, parentId?: number): Observable<TouristicEvents> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept-Language': this.translate.getDefaultLang(),
       }),
     };
-    return this.cache.get<TouristicEvents>(`${this.apiUrl}/${trekId}/touristic_events.geojson`, httpOptions);
+    if (parentId) {
+      return this.cache.get<TouristicEvents>(
+        `${this.apiUrl}/${parentId}/touristic_events/${trekId}.geojson`,
+        httpOptions,
+      );
+    } else {
+      return this.cache.get<TouristicEvents>(`${this.apiUrl}/${trekId}/touristic_events.geojson`, httpOptions);
+    }
   }
 
   public getMinimalTrekById(trekId: number): MinimalTrek | undefined {

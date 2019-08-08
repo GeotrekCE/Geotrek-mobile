@@ -16,6 +16,9 @@ export class TrekCardComponent implements OnInit {
   @Input() public trek: Trek;
   @Input() public offline = false;
   @Input() public showAllData: boolean;
+  @Input() public isStage = false;
+  @Input() public parentId: number | undefined = undefined;
+
   public hydratedTrek: HydratedTrek;
   public imgSrc: string;
   public routerLink: string;
@@ -54,7 +57,13 @@ export class TrekCardComponent implements OnInit {
       }
     }
 
-    this.routerLink = `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.trek.properties.id}`;
+    if (this.isStage) {
+      this.routerLink = `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.parentId}/${
+        this.trek.properties.id
+      }`;
+    } else {
+      this.routerLink = `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.trek.properties.id}`;
+    }
   }
 
   public clickDeleteConfirm($event: Event) {
@@ -70,13 +79,19 @@ export class TrekCardComponent implements OnInit {
     });
     await loader.present();
 
-    this.offlineTreks.removeTrek(this.trek.properties.id, true).subscribe(trekRemoved => {
-      loader.dismiss();
-      this.presentDeleteConfirm(
-        true,
-        trekRemoved ? translationTrekCard.trekIsDelete : translationTrekCard.errorWhileDeleting,
+    this.offlineTreks
+      .removeTrek(this.isStage && this.parentId ? this.parentId : this.trek.properties.id, true)
+      .subscribe(
+        () => {},
+        () => {
+          loader.dismiss();
+          this.presentDeleteConfirm(true, translationTrekCard.errorWhileDeleting);
+        },
+        () => {
+          loader.dismiss();
+          this.presentDeleteConfirm(true, translationTrekCard.trekIsDelete);
+        },
       );
-    });
   }
 
   private async presentDeleteConfirm(isAlert?: boolean, alertMsg?: string) {

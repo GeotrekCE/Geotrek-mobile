@@ -37,7 +37,8 @@
   "trek": {
     "downloadAlert": {
       "title": "Modo offline",
-      "content": "Scaricare questa escursione per consultarla offline",
+      "contentTrek": "Scaricare questa escursione per consultarla offline",
+      "contentItinerancy": "Scaricare le escursioni itineranti per consultarle offline",
       "confirmButton": "Scaricare ",
       "cancelButton": "Cancellare",
       "success": "L'escursione è disponibile in modo offline",

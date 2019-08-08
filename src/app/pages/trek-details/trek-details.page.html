@@ -7,7 +7,7 @@
       <ion-text>{{ currentTrek.properties.name }}</ion-text>
     </div>
     <ion-buttons slot="primary">
-      <ion-button (click)="presentDownloadConfirm()">
+      <ion-button *ngIf="!offline" (click)="presentDownloadConfirm()">
         <ion-icon slot="icon-only" name="download"></ion-icon>
       </ion-button>
       <ion-button (click)="shareTrek()">
@@ -17,7 +17,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-loader *ngIf="!trekDownloading"></app-loader>
   <ng-container *ngIf="connectionError && !offline; else trekDetail">
     <app-connect-error
       icon="wifi"
@@ -222,7 +221,7 @@
 
         <!-- Children -->
         <div #stages>
-          <ion-row *ngIf="currentTrek.properties.children && currentTrek.properties.children.features.length > 0">
+          <ion-row *ngIf="isItinerancy">
             <ion-col>
               <div>
                 <ion-text color="primary">
@@ -233,7 +232,13 @@
               </div>
               <div class="treks-card-container" scrollx="true">
                 <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features">
-                  <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
+                  <app-trek-card
+                    [isStage]="true"
+                    [parentId]="this.currentTrek.properties.id"
+                    [showAllData]="true"
+                    [trek]="trek"
+                    [offline]="offline"
+                  ></app-trek-card>
                 </div>
               </div>
             </ion-col>

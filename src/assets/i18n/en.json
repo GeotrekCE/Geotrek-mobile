@@ -37,7 +37,8 @@
   "trek": {
     "downloadAlert": {
       "title": "Offline",
-      "content": "Download this trek for offline access",
+      "contentTrek": "Download this trek for offline access",
+      "contentItinerancy": "Download the itinerant treks for offline access",
       "confirmButton": "Download",
       "cancelButton": "Cancel",
       "success": "The trek is available offline",

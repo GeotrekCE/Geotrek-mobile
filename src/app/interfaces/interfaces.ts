@@ -45,6 +45,7 @@ export interface TrekProperties extends MinimalTrekProperties {
   information_desks: InformationDesk[];
   departure_city?: string;
   arrival_city?: string;
+  children: Treks;
 }
 
 export interface Trek extends Feature<MultiPoint> {
@@ -92,7 +93,6 @@ export interface HydratedTrekProperties {
   points_reference?: number[][];
   ambiance: string;
   children: Treks;
-  parents: Treks;
 }
 
 export interface InformationDesk {
@@ -253,15 +253,15 @@ export interface TreksService {
   offline: boolean;
   treks$: Observable<MinimalTreks | null>;
   filteredTreks$: Observable<MinimalTrek[]>;
-  getTrekById(id: number): Observable<Trek | null>;
-  getPoisForTrekById(id: number): Observable<Pois>;
-  getTouristicContentsForTrekById(id: number): Observable<TouristicContents>;
-  getTouristicEventsForTrekById(id: number): Observable<TouristicEvents>;
+  getTrekById(id: number, parentId?: number): Observable<Trek | null>;
+  getPoisForTrekById(id: number, parentId?: number): Observable<Pois>;
+  getTouristicContentsForTrekById(id: number, parentId?: number): Observable<TouristicContents>;
+  getTouristicEventsForTrekById(id: number, parentId?: number): Observable<TouristicEvents>;
   getTreksUrl(): string;
-  getTrekDetailsUrl(trekId: number): string;
+  getTrekDetailsUrl(trekId: number, parentId?: number): string;
   getTrekImageSrc(trek: Trek, picture?: Picture): string;
   getTreksMapUrl(): string;
-  getTrekMapUrl(trekId: number): string;
+  getTrekMapUrl(trekId: number, parentId?: number): string;
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
   getCommonImgSrc(): string;
 }
@@ -279,6 +279,8 @@ export interface TrekContext {
   touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   touristicEvents: TouristicEvents;
   commonSrc: string;
+  isStage: boolean;
+  parentId: number | undefined;
 }
 
 export interface TreksContext {
