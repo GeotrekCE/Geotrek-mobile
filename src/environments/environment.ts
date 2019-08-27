@@ -95,7 +95,7 @@ export const environment = {
       // style stage circle on parent map
       'circle-color': '#fff',
       'circle-stroke-color': '#000000',
-      'circle-radius': 18,
+      'circle-radius': 14,
       'circle-stroke-width': 1,
     },
     zoneLayerProperties: {
