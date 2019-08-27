@@ -13,9 +13,10 @@
   <div>
     <ion-img *ngIf="this.imgSrc" class="min-size-img" [src]="this.imgSrc"></ion-img>
     <ion-card-header [ngClass]="{ 'minimize-padding-bottom': !showAllData }">
-      <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">{{
-        hydratedTrek.properties?.name
-      }}</ion-card-title>
+      <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">
+        {{ isStage ? ('trek.details.stage' | translate) + ' ' + numStage + ' - ' : '' }}
+        {{ hydratedTrek.properties?.name }}
+      </ion-card-title>
     </ion-card-header>
   </div>
   <div>

@@ -4,7 +4,8 @@
       <ion-back-button [defaultHref]="treksUrl"></ion-back-button>
     </ion-buttons>
     <div *ngIf="currentTrek" class="custom-title">
-      <ion-text>{{ currentTrek.properties.name }}</ion-text>
+      <ion-text *ngIf="isStage">{{ 'trek.details.stage' | translate }} {{ stageIndex + 1 }} -</ion-text
+      ><ion-text> {{ currentTrek.properties.name }}</ion-text>
     </div>
     <ion-buttons slot="primary">
       <ion-button *ngIf="!offline" (click)="presentDownloadConfirm()">
@@ -65,6 +66,34 @@
         <ion-row>
           <ion-col>
             <ion-text color="primary">
+              <h2 class="custom-divider">{{ 'trek.details.parents' | translate }}</h2>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <!-- Stages -->
+        <ion-row *ngIf="isStage">
+          <ion-col class="no-vertical-padding">
+            <div>
+              {{ parentTrek.properties.name }}
+            </div>
+            <div>{{ parentTrek.properties.children.features.length }} {{ 'trek.details.stages' | translate }}</div>
+            <div class="stage-container">
+              <ion-button [routerLink]="goToStep(previousTrek.properties.id)" *ngIf="previousTrek" [ngClass]="{'next-previous-stage': nextTrek}" class="stage-button stage-button-previous" fill="clear" expand="full" size="large">
+                {{ 'trek.details.stage' | translate }} {{ stageIndex }} - {{ previousTrek.properties.name }}
+                <ion-icon name="arrow-back" slot="start"></ion-icon>
+              </ion-button>
+              <ion-button [routerLink]="goToStep(nextTrek.properties.id)" *ngIf="nextTrek"  [ngClass]="{'next-previous-stage': previousTrek}" class="stage-button stage-button-next" fill="clear" expand="full" size="large">
+                {{ 'trek.details.stage' | translate }} {{ stageIndex + 2 }} - {{ nextTrek.properties.name }}
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-text color="primary">
               <h2 class="custom-divider">{{ 'trek.details.features' | translate }}</h2>
             </ion-text>
           </ion-col>
@@ -82,6 +111,7 @@
         <ion-row *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival">
           <ion-col>
             <div
+              class="no-vertical-padding"
               *ngIf="
                 (currentTrek.properties.departure || currentTrek.properties.arrival) &&
                 currentTrek.properties.departure !== currentTrek.properties.arrival
@@ -89,7 +119,7 @@
             >
               <div *ngIf="currentTrek.properties.departure && currentTrek.properties.departure.length > 0">
                 <ion-text color="primary">
-                  <h5>{{ 'trek.details.departure' | translate }}</h5>
+                  <h5 class="no-margin-top">{{ 'trek.details.departure' | translate }}</h5>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.departure_city">
                   {{ 'trek.details.city' | translate }} {{ currentTrek.properties.departure_city?.name }}
@@ -99,7 +129,7 @@
 
               <div *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0">
                 <ion-text color="primary">
-                  <h5>{{ 'trek.details.arrival' | translate }}</h5>
+                    <h5>{{ 'trek.details.arrival' | translate }}</h5>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.arrival_city">
                   {{ 'trek.details.city' | translate }} {{ currentTrek.properties.arrival_city?.name }}
@@ -108,13 +138,14 @@
               </div>
             </div>
             <div
+              class="no-vertical-padding"
               *ngIf="
                 (currentTrek.properties.departure || currentTrek.properties.arrival) &&
                 currentTrek.properties.departure === currentTrek.properties.arrival
               "
             >
               <ion-text color="primary">
-                <h5>{{ 'trek.details.departureArrival' | translate }}</h5>
+                <h5 class="no-margin-top">{{ 'trek.details.departureArrival' | translate }}</h5>
               </ion-text>
               <div>
                 <div *ngIf="currentTrek.properties.departure_city">
@@ -231,9 +262,10 @@
                 </ion-text>
               </div>
               <div class="treks-card-container" scrollx="true">
-                <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features">
+                <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features; index as indexStage">
                   <app-trek-card
                     [isStage]="true"
+                    [numStage]="indexStage + 1"
                     [parentId]="this.currentTrek.properties.id"
                     [showAllData]="true"
                     [trek]="trek"
@@ -244,24 +276,6 @@
             </ion-col>
           </ion-row>
         </div>
-
-        <!-- Parents -->
-        <!-- <ion-row *ngIf="currentTrek.properties.parents && currentTrek.properties.parents.features.length > 0">
-          <ion-col>
-            <div>
-              <ion-text color="primary">
-                <h2 class="custom-divider">
-                  {{ 'trek.details.parents' | translate }} ({{ currentTrek.properties.parents.features.length }})
-                </h2>
-              </ion-text>
-            </div>
-            <div class="treks-card-container" scrollx="true">
-              <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.parents.features">
-                <app-trek-card [showAllData]="true" [trek]="trek" [offline]="offline"></app-trek-card>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row> -->
 
         <!-- Profile -->
         <ion-row *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''">

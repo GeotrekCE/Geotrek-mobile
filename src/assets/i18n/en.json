@@ -62,7 +62,8 @@
       "desk": "Places of information",
       "profile": "Altimetric profile",
       "stages": "Stages",
-      "parents": "Multi-day trekking",
+      "stage": "Stage",
+      "parent": "Multi-day trekking",
       "features": "Features",
       "poi": {
         "name": "Heritage",

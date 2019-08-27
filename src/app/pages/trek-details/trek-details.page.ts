@@ -49,6 +49,10 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public touristicContentCollapseInitialSize = environment.touristicContentCollapseInitialSize;
   public isItinerancy = false;
   public isStage = false;
+  public stageIndex: number;
+  public parentTrek: Trek;
+  public previousTrek: Trek;
+  public nextTrek: Trek;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -94,8 +98,26 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
             this.touristicEvents = context.touristicEvents.features;
             this.treksUrl = this.treksTool.getTreksUrl();
             this.commonSrc = context.commonSrc;
-            this.mapLink = context.treksTool.getTrekMapUrl(context.trek.properties.id, context.parentId);
+            this.mapLink = context.treksTool.getTrekMapUrl(
+              context.trek.properties.id,
+              context.parentTrek ? context.parentTrek.properties.id : undefined,
+            );
             this.isStage = context.isStage;
+            if (context.isStage && context.parentTrek) {
+              this.parentTrek = context.parentTrek;
+
+              this.stageIndex = this.parentTrek.properties.children.features.findIndex(
+                children => children.properties.id === this.currentTrek.properties.id,
+              );
+
+              if (this.stageIndex > 0) {
+                this.previousTrek = this.parentTrek.properties.children.features[this.stageIndex - 1];
+              }
+
+              if (this.stageIndex < this.parentTrek.properties.children.features.length) {
+                this.nextTrek = this.parentTrek.properties.children.features[this.stageIndex + 1];
+              }
+            }
 
             this.ref.markForCheck();
           }
@@ -208,5 +230,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
 
   public scrollToStages(stages: any): void {
     stages.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
+
+  public goToStep(stepId: number): string {
+    return `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.parentTrek.properties.id}/${stepId}`;
   }
 }

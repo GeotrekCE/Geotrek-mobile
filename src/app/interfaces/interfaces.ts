@@ -280,7 +280,7 @@ export interface TrekContext {
   touristicEvents: TouristicEvents;
   commonSrc: string;
   isStage: boolean;
-  parentId: number | undefined;
+  parentTrek: Trek | null;
 }
 
 export interface TreksContext {

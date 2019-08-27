@@ -59,3 +59,67 @@ div[scrollx='true'] {
   margin-left: -10px;
   margin-right: -10px;
 }
+
+.no-vertical-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+%no-horizontal-margin {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.no-vertical-padding {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.no-margin-top {
+  margin-top: 0px;
+}
+
+.stage-button {
+  width: calc(50% - 5px);
+  white-space: pre-wrap;
+  background-color: rgba(var(--ion-color-primary-rgb), 0.04);
+  text-transform: none;
+  font-size: 16px;
+}
+
+.stage-button-previous {
+  margin-left: 0px;
+}
+
+.stage-button-next {
+  margin-right: 0px;
+}
+
+.next-previous-stage {
+  @media screen and (min-width: 540px) {
+    max-width: 50%;
+    .stage-button-previous {
+      margin-right: 5px;
+    }
+
+    .stage-button-next {
+      margin-left: 5px;
+    }
+  }
+  @media screen and (max-width: 540px) {
+    width: 100%;
+    .stage-button-previous {
+      margin-right: 0px;
+    }
+
+    .stage-button-next {
+      margin-left: 0px;
+    }
+  }
+}
+
+.stage-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}

@@ -62,7 +62,8 @@
       "desk": "Lieux de renseignement",
       "profile": "Profil altimétrique",
       "stages": "Étapes",
-      "parents": "Séjours",
+      "stage": "Étape",
+      "parents": "Séjour",
       "features": "Caractéristiques",
       "poi": {
         "name": "Patrimoines",

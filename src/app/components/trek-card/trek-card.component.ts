@@ -17,6 +17,7 @@ export class TrekCardComponent implements OnInit {
   @Input() public offline = false;
   @Input() public showAllData: boolean;
   @Input() public isStage = false;
+  @Input() public numStage = 0;
   @Input() public parentId: number | undefined = undefined;
 
   public hydratedTrek: HydratedTrek;

@@ -49,13 +49,15 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
       treksService.getPoisForTrekById(currentTrekId, parentId),
       treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
       treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+      isStage && parentId ? treksService.getTrekById(parentId) : of(null),
     ).pipe(
       map(
-        ([trek, pois, touristicContents, touristicEvents]: [
+        ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
           Trek | null,
           Pois,
           TouristicContents,
-          TouristicEvents
+          TouristicEvents,
+          Trek | null
         ]): TrekContext | null => {
           if (trek === null) {
             this.router.navigate(['/']);
@@ -73,6 +75,11 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
               this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name}  ${trek.properties.name}`);
             }
 
+            // get parent trek to display trek name
+            // trek stage
+            // trek previous
+            // trek next
+
             return {
               treksTool: treksService,
               offline: offline,
@@ -85,7 +92,7 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
               mapConfig,
               commonSrc,
               isStage,
-              parentId,
+              parentTrek,
             };
           }
         },
