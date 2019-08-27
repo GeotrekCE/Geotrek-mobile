@@ -91,6 +91,13 @@ export const environment = {
       'circle-radius': 18,
       'circle-stroke-width': 1,
     },
+    stagePaint: {
+      // style stage circle on parent map
+      'circle-color': '#fff',
+      'circle-stroke-color': '#000000',
+      'circle-radius': 18,
+      'circle-stroke-width': 1,
+    },
     zoneLayerProperties: {
       // src/assets/map/zone/zone.geojson
       // optionnal geojson to display on map

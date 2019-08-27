@@ -560,7 +560,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       id: 'children-treks-circle',
       type: 'circle',
       source: 'children-treks',
-      paint: environment.map.clusterPaint,
+      paint: environment.map.stagePaint,
     });
 
     this.map.addLayer({
@@ -568,7 +568,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'symbol',
       source: 'children-treks',
       paint: {
-        'text-color': '#fff',
+        'text-color': '#000000',
       },
       layout: {
         'text-field': '{index}',
