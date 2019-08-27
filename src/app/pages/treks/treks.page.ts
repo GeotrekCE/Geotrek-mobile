@@ -39,7 +39,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
   public loaderStatus: Boolean;
 
   private treksTool: TreksService;
-  @ViewChild('content') private content: IonContent;
+  @ViewChild('content', { static: true }) private content: IonContent;
 
   constructor(
     private filterTreks: FilterTreksService,

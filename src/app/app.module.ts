@@ -42,14 +42,9 @@ import { LayersVisibilityComponent } from '@app/components/layers-visibility/lay
 
 import { FilterValueComponent } from './components/filter-value/filter-value.component';
 import { TreksOrderComponent } from './components/treks-order/treks-order.component';
-import { Animation } from '@ionic/core';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function noAnimation(AnimationC: Animation): Promise<Animation> {
-  return Promise.resolve(new AnimationC());
 }
 
 @NgModule({
@@ -80,7 +75,6 @@ export function noAnimation(AnimationC: Animation): Promise<Animation> {
     IonicModule.forRoot({
       mode: 'md',
       animated: true,
-      navAnimation: noAnimation,
     }),
     AppRoutingModule,
     HttpClientModule,
