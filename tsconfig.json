@@ -22,5 +22,8 @@
       "@app/*": ["src/app/*"],
       "@env/*": ["src/environments/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true
   }
 }
