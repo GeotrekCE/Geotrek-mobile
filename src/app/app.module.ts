@@ -8,6 +8,7 @@ import { MoreResolver } from '@app/resolvers/more.resolver';
 import { LoadingInterceptor } from '@app/services/loading/loading.service';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { Animation } from '@ionic/core';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -47,6 +48,10 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+export function noAnimation(AnimationC: Animation): Promise<Animation> {
+  return Promise.resolve(new AnimationC());
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot({
       mode: 'md',
       animated: true,
+      navAnimation: noAnimation,
     }),
     AppRoutingModule,
     HttpClientModule,
