@@ -63,7 +63,7 @@
           </ion-col>
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="isStage">
           <ion-col>
             <ion-text color="primary">
               <h2 class="custom-divider">{{ 'trek.details.parents' | translate }}</h2>
@@ -79,11 +79,27 @@
             </div>
             <div>{{ parentTrek.properties.children.features.length }} {{ 'trek.details.stages' | translate }}</div>
             <div class="stage-container">
-              <ion-button [routerLink]="goToStep(previousTrek.properties.id)" *ngIf="previousTrek" [ngClass]="{'next-previous-stage': nextTrek}" class="stage-button stage-button-previous" fill="clear" expand="full" size="large">
+              <ion-button
+                [routerLink]="goToStep(previousTrek.properties.id)"
+                *ngIf="previousTrek"
+                [ngClass]="{ 'next-previous-stage': nextTrek, 'is-alone': !nextTrek }"
+                class="stage-button stage-button-previous"
+                fill="clear"
+                expand="full"
+                size="large"
+              >
                 {{ 'trek.details.stage' | translate }} {{ stageIndex }} - {{ previousTrek.properties.name }}
                 <ion-icon name="arrow-back" slot="start"></ion-icon>
               </ion-button>
-              <ion-button [routerLink]="goToStep(nextTrek.properties.id)" *ngIf="nextTrek"  [ngClass]="{'next-previous-stage': previousTrek}" class="stage-button stage-button-next" fill="clear" expand="full" size="large">
+              <ion-button
+                [routerLink]="goToStep(nextTrek.properties.id)"
+                *ngIf="nextTrek"
+                [ngClass]="{ 'next-previous-stage': previousTrek, 'is-alone':  !previousTrek }"
+                class="stage-button stage-button-next"
+                fill="clear"
+                expand="full"
+                size="large"
+              >
                 {{ 'trek.details.stage' | translate }} {{ stageIndex + 2 }} - {{ nextTrek.properties.name }}
                 <ion-icon name="arrow-forward" slot="end"></ion-icon>
               </ion-button>
@@ -129,7 +145,7 @@
 
               <div *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0">
                 <ion-text color="primary">
-                    <h5>{{ 'trek.details.arrival' | translate }}</h5>
+                  <h5>{{ 'trek.details.arrival' | translate }}</h5>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.arrival_city">
                   {{ 'trek.details.city' | translate }} {{ currentTrek.properties.arrival_city?.name }}
@@ -262,7 +278,10 @@
                 </ion-text>
               </div>
               <div class="treks-card-container" scrollx="true">
-                <div class="scroll-trek-item" *ngFor="let trek of currentTrek.properties.children.features; index as indexStage">
+                <div
+                  class="scroll-trek-item"
+                  *ngFor="let trek of currentTrek.properties.children.features; index as indexStage"
+                >
                   <app-trek-card
                     [isStage]="true"
                     [numStage]="indexStage + 1"

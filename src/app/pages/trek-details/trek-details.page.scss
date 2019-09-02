@@ -82,9 +82,15 @@ div[scrollx='true'] {
 .stage-button {
   width: calc(50% - 5px);
   white-space: pre-wrap;
+  height: auto;
+  min-height: 2.8em;
   background-color: rgba(var(--ion-color-primary-rgb), 0.04);
   text-transform: none;
   font-size: 16px;
+}
+
+.is-alone {
+  width: 100%;
 }
 
 .stage-button-previous {
