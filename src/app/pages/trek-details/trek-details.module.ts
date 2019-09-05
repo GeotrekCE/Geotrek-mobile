@@ -8,13 +8,14 @@ import { TrekContextResolver } from '@app/resolvers/trek.resolver';
 import { SharedTreksModule } from '@app/shared/shared-treks.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { TrekDetailsPage } from './trek-details.page';
+import { CustomPipesModule } from '@app/shared/custom-pipes.module';
 
 const routes: Routes = [
   {
     path: '',
     runGuardsAndResolvers: 'always',
     resolve: {
-      context: TrekContextResolver
+      context: TrekContextResolver,
     },
     component: TrekDetailsPage,
   },
@@ -25,12 +26,11 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedTreksModule, SharedUiModule,
+    SharedTreksModule,
+    SharedUiModule,
     TranslateModule.forChild(),
+    CustomPipesModule,
   ],
-  declarations: [
-    TrekDetailsPage,
-  ],
+  declarations: [TrekDetailsPage],
 })
-export class TrekDetailsPageModule {
-}
+export class TrekDetailsPageModule {}

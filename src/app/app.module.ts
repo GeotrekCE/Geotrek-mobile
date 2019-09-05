@@ -9,6 +9,8 @@ import { LoadingInterceptor } from '@app/services/loading/loading.service';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { Animation } from '@ionic/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -51,6 +53,8 @@ export function createTranslateLoader(http: HttpClient) {
 export function noAnimation(AnimationC: Animation): Promise<Animation> {
   return Promise.resolve(new AnimationC());
 }
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [

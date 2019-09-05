@@ -39,16 +39,16 @@
         </div>
         <div class="ion-padding-start">{{ hydratedTrek.properties.difficulty?.name }}</div>
         <div class="ion-padding-start" *ngIf="hydratedTrek.properties.duration < 24 && showAllData">
-          {{ hydratedTrek.properties.duration | number: '1.0-0' }}h<span
+          {{ hydratedTrek.properties.duration | lowerRound | number: '1.0-0' }}h<span
             *ngIf="hydratedTrek.properties.duration % 1 > 0"
-            >{{ 60 * (hydratedTrek.properties.duration % 1).toFixed(1) }}min</span
+            >{{ 60 * (hydratedTrek.properties.duration % 1) | number: '1.0-0' }}min</span
           >
         </div>
         <div class="ion-padding-start" *ngIf="hydratedTrek.properties.duration >= 24 && showAllData">
           {{ hydratedTrek.properties.duration / 24 | number: '1.0-0' }}j
         </div>
         <div *ngIf="showAllData" class="ion-padding-start">
-          {{ hydratedTrek.properties.length / 1000 | number: '1.2-2' }} km
+          {{ hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr' }} km
         </div>
       </div>
     </ion-card-content>

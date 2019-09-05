@@ -94,7 +94,7 @@
               <ion-button
                 [routerLink]="goToStep(nextTrek.properties.id)"
                 *ngIf="nextTrek"
-                [ngClass]="{ 'next-previous-stage': previousTrek, 'is-alone':  !previousTrek }"
+                [ngClass]="{ 'next-previous-stage': previousTrek, 'is-alone': !previousTrek }"
                 class="stage-button stage-button-next"
                 fill="clear"
                 expand="full"
@@ -180,7 +180,7 @@
             <div *ngIf="currentTrek.properties.duration" class="extra-details">
               <ion-icon class="icon-detail" name="hourglass"></ion-icon>
               <span *ngIf="currentTrek.properties.duration < 24">
-                {{ currentTrek.properties.duration | number: '1.0-0' }}h<span
+                {{ currentTrek.properties.duration | lowerRound | number: '1.0-0' }}h<span
                   *ngIf="currentTrek.properties.duration % 1 > 0"
                   >{{ 60 * (currentTrek.properties.duration % 1) | number: '1.0-0' }}min</span
                 >
@@ -209,7 +209,7 @@
             </div>
             <div *ngIf="currentTrek.properties.length" class="extra-details">
               <ion-icon class="icon-detail" name="resize"></ion-icon>
-              {{ currentTrek.properties.length / 1000 | number: '1.2-2' }} km
+              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr' }} km
             </div>
             <div *ngIf="currentTrek.properties.practice" class="extra-details">
               <ion-img

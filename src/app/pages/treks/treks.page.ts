@@ -76,7 +76,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
       }),
 
       // select treks when filter change or when we enter route
-      combineLatest(
+      combineLatest([
         this.route.data.pipe(
           first(),
           map(data => data.context),
@@ -84,7 +84,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
         ),
         this.filterTreks.activeFiltersNumber$,
         this.settings.data$,
-      ).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
+      ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
         if (settings) {
           if (this.platform.is('ios') || this.platform.is('android')) {
             this.noNetwork = this.network.type === 'none';
