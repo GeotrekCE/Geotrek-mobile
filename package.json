@@ -13,7 +13,16 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodoc": "npx compodoc -p src/tsconfig.app.json -d ./docs"
+    "compodoc": "npx compodoc -p src/tsconfig.app.json -d ./docs",
+    "reset": "git reset --hard HEAD",
+    "version": "sh ./update-version.sh",
+    "config": "cp -f -p -v ./config/config.xml ./ && cp -R -f -p -v ./config/analytics ./ && cp -R -f -p -v ./config/src ./",
+    "update": "npm run reset && git pull github master && npm run version && npm run config",
+    "buildapk": "npm run update && ionic cordova platform rm android && rm -rf www && rm -rf node_modules && npm i && ionic cordova build android --prod --release && npm run jarsigner && npm run zipalign",
+    "jarsigner": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $keypath -storepass $keypass platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk $keyalias",
+    "zipalign": "rm -rf apk/ && mkdir apk && zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ./apk/geotrek-$npm_package_version.apk",
+    "buildipa": "npm run update && ionic cordova platform rm ios && rm -rf www && rm -rf node_modules && npm i && ionic cordova build ios --prod --release",
+    "allprod": "npm run update && ionic cordova platform rm android && ionic cordova platform rm ios && rm -rf www && rm -rf node_modules && npm i && ionic cordova build android --prod --release && ionic cordova build ios --prod --release"
   },
   "private": true,
   "dependencies": {

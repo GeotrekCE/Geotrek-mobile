@@ -331,25 +331,33 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
-    const trekId &#x3D; +(&lt;string&gt;route.paramMap.get(&#x27;trekId&#x27;));
     const offline &#x3D; !!route.data[&#x27;offline&#x27;];
+    const isStage &#x3D; !!route.data[&#x27;isStage&#x27;];
+    const trekId &#x3D; +(&lt;string&gt;route.paramMap.get(&#x27;trekId&#x27;));
+    const stageId &#x3D; +(&lt;string&gt;route.paramMap.get(&#x27;stageId&#x27;));
+    const currentTrekId &#x3D; isStage ? stageId : trekId;
+    const parentId: number | undefined &#x3D; isStage ? trekId : undefined;
+
     const treksService: TreksService &#x3D; offline ? this.offlineTreks : this.onlineTreks;
+
     return forkJoin(
-      treksService.getTrekById(trekId),
-      treksService.getPoisForTrekById(trekId),
-      treksService.getTouristicContentsForTrekById(trekId),
-      treksService.getTouristicEventsForTrekById(trekId),
+      treksService.getTrekById(currentTrekId, parentId),
+      treksService.getPoisForTrekById(currentTrekId, parentId),
+      treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+      treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+      isStage &amp;&amp; parentId ? treksService.getTrekById(parentId) : of(null),
     ).pipe(
       map(
-        ([trek, pois, touristicContents, touristicEvents]: [
+        ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
           Trek | null,
           Pois,
           TouristicContents,
-          TouristicEvents
+          TouristicEvents,
+          Trek | null
         ]): TrekContext | null &#x3D;&gt; {
           if (trek &#x3D;&#x3D;&#x3D; null) {
             this.router.navigate([&#x27;/&#x27;]);
-            console.error(&#x27;No trek found: &#x27;, trekId);
+            console.error(&#x27;No trek found: &#x27;, currentTrekId);
             return null;
           } else {
             const mapConfig: MapboxOptions &#x3D; treksService.getMapConfigForTrekById(trek, offline);
@@ -363,6 +371,11 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
               this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}  ${trek.properties.name}&#x60;);
             }
 
+            // get parent trek to display trek name
+            // trek stage
+            // trek previous
+            // trek next
+
             return {
               treksTool: treksService,
               offline: offline,
@@ -374,6 +387,8 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
               touristicEvents,
               mapConfig,
               commonSrc,
+              isStage,
+              parentTrek,
             };
           }
         },
@@ -397,6 +412,7 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
 
 
 
+                   
 
 
 

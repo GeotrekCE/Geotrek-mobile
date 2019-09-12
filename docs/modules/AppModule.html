@@ -404,6 +404,9 @@ import { MoreResolver } from &#x27;@app/resolvers/more.resolver&#x27;;
 import { LoadingInterceptor } from &#x27;@app/services/loading/loading.service&#x27;;
 import { SharedUiModule } from &#x27;@app/shared/shared-ui.module&#x27;;
 import { IonicModule, IonicRouteStrategy } from &#x27;@ionic/angular&#x27;;
+import { Animation } from &#x27;@ionic/core&#x27;;
+import { registerLocaleData } from &#x27;@angular/common&#x27;;
+import localeFr from &#x27;@angular/common/locales/fr&#x27;;
 
 import { TranslateModule, TranslateLoader } from &#x27;@ngx-translate/core&#x27;;
 import { TranslateHttpLoader } from &#x27;@ngx-translate/http-loader&#x27;;
@@ -443,6 +446,12 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, &#x27;./assets/i18n/&#x27;, &#x27;.json&#x27;);
 }
 
+export function noAnimation(AnimationC: Animation): Promise&lt;Animation&gt; {
+  return Promise.resolve(new AnimationC());
+}
+
+registerLocaleData(localeFr, &#x27;fr&#x27;);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -454,7 +463,7 @@ export function createTranslateLoader(http: HttpClient) {
     FilterValueComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent
+    TreksOrderComponent,
   ],
   entryComponents: [
     FiltersComponent,
@@ -463,12 +472,16 @@ export function createTranslateLoader(http: HttpClient) {
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent
+    TreksOrderComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot({ mode: &#x27;md&#x27;, animated: true }),
+    IonicModule.forRoot({
+      mode: &#x27;md&#x27;,
+      animated: true,
+      navAnimation: noAnimation,
+    }),
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -517,6 +530,7 @@ export class AppModule {}
 
 
 
+                   
 
 
 

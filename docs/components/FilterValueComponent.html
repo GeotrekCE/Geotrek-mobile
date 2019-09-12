@@ -79,6 +79,10 @@
     <table class="table table-sm table-hover">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -191,7 +195,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -217,7 +221,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:12</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -238,7 +242,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:11</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -262,7 +266,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:13</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -297,8 +301,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/components/filter-value/filter-value.component.ts:17</a></div>
                 </td>
             </tr>
 
@@ -404,13 +408,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from &#x27;@angular/core&#x27;;
 import { FilterValue } from &#x27;@app/interfaces/interfaces&#x27;;
 
 @Component({
   selector: &#x27;app-filter-value&#x27;,
   templateUrl: &#x27;./filter-value.component.html&#x27;,
   styleUrls: [&#x27;./filter-value.component.scss&#x27;],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterValueComponent implements OnInit {
   @Input() value: FilterValue;
@@ -419,8 +424,7 @@ export class FilterValueComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public valueCheckChanged($event: CustomEvent, value: FilterValue) {
     this.valueChange.emit({ checked: $event.detail.checked, value: value });
@@ -431,11 +435,16 @@ export class FilterValueComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;ion-item class&#x3D;&quot;no-lines&quot;&gt;
-  &lt;ion-img style&#x3D;&quot;width: 24px; height: 24px; margin-right: 12px&quot; *ngIf&#x3D;&quot;value.pictogram&quot;
-    [style.background-color]&#x3D;&quot;value.color ? value.color : &#x27;transparent&#x27;&quot; [src]&#x3D;&quot;commonSrc + value.pictogram&quot;&gt;&lt;/ion-img&gt;
+  &lt;ion-img
+    style&#x3D;&quot;width: 24px; height: 24px; margin-right: 12px&quot;
+    *ngIf&#x3D;&quot;value.pictogram&quot;
+    [style.background-color]&#x3D;&quot;value.color ? value.color : &#x27;transparent&#x27;&quot;
+    [src]&#x3D;&quot;commonSrc + (value.pictogram || &#x27;&#x27;)&quot;
+  &gt;&lt;/ion-img&gt;
   &lt;ion-label&gt;{{ value.name }}&lt;/ion-label&gt;
   &lt;ion-checkbox (ionChange)&#x3D;&quot;valueCheckChanged($event, value)&quot; [checked]&#x3D;&quot;value.checked&quot; slot&#x3D;&quot;end&quot;&gt;&lt;/ion-checkbox&gt;
-&lt;/ion-item&gt;</code></pre>
+&lt;/ion-item&gt;
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -472,7 +481,7 @@ export class FilterValueComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-item class="no-lines">  <ion-img style="width: 24px; height: 24px; margin-right: 12px" *ngIf="value.pictogram"    [style.background-color]="value.color ? value.color : \'transparent\'" [src]="commonSrc + value.pictogram"></ion-img>  <ion-label>{{ value.name }}</ion-label>  <ion-checkbox (ionChange)="valueCheckChanged($event, value)" [checked]="value.checked" slot="end"></ion-checkbox></ion-item></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-item class="no-lines">  <ion-img    style="width: 24px; height: 24px; margin-right: 12px"    *ngIf="value.pictogram"    [style.background-color]="value.color ? value.color : \'transparent\'"    [src]="commonSrc + (value.pictogram || \'\')"  ></ion-img>  <ion-label>{{ value.name }}</ion-label>  <ion-checkbox (ionChange)="valueCheckChanged($event, value)" [checked]="value.checked" slot="end"></ion-checkbox></ion-item></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FilterValueComponent'};
@@ -488,6 +497,7 @@ export class FilterValueComponent implements OnInit {
 
 
 
+                   
 
 
 

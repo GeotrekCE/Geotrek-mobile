@@ -31,7 +31,7 @@
                    <div class="content-data">
 
 <h1 id="geotrek-mobile">Geotrek Mobile</h1>
-<p>Mobile application of <em>Geotrek Rando</em> (http://geotrek.fr).</p>
+<p>Mobile application of <em>Geotrek Rando</em> (<a href="http://geotrek.fr">http://geotrek.fr</a>).</p>
 <h1 id="installation">INSTALLATION</h1>
 <p><em>Before proceeding, make sure the latest version of <a href="https://nodejs.org/en/">Node.js and npm</a> are installed</em></p>
 <div><pre class="line-numbers"><code class="language-none">npm install -g ionic&#64;5.1.0
@@ -90,15 +90,14 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 <li>Then store google-services.json and GoogleService-Info.plist in ./Analytics/</li>
 <li>In config.xml, add</li>
 </ul>
-<p><code>&lt;platform name=&quot;android&quot;&gt;
+<div><pre class="line-numbers"><code class="language-none">  &lt;platform name=&quot;android&quot;&gt;
     &lt;resource-file src=&quot;analytics/google-services.json&quot; target=&quot;app/google-services.json&quot; /&gt;
     ...
   &lt;/platform&gt;
   &lt;platform name=&quot;ios&quot;&gt;
     &lt;resource-file src=&quot;analytics/GoogleService-Info.plist&quot; /&gt;
     ...
-  &lt;/platform&gt;</code></p>
-<ul>
+  &lt;/platform&gt;</code></pre></div><ul>
 <li>Set true to useFirebase variable in environment files</li>
 </ul>
 <h2 id="remove-firebase-analytics">Remove Firebase Analytics</h2>
@@ -110,22 +109,21 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 (If you add platforms previously, be sure to delete them)</p>
 </li>
 </ul>
-<p>```
-    ionic cordova platform rm android</p>
-<div><pre class="line-numbers"><code class="language-none">ionic cordova platform rm ios
+<div><pre class="line-numbers"><code class="language-none">    ionic cordova platform rm android
 
-ionic cordova plugin rm cordova-plugin-firebase-analytics
+    ionic cordova platform rm ios
 
-ionic cordova plugin rm cordova-android-play-services-gradle-release
+    ionic cordova plugin rm cordova-plugin-firebase-analytics
 
-ionic cordova plugin rm cordova-support-google-services
+    ionic cordova plugin rm cordova-android-play-services-gradle-release
 
-ionic cordova plugin rm cordova-support-android-plugin
+    ionic cordova plugin rm cordova-support-google-services
 
-ionic cordova platform add android
+    ionic cordova plugin rm cordova-support-android-plugin
 
-ionic cordova build android</code></pre></div><p>```</p>
-<h2 id="documentation">Documentation</h2>
+    ionic cordova platform add android
+
+    ionic cordova build android</code></pre></div><h2 id="documentation">Documentation</h2>
 <p><a href="https://geotrekce.github.io/Geotrek-mobile">Access to extensive documentation</a></p>
 <h1 id="licence">LICENCE</h1>
 <ul>
@@ -148,6 +146,7 @@ ionic cordova build android</code></pre></div><p>```</p>
 
 
 
+                   
 
 
 

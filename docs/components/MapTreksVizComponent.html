@@ -529,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="149"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:149</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:162</a></div>
                 </td>
             </tr>
 
@@ -609,8 +609,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="339"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:339</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="352"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:352</a></div>
                 </td>
             </tr>
 
@@ -761,8 +761,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="300"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:300</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="313"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:313</a></div>
                 </td>
             </tr>
 
@@ -1127,6 +1127,19 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
 
       this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), &#x27;top-left&#x27;);
 
+      this.map.addControl(
+        new mapboxgl.ScaleControl({
+          unit: &#x27;metric&#x27;,
+        }),
+      );
+
+      this.map.addControl(
+        new mapboxgl.AttributionControl({
+          compact: false,
+          customAttribution: environment.map.attributionText,
+        }),
+      );
+
       if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() &#x3D;&gt; {
@@ -1448,6 +1461,7 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
 
 
 
+                   
 
 
 

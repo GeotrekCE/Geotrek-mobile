@@ -205,10 +205,11 @@ import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 
 import { PoiComponent } from &#x27;@app/components/poi/poi.component&#x27;;
 import { TrekCardComponent } from &#x27;@app/components/trek-card/trek-card.component&#x27;;
+import { CustomPipesModule } from &#x27;./custom-pipes.module&#x27;;
 
 @NgModule({
   declarations: [PoiComponent, TrekCardComponent],
-  imports: [CommonModule, IonicModule, RouterModule, TranslateModule.forChild()],
+  imports: [CommonModule, IonicModule, RouterModule, TranslateModule.forChild(), CustomPipesModule],
   exports: [PoiComponent, TrekCardComponent],
 })
 export class SharedTreksModule {}
@@ -225,6 +226,7 @@ export class SharedTreksModule {}
 
 
 
+                   
 
 
 

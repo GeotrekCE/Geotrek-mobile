@@ -1263,19 +1263,22 @@ export class SettingsService {
 
   public getTouristicCategoriesWithFeatures(touristicContents: TouristicContents): TouristicCategoryWithFeatures[] {
     const touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[] &#x3D; [];
-    const categories &#x3D; touristicContents.features
-      .map(touristicContent &#x3D;&gt; touristicContent.properties.category)
-      .filter((v, i, a) &#x3D;&gt; a.indexOf(v) &#x3D;&#x3D;&#x3D; i);
-    categories.forEach(categoryId &#x3D;&gt; {
-      const category &#x3D; this.getValueForPropertyById(&#x27;touristiccontent_categories&#x27;, categoryId) as TouristicCategorie;
-      touristicCategoriesWithFeatures.push({
-        id: categoryId,
-        name: category ? category.name : &#x27;&#x27;,
-        features: touristicContents.features.filter(
-          touristicContent &#x3D;&gt; touristicContent.properties.category &#x3D;&#x3D;&#x3D; categoryId,
-        ),
+    if (touristicContents &amp;&amp; Array.isArray(touristicContents.features)) {
+      const categories &#x3D; touristicContents.features
+        .map(touristicContent &#x3D;&gt; touristicContent.properties.category)
+        .filter((v, i, a) &#x3D;&gt; a.indexOf(v) &#x3D;&#x3D;&#x3D; i);
+      categories.forEach(categoryId &#x3D;&gt; {
+        const category &#x3D; this.getValueForPropertyById(&#x27;touristiccontent_categories&#x27;, categoryId) as TouristicCategorie;
+        touristicCategoriesWithFeatures.push({
+          id: categoryId,
+          name: category ? category.name : &#x27;&#x27;,
+          features: touristicContents.features.filter(
+            touristicContent &#x3D;&gt; touristicContent.properties.category &#x3D;&#x3D;&#x3D; categoryId,
+          ),
+        });
       });
-    });
+    }
+
     return touristicCategoriesWithFeatures;
   }
 }
@@ -1290,6 +1293,7 @@ export class SettingsService {
 
 
 
+                   
 
 
 

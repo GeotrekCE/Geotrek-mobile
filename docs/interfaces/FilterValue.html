@@ -351,6 +351,7 @@ export interface TrekProperties extends MinimalTrekProperties {
   information_desks: InformationDesk[];
   departure_city?: string;
   arrival_city?: string;
+  children: Treks;
 }
 
 export interface Trek extends Feature&lt;MultiPoint&gt; {
@@ -397,6 +398,7 @@ export interface HydratedTrekProperties {
   slug?: string;
   points_reference?: number[][];
   ambiance: string;
+  children: Treks;
 }
 
 export interface InformationDesk {
@@ -462,6 +464,7 @@ export interface InformationItem {
   id: number;
   title: string;
   content: string;
+  external_url: string;
 }
 
 export interface Settings {
@@ -547,19 +550,24 @@ export interface TouristicEvent extends Feature&lt;Point&gt; {
   };
 }
 
+export interface Treks extends FeatureCollection {
+  type: &#x27;FeatureCollection&#x27;;
+  features: Trek[];
+}
+
 export interface TreksService {
   offline: boolean;
   treks$: Observable&lt;MinimalTreks | null&gt;;
   filteredTreks$: Observable&lt;MinimalTrek[]&gt;;
-  getTrekById(id: number): Observable&lt;Trek | null&gt;;
-  getPoisForTrekById(id: number): Observable&lt;Pois&gt;;
-  getTouristicContentsForTrekById(id: number): Observable&lt;TouristicContents&gt;;
-  getTouristicEventsForTrekById(id: number): Observable&lt;TouristicEvents&gt;;
+  getTrekById(id: number, parentId?: number): Observable&lt;Trek | null&gt;;
+  getPoisForTrekById(id: number, parentId?: number): Observable&lt;Pois&gt;;
+  getTouristicContentsForTrekById(id: number, parentId?: number): Observable&lt;TouristicContents&gt;;
+  getTouristicEventsForTrekById(id: number, parentId?: number): Observable&lt;TouristicEvents&gt;;
   getTreksUrl(): string;
-  getTrekDetailsUrl(trekId: number): string;
+  getTrekDetailsUrl(trekId: number, parentId?: number): string;
   getTrekImageSrc(trek: Trek, picture?: Picture): string;
   getTreksMapUrl(): string;
-  getTrekMapUrl(trekId: number): string;
+  getTrekMapUrl(trekId: number, parentId?: number): string;
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
   getCommonImgSrc(): string;
 }
@@ -577,6 +585,8 @@ export interface TrekContext {
   touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   touristicEvents: TouristicEvents;
   commonSrc: string;
+  isStage: boolean;
+  parentTrek: Trek | null;
 }
 
 export interface TreksContext {
@@ -589,6 +599,7 @@ export interface TreksContext {
 </div>
 
 
+                   
 
 
 

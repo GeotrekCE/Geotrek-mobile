@@ -79,6 +79,10 @@
     <table class="table table-sm table-hover">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -207,7 +211,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/filter/filter.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/filter/filter.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -233,7 +237,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/filter/filter.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/filter/filter.component.ts:14</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -254,7 +258,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/filter/filter.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/filter/filter.component.ts:13</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -278,7 +282,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/filter/filter.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/filter/filter.component.ts:15</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -315,8 +319,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/app/components/filter/filter.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/app/components/filter/filter.component.ts:21</a></div>
                 </td>
             </tr>
 
@@ -356,8 +360,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/app/components/filter/filter.component.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/components/filter/filter.component.ts:30</a></div>
                 </td>
             </tr>
 
@@ -430,7 +434,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/filter/filter.component.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/filter/filter.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -443,29 +447,27 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from &#x27;@angular/core&#x27;;
 
-import { expandCollapse } from &#x27;@app/components/animations&#x27;;
 import { Filter, FilterValue } from &#x27;@app/interfaces/interfaces&#x27;;
 
 @Component({
   selector: &#x27;app-filter&#x27;,
   templateUrl: &#x27;./filter.component.html&#x27;,
   styleUrls: [&#x27;./filter.component.scss&#x27;],
-  animations: [expandCollapse]
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent implements OnInit {
   @Input() public filter: Filter;
   @Input() public commonSrc: string;
-  @Output() public valueChange &#x3D; new EventEmitter&lt;{ checked: boolean, value: FilterValue }&gt;();
+  @Output() public valueChange &#x3D; new EventEmitter&lt;{ checked: boolean; value: FilterValue }&gt;();
 
   public expanded: boolean;
 
-  constructor() {
-  }
+  constructor() {}
 
   public ngOnInit(): void {
-    this.filter.values.slice(4).forEach((value) &#x3D;&gt; {
+    this.filter.values.slice(4).forEach(value &#x3D;&gt; {
       // expand filter if an expandable value is already checked
       if (value.checked) {
         this.expanded &#x3D; true;
@@ -473,10 +475,9 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  public valueChanged({ checked, value }: { checked: boolean, value: FilterValue }) {
+  public valueChanged({ checked, value }: { checked: boolean; value: FilterValue }) {
     this.valueChange.emit({ checked: checked, value: value });
   }
-
 }
 </code></pre>
     </div>
@@ -488,12 +489,7 @@ export class FilterComponent implements OnInit {
   &lt;/ion-text&gt;
 
   &lt;ng-template #poiTemplate let-value&#x3D;&quot;item&quot;&gt;
-    &lt;app-filter-value
-      [commonSrc]&#x3D;&quot;commonSrc&quot;
-      [value]&#x3D;&quot;value&quot;
-      (valueChange)&#x3D;&quot;valueChanged($event);&quot;
-    &gt;
-    &lt;/app-filter-value&gt;
+    &lt;app-filter-value [commonSrc]&#x3D;&quot;commonSrc&quot; [value]&#x3D;&quot;value&quot; (valueChange)&#x3D;&quot;valueChanged($event)&quot;&gt; &lt;/app-filter-value&gt;
   &lt;/ng-template&gt;
 
   &lt;app-collapsible-list
@@ -501,9 +497,9 @@ export class FilterComponent implements OnInit {
     [showAllLabel]&#x3D;&quot;filter.showAllLabel&quot;
     [hideAllLabel]&#x3D;&quot;filter.hideAllLabel&quot;
     [itemTemplate]&#x3D;&quot;poiTemplate&quot;
-    [initialState]&#x3D;&quot;expanded ? &#x27;expanded&#x27;: &#x27;collapsed&#x27;&quot;&gt;
+    [initialState]&#x3D;&quot;expanded ? &#x27;expanded&#x27; : &#x27;collapsed&#x27;&quot;
+  &gt;
   &lt;/app-collapsible-list&gt;
-
 &lt;/ion-label&gt;
 </code></pre>
     </div>
@@ -544,7 +540,7 @@ export class FilterComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-label>  <ion-text>    <h1>{{ filter.name }}</h1>  </ion-text>  <ng-template #poiTemplate let-value="item">    <app-filter-value      [commonSrc]="commonSrc"      [value]="value"      (valueChange)="valueChanged($event);"    >    </app-filter-value>  </ng-template>  <app-collapsible-list    [items]="filter.values"    [showAllLabel]="filter.showAllLabel"    [hideAllLabel]="filter.hideAllLabel"    [itemTemplate]="poiTemplate"    [initialState]="expanded ? \'expanded\': \'collapsed\'">  </app-collapsible-list></ion-label></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-label>  <ion-text>    <h1>{{ filter.name }}</h1>  </ion-text>  <ng-template #poiTemplate let-value="item">    <app-filter-value [commonSrc]="commonSrc" [value]="value" (valueChange)="valueChanged($event)"> </app-filter-value>  </ng-template>  <app-collapsible-list    [items]="filter.values"    [showAllLabel]="filter.showAllLabel"    [hideAllLabel]="filter.hideAllLabel"    [itemTemplate]="poiTemplate"    [initialState]="expanded ? \'expanded\' : \'collapsed\'"  >  </app-collapsible-list></ion-label></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'FilterComponent'};
@@ -560,6 +556,7 @@ export class FilterComponent implements OnInit {
 
 
 
+                   
 
 
 

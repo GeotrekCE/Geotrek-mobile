@@ -43,6 +43,7 @@
 
 
 
+                   
 
 <ol class="breadcrumb">
   <li>Miscellaneous</li>
@@ -73,9 +74,6 @@
                         </li>
                         <li>
                             <a href="#environment" title="src/environments/environment.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#expandCollapse" title="src/app/components/animations.ts"><b>expandCollapse</b>&nbsp;&nbsp;&nbsp;(src/.../animations.ts)</a>
                         </li>
                         <li>
                             <a href="#mapboxgl" title="src/app/components/map-trek-viz/map-trek-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-trek-viz.component.ts)</a>
@@ -215,7 +213,7 @@
   appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: true,
   useFirebase: false,
-  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
+  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null, // only if you use mapbox vector tiles
   },
@@ -287,6 +285,8 @@
     zoom: 13,
   },
   map: {
+    attributionText:
+      &#x27;&lt;a href&#x3D;&quot;https://openstreetmap.org/copyright&quot;&gt;© OpenStreetMap contributors&lt;/a&gt; | &lt;a href&#x3D;&quot;https://opentopomap.org&quot;&gt;© OpenTopoMap &lt;/a&gt;&#x27;,
     addSoustractMaxBounds: 0.01,
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,
@@ -298,6 +298,13 @@
       &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-radius&#x27;: 18,
+      &#x27;circle-stroke-width&#x27;: 1,
+    },
+    stagePaint: {
+      // style stage circle on parent map
+      &#x27;circle-color&#x27;: &#x27;#fff&#x27;,
+      &#x27;circle-stroke-color&#x27;: &#x27;#000000&#x27;,
+      &#x27;circle-radius&#x27;: 14,
       &#x27;circle-stroke-width&#x27;: 1,
     },
     zoneLayerProperties: {
@@ -381,6 +388,8 @@
     distanceFilter: 5,
     interval: 3000,
   },
+  poiCollapseInitialSize: 5,
+  touristicContentCollapseInitialSize: 5,
 }</code>
                         </td>
                     </tr>
@@ -415,7 +424,7 @@
   appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: false,
   useFirebase: false,
-  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
+  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null, // only if you use mapbox vector tiles
   },
@@ -487,6 +496,8 @@
     zoom: 13,
   },
   map: {
+    attributionText:
+      &#x27;&lt;a href&#x3D;&quot;https://openstreetmap.org/copyright&quot;&gt;© OpenStreetMap contributors&lt;/a&gt; | &lt;a href&#x3D;&quot;https://opentopomap.org&quot;&gt;© OpenTopoMap &lt;/a&gt;&#x27;,
     addSoustractMaxBounds: 0.01,
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,
@@ -498,6 +509,13 @@
       &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-radius&#x27;: 18,
+      &#x27;circle-stroke-width&#x27;: 1,
+    },
+    stagePaint: {
+      // style stage circle on parent map
+      &#x27;circle-color&#x27;: &#x27;#fff&#x27;,
+      &#x27;circle-stroke-color&#x27;: &#x27;#000000&#x27;,
+      &#x27;circle-radius&#x27;: 14,
       &#x27;circle-stroke-width&#x27;: 1,
     },
     zoneLayerProperties: {
@@ -581,40 +599,9 @@
     distanceFilter: 5,
     interval: 3000,
   },
+  poiCollapseInitialSize: 5,
+  touristicContentCollapseInitialSize: 5,
 }</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-</section>
-    <h3>src/app/components/animations.ts</h3>
-    <section>
-    <h3></h3>        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="expandCollapse"></a>
-                        <span class="name">
-                            <b>
-                            expandCollapse</b>
-                            <a href="#expandCollapse"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>trigger(&#x27;expandCollapse&#x27;, [
-    transition(&#x27;:enter&#x27;, [
-      style({ transform: &#x27;scaleY(0)&#x27; }),
-      animate(&#x27;250ms ease-out&#x27;, style({ transform: &#x27;scaleY(1)&#x27; }))
-    ]),
-    transition(&#x27;:leave&#x27;, [
-      style({ transform: &#x27;scaleY(1)&#x27; }),
-      animate(&#x27;250ms ease-in&#x27;, style({ transform: &#x27;scaleY(0)&#x27; }))
-    ])
-  ])</code>
                         </td>
                     </tr>
 
@@ -692,7 +679,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;#898083&#x27;</code>
+                            <i>Default value : </i><code>&#x27;#3880ff&#x27;</code>
                         </td>
                     </tr>
 

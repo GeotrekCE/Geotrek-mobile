@@ -434,8 +434,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:86</a></div>
                 </td>
             </tr>
 
@@ -473,8 +473,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:121</a></div>
                 </td>
             </tr>
 
@@ -543,8 +543,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:115</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:117</a></div>
                 </td>
             </tr>
 
@@ -582,8 +582,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:113</a></div>
                 </td>
             </tr>
 
@@ -691,8 +691,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:76</a></div>
                 </td>
             </tr>
 
@@ -771,8 +771,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="150"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:150</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="152"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:152</a></div>
                 </td>
             </tr>
 
@@ -1057,11 +1057,13 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   ngOnChanges(changes: SimpleChanges) {
     const changesCurrentPois: SimpleChange &#x3D; changes.currentPois;
     if (changesCurrentPois.currentValue &amp;&amp; !changesCurrentPois.previousValue) {
-      this.currentPoisToNotify &#x3D; this.currentPois.features.map(feature &#x3D;&gt; ({
-        id: feature.properties.id,
-        name: feature.properties.name,
-        coordinates: feature.geometry.coordinates,
-      }));
+      if (this.currentPois &amp;&amp; Array.isArray(this.currentPois.features)) {
+        this.currentPoisToNotify &#x3D; this.currentPois.features.map(feature &#x3D;&gt; ({
+          id: feature.properties.id,
+          name: feature.properties.name,
+          coordinates: feature.geometry.coordinates,
+        }));
+      }
     }
   }
 
@@ -1231,6 +1233,7 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
 
 
 
+                   
 
 
 

@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content pipe">
                    <div class="content-data">
 
 
@@ -36,9 +36,12 @@
 
 
 
+
+
+
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li>SearchTreksService</li>
+  <li>Pipes</li>
+  <li>LowerRoundPipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -52,45 +55,27 @@
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="c-info">
+
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/search-treks/search-treks.service.ts</code>
+            <code>src/app/pipes/lower-round.pipe.ts</code>
         </p>
 
 
 
-
-            <section>
-    <h3 id="index">Index</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
-
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#search">search</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
-        </tbody>
-    </table>
-</section>
-
+        <section>
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover">
+                <tbody>
+                    <tr>
+                        <td class="col-md-3">Name</td>
+                        <td class="col-md-9">lowerRound</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
             <section>
     
@@ -101,28 +86,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="search"></a>
+                    <a name="transform"></a>
                     <span class="name">
                         <b>
-                            <span class="modifier">Public</span>
-                            search
+                            transform
                         </b>
-                        <a href="#search"><span class="icon ion-ios-link"></span></a>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>search(treks: MinimalTrek[], searchValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>transform(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="9"
-                            class="link-to-prism">src/app/services/search-treks/search-treks.service.ts:9</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="5"
+                            class="link-to-prism">src/app/pipes/lower-round.pipe.ts:5</a></div>
                 </td>
             </tr>
 
@@ -142,21 +125,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>treks</td>
+                                    <td>value</td>
                                     <td>
-                                            <code>MinimalTrek[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>searchValue</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                     </td>
 
                                     <td>
@@ -171,7 +142,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>MinimalTrek[]</code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                     </div>
                     <div class="io-description">
@@ -187,40 +158,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { MinimalTrek } from &#x27;@app/interfaces/interfaces&#x27;;
-import { deburr } from &#x27;lodash&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
 
-@Injectable({
-  providedIn: &#x27;root&#x27;,
-})
-export class SearchTreksService {
-  public search(treks: MinimalTrek[], searchValue: string): MinimalTrek[] {
-    if (!treks) {
-      return [];
-    }
-    if (!!!searchValue) {
-      return treks.sort(function(a, b) {
-        return a.properties.name.localeCompare(b.properties.name);
-      });
-    }
-    searchValue &#x3D; searchValue.toLowerCase();
-    return treks
-      .filter(trek &#x3D;&gt; {
-        return deburr(trek.properties.name.toLowerCase()).includes(searchValue);
-      })
-      .sort(function(a, b) {
-        return a.properties.name.localeCompare(b.properties.name);
-      });
+@Pipe({ name: &#x27;lowerRound&#x27; })
+export class LowerRoundPipe implements PipeTransform {
+  transform(value: number): number {
+    return Math.floor(value);
   }
 }
 </code></pre>
     </div>
 
 </div>
-
-
-
 
 
 
@@ -246,8 +195,8 @@ export class SearchTreksService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'SearchTreksService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'pipe';
+            var COMPODOC_CURRENT_PAGE_URL = 'LowerRoundPipe.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

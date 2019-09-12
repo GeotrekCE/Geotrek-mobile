@@ -1248,7 +1248,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ViewChild(&#x27;content&#x27;)<br />
+                                @ViewChild(&#x27;content&#x27;, {static: true})<br />
                             </code>
                         </td>
                     </tr>
@@ -1748,7 +1748,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
   public loaderStatus: Boolean;
 
   private treksTool: TreksService;
-  @ViewChild(&#x27;content&#x27;) private content: IonContent;
+  @ViewChild(&#x27;content&#x27;, { static: true }) private content: IonContent;
 
   constructor(
     private filterTreks: FilterTreksService,
@@ -1785,7 +1785,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
       }),
 
       // select treks when filter change or when we enter route
-      combineLatest(
+      combineLatest([
         this.route.data.pipe(
           first(),
           map(data &#x3D;&gt; data.context),
@@ -1793,7 +1793,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
         ),
         this.filterTreks.activeFiltersNumber$,
         this.settings.data$,
-      ).subscribe(([filteredTreks, numberOfActiveFilters, settings]) &#x3D;&gt; {
+      ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) &#x3D;&gt; {
         if (settings) {
           if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
             this.noNetwork &#x3D; this.network.type &#x3D;&#x3D;&#x3D; &#x27;none&#x27;;
@@ -1916,8 +1916,8 @@ export class TreksPage extends UnSubscribe implements OnInit {
             [disabled]&#x3D;&quot;loaderStatus&quot;
           &gt;
             {{ &#x27;toolbar.filters&#x27; | translate }}
-            {{ numberOfActiveFilters }}&lt;/ion-button
-          &gt;
+            {{ numberOfActiveFilters }}
+          &lt;/ion-button&gt;
           &lt;ion-button
             (click)&#x3D;&quot;presentSearch()&quot;
             color&#x3D;&quot;light&quot;
@@ -1984,15 +1984,11 @@ export class TreksPage extends UnSubscribe implements OnInit {
 
     &lt;ion-fab *ngIf&#x3D;&quot;!!filteredTreks &amp;&amp; filteredTreks.length &gt; 0&quot; vertical&#x3D;&quot;bottom&quot; horizontal&#x3D;&quot;end&quot; slot&#x3D;&quot;fixed&quot;&gt;
       &lt;ion-fab-button class&#x3D;&quot;no-outline&quot; [routerLink]&#x3D;&quot;[mapLink]&quot;&gt;
-        &lt;ion-icon name&#x3D;&quot;map&quot;&gt;&lt;/ion-icon&gt;
+        &lt;ion-icon name&#x3D;&quot;globe&quot;&gt;&lt;/ion-icon&gt;
       &lt;/ion-fab-button&gt;
     &lt;/ion-fab&gt;
 
-    &lt;ion-infinite-scroll
-      [disabled]&#x3D;&quot;!filteredTreks || this.currentMaxTreks &#x3D;&#x3D;&#x3D; filteredTreks.length || filteredTreks.length &lt; treksByStep&quot;
-      threshold&#x3D;&quot;100px&quot;
-      (ionInfinite)&#x3D;&quot;expandTreks($event)&quot;
-    &gt;
+    &lt;ion-infinite-scroll threshold&#x3D;&quot;100px&quot; (ionInfinite)&#x3D;&quot;expandTreks($event)&quot;&gt;
       &lt;ion-infinite-scroll-content&gt; &lt;/ion-infinite-scroll-content&gt;
     &lt;/ion-infinite-scroll&gt;
   &lt;/ng-template&gt;
@@ -2100,7 +2096,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"  >    <ion-grid no-padding>      <ion-row>        <ion-col size="auto" class="vertical-center">          <ion-button            (click)="presentFilters()"            color="light"            size="small"            class="custom-button"            [disabled]="loaderStatus"          >            {{ \'toolbar.filters\' | translate }}            {{ numberOfActiveFilters }}</ion-button          >          <ion-button            (click)="presentSearch()"            color="light"            size="small"            class="custom-button button-margin-left"            [disabled]="loaderStatus"          >            {{ \'toolbar.search\' | translate }}          </ion-button>        </ion-col>        <ion-col text-right [ngClass]="{ \'list-mode-card\': this.colSize === 12, \'list-mode-disabled\': loaderStatus }">          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>          </ion-button>          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">            <ion-icon [name]="colSize === 12 ? \'apps\' : \'reorder\'" size="large"></ion-icon>          </ion-button>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content style="position : relative" #content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksList">    <app-connect-error      *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.contentTreks\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksList>    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">      <ion-list>        <ion-grid fixed>          <ion-row class="ion-padding-start" size="12">            <ion-text>              <h1 *ngIf="filteredTreks.length === 1" translate>                treks.numberOftrek              </h1>              <h1 *ngIf="filteredTreks.length > 1">                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>              </h1>            </ion-text>          </ion-row>          <ion-row align-items-stretch>            <ion-col              [size]="colSize"              [sizeMd]="getMdColSize()"              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"            >              <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>            </ion-col>          </ion-row>        </ion-grid>      </ion-list>    </div>    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0" vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">        <ion-icon name="map"></ion-icon>      </ion-fab-button>    </ion-fab>    <ion-infinite-scroll      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"      threshold="100px"      (ionInfinite)="expandTreks($event)"    >      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-template>  <ng-template #noTreks>    <ng-container *ngIf="offline">      <ng-container>        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">          <ng-container *ngSwitchCase="true">            <ion-row>              <ion-col *ngIf="nbOfflineTreks === 1" translate>                treks.noOfflineResult              </ion-col>              <ion-col *ngIf="nbOfflineTreks > 1" translate>                treks.noOfflineResults              </ion-col>            </ion-row>            <ion-row>              <ion-col>                <ion-button (click)="resetFilters()" color="light">                  <span translate>                    treks.showAllTreks                  </span>                </ion-button>              </ion-col>            </ion-row>          </ng-container>          <ion-row *ngSwitchCase="false">            <ion-col>              <span translate>                treks.emptyOfflineTreks              </span>            </ion-col>          </ion-row>        </ion-grid>      </ng-container>    </ng-container>  </ng-template></ion-content></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"  >    <ion-grid no-padding>      <ion-row>        <ion-col size="auto" class="vertical-center">          <ion-button            (click)="presentFilters()"            color="light"            size="small"            class="custom-button"            [disabled]="loaderStatus"          >            {{ \'toolbar.filters\' | translate }}            {{ numberOfActiveFilters }}          </ion-button>          <ion-button            (click)="presentSearch()"            color="light"            size="small"            class="custom-button button-margin-left"            [disabled]="loaderStatus"          >            {{ \'toolbar.search\' | translate }}          </ion-button>        </ion-col>        <ion-col text-right [ngClass]="{ \'list-mode-card\': this.colSize === 12, \'list-mode-disabled\': loaderStatus }">          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>          </ion-button>          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">            <ion-icon [name]="colSize === 12 ? \'apps\' : \'reorder\'" size="large"></ion-icon>          </ion-button>        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content style="position : relative" #content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksList">    <app-connect-error      *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.contentTreks\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksList>    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">      <ion-list>        <ion-grid fixed>          <ion-row class="ion-padding-start" size="12">            <ion-text>              <h1 *ngIf="filteredTreks.length === 1" translate>                treks.numberOftrek              </h1>              <h1 *ngIf="filteredTreks.length > 1">                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>              </h1>            </ion-text>          </ion-row>          <ion-row align-items-stretch>            <ion-col              [size]="colSize"              [sizeMd]="getMdColSize()"              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"            >              <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>            </ion-col>          </ion-row>        </ion-grid>      </ion-list>    </div>    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0" vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">        <ion-icon name="globe"></ion-icon>      </ion-fab-button>    </ion-fab>    <ion-infinite-scroll threshold="100px" (ionInfinite)="expandTreks($event)">      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-template>  <ng-template #noTreks>    <ng-container *ngIf="offline">      <ng-container>        <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">          <ng-container *ngSwitchCase="true">            <ion-row>              <ion-col *ngIf="nbOfflineTreks === 1" translate>                treks.noOfflineResult              </ion-col>              <ion-col *ngIf="nbOfflineTreks > 1" translate>                treks.noOfflineResults              </ion-col>            </ion-row>            <ion-row>              <ion-col>                <ion-button (click)="resetFilters()" color="light">                  <span translate>                    treks.showAllTreks                  </span>                </ion-button>              </ion-col>            </ion-row>          </ng-container>          <ion-row *ngSwitchCase="false">            <ion-col>              <span translate>                treks.emptyOfflineTreks              </span>            </ion-col>          </ion-row>        </ion-grid>      </ng-container>    </ng-container>  </ng-template></ion-content></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TreksPage'};
@@ -2116,6 +2112,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
 
 
 
+                   
 
 
 

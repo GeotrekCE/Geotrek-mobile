@@ -104,6 +104,9 @@
                                         <a href="#ascent">ascent</a>
                                 </li>
                                 <li>
+                                        <a href="#children">children</a>
+                                </li>
+                                <li>
                                         <a href="#cities">cities</a>
                                 </li>
                                 <li>
@@ -413,6 +416,35 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="children"></a>
+                                        <span class="name"><b>children</b><a href="#children"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>children:         <code><a href="../interfaces/Treks.html" target="_self" >Treks</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Treks.html" target="_self" >Treks</a></code>
 
                                         </td>
                                     </tr>
@@ -1157,6 +1189,7 @@ export interface TrekProperties extends MinimalTrekProperties {
   information_desks: InformationDesk[];
   departure_city?: string;
   arrival_city?: string;
+  children: Treks;
 }
 
 export interface Trek extends Feature&lt;MultiPoint&gt; {
@@ -1203,6 +1236,7 @@ export interface HydratedTrekProperties {
   slug?: string;
   points_reference?: number[][];
   ambiance: string;
+  children: Treks;
 }
 
 export interface InformationDesk {
@@ -1268,6 +1302,7 @@ export interface InformationItem {
   id: number;
   title: string;
   content: string;
+  external_url: string;
 }
 
 export interface Settings {
@@ -1353,19 +1388,24 @@ export interface TouristicEvent extends Feature&lt;Point&gt; {
   };
 }
 
+export interface Treks extends FeatureCollection {
+  type: &#x27;FeatureCollection&#x27;;
+  features: Trek[];
+}
+
 export interface TreksService {
   offline: boolean;
   treks$: Observable&lt;MinimalTreks | null&gt;;
   filteredTreks$: Observable&lt;MinimalTrek[]&gt;;
-  getTrekById(id: number): Observable&lt;Trek | null&gt;;
-  getPoisForTrekById(id: number): Observable&lt;Pois&gt;;
-  getTouristicContentsForTrekById(id: number): Observable&lt;TouristicContents&gt;;
-  getTouristicEventsForTrekById(id: number): Observable&lt;TouristicEvents&gt;;
+  getTrekById(id: number, parentId?: number): Observable&lt;Trek | null&gt;;
+  getPoisForTrekById(id: number, parentId?: number): Observable&lt;Pois&gt;;
+  getTouristicContentsForTrekById(id: number, parentId?: number): Observable&lt;TouristicContents&gt;;
+  getTouristicEventsForTrekById(id: number, parentId?: number): Observable&lt;TouristicEvents&gt;;
   getTreksUrl(): string;
-  getTrekDetailsUrl(trekId: number): string;
+  getTrekDetailsUrl(trekId: number, parentId?: number): string;
   getTrekImageSrc(trek: Trek, picture?: Picture): string;
   getTreksMapUrl(): string;
-  getTrekMapUrl(trekId: number): string;
+  getTrekMapUrl(trekId: number, parentId?: number): string;
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
   getCommonImgSrc(): string;
 }
@@ -1383,6 +1423,8 @@ export interface TrekContext {
   touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   touristicEvents: TouristicEvents;
   commonSrc: string;
+  isStage: boolean;
+  parentTrek: Trek | null;
 }
 
 export interface TreksContext {
@@ -1395,6 +1437,7 @@ export interface TreksContext {
 </div>
 
 
+                   
 
 
 
