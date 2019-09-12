@@ -16,7 +16,7 @@
     "compodoc": "npx compodoc -p src/tsconfig.app.json -d ./docs",
     "reset": "git reset --hard HEAD",
     "version": "sh ./update-version.sh",
-    "config": "cp -f -p -v ./config/config.xml ./ && cp -R -f -p -v ./config/analytics ./ && cp -R -f -p -v ./config/src ./",
+    "config": "cp -f -p -v ./config/config.xml ./ && cp -R -f -p -v ./config/analytics ./  && cp -R -f -p -v ./config/resources ./  && cp -R -f -p -v ./config/src ./",
     "update": "npm run reset && git pull github master && npm run version && npm run config",
     "buildapk": "npm run update && ionic cordova platform rm android && rm -rf www && rm -rf node_modules && npm i && ionic cordova build android --prod --release && npm run jarsigner && npm run zipalign",
     "jarsigner": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $keypath -storepass $keypass platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk $keyalias",
