@@ -1,9 +1,16 @@
 import { AppPage } from './app.po';
 import { browser } from 'protractor';
-import { createWriteStream } from 'fs';
+import { createWriteStream, existsSync } from 'fs';
+import * as path from 'path';
+const { mkdirp } = require('mkdirp');
 
-const writeScreenShot = (data: any, filename: any) => {
-  const stream = createWriteStream(filename);
+const writeScreenShot = (data: any, fileName: any) => {
+  const filePath = path.dirname(fileName);
+  if (!existsSync(filePath)) {
+    mkdirp.sync(filePath); // creates multiple folders if they don't exist
+  }
+
+  const stream = createWriteStream(fileName);
   stream.write(Buffer.from(data, 'base64'));
   stream.end();
 };
@@ -11,47 +18,43 @@ const writeScreenShot = (data: any, filename: any) => {
 describe('new App', () => {
   let page: AppPage;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     page = new AppPage();
   });
 
-  it('Screen Treks', () => {
+  it('Screen Treks', async () => {
+    const config = await browser.getProcessedConfig();
+
     page.navigateToTreks();
     browser.driver.sleep(5000);
-    browser.getProcessedConfig().then(config => {
-      browser.takeScreenshot().then(png => {
-        writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/treks.png`);
-      });
-    });
+    const png = await browser.takeScreenshot();
+    writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/treks.png`);
   });
 
-  it('Screen Global Map', () => {
+  it('Screen Global Map', async () => {
+    const config = await browser.getProcessedConfig();
+
     page.navigateToTreksMap();
     browser.driver.sleep(5000);
-    browser.getProcessedConfig().then(config => {
-      browser.takeScreenshot().then(png => {
-        writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/treks-map.png`);
-      });
-    });
+    const png = await browser.takeScreenshot();
+    writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/treks-map.png`);
   });
 
-  it('Screen Trek', () => {
+  it('Screen Trek', async () => {
+    const config = await browser.getProcessedConfig();
+
     page.navigateToTrek('realTrekId');
     browser.driver.sleep(5000);
-    browser.getProcessedConfig().then(config => {
-      browser.takeScreenshot().then(png => {
-        writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/trek.png`);
-      });
-    });
+    const png = await browser.takeScreenshot();
+    writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/trek.png`);
   });
 
-  it('Screen Trek Map', () => {
+  it('Screen Trek Map', async () => {
+    const config = await browser.getProcessedConfig();
+
     page.navigateToTrekMap('realTrekId');
     browser.driver.sleep(5000);
-    browser.getProcessedConfig().then(config => {
-      browser.takeScreenshot().then(png => {
-        writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/trek-map.png`);
-      });
-    });
+    const png = await browser.takeScreenshot();
+    writeScreenShot(png, `e2e/screens/${config.capabilities.chromeOptions.mobileEmulation.name}/trek-map.png`);
   });
 });
