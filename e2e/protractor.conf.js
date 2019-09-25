@@ -14,7 +14,7 @@ exports.config = {
           name: 'Samsung Galaxy S8+',
           deviceMetrics: {
             width: 360,
-            height: 740,
+            height: 720,
             pixelRatio: 4.0,
           },
         },
