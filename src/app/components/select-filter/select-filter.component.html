@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ filter.values.length + ' ' + filter.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-filter-value
+    *ngFor="let value of filter.values | slice: 0:currentMaxFilterValues; trackBy: trackFilterValues"
+    [commonSrc]="commonSrc"
+    [value]="value"
+    (valueChange)="valueChanged($event)"
+  >
+  </app-filter-value>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="expandFilterValues($event)">
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()" color="primary" fill="clear">
+        {{ 'filters.cancelButton' | translate }}
+      </ion-button>
+      <ion-button (click)="select()" color="primary" fill="clear">
+        {{ 'filters.confirmButton' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

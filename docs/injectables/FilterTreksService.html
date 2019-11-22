@@ -981,14 +981,14 @@ export class FilterTreksService {
           if (!FilterTreksService.isFilterActive(filter)) {
             return true;
           }
+
           if (filter.type &#x3D;&#x3D;&#x3D; &#x27;contains&#x27;) {
             return FilterTreksService.containsFilter(filter as ContainsFilter, feature);
           } else if (filter.type &#x3D;&#x3D;&#x3D; &#x27;interval&#x27;) {
             return FilterTreksService.intervalFilter(filter as IntervalFilter, feature);
-          } else {
-            // TODO: not necessary but ts &lt; 3.3 detecs a missing path. fixed in typescript 3.3
-            return false;
           }
+
+          return false;
         });
       });
     }

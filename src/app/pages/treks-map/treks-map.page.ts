@@ -110,6 +110,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: FiltersComponent,
       componentProps: { isOnline: !this.offline },
+      cssClass: 'full-size',
     });
     await modal.present();
   }
@@ -118,6 +119,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: SearchComponent,
       componentProps: { isOnline: !this.offline },
+      cssClass: 'full-size',
     });
 
     await modal.present();

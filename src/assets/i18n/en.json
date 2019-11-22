@@ -21,7 +21,10 @@
     "erase": "Erase all",
     "results": "Show {{nb}} treks",
     "oneresult": "Display the trek",
-    "zeroresult": "No trek matches those filters"
+    "zeroresult": "No trek matches those filters",
+    "confirmButton": "Ok",
+    "cancelButton": "Cancel",
+    "selectPlaceholder": "Select"
   },
   "mapTreks": {
     "treksAlert": {
@@ -83,8 +86,7 @@
   "treks": {
     "numberOftreks": "treks",
     "numberOftrek": "One trek",
-    "noOfflineResult": "The selected filters do not match your recorded hike",
-    "noOfflineResults": "The selected filters do not match any of your recorded {{nbOfflineTreks}} hikes.",
+    "noOfflineResults": "The selected filters do not match any of your recorded hikes.",
     "showAllTreks": "View all recorded hikes",
     "emptyOfflineTreks": "You will find your offline hikes here",
     "departure": "Departure"

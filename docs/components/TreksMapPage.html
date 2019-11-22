@@ -567,8 +567,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="136"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:136</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="138"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:138</a></div>
                 </td>
             </tr>
 
@@ -637,8 +637,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="132"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:132</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="134"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:134</a></div>
                 </td>
             </tr>
 
@@ -830,8 +830,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">src/app/pages/treks-map/treks-map.page.ts:118</a></div>
                 </td>
             </tr>
 
@@ -1547,6 +1547,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal &#x3D; await this.modalController.create({
       component: FiltersComponent,
       componentProps: { isOnline: !this.offline },
+      cssClass: &#x27;full-size&#x27;,
     });
     await modal.present();
   }
@@ -1555,6 +1556,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal &#x3D; await this.modalController.create({
       component: SearchComponent,
       componentProps: { isOnline: !this.offline },
+      cssClass: &#x27;full-size&#x27;,
     });
 
     await modal.present();
@@ -1693,7 +1695,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title> {{ appName }} </ion-title>  </ion-toolbar>  <ion-toolbar    *ngIf="      (!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) ||      (offline && this.filteredTreks && this.filteredTreks.length > 0)    "  >    <ion-grid no-padding>      <ion-row>        <ion-col size="10">          <ion-button            [disabled]="loaderStatus"            (click)="presentFilters()"            color="light"            size="small"            class="custom-button"          >            {{ \'toolbar.filters\' | translate }} {{ numberOfActiveFilters }}</ion-button          >          <ion-button            [disabled]="loaderStatus"            (click)="presentSearch()"            color="light"            size="small"            class="custom-button button-margin-left"          >            {{ \'toolbar.search\' | translate }}</ion-button          >        </ion-col>      </ion-row>    </ion-grid>  </ion-toolbar></ion-header><ion-content>  <app-loader></app-loader>  <ng-container *ngIf="!offline; else treksMap">    <app-connect-error      *ngIf="onlineTreks.onlineTreksError$ | async; else treksMap"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.TreksMap\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="onlineTreks.loadTreks()"    >    </app-connect-error>  </ng-container>  <ng-template #treksMap>    <app-map-treks-viz      *ngIf="isInView"      [offline]="offline"      [filteredTreks]="filteredTreks"      (navigateToTrek)="navigateToTrek($event)"      (mapIsLoaded)="mapIsLoaded($event)"      [mapConfig]="mapConfig"      [dataSettings]="settings.data$.value"      [commonSrc]="commonSrc"    >    </app-map-treks-viz>    <ion-fab vertical="bottom" horizontal="end" slot="fixed">      <ion-fab-button class="no-outline" [routerLink]="treksUrl">        <ion-icon name="reorder"></ion-icon>      </ion-fab-button>    </ion-fab>  </ng-template></ion-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TreksMapPage'};
 </script>

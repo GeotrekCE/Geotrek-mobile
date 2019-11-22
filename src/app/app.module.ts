@@ -6,7 +6,6 @@ import { RouteReuseStrategy } from '@angular/router';
 import { MoreItemResolver } from '@app/resolvers/more-item.resolver';
 import { MoreResolver } from '@app/resolvers/more.resolver';
 import { LoadingInterceptor } from '@app/services/loading/loading.service';
-import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { Animation } from '@ionic/core';
 import { registerLocaleData } from '@angular/common';
@@ -35,15 +34,12 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 
-import { FiltersComponent } from '@app/components/filters/filters.component';
-import { FilterComponent } from './components/filter/filter.component';
 import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.component';
 import { InformationDeskDetailsComponent } from '@app/components/information-desk-details/information-desk-details.component';
-import { SearchComponent } from '@app/components/search/search.component';
+
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 
-import { FilterValueComponent } from './components/filter-value/filter-value.component';
 import { TreksOrderComponent } from './components/treks-order/treks-order.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -59,20 +55,14 @@ registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     AppComponent,
-    FiltersComponent,
     PoiDetailsComponent,
-    SearchComponent,
     ProgressComponent,
-    FilterComponent,
-    FilterValueComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
     TreksOrderComponent,
   ],
   entryComponents: [
-    FiltersComponent,
     PoiDetailsComponent,
-    SearchComponent,
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
@@ -96,7 +86,6 @@ registerLocaleData(localeFr, 'fr');
       },
     }),
     IonicStorageModule.forRoot(),
-    SharedUiModule,
   ],
   providers: [
     StatusBar,

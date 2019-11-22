@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ModalController, NavParams, Platform } from '@ionic/angular';
-import { cloneDeep } from 'lodash';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { ModalController, Platform } from '@ionic/angular';
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
@@ -14,24 +13,21 @@ import { SettingsService } from '@app/services/settings/settings.service';
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   public temporaryFilters$ = new BehaviorSubject<Filter[]>([]);
   public nbTemporaryFiltersTreks = 0;
-  public isOnline: boolean;
   public commonSrc: string;
-  public filters: any[];
+  public filters: Filter[];
   private filtersSubscription: Subscription;
+  @Input() public isOnline: boolean;
 
   constructor(
     private modalCtrl: ModalController,
     public settings: SettingsService,
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
-    private navParams: NavParams,
     private platform: Platform,
-    private ref: ChangeDetectorRef,
   ) {
     super();
   }
@@ -40,8 +36,7 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
     super.ngOnInit();
   }
 
-  ionViewDidEnter() {
-    this.isOnline = this.navParams.get('isOnline');
+  ionViewDidEnter(): void {
     const treks$ = this.isOnline ? this.onlineTreks.treks$ : this.offlineTreks.treks$;
     this.commonSrc = this.isOnline ? this.onlineTreks.getCommonImgSrc() : this.offlineTreks.getCommonImgSrc();
 
@@ -57,24 +52,27 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
 
       combineLatest(treks$, this.temporaryFilters$).subscribe(
         ([treks, temporaryFilters]: [MinimalTreks | null, Filter[]]) => {
-          if (!!treks) {
-            this.nbTemporaryFiltersTreks = FilterTreksService.filter(treks, temporaryFilters).length;
-          } else {
-            this.nbTemporaryFiltersTreks = 0;
-          }
-
-          this.ref.markForCheck();
+          this.nbTemporaryFiltersTreks = !!treks ? FilterTreksService.filter(treks, temporaryFilters).length : 0;
         },
       ),
     );
   }
 
   public handleFiltersState(checkState: boolean, filter: Filter, value: FilterValue): void {
-    const temporaryFilters = cloneDeep(this.temporaryFilters$.getValue());
+    const temporaryFilters = [...this.temporaryFilters$.getValue()];
     const temporaryFilter = temporaryFilters.find(tempFilter => tempFilter.id === filter.id) as Filter;
     const filterValue = temporaryFilter.values.find(tempValue => tempValue.id === value.id) as FilterValue;
     filterValue.checked = checkState;
     this.temporaryFilters$.next(temporaryFilters);
+  }
+
+  public handleSelect(event: { filter: Filter }): void {
+    const temporaryFilters = [...this.temporaryFilters$.getValue()];
+    let temporaryFilterIndex = temporaryFilters.findIndex(tempFilter => tempFilter.id === event.filter.id);
+    if (temporaryFilterIndex) {
+      temporaryFilters[temporaryFilterIndex] = event.filter;
+      this.temporaryFilters$.next(temporaryFilters);
+    }
   }
 
   public applyFilters(): void {
@@ -84,11 +82,10 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   }
 
   public eraseFilters(): void {
-    const temporaryFilters = cloneDeep(this.temporaryFilters$.getValue());
+    const temporaryFilters = [...this.temporaryFilters$.getValue()];
     temporaryFilters.forEach(filter => {
       filter.values.forEach(value => (value.checked = false));
     });
-    this.filters = temporaryFilters;
     this.temporaryFilters$.next(temporaryFilters);
   }
 
@@ -109,5 +106,9 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.unsubscribeFilters();
+  }
+
+  public trackByFilterId(index: number, element: Filter): string | null {
+    return element ? element.id : null;
   }
 }

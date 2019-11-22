@@ -15,8 +15,7 @@
             class="custom-button"
             [disabled]="loaderStatus"
           >
-            {{ 'toolbar.filters' | translate }}
-            {{ numberOfActiveFilters }}
+            {{ 'toolbar.filters' | translate }} {{ numberOfActiveFilters }}
           </ion-button>
           <ion-button
             (click)="presentSearch()"
@@ -99,10 +98,7 @@
         <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">
           <ng-container *ngSwitchCase="true">
             <ion-row>
-              <ion-col *ngIf="nbOfflineTreks === 1" translate>
-                treks.noOfflineResult
-              </ion-col>
-              <ion-col *ngIf="nbOfflineTreks > 1" translate>
+              <ion-col translate>
                 treks.noOfflineResults
               </ion-col>
             </ion-row>

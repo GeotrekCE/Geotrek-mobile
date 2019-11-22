@@ -60,28 +60,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link">AppModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AppModule-e993790f2913efc18bf6bb16feba8ff6"' : 'data-target="#xs-components-links-module-AppModule-e993790f2913efc18bf6bb16feba8ff6"' }>
+                                            'data-target="#components-links-module-AppModule-8eb2dc3e6bfa057404ba775656e53548"' : 'data-target="#xs-components-links-module-AppModule-8eb2dc3e6bfa057404ba775656e53548"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-e993790f2913efc18bf6bb16feba8ff6"' :
-                                            'id="xs-components-links-module-AppModule-e993790f2913efc18bf6bb16feba8ff6"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-8eb2dc3e6bfa057404ba775656e53548"' :
+                                            'id="xs-components-links-module-AppModule-8eb2dc3e6bfa057404ba775656e53548"' }>
                                             <li class="link">
                                                 <a href="components/AppComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">AppComponent</a>
-                                            </li>
-                                            <li class="link">
-                                                <a href="components/FilterComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FilterComponent</a>
-                                            </li>
-                                            <li class="link">
-                                                <a href="components/FilterValueComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FilterValueComponent</a>
-                                            </li>
-                                            <li class="link">
-                                                <a href="components/FiltersComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FiltersComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/InformationDeskDetailsComponent.html"
@@ -98,10 +86,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/ProgressComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ProgressComponent</a>
-                                            </li>
-                                            <li class="link">
-                                                <a href="components/SearchComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SearchComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/TreksOrderComponent.html"
@@ -130,6 +114,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             </li>
                                         </ul>
                                     </li>
+                            </li>
+                            <li class="link">
+                                <a href="modules/FiltersComponentModule.html" data-type="entity-link">FiltersComponentModule</a>
                             </li>
                             <li class="link">
                                 <a href="modules/MoreItemPageModule.html" data-type="entity-link">MoreItemPageModule</a>
@@ -163,6 +150,40 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/MorePage.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">MorePage</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
+                                <a href="modules/SharedFiltersModule.html" data-type="entity-link">SharedFiltersModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-SharedFiltersModule-f8cf4ea95c0e44dacc1855a7d7469830"' : 'data-target="#xs-components-links-module-SharedFiltersModule-f8cf4ea95c0e44dacc1855a7d7469830"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-SharedFiltersModule-f8cf4ea95c0e44dacc1855a7d7469830"' :
+                                            'id="xs-components-links-module-SharedFiltersModule-f8cf4ea95c0e44dacc1855a7d7469830"' }>
+                                            <li class="link">
+                                                <a href="components/FilterComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FilterComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/FilterValueComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FilterValueComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/FiltersComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FiltersComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/SearchComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SearchComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/SelectFilterComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SelectFilterComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -320,13 +341,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/TreksPageModule.html" data-type="entity-link">TreksPageModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-TreksPageModule-721375ef427719547928028285e93d8a"' : 'data-target="#xs-components-links-module-TreksPageModule-721375ef427719547928028285e93d8a"' }>
+                                            'data-target="#components-links-module-TreksPageModule-a175f67d41fe537ab5c5f23f0fa10a3e"' : 'data-target="#xs-components-links-module-TreksPageModule-a175f67d41fe537ab5c5f23f0fa10a3e"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-TreksPageModule-721375ef427719547928028285e93d8a"' :
-                                            'id="xs-components-links-module-TreksPageModule-721375ef427719547928028285e93d8a"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-TreksPageModule-a175f67d41fe537ab5c5f23f0fa10a3e"' :
+                                            'id="xs-components-links-module-TreksPageModule-a175f67d41fe537ab5c5f23f0fa10a3e"' }>
                                             <li class="link">
                                                 <a href="components/TreksPage.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">TreksPage</a>
@@ -351,7 +372,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="components/ConnectErrorComponent.html" data-type="entity-link">ConnectErrorComponent</a>
                             </li>
                             <li class="link">
+                                <a href="components/FilterComponent.html" data-type="entity-link">FilterComponent</a>
+                            </li>
+                            <li class="link">
                                 <a href="components/FiltersComponent.html" data-type="entity-link">FiltersComponent</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/FilterValueComponent.html" data-type="entity-link">FilterValueComponent</a>
                             </li>
                             <li class="link">
                                 <a href="components/GeolocateNotificationsComponent.html" data-type="entity-link">GeolocateNotificationsComponent</a>
@@ -382,6 +409,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="components/SearchComponent.html" data-type="entity-link">SearchComponent</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/SelectFilterComponent.html" data-type="entity-link">SelectFilterComponent</a>
                             </li>
                             <li class="link">
                                 <a href="components/TrekCardComponent.html" data-type="entity-link">TrekCardComponent</a>

@@ -27,14 +27,14 @@ export class FilterTreksService {
           if (!FilterTreksService.isFilterActive(filter)) {
             return true;
           }
+
           if (filter.type === 'contains') {
             return FilterTreksService.containsFilter(filter as ContainsFilter, feature);
           } else if (filter.type === 'interval') {
             return FilterTreksService.intervalFilter(filter as IntervalFilter, feature);
-          } else {
-            // TODO: not necessary but ts < 3.3 detecs a missing path. fixed in typescript 3.3
-            return false;
           }
+
+          return false;
         });
       });
     }

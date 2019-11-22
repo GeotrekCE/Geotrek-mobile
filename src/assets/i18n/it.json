@@ -21,7 +21,10 @@
     "erase": "Chiaro tutto",
     "results": "Affiggere le{{nb}} escursioni",
     "oneresult": "Affigere l'escursione",
-    "zeroresult": "Nessuna escursione corrisponde a questi filtri"
+    "zeroresult": "Nessuna escursione corrisponde a questi filtri",
+    "confirmButton": "OK",
+    "cancelButton": "Cancellare",
+    "selectPlaceholder": "Selezionare"
   },
   "mapTreks": {
     "treksAlert": {
@@ -83,8 +86,7 @@
   "treks": {
     "numberOftreks": "escursioni",
     "numberOftrek": "Un'escursione",
-    "noOfflineResult": "I filtri selezionati non corrispondono alla sua escursione registrata",
-    "noOfflineResults": "I filtri selezionati non corrispondono a nessuna delle sue {{nbOfflineTreks}} escursioni registrate.",
+    "noOfflineResults": "I filtri selezionati non corrispondono a nessuna delle sue escursioni registrate.",
     "showAllTreks": "Visualizza tutte le escursioni registrate",
     "emptyOfflineTreks": "Qui, troverà le sue escursioni disponibili offline",
     "departure": "Partenza"

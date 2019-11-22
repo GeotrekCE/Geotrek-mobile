@@ -164,3 +164,11 @@ app-trek-map {
 ion-fab-button {
   margin-bottom: 15px;
 }
+
+// display modal with full size
+.full-size {
+  .modal-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+}
