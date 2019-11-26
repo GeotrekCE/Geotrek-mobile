@@ -95,21 +95,21 @@ ion-fab {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--ion-color-primary);
+  background: var(--ion-color-pulse);
   cursor: pointer;
-  box-shadow: 0 0 0 var(--ion-color-primary);
+  box-shadow: 0 0 0 var(--ion-color-pulse);
   animation: pulse 1s infinite;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0.7);
+    box-shadow: 0 0 0 0 rgba(var(--ion-color-pulse-rgb), 0.7);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(var(--ion-color-primary-rgb), 0);
+    box-shadow: 0 0 0 10px rgba(var(--ion-color-pulse-rgb), 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0);
+    box-shadow: 0 0 0 0 rgba(var(--ion-color-pulse-rgb), 0);
   }
 }
 
