@@ -356,6 +356,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   }
 
   private initializeLayers(): void {
+    // Itinerancy hide POIs by default
     const visibility: 'none' | 'visible' | undefined =
       this.currentTrek &&
       this.currentTrek.properties.children &&
@@ -413,9 +414,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: ['!', ['has', 'point_count']],
       layout: {
         'icon-image': ['concat', 'pois', ['get', 'type']],
-        'icon-size': environment.map.poiIconSize,
+        'icon-size': environment.map.poisLayersProperties.iconSize,
         'icon-allow-overlap': true,
-        visibility,
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
       },
     });
 
@@ -426,7 +430,10 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: ['has', 'point_count'],
       paint: environment.map.clusterPaint,
       layout: {
-        visibility,
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
       },
     });
 
@@ -445,7 +452,10 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-offset': [0, 0.1],
         'text-ignore-placement': true,
         'text-allow-overlap': true,
-        visibility,
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
       },
     });
 
@@ -475,7 +485,10 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'circle-color': touristicsContent ? (circleColorExpression as any) : '#000000',
       },
       layout: {
-        visibility,
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
       },
     });
 
@@ -484,7 +497,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'symbol',
       source: 'touristics-content',
       filter: ['!', ['has', 'point_count']],
-      layout: { visibility, ...(environment.map.touristicContentLayersProperties.icon.layout as any) },
+      layout: {
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
+        ...(environment.map.touristicContentLayersProperties.icon.layout as any),
+      },
     });
 
     this.map.addLayer({
@@ -492,10 +511,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'circle',
       source: 'touristics-content',
       filter: ['has', 'point_count'],
-      layout: {
-        visibility,
-      },
       paint: environment.map.clusterPaint,
+      layout: {
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
+      },
     });
 
     this.map.addLayer({
@@ -513,7 +535,10 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-offset': [0, 0.1],
         'text-allow-overlap': true,
         'text-ignore-placement': true,
-        visibility,
+        visibility:
+          visibility === 'visible'
+            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
+            : visibility,
       },
     });
 

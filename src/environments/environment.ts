@@ -83,7 +83,10 @@ export const environment = {
     informationIconSize: 1,
     parkingIconSize: 0.6,
     departureArrivalIconSize: 0.8,
-    poiIconSize: 1,
+    poisLayersProperties: {
+      visibility: 'visible',
+      iconSize: 1,
+    },
     clusterPaint: {
       // cluster style on map treks
       'circle-color': primaryColor,
@@ -152,6 +155,7 @@ export const environment = {
       },
     },
     touristicContentLayersProperties: {
+      visibility: 'visible',
       icon: {
         layout: {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],
