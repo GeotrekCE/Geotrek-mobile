@@ -172,3 +172,28 @@ ion-fab-button {
     height: 100%;
   }
 }
+
+.trek-description {
+  ol {
+    counter-reset: referencePoint;
+    li {
+      list-style-type: none;
+      counter-increment: referencePoint;
+    }
+    li:before {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      content: counter(referencePoint);
+      width: 24px;
+      height: 24px;
+      background: #f04141;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.8em;
+      color: white;
+      margin-left: -36px;
+    }
+  }
+}

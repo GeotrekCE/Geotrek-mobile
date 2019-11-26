@@ -248,7 +248,7 @@
               <ion-text color="primary">
                 <h2 class="custom-divider">{{ 'trek.details.description' | translate }}</h2>
               </ion-text>
-              <div [innerHTML]="currentTrek.properties.description"></div>
+              <div class="trek-description" [innerHTML]="currentTrek.properties.description"></div>
             </div>
             <div *ngIf="currentTrek.properties.networks && currentTrek.properties.networks.length > 0">
               <ion-text color="primary">
