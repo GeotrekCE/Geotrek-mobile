@@ -96,7 +96,13 @@
     "cancel": "Cancellare",
     "open": "Aprire",
     "poiNearBy": "Punto di interesse nelle vicinanze",
-    "notificationTitle": "Georeferimento"
+    "notificationTitle": "Georeferimento",
+    "error": {
+      "header": "Geolocalizzazione impossibile",
+      "subHeader": "L'applicazione ha un problema per recuperare la vostra posizione.",
+      "message": "Si prega di verificare che il vostro GPS sia attivo e che abbiate autorizzato l'applicazione ad utilizzarlo.",
+      "confirmButton": "OK"
+    }
   },
   "error": {
     "title": "Problema di connessione",

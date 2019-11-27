@@ -50,8 +50,16 @@ export class GeolocateService {
       await this.backgroundGeolocation.configure(geolocationConfig);
 
       this.backgroundGeolocation.on(BackgroundGeolocationEvents.start).subscribe(async () => {
-        const startLocation = await this.backgroundGeolocation.getCurrentLocation();
-        this.currentPosition$.next([startLocation.longitude, startLocation.latitude]);
+        try {
+          const startLocation = await this.backgroundGeolocation.getCurrentLocation({
+            timeout: 3000,
+            maximumAge: 10000,
+            enableHighAccuracy: true,
+          });
+          this.currentPosition$.next([startLocation.longitude, startLocation.latitude]);
+        } catch (error) {
+          error = true;
+        }
       });
 
       this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe(location => {

@@ -96,7 +96,13 @@
     "cancel": "Cancel",
     "open": "Open",
     "poiNearBy": "Point of interest near by",
-    "notificationTitle": "Geolocation"
+    "notificationTitle": "Geolocation",
+    "error": {
+      "header": "Geolocation is not possible",
+      "subHeader": "The application has a problem to recover your position.",
+      "message": "Please make sure your GPS is active and you have authorized the application to use it.",
+      "confirmButton": "OK"
+    }
   },
   "error": {
     "title": "Connection problem",

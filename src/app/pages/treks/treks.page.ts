@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { IonContent, ModalController, PopoverController } from '@ionic/angular';
+import { IonContent, ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { map, mergeMap, delay, first } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
@@ -54,6 +54,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     public platform: Platform,
     private popoverController: PopoverController,
     private translate: TranslateService,
+    private alertController: AlertController,
   ) {
     super();
   }
@@ -86,9 +87,6 @@ export class TreksPage extends UnSubscribe implements OnInit {
         this.settings.data$,
       ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
         if (settings) {
-          if (this.platform.is('ios') || this.platform.is('android')) {
-            this.noNetwork = this.network.type === 'none';
-          }
           this.numberOfActiveFilters = !!numberOfActiveFilters ? `(${numberOfActiveFilters})` : '';
           this.filteredTreks = <MinimalTrek[]>[...filteredTreks];
           this.content.scrollToTop();
@@ -184,6 +182,22 @@ export class TreksPage extends UnSubscribe implements OnInit {
         orders,
       },
     });
-    return await popover.present();
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+
+    if (data && data.error) {
+      const errorTranslation: any = await this.translate.get('geolocate.error').toPromise();
+
+      // Inform user about problem
+      const alertLocation = await this.alertController.create({
+        header: errorTranslation['header'],
+        subHeader: errorTranslation['subHeader'],
+        message: errorTranslation['message'],
+        buttons: [errorTranslation['confirmButton']],
+      });
+
+      await alertLocation.present();
+    }
   }
 }
