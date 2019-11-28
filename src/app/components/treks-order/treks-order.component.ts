@@ -42,7 +42,6 @@ export class TreksOrderComponent extends UnSubscribe {
       // disable backdrop dismiss while treksOrderChange
       const trekOrderPopOver: any = this.popoverController.getTop();
       trekOrderPopOver.__zone_symbol__value.backdropDismiss = false;
-      console.log(trekOrderPopOver);
       if (event.detail.value === 'location') {
         if (this.platform.is('ios') || this.platform.is('android')) {
           let startLocation;

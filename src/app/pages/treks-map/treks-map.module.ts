@@ -8,20 +8,27 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TreksMapPage } from './treks-map.page';
+import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TreksMapPage,
     resolve: {
-      context: TreksContextResolver
-    }
+      context: TreksContextResolver,
+    },
   },
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedModule, SharedUiModule, TranslateModule.forChild()],
-  declarations: [TreksMapPage],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    SharedUiModule,
+    TranslateModule.forChild(),
+  ],
+  declarations: [TreksMapPage, SelectTrekComponent],
 })
-export class TreksMapPageModule {
-}
+export class TreksMapPageModule {}

@@ -28,9 +28,10 @@
   },
   "mapTreks": {
     "treksAlert": {
-      "title": "Randonnées",
+      "title": "Choisir une randonnée",
       "confirmButton": "Ok",
-      "cancelButton": "Annuler"
+      "cancelButton": "Annuler",
+      "informUser": "Plusieurs randonnées sont disponibles depuis ce point de départ"
     }
   },
   "mapTrek": {

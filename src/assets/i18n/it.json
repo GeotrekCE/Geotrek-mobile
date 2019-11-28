@@ -28,9 +28,10 @@
   },
   "mapTreks": {
     "treksAlert": {
-      "title": "Escursione",
+      "title": "Scegliere un'escursione",
       "confirmButton": "OK",
-      "cancelButton": "Cancellare"
+      "cancelButton": "Cancellare",
+      "informUser": "Da questo punto di partenza sono disponibili diverse escursioni"
     }
   },
   "mapTrek": {

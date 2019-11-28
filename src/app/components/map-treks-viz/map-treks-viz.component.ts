@@ -10,15 +10,16 @@ import {
 } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
-import { AlertController, Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { GeoJSONSource, GeoJSONSourceRaw, Map, MapboxOptions, Marker } from 'mapbox-gl';
 import { Observable } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 
-import { MinimalTrek, DataSetting } from '@app/interfaces/interfaces';
+import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { UnSubscribe } from '../abstract/unsubscribe';
+import { SettingsService } from '@app/services/settings/settings.service';
 
 const mapboxgl = require('mapbox-gl');
 
@@ -42,11 +43,11 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
   @Output() public mapIsLoaded = new EventEmitter<boolean>();
 
   constructor(
-    private alertController: AlertController,
     private screenOrientation: ScreenOrientation,
     private platform: Platform,
-    private translate: TranslateService,
     private geolocate: GeolocateService,
+    private modalController: ModalController,
+    private settings: SettingsService,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -310,40 +311,36 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
 
     this.mapIsLoaded.emit(true);
   }
+
   async presentConfirmFeatures(features: Feature<Geometry, { [name: string]: any }>[]) {
-    const featuresRadio: Object[] = []; // can't import AlertOption
+    const radioTreks: { id: number; name: string; imgPractice: { src: string; color: string | undefined } }[] = [];
 
-    features.forEach((feature, index: number) => {
-      featuresRadio.push({
-        name: feature.properties.name,
-        type: 'radio',
-        label: feature.properties.name,
-        value: feature.properties.id,
-        checked: index === 0,
-      });
+    features.forEach(feature => {
+      const hydratedTrek = this.settings.getHydratedTrek(feature as Trek);
+      const trek = {
+        id: hydratedTrek.properties.id,
+        name: hydratedTrek.properties.name,
+        imgPractice: {
+          src: this.commonSrc + hydratedTrek.properties.practice.pictogram,
+          color: hydratedTrek.properties.practice.color,
+        },
+      };
+      radioTreks.push(trek);
     });
 
-    await this.translate.get('mapTreks.treksAlert').subscribe(async trad => {
-      const alert = await this.alertController.create({
-        header: trad.title,
-        inputs: featuresRadio,
-        buttons: [
-          {
-            text: trad.cancelButton,
-            role: 'cancel',
-            cssClass: 'secondary',
-          },
-          {
-            text: trad.confirmButton,
-            handler: featureId => {
-              this.navigateToTrek.emit(featureId);
-            },
-          },
-        ],
-      });
-
-      await alert.present();
+    const modal = await this.modalController.create({
+      component: SelectTrekComponent,
+      componentProps: { radioTreks },
+      cssClass: 'full-size',
     });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if (data && data.selectedTrekId) {
+      this.navigateToTrek.emit(data.selectedTrekId);
+    }
   }
 
   /**

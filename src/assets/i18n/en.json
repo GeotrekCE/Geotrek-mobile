@@ -28,9 +28,10 @@
   },
   "mapTreks": {
     "treksAlert": {
-      "title": "Treks",
+      "title": "Choose a hike",
       "confirmButton": "Ok",
-      "cancelButton": "Cancel"
+      "cancelButton": "Cancel",
+      "informUser": "Several hikes are available from this starting point"
     }
   },
   "mapTrek": {
