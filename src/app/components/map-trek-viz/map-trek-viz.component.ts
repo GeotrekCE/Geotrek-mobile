@@ -92,19 +92,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
   createMap(): void {
     if (this.mapConfig && this.mapConfig.style) {
-      const { addSoustractMaxBounds } = environment.map;
-      const bounds = [
-        this.mapConfig.bounds[0] - addSoustractMaxBounds,
-        this.mapConfig.bounds[1] - addSoustractMaxBounds,
-        this.mapConfig.bounds[2] + addSoustractMaxBounds,
-        this.mapConfig.bounds[3] + addSoustractMaxBounds,
-      ];
       this.map = new Map({
         ...this.mapConfig,
         container: 'map-trek',
-        bounds,
       });
 
+      this.map.fitBounds(this.mapConfig.trekBounds, environment.map.TrekfitBoundsOptions);
       this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
       this.map.addControl(
@@ -779,10 +772,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
    * Fit to trek bounds
    */
   public FitToTrekBounds(): void {
-    this.map.fitBounds(this.mapConfig.bounds, {
-      ...this.mapConfig.fitBoundsOptions,
-      animate: false,
-    });
+    this.map.fitBounds(this.mapConfig.trekBounds, environment.map.TrekfitBoundsOptions);
   }
 
   async showLayersVisibility(event: any) {

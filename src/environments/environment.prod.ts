@@ -38,8 +38,6 @@ export const environment = {
     },
     minZoom: 0,
     maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
   },
   offlineMapConfig: {
     // offline map default config
@@ -66,8 +64,6 @@ export const environment = {
     },
     minZoom: 0,
     maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
   },
   trekZoom: {
     // zoom config for trek layer map
@@ -78,12 +74,16 @@ export const environment = {
   map: {
     attributionText:
       '<a href="https://openstreetmap.org/copyright">© OpenStreetMap contributors</a> | <a href="https://opentopomap.org">© OpenTopoMap </a>',
-    addSoustractMaxBounds: 0.01,
+    TreksfitBoundsOptions: { animate: false, padding: 50 },
+    TrekfitBoundsOptions: { animate: false, padding: 75 },
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,
     parkingIconSize: 0.6,
     departureArrivalIconSize: 0.8,
-    poiIconSize: 1,
+    poisLayersProperties: {
+      visibility: 'visible',
+      iconSize: 1,
+    },
     clusterPaint: {
       // cluster style on map treks
       'circle-color': primaryColor,
@@ -152,6 +152,7 @@ export const environment = {
       },
     },
     touristicContentLayersProperties: {
+      visibility: 'visible',
       icon: {
         layout: {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],

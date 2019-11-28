@@ -160,8 +160,7 @@ export class OnlineTreksService implements TreksService {
 
   public getMapConfigForTrekById(trek: Trek): MapboxOptions {
     const mapConfig: MapboxOptions = { ...cloneDeep(environment.onlineMapConfig), zoom: environment.trekZoom.zoom };
-    (mapConfig as any).bounds = trek.bbox as [number, number, number, number];
-    (mapConfig as any).fitBoundsOptions = { padding: { top: 100, bottom: 100, left: 100, right: 100 } };
+    (mapConfig as any).trekBounds = trek.bbox as [number, number, number, number];
     mapConfig.center = undefined;
 
     return mapConfig;

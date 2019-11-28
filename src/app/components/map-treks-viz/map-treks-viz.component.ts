@@ -83,16 +83,24 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
   }
 
   createMap() {
-    if (this.mapConfig && this.mapConfig.style) {
+    if (this.mapConfig && this.mapConfig.style && this.filteredTreks) {
       if (this.offline && (this.platform.is('ios') || this.platform.is('android'))) {
         (this.mapConfig.style as any).sources['tiles-background'].tiles[0] =
           this.commonSrc + (environment.offlineMapConfig.style as any).sources['tiles-background'].tiles[0];
       }
 
+      const coordinates: number[][] = this.filteredTreks.map(feature => feature.geometry.coordinates);
+      const bounds: any = coordinates.reduce(
+        (bounds, coord) => bounds.extend(coord),
+        new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]),
+      );
+
       this.map = new mapboxgl.Map({
         ...this.mapConfig,
         container: 'map-treks',
       });
+
+      this.map.fitBounds(bounds, environment.map.TreksfitBoundsOptions);
 
       this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
