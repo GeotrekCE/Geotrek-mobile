@@ -115,17 +115,6 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
       this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');
 
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        this.subscriptions$$.push(
-          this.screenOrientation.onChange().subscribe(() => {
-            // Need to delay before resize ...
-            window.setTimeout(() => {
-              this.map.resize();
-            }, 50);
-          }),
-        );
-      }
-
       this.map.on('click', 'pois-icon', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
           const poi = { ...e.features[0] };
@@ -199,6 +188,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       // });
 
       this.map.on('load', () => {
+        if (this.platform.is('ios') || this.platform.is('android')) {
+          this.subscriptions$$.push(
+            this.screenOrientation.onChange().subscribe(() => {
+              // Need to delay before resize ...
+              window.setTimeout(() => {
+                this.map.resize();
+              }, 50);
+            }),
+          );
+        }
+
         const loadImages: Observable<any> = Observable.create((observer: any) => {
           const imagesToLoad: any[] = [];
           const typePois: DataSetting | undefined = this.dataSettings.find(data => data.id === 'poi_types');

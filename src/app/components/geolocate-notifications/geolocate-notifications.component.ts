@@ -28,7 +28,7 @@ import { environment } from '@env/environment';
   styleUrls: ['./geolocate-notifications.component.scss'],
 })
 export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDestroy {
-  currentPoisToNotify: any[];
+  currentPoisToNotify: any[] = [];
   clicklocalNotifications$: Subscription;
   notificationsModeIsActive = false;
   @Input() currentPois: Pois;
@@ -47,11 +47,14 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   ngOnInit() {
     if (this.platform.is('ios') || this.platform.is('android')) {
       this.localNotifications.setDefaults({
-        vibrate: true,
-        sound: true,
-        foreground: true,
         icon: 'res://icon',
         smallIcon: 'res://ic_stat_panorama',
+        vibrate: true,
+        foreground: true,
+        priority: 2,
+        silent: false,
+        launch: true,
+        lockscreen: true,
       });
       this.clicklocalNotifications$ = this.localNotifications.on('click').subscribe(({ data }) => {
         const poi = this.currentPois.features.find(feature => feature.properties.id === data.id);
@@ -119,32 +122,41 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   }
 
   checkToNotify(fromCoordinates: number[]) {
-    const kmToNotify = environment.metersToNotify / 1000;
-    const options = {
-      units: 'kilometers',
-    };
-    const from = point(fromCoordinates);
-    const notifiedIndex = this.currentPoisToNotify.findIndex(
-      feature => distance(from, point(feature.coordinates), options) <= kmToNotify,
-    );
-    if (notifiedIndex !== -1) {
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        this.translate.get('geolocate.poiNearBy').subscribe(trad => {
-          this.localNotifications.schedule({
-            id: this.currentPoisToNotify[notifiedIndex].id,
-            title: trad,
-            text: this.currentPoisToNotify[notifiedIndex].name,
-            data: {
-              id: this.currentPoisToNotify[notifiedIndex].id,
-            },
-            channel: `channel${this.currentPoisToNotify[notifiedIndex].id}`,
-            priority: 2,
-          });
+    if (fromCoordinates && this.currentPoisToNotify && this.currentPoisToNotify.length > 0) {
+      const kmToNotify = environment.metersToNotify / 1000;
+      const options = {
+        units: 'kilometers',
+      };
+      const from = point(fromCoordinates);
+      const notifiedIndex = this.currentPoisToNotify.findIndex(
+        feature => distance(from, point(feature.coordinates), options) <= kmToNotify,
+      );
 
-          this.currentPoisToNotify.splice(notifiedIndex, 1);
-        });
-      } else {
-        console.log('Poi', this.currentPoisToNotify[notifiedIndex]);
+      if (notifiedIndex !== -1) {
+        if (this.platform.is('ios') || this.platform.is('android')) {
+          this.translate.get('geolocate.poiNearBy').subscribe(trad => {
+            this.localNotifications.schedule({
+              id: this.currentPoisToNotify[notifiedIndex].id,
+              title: trad,
+              text: this.currentPoisToNotify[notifiedIndex].name,
+              data: {
+                id: this.currentPoisToNotify[notifiedIndex].id,
+              },
+              icon: 'res://icon',
+              smallIcon: 'res://ic_stat_panorama',
+              vibrate: true,
+              foreground: true,
+              priority: 2,
+              silent: false,
+              launch: true,
+              lockscreen: true,
+            });
+
+            this.currentPoisToNotify.splice(notifiedIndex, 1);
+          });
+        } else {
+          console.log('Poi', this.currentPoisToNotify[notifiedIndex]);
+        }
       }
     }
   }
