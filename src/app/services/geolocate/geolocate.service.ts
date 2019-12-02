@@ -58,12 +58,18 @@ export class GeolocateService {
           });
           this.currentPosition$.next([startLocation.longitude, startLocation.latitude]);
         } catch (error) {
+          this.currentPosition$.next(null);
           error = true;
         }
       });
 
       this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe(location => {
-        this.currentPosition$.next([location.longitude, location.latitude]);
+        try {
+          this.currentPosition$.next([location.longitude, location.latitude]);
+        } catch (error) {
+          this.currentPosition$.next(null);
+          error = true;
+        }
       });
 
       this.backgroundGeolocation.start();
@@ -87,5 +93,22 @@ export class GeolocateService {
 
   showLocationSettings() {
     this.backgroundGeolocation.showLocationSettings();
+  }
+
+  async getCurrentPosition() {
+    let startLocation;
+    try {
+      startLocation = await this.backgroundGeolocation.getCurrentLocation({
+        timeout: 3000,
+        maximumAge: 60000,
+        enableHighAccuracy: true,
+      });
+    } catch (error) {
+      startLocation = null;
+    } finally {
+      this.currentPosition$.next(startLocation ? [startLocation.longitude, startLocation.latitude] : startLocation);
+
+      return startLocation;
+    }
   }
 }

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
-import { Platform, ModalController } from '@ionic/angular';
+import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { GeoJSONSource, GeoJSONSourceRaw, Map, MapboxOptions, Marker } from 'mapbox-gl';
 import { Observable } from 'rxjs';
@@ -20,6 +20,8 @@ import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { UnSubscribe } from '../abstract/unsubscribe';
 import { SettingsService } from '@app/services/settings/settings.service';
+import { TranslateService } from '@ngx-translate/core';
+import { throttle } from 'lodash';
 
 const mapboxgl = require('mapbox-gl');
 
@@ -30,7 +32,7 @@ const mapboxgl = require('mapbox-gl');
 })
 export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDestroy {
   private map: Map;
-  private markerPosition: Marker;
+  private markerPosition: Marker | undefined;
   private practices: DataSetting;
 
   @Input() public filteredTreks: MinimalTrek[] | null = null;
@@ -48,11 +50,15 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
     private geolocate: GeolocateService,
     private modalController: ModalController,
     private settings: SettingsService,
+    private alertController: AlertController,
+    private translate: TranslateService,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
       mapboxgl.accessToken = environment.mapbox.accessToken;
     }
+
+    this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -153,7 +159,14 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
                 const el = document.createElement('div');
                 el.className = 'pulse';
                 this.markerPosition = new mapboxgl.Marker({ element: el }).setLngLat(coordinates);
-                this.markerPosition.addTo(this.map);
+                if (this.markerPosition) {
+                  this.markerPosition.addTo(this.map);
+                }
+              }
+            } else {
+              if (this.markerPosition) {
+                this.markerPosition.remove();
+                this.markerPosition = undefined;
               }
             }
           }),
@@ -354,14 +367,25 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
   /**
    * Fly to user location else fitbounds to trek
    */
-  public flyToUserLocation(): void {
-    const userLocation = this.geolocate.currentPosition$.getValue();
+  public async flyToUserLocation() {
+    const userLocation = await this.geolocate.getCurrentPosition();
     if (userLocation) {
       this.map.flyTo({
-        center: userLocation,
+        center: [userLocation.longitude, userLocation.latitude],
         animate: false,
         zoom: environment.trekZoom.zoom,
       });
+    } else {
+      const errorTranslation: any = await this.translate.get('geolocate.error').toPromise();
+      // Inform user about problem
+      const alertLocation = await this.alertController.create({
+        header: errorTranslation['header'],
+        subHeader: errorTranslation['subHeader'],
+        message: errorTranslation['message'],
+        buttons: [errorTranslation['confirmButton']],
+      });
+
+      await alertLocation.present();
     }
   }
 }

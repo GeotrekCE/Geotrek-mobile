@@ -27,6 +27,7 @@ import { FeatureCollection } from 'geojson';
 import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 import { TranslateService } from '@ngx-translate/core';
+import { throttle } from 'lodash';
 
 const mapboxgl = require('mapbox-gl');
 
@@ -37,7 +38,7 @@ const mapboxgl = require('mapbox-gl');
 })
 export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
   private map: Map;
-  private markerPosition: Marker;
+  private markerPosition: Marker | undefined;
 
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois: Pois;
@@ -62,6 +63,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
       mapboxgl.accessToken = environment.mapbox.accessToken;
     }
+
+    this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -268,12 +271,19 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           this.geolocate.currentPosition$.subscribe(coordinates => {
             if (coordinates) {
               if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates);
+                this.markerPosition.setLngLat(coordinates as any);
               } else {
                 const el = document.createElement('div');
                 el.className = 'pulse';
                 this.markerPosition = new mapboxgl.Marker({ element: el }).setLngLat(coordinates);
-                this.markerPosition.addTo(this.map);
+                if (this.markerPosition) {
+                  this.markerPosition.addTo(this.map);
+                }
+              }
+            } else {
+              if (this.markerPosition) {
+                this.markerPosition.remove();
+                this.markerPosition = undefined;
               }
             }
           }),
@@ -757,14 +767,25 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   /**
    * Fly to user location else fitbounds to trek
    */
-  public flyToUserLocation(): void {
-    const userLocation = this.geolocate.currentPosition$.getValue();
+  public async flyToUserLocation() {
+    const userLocation = await this.geolocate.getCurrentPosition();
     if (userLocation) {
       this.map.flyTo({
-        center: userLocation,
+        center: [userLocation.longitude, userLocation.latitude],
         animate: false,
         zoom: environment.trekZoom.zoom,
       });
+    } else {
+      const errorTranslation: any = await this.translate.get('geolocate.error').toPromise();
+      // Inform user about problem
+      const alertLocation = await this.alertController.create({
+        header: errorTranslation['header'],
+        subHeader: errorTranslation['subHeader'],
+        message: errorTranslation['message'],
+        buttons: [errorTranslation['confirmButton']],
+      });
+
+      await alertLocation.present();
     }
   }
 
