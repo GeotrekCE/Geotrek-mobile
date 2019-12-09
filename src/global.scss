@@ -179,6 +179,11 @@ ion-fab-button {
     li {
       list-style-type: none;
       counter-increment: referencePoint;
+      display: flex;
+      align-items: center;
+      &:not(:first-child) {
+        margin-top: 12px;
+      }
     }
     li:before {
       position: absolute;
