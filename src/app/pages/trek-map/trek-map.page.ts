@@ -111,6 +111,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     this.modalPoiDetails = await this.modalController.create({
       component: PoiDetailsComponent,
       componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc },
+      cssClass: 'full-size',
     });
 
     this.modalPoiDetails.onDidDismiss().then(() => {

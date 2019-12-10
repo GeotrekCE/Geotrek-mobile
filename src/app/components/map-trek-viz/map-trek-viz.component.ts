@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable } from 'rxjs';
-import { PopoverController, AlertController } from '@ionic/angular';
+import { PopoverController, AlertController, ModalController } from '@ionic/angular';
+import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
@@ -39,6 +40,8 @@ const mapboxgl = require('mapbox-gl');
 export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
   private map: Map;
   private markerPosition: Marker | undefined;
+  private poisType: DataSetting | undefined;
+  private touristicsContentCategory: DataSetting | undefined;
 
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois: Pois;
@@ -58,6 +61,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     public popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController,
+    private modalController: ModalController,
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -204,12 +208,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
         const loadImages: Observable<any> = Observable.create((observer: any) => {
           const imagesToLoad: any[] = [];
-          const typePois: DataSetting | undefined = this.dataSettings.find(data => data.id === 'poi_types');
+          this.poisType = this.dataSettings.find(data => data.id === 'poi_types');
 
-          if (typePois) {
-            typePois.values.forEach(typePoi => {
-              if (typePoi.pictogram) {
-                imagesToLoad.push({ id: `pois${typePoi.id}`, pictogram: typePoi.pictogram });
+          if (this.poisType) {
+            this.poisType.values.forEach(poiType => {
+              if (poiType.pictogram) {
+                imagesToLoad.push({ id: `pois${poiType.id}`, pictogram: poiType.pictogram });
               }
             });
           }
@@ -462,18 +466,16 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       },
     });
 
-    const touristicsContent: DataSetting | undefined = this.dataSettings.find(
-      data => data.id === 'touristiccontent_categories',
-    );
+    this.touristicsContentCategory = this.dataSettings.find(data => data.id === 'touristiccontent_categories');
 
     const circleColorExpression: any[] = [];
 
-    if (touristicsContent) {
+    if (this.touristicsContentCategory) {
       circleColorExpression.push('match');
       circleColorExpression.push(['get', 'category']);
-      touristicsContent.values.forEach(touristicContent => {
-        circleColorExpression.push(touristicContent.id);
-        circleColorExpression.push(touristicContent.color);
+      this.touristicsContentCategory.values.forEach(category => {
+        circleColorExpression.push(category.id);
+        circleColorExpression.push(category.color);
       });
       circleColorExpression.push(environment.map.clusterPaint['circle-color']);
     }
@@ -485,7 +487,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: ['!', ['has', 'point_count']],
       paint: {
         ...environment.map.touristicContentLayersProperties.circle.paint,
-        'circle-color': touristicsContent ? (circleColorExpression as any) : '#000000',
+        'circle-color': this.touristicsContentCategory ? (circleColorExpression as any) : '#000000',
       },
       layout: {
         visibility:
@@ -860,7 +862,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
                 }
                 this.presentConfirmFeatures(
                   featuresInCluster as Feature<Geometry, { [name: string]: any }>[],
-                  clusterSource.translateId,
+                  clusterSource,
                 );
               },
             );
@@ -893,41 +895,61 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     });
   }
 
-  async presentConfirmFeatures(features: Feature<Geometry, { [name: string]: any }>[], translateId: string) {
-    const featuresRadio: Object[] = []; // can't import AlertOption
+  async presentConfirmFeatures(
+    features: Feature<Geometry, { [name: string]: any }>[],
+    clusterSource: { id: string; translateId: string },
+  ) {
+    const radioPois: {
+      id: number;
+      name: string;
+      imgTypePoi: { src: string | undefined; color: string | undefined };
+    }[] = [];
 
-    features.forEach((feature, index: number) => {
-      featuresRadio.push({
+    if (clusterSource.id === 'pois') {
+    } else {
+    }
+
+    features.forEach(feature => {
+      let currentType;
+      if (this.poisType && feature.properties.type && clusterSource.id === 'pois') {
+        currentType = this.poisType.values.find(poiType => poiType.id === feature.properties.type);
+      } else if (
+        this.touristicsContentCategory &&
+        feature.properties.category &&
+        clusterSource.id === 'touristics-content'
+      ) {
+        currentType = this.touristicsContentCategory.values.find(
+          category => category.id === feature.properties.category,
+        );
+      }
+      console.log(currentType);
+      const poi = {
+        id: feature.properties.id,
         name: feature.properties.name,
-        type: 'radio',
-        label: feature.properties.name,
-        value: feature,
-        checked: index === 0,
-      });
+        imgTypePoi: {
+          src: currentType && currentType.pictogram ? this.commonSrc + currentType.pictogram : undefined,
+          color: currentType && currentType.color ? currentType.color : undefined,
+        },
+      };
+
+      radioPois.push(poi);
     });
 
-    await this.translate
-      .get([translateId, 'mapTreks.treksAlert.confirmButton', 'mapTreks.treksAlert.cancelButton'])
-      .subscribe(async trad => {
-        const alert = await this.alertController.create({
-          header: trad[translateId],
-          inputs: featuresRadio,
-          buttons: [
-            {
-              text: trad['mapTreks.treksAlert.cancelButton'],
-              role: 'cancel',
-              cssClass: 'secondary',
-            },
-            {
-              text: trad['mapTreks.treksAlert.confirmButton'],
-              handler: feature => {
-                this.presentPoiDetails.emit(feature);
-              },
-            },
-          ],
-        });
+    const modal = await this.modalController.create({
+      component: SelectPoiComponent,
+      componentProps: { radioPois, themePois: clusterSource.translateId },
+      cssClass: 'full-size',
+    });
 
-        await alert.present();
-      });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if (data && data.selectedPoiId) {
+      const selectedFeature = features.find(feature => feature.properties.id === data.selectedPoiId);
+      if (selectedFeature) {
+        this.presentPoiDetails.emit(selectedFeature);
+      }
+    }
   }
 }

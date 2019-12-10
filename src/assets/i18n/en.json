@@ -36,7 +36,11 @@
   },
   "mapTrek": {
     "enableNotification": "Enable notifications",
-    "disableNotification": "Disable notifications"
+    "disableNotification": "Disable notifications",
+    "poisAlert": {
+      "confirmButton": "Ok",
+      "cancelButton": "Cancel"
+    }
   },
   "trek": {
     "downloadAlert": {
