@@ -64,6 +64,7 @@
       "theme": "Tematiche",
       "description": "Descrizione",
       "rules": "Regolamentazione",
+      "rulesDescription": "Questo percorso si trova nel cuore del parco nazionale, si prega di rispettare il regolamento.",
       "access": "Accesso stradale",
       "parking": "Parcheggio consigliato",
       "advice": "Raccomandazioni",

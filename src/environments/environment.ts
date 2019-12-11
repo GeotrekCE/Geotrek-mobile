@@ -183,4 +183,7 @@ export const environment = {
   poiCollapseInitialSize: 5,
   touristicContentCollapseInitialSize: 5,
   containsFilterShouldUseSelectAbove: 7,
+  trekDetails: {
+    showImgRulesIfParkCentered: true,
+  },
 };

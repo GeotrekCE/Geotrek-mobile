@@ -64,6 +64,7 @@
       "theme": "Themes",
       "description": "Description",
       "rules": "Regulation",
+      "rulesDescription": "This route is located in the heart of the national park, please respect the regulations.",
       "access": "Road access",
       "parking": "Parking advised",
       "advice": "Advices",

@@ -314,8 +314,10 @@
             <ion-text color="primary">
               <h2 class="custom-divider">{{ 'trek.details.rules' | translate }}</h2>
             </ion-text>
-            <p>Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.</p>
-            <div>
+            <p>
+              {{ 'trek.details.rulesDescription' | translate }}
+            </p>
+            <div *ngIf="showImgRulesIfParkCentered">
               <ion-img src="assets/image/reglementation.jpg" alt="rules"> </ion-img>
             </div>
           </ion-col>

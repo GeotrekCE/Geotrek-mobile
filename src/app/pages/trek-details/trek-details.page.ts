@@ -39,6 +39,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public touristicContents: TouristicContents;
   public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   public baseUrl = environment.onlineBaseUrl;
+  public showImgRulesIfParkCentered = environment.trekDetails.showImgRulesIfParkCentered;
   public mapLink: string;
   public treksTool: TreksService; // the accurate treks service
   public treksUrl = '';

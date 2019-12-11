@@ -64,6 +64,7 @@
       "theme": "Thématiques",
       "description": "Description",
       "rules": "Réglementation",
+      "rulesDescription": "Cet itinéraire est dans le coeur du parc national, veuillez respecter la réglementation.",
       "access": "Accès routier",
       "parking": "Parking conseillé",
       "advice": "Recommandations",
