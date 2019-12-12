@@ -154,6 +154,22 @@ In order to build the app without Firebase you had to
     ionic cordova build android
 ```
 
+## Tests
+
+### End-to-end testing
+
+Open cypress
+
+```
+npm run cypress:open
+```
+
+Headless mode
+
+```
+npm run cypress:run
+```
+
 ## Documentation
 
 [Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)

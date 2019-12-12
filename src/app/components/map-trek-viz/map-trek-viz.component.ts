@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChange,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable } from 'rxjs';
@@ -42,6 +43,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
   private touristicsContentCategory: DataSetting | undefined;
+
+  @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois: Pois;
@@ -296,6 +299,10 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
               this.initializeSources();
               this.initializeLayers();
               this.updateSources();
+
+              // map instance for cypress test
+              this.mapViz.nativeElement.mapInstance = this.map;
+
               this.mapIsLoaded.emit(true);
             },
           }),

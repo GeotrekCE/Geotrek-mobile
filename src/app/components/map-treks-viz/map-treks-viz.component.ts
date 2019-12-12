@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChange,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
@@ -34,6 +35,8 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
   private map: Map;
   private markerPosition: Marker | undefined;
   private practices: DataSetting;
+
+  @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() public filteredTreks: MinimalTrek[] | null = null;
   @Input() public mapConfig: MapboxOptions;
@@ -326,9 +329,13 @@ export class MapTreksVizComponent extends UnSubscribe implements OnChanges, OnDe
     this.map.on('mouseenter', 'trek-point', () => {
       this.map.getCanvas().style.cursor = 'pointer';
     });
+
     this.map.on('mouseleave', 'trek-point', () => {
       this.map.getCanvas().style.cursor = '';
     });
+
+    // map instance for cypress test
+    this.mapViz.nativeElement.mapInstance = this.map;
 
     this.mapIsLoaded.emit(true);
   }
