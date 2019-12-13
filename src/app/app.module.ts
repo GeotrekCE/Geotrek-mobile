@@ -1,4 +1,8 @@
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -59,14 +63,14 @@ registerLocaleData(localeFr, 'fr');
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent,
+    TreksOrderComponent
   ],
   entryComponents: [
     PoiDetailsComponent,
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent,
+    TreksOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,7 @@ registerLocaleData(localeFr, 'fr');
     IonicModule.forRoot({
       mode: 'md',
       animated: true,
-      navAnimation: noAnimation,
+      navAnimation: noAnimation
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -82,10 +86,10 @@ registerLocaleData(localeFr, 'fr');
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
@@ -105,8 +109,8 @@ registerLocaleData(localeFr, 'fr');
     TrekContextResolver,
     TreksContextResolver,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

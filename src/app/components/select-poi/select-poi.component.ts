@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-select-poi',
   templateUrl: './select-poi.component.html',
-  styleUrls: ['./select-poi.component.scss'],
+  styleUrls: ['./select-poi.component.scss']
 })
 export class SelectPoiComponent implements OnInit {
   @Input() public themePois: string;

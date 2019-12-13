@@ -5,7 +5,7 @@ import { Filter, FilterValue } from '@app/interfaces/interfaces';
 @Component({
   selector: 'app-select-filter',
   templateUrl: './select-filter.component.html',
-  styleUrls: ['./select-filter.component.scss'],
+  styleUrls: ['./select-filter.component.scss']
 })
 export class SelectFilterComponent implements OnInit {
   @Input() public filter: Filter;
@@ -33,7 +33,10 @@ export class SelectFilterComponent implements OnInit {
 
   public expandFilterValues(infiniteScroll: any): void {
     if (this.currentMaxFilterValues < this.filter.values.length) {
-      if (this.currentMaxFilterValues + this.filterValuesByStep > this.filter.values.length) {
+      if (
+        this.currentMaxFilterValues + this.filterValuesByStep >
+        this.filter.values.length
+      ) {
         this.currentMaxFilterValues = this.filter.values.length;
       } else {
         this.currentMaxFilterValues += this.filterValuesByStep;
@@ -47,7 +50,9 @@ export class SelectFilterComponent implements OnInit {
   }
 
   public valueChanged(event: { checked: boolean; value: FilterValue }): void {
-    const filterValue = this.temporaryFilter.values.find(value => value.id === event.value.id);
+    const filterValue = this.temporaryFilter.values.find(
+      (value) => value.id === event.value.id
+    );
     if (filterValue) {
       filterValue.checked = event.checked;
     }

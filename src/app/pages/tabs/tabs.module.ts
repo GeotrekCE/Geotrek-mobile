@@ -18,7 +18,7 @@ import { MorePageModule } from '../more/more.module';
     TreksPageModule,
     MorePageModule,
     TranslateModule.forChild(),
-    SharedUiModule,
+    SharedUiModule
   ],
   declarations: [TabsPage]
 })

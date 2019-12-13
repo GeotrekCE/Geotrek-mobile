@@ -209,8 +209,14 @@ import { CustomPipesModule } from &#x27;./custom-pipes.module&#x27;;
 
 @NgModule({
   declarations: [PoiComponent, TrekCardComponent],
-  imports: [CommonModule, IonicModule, RouterModule, TranslateModule.forChild(), CustomPipesModule],
-  exports: [PoiComponent, TrekCardComponent],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule,
+    TranslateModule.forChild(),
+    CustomPipesModule
+  ],
+  exports: [PoiComponent, TrekCardComponent]
 })
 export class SharedTreksModule {}
 </code></pre>

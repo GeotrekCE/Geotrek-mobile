@@ -1,10 +1,16 @@
-import { Component, Input, OnInit, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  TemplateRef,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 @Component({
   selector: 'app-collapsible-list',
   templateUrl: './collapsible-list.component.html',
   styleUrls: ['./collapsible-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollapsibleListComponent<T> implements OnInit {
   @Input() items: T[];
@@ -23,7 +29,10 @@ export class CollapsibleListComponent<T> implements OnInit {
   ngOnInit() {
     this.expanded = this.initialState === 'expanded';
     this.alwaysDisplayedItems = this.items.slice(0, this.initialSize);
-    this.expandableItems = this.items.slice(this.initialSize, this.items.length);
+    this.expandableItems = this.items.slice(
+      this.initialSize,
+      this.items.length
+    );
   }
 
   public toggleExpandables() {

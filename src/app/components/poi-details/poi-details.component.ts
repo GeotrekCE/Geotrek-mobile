@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
-  styleUrls: ['./poi-details.component.scss'],
+  styleUrls: ['./poi-details.component.scss']
 })
 export class PoiDetailsComponent {
   public offline = false;
@@ -28,7 +28,7 @@ export class PoiDetailsComponent {
     public navParams: NavParams,
     public settings: SettingsService,
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService,
+    public onlineTreks: OnlineTreksService
   ) {}
 
   ionViewWillEnter() {
@@ -47,24 +47,32 @@ export class PoiDetailsComponent {
       if (this.offline) {
         this.picture = {
           ...this.poi.properties.pictures[0],
-          url: this.offlineTreks.getTrekImageSrc({} as Trek, this.poi.properties.pictures[0]),
+          url: this.offlineTreks.getTrekImageSrc(
+            {} as Trek,
+            this.poi.properties.pictures[0]
+          )
         };
       } else {
         this.picture = {
           ...this.poi.properties.pictures[0],
-          url: this.onlineTreks.getTrekImageSrc({} as Trek, this.poi.properties.pictures[0]),
+          url: this.onlineTreks.getTrekImageSrc(
+            {} as Trek,
+            this.poi.properties.pictures[0]
+          )
         };
       }
     } else {
       this.picture = null;
     }
 
-    this.settingsSub = this.settings.data$.subscribe(settings => {
+    this.settingsSub = this.settings.data$.subscribe((settings) => {
       if (settings) {
-        const typePois = settings.find(setting => setting.id === 'poi_types');
+        const typePois = settings.find((setting) => setting.id === 'poi_types');
 
         if (typePois && this.poi.properties.type) {
-          const currentTypePoi = typePois.values.find(typePoi => typePoi.id === this.poi.properties.type);
+          const currentTypePoi = typePois.values.find(
+            (typePoi) => typePoi.id === this.poi.properties.type
+          );
           if (currentTypePoi) {
             this.typeImgSrc = this.commonSrc + currentTypePoi.pictogram;
           }

@@ -12,7 +12,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss'],
+  styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   public temporaryFilters$ = new BehaviorSubject<Filter[]>([]);
@@ -27,7 +27,7 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
     public settings: SettingsService,
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
-    private platform: Platform,
+    private platform: Platform
   ) {
     super();
   }
@@ -37,10 +37,14 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter(): void {
-    const treks$ = this.isOnline ? this.onlineTreks.treks$ : this.offlineTreks.treks$;
-    this.commonSrc = this.isOnline ? this.onlineTreks.getCommonImgSrc() : this.offlineTreks.getCommonImgSrc();
+    const treks$ = this.isOnline
+      ? this.onlineTreks.treks$
+      : this.offlineTreks.treks$;
+    this.commonSrc = this.isOnline
+      ? this.onlineTreks.getCommonImgSrc()
+      : this.offlineTreks.getCommonImgSrc();
 
-    this.filtersSubscription = this.settings.filters$.subscribe(filters => {
+    this.filtersSubscription = this.settings.filters$.subscribe((filters) => {
       this.filters = filters || [];
       this.temporaryFilters$.next(filters || []);
     });
@@ -52,23 +56,35 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
 
       combineLatest(treks$, this.temporaryFilters$).subscribe(
         ([treks, temporaryFilters]: [MinimalTreks | null, Filter[]]) => {
-          this.nbTemporaryFiltersTreks = !!treks ? FilterTreksService.filter(treks, temporaryFilters).length : 0;
-        },
-      ),
+          this.nbTemporaryFiltersTreks = !!treks
+            ? FilterTreksService.filter(treks, temporaryFilters).length
+            : 0;
+        }
+      )
     );
   }
 
-  public handleFiltersState(checkState: boolean, filter: Filter, value: FilterValue): void {
+  public handleFiltersState(
+    checkState: boolean,
+    filter: Filter,
+    value: FilterValue
+  ): void {
     const temporaryFilters = [...this.temporaryFilters$.getValue()];
-    const temporaryFilter = temporaryFilters.find(tempFilter => tempFilter.id === filter.id) as Filter;
-    const filterValue = temporaryFilter.values.find(tempValue => tempValue.id === value.id) as FilterValue;
+    const temporaryFilter = temporaryFilters.find(
+      (tempFilter) => tempFilter.id === filter.id
+    ) as Filter;
+    const filterValue = temporaryFilter.values.find(
+      (tempValue) => tempValue.id === value.id
+    ) as FilterValue;
     filterValue.checked = checkState;
     this.temporaryFilters$.next(temporaryFilters);
   }
 
   public handleSelect(event: { filter: Filter }): void {
     const temporaryFilters = [...this.temporaryFilters$.getValue()];
-    let temporaryFilterIndex = temporaryFilters.findIndex(tempFilter => tempFilter.id === event.filter.id);
+    let temporaryFilterIndex = temporaryFilters.findIndex(
+      (tempFilter) => tempFilter.id === event.filter.id
+    );
     if (temporaryFilterIndex) {
       temporaryFilters[temporaryFilterIndex] = event.filter;
       this.temporaryFilters$.next(temporaryFilters);
@@ -83,8 +99,8 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
 
   public eraseFilters(): void {
     const temporaryFilters = [...this.temporaryFilters$.getValue()];
-    temporaryFilters.forEach(filter => {
-      filter.values.forEach(value => (value.checked = false));
+    temporaryFilters.forEach((filter) => {
+      filter.values.forEach((value) => (value.checked = false));
     });
     this.temporaryFilters$.next(temporaryFilters);
   }

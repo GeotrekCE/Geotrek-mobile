@@ -15,7 +15,7 @@ import {
   TrekContext,
   InformationDesk,
   TouristicCategoryWithFeatures,
-  TreksService,
+  TreksService
 } from '@app/interfaces/interfaces';
 import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
@@ -24,7 +24,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-trek-map',
   templateUrl: './trek-map.page.html',
-  styleUrls: ['./trek-map.page.scss'],
+  styleUrls: ['./trek-map.page.scss']
 })
 export class TrekMapPage extends UnSubscribe implements OnDestroy {
   public currentTrek: HydratedTrek | null = null;
@@ -47,7 +47,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     public settings: SettingsService,
     private platform: Platform,
     private popoverCtrl: PopoverController,
-    private location: Location,
+    private location: Location
   ) {
     super();
   }
@@ -65,13 +65,16 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
           this.offline = context.offline;
           this.currentTrek = context.trek;
           this.currentPois = context.pois;
-          this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
+          this.touristicCategoriesWithFeatures =
+            context.touristicCategoriesWithFeatures;
           this.mapConfig = context.mapConfig;
           this.treksTool = context.treksTool;
           this.commonSrc = context.treksTool.getCommonImgSrc();
-          this.trekUrl = context.treksTool.getTrekDetailsUrl((this.currentTrek as any).properties.id);
+          this.trekUrl = context.treksTool.getTrekDetailsUrl(
+            (this.currentTrek as any).properties.id
+          );
         }
-      }),
+      })
     );
 
     if (this.platform.is('android')) {
@@ -93,7 +96,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
             this.location.back();
           } catch (error) {}
-        }),
+        })
       );
     }
   }
@@ -111,7 +114,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     this.modalPoiDetails = await this.modalController.create({
       component: PoiDetailsComponent,
       componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
 
     this.modalPoiDetails.onDidDismiss().then(() => {
@@ -121,10 +124,12 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     return await this.modalPoiDetails.present();
   }
 
-  public async presentInformationDeskDetails(informationDesk: InformationDesk): Promise<void> {
+  public async presentInformationDeskDetails(
+    informationDesk: InformationDesk
+  ): Promise<void> {
     const modal = await this.modalController.create({
       component: InformationDeskDetailsComponent,
-      componentProps: { informationDesk },
+      componentProps: { informationDesk }
     });
     return await modal.present();
   }
@@ -139,7 +144,9 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
   public navigateToChildren(id: number) {
     if (this.currentTrek) {
-      this.router.navigate([this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)]);
+      this.router.navigate([
+        this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)
+      ]);
     }
   }
 }

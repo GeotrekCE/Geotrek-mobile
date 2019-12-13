@@ -186,7 +186,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(navParams: NavParams, settings: <a href="../injectables/SettingsService.html">SettingsService</a>, platform: Platform, backgroundGeolocation: BackgroundGeolocation)</code>
+<code>constructor(navParams: NavParams, settings: <a href="../injectables/SettingsService.html">SettingsService</a>, platform: Platform, backgroundGeolocation: BackgroundGeolocation, popoverController: PopoverController)</code>
                     </td>
                 </tr>
                         <tr>
@@ -256,6 +256,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>popoverController</td>
+                                                  
+                                                        <td>
+                                                                    <code>PopoverController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -296,8 +308,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/app/components/treks-order/treks-order.component.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/app/components/treks-order/treks-order.component.ts:29</a></div>
                 </td>
             </tr>
 
@@ -338,8 +350,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/app/components/treks-order/treks-order.component.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/components/treks-order/treks-order.component.ts:39</a></div>
                 </td>
             </tr>
 
@@ -605,7 +617,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { BackgroundGeolocation } from &#x27;@ionic-native/background-geolocation/ngx&#x27;;
-import { NavParams, Platform } from &#x27;@ionic/angular&#x27;;
+import { NavParams, Platform, PopoverController } from &#x27;@ionic/angular&#x27;;
 
 import { UnSubscribe } from &#x27;@app/components/abstract/unsubscribe&#x27;;
 import { SettingsService } from &#x27;@app/services/settings/settings.service&#x27;;
@@ -614,7 +626,7 @@ import { Order } from &#x27;@app/interfaces/interfaces&#x27;;
 @Component({
   selector: &#x27;app-treks-order&#x27;,
   templateUrl: &#x27;./treks-order.component.html&#x27;,
-  styleUrls: [&#x27;./treks-order.component.scss&#x27;],
+  styleUrls: [&#x27;./treks-order.component.scss&#x27;]
 })
 export class TreksOrderComponent extends UnSubscribe {
   orders: any;
@@ -626,6 +638,7 @@ export class TreksOrderComponent extends UnSubscribe {
     private settings: SettingsService,
     private platform: Platform,
     private backgroundGeolocation: BackgroundGeolocation,
+    private popoverController: PopoverController
   ) {
     super();
   }
@@ -634,30 +647,60 @@ export class TreksOrderComponent extends UnSubscribe {
     this.orders &#x3D; this.navParams.get(&#x27;orders&#x27;);
 
     this.subscriptions$$.push(
-      this.settings.order$.subscribe(order &#x3D;&gt; {
+      this.settings.order$.subscribe((order) &#x3D;&gt; {
         this.currentOrder &#x3D; order.type;
-      }),
+      })
     );
   }
 
   public async treksOrderChange(event: any) {
+    let error &#x3D; false;
     if (!this.isFirstCheck) {
+      // disable backdrop dismiss while treksOrderChange
+      const trekOrderPopOver: any &#x3D; this.popoverController.getTop();
+      trekOrderPopOver.__zone_symbol__value.backdropDismiss &#x3D; false;
       if (event.detail.value &#x3D;&#x3D;&#x3D; &#x27;location&#x27;) {
         if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
-          const startLocation &#x3D; await this.backgroundGeolocation.getCurrentLocation();
+          let startLocation;
+          try {
+            startLocation &#x3D; await this.backgroundGeolocation.getCurrentLocation(
+              {
+                timeout: 3000,
+                maximumAge: 10000,
+                enableHighAccuracy: true
+              }
+            );
+          } catch (catchError) {
+            error &#x3D; true;
+          }
           if (startLocation) {
-            this.settings.saveOrderState(event.detail.value, [startLocation.longitude, startLocation.latitude]);
+            this.settings.saveOrderState(event.detail.value, [
+              startLocation.longitude,
+              startLocation.latitude
+            ]);
           } else {
+            error &#x3D; true;
             // If location not provided, reset default order
             this.settings.saveOrderState(&#x27;default&#x27;);
           }
+          await this.popoverController.dismiss({ error });
         } else if (&#x27;geolocation&#x27; in navigator) {
-          navigator.geolocation.getCurrentPosition(position &#x3D;&gt; {
-            this.settings.saveOrderState(event.detail.value, [position.coords.longitude, position.coords.latitude]);
-          });
+          navigator.geolocation.getCurrentPosition(
+            async (position) &#x3D;&gt; {
+              this.settings.saveOrderState(event.detail.value, [
+                position.coords.longitude,
+                position.coords.latitude
+              ]);
+              await this.popoverController.dismiss();
+            },
+            async () &#x3D;&gt; {
+              await this.popoverController.dismiss({ error: true });
+            }
+          );
         }
       } else {
         this.settings.saveOrderState(event.detail.value);
+        await this.popoverController.dismiss();
       }
     } else {
       this.isFirstCheck &#x3D; false;
@@ -723,7 +766,7 @@ export class TreksOrderComponent extends UnSubscribe {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ion-list lines="inset">  <ion-radio-group>    <ion-list-header>      <ion-label>{{ \'toolbar.orderTitle\' | translate }}</ion-label>    </ion-list-header>    <ion-item class="no-lines" *ngFor="let order of orders">      <ion-label>{{ order.name }}</ion-label>      <ion-radio        (ionSelect)="treksOrderChange($event)"        [checked]="order.value === currentOrder"        [value]="order.value"        slot="end"      ></ion-radio>    </ion-item>  </ion-radio-group></ion-list></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TreksOrderComponent'};
 </script>

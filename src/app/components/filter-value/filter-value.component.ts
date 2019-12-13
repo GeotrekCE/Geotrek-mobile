@@ -4,12 +4,15 @@ import { FilterValue } from '@app/interfaces/interfaces';
 @Component({
   selector: 'app-filter-value',
   templateUrl: './filter-value.component.html',
-  styleUrls: ['./filter-value.component.scss'],
+  styleUrls: ['./filter-value.component.scss']
 })
 export class FilterValueComponent implements OnInit {
   @Input() value: FilterValue;
   @Input() commonSrc: string;
-  @Output() public valueChange = new EventEmitter<{ checked: boolean; value: FilterValue }>();
+  @Output() public valueChange = new EventEmitter<{
+    checked: boolean;
+    value: FilterValue;
+  }>();
 
   constructor() {}
 

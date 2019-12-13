@@ -3,21 +3,17 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, publishReplay, refCount, take, tap } from 'rxjs/operators';
 
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CacheService {
-
   private cache: { [key: string]: Observable<any> } = {};
   private refreshDelay = 4 * 60 * 60 * 1000;
   private maxSize = 200;
   public revoke: EventEmitter<string | null> = new EventEmitter();
   public hits: { [key: string]: number } = {};
 
-  constructor(
-    private http: HttpClient,
-  ) {
+  constructor(private http: HttpClient) {
     this.revoke.subscribe((revoked: string | null) => {
       if (!revoked) {
         this.cache = {};
@@ -59,7 +55,7 @@ export class CacheService {
         }),
         catchError((error) => {
           delete this.cache[url];
-          return throwError(error)
+          return throwError(error);
         })
       );
     }
@@ -69,10 +65,14 @@ export class CacheService {
   /*
    Make the observable revoke the cache when it emits
    */
-  public revoking<T>(observable: Observable<T>, revoked?: string | null): Observable<T> {
-    return observable.pipe(tap(() => {
-      this.revoke.emit(revoked);
-    }));
+  public revoking<T>(
+    observable: Observable<T>,
+    revoked?: string | null
+  ): Observable<T> {
+    return observable.pipe(
+      tap(() => {
+        this.revoke.emit(revoked);
+      })
+    );
   }
-
 }

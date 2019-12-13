@@ -19,8 +19,8 @@ import { TreksPage } from './treks.page';
     SharedUiModule,
     FiltersComponentModule,
     RouterModule.forChild([]),
-    TranslateModule.forChild(),
+    TranslateModule.forChild()
   ],
-  declarations: [TreksPage],
+  declarations: [TreksPage]
 })
 export class TreksPageModule {}

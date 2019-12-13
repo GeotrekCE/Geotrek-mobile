@@ -11,7 +11,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html',
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
   constructor(
@@ -21,8 +21,8 @@ export class AppComponent {
     private translate: TranslateService,
     private globalization: Globalization,
     private onlineTreks: OnlineTreksService,
-    private settings: SettingsService,
-    ) {
+    private settings: SettingsService
+  ) {
     this.initializeApp();
   }
 
@@ -31,7 +31,10 @@ export class AppComponent {
       let defaultLanguage;
 
       if (this.platform.is('ios') || this.platform.is('android')) {
-        defaultLanguage = (await this.globalization.getPreferredLanguage()).value.slice(0, 2);
+        defaultLanguage = (await this.globalization.getPreferredLanguage()).value.slice(
+          0,
+          2
+        );
         this.statusBar.styleLightContent();
         this.splashScreen.hide();
       } else {
@@ -39,7 +42,10 @@ export class AppComponent {
       }
 
       // we assume that availableLanguage[0] is default language if user language is not available
-      if (environment.availableLanguage && environment.availableLanguage.length > 0) {
+      if (
+        environment.availableLanguage &&
+        environment.availableLanguage.length > 0
+      ) {
         if (environment.availableLanguage.indexOf(defaultLanguage) === -1) {
           defaultLanguage = environment.availableLanguage[0];
         }

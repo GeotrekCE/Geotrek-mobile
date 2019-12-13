@@ -104,7 +104,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/resolvers/more.resolver.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/resolvers/more.resolver.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -185,18 +185,24 @@ import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x2
 import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable()
-export class MoreResolver implements Resolve&lt;InformationIntro[] | &#x27;connectionError&#x27;&gt; {
+export class MoreResolver
+  implements Resolve&lt;InformationIntro[] | &#x27;connectionError&#x27;&gt; {
   constructor(
     private more: MoreInformationsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve &#x3D; (route: ActivatedRouteSnapshot) &#x3D;&gt;
     this.more.getMoreItems().pipe(
       tap(() &#x3D;&gt; {
-        if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
-          this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}&#x60;);
+        if (
+          (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp;
+          environment.useFirebase
+        ) {
+          this.firebaseAnalytics.setCurrentScreen(
+            &#x60;${(route.component as any).name}&#x60;
+          );
         }
       }),
       catchError((error: HttpErrorResponse) &#x3D;&gt; {
@@ -205,7 +211,7 @@ export class MoreResolver implements Resolve&lt;InformationIntro[] | &#x27;conne
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
 }
 </code></pre>

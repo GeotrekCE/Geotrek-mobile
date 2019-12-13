@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,7 +21,7 @@ import {
   TouristicEvent,
   TouristicCategoryWithFeatures,
   TouristicContents,
-  DataSetting,
+  DataSetting
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -28,7 +34,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
   selector: 'app-trek-details',
   templateUrl: './trek-details.page.html',
   styleUrls: ['./trek-details.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public originalTrek: Trek;
@@ -39,7 +45,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public touristicContents: TouristicContents;
   public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
   public baseUrl = environment.onlineBaseUrl;
-  public showImgRulesIfParkCentered = environment.trekDetails.showImgRulesIfParkCentered;
+  public showImgRulesIfParkCentered =
+    environment.trekDetails.showImgRulesIfParkCentered;
   public mapLink: string;
   public treksTool: TreksService; // the accurate treks service
   public treksUrl = '';
@@ -47,7 +54,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public commonSrc: string;
   public typePois: DataSetting | undefined;
   public poiCollapseInitialSize = environment.poiCollapseInitialSize;
-  public touristicContentCollapseInitialSize = environment.touristicContentCollapseInitialSize;
+  public touristicContentCollapseInitialSize =
+    environment.touristicContentCollapseInitialSize;
   public isItinerancy = false;
   public isStage = false;
   public stageIndex: number;
@@ -67,7 +75,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     private platform: Platform,
     public settings: SettingsService,
     private firebaseAnalytics: FirebaseAnalytics,
-    private ref: ChangeDetectorRef,
+    private ref: ChangeDetectorRef
   ) {
     super();
   }
@@ -86,7 +94,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
           this.connectionError = false;
           if (context !== null) {
             this.isItinerancy = !!(
-              context.trek.properties.children && context.trek.properties.children.features.length > 0
+              context.trek.properties.children &&
+              context.trek.properties.children.features.length > 0
             );
 
             this.offline = context.offline;
@@ -95,28 +104,37 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
             this.currentPois = context.pois.features;
             this.treksTool = context.treksTool;
             this.touristicContents = context.touristicContents;
-            this.touristicCategoriesWithFeatures = context.touristicCategoriesWithFeatures;
+            this.touristicCategoriesWithFeatures =
+              context.touristicCategoriesWithFeatures;
             this.touristicEvents = context.touristicEvents.features;
             this.treksUrl = this.treksTool.getTreksUrl();
             this.commonSrc = context.commonSrc;
             this.mapLink = context.treksTool.getTrekMapUrl(
               context.trek.properties.id,
-              context.parentTrek ? context.parentTrek.properties.id : undefined,
+              context.parentTrek ? context.parentTrek.properties.id : undefined
             );
             this.isStage = context.isStage;
             if (context.isStage && context.parentTrek) {
               this.parentTrek = context.parentTrek;
 
               this.stageIndex = this.parentTrek.properties.children.features.findIndex(
-                children => children.properties.id === this.currentTrek.properties.id,
+                (children) =>
+                  children.properties.id === this.currentTrek.properties.id
               );
 
               if (this.stageIndex > 0) {
-                this.previousTrek = this.parentTrek.properties.children.features[this.stageIndex - 1];
+                this.previousTrek = this.parentTrek.properties.children.features[
+                  this.stageIndex - 1
+                ];
               }
 
-              if (this.stageIndex < this.parentTrek.properties.children.features.length) {
-                this.nextTrek = this.parentTrek.properties.children.features[this.stageIndex + 1];
+              if (
+                this.stageIndex <
+                this.parentTrek.properties.children.features.length
+              ) {
+                this.nextTrek = this.parentTrek.properties.children.features[
+                  this.stageIndex + 1
+                ];
               }
             }
 
@@ -124,17 +142,21 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
           }
         }
       }),
-      this.settings.data$.subscribe(settings => {
+      this.settings.data$.subscribe((settings) => {
         if (settings) {
-          this.typePois = settings.find(setting => setting.id === 'poi_types');
+          this.typePois = settings.find(
+            (setting) => setting.id === 'poi_types'
+          );
           this.ref.markForCheck();
         }
-      }),
+      })
     );
   }
 
   async downloadTrek() {
-    const simpleTrek = this.onlineTreks.getMinimalTrekById(this.currentTrek.properties.id);
+    const simpleTrek = this.onlineTreks.getMinimalTrekById(
+      this.currentTrek.properties.id
+    );
     if (!simpleTrek) {
       return;
     }
@@ -143,29 +165,42 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
 
     const modalProgress = await this.modalController.create({
       component: ProgressComponent,
-      cssClass: 'progress-modal',
+      cssClass: 'progress-modal'
     });
     await modalProgress.present();
 
-    this.offlineTreks.saveTrek(simpleTrek, this.originalTrek, this.currentPois, this.touristicContents).subscribe(
-      saveResult => {
-        modalProgress.dismiss();
-        this.presentDownloadConfirm(true, saveResult);
-        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-          this.firebaseAnalytics.logEvent(`Download ${this.currentTrek.properties.name}`, {
-            download: this.currentTrek.properties.name,
-          });
+    this.offlineTreks
+      .saveTrek(
+        simpleTrek,
+        this.originalTrek,
+        this.currentPois,
+        this.touristicContents
+      )
+      .subscribe(
+        (saveResult) => {
+          modalProgress.dismiss();
+          this.presentDownloadConfirm(true, saveResult);
+          if (
+            (this.platform.is('ios') || this.platform.is('android')) &&
+            environment.useFirebase
+          ) {
+            this.firebaseAnalytics.logEvent(
+              `Download ${this.currentTrek.properties.name}`,
+              {
+                download: this.currentTrek.properties.name
+              }
+            );
+          }
+        },
+        (saveResult) => {
+          modalProgress.dismiss();
+          this.presentDownloadConfirm(true, saveResult);
         }
-      },
-      saveResult => {
-        modalProgress.dismiss();
-        this.presentDownloadConfirm(true, saveResult);
-      },
-    );
+      );
   }
 
   public async presentDownloadConfirm(isAlert?: boolean, success?: boolean) {
-    await this.translate.get('trek.downloadAlert').subscribe(async trad => {
+    await this.translate.get('trek.downloadAlert').subscribe(async (trad) => {
       const downloadConfirm = await this.alertController.create({
         header: trad.titleTrek,
         message: isAlert
@@ -181,15 +216,15 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
               {
                 text: trad.cancelButton,
                 role: 'cancel',
-                cssClass: 'secondary',
+                cssClass: 'secondary'
               },
               {
                 text: trad.confirmButton,
                 handler: () => {
                   this.downloadTrek();
-                },
-              },
-            ],
+                }
+              }
+            ]
       });
 
       await downloadConfirm.present();
@@ -207,7 +242,8 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public shareTrek(): void {
     if (this.platform.is('ios') || this.platform.is('android')) {
       const shareWithImg: string | undefined =
-        this.currentTrek.properties.pictures && this.currentTrek.properties.pictures.length > 0
+        this.currentTrek.properties.pictures &&
+        this.currentTrek.properties.pictures.length > 0
           ? this.currentTrek.properties.pictures[0].url
           : undefined;
       const onlineUrl = this.baseUrl.replace('mobile', '');
@@ -215,25 +251,42 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         message: this.currentTrek.properties.name,
         subject: environment.appName,
         files: shareWithImg
-          ? [`${onlineUrl}${shareWithImg.slice(shareWithImg.indexOf('media'), shareWithImg.length)}`]
+          ? [
+              `${onlineUrl}${shareWithImg.slice(
+                shareWithImg.indexOf('media'),
+                shareWithImg.length
+              )}`
+            ]
           : [],
-        url: `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`,
+        url: `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`
       };
       this.socialSharing.shareWithOptions(sharingOptions).then(() => {
-        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-          this.firebaseAnalytics.logEvent(`Share ${this.currentTrek.properties.name}`, {
-            name: this.currentTrek.properties.name,
-          });
+        if (
+          (this.platform.is('ios') || this.platform.is('android')) &&
+          environment.useFirebase
+        ) {
+          this.firebaseAnalytics.logEvent(
+            `Share ${this.currentTrek.properties.name}`,
+            {
+              name: this.currentTrek.properties.name
+            }
+          );
         }
       });
     }
   }
 
   public scrollToStages(stages: any): void {
-    stages.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    stages.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    });
   }
 
   public goToStep(stepId: number): string {
-    return `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${this.parentTrek.properties.id}/${stepId}`;
+    return `/app/tabs/treks${this.offline ? '-offline' : ''}/trek-details/${
+      this.parentTrek.properties.id
+    }/${stepId}`;
   }
 }

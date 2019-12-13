@@ -4,7 +4,8 @@
       <ion-back-button [defaultHref]="treksUrl"></ion-back-button>
     </ion-buttons>
     <div *ngIf="currentTrek" class="custom-title">
-      <ion-text *ngIf="isStage">{{ 'trek.details.stage' | translate }} {{ stageIndex + 1 }} -</ion-text
+      <ion-text *ngIf="isStage"
+        >{{ 'trek.details.stage' | translate }} {{ stageIndex + 1 }} -</ion-text
       ><ion-text> {{ currentTrek.properties.name }}</ion-text>
     </div>
     <ion-buttons slot="primary">
@@ -29,17 +30,30 @@
     </app-connect-error>
   </ng-container>
   <ng-template #trekDetail>
-    <ion-fab *ngIf="currentTrek" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab
+      *ngIf="currentTrek"
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+    >
       <ion-fab-button class="no-outline" [routerLink]="mapLink">
         <ion-icon name="map"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 
     <div *ngIf="currentTrek">
-      <ion-slides *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0" pager="true">
+      <ion-slides
+        *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0"
+        pager="true"
+      >
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <ion-img [src]="getPictureSrc(picture)" [alt]="picture.title"></ion-img>
+          <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+          >
+            <ion-img
+              [src]="getPictureSrc(picture)"
+              [alt]="picture.title"
+            ></ion-img>
             <div class="ion-padding-top legend-text">
               {{ picture!.legend }}
               <span *ngIf="!!picture.author">({{ picture!.author }})</span>
@@ -66,7 +80,9 @@
         <ion-row *ngIf="isStage">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.parents' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.parents' | translate }}
+              </h2>
             </ion-text>
           </ion-col>
         </ion-row>
@@ -77,7 +93,10 @@
             <div>
               {{ parentTrek.properties.name }}
             </div>
-            <div>{{ parentTrek.properties.children.features.length }} {{ 'trek.details.stages' | translate }}</div>
+            <div>
+              {{ parentTrek.properties.children.features.length }} {{
+              'trek.details.stages' | translate }}
+            </div>
             <div class="stage-container">
               <ion-button
                 [routerLink]="goToStep(previousTrek.properties.id)"
@@ -88,7 +107,8 @@
                 expand="full"
                 size="large"
               >
-                {{ 'trek.details.stage' | translate }} {{ stageIndex }} - {{ previousTrek.properties.name }}
+                {{ 'trek.details.stage' | translate }} {{ stageIndex }} - {{
+                previousTrek.properties.name }}
                 <ion-icon name="arrow-back" slot="start"></ion-icon>
               </ion-button>
               <ion-button
@@ -100,7 +120,8 @@
                 expand="full"
                 size="large"
               >
-                {{ 'trek.details.stage' | translate }} {{ stageIndex + 2 }} - {{ nextTrek.properties.name }}
+                {{ 'trek.details.stage' | translate }} {{ stageIndex + 2 }} - {{
+                nextTrek.properties.name }}
                 <ion-icon name="arrow-forward" slot="end"></ion-icon>
               </ion-button>
             </div>
@@ -110,7 +131,9 @@
         <ion-row>
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.features' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.features' | translate }}
+              </h2>
             </ion-text>
           </ion-col>
         </ion-row>
@@ -118,13 +141,16 @@
         <ion-row *ngIf="isItinerancy">
           <ion-col>
             <ion-button (click)="scrollToStages(stages)" fill="outline">
-              {{ currentTrek.properties.children.features.length }} {{ 'trek.details.stages' | translate }}
+              {{ currentTrek.properties.children.features.length }} {{
+              'trek.details.stages' | translate }}
             </ion-button>
           </ion-col>
         </ion-row>
 
         <!-- Informations -->
-        <ion-row *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival">
+        <ion-row
+          *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival"
+        >
           <ion-col>
             <div
               class="no-vertical-padding"
@@ -133,22 +159,30 @@
                 currentTrek.properties.departure !== currentTrek.properties.arrival
               "
             >
-              <div *ngIf="currentTrek.properties.departure && currentTrek.properties.departure.length > 0">
+              <div
+                *ngIf="currentTrek.properties.departure && currentTrek.properties.departure.length > 0"
+              >
                 <ion-text color="primary">
-                  <h5 class="no-margin-top">{{ 'trek.details.departure' | translate }}</h5>
+                  <h5 class="no-margin-top">
+                    {{ 'trek.details.departure' | translate }}
+                  </h5>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.departure_city">
-                  {{ 'trek.details.city' | translate }} {{ currentTrek.properties.departure_city?.name }}
+                  {{ 'trek.details.city' | translate }} {{
+                  currentTrek.properties.departure_city?.name }}
                 </div>
                 {{ currentTrek.properties.departure }}
               </div>
 
-              <div *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0">
+              <div
+                *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0"
+              >
                 <ion-text color="primary">
                   <h5>{{ 'trek.details.arrival' | translate }}</h5>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.arrival_city">
-                  {{ 'trek.details.city' | translate }} {{ currentTrek.properties.arrival_city?.name }}
+                  {{ 'trek.details.city' | translate }} {{
+                  currentTrek.properties.arrival_city?.name }}
                 </div>
                 {{ currentTrek.properties.arrival }}
               </div>
@@ -161,11 +195,14 @@
               "
             >
               <ion-text color="primary">
-                <h5 class="no-margin-top">{{ 'trek.details.departureArrival' | translate }}</h5>
+                <h5 class="no-margin-top">
+                  {{ 'trek.details.departureArrival' | translate }}
+                </h5>
               </ion-text>
               <div>
                 <div *ngIf="currentTrek.properties.departure_city">
-                  {{ 'trek.details.city' | translate }} {{ currentTrek.properties.departure_city?.name }}
+                  {{ 'trek.details.city' | translate }} {{
+                  currentTrek.properties.departure_city?.name }}
                 </div>
                 <div>
                   {{ currentTrek.properties.departure }}
@@ -180,13 +217,15 @@
             <div *ngIf="currentTrek.properties.duration" class="extra-details">
               <ion-icon class="icon-detail" name="hourglass"></ion-icon>
               <span *ngIf="currentTrek.properties.duration < 24">
-                {{ currentTrek.properties.duration | lowerRound | number: '1.0-0' }}h<span
-                  *ngIf="currentTrek.properties.duration % 1 > 0"
-                  >{{ 60 * (currentTrek.properties.duration % 1) | number: '1.0-0' }}min</span
+                {{ currentTrek.properties.duration | lowerRound | number:
+                '1.0-0' }}h<span *ngIf="currentTrek.properties.duration % 1 > 0"
+                  >{{ 60 * (currentTrek.properties.duration % 1) | number:
+                  '1.0-0' }}min</span
                 >
               </span>
               <span *ngIf="currentTrek.properties.duration >= 24">
-                {{ currentTrek.properties.duration / 24 | number: '1.0-0' }}j</span
+                {{ currentTrek.properties.duration / 24 | number: '1.0-0'
+                }}j</span
               >
             </div>
             <div *ngIf="currentTrek.properties.ascent" class="extra-details">
@@ -199,7 +238,10 @@
             </div>
           </ion-col>
           <ion-col size="6">
-            <div *ngIf="currentTrek.properties.difficulty" class="extra-details">
+            <div
+              *ngIf="currentTrek.properties.difficulty"
+              class="extra-details"
+            >
               <ion-img
                 *ngIf="currentTrek.properties.difficulty.pictogram"
                 class="icon-detail"
@@ -209,7 +251,8 @@
             </div>
             <div *ngIf="currentTrek.properties.length" class="extra-details">
               <ion-icon class="icon-detail" name="resize"></ion-icon>
-              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr' }} km
+              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr' }}
+              km
             </div>
             <div *ngIf="currentTrek.properties.practice" class="extra-details">
               <ion-img
@@ -223,7 +266,9 @@
           </ion-col>
         </ion-row>
 
-        <ion-row *ngIf="currentTrek.properties.themes && currentTrek.properties.themes.length > 0">
+        <ion-row
+          *ngIf="currentTrek.properties.themes && currentTrek.properties.themes.length > 0"
+        >
           <ion-col size="12">
             <ion-text color="primary">
               <h5>{{ 'trek.details.theme' | translate }}</h5>
@@ -246,11 +291,18 @@
           <ion-col>
             <div *ngIf="currentTrek.properties.description">
               <ion-text color="primary">
-                <h2 class="custom-divider">{{ 'trek.details.description' | translate }}</h2>
+                <h2 class="custom-divider">
+                  {{ 'trek.details.description' | translate }}
+                </h2>
               </ion-text>
-              <div class="trek-description" [innerHTML]="currentTrek.properties.description"></div>
+              <div
+                class="trek-description"
+                [innerHTML]="currentTrek.properties.description"
+              ></div>
             </div>
-            <div *ngIf="currentTrek.properties.networks && currentTrek.properties.networks.length > 0">
+            <div
+              *ngIf="currentTrek.properties.networks && currentTrek.properties.networks.length > 0"
+            >
               <ion-text color="primary">
                 <h5 class="inline">Balisage</h5>
               </ion-text>
@@ -273,7 +325,8 @@
               <div>
                 <ion-text color="primary">
                   <h2 class="custom-divider">
-                    {{ 'trek.details.stages' | translate }} ({{ currentTrek.properties.children.features.length }})
+                    {{ 'trek.details.stages' | translate }} ({{
+                    currentTrek.properties.children.features.length }})
                   </h2>
                 </ion-text>
               </div>
@@ -297,13 +350,19 @@
         </div>
 
         <!-- Profile -->
-        <ion-row *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''">
+        <ion-row
+          *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''"
+        >
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.profile' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.profile' | translate }}
+              </h2>
             </ion-text>
             <div>
-              <ion-img [src]="getPictureSrc({ url: currentTrek.properties.profile })"></ion-img>
+              <ion-img
+                [src]="getPictureSrc({ url: currentTrek.properties.profile })"
+              ></ion-img>
             </div>
           </ion-col>
         </ion-row>
@@ -312,13 +371,16 @@
         <ion-row *ngIf="currentTrek.properties.is_park_centered">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.rules' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.rules' | translate }}
+              </h2>
             </ion-text>
             <p>
               {{ 'trek.details.rulesDescription' | translate }}
             </p>
             <div *ngIf="showImgRulesIfParkCentered">
-              <ion-img src="assets/image/reglementation.jpg" alt="rules"> </ion-img>
+              <ion-img src="assets/image/reglementation.jpg" alt="rules">
+              </ion-img>
             </div>
           </ion-col>
         </ion-row>
@@ -327,7 +389,9 @@
         <ion-row *ngIf="currentTrek.properties.access">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.access' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.access' | translate }}
+              </h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.access"></div>
           </ion-col>
@@ -337,7 +401,9 @@
         <ion-row *ngIf="currentTrek.properties.advised_parking">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.parking' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.parking' | translate }}
+              </h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.advised_parking"></div>
           </ion-col>
@@ -347,7 +413,9 @@
         <ion-row *ngIf="currentTrek.properties.advice">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.advice' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.advice' | translate }}
+              </h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.advice"></div>
           </ion-col>
@@ -359,9 +427,13 @@
         >
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.desk' | translate }}</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.desk' | translate }}
+              </h2>
             </ion-text>
-            <div *ngFor="let information_desk of currentTrek.properties.information_desks">
+            <div
+              *ngFor="let information_desk of currentTrek.properties.information_desks"
+            >
               <h3 [innerHTML]="information_desk.name"></h3>
               <ion-img
                 class="min-size-img"
@@ -370,11 +442,16 @@
               ></ion-img>
               <div [innerHTML]="information_desk.description"></div>
               <div [innerHTML]="information_desk.street"></div>
-              <p>{{ information_desk.postal_code }} {{ information_desk.municipality }}</p>
+              <p>
+                {{ information_desk.postal_code }} {{
+                information_desk.municipality }}
+              </p>
               <p>
                 <a [href]="information_desk.website"> Site web </a> -
                 <a [href]="'mailto:' + information_desk.email"> Email </a> -
-                <a [href]="'tel:' + information_desk.phone">{{ information_desk.phone }}</a>
+                <a [href]="'tel:' + information_desk.phone"
+                  >{{ information_desk.phone }}</a
+                >
               </p>
             </div>
           </ion-col>
@@ -384,11 +461,19 @@
         <ion-row *ngIf="currentPois && currentPois.length > 0 && !isItinerancy">
           <ion-col>
             <ion-text color="primary">
-              <h2 class="custom-divider">{{ 'trek.details.poi.name' | translate }} ({{ currentPois.length }})</h2>
+              <h2 class="custom-divider">
+                {{ 'trek.details.poi.name' | translate }} ({{ currentPois.length
+                }})
+              </h2>
             </ion-text>
 
             <ng-template #poiTemplate let-poi="item">
-              <app-poi [poi]="poi" [commonSrc]="commonSrc" [typePois]="typePois" [offline]="offline"></app-poi>
+              <app-poi
+                [poi]="poi"
+                [commonSrc]="commonSrc"
+                [typePois]="typePois"
+                [offline]="offline"
+              ></app-poi>
             </ng-template>
 
             <app-collapsible-list
@@ -403,16 +488,24 @@
         </ion-row>
 
         <!-- Touristic Contens -->
-        <div *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0 && !isItinerancy">
-          <ion-row *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures">
+        <div
+          *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0 && !isItinerancy"
+        >
+          <ion-row
+            *ngFor="let touristicCategoryWithFeatures of this.touristicCategoriesWithFeatures"
+          >
             <ion-col>
               <ion-text color="primary">
                 <h2 class="custom-divider">
-                  {{ touristicCategoryWithFeatures.name }} ({{ touristicCategoryWithFeatures.features.length }})
+                  {{ touristicCategoryWithFeatures.name }} ({{
+                  touristicCategoryWithFeatures.features.length }})
                 </h2>
               </ion-text>
 
-              <ng-template #touristicContentTemplate let-touristicContent="item">
+              <ng-template
+                #touristicContentTemplate
+                let-touristicContent="item"
+              >
                 <app-poi [poi]="touristicContent" [offline]="offline"></app-poi>
               </ng-template>
 

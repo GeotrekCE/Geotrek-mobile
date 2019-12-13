@@ -284,10 +284,11 @@ export class UnSubscribe implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions$$.forEach((subscription: Subscription) &#x3D;&gt; unsubscribe(subscription));
+    this.subscriptions$$.forEach((subscription: Subscription) &#x3D;&gt;
+      unsubscribe(subscription)
+    );
     this.subscriptions$$ &#x3D; [];
   }
-
 }
 
 export function unsubscribe(subscription: Subscription) {

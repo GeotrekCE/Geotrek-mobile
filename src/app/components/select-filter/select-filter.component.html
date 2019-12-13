@@ -6,14 +6,20 @@
 
 <ion-content>
   <app-filter-value
-    *ngFor="let value of filter.values | slice: 0:currentMaxFilterValues; trackBy: trackFilterValues"
+    *ngFor="
+      let value of filter.values | slice: 0:currentMaxFilterValues;
+      trackBy: trackFilterValues
+    "
     [commonSrc]="commonSrc"
     [value]="value"
     (valueChange)="valueChanged($event)"
   >
   </app-filter-value>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="expandFilterValues($event)">
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="expandFilterValues($event)"
+  >
     <ion-infinite-scroll-content> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

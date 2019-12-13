@@ -12,18 +12,24 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { environment } from '@env/environment';
 
 @Injectable()
-export class MoreResolver implements Resolve<InformationIntro[] | 'connectionError'> {
+export class MoreResolver
+  implements Resolve<InformationIntro[] | 'connectionError'> {
   constructor(
     private more: MoreInformationsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve = (route: ActivatedRouteSnapshot) =>
     this.more.getMoreItems().pipe(
       tap(() => {
-        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-          this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name}`);
+        if (
+          (this.platform.is('ios') || this.platform.is('android')) &&
+          environment.useFirebase
+        ) {
+          this.firebaseAnalytics.setCurrentScreen(
+            `${(route.component as any).name}`
+          );
         }
       }),
       catchError((error: HttpErrorResponse) => {
@@ -32,6 +38,6 @@ export class MoreResolver implements Resolve<InformationIntro[] | 'connectionErr
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
 }

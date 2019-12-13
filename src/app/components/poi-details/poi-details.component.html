@@ -14,9 +14,15 @@
     <div *ngIf="picture && picture?.url !== ''">
       <ion-img class="min-size-img" [src]="picture?.url"></ion-img>
       <div class="card-legend ion-padding-start ion-padding-top legend-text">
-        <ion-img *ngIf="typeImgSrc" class="img-legend" [src]="typeImgSrc"></ion-img>
+        <ion-img
+          *ngIf="typeImgSrc"
+          class="img-legend"
+          [src]="typeImgSrc"
+        ></ion-img>
         {{ poi.properties.pictures[0]?.legend }}
-        <span *ngIf="!!poi.properties.pictures[0]?.author">({{ poi.properties.pictures[0].author }})</span>
+        <span *ngIf="!!poi.properties.pictures[0]?.author"
+          >({{ poi.properties.pictures[0].author }})</span
+        >
       </div>
     </div>
 
@@ -29,12 +35,20 @@
 
       <div *ngIf="poi.properties.practical_info" class="ion-margin-bottom">
         <ion-text>
-          <ion-label><h1 translate>trek.details.usefulInformation</h1></ion-label>
+          <ion-label
+            ><h1 translate>trek.details.usefulInformation</h1></ion-label
+          >
           <div [innerHTML]="poi.properties.practical_info"></div>
         </ion-text>
       </div>
 
-      <div *ngIf="poi.properties.contact || poi.properties.email || poi.properties.website">
+      <div
+        *ngIf="
+          poi.properties.contact ||
+          poi.properties.email ||
+          poi.properties.website
+        "
+      >
         <ion-text>
           <ion-label><h1 translate>trek.details.contact</h1></ion-label>
           <div
@@ -42,10 +56,16 @@
             [innerHTML]="poi.properties.contact"
           ></div>
           <div *ngIf="poi.properties.email && poi.properties.email !== 'null'">
-            <a [href]="'mailto:' + !!poi.properties.email"> {{ poi.properties.email }} </a>
+            <a [href]="'mailto:' + !!poi.properties.email">
+              {{ poi.properties.email }}
+            </a>
           </div>
-          <div *ngIf="poi.properties.website && poi.properties.website !== 'null'">
-            <a [href]="poi.properties.website"> {{ poi.properties.website }} </a>
+          <div
+            *ngIf="poi.properties.website && poi.properties.website !== 'null'"
+          >
+            <a [href]="poi.properties.website">
+              {{ poi.properties.website }}
+            </a>
           </div>
         </ion-text>
       </div>

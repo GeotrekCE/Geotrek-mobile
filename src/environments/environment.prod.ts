@@ -6,7 +6,7 @@ export const environment = {
   useFirebase: false,
   availableLanguage: ['fr', 'en', 'it'], // we assume that availableLanguage[0] is default language, or 'fr' if array is empty
   mapbox: {
-    accessToken: null, // only if you use mapbox vector tiles
+    accessToken: null // only if you use mapbox vector tiles
   },
   onlineBaseUrl: 'https://my-rando-domain.fr/mobile', // api url for app
   onlineMapConfig: {
@@ -21,10 +21,10 @@ export const environment = {
           tiles: [
             'https://a.tile.opentopomap.org/{z}/{x}/{y}.png',
             'https://b.tile.opentopomap.org/{z}/{x}/{y}.png',
-            'https://c.tile.opentopomap.org/{z}/{x}/{y}.png',
+            'https://c.tile.opentopomap.org/{z}/{x}/{y}.png'
           ],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -32,12 +32,12 @@ export const environment = {
           type: 'raster',
           source: 'tiles-background',
           minzoom: 0,
-          maxzoom: 17,
-        },
-      ],
+          maxzoom: 17
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
+    maxZoom: 16
   },
   offlineMapConfig: {
     // offline map default config
@@ -49,8 +49,8 @@ export const environment = {
         'tiles-background': {
           type: 'raster',
           tiles: ['/tiles/{z}/{x}/{y}.png'],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -58,18 +58,18 @@ export const environment = {
           type: 'raster',
           source: 'tiles-background',
           minzoom: 0,
-          maxzoom: 13,
-        },
-      ],
+          maxzoom: 13
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
+    maxZoom: 16
   },
   trekZoom: {
     // zoom config for trek layer map
     minZoom: 13,
     maxZoom: 16,
-    zoom: 13,
+    zoom: 13
   },
   map: {
     attributionText:
@@ -82,21 +82,21 @@ export const environment = {
     departureArrivalIconSize: 0.8,
     poisLayersProperties: {
       visibility: 'visible',
-      iconSize: 1,
+      iconSize: 1
     },
     clusterPaint: {
       // cluster style on map treks
       'circle-color': primaryColor,
       'circle-stroke-color': '#fff',
       'circle-radius': 18,
-      'circle-stroke-width': 1,
+      'circle-stroke-width': 1
     },
     stagePaint: {
       // style stage circle on parent map
       'circle-color': '#fff',
       'circle-stroke-color': '#000000',
       'circle-radius': 14,
-      'circle-stroke-width': 1,
+      'circle-stroke-width': 1
     },
     zoneLayerProperties: {
       // src/assets/map/zone/zone.geojson
@@ -105,35 +105,35 @@ export const environment = {
       paint: {
         'fill-color': primaryColor,
         'fill-outline-color': '#625b5d',
-        'fill-opacity': 0.3,
-      },
+        'fill-opacity': 0.3
+      }
     },
     zoneOutlineLayerProperties: {
       type: 'line',
       paint: {
         'line-color': primaryColor,
         'line-opacity': 1,
-        'line-width': 8,
-      },
+        'line-width': 8
+      }
     },
     trekLineLayerProperties: {
       type: 'line',
       paint: {
         'line-width': 6,
-        'line-color': '#61B22F',
-      },
+        'line-color': '#61B22F'
+      }
     },
     trekArrowLayerProperties: {
       layout: {
         'symbol-placement': 'line',
         'symbol-spacing': 250,
-        'icon-size': 0.5,
-      },
+        'icon-size': 0.5
+      }
     },
     pointReferenceLayersProperties: {
       text: {
         paint: {
-          'text-color': '#fff',
+          'text-color': '#fff'
         },
         layout: {
           'text-ignore-placement': true,
@@ -141,15 +141,15 @@ export const environment = {
           'text-field': ['get', 'index'],
           'text-font': ['Roboto Regular'],
           'text-size': 12,
-          'text-offset': [0, 0.1],
-        },
+          'text-offset': [0, 0.1]
+        }
       },
       circle: {
         paint: {
           'circle-color': '#f04141',
-          'circle-radius': 12,
-        },
-      },
+          'circle-radius': 12
+        }
+      }
     },
     touristicContentLayersProperties: {
       visibility: 'visible',
@@ -158,18 +158,18 @@ export const environment = {
           'icon-image': ['concat', 'touristicContent', ['get', 'category']],
           'icon-size': 1,
           'icon-allow-overlap': true,
-          'icon-ignore-placement': true,
-        },
+          'icon-ignore-placement': true
+        }
       },
       circle: {
         paint: {
           'circle-color': primaryColor,
           'circle-stroke-color': '#fff',
           'circle-radius': 16,
-          'circle-stroke-width': 1,
-        },
-      },
-    },
+          'circle-stroke-width': 1
+        }
+      }
+    }
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
@@ -178,12 +178,12 @@ export const environment = {
     desiredAccuracy: 10,
     stationaryRadius: 3,
     distanceFilter: 5,
-    interval: 3000,
+    interval: 3000
   },
   poiCollapseInitialSize: 5,
   touristicContentCollapseInitialSize: 5,
   containsFilterShouldUseSelectAbove: 7,
   trekDetails: {
-    showImgRulesIfParkCentered: true,
-  },
+    showImgRulesIfParkCentered: true
+  }
 };

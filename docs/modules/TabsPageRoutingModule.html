@@ -88,23 +88,25 @@ const routes: Routes &#x3D; [
             path: &#x27;&#x27;,
             component: TreksPage,
             resolve: {
-              context: TreksContextResolver,
-            },
+              context: TreksContextResolver
+            }
           },
           {
             path: &#x27;trek-details/:trekId&#x27;,
-            loadChildren: &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
+            loadChildren:
+              &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;
           },
           {
             path: &#x27;trek-details/:trekId/:stageId&#x27;,
-            loadChildren: &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
-            data: { isStage: true },
+            loadChildren:
+              &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
+            data: { isStage: true }
           },
           {
             path: &#x27;treks-map&#x27;,
-            loadChildren: &#x27;../treks-map/treks-map.module#TreksMapPageModule&#x27;,
-          },
-        ],
+            loadChildren: &#x27;../treks-map/treks-map.module#TreksMapPageModule&#x27;
+          }
+        ]
       },
       {
         path: &#x27;treks-offline&#x27;,
@@ -114,51 +116,54 @@ const routes: Routes &#x3D; [
             component: TreksPage,
             data: { offline: true },
             resolve: {
-              context: TreksContextResolver,
-            },
+              context: TreksContextResolver
+            }
           },
           {
             path: &#x27;trek-details/:trekId&#x27;,
-            loadChildren: &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
-            data: { offline: true },
+            loadChildren:
+              &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
+            data: { offline: true }
           },
           {
             path: &#x27;trek-details/:trekId/:stageId&#x27;,
-            loadChildren: &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
-            data: { offline: true, isStage: true },
+            loadChildren:
+              &#x27;../trek-details/trek-details.module#TrekDetailsPageModule&#x27;,
+            data: { offline: true, isStage: true }
           },
           {
             path: &#x27;treks-map&#x27;,
             loadChildren: &#x27;../treks-map/treks-map.module#TreksMapPageModule&#x27;,
-            data: { offline: true },
-          },
-        ],
+            data: { offline: true }
+          }
+        ]
       },
       {
         path: &#x27;more&#x27;,
         children: [
           {
             path: &#x27;&#x27;,
-            loadChildren: &#x27;../more/more.module#MorePageModule&#x27;,
+            loadChildren: &#x27;../more/more.module#MorePageModule&#x27;
           },
           {
             path: &#x27;:moreItemId&#x27;,
-            loadChildren: &#x27;../more/more-item/more-item.module#MoreItemPageModule&#x27;,
-          },
-        ],
-      },
-    ],
+            loadChildren:
+              &#x27;../more/more-item/more-item.module#MoreItemPageModule&#x27;
+          }
+        ]
+      }
+    ]
   },
   {
     path: &#x27;&#x27;,
     redirectTo: &#x27;/app/tabs/treks&#x27;,
-    pathMatch: &#x27;full&#x27;,
-  },
+    pathMatch: &#x27;full&#x27;
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}
 </code></pre>

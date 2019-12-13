@@ -12,11 +12,17 @@
       </ion-list-header>
 
       <ion-item *ngFor="let trek of radioTreks; let i = index">
-        <ion-radio slot="start" [value]="trek.id" [checked]="i === 0"></ion-radio>
+        <ion-radio
+          slot="start"
+          [value]="trek.id"
+          [checked]="i === 0"
+        ></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
           *ngIf="trek.imgPractice.src"
-          [style.background-color]="trek.imgPractice.color ? trek.imgPractice.color : 'transparent'"
+          [style.background-color]="
+            trek.imgPractice.color ? trek.imgPractice.color : 'transparent'
+          "
           [src]="trek.imgPractice.src"
         ></ion-img>
         <ion-label class="ion-text-wrap">{{ trek.name }}</ion-label>

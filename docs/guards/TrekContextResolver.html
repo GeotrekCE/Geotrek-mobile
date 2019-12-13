@@ -104,7 +104,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/resolvers/trek.resolver.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/resolvers/trek.resolver.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -241,8 +241,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/app/resolvers/trek.resolver.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/app/resolvers/trek.resolver.ts:38</a></div>
                 </td>
             </tr>
 
@@ -308,7 +308,7 @@ import {
   TrekContext,
   TreksService,
   TouristicContents,
-  TouristicEvents,
+  TouristicEvents
 } from &#x27;@app/interfaces/interfaces&#x27;;
 import { OfflineTreksService } from &#x27;@app/services/offline-treks/offline-treks.service&#x27;;
 import { OnlineTreksService } from &#x27;@app/services/online-treks/online-treks.service&#x27;;
@@ -319,7 +319,8 @@ import { Platform } from &#x27;@ionic/angular&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable()
-export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x27;connectionError&#x27;&gt; {
+export class TrekContextResolver
+  implements Resolve&lt;TrekContext | null | &#x27;connectionError&#x27;&gt; {
   constructor(
     private loading: LoadingService,
     private offlineTreks: OfflineTreksService,
@@ -327,7 +328,7 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
     private router: Router,
     private settingsService: SettingsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
@@ -338,14 +339,16 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
     const currentTrekId &#x3D; isStage ? stageId : trekId;
     const parentId: number | undefined &#x3D; isStage ? trekId : undefined;
 
-    const treksService: TreksService &#x3D; offline ? this.offlineTreks : this.onlineTreks;
+    const treksService: TreksService &#x3D; offline
+      ? this.offlineTreks
+      : this.onlineTreks;
 
     return forkJoin(
       treksService.getTrekById(currentTrekId, parentId),
       treksService.getPoisForTrekById(currentTrekId, parentId),
       treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
       treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
-      isStage &amp;&amp; parentId ? treksService.getTrekById(parentId) : of(null),
+      isStage &amp;&amp; parentId ? treksService.getTrekById(parentId) : of(null)
     ).pipe(
       map(
         ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
@@ -360,15 +363,25 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
             console.error(&#x27;No trek found: &#x27;, currentTrekId);
             return null;
           } else {
-            const mapConfig: MapboxOptions &#x3D; treksService.getMapConfigForTrekById(trek, offline);
-            const hydratedTrek: HydratedTrek &#x3D; this.settingsService.getHydratedTrek(trek);
+            const mapConfig: MapboxOptions &#x3D; treksService.getMapConfigForTrekById(
+              trek,
+              offline
+            );
+            const hydratedTrek: HydratedTrek &#x3D; this.settingsService.getHydratedTrek(
+              trek
+            );
             const commonSrc &#x3D; treksService.getCommonImgSrc();
             const touristicCategoriesWithFeatures &#x3D; this.settingsService.getTouristicCategoriesWithFeatures(
-              touristicContents,
+              touristicContents
             );
 
-            if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
-              this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name}  ${trek.properties.name}&#x60;);
+            if (
+              (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp;
+              environment.useFirebase
+            ) {
+              this.firebaseAnalytics.setCurrentScreen(
+                &#x60;${(route.component as any).name}  ${trek.properties.name}&#x60;
+              );
             }
 
             // get parent trek to display trek name
@@ -388,10 +401,10 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
               mapConfig,
               commonSrc,
               isStage,
-              parentTrek,
+              parentTrek
             };
           }
-        },
+        }
       ),
       catchError((error: HttpErrorResponse) &#x3D;&gt; {
         this.loading.finish(); // there are two requests. finish loading if one fails
@@ -400,7 +413,7 @@ export class TrekContextResolver implements Resolve&lt;TrekContext | null | &#x2
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
   }
 }

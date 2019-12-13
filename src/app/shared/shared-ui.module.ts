@@ -8,8 +8,12 @@ import { ConnectErrorComponent } from '@app/components/connect-error/connect-err
 import { LoaderComponent } from '@app/components/loader/loader.component';
 
 @NgModule({
-  declarations: [CollapsibleListComponent, ConnectErrorComponent, LoaderComponent],
+  declarations: [
+    CollapsibleListComponent,
+    ConnectErrorComponent,
+    LoaderComponent
+  ],
   imports: [CommonModule, IonicModule, RouterModule],
-  exports: [CollapsibleListComponent, ConnectErrorComponent, LoaderComponent],
+  exports: [CollapsibleListComponent, ConnectErrorComponent, LoaderComponent]
 })
 export class SharedUiModule {}

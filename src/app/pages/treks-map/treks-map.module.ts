@@ -15,9 +15,9 @@ const routes: Routes = [
     path: '',
     component: TreksMapPage,
     resolve: {
-      context: TreksContextResolver,
-    },
-  },
+      context: TreksContextResolver
+    }
+  }
 ];
 
 @NgModule({
@@ -27,8 +27,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     SharedUiModule,
-    TranslateModule.forChild(),
+    TranslateModule.forChild()
   ],
-  declarations: [TreksMapPage, SelectTrekComponent],
+  declarations: [TreksMapPage, SelectTrekComponent]
 })
 export class TreksMapPageModule {}

@@ -15,13 +15,19 @@ const routes: Routes = [
     component: MoreItemPage,
     runGuardsAndResolvers: 'always',
     resolve: {
-      item: MoreItemResolver,
-    },
-  },
+      item: MoreItemResolver
+    }
+  }
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule, TranslateModule.forChild()],
-  declarations: [MoreItemPage],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    SharedUiModule,
+    TranslateModule.forChild()
+  ],
+  declarations: [MoreItemPage]
 })
 export class MoreItemPageModule {}

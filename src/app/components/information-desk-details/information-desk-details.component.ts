@@ -7,7 +7,7 @@ import { InformationDesk } from '@app/interfaces/interfaces';
 @Component({
   selector: 'app-information-desk-details',
   templateUrl: './information-desk-details.component.html',
-  styleUrls: ['./information-desk-details.component.scss'],
+  styleUrls: ['./information-desk-details.component.scss']
 })
 export class InformationDeskDetailsComponent {
   baseUrl = environment.onlineBaseUrl;

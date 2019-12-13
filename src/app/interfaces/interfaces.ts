@@ -255,8 +255,14 @@ export interface TreksService {
   filteredTreks$: Observable<MinimalTrek[]>;
   getTrekById(id: number, parentId?: number): Observable<Trek | null>;
   getPoisForTrekById(id: number, parentId?: number): Observable<Pois>;
-  getTouristicContentsForTrekById(id: number, parentId?: number): Observable<TouristicContents>;
-  getTouristicEventsForTrekById(id: number, parentId?: number): Observable<TouristicEvents>;
+  getTouristicContentsForTrekById(
+    id: number,
+    parentId?: number
+  ): Observable<TouristicContents>;
+  getTouristicEventsForTrekById(
+    id: number,
+    parentId?: number
+  ): Observable<TouristicEvents>;
   getTreksUrl(): string;
   getTrekDetailsUrl(trekId: number, parentId?: number): string;
   getTrekImageSrc(trek: Trek, picture?: Picture): string;

@@ -12,7 +12,7 @@ import {
   TrekContext,
   TreksService,
   TouristicContents,
-  TouristicEvents,
+  TouristicEvents
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -23,7 +23,8 @@ import { Platform } from '@ionic/angular';
 import { environment } from '@env/environment';
 
 @Injectable()
-export class TrekContextResolver implements Resolve<TrekContext | null | 'connectionError'> {
+export class TrekContextResolver
+  implements Resolve<TrekContext | null | 'connectionError'> {
   constructor(
     private loading: LoadingService,
     private offlineTreks: OfflineTreksService,
@@ -31,7 +32,7 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
     private router: Router,
     private settingsService: SettingsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
@@ -42,14 +43,16 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
     const currentTrekId = isStage ? stageId : trekId;
     const parentId: number | undefined = isStage ? trekId : undefined;
 
-    const treksService: TreksService = offline ? this.offlineTreks : this.onlineTreks;
+    const treksService: TreksService = offline
+      ? this.offlineTreks
+      : this.onlineTreks;
 
     return forkJoin(
       treksService.getTrekById(currentTrekId, parentId),
       treksService.getPoisForTrekById(currentTrekId, parentId),
       treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
       treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
-      isStage && parentId ? treksService.getTrekById(parentId) : of(null),
+      isStage && parentId ? treksService.getTrekById(parentId) : of(null)
     ).pipe(
       map(
         ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
@@ -64,15 +67,25 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
             console.error('No trek found: ', currentTrekId);
             return null;
           } else {
-            const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(trek, offline);
-            const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(trek);
+            const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(
+              trek,
+              offline
+            );
+            const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(
+              trek
+            );
             const commonSrc = treksService.getCommonImgSrc();
             const touristicCategoriesWithFeatures = this.settingsService.getTouristicCategoriesWithFeatures(
-              touristicContents,
+              touristicContents
             );
 
-            if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-              this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name}  ${trek.properties.name}`);
+            if (
+              (this.platform.is('ios') || this.platform.is('android')) &&
+              environment.useFirebase
+            ) {
+              this.firebaseAnalytics.setCurrentScreen(
+                `${(route.component as any).name}  ${trek.properties.name}`
+              );
             }
 
             // get parent trek to display trek name
@@ -92,10 +105,10 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
               mapConfig,
               commonSrc,
               isStage,
-              parentTrek,
+              parentTrek
             };
           }
-        },
+        }
       ),
       catchError((error: HttpErrorResponse) => {
         this.loading.finish(); // there are two requests. finish loading if one fails
@@ -104,7 +117,7 @@ export class TrekContextResolver implements Resolve<TrekContext | null | 'connec
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
   }
 }

@@ -15,10 +15,10 @@ const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     resolve: {
-      context: TrekContextResolver,
+      context: TrekContextResolver
     },
-    component: TrekDetailsPage,
-  },
+    component: TrekDetailsPage
+  }
 ];
 
 @NgModule({
@@ -29,8 +29,8 @@ const routes: Routes = [
     SharedTreksModule,
     SharedUiModule,
     TranslateModule.forChild(),
-    CustomPipesModule,
+    CustomPipesModule
   ],
-  declarations: [TrekDetailsPage],
+  declarations: [TrekDetailsPage]
 })
 export class TrekDetailsPageModule {}

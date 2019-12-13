@@ -569,8 +569,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">src/app/components/select-filter/select-filter.component.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/app/components/select-filter/select-filter.component.ts:48</a></div>
                 </td>
             </tr>
 
@@ -653,8 +653,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/app/components/select-filter/select-filter.component.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/app/components/select-filter/select-filter.component.ts:52</a></div>
                 </td>
             </tr>
 
@@ -838,7 +838,7 @@ import { Filter, FilterValue } from &#x27;@app/interfaces/interfaces&#x27;;
 @Component({
   selector: &#x27;app-select-filter&#x27;,
   templateUrl: &#x27;./select-filter.component.html&#x27;,
-  styleUrls: [&#x27;./select-filter.component.scss&#x27;],
+  styleUrls: [&#x27;./select-filter.component.scss&#x27;]
 })
 export class SelectFilterComponent implements OnInit {
   @Input() public filter: Filter;
@@ -866,7 +866,10 @@ export class SelectFilterComponent implements OnInit {
 
   public expandFilterValues(infiniteScroll: any): void {
     if (this.currentMaxFilterValues &lt; this.filter.values.length) {
-      if (this.currentMaxFilterValues + this.filterValuesByStep &gt; this.filter.values.length) {
+      if (
+        this.currentMaxFilterValues + this.filterValuesByStep &gt;
+        this.filter.values.length
+      ) {
         this.currentMaxFilterValues &#x3D; this.filter.values.length;
       } else {
         this.currentMaxFilterValues +&#x3D; this.filterValuesByStep;
@@ -880,7 +883,9 @@ export class SelectFilterComponent implements OnInit {
   }
 
   public valueChanged(event: { checked: boolean; value: FilterValue }): void {
-    const filterValue &#x3D; this.temporaryFilter.values.find(value &#x3D;&gt; value.id &#x3D;&#x3D;&#x3D; event.value.id);
+    const filterValue &#x3D; this.temporaryFilter.values.find(
+      (value) &#x3D;&gt; value.id &#x3D;&#x3D;&#x3D; event.value.id
+    );
     if (filterValue) {
       filterValue.checked &#x3D; event.checked;
     }
@@ -898,14 +903,20 @@ export class SelectFilterComponent implements OnInit {
 
 &lt;ion-content&gt;
   &lt;app-filter-value
-    *ngFor&#x3D;&quot;let value of filter.values | slice: 0:currentMaxFilterValues; trackBy: trackFilterValues&quot;
+    *ngFor&#x3D;&quot;
+      let value of filter.values | slice: 0:currentMaxFilterValues;
+      trackBy: trackFilterValues
+    &quot;
     [commonSrc]&#x3D;&quot;commonSrc&quot;
     [value]&#x3D;&quot;value&quot;
     (valueChange)&#x3D;&quot;valueChanged($event)&quot;
   &gt;
   &lt;/app-filter-value&gt;
 
-  &lt;ion-infinite-scroll threshold&#x3D;&quot;100px&quot; (ionInfinite)&#x3D;&quot;expandFilterValues($event)&quot;&gt;
+  &lt;ion-infinite-scroll
+    threshold&#x3D;&quot;100px&quot;
+    (ionInfinite)&#x3D;&quot;expandFilterValues($event)&quot;
+  &gt;
     &lt;ion-infinite-scroll-content&gt; &lt;/ion-infinite-scroll-content&gt;
   &lt;/ion-infinite-scroll&gt;
 &lt;/ion-content&gt;
@@ -957,8 +968,8 @@ export class SelectFilterComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title>{{ filter.values.length + \' \' + filter.name }}</ion-title>  </ion-toolbar></ion-header><ion-content>  <app-filter-value    *ngFor="let value of filter.values | slice: 0:currentMaxFilterValues; trackBy: trackFilterValues"    [commonSrc]="commonSrc"    [value]="value"    (valueChange)="valueChanged($event)"  >  </app-filter-value>  <ion-infinite-scroll threshold="100px" (ionInfinite)="expandFilterValues($event)">    <ion-infinite-scroll-content> </ion-infinite-scroll-content>  </ion-infinite-scroll></ion-content><ion-footer>  <ion-toolbar>    <ion-buttons slot="end">      <ion-button (click)="cancel()" color="primary" fill="clear">        {{ \'filters.cancelButton\' | translate }}      </ion-button>      <ion-button (click)="select()" color="primary" fill="clear">        {{ \'filters.confirmButton\' | translate }}      </ion-button>    </ion-buttons>  </ion-toolbar></ion-footer></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-title>{{ filter.values.length + \' \' + filter.name }}</ion-title>  </ion-toolbar></ion-header><ion-content>  <app-filter-value    *ngFor="      let value of filter.values | slice: 0:currentMaxFilterValues;      trackBy: trackFilterValues    "    [commonSrc]="commonSrc"    [value]="value"    (valueChange)="valueChanged($event)"  >  </app-filter-value>  <ion-infinite-scroll    threshold="100px"    (ionInfinite)="expandFilterValues($event)"  >    <ion-infinite-scroll-content> </ion-infinite-scroll-content>  </ion-infinite-scroll></ion-content><ion-footer>  <ion-toolbar>    <ion-buttons slot="end">      <ion-button (click)="cancel()" color="primary" fill="clear">        {{ \'filters.cancelButton\' | translate }}      </ion-button>      <ion-button (click)="select()" color="primary" fill="clear">        {{ \'filters.confirmButton\' | translate }}      </ion-button>    </ion-buttons>  </ion-toolbar></ion-footer></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SelectFilterComponent'};
 </script>

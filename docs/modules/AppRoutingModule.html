@@ -77,32 +77,32 @@ const routes: Routes &#x3D; [
   { path: &#x27;&#x27;, redirectTo: &#x27;app&#x27;, pathMatch: &#x27;full&#x27; },
   {
     path: &#x27;app&#x27;,
-    loadChildren: &#x27;./pages/tabs/tabs.module#TabsPageModule&#x27;,
+    loadChildren: &#x27;./pages/tabs/tabs.module#TabsPageModule&#x27;
   },
   {
     path: &#x27;app/map/:trekId&#x27;,
-    loadChildren: &#x27;./pages/trek-map/trek-map.module#TrekMapPageModule&#x27;,
+    loadChildren: &#x27;./pages/trek-map/trek-map.module#TrekMapPageModule&#x27;
   },
   {
     path: &#x27;app/map/:trekId/:stageId&#x27;,
     loadChildren: &#x27;./pages/trek-map/trek-map.module#TrekMapPageModule&#x27;,
-    data: { isStage: true },
+    data: { isStage: true }
   },
   {
     path: &#x27;app/map-offline/:trekId&#x27;,
     loadChildren: &#x27;./pages/trek-map/trek-map.module#TrekMapPageModule&#x27;,
-    data: { offline: true },
+    data: { offline: true }
   },
   {
     path: &#x27;app/map-offline/:trekId/:stageId&#x27;,
     loadChildren: &#x27;./pages/trek-map/trek-map.module#TrekMapPageModule&#x27;,
-    data: { offline: true, isStage: true },
-  },
+    data: { offline: true, isStage: true }
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: &#x27;reload&#x27; })],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
 </code></pre>

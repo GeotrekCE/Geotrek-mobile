@@ -11,15 +11,25 @@
 
 <ion-content>
   <ion-card>
-    <ion-img class="min-size-img" *ngIf="informationDesk.picture !== ''" [src]="informationDeskPicture"></ion-img>
+    <ion-img
+      class="min-size-img"
+      *ngIf="informationDesk.picture !== ''"
+      [src]="informationDeskPicture"
+    ></ion-img>
     <ion-card-content>
       <div [innerHTML]="informationDesk.description"></div>
       <div [innerHTML]="informationDesk.street"></div>
-      <p>{{ informationDesk.postal_code }} {{ informationDesk.municipality }}</p>
       <p>
-        <a [href]="informationDesk.website"> {{ 'trek.details.informationDesk.website' | translate }} </a> -
-        <a [href]="'mailto:' + informationDesk.email"> Email </a> -
-        <a [href]="'tel:' + informationDesk.phone">{{ informationDesk.phone }}</a>
+        {{ informationDesk.postal_code }} {{ informationDesk.municipality }}
+      </p>
+      <p>
+        <a [href]="informationDesk.website">
+          {{ 'trek.details.informationDesk.website' | translate }}
+        </a>
+        - <a [href]="'mailto:' + informationDesk.email"> Email </a> -
+        <a [href]="'tel:' + informationDesk.phone">{{
+          informationDesk.phone
+        }}</a>
       </p>
     </ion-card-content>
   </ion-card>

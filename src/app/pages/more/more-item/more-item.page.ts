@@ -4,19 +4,17 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { InformationItem } from '@app/interfaces/interfaces';
 
-
 @Component({
   selector: 'app-more-item',
   templateUrl: './more-item.page.html',
-  styleUrls: ['./more-item.page.scss'],
+  styleUrls: ['./more-item.page.scss']
 })
 export class MoreItemPage extends UnSubscribe implements OnInit, OnDestroy {
   moreItem: InformationItem;
   moreItemId: number;
   connectionError = false;
 
-  constructor(
-    private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     super();
   }
 
@@ -38,6 +36,4 @@ export class MoreItemPage extends UnSubscribe implements OnInit, OnDestroy {
   refresh() {
     this.router.navigate([this.router.url]);
   }
-
-
 }

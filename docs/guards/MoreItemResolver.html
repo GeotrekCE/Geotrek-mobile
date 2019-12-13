@@ -104,7 +104,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/resolvers/more-item.resolver.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/resolvers/more-item.resolver.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -193,8 +193,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/resolvers/more-item.resolver.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/resolvers/more-item.resolver.ts:23</a></div>
                 </td>
             </tr>
 
@@ -260,19 +260,25 @@ import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x2
 import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable()
-export class MoreItemResolver implements Resolve&lt;InformationItem | &#x27;connectionError&#x27;&gt; {
+export class MoreItemResolver
+  implements Resolve&lt;InformationItem | &#x27;connectionError&#x27;&gt; {
   constructor(
     private more: MoreInformationsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
     const moreItemId &#x3D; +(&lt;string&gt;route.paramMap.get(&#x27;moreItemId&#x27;));
     return this.more.getMoreItemById(moreItemId).pipe(
-      tap(item &#x3D;&gt; {
-        if ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp; environment.useFirebase) {
-          this.firebaseAnalytics.setCurrentScreen(&#x60;${(route.component as any).name} ${item.title}&#x60;);
+      tap((item) &#x3D;&gt; {
+        if (
+          (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp;
+          environment.useFirebase
+        ) {
+          this.firebaseAnalytics.setCurrentScreen(
+            &#x60;${(route.component as any).name} ${item.title}&#x60;
+          );
         }
       }),
       catchError((error: HttpErrorResponse) &#x3D;&gt; {
@@ -281,7 +287,7 @@ export class MoreItemResolver implements Resolve&lt;InformationItem | &#x27;conn
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
   }
 }

@@ -450,8 +450,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="131"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:131</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:137</a></div>
                 </td>
             </tr>
 
@@ -522,8 +522,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="139"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:139</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:145</a></div>
                 </td>
             </tr>
 
@@ -592,8 +592,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:104</a></div>
                 </td>
             </tr>
 
@@ -634,8 +634,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="123"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:123</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:127</a></div>
                 </td>
             </tr>
 
@@ -707,8 +707,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="109"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:109</a></div>
                 </td>
             </tr>
 
@@ -779,8 +779,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="135"
-                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:135</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/app/pages/trek-map/trek-map.page.ts:141</a></div>
                 </td>
             </tr>
 
@@ -1293,7 +1293,7 @@ import {
   TrekContext,
   InformationDesk,
   TouristicCategoryWithFeatures,
-  TreksService,
+  TreksService
 } from &#x27;@app/interfaces/interfaces&#x27;;
 import { LoadingService } from &#x27;@app/services/loading/loading.service&#x27;;
 import { SettingsService } from &#x27;@app/services/settings/settings.service&#x27;;
@@ -1302,7 +1302,7 @@ import { Location } from &#x27;@angular/common&#x27;;
 @Component({
   selector: &#x27;app-trek-map&#x27;,
   templateUrl: &#x27;./trek-map.page.html&#x27;,
-  styleUrls: [&#x27;./trek-map.page.scss&#x27;],
+  styleUrls: [&#x27;./trek-map.page.scss&#x27;]
 })
 export class TrekMapPage extends UnSubscribe implements OnDestroy {
   public currentTrek: HydratedTrek | null &#x3D; null;
@@ -1325,7 +1325,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     public settings: SettingsService,
     private platform: Platform,
     private popoverCtrl: PopoverController,
-    private location: Location,
+    private location: Location
   ) {
     super();
   }
@@ -1343,13 +1343,16 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
           this.offline &#x3D; context.offline;
           this.currentTrek &#x3D; context.trek;
           this.currentPois &#x3D; context.pois;
-          this.touristicCategoriesWithFeatures &#x3D; context.touristicCategoriesWithFeatures;
+          this.touristicCategoriesWithFeatures &#x3D;
+            context.touristicCategoriesWithFeatures;
           this.mapConfig &#x3D; context.mapConfig;
           this.treksTool &#x3D; context.treksTool;
           this.commonSrc &#x3D; context.treksTool.getCommonImgSrc();
-          this.trekUrl &#x3D; context.treksTool.getTrekDetailsUrl((this.currentTrek as any).properties.id);
+          this.trekUrl &#x3D; context.treksTool.getTrekDetailsUrl(
+            (this.currentTrek as any).properties.id
+          );
         }
-      }),
+      })
     );
 
     if (this.platform.is(&#x27;android&#x27;)) {
@@ -1371,7 +1374,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
             this.location.back();
           } catch (error) {}
-        }),
+        })
       );
     }
   }
@@ -1389,6 +1392,7 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     this.modalPoiDetails &#x3D; await this.modalController.create({
       component: PoiDetailsComponent,
       componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc },
+      cssClass: &#x27;full-size&#x27;
     });
 
     this.modalPoiDetails.onDidDismiss().then(() &#x3D;&gt; {
@@ -1398,10 +1402,12 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     return await this.modalPoiDetails.present();
   }
 
-  public async presentInformationDeskDetails(informationDesk: InformationDesk): Promise&lt;void&gt; {
+  public async presentInformationDeskDetails(
+    informationDesk: InformationDesk
+  ): Promise&lt;void&gt; {
     const modal &#x3D; await this.modalController.create({
       component: InformationDeskDetailsComponent,
-      componentProps: { informationDesk },
+      componentProps: { informationDesk }
     });
     return await modal.present();
   }
@@ -1416,7 +1422,9 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
   public navigateToChildren(id: number) {
     if (this.currentTrek) {
-      this.router.navigate([this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)]);
+      this.router.navigate([
+        this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)
+      ]);
     }
   }
 }
@@ -1524,7 +1532,7 @@ ion-header {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-back-button [defaultHref]="trekUrl"></ion-back-button>    </ion-buttons>    <div *ngIf="currentTrek" class="custom-title">      <ion-text>{{ currentTrek!.properties.name }}</ion-text>    </div>  </ion-toolbar></ion-header><ion-content>  <app-loader></app-loader>  <ng-container>    <app-connect-error      *ngIf="connectionError; else trekMap"      icon="wifi"      [title]="\'error.title\' | translate"      [content]="\'error.TrekMap\' | translate"      [buttonText]="\'error.buttonText\' | translate"      (retry)="refresh()"    >    </app-connect-error>  </ng-container>  <ng-template #trekMap>    <app-map-trek-viz      [currentTrek]="currentTrek"      [currentPois]="currentPois"      [touristicCategoriesWithFeatures]="touristicCategoriesWithFeatures"      (presentPoiDetails)="presentPoiDetails($event)"      (presentInformationDeskDetails)="presentInformationDeskDetails($event)"      (mapIsLoaded)="mapIsLoaded($event)"      [mapConfig]="mapConfig"      [dataSettings]="settings.data$.value"      [commonSrc]="commonSrc"      (navigateToChildren)="navigateToChildren($event)"    >    </app-map-trek-viz>    <div class="bottom-container">      <app-geolocate-notifications        [trekName]="currentTrek ? currentTrek!.properties.name : \'\'"        [currentPois]="currentPois"        (presentPoiDetails)="presentPoiDetails($event)"      >      </app-geolocate-notifications>    </div>  </ng-template></ion-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TrekMapPage'};
 </script>

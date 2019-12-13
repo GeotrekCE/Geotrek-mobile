@@ -27,13 +27,29 @@
             {{ 'toolbar.search' | translate }}
           </ion-button>
         </ion-col>
-        <ion-col text-right [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }">
-          <ion-button class="toolbar-button" (click)="showTreksOrder($event)" fill="clear" color="dark">
+        <ion-col
+          text-right
+          [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
+        >
+          <ion-button
+            class="toolbar-button"
+            (click)="showTreksOrder($event)"
+            fill="clear"
+            color="dark"
+          >
             <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>
           </ion-button>
 
-          <ion-button class="toolbar-button" (click)="changeColSize()" fill="clear" color="dark">
-            <ion-icon [name]="colSize === 12 ? 'apps' : 'reorder'" size="large"></ion-icon>
+          <ion-button
+            class="toolbar-button"
+            (click)="changeColSize()"
+            fill="clear"
+            color="dark"
+          >
+            <ion-icon
+              [name]="colSize === 12 ? 'apps' : 'reorder'"
+              size="large"
+            ></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -64,7 +80,8 @@
                 treks.numberOftrek
               </h1>
               <h1 *ngIf="filteredTreks.length > 1">
-                {{ filteredTreks.length }} <span translate>treks.numberOftreks</span>
+                {{ filteredTreks.length }}
+                <span translate>treks.numberOftreks</span>
               </h1>
             </ion-text>
           </ion-row>
@@ -74,14 +91,23 @@
               [sizeMd]="getMdColSize()"
               *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
             >
-              <app-trek-card [showAllData]="this.colSize === 12" [trek]="trek" [offline]="offline"></app-trek-card>
+              <app-trek-card
+                [showAllData]="this.colSize === 12"
+                [trek]="trek"
+                [offline]="offline"
+              ></app-trek-card>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-list>
     </div>
 
-    <ion-fab *ngIf="!!filteredTreks && filteredTreks.length > 0" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab
+      *ngIf="!!filteredTreks && filteredTreks.length > 0"
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+    >
       <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
         <ion-icon name="globe"></ion-icon>
       </ion-fab-button>

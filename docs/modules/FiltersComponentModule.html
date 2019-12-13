@@ -150,7 +150,12 @@ import { IonicModule } from &#x27;@ionic/angular&#x27;;
 import { SharedFiltersModule } from &#x27;@app/shared/shared-filters.module&#x27;;
 
 @NgModule({
-  imports: [CommonModule, IonicModule, SharedFiltersModule, TranslateModule.forChild()],
+  imports: [
+    CommonModule,
+    IonicModule,
+    SharedFiltersModule,
+    TranslateModule.forChild()
+  ]
 })
 export class FiltersComponentModule {}
 </code></pre>

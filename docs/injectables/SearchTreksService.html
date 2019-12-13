@@ -192,7 +192,7 @@ import { MinimalTrek } from &#x27;@app/interfaces/interfaces&#x27;;
 import { deburr } from &#x27;lodash&#x27;;
 
 @Injectable({
-  providedIn: &#x27;root&#x27;,
+  providedIn: &#x27;root&#x27;
 })
 export class SearchTreksService {
   public search(treks: MinimalTrek[], searchValue: string): MinimalTrek[] {
@@ -206,7 +206,7 @@ export class SearchTreksService {
     }
     searchValue &#x3D; searchValue.toLowerCase();
     return treks
-      .filter(trek &#x3D;&gt; {
+      .filter((trek) &#x3D;&gt; {
         return deburr(trek.properties.name.toLowerCase()).includes(searchValue);
       })
       .sort(function(a, b) {

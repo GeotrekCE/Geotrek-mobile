@@ -4,7 +4,7 @@ import { NavParams } from '@ionic/angular';
 @Component({
   selector: 'app-layers-visibility',
   templateUrl: './layers-visibility.component.html',
-  styleUrls: ['./layers-visibility.component.scss'],
+  styleUrls: ['./layers-visibility.component.scss']
 })
 export class LayersVisibilityComponent {
   changeLayerVisibility: any;

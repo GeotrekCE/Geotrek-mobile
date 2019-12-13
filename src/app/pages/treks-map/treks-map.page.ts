@@ -6,7 +6,11 @@ import { environment } from '@env/environment';
 import { unsubscribe, UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import { MinimalTrek, TreksContext, TreksService } from '@app/interfaces/interfaces';
+import {
+  MinimalTrek,
+  TreksContext,
+  TreksService
+} from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
@@ -21,7 +25,7 @@ import { Network } from '@ionic-native/network/ngx';
   selector: 'app-treks-map',
   templateUrl: './treks-map.page.html',
   styleUrls: ['./treks-map.page.scss'],
-  providers: [FilterTreksService],
+  providers: [FilterTreksService]
 })
 export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
   private mergeFiltersTreks$: Subscription;
@@ -47,7 +51,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public settings: SettingsService,
     private network: Network,
-    private platform: Platform,
+    private platform: Platform
   ) {
     super();
   }
@@ -56,7 +60,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     super.ngOnInit();
     this.loading.begin('treks-map');
     this.subscriptions$$.push(
-      this.route.data.subscribe(data => {
+      this.route.data.subscribe((data) => {
         const context: TreksContext = data.context;
         this.offline = context.offline;
         this.treksTool = context.treksTool;
@@ -64,12 +68,14 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
         this.mapConfig = cloneDeep(context.mapConfig);
         this.commonSrc = this.treksTool.getCommonImgSrc();
       }),
-      this.onlineTreks.onlineTreksError$.subscribe(error => {
+      this.onlineTreks.onlineTreksError$.subscribe((error) => {
         if (!!error) {
           this.loading.finish(); // if there was a connection error, map could not be loaded
         }
       }),
-      this.loading.status.pipe(delay(0)).subscribe(status => (this.loaderStatus = status)),
+      this.loading.status
+        .pipe(delay(0))
+        .subscribe((status) => (this.loaderStatus = status))
     );
   }
 
@@ -89,12 +95,13 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     this.mergeFiltersTreks$ = combineLatest(
       this.route.data.pipe(
         first(),
-        map(data => data.context),
-        mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
+        map((data) => data.context),
+        mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
       ),
-      this.filterTreks.activeFiltersNumber$,
+      this.filterTreks.activeFiltersNumber$
     ).subscribe(([filteredTreks, numberOfActiveFilters]) => {
-      this.numberOfActiveFilters = numberOfActiveFilters === 0 ? '' : `(${numberOfActiveFilters})`;
+      this.numberOfActiveFilters =
+        numberOfActiveFilters === 0 ? '' : `(${numberOfActiveFilters})`;
       this.filteredTreks = <MinimalTrek[]>filteredTreks;
       this.isInView = true;
     });
@@ -110,7 +117,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: FiltersComponent,
       componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
     await modal.present();
   }
@@ -119,7 +126,7 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: SearchComponent,
       componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
 
     await modal.present();

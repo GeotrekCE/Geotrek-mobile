@@ -1,13 +1,28 @@
 <div #mapViz id="map-trek" class="map-viz"></div>
 
 <div class="options-button-container">
-  <ion-button (click)="flyToUserLocation()" shape="round" size="small" color="light">
+  <ion-button
+    (click)="flyToUserLocation()"
+    shape="round"
+    size="small"
+    color="light"
+  >
     <ion-icon color="dark" name="locate"></ion-icon>
   </ion-button>
-  <ion-button (click)="FitToTrekBounds()" shape="round" size="small" color="light">
+  <ion-button
+    (click)="FitToTrekBounds()"
+    shape="round"
+    size="small"
+    color="light"
+  >
     <ion-icon color="dark" name="contract"></ion-icon>
   </ion-button>
-  <ion-button (click)="showLayersVisibility($event)" shape="round" size="small" color="light">
+  <ion-button
+    (click)="showLayersVisibility($event)"
+    shape="round"
+    size="small"
+    color="light"
+  >
     <ion-icon mode="ios" color="dark" name="apps"></ion-icon>
   </ion-button>
 </div>

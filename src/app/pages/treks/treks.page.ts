@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { IonContent, ModalController, PopoverController, AlertController } from '@ionic/angular';
+import {
+  IonContent,
+  ModalController,
+  PopoverController,
+  AlertController
+} from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { map, mergeMap, delay, first } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
@@ -11,7 +16,11 @@ import { environment } from '@env/environment';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import { MinimalTrek, TreksContext, TreksService } from '@app/interfaces/interfaces';
+import {
+  MinimalTrek,
+  TreksContext,
+  TreksService
+} from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
@@ -23,7 +32,7 @@ import { TreksOrderComponent } from '@app/components/treks-order/treks-order.com
   selector: 'app-treks',
   templateUrl: 'treks.page.html',
   styleUrls: ['treks.page.scss'],
-  providers: [FilterTreksService],
+  providers: [FilterTreksService]
 })
 export class TreksPage extends UnSubscribe implements OnInit {
   public noNetwork = false;
@@ -54,7 +63,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     public platform: Platform,
     private popoverController: PopoverController,
     private translate: TranslateService,
-    private alertController: AlertController,
+    private alertController: AlertController
   ) {
     super();
   }
@@ -69,7 +78,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     super.ngOnInit();
     this.subscriptions$$.push(
       // load tools when enter route
-      this.route.data.subscribe(data => {
+      this.route.data.subscribe((data) => {
         const context: TreksContext = data.context;
         this.treksTool = context.treksTool;
         this.mapLink = context.treksTool.getTreksMapUrl();
@@ -80,28 +89,32 @@ export class TreksPage extends UnSubscribe implements OnInit {
       combineLatest([
         this.route.data.pipe(
           first(),
-          map(data => data.context),
-          mergeMap((context: TreksContext) => context.treksTool.filteredTreks$),
+          map((data) => data.context),
+          mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
         ),
         this.filterTreks.activeFiltersNumber$,
-        this.settings.data$,
+        this.settings.data$
       ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
         if (settings) {
-          this.numberOfActiveFilters = !!numberOfActiveFilters ? `(${numberOfActiveFilters})` : '';
+          this.numberOfActiveFilters = !!numberOfActiveFilters
+            ? `(${numberOfActiveFilters})`
+            : '';
           this.filteredTreks = <MinimalTrek[]>[...filteredTreks];
           this.content.scrollToTop();
         }
       }),
 
       // get number of offline treks
-      this.offlineTreks.treks$.subscribe(treks => {
+      this.offlineTreks.treks$.subscribe((treks) => {
         if (!treks) {
           this.nbOfflineTreks = 0;
         } else {
           this.nbOfflineTreks = treks.features.length;
         }
       }),
-      this.loading.status.pipe(delay(0)).subscribe(status => (this.loaderStatus = status)),
+      this.loading.status
+        .pipe(delay(0))
+        .subscribe((status) => (this.loaderStatus = status))
     );
   }
 
@@ -129,7 +142,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     const modal = await this.modalController.create({
       component: FiltersComponent,
       componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
     await modal.present();
   }
@@ -138,7 +151,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
     const modal = await this.modalController.create({
       component: SearchComponent,
       componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
 
     await modal.present();
@@ -166,12 +179,12 @@ export class TreksPage extends UnSubscribe implements OnInit {
     const orders: { name: string; value: string }[] = [
       {
         name: await this.translate.get('toolbar.orderByAlphabet').toPromise(),
-        value: 'default',
+        value: 'default'
       },
       {
         name: await this.translate.get('toolbar.orderByLocation').toPromise(),
-        value: 'location',
-      },
+        value: 'location'
+      }
     ];
 
     const popover = await this.popoverController.create({
@@ -179,22 +192,24 @@ export class TreksPage extends UnSubscribe implements OnInit {
       event: event,
       translucent: true,
       componentProps: {
-        orders,
-      },
+        orders
+      }
     });
     await popover.present();
 
     const { data } = await popover.onDidDismiss();
 
     if (data && data.error) {
-      const errorTranslation: any = await this.translate.get('geolocate.error').toPromise();
+      const errorTranslation: any = await this.translate
+        .get('geolocate.error')
+        .toPromise();
 
       // Inform user about problem
       const alertLocation = await this.alertController.create({
         header: errorTranslation['header'],
         subHeader: errorTranslation['subHeader'],
         message: errorTranslation['message'],
-        buttons: [errorTranslation['confirmButton']],
+        buttons: [errorTranslation['confirmButton']]
       });
 
       await alertLocation.present();

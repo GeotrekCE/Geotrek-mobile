@@ -6,5 +6,9 @@
     [src]="commonSrc + (value.pictogram || '')"
   ></ion-img>
   <ion-label>{{ value.name }}</ion-label>
-  <ion-checkbox (ionChange)="valueCheckChanged($event, value)" [checked]="value.checked" slot="start"></ion-checkbox>
+  <ion-checkbox
+    (ionChange)="valueCheckChanged($event, value)"
+    [checked]="value.checked"
+    slot="start"
+  ></ion-checkbox>
 </ion-item>

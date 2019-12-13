@@ -199,10 +199,10 @@ const routes: Routes &#x3D; [
     path: &#x27;&#x27;,
     runGuardsAndResolvers: &#x27;always&#x27;,
     resolve: {
-      context: TrekContextResolver,
+      context: TrekContextResolver
     },
-    component: TrekDetailsPage,
-  },
+    component: TrekDetailsPage
+  }
 ];
 
 @NgModule({
@@ -213,9 +213,9 @@ const routes: Routes &#x3D; [
     SharedTreksModule,
     SharedUiModule,
     TranslateModule.forChild(),
-    CustomPipesModule,
+    CustomPipesModule
   ],
-  declarations: [TrekDetailsPage],
+  declarations: [TrekDetailsPage]
 })
 export class TrekDetailsPageModule {}
 </code></pre>

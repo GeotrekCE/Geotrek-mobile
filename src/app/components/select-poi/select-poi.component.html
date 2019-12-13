@@ -8,11 +8,17 @@
   <ion-list>
     <ion-radio-group (ionChange)="selectedPoiChange($event)">
       <ion-item *ngFor="let poi of radioPois; let i = index">
-        <ion-radio slot="start" [value]="poi.id" [checked]="i === 0"></ion-radio>
+        <ion-radio
+          slot="start"
+          [value]="poi.id"
+          [checked]="i === 0"
+        ></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
           *ngIf="poi.imgTypePoi.src"
-          [style.background-color]="poi.imgTypePoi.color ? poi.imgTypePoi.color : 'transparent'"
+          [style.background-color]="
+            poi.imgTypePoi.color ? poi.imgTypePoi.color : 'transparent'
+          "
           [src]="poi.imgTypePoi.src"
         ></ion-img>
         <ion-label class="ion-text-wrap">{{ poi.name }}</ion-label>

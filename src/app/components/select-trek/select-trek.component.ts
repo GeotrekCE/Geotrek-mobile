@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-select-trek',
   templateUrl: './select-trek.component.html',
-  styleUrls: ['./select-trek.component.scss'],
+  styleUrls: ['./select-trek.component.scss']
 })
 export class SelectTrekComponent implements OnInit {
   @Input() public radioTreks: {

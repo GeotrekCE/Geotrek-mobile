@@ -6,13 +6,13 @@ import {
   BackgroundGeolocation,
   BackgroundGeolocationConfig,
   BackgroundGeolocationEvents,
-  BackgroundGeolocationLocationProvider,
+  BackgroundGeolocationLocationProvider
 } from '@ionic-native/background-geolocation/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from '@env/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -20,7 +20,7 @@ export class GeolocateService {
   constructor(
     public backgroundGeolocation: BackgroundGeolocation,
     public platform: Platform,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   async checkAuthorization() {
@@ -35,42 +35,54 @@ export class GeolocateService {
 
   async startTracking(notificationText: string) {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      const notificationTitle: string = await this.translate.get('geolocate.notificationTitle').toPromise();
+      const notificationTitle: string = await this.translate
+        .get('geolocate.notificationTitle')
+        .toPromise();
       const geolocationConfig: BackgroundGeolocationConfig = {
-        locationProvider: BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
+        locationProvider:
+          BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
         maxLocations: 10,
         startForeground: true,
         stopOnTerminate: true,
         debug: false,
         notificationTitle,
         notificationText,
-        ...environment.backgroundGeolocation,
+        ...environment.backgroundGeolocation
       };
 
       await this.backgroundGeolocation.configure(geolocationConfig);
 
-      this.backgroundGeolocation.on(BackgroundGeolocationEvents.start).subscribe(async () => {
-        try {
-          const startLocation = await this.backgroundGeolocation.getCurrentLocation({
-            timeout: 3000,
-            maximumAge: 10000,
-            enableHighAccuracy: true,
-          });
-          this.currentPosition$.next([startLocation.longitude, startLocation.latitude]);
-        } catch (error) {
-          this.currentPosition$.next(null);
-          error = true;
-        }
-      });
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.start)
+        .subscribe(async () => {
+          try {
+            const startLocation = await this.backgroundGeolocation.getCurrentLocation(
+              {
+                timeout: 3000,
+                maximumAge: 10000,
+                enableHighAccuracy: true
+              }
+            );
+            this.currentPosition$.next([
+              startLocation.longitude,
+              startLocation.latitude
+            ]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error = true;
+          }
+        });
 
-      this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe(location => {
-        try {
-          this.currentPosition$.next([location.longitude, location.latitude]);
-        } catch (error) {
-          this.currentPosition$.next(null);
-          error = true;
-        }
-      });
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.location)
+        .subscribe((location) => {
+          try {
+            this.currentPosition$.next([location.longitude, location.latitude]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error = true;
+          }
+        });
 
       this.backgroundGeolocation.start();
     } else {
@@ -101,12 +113,16 @@ export class GeolocateService {
       startLocation = await this.backgroundGeolocation.getCurrentLocation({
         timeout: 3000,
         maximumAge: 60000,
-        enableHighAccuracy: true,
+        enableHighAccuracy: true
       });
     } catch (error) {
       startLocation = null;
     } finally {
-      this.currentPosition$.next(startLocation ? [startLocation.longitude, startLocation.latitude] : startLocation);
+      this.currentPosition$.next(
+        startLocation
+          ? [startLocation.longitude, startLocation.latitude]
+          : startLocation
+      );
 
       return startLocation;
     }

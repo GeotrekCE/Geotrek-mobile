@@ -3,7 +3,12 @@
     <h1>{{ filter.name }}</h1>
   </ion-text>
 </ion-label>
-<ng-container *ngIf="filter.values.length <= containsFilterShouldUseSelectAbove; else select">
+<ng-container
+  *ngIf="
+    filter.values.length <= containsFilterShouldUseSelectAbove;
+    else select
+  "
+>
   <app-filter-value
     *ngFor="let value of filter.values"
     [commonSrc]="commonSrc"
@@ -18,7 +23,9 @@
     <ion-label class="select-placeholder">
       {{
         selectedItems === ''
-          ? ('filters.selectPlaceholder' | translate) + ' ' + filter.name.toLowerCase()
+          ? ('filters.selectPlaceholder' | translate) +
+            ' ' +
+            filter.name.toLowerCase()
           : selectedItems
       }}
     </ion-label>

@@ -200,8 +200,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/app/services/more-informations/more-informations.service.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/services/more-informations/more-informations.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -272,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/more-informations/more-informations.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/app/services/more-informations/more-informations.service.ts:21</a></div>
                 </td>
             </tr>
 
@@ -338,29 +338,38 @@ import { CacheService } from &#x27;@app/services/cache/cache.service&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable({
-  providedIn: &#x27;root&#x27;,
+  providedIn: &#x27;root&#x27;
 })
 export class MoreInformationsService {
   private apiUrl &#x3D; &#x60;${environment.onlineBaseUrl}&#x60;;
 
-  constructor(private cache: CacheService, private translate: TranslateService) {}
+  constructor(
+    private cache: CacheService,
+    private translate: TranslateService
+  ) {}
 
   public getMoreItems(): Observable&lt;InformationIntro[]&gt; {
     const httpOptions &#x3D; {
       headers: new HttpHeaders({
-        &#x27;Accept-Language&#x27;:  this.translate.getDefaultLang(),
+        &#x27;Accept-Language&#x27;: this.translate.getDefaultLang()
       })
     };
-    return this.cache.get&lt;InformationIntro[]&gt;(&#x60;${this.apiUrl}/flatpages.json&#x60;, httpOptions);
+    return this.cache.get&lt;InformationIntro[]&gt;(
+      &#x60;${this.apiUrl}/flatpages.json&#x60;,
+      httpOptions
+    );
   }
 
   public getMoreItemById(id: number): Observable&lt;InformationItem&gt; {
     const httpOptions &#x3D; {
       headers: new HttpHeaders({
-        &#x27;Accept-Language&#x27;:  this.translate.getDefaultLang(),
+        &#x27;Accept-Language&#x27;: this.translate.getDefaultLang()
       })
     };
-    return this.cache.get&lt;InformationItem&gt;(&#x60;${this.apiUrl}/flatpages/${id}.json&#x60;, httpOptions);
+    return this.cache.get&lt;InformationItem&gt;(
+      &#x60;${this.apiUrl}/flatpages/${id}.json&#x60;,
+      httpOptions
+    );
   }
 }
 </code></pre>

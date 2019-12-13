@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 
 import { MinimalTrek, MinimalTreks, Trek } from '@app/interfaces/interfaces';
@@ -13,7 +18,7 @@ import { ModalController, NavParams, Platform } from '@ionic/angular';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   providers: [SearchTreksService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent extends UnSubscribe implements OnInit {
   public filteredTreks: MinimalTrek[] = [];
@@ -30,7 +35,7 @@ export class SearchComponent extends UnSubscribe implements OnInit {
     private searchTreks: SearchTreksService,
     private navParams: NavParams,
     private platform: Platform,
-    private ref: ChangeDetectorRef,
+    private ref: ChangeDetectorRef
   ) {
     super();
   }
@@ -46,14 +51,14 @@ export class SearchComponent extends UnSubscribe implements OnInit {
       this.platform.backButton.subscribeWithPriority(99999, () => {
         this.close();
       }),
-      treksTool.treks$.subscribe(treks => {
+      treksTool.treks$.subscribe((treks) => {
         this.treks = treks;
         if (this.treks) {
           this.filteredTreks = this.searchTreks.search(this.treks.features, '');
         }
         this.viewIsLoad = true;
         this.ref.detectChanges();
-      }),
+      })
     );
   }
 
@@ -64,7 +69,10 @@ export class SearchComponent extends UnSubscribe implements OnInit {
   public search(searchValue: string): void {
     this.currentSearchValue = searchValue;
     if (this.treks) {
-      this.filteredTreks = this.searchTreks.search(this.treks.features, searchValue);
+      this.filteredTreks = this.searchTreks.search(
+        this.treks.features,
+        searchValue
+      );
     } else {
       this.filteredTreks = [];
     }

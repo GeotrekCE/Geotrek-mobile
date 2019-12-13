@@ -107,6 +107,10 @@
                                 <a href="#checkIfTrackerIsRunning">checkIfTrackerIsRunning</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getCurrentPosition">getCurrentPosition</a>
+                            </li>
+                            <li>
                                 <a href="#showAppSettings">showAppSettings</a>
                             </li>
                             <li>
@@ -295,6 +299,47 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getCurrentPosition"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getCurrentPosition
+                        </b>
+                        <a href="#getCurrentPosition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCurrentPosition()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:110</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="showAppSettings"></a>
                     <span class="name">
                         <b>
@@ -313,8 +358,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:102</a></div>
                 </td>
             </tr>
 
@@ -352,8 +397,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -463,8 +508,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app/services/geolocate/geolocate.service.ts:94</a></div>
                 </td>
             </tr>
 
@@ -589,13 +634,13 @@ import {
   BackgroundGeolocation,
   BackgroundGeolocationConfig,
   BackgroundGeolocationEvents,
-  BackgroundGeolocationLocationProvider,
+  BackgroundGeolocationLocationProvider
 } from &#x27;@ionic-native/background-geolocation/ngx&#x27;;
 import { Platform } from &#x27;@ionic/angular&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
 
 @Injectable({
-  providedIn: &#x27;root&#x27;,
+  providedIn: &#x27;root&#x27;
 })
 export class GeolocateService {
   public currentPosition$: BehaviorSubject&lt;any&gt; &#x3D; new BehaviorSubject(null);
@@ -603,7 +648,7 @@ export class GeolocateService {
   constructor(
     public backgroundGeolocation: BackgroundGeolocation,
     public platform: Platform,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   async checkAuthorization() {
@@ -618,28 +663,54 @@ export class GeolocateService {
 
   async startTracking(notificationText: string) {
     if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
-      const notificationTitle: string &#x3D; await this.translate.get(&#x27;geolocate.notificationTitle&#x27;).toPromise();
+      const notificationTitle: string &#x3D; await this.translate
+        .get(&#x27;geolocate.notificationTitle&#x27;)
+        .toPromise();
       const geolocationConfig: BackgroundGeolocationConfig &#x3D; {
-        locationProvider: BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
+        locationProvider:
+          BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
         maxLocations: 10,
         startForeground: true,
         stopOnTerminate: true,
         debug: false,
         notificationTitle,
         notificationText,
-        ...environment.backgroundGeolocation,
+        ...environment.backgroundGeolocation
       };
 
       await this.backgroundGeolocation.configure(geolocationConfig);
 
-      this.backgroundGeolocation.on(BackgroundGeolocationEvents.start).subscribe(async () &#x3D;&gt; {
-        const startLocation &#x3D; await this.backgroundGeolocation.getCurrentLocation();
-        this.currentPosition$.next([startLocation.longitude, startLocation.latitude]);
-      });
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.start)
+        .subscribe(async () &#x3D;&gt; {
+          try {
+            const startLocation &#x3D; await this.backgroundGeolocation.getCurrentLocation(
+              {
+                timeout: 3000,
+                maximumAge: 10000,
+                enableHighAccuracy: true
+              }
+            );
+            this.currentPosition$.next([
+              startLocation.longitude,
+              startLocation.latitude
+            ]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error &#x3D; true;
+          }
+        });
 
-      this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe(location &#x3D;&gt; {
-        this.currentPosition$.next([location.longitude, location.latitude]);
-      });
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.location)
+        .subscribe((location) &#x3D;&gt; {
+          try {
+            this.currentPosition$.next([location.longitude, location.latitude]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error &#x3D; true;
+          }
+        });
 
       this.backgroundGeolocation.start();
     } else {
@@ -662,6 +733,27 @@ export class GeolocateService {
 
   showLocationSettings() {
     this.backgroundGeolocation.showLocationSettings();
+  }
+
+  async getCurrentPosition() {
+    let startLocation;
+    try {
+      startLocation &#x3D; await this.backgroundGeolocation.getCurrentLocation({
+        timeout: 3000,
+        maximumAge: 60000,
+        enableHighAccuracy: true
+      });
+    } catch (error) {
+      startLocation &#x3D; null;
+    } finally {
+      this.currentPosition$.next(
+        startLocation
+          ? [startLocation.longitude, startLocation.latitude]
+          : startLocation
+      );
+
+      return startLocation;
+    }
   }
 }
 </code></pre>

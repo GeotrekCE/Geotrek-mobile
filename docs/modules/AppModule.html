@@ -313,7 +313,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS
+} from &#x27;@angular/common/http&#x27;;
 import { NgModule } from &#x27;@angular/core&#x27;;
 import { BrowserModule } from &#x27;@angular/platform-browser&#x27;;
 import { BrowserAnimationsModule } from &#x27;@angular/platform-browser/animations&#x27;;
@@ -374,14 +378,14 @@ registerLocaleData(localeFr, &#x27;fr&#x27;);
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent,
+    TreksOrderComponent
   ],
   entryComponents: [
     PoiDetailsComponent,
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent,
+    TreksOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -389,7 +393,7 @@ registerLocaleData(localeFr, &#x27;fr&#x27;);
     IonicModule.forRoot({
       mode: &#x27;md&#x27;,
       animated: true,
-      navAnimation: noAnimation,
+      navAnimation: noAnimation
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -397,10 +401,10 @@ registerLocaleData(localeFr, &#x27;fr&#x27;);
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
+        deps: [HttpClient]
+      }
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
@@ -420,9 +424,9 @@ registerLocaleData(localeFr, &#x27;fr&#x27;);
     TrekContextResolver,
     TreksContextResolver,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
 </code></pre>

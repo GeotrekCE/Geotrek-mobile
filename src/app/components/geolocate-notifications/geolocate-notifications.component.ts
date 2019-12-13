@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   SimpleChange,
   Output,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Platform } from '@ionic/angular';
@@ -25,9 +25,10 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'app-geolocate-notifications',
   templateUrl: './geolocate-notifications.component.html',
-  styleUrls: ['./geolocate-notifications.component.scss'],
+  styleUrls: ['./geolocate-notifications.component.scss']
 })
-export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDestroy {
+export class GeolocateNotificationsComponent
+  implements OnInit, OnChanges, OnDestroy {
   currentPoisToNotify: any[] = [];
   clicklocalNotifications$: Subscription;
   notificationsModeIsActive = false;
@@ -41,7 +42,7 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
     public localNotifications: LocalNotifications,
     public alertController: AlertController,
     private geolocate: GeolocateService,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -54,12 +55,16 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
         priority: 2,
         silent: false,
         launch: true,
-        lockscreen: true,
+        lockscreen: true
       });
-      this.clicklocalNotifications$ = this.localNotifications.on('click').subscribe(({ data }) => {
-        const poi = this.currentPois.features.find(feature => feature.properties.id === data.id);
-        this.presentPoiDetails.emit(poi);
-      });
+      this.clicklocalNotifications$ = this.localNotifications
+        .on('click')
+        .subscribe(({ data }) => {
+          const poi = this.currentPois.features.find(
+            (feature) => feature.properties.id === data.id
+          );
+          this.presentPoiDetails.emit(poi);
+        });
     }
   }
 
@@ -67,10 +72,10 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
     const changesCurrentPois: SimpleChange = changes.currentPois;
     if (changesCurrentPois.currentValue && !changesCurrentPois.previousValue) {
       if (this.currentPois && Array.isArray(this.currentPois.features)) {
-        this.currentPoisToNotify = this.currentPois.features.map(feature => ({
+        this.currentPoisToNotify = this.currentPois.features.map((feature) => ({
           id: feature.properties.id,
           name: feature.properties.name,
-          coordinates: feature.geometry.coordinates,
+          coordinates: feature.geometry.coordinates
         }));
       }
     }
@@ -114,7 +119,9 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   }
 
   enableGeolocationNotification(): void {
-    this.currentPosition$ = this.geolocate.currentPosition$.subscribe(coordinates => this.checkToNotify(coordinates));
+    this.currentPosition$ = this.geolocate.currentPosition$.subscribe(
+      (coordinates) => this.checkToNotify(coordinates)
+    );
   }
 
   disableGeolocationNotification(): void {
@@ -122,25 +129,30 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
   }
 
   checkToNotify(fromCoordinates: number[]) {
-    if (fromCoordinates && this.currentPoisToNotify && this.currentPoisToNotify.length > 0) {
+    if (
+      fromCoordinates &&
+      this.currentPoisToNotify &&
+      this.currentPoisToNotify.length > 0
+    ) {
       const kmToNotify = environment.metersToNotify / 1000;
       const options = {
-        units: 'kilometers',
+        units: 'kilometers'
       };
       const from = point(fromCoordinates);
       const notifiedIndex = this.currentPoisToNotify.findIndex(
-        feature => distance(from, point(feature.coordinates), options) <= kmToNotify,
+        (feature) =>
+          distance(from, point(feature.coordinates), options) <= kmToNotify
       );
 
       if (notifiedIndex !== -1) {
         if (this.platform.is('ios') || this.platform.is('android')) {
-          this.translate.get('geolocate.poiNearBy').subscribe(trad => {
+          this.translate.get('geolocate.poiNearBy').subscribe((trad) => {
             this.localNotifications.schedule({
               id: this.currentPoisToNotify[notifiedIndex].id,
               title: trad,
               text: this.currentPoisToNotify[notifiedIndex].name,
               data: {
-                id: this.currentPoisToNotify[notifiedIndex].id,
+                id: this.currentPoisToNotify[notifiedIndex].id
               },
               icon: 'res://icon',
               smallIcon: 'res://ic_stat_panorama',
@@ -149,7 +161,7 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
               priority: 2,
               silent: false,
               launch: true,
-              lockscreen: true,
+              lockscreen: true
             });
 
             this.currentPoisToNotify.splice(notifiedIndex, 1);
@@ -163,8 +175,12 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
 
   async presentPersmissionsConfirm() {
     await this.translate
-      .get(['geolocate.askLocatePermission', 'geolocate.cancel', 'geolocate.open'])
-      .subscribe(async trad => {
+      .get([
+        'geolocate.askLocatePermission',
+        'geolocate.cancel',
+        'geolocate.open'
+      ])
+      .subscribe(async (trad) => {
         const persmissionsConfirm = await this.alertController.create({
           header: 'Permissions',
           message: trad['geolocate.askLocatePermission'],
@@ -172,15 +188,15 @@ export class GeolocateNotificationsComponent implements OnInit, OnChanges, OnDes
             {
               text: trad['geolocate.cancel'],
               role: 'cancel',
-              cssClass: 'secondary',
+              cssClass: 'secondary'
             },
             {
               text: trad['geolocate.open'],
               handler: () => {
                 this.geolocate.showAppSettings();
-              },
-            },
-          ],
+              }
+            }
+          ]
         });
 
         await persmissionsConfirm.present();

@@ -7,11 +7,15 @@ import {
   Output,
   SimpleChange,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable } from 'rxjs';
-import { PopoverController, AlertController, ModalController } from '@ionic/angular';
+import {
+  PopoverController,
+  AlertController,
+  ModalController
+} from '@ionic/angular';
 import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
@@ -20,7 +24,7 @@ import {
   DataSetting,
   HydratedTrek,
   TouristicCategoryWithFeatures,
-  TouristicContent,
+  TouristicContent
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -36,9 +40,10 @@ const mapboxgl = require('mapbox-gl');
 @Component({
   selector: 'app-map-trek-viz',
   templateUrl: './map-trek-viz.component.html',
-  styleUrls: ['./map-trek-viz.component.scss'],
+  styleUrls: ['./map-trek-viz.component.scss']
 })
-export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnChanges {
+export class MapTrekVizComponent extends UnSubscribe
+  implements OnDestroy, OnChanges {
   private map: Map;
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
@@ -64,7 +69,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     public popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController,
-    private modalController: ModalController,
+    private modalController: ModalController
   ) {
     super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
@@ -77,14 +82,16 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   ngOnChanges(changes: SimpleChanges) {
     const changesCurrentTrek: SimpleChange = changes.currentTrek;
     const changesCurrentPois: SimpleChange = changes.currentPois;
-    const touristicCategoriesWithFeatures: SimpleChange = changes.touristicCategoriesWithFeatures;
+    const touristicCategoriesWithFeatures: SimpleChange =
+      changes.touristicCategoriesWithFeatures;
     if (
       !!this.currentTrek &&
       !!this.currentPois &&
       !!this.touristicCategoriesWithFeatures &&
       ((changesCurrentTrek && !changesCurrentTrek.previousValue) ||
         (changesCurrentPois && !changesCurrentPois.previousValue) ||
-        (touristicCategoriesWithFeatures && !touristicCategoriesWithFeatures.previousValue))
+        (touristicCategoriesWithFeatures &&
+          !touristicCategoriesWithFeatures.previousValue))
     ) {
       this.createMap();
     }
@@ -104,26 +111,34 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     if (this.mapConfig && this.mapConfig.style) {
       this.map = new Map({
         ...this.mapConfig,
-        container: 'map-trek',
+        container: 'map-trek'
       });
 
-      this.map.fitBounds(this.mapConfig.trekBounds, environment.map.TrekfitBoundsOptions);
-      this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
+      this.map.fitBounds(
+        this.mapConfig.trekBounds,
+        environment.map.TrekfitBoundsOptions
+      );
+      this.map.addControl(
+        new mapboxgl.NavigationControl({ showCompass: false }),
+        'top-left'
+      );
 
       this.map.addControl(
         new mapboxgl.ScaleControl({
-          unit: 'metric',
-        }),
+          unit: 'metric'
+        })
       );
 
       this.map.addControl(
         new mapboxgl.AttributionControl({
           compact: false,
-          customAttribution: environment.map.attributionText,
-        }),
+          customAttribution: environment.map.attributionText
+        })
       );
 
-      this.geolocate.startTracking(this.currentTrek ? this.currentTrek.properties.name : '');
+      this.geolocate.startTracking(
+        this.currentTrek ? this.currentTrek.properties.name : ''
+      );
 
       this.map.on('click', 'pois-icon', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
@@ -137,28 +152,48 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
       this.map.on('click', 'information-desk-icon', (e: MapLayerMouseEvent) => {
         const childrenTreks = this.map.queryRenderedFeatures(e.point, {
-          layers: [`children-treks-circle`],
+          layers: [`children-treks-circle`]
         });
 
-        if (!!e.features && e.features.length > 0 && (!childrenTreks || !(childrenTreks.length > 0))) {
-          if (e.features[0] && e.features[0].properties && e.features[0].properties.id && this.currentTrek) {
+        if (
+          !!e.features &&
+          e.features.length > 0 &&
+          (!childrenTreks || !(childrenTreks.length > 0))
+        ) {
+          if (
+            e.features[0] &&
+            e.features[0].properties &&
+            e.features[0].properties.id &&
+            this.currentTrek
+          ) {
             const informationDesk = this.currentTrek.properties.information_desks.find(
-              informationDeskProperty => informationDeskProperty.id === (e as any).features[0].properties.id,
+              (informationDeskProperty) =>
+                informationDeskProperty.id ===
+                (e as any).features[0].properties.id
             );
             this.presentInformationDeskDetails.emit(informationDesk);
           }
         }
       });
 
-      this.map.on('click', 'touristics-content-icon', (e: MapLayerMouseEvent) => {
-        if (!!e.features && e.features.length > 0) {
-          const touristicContent = { ...e.features[0] };
-          if (touristicContent.properties && touristicContent.properties.pictures) {
-            touristicContent.properties.pictures = JSON.parse(touristicContent.properties.pictures);
+      this.map.on(
+        'click',
+        'touristics-content-icon',
+        (e: MapLayerMouseEvent) => {
+          if (!!e.features && e.features.length > 0) {
+            const touristicContent = { ...e.features[0] };
+            if (
+              touristicContent.properties &&
+              touristicContent.properties.pictures
+            ) {
+              touristicContent.properties.pictures = JSON.parse(
+                touristicContent.properties.pictures
+              );
+            }
+            this.presentPoiDetails.emit(touristicContent);
           }
-          this.presentPoiDetails.emit(touristicContent);
         }
-      });
+      );
 
       this.map.on('click', 'children-treks-circle', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
@@ -205,84 +240,115 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
               window.setTimeout(() => {
                 this.map.resize();
               }, 50);
-            }),
+            })
           );
         }
 
-        const loadImages: Observable<any> = Observable.create((observer: any) => {
-          const imagesToLoad: any[] = [];
-          this.poisType = this.dataSettings.find(data => data.id === 'poi_types');
-
-          if (this.poisType) {
-            this.poisType.values.forEach(poiType => {
-              if (poiType.pictogram) {
-                imagesToLoad.push({ id: `pois${poiType.id}`, pictogram: poiType.pictogram });
-              }
-            });
-          }
-
-          const typeInformationDesks: DataSetting | undefined = this.dataSettings.find(
-            data => data.id === 'information_desk_types',
-          );
-
-          if (typeInformationDesks) {
-            typeInformationDesks.values.forEach(typeInformationDesk => {
-              if (typeInformationDesk.pictogram) {
-                imagesToLoad.push({
-                  id: `informationDesk${typeInformationDesk.id}`,
-                  pictogram: typeInformationDesk.pictogram,
-                });
-              }
-            });
-          }
-
-          const touristicsContent: DataSetting | undefined = this.dataSettings.find(
-            data => data.id === 'touristiccontent_categories',
-          );
-
-          if (touristicsContent) {
-            touristicsContent.values.forEach(touristicContent => {
-              if (touristicContent.pictogram) {
-                imagesToLoad.push({
-                  id: `touristicContent${touristicContent.id}`,
-                  pictogram: touristicContent.pictogram,
-                });
-              }
-            });
-          }
-
-          imagesToLoad.push({ id: 'arrival', pictogram: './assets/map/icons/departure.png', fromAssets: true });
-          imagesToLoad.push({ id: 'departure', pictogram: './assets/map/icons/arrival.png', fromAssets: true });
-          imagesToLoad.push({
-            id: 'departureArrival',
-            pictogram: './assets/map/icons/departureArrival.png',
-            fromAssets: true,
-          });
-          imagesToLoad.push({ id: 'parking', pictogram: './assets/map/icons/parking.png', fromAssets: true });
-          imagesToLoad.push({ id: 'arrow', pictogram: './assets/map/icons/arrow.png', fromAssets: true });
-
-          imagesToLoad.forEach((imageToLoad: any, index: number) => {
-            this.map.loadImage(
-              imageToLoad.fromAssets ? imageToLoad.pictogram : `${this.commonSrc}${imageToLoad.pictogram}`,
-              (error: any, image: any) => {
-                this.map.addImage(imageToLoad.id.toString(), image);
-                if (index + 1 === imagesToLoad.length) {
-                  observer.complete();
-                }
-              },
+        const loadImages: Observable<any> = Observable.create(
+          (observer: any) => {
+            const imagesToLoad: any[] = [];
+            this.poisType = this.dataSettings.find(
+              (data) => data.id === 'poi_types'
             );
-          });
-        });
+
+            if (this.poisType) {
+              this.poisType.values.forEach((poiType) => {
+                if (poiType.pictogram) {
+                  imagesToLoad.push({
+                    id: `pois${poiType.id}`,
+                    pictogram: poiType.pictogram
+                  });
+                }
+              });
+            }
+
+            const typeInformationDesks:
+              | DataSetting
+              | undefined = this.dataSettings.find(
+              (data) => data.id === 'information_desk_types'
+            );
+
+            if (typeInformationDesks) {
+              typeInformationDesks.values.forEach((typeInformationDesk) => {
+                if (typeInformationDesk.pictogram) {
+                  imagesToLoad.push({
+                    id: `informationDesk${typeInformationDesk.id}`,
+                    pictogram: typeInformationDesk.pictogram
+                  });
+                }
+              });
+            }
+
+            const touristicsContent:
+              | DataSetting
+              | undefined = this.dataSettings.find(
+              (data) => data.id === 'touristiccontent_categories'
+            );
+
+            if (touristicsContent) {
+              touristicsContent.values.forEach((touristicContent) => {
+                if (touristicContent.pictogram) {
+                  imagesToLoad.push({
+                    id: `touristicContent${touristicContent.id}`,
+                    pictogram: touristicContent.pictogram
+                  });
+                }
+              });
+            }
+
+            imagesToLoad.push({
+              id: 'arrival',
+              pictogram: './assets/map/icons/departure.png',
+              fromAssets: true
+            });
+            imagesToLoad.push({
+              id: 'departure',
+              pictogram: './assets/map/icons/arrival.png',
+              fromAssets: true
+            });
+            imagesToLoad.push({
+              id: 'departureArrival',
+              pictogram: './assets/map/icons/departureArrival.png',
+              fromAssets: true
+            });
+            imagesToLoad.push({
+              id: 'parking',
+              pictogram: './assets/map/icons/parking.png',
+              fromAssets: true
+            });
+            imagesToLoad.push({
+              id: 'arrow',
+              pictogram: './assets/map/icons/arrow.png',
+              fromAssets: true
+            });
+
+            imagesToLoad.forEach((imageToLoad: any, index: number) => {
+              this.map.loadImage(
+                imageToLoad.fromAssets
+                  ? imageToLoad.pictogram
+                  : `${this.commonSrc}${imageToLoad.pictogram}`,
+                (error: any, image: any) => {
+                  this.map.addImage(imageToLoad.id.toString(), image);
+                  if (index + 1 === imagesToLoad.length) {
+                    observer.complete();
+                  }
+                }
+              );
+            });
+          }
+        );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe(coordinates => {
+          this.geolocate.currentPosition$.subscribe((coordinates) => {
             if (coordinates) {
               if (this.markerPosition) {
                 this.markerPosition.setLngLat(coordinates as any);
               } else {
                 const el = document.createElement('div');
                 el.className = 'pulse';
-                this.markerPosition = new mapboxgl.Marker({ element: el }).setLngLat(coordinates);
+                this.markerPosition = new mapboxgl.Marker({
+                  element: el
+                }).setLngLat(coordinates);
                 if (this.markerPosition) {
                   this.markerPosition.addTo(this.map);
                 }
@@ -304,8 +370,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
               this.mapViz.nativeElement.mapInstance = this.map;
 
               this.mapIsLoaded.emit(true);
-            },
-          }),
+            }
+          })
         );
       });
     }
@@ -314,22 +380,22 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   private initializeSources(): void {
     const data: FeatureCollection = {
       type: 'FeatureCollection',
-      features: [],
+      features: []
     };
 
     this.map.addSource('zone', {
       type: 'geojson',
-      data: 'assets/map/zone/zone.geojson',
+      data: 'assets/map/zone/zone.geojson'
     });
 
     this.map.addSource('trek', {
       type: 'geojson',
-      data,
+      data
     });
 
     this.map.addSource('departure-arrival', {
       type: 'geojson',
-      data,
+      data
     });
 
     this.map.addSource('pois', {
@@ -337,7 +403,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       data,
       maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
       cluster: true,
-      clusterRadius: 50,
+      clusterRadius: 50
     });
 
     this.map.addSource('touristics-content', {
@@ -345,27 +411,27 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       data,
       maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
       cluster: true,
-      clusterRadius: 50,
+      clusterRadius: 50
     });
 
     this.map.addSource('information-desk', {
       type: 'geojson',
-      data,
+      data
     });
 
     this.map.addSource('parking', {
       type: 'geojson',
-      data,
+      data
     });
 
     this.map.addSource('points-reference', {
       type: 'geojson',
-      data,
+      data
     });
 
     this.map.addSource('children-treks', {
       type: 'geojson',
-      data,
+      data
     });
   }
 
@@ -381,20 +447,20 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     this.map.addLayer({
       id: 'zone',
       source: 'zone',
-      ...(environment.map.zoneLayerProperties as any),
+      ...(environment.map.zoneLayerProperties as any)
     });
 
     this.map.addLayer({
       id: 'zone-outline',
       source: 'zone',
-      ...(environment.map.zoneOutlineLayerProperties as any),
+      ...(environment.map.zoneOutlineLayerProperties as any)
     });
 
     this.map.addLayer({
       id: 'trek-line',
       type: 'line',
       source: 'trek',
-      ...(environment.map.trekLineLayerProperties as any),
+      ...(environment.map.trekLineLayerProperties as any)
     });
 
     this.map.addLayer({
@@ -403,22 +469,22 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'trek',
       layout: {
         'icon-image': 'arrow',
-        ...(environment.map.trekArrowLayerProperties.layout as any),
-      },
+        ...(environment.map.trekArrowLayerProperties.layout as any)
+      }
     });
 
     this.map.addLayer({
       id: 'points-reference-circle',
       type: 'circle',
       source: 'points-reference',
-      ...(environment.map.pointReferenceLayersProperties.circle as any),
+      ...(environment.map.pointReferenceLayersProperties.circle as any)
     });
 
     this.map.addLayer({
       id: 'points-reference-text',
       type: 'symbol',
       source: 'points-reference',
-      ...(environment.map.pointReferenceLayersProperties.text as any),
+      ...(environment.map.pointReferenceLayersProperties.text as any)
     });
 
     this.map.addLayer({
@@ -432,9 +498,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'icon-allow-overlap': true,
         visibility:
           visibility === 'visible'
-            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.poisLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
     this.map.addLayer({
@@ -446,9 +515,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       layout: {
         visibility:
           visibility === 'visible'
-            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.poisLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
     this.map.addLayer({
@@ -457,7 +529,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'pois',
       filter: ['has', 'point_count'],
       paint: {
-        'text-color': '#fff',
+        'text-color': '#fff'
       },
       layout: {
         'text-field': '{point_count_abbreviated}',
@@ -468,19 +540,24 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-allow-overlap': true,
         visibility:
           visibility === 'visible'
-            ? (environment.map.poisLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.poisLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
-    this.touristicsContentCategory = this.dataSettings.find(data => data.id === 'touristiccontent_categories');
+    this.touristicsContentCategory = this.dataSettings.find(
+      (data) => data.id === 'touristiccontent_categories'
+    );
 
     const circleColorExpression: any[] = [];
 
     if (this.touristicsContentCategory) {
       circleColorExpression.push('match');
       circleColorExpression.push(['get', 'category']);
-      this.touristicsContentCategory.values.forEach(category => {
+      this.touristicsContentCategory.values.forEach((category) => {
         circleColorExpression.push(category.id);
         circleColorExpression.push(category.color);
       });
@@ -494,14 +571,19 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       filter: ['!', ['has', 'point_count']],
       paint: {
         ...environment.map.touristicContentLayersProperties.circle.paint,
-        'circle-color': this.touristicsContentCategory ? (circleColorExpression as any) : '#000000',
+        'circle-color': this.touristicsContentCategory
+          ? (circleColorExpression as any)
+          : '#000000'
       },
       layout: {
         visibility:
           visibility === 'visible'
-            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.touristicContentLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
     this.map.addLayer({
@@ -512,10 +594,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       layout: {
         visibility:
           visibility === 'visible'
-            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
+            ? (environment.map.touristicContentLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
             : visibility,
-        ...(environment.map.touristicContentLayersProperties.icon.layout as any),
-      },
+        ...(environment.map.touristicContentLayersProperties.icon.layout as any)
+      }
     });
 
     this.map.addLayer({
@@ -527,9 +612,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       layout: {
         visibility:
           visibility === 'visible'
-            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.touristicContentLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
     this.map.addLayer({
@@ -538,7 +626,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       source: 'touristics-content',
       filter: ['has', 'point_count'],
       paint: {
-        'text-color': '#fff',
+        'text-color': '#fff'
       },
       layout: {
         'text-field': '{point_count_abbreviated}',
@@ -549,9 +637,12 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-ignore-placement': true,
         visibility:
           visibility === 'visible'
-            ? (environment.map.touristicContentLayersProperties.visibility as 'visible' | 'none' | undefined)
-            : visibility,
-      },
+            ? (environment.map.touristicContentLayersProperties.visibility as
+                | 'visible'
+                | 'none'
+                | undefined)
+            : visibility
+      }
     });
 
     this.map.addLayer({
@@ -559,10 +650,14 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'symbol',
       source: 'information-desk',
       layout: {
-        'icon-image': ['concat', 'informationDesk', ['get', 'id', ['object', ['get', 'type']]]],
+        'icon-image': [
+          'concat',
+          'informationDesk',
+          ['get', 'id', ['object', ['get', 'type']]]
+        ],
         'icon-size': environment.map.informationIconSize,
-        'icon-allow-overlap': true,
-      },
+        'icon-allow-overlap': true
+      }
     });
 
     this.map.addLayer({
@@ -572,8 +667,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       layout: {
         'icon-image': 'parking',
         'icon-size': environment.map.parkingIconSize,
-        'icon-allow-overlap': true,
-      },
+        'icon-allow-overlap': true
+      }
     });
 
     this.map.addLayer({
@@ -587,17 +682,17 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
           'departure',
           ['==', ['get', 'type'], 'arrival'],
           'arrival',
-          'departureArrival',
+          'departureArrival'
         ],
-        'icon-size': environment.map.departureArrivalIconSize,
-      },
+        'icon-size': environment.map.departureArrivalIconSize
+      }
     });
 
     this.map.addLayer({
       id: 'children-treks-circle',
       type: 'circle',
       source: 'children-treks',
-      paint: environment.map.stagePaint,
+      paint: environment.map.stagePaint
     });
 
     this.map.addLayer({
@@ -605,7 +700,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       type: 'symbol',
       source: 'children-treks',
       paint: {
-        'text-color': '#000000',
+        'text-color': '#000000'
       },
       layout: {
         'text-field': '{index}',
@@ -613,8 +708,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         'text-size': 18,
         'text-offset': [0, 0.1],
         'text-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
+        'text-ignore-placement': true
+      }
     });
   }
 
@@ -624,7 +719,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       if (trekSource) {
         trekSource.setData(this.currentTrek);
       }
-      const departureArrivalSource = this.map.getSource('departure-arrival') as GeoJSONSource;
+      const departureArrivalSource = this.map.getSource(
+        'departure-arrival'
+      ) as GeoJSONSource;
 
       if (
         departureArrivalSource &&
@@ -636,7 +733,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         const arrival = this.currentTrek.geometry.coordinates.slice(-1)[0];
         const departureArrivalData: FeatureCollection = {
           type: 'FeatureCollection',
-          features: [],
+          features: []
         };
         if (departure[0] === arrival[0] && departure[1] === arrival[1]) {
           // same departure arrival
@@ -644,23 +741,23 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
             type: 'Feature',
             geometry: { type: 'Point', coordinates: departure },
             properties: {
-              type: 'departure-arrival',
-            },
+              type: 'departure-arrival'
+            }
           });
         } else {
           departureArrivalData.features.push({
             type: 'Feature',
             geometry: { type: 'Point', coordinates: departure },
             properties: {
-              type: 'departure',
-            },
+              type: 'departure'
+            }
           });
           departureArrivalData.features.push({
             type: 'Feature',
             geometry: { type: 'Point', coordinates: arrival },
             properties: {
-              type: 'arrival',
-            },
+              type: 'arrival'
+            }
           });
         }
         departureArrivalSource.setData(departureArrivalData);
@@ -670,16 +767,22 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         poisSource.setData(this.currentPois);
       }
 
-      const touristicsContent = this.map.getSource('touristics-content') as GeoJSONSource;
+      const touristicsContent = this.map.getSource(
+        'touristics-content'
+      ) as GeoJSONSource;
       if (touristicsContent) {
         let touristicsContentFeatures: TouristicContent[] = [];
-        this.touristicCategoriesWithFeatures.forEach(touristicCategoryWithFeatures => {
-          touristicsContentFeatures = touristicsContentFeatures.concat(touristicCategoryWithFeatures.features);
-        });
+        this.touristicCategoriesWithFeatures.forEach(
+          (touristicCategoryWithFeatures) => {
+            touristicsContentFeatures = touristicsContentFeatures.concat(
+              touristicCategoryWithFeatures.features
+            );
+          }
+        );
 
         const touristics_content: FeatureCollection = {
           type: 'FeatureCollection',
-          features: touristicsContentFeatures,
+          features: touristicsContentFeatures
         };
         touristicsContent.setData(touristics_content);
       }
@@ -688,17 +791,22 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       if (parkingSource && this.currentTrek.properties.parking_location) {
         const parking: FeatureCollection = {
           type: 'FeatureCollection',
-          features: [],
+          features: []
         };
         parking.features.push({
           type: 'Feature',
-          geometry: { type: 'Point', coordinates: this.currentTrek.properties.parking_location },
-          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: this.currentTrek.properties.parking_location
+          },
+          properties: {}
         });
         parkingSource.setData(parking);
       }
 
-      const informationDeskSource = this.map.getSource('information-desk') as GeoJSONSource;
+      const informationDeskSource = this.map.getSource(
+        'information-desk'
+      ) as GeoJSONSource;
       if (
         informationDeskSource &&
         this.currentTrek.properties.information_desks &&
@@ -706,29 +814,39 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       ) {
         const informationDesks: FeatureCollection = {
           type: 'FeatureCollection',
-          features: [],
+          features: []
         };
 
-        this.currentTrek.properties.information_desks.forEach(information_desk_property => {
-          if (information_desk_property.longitude && information_desk_property.latitude) {
-            informationDesks.features.push({
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [information_desk_property.longitude, information_desk_property.latitude],
-              },
-              properties: {
-                type: information_desk_property.type,
-                id: information_desk_property.id,
-              },
-            });
+        this.currentTrek.properties.information_desks.forEach(
+          (information_desk_property) => {
+            if (
+              information_desk_property.longitude &&
+              information_desk_property.latitude
+            ) {
+              informationDesks.features.push({
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [
+                    information_desk_property.longitude,
+                    information_desk_property.latitude
+                  ]
+                },
+                properties: {
+                  type: information_desk_property.type,
+                  id: information_desk_property.id
+                }
+              });
+            }
           }
-        });
+        );
 
         informationDeskSource.setData(informationDesks);
       }
 
-      const pointsReferenceSource = this.map.getSource('points-reference') as GeoJSONSource;
+      const pointsReferenceSource = this.map.getSource(
+        'points-reference'
+      ) as GeoJSONSource;
       if (
         pointsReferenceSource &&
         this.currentTrek.properties.points_reference &&
@@ -736,31 +854,37 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       ) {
         const pointsReference: FeatureCollection = {
           type: 'FeatureCollection',
-          features: [],
+          features: []
         };
 
-        this.currentTrek.properties.points_reference.forEach((point_reference, index) => {
-          pointsReference.features.push({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [point_reference[0], point_reference[1]],
-            },
-            properties: {
-              index: index + 1,
-            },
-          });
-        });
+        this.currentTrek.properties.points_reference.forEach(
+          (point_reference, index) => {
+            pointsReference.features.push({
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [point_reference[0], point_reference[1]]
+              },
+              properties: {
+                index: index + 1
+              }
+            });
+          }
+        );
         pointsReferenceSource.setData(pointsReference);
       }
 
-      const childrenTreksSource = this.map.getSource('children-treks') as GeoJSONSource;
+      const childrenTreksSource = this.map.getSource(
+        'children-treks'
+      ) as GeoJSONSource;
       if (
         childrenTreksSource &&
         this.currentTrek.properties.children &&
         this.currentTrek.properties.children.features.length > 0
       ) {
-        const childrenTreks: FeatureCollection = { ...this.currentTrek.properties.children };
+        const childrenTreks: FeatureCollection = {
+          ...this.currentTrek.properties.children
+        };
 
         childrenTreks.features.forEach((children, index) => {
           if (children.properties) {
@@ -782,16 +906,18 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       this.map.flyTo({
         center: [userLocation.longitude, userLocation.latitude],
         animate: false,
-        zoom: environment.trekZoom.zoom,
+        zoom: environment.trekZoom.zoom
       });
     } else {
-      const errorTranslation: any = await this.translate.get('geolocate.error').toPromise();
+      const errorTranslation: any = await this.translate
+        .get('geolocate.error')
+        .toPromise();
       // Inform user about problem
       const alertLocation = await this.alertController.create({
         header: errorTranslation['header'],
         subHeader: errorTranslation['subHeader'],
         message: errorTranslation['message'],
-        buttons: [errorTranslation['confirmButton']],
+        buttons: [errorTranslation['confirmButton']]
       });
 
       await alertLocation.present();
@@ -802,26 +928,44 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
    * Fit to trek bounds
    */
   public FitToTrekBounds(): void {
-    this.map.fitBounds(this.mapConfig.trekBounds, environment.map.TrekfitBoundsOptions);
+    this.map.fitBounds(
+      this.mapConfig.trekBounds,
+      environment.map.TrekfitBoundsOptions
+    );
   }
 
   async showLayersVisibility(event: any) {
-    const layers: { name: string; visibility: boolean; layersName: string }[] = [
+    const layers: {
+      name: string;
+      visibility: boolean;
+      layersName: string;
+    }[] = [
       {
         name: await this.translate.get('trek.details.poi.name').toPromise(),
-        visibility: this.map.getLayoutProperty('pois-icon', 'visibility') === 'visible',
-        layersName: ['pois-icon', 'cluster-text-count-pois', 'clusters-circle-pois'].toString(),
+        visibility:
+          this.map.getLayoutProperty('pois-icon', 'visibility') === 'visible',
+        layersName: [
+          'pois-icon',
+          'cluster-text-count-pois',
+          'clusters-circle-pois'
+        ].toString()
       },
       {
-        name: await this.translate.get('trek.details.touristicContent.name').toPromise(),
-        visibility: this.map.getLayoutProperty('touristics-content-circle', 'visibility') === 'visible',
+        name: await this.translate
+          .get('trek.details.touristicContent.name')
+          .toPromise(),
+        visibility:
+          this.map.getLayoutProperty(
+            'touristics-content-circle',
+            'visibility'
+          ) === 'visible',
         layersName: [
           'touristics-content-circle',
           'touristics-content-icon',
           'cluster-text-count-touristics-content',
-          'clusters-circle-touristics-content',
-        ].toString(),
-      },
+          'clusters-circle-touristics-content'
+        ].toString()
+      }
     ];
 
     const popover = await this.popoverController.create({
@@ -831,8 +975,8 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
       componentProps: {
         changeLayerVisibility: (checked: boolean, layersName: string) =>
           this.changeLayerVisibility(checked, layersName),
-        layers,
-      },
+        layers
+      }
     });
     return await popover.present();
   }
@@ -840,17 +984,26 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
   public changeLayerVisibility(checked: boolean, layersName: string): void {
     layersName
       .split(',')
-      .forEach(layerName => this.map.setLayoutProperty(layerName, 'visibility', checked ? 'visible' : 'none'));
+      .forEach((layerName) =>
+        this.map.setLayoutProperty(
+          layerName,
+          'visibility',
+          checked ? 'visible' : 'none'
+        )
+      );
   }
 
   public handleClustersInteraction(): void {
     [
       { id: 'pois', translateId: 'trek.details.poi.name' },
-      { id: 'touristics-content', translateId: 'trek.details.touristicContent.name' },
-    ].forEach(clusterSource => {
+      {
+        id: 'touristics-content',
+        translateId: 'trek.details.touristicContent.name'
+      }
+    ].forEach((clusterSource) => {
       this.map.on('click', `clusters-circle-${clusterSource.id}`, (e: any) => {
         const features = this.map.queryRenderedFeatures(e.point, {
-          layers: [`clusters-circle-${clusterSource.id}`],
+          layers: [`clusters-circle-${clusterSource.id}`]
         });
 
         const featureProperties = features[0].properties;
@@ -859,23 +1012,33 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
           if (this.map.getZoom() === this.mapConfig.maxZoom) {
             // no more zoom, display features inside cluster
-            (this.map.getSource(clusterSource.id) as GeoJSONSource).getClusterLeaves(
+            (this.map.getSource(
+              clusterSource.id
+            ) as GeoJSONSource).getClusterLeaves(
               featureProperties.cluster_id,
               Infinity,
               0,
-              (err: any, featuresInCluster: Feature<Geometry, GeoJsonProperties>[]) => {
+              (
+                err: any,
+                featuresInCluster: Feature<Geometry, GeoJsonProperties>[]
+              ) => {
                 if (err) {
                   throw err;
                 }
                 this.presentConfirmFeatures(
-                  featuresInCluster as Feature<Geometry, { [name: string]: any }>[],
-                  clusterSource,
+                  featuresInCluster as Feature<
+                    Geometry,
+                    { [name: string]: any }
+                  >[],
+                  clusterSource
                 );
-              },
+              }
             );
           } else {
             // zoom to next cluster expansion
-            (this.map.getSource(clusterSource.id) as GeoJSONSource).getClusterExpansionZoom(
+            (this.map.getSource(
+              clusterSource.id
+            ) as GeoJSONSource).getClusterExpansionZoom(
               clusterId,
               (err: any, zoom: number) => {
                 if (err) {
@@ -884,9 +1047,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
                 const coordinates = (features[0].geometry as Point).coordinates;
                 this.map.easeTo({
                   center: [coordinates[0], coordinates[1]],
-                  zoom: zoom,
+                  zoom: zoom
                 });
-              },
+              }
             );
           }
         }
@@ -904,7 +1067,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
 
   async presentConfirmFeatures(
     features: Feature<Geometry, { [name: string]: any }>[],
-    clusterSource: { id: string; translateId: string },
+    clusterSource: { id: string; translateId: string }
   ) {
     const radioPois: {
       id: number;
@@ -916,17 +1079,23 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     } else {
     }
 
-    features.forEach(feature => {
+    features.forEach((feature) => {
       let currentType;
-      if (this.poisType && feature.properties.type && clusterSource.id === 'pois') {
-        currentType = this.poisType.values.find(poiType => poiType.id === feature.properties.type);
+      if (
+        this.poisType &&
+        feature.properties.type &&
+        clusterSource.id === 'pois'
+      ) {
+        currentType = this.poisType.values.find(
+          (poiType) => poiType.id === feature.properties.type
+        );
       } else if (
         this.touristicsContentCategory &&
         feature.properties.category &&
         clusterSource.id === 'touristics-content'
       ) {
         currentType = this.touristicsContentCategory.values.find(
-          category => category.id === feature.properties.category,
+          (category) => category.id === feature.properties.category
         );
       }
       console.log(currentType);
@@ -934,9 +1103,13 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
         id: feature.properties.id,
         name: feature.properties.name,
         imgTypePoi: {
-          src: currentType && currentType.pictogram ? this.commonSrc + currentType.pictogram : undefined,
-          color: currentType && currentType.color ? currentType.color : undefined,
-        },
+          src:
+            currentType && currentType.pictogram
+              ? this.commonSrc + currentType.pictogram
+              : undefined,
+          color:
+            currentType && currentType.color ? currentType.color : undefined
+        }
       };
 
       radioPois.push(poi);
@@ -945,7 +1118,7 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     const modal = await this.modalController.create({
       component: SelectPoiComponent,
       componentProps: { radioPois, themePois: clusterSource.translateId },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
 
     await modal.present();
@@ -953,7 +1126,9 @@ export class MapTrekVizComponent extends UnSubscribe implements OnDestroy, OnCha
     const { data } = await modal.onDidDismiss();
 
     if (data && data.selectedPoiId) {
-      const selectedFeature = features.find(feature => feature.properties.id === data.selectedPoiId);
+      const selectedFeature = features.find(
+        (feature) => feature.properties.id === data.selectedPoiId
+      );
       if (selectedFeature) {
         this.presentPoiDetails.emit(selectedFeature);
       }

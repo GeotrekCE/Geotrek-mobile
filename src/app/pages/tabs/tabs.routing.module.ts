@@ -16,23 +16,25 @@ const routes: Routes = [
             path: '',
             component: TreksPage,
             resolve: {
-              context: TreksContextResolver,
-            },
+              context: TreksContextResolver
+            }
           },
           {
             path: 'trek-details/:trekId',
-            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
+            loadChildren:
+              '../trek-details/trek-details.module#TrekDetailsPageModule'
           },
           {
             path: 'trek-details/:trekId/:stageId',
-            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { isStage: true },
+            loadChildren:
+              '../trek-details/trek-details.module#TrekDetailsPageModule',
+            data: { isStage: true }
           },
           {
             path: 'treks-map',
-            loadChildren: '../treks-map/treks-map.module#TreksMapPageModule',
-          },
-        ],
+            loadChildren: '../treks-map/treks-map.module#TreksMapPageModule'
+          }
+        ]
       },
       {
         path: 'treks-offline',
@@ -42,50 +44,53 @@ const routes: Routes = [
             component: TreksPage,
             data: { offline: true },
             resolve: {
-              context: TreksContextResolver,
-            },
+              context: TreksContextResolver
+            }
           },
           {
             path: 'trek-details/:trekId',
-            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { offline: true },
+            loadChildren:
+              '../trek-details/trek-details.module#TrekDetailsPageModule',
+            data: { offline: true }
           },
           {
             path: 'trek-details/:trekId/:stageId',
-            loadChildren: '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { offline: true, isStage: true },
+            loadChildren:
+              '../trek-details/trek-details.module#TrekDetailsPageModule',
+            data: { offline: true, isStage: true }
           },
           {
             path: 'treks-map',
             loadChildren: '../treks-map/treks-map.module#TreksMapPageModule',
-            data: { offline: true },
-          },
-        ],
+            data: { offline: true }
+          }
+        ]
       },
       {
         path: 'more',
         children: [
           {
             path: '',
-            loadChildren: '../more/more.module#MorePageModule',
+            loadChildren: '../more/more.module#MorePageModule'
           },
           {
             path: ':moreItemId',
-            loadChildren: '../more/more-item/more-item.module#MoreItemPageModule',
-          },
-        ],
-      },
-    ],
+            loadChildren:
+              '../more/more-item/more-item.module#MoreItemPageModule'
+          }
+        ]
+      }
+    ]
   },
   {
     path: '',
     redirectTo: '/app/tabs/treks',
-    pathMatch: 'full',
-  },
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

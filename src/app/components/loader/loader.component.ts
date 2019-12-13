@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss'],
+  styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnDestroy {
   @Input() public progressBarWidth = '50%';
@@ -16,7 +16,9 @@ export class LoaderComponent implements OnDestroy {
 
   constructor(public loading: LoadingService) {
     // add delay to prevent expression has changed after it was checked
-    this.loaderStatus$ = this.loading.status.pipe(delay(0)).subscribe(status => (this.loaderStatus = status));
+    this.loaderStatus$ = this.loading.status
+      .pipe(delay(0))
+      .subscribe((status) => (this.loaderStatus = status));
   }
 
   ngOnDestroy(): void {

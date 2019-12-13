@@ -17,31 +17,38 @@ import {
   TouristicCategoryWithFeatures,
   TouristicContents,
   TouristicCategorie,
-  Order,
+  Order
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SettingsService {
   private apiUrl = `${environment.onlineBaseUrl}`;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
-  public order$ = new BehaviorSubject<{ type: Order; value: number[] | undefined }>({
+  public order$ = new BehaviorSubject<{
+    type: Order;
+    value: number[] | undefined;
+  }>({
     type: 'default',
-    value: undefined,
+    value: undefined
   });
   // User location, used for ordering treks by distance
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
 
-  constructor(public http: HttpClient, public storage: Storage, private translate: TranslateService) {}
+  constructor(
+    public http: HttpClient,
+    public storage: Storage,
+    private translate: TranslateService
+  ) {}
 
   public loadSettings() {
     this.setOfflineSettings();
 
-    this.getSettings().subscribe(async settings => {
+    this.getSettings().subscribe(async (settings) => {
       await this.storage.set('settings', JSON.stringify(settings));
       this.filters$.next(this.getFilters(settings));
       this.data$.next(settings.data);
@@ -59,13 +66,15 @@ export class SettingsService {
   private getFilters(settings: Settings) {
     const filters: Filter[] = [];
     if (settings && settings.filters && settings.data) {
-      settings.filters.forEach(filter => {
-        const currentDataSetting = settings.data.find((data: DataSetting) => data.id === filter.id);
+      settings.filters.forEach((filter) => {
+        const currentDataSetting = settings.data.find(
+          (data: DataSetting) => data.id === filter.id
+        );
         if (currentDataSetting) {
           filter = { ...filter, ...currentDataSetting, values: [] };
-          filter.values = currentDataSetting.values.map(value => ({
+          filter.values = currentDataSetting.values.map((value) => ({
             ...value,
-            checked: false,
+            checked: false
           }));
           filters.push(filter);
         }
@@ -78,8 +87,8 @@ export class SettingsService {
   public getSettings(): Observable<Settings> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept-Language': this.translate.getDefaultLang(),
-      }),
+        'Accept-Language': this.translate.getDefaultLang()
+      })
     };
     return this.http.get<Settings>(this.apiUrl + '/settings.json', httpOptions);
   }
@@ -95,8 +104,8 @@ export class SettingsService {
   public resetFilters(): void {
     let filters = cloneDeep(this.filters$.getValue());
     if (!!filters) {
-      filters.forEach(filter => {
-        filter.values.forEach(value => (value.checked = false));
+      filters.forEach((filter) => {
+        filter.values.forEach((value) => (value.checked = false));
       });
     } else {
       filters = [];
@@ -106,14 +115,14 @@ export class SettingsService {
 
   private getValueForPropertyById(
     propertyName: string,
-    id: number | string,
+    id: number | string
   ): Property | InformationDesk | TouristicCategorie | string {
     const dataSetting = this.data$.getValue();
 
     if (dataSetting) {
-      const property = dataSetting.find(data => data.id === propertyName);
+      const property = dataSetting.find((data) => data.id === propertyName);
       if (property) {
-        const propertyValue = property.values.find(value => value.id === id);
+        const propertyValue = property.values.find((value) => value.id === id);
         if (propertyValue) {
           return propertyValue;
         } else {
@@ -131,55 +140,62 @@ export class SettingsService {
     if (trek.properties.difficulty) {
       hydratedTrek.properties.difficulty = this.getValueForPropertyById(
         'difficulty',
-        trek.properties.difficulty,
+        trek.properties.difficulty
       ) as Property;
     }
 
     if (trek.properties.practice) {
-      hydratedTrek.properties.practice = this.getValueForPropertyById('practice', trek.properties.practice) as Property;
+      hydratedTrek.properties.practice = this.getValueForPropertyById(
+        'practice',
+        trek.properties.practice
+      ) as Property;
     }
 
     if (trek.properties.route) {
-      hydratedTrek.properties.route = this.getValueForPropertyById('route', trek.properties.route) as Property;
+      hydratedTrek.properties.route = this.getValueForPropertyById(
+        'route',
+        trek.properties.route
+      ) as Property;
     }
 
     if (trek.properties.departure_city) {
       hydratedTrek.properties.departure_city = this.getValueForPropertyById(
         'cities',
-        trek.properties.departure_city,
+        trek.properties.departure_city
       ) as Property;
     }
 
     if (trek.properties.arrival_city) {
       hydratedTrek.properties.arrival_city = this.getValueForPropertyById(
         'cities',
-        trek.properties.arrival_city,
+        trek.properties.arrival_city
       ) as Property;
     }
 
     if (trek.properties.cities) {
       hydratedTrek.properties.cities = trek.properties.cities.map(
-        city => this.getValueForPropertyById('cities', city) as Property,
+        (city) => this.getValueForPropertyById('cities', city) as Property
       );
     }
 
     if (trek.properties.networks) {
       hydratedTrek.properties.networks = trek.properties.networks.map(
-        network => this.getValueForPropertyById('networks', network) as Property,
+        (network) =>
+          this.getValueForPropertyById('networks', network) as Property
       );
     }
 
     if (trek.properties.themes) {
       hydratedTrek.properties.themes = trek.properties.themes.map(
-        theme => this.getValueForPropertyById('themes', theme) as Property,
+        (theme) => this.getValueForPropertyById('themes', theme) as Property
       );
     }
 
     if (trek.properties.information_desks) {
-      hydratedTrek.properties.information_desks.forEach(information_desk => {
+      hydratedTrek.properties.information_desks.forEach((information_desk) => {
         information_desk.type = this.getValueForPropertyById(
           'information_desk_types',
-          information_desk.type as number,
+          information_desk.type as number
         ) as Property;
       });
     }
@@ -187,20 +203,26 @@ export class SettingsService {
     return hydratedTrek;
   }
 
-  public getTouristicCategoriesWithFeatures(touristicContents: TouristicContents): TouristicCategoryWithFeatures[] {
+  public getTouristicCategoriesWithFeatures(
+    touristicContents: TouristicContents
+  ): TouristicCategoryWithFeatures[] {
     const touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[] = [];
     if (touristicContents && Array.isArray(touristicContents.features)) {
       const categories = touristicContents.features
-        .map(touristicContent => touristicContent.properties.category)
+        .map((touristicContent) => touristicContent.properties.category)
         .filter((v, i, a) => a.indexOf(v) === i);
-      categories.forEach(categoryId => {
-        const category = this.getValueForPropertyById('touristiccontent_categories', categoryId) as TouristicCategorie;
+      categories.forEach((categoryId) => {
+        const category = this.getValueForPropertyById(
+          'touristiccontent_categories',
+          categoryId
+        ) as TouristicCategorie;
         touristicCategoriesWithFeatures.push({
           id: categoryId,
           name: category ? category.name : '',
           features: touristicContents.features.filter(
-            touristicContent => touristicContent.properties.category === categoryId,
-          ),
+            (touristicContent) =>
+              touristicContent.properties.category === categoryId
+          )
         });
       });
     }

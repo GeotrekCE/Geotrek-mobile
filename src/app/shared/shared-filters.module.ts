@@ -9,9 +9,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchComponent } from '@app/components/search/search.component';
 
 @NgModule({
-  declarations: [FiltersComponent, FilterComponent, FilterValueComponent, SelectFilterComponent, SearchComponent],
+  declarations: [
+    FiltersComponent,
+    FilterComponent,
+    FilterValueComponent,
+    SelectFilterComponent,
+    SearchComponent
+  ],
   imports: [CommonModule, TranslateModule.forChild()],
   entryComponents: [FiltersComponent, SelectFilterComponent],
-  exports: [FiltersComponent, FilterComponent, FilterValueComponent, SelectFilterComponent, SearchComponent],
+  exports: [
+    FiltersComponent,
+    FilterComponent,
+    FilterValueComponent,
+    SelectFilterComponent,
+    SearchComponent
+  ]
 })
 export class SharedFiltersModule {}

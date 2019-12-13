@@ -17,7 +17,11 @@ import { Globalization } from '@ionic-native/globalization/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 
 describe('AppComponent', () => {
-  let statusBarSpy: any, splashScreenSpy: any, platformReadySpy: any, platformSpy: any, globalizationSpy: any;
+  let statusBarSpy: any,
+    splashScreenSpy: any,
+    platformReadySpy: any,
+    platformSpy: any,
+    globalizationSpy: any;
   // let translate: TranslateService;
   // let http: HttpTestingController;
 
@@ -25,8 +29,13 @@ describe('AppComponent', () => {
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleLightContent']);
     splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
     platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy, is: 'ios' });
-    globalizationSpy = jasmine.createSpyObj('Globalization', { getPreferredLanguage: { value: ['fr'] } });
+    platformSpy = jasmine.createSpyObj('Platform', {
+      ready: platformReadySpy,
+      is: 'ios'
+    });
+    globalizationSpy = jasmine.createSpyObj('Globalization', {
+      getPreferredLanguage: { value: ['fr'] }
+    });
 
     TestBed.configureTestingModule({
       declarations: [AppComponent],
@@ -36,18 +45,18 @@ describe('AppComponent', () => {
           loader: {
             provide: TranslateLoader,
             useFactory: createTranslateLoader,
-            deps: [HttpClient],
-          },
+            deps: [HttpClient]
+          }
         }),
-        IonicStorageModule.forRoot(),
+        IonicStorageModule.forRoot()
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
-        { provide: Globalization, useValue: globalizationSpy },
-      ],
+        { provide: Globalization, useValue: globalizationSpy }
+      ]
     }).compileComponents();
     // translate = TestBed.get(TranslateService);
     // http = TestBed.get(HttpTestingController);

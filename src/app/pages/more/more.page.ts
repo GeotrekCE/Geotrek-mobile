@@ -8,7 +8,7 @@ import { InformationIntro } from '@app/interfaces/interfaces';
 @Component({
   selector: 'app-more',
   templateUrl: './more.page.html',
-  styleUrls: ['./more.page.scss'],
+  styleUrls: ['./more.page.scss']
 })
 export class MorePage extends UnSubscribe implements OnInit {
   moreInformationsIntro: InformationIntro[];
@@ -37,5 +37,4 @@ export class MorePage extends UnSubscribe implements OnInit {
   public refresh() {
     this.router.navigate([this.router.url]);
   }
-
 }

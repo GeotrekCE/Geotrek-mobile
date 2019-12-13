@@ -215,7 +215,7 @@
   useFirebase: false,
   availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
-    accessToken: null, // only if you use mapbox vector tiles
+    accessToken: null // only if you use mapbox vector tiles
   },
   onlineBaseUrl: &#x27;https://my-rando-domain.fr/mobile&#x27;, // api url for app
   onlineMapConfig: {
@@ -230,10 +230,10 @@
           tiles: [
             &#x27;https://a.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
             &#x27;https://b.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
-            &#x27;https://c.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
+            &#x27;https://c.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;
           ],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -241,14 +241,12 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 17,
-        },
-      ],
+          maxzoom: 17
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
+    maxZoom: 16
   },
   offlineMapConfig: {
     // offline map default config
@@ -260,8 +258,8 @@
         &#x27;tiles-background&#x27;: {
           type: &#x27;raster&#x27;,
           tiles: [&#x27;/tiles/{z}/{x}/{y}.png&#x27;],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -269,43 +267,45 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 13,
-        },
-      ],
+          maxzoom: 13
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
+    maxZoom: 16
   },
   trekZoom: {
     // zoom config for trek layer map
     minZoom: 13,
     maxZoom: 16,
-    zoom: 13,
+    zoom: 13
   },
   map: {
     attributionText:
       &#x27;&lt;a href&#x3D;&quot;https://openstreetmap.org/copyright&quot;&gt;© OpenStreetMap contributors&lt;/a&gt; | &lt;a href&#x3D;&quot;https://opentopomap.org&quot;&gt;© OpenTopoMap &lt;/a&gt;&#x27;,
-    addSoustractMaxBounds: 0.01,
+    TreksfitBoundsOptions: { animate: false, padding: 50 },
+    TrekfitBoundsOptions: { animate: false, padding: 75 },
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,
     parkingIconSize: 0.6,
     departureArrivalIconSize: 0.8,
-    poiIconSize: 1,
+    poisLayersProperties: {
+      visibility: &#x27;visible&#x27;,
+      iconSize: 1
+    },
     clusterPaint: {
       // cluster style on map treks
       &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-radius&#x27;: 18,
-      &#x27;circle-stroke-width&#x27;: 1,
+      &#x27;circle-stroke-width&#x27;: 1
     },
     stagePaint: {
       // style stage circle on parent map
       &#x27;circle-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-stroke-color&#x27;: &#x27;#000000&#x27;,
       &#x27;circle-radius&#x27;: 14,
-      &#x27;circle-stroke-width&#x27;: 1,
+      &#x27;circle-stroke-width&#x27;: 1
     },
     zoneLayerProperties: {
       // src/assets/map/zone/zone.geojson
@@ -314,35 +314,35 @@
       paint: {
         &#x27;fill-color&#x27;: primaryColor,
         &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
-        &#x27;fill-opacity&#x27;: 0.3,
-      },
+        &#x27;fill-opacity&#x27;: 0.3
+      }
     },
     zoneOutlineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
         &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
-        &#x27;line-width&#x27;: 8,
-      },
+        &#x27;line-width&#x27;: 8
+      }
     },
     trekLineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
         &#x27;line-width&#x27;: 6,
-        &#x27;line-color&#x27;: &#x27;#61B22F&#x27;,
-      },
+        &#x27;line-color&#x27;: &#x27;#61B22F&#x27;
+      }
     },
     trekArrowLayerProperties: {
       layout: {
         &#x27;symbol-placement&#x27;: &#x27;line&#x27;,
         &#x27;symbol-spacing&#x27;: 250,
-        &#x27;icon-size&#x27;: 0.5,
-      },
+        &#x27;icon-size&#x27;: 0.5
+      }
     },
     pointReferenceLayersProperties: {
       text: {
         paint: {
-          &#x27;text-color&#x27;: &#x27;#fff&#x27;,
+          &#x27;text-color&#x27;: &#x27;#fff&#x27;
         },
         layout: {
           &#x27;text-ignore-placement&#x27;: true,
@@ -350,34 +350,35 @@
           &#x27;text-field&#x27;: [&#x27;get&#x27;, &#x27;index&#x27;],
           &#x27;text-font&#x27;: [&#x27;Roboto Regular&#x27;],
           &#x27;text-size&#x27;: 12,
-          &#x27;text-offset&#x27;: [0, 0.1],
-        },
+          &#x27;text-offset&#x27;: [0, 0.1]
+        }
       },
       circle: {
         paint: {
           &#x27;circle-color&#x27;: &#x27;#f04141&#x27;,
-          &#x27;circle-radius&#x27;: 12,
-        },
-      },
+          &#x27;circle-radius&#x27;: 12
+        }
+      }
     },
     touristicContentLayersProperties: {
+      visibility: &#x27;visible&#x27;,
       icon: {
         layout: {
           &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;touristicContent&#x27;, [&#x27;get&#x27;, &#x27;category&#x27;]],
           &#x27;icon-size&#x27;: 1,
           &#x27;icon-allow-overlap&#x27;: true,
-          &#x27;icon-ignore-placement&#x27;: true,
-        },
+          &#x27;icon-ignore-placement&#x27;: true
+        }
       },
       circle: {
         paint: {
           &#x27;circle-color&#x27;: primaryColor,
           &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
           &#x27;circle-radius&#x27;: 16,
-          &#x27;circle-stroke-width&#x27;: 1,
-        },
-      },
-    },
+          &#x27;circle-stroke-width&#x27;: 1
+        }
+      }
+    }
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
@@ -386,11 +387,14 @@
     desiredAccuracy: 10,
     stationaryRadius: 3,
     distanceFilter: 5,
-    interval: 3000,
+    interval: 3000
   },
   poiCollapseInitialSize: 5,
   touristicContentCollapseInitialSize: 5,
   containsFilterShouldUseSelectAbove: 7,
+  trekDetails: {
+    showImgRulesIfParkCentered: true
+  }
 }</code>
                         </td>
                     </tr>
@@ -427,9 +431,9 @@
   useFirebase: false,
   availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
-    accessToken: null, // only if you use mapbox vector tiles
+    accessToken: null // only if you use mapbox vector tiles
   },
-  onlineBaseUrl: &#x27;https://my-rando-domain.fr/mobile&#x27;, // api url for app
+  onlineBaseUrl: &#x27;https://rando-millevaches.fr/mobile&#x27;, // api url for app
   onlineMapConfig: {
     // default online map config, for this starter we use raster tiles from open topo map
     attributionControl: false,
@@ -442,10 +446,10 @@
           tiles: [
             &#x27;https://a.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
             &#x27;https://b.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
-            &#x27;https://c.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;,
+            &#x27;https://c.tile.opentopomap.org/{z}/{x}/{y}.png&#x27;
           ],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -453,14 +457,12 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 17,
-        },
-      ],
+          maxzoom: 17
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
+    maxZoom: 16
   },
   offlineMapConfig: {
     // offline map default config
@@ -472,8 +474,8 @@
         &#x27;tiles-background&#x27;: {
           type: &#x27;raster&#x27;,
           tiles: [&#x27;/tiles/{z}/{x}/{y}.png&#x27;],
-          tileSize: 256,
-        },
+          tileSize: 256
+        }
       },
       layers: [
         {
@@ -481,43 +483,45 @@
           type: &#x27;raster&#x27;,
           source: &#x27;tiles-background&#x27;,
           minzoom: 0,
-          maxzoom: 13,
-        },
-      ],
+          maxzoom: 13
+        }
+      ]
     },
     minZoom: 0,
-    maxZoom: 16,
-    zoom: 8,
-    center: [0.705824, 44.410157],
+    maxZoom: 16
   },
   trekZoom: {
     // zoom config for trek layer map
     minZoom: 13,
     maxZoom: 16,
-    zoom: 13,
+    zoom: 13
   },
   map: {
     attributionText:
       &#x27;&lt;a href&#x3D;&quot;https://openstreetmap.org/copyright&quot;&gt;© OpenStreetMap contributors&lt;/a&gt; | &lt;a href&#x3D;&quot;https://opentopomap.org&quot;&gt;© OpenTopoMap &lt;/a&gt;&#x27;,
-    addSoustractMaxBounds: 0.01,
+    TreksfitBoundsOptions: { animate: false, padding: 50 },
+    TrekfitBoundsOptions: { animate: false, padding: 75 },
     globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
     informationIconSize: 1,
     parkingIconSize: 0.6,
     departureArrivalIconSize: 0.8,
-    poiIconSize: 1,
+    poisLayersProperties: {
+      visibility: &#x27;visible&#x27;,
+      iconSize: 1
+    },
     clusterPaint: {
       // cluster style on map treks
       &#x27;circle-color&#x27;: primaryColor,
       &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-radius&#x27;: 18,
-      &#x27;circle-stroke-width&#x27;: 1,
+      &#x27;circle-stroke-width&#x27;: 1
     },
     stagePaint: {
       // style stage circle on parent map
       &#x27;circle-color&#x27;: &#x27;#fff&#x27;,
       &#x27;circle-stroke-color&#x27;: &#x27;#000000&#x27;,
       &#x27;circle-radius&#x27;: 14,
-      &#x27;circle-stroke-width&#x27;: 1,
+      &#x27;circle-stroke-width&#x27;: 1
     },
     zoneLayerProperties: {
       // src/assets/map/zone/zone.geojson
@@ -526,35 +530,35 @@
       paint: {
         &#x27;fill-color&#x27;: primaryColor,
         &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
-        &#x27;fill-opacity&#x27;: 0.3,
-      },
+        &#x27;fill-opacity&#x27;: 0.3
+      }
     },
     zoneOutlineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
         &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
-        &#x27;line-width&#x27;: 8,
-      },
+        &#x27;line-width&#x27;: 8
+      }
     },
     trekLineLayerProperties: {
       type: &#x27;line&#x27;,
       paint: {
         &#x27;line-width&#x27;: 6,
-        &#x27;line-color&#x27;: &#x27;#61B22F&#x27;,
-      },
+        &#x27;line-color&#x27;: &#x27;#61B22F&#x27;
+      }
     },
     trekArrowLayerProperties: {
       layout: {
         &#x27;symbol-placement&#x27;: &#x27;line&#x27;,
         &#x27;symbol-spacing&#x27;: 250,
-        &#x27;icon-size&#x27;: 0.5,
-      },
+        &#x27;icon-size&#x27;: 0.5
+      }
     },
     pointReferenceLayersProperties: {
       text: {
         paint: {
-          &#x27;text-color&#x27;: &#x27;#fff&#x27;,
+          &#x27;text-color&#x27;: &#x27;#fff&#x27;
         },
         layout: {
           &#x27;text-ignore-placement&#x27;: true,
@@ -562,34 +566,35 @@
           &#x27;text-field&#x27;: [&#x27;get&#x27;, &#x27;index&#x27;],
           &#x27;text-font&#x27;: [&#x27;Roboto Regular&#x27;],
           &#x27;text-size&#x27;: 12,
-          &#x27;text-offset&#x27;: [0, 0.1],
-        },
+          &#x27;text-offset&#x27;: [0, 0.1]
+        }
       },
       circle: {
         paint: {
           &#x27;circle-color&#x27;: &#x27;#f04141&#x27;,
-          &#x27;circle-radius&#x27;: 12,
-        },
-      },
+          &#x27;circle-radius&#x27;: 12
+        }
+      }
     },
     touristicContentLayersProperties: {
+      visibility: &#x27;visible&#x27;,
       icon: {
         layout: {
           &#x27;icon-image&#x27;: [&#x27;concat&#x27;, &#x27;touristicContent&#x27;, [&#x27;get&#x27;, &#x27;category&#x27;]],
           &#x27;icon-size&#x27;: 1,
           &#x27;icon-allow-overlap&#x27;: true,
-          &#x27;icon-ignore-placement&#x27;: true,
-        },
+          &#x27;icon-ignore-placement&#x27;: true
+        }
       },
       circle: {
         paint: {
           &#x27;circle-color&#x27;: primaryColor,
           &#x27;circle-stroke-color&#x27;: &#x27;#fff&#x27;,
           &#x27;circle-radius&#x27;: 16,
-          &#x27;circle-stroke-width&#x27;: 1,
-        },
-      },
-    },
+          &#x27;circle-stroke-width&#x27;: 1
+        }
+      }
+    }
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
@@ -598,11 +603,14 @@
     desiredAccuracy: 10,
     stationaryRadius: 3,
     distanceFilter: 5,
-    interval: 3000,
+    interval: 3000
   },
   poiCollapseInitialSize: 5,
   touristicContentCollapseInitialSize: 5,
   containsFilterShouldUseSelectAbove: 7,
+  trekDetails: {
+    showImgRulesIfParkCentered: true
+  }
 }</code>
                         </td>
                     </tr>

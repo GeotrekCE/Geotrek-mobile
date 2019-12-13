@@ -6,7 +6,14 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Zip } from '@ionic-native/zip/ngx';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { BehaviorSubject, from, Observable, throwError, of, forkJoin } from 'rxjs';
+import {
+  BehaviorSubject,
+  from,
+  Observable,
+  throwError,
+  of,
+  forkJoin
+} from 'rxjs';
 import {
   catchError,
   map,
@@ -21,7 +28,7 @@ import {
   count,
   scan,
   withLatestFrom,
-  concatMap,
+  concatMap
 } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
@@ -36,19 +43,21 @@ import {
   Trek,
   TreksService,
   TouristicContents,
-  TouristicEvents,
+  TouristicEvents
 } from '@app/interfaces/interfaces';
 
 const cloneDeep = require('lodash.clonedeep');
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class OfflineTreksService implements TreksService {
   public offline = false;
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
   public filteredTreks$: Observable<MinimalTrek[]>;
-  public currentProgressDownload$: BehaviorSubject<number> = new BehaviorSubject(0);
+  public currentProgressDownload$: BehaviorSubject<
+    number
+  > = new BehaviorSubject(0);
 
   public mediaDownloadProgress = 0;
   public trekDownloadProgress = 0;
@@ -64,11 +73,11 @@ export class OfflineTreksService implements TreksService {
     private http: HttpClient,
     private storage: Storage,
     private webview: WebView,
-    private onlineTreksService: OnlineTreksService,
+    private onlineTreksService: OnlineTreksService
   ) {
     this.isMobile = this.platform.is('ios') || this.platform.is('android');
     this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
-    this.getTreks().subscribe(treks => {
+    this.getTreks().subscribe((treks) => {
       this.treks$.next(treks);
     });
   }
@@ -76,9 +85,13 @@ export class OfflineTreksService implements TreksService {
   /* get the src of the image. if picture is not given, it returs the thumbnail */
   public getTrekImageSrc(trek: Trek, picture?: Picture): string {
     if (picture || trek.properties.first_picture) {
-      const imgPath = !!picture ? picture.url : trek.properties.first_picture.url;
+      const imgPath = !!picture
+        ? picture.url
+        : trek.properties.first_picture.url;
       if (this.isMobile) {
-        return this.webview.convertFileSrc(`${this.getDirLocalDataLocation()}offline/${imgPath}`);
+        return this.webview.convertFileSrc(
+          `${this.getDirLocalDataLocation()}offline/${imgPath}`
+        );
       } else {
         return `${environment.onlineBaseUrl}${imgPath}`;
       }
@@ -88,7 +101,9 @@ export class OfflineTreksService implements TreksService {
 
   public getCommonImgSrc(): string {
     if (this.isMobile) {
-      return this.webview.convertFileSrc(`${this.getDirLocalDataLocation()}offline`);
+      return this.webview.convertFileSrc(
+        `${this.getDirLocalDataLocation()}offline`
+      );
     } else {
       return `${environment.onlineBaseUrl}`;
     }
@@ -105,7 +120,9 @@ export class OfflineTreksService implements TreksService {
   }
 
   public getTrekMapUrl(trekId: number, parentId?: number): string {
-    return !parentId ? `/app/map-offline/${trekId}` : `/app/map-offline/${parentId}/${trekId}`;
+    return !parentId
+      ? `/app/map-offline/${trekId}`
+      : `/app/map-offline/${parentId}/${trekId}`;
   }
 
   public getTreksMapUrl(): string {
@@ -116,12 +133,12 @@ export class OfflineTreksService implements TreksService {
     const emptyTreks = <MinimalTreks>{
       type: 'FeatureCollection',
       name: 'OFFLINE-TREKS',
-      features: [],
+      features: []
     };
 
     return from(this.storage.get('offline-treks')).pipe(
       map((jsonTreks: string): MinimalTreks => JSON.parse(jsonTreks)),
-      map((treks: MinimalTreks) => (!!treks ? treks : emptyTreks)),
+      map((treks: MinimalTreks) => (!!treks ? treks : emptyTreks))
     );
   }
 
@@ -135,11 +152,13 @@ export class OfflineTreksService implements TreksService {
     simpleTrek: MinimalTrek,
     fullTrek: Trek,
     pois: Poi[],
-    touristicContents: TouristicContents,
+    touristicContents: TouristicContents
   ): Observable<boolean> {
     const trekId = simpleTrek.properties.id;
     const newTreks: MinimalTreks = cloneDeep(this.treks$.getValue());
-    newTreks.features = [...newTreks.features.filter(feature => feature.properties.id !== trekId)];
+    newTreks.features = [
+      ...newTreks.features.filter((feature) => feature.properties.id !== trekId)
+    ];
     newTreks.features.push(simpleTrek);
 
     // update treks
@@ -152,7 +171,12 @@ export class OfflineTreksService implements TreksService {
       // save json poi
       from(storage.set(`pois-trek-${trekId}`, JSON.stringify(pois))),
       // save touristic contents
-      from(storage.set(`touristicContents-trek-${trekId}`, JSON.stringify(touristicContents))),
+      from(
+        storage.set(
+          `touristicContents-trek-${trekId}`,
+          JSON.stringify(touristicContents)
+        )
+      )
     ];
 
     if (
@@ -162,30 +186,49 @@ export class OfflineTreksService implements TreksService {
     ) {
       // save all json for children treks
       // trek pois touristicContents
-      fullTrek.properties.children.features.forEach(children => {
+      fullTrek.properties.children.features.forEach((children) => {
         tasks.push(
-          this.onlineTreksService.getTrekById(children.properties.id, trekId).pipe(
-            map(childrenJson => {
-              return from(storage.set(`trek-${trekId}-${children.properties.id}`, JSON.stringify(childrenJson)));
-            }),
-          ),
+          this.onlineTreksService
+            .getTrekById(children.properties.id, trekId)
+            .pipe(
+              map((childrenJson) => {
+                return from(
+                  storage.set(
+                    `trek-${trekId}-${children.properties.id}`,
+                    JSON.stringify(childrenJson)
+                  )
+                );
+              })
+            )
         );
         tasks.push(
-          this.onlineTreksService.getPoisForTrekById(children.properties.id, trekId).pipe(
-            map(childrenJson => {
-              return from(storage.set(`pois-trek-${trekId}-${children.properties.id}`, JSON.stringify(childrenJson)));
-            }),
-          ),
+          this.onlineTreksService
+            .getPoisForTrekById(children.properties.id, trekId)
+            .pipe(
+              map((childrenJson) => {
+                return from(
+                  storage.set(
+                    `pois-trek-${trekId}-${children.properties.id}`,
+                    JSON.stringify(childrenJson)
+                  )
+                );
+              })
+            )
         );
 
         tasks.push(
-          this.onlineTreksService.getTouristicContentsForTrekById(children.properties.id, trekId).pipe(
-            map(childrenJson => {
-              return from(
-                storage.set(`touristicContents-trek-${trekId}-${children.properties.id}`, JSON.stringify(childrenJson)),
-              );
-            }),
-          ),
+          this.onlineTreksService
+            .getTouristicContentsForTrekById(children.properties.id, trekId)
+            .pipe(
+              map((childrenJson) => {
+                return from(
+                  storage.set(
+                    `touristicContents-trek-${trekId}-${children.properties.id}`,
+                    JSON.stringify(childrenJson)
+                  )
+                );
+              })
+            )
         );
       });
     }
@@ -201,13 +244,13 @@ export class OfflineTreksService implements TreksService {
     }
 
     return forkJoin(tasks).pipe(
-      map(e => {
+      map((e) => {
         return true;
       }),
-      catchError(e => {
+      catchError((e) => {
         this.removeTrek(trekId, false);
         return throwError(false);
-      }),
+      })
     );
   }
 
@@ -217,24 +260,30 @@ export class OfflineTreksService implements TreksService {
     const requestThree = of(3).pipe(delay(1000));
     const requestFour = of(4).pipe(delay(1000));
     const requestFive = of(5).pipe(delay(1000));
-    const observables: Array<Observable<number>> = [requestOne, requestTwo, requestThree, requestFour, requestFive];
+    const observables: Array<Observable<number>> = [
+      requestOne,
+      requestTwo,
+      requestThree,
+      requestFour,
+      requestFive
+    ];
     const array$ = from(observables);
     const requests$ = array$.pipe(concatAll());
     const progress$ = of(true).pipe(
       switchMapTo(requests$),
-      share(),
+      share()
     );
 
     const count$ = array$.pipe(count());
 
     const ratio$ = progress$.pipe(
-      scan(current => current + 1, 0),
-      withLatestFrom(count$, (current, nb) => current / nb),
+      scan((current) => current + 1, 0),
+      withLatestFrom(count$, (current, nb) => current / nb)
     );
 
     of(true)
       .pipe(switchMapTo(ratio$))
-      .subscribe(currentProgress => {
+      .subscribe((currentProgress) => {
         this.currentProgressDownload$.next(currentProgress);
       });
 
@@ -250,8 +299,12 @@ export class OfflineTreksService implements TreksService {
           this.trekDownloadProgress = event.loaded / event.total;
         }
 
-        const nbProgress = this.trekDownloadProgress > 0 && this.mediaDownloadProgress > 0 ? 2 : 1;
-        const currentProgress = this.trekDownloadProgress + this.mediaDownloadProgress;
+        const nbProgress =
+          this.trekDownloadProgress > 0 && this.mediaDownloadProgress > 0
+            ? 2
+            : 1;
+        const currentProgress =
+          this.trekDownloadProgress + this.mediaDownloadProgress;
         if (currentProgress / nbProgress < 1) {
           this.currentProgressDownload$.next(currentProgress / nbProgress);
         } else {
@@ -274,7 +327,7 @@ export class OfflineTreksService implements TreksService {
     const offlineZipUri = `${this.getDirLocalDataLocation()}zip/`;
     const req = new HttpRequest('GET', offlineZipDownloadUrl, {
       responseType: 'blob',
-      reportProgress: true,
+      reportProgress: true
     });
 
     return this.http.request(req).pipe(
@@ -290,22 +343,30 @@ export class OfflineTreksService implements TreksService {
       }),
 
       // write zip file inside zip folder
-      delayWhen(zipFile => {
-        return from(this.file.writeFile(offlineZipUri, `media.zip`, zipFile, { replace: true })).pipe(
+      delayWhen((zipFile) => {
+        return from(
+          this.file.writeFile(offlineZipUri, `media.zip`, zipFile, {
+            replace: true
+          })
+        ).pipe(
           tap(() => {}),
-          catchError(error => throwError(new Error('Error while writing zip'))),
+          catchError((error) =>
+            throwError(new Error('Error while writing zip'))
+          )
         );
       }),
 
       // unzip file inside offline folder
       delayWhen(() => {
-        return from(this.zip.unzip(`${offlineZipUri}media.zip`, offlineUriLocation)).pipe(
-          tap(unzipResult => {
+        return from(
+          this.zip.unzip(`${offlineZipUri}media.zip`, offlineUriLocation)
+        ).pipe(
+          tap((unzipResult) => {
             if (unzipResult === -1) {
               throw new Error('Error while unziping');
             }
           }),
-          catchError(error => throwError(new Error('Error while unziping'))),
+          catchError((error) => throwError(new Error('Error while unziping')))
         );
       }),
 
@@ -313,7 +374,7 @@ export class OfflineTreksService implements TreksService {
       delayWhen(() => {
         return from(this.file.removeFile(offlineZipUri, `media.zip`));
       }),
-      map(() => {}),
+      map(() => {})
     );
   }
 
@@ -324,7 +385,7 @@ export class OfflineTreksService implements TreksService {
 
     const req = new HttpRequest('GET', offlineZipDownloadUrl, {
       responseType: 'blob',
-      reportProgress: true,
+      reportProgress: true
     });
 
     return this.http.request(req).pipe(
@@ -337,34 +398,46 @@ export class OfflineTreksService implements TreksService {
       delayWhen(() => from(this.createDirIfNotExists('offline'))),
 
       // write zip file inside zip folder
-      delayWhen(zipFile =>
-        from(this.file.writeFile(offlineZipUri, `${trekId}.zip`, zipFile, { replace: true })).pipe(
-          catchError(error => throwError(new Error('Error while writing zip'))),
-        ),
+      delayWhen((zipFile) =>
+        from(
+          this.file.writeFile(offlineZipUri, `${trekId}.zip`, zipFile, {
+            replace: true
+          })
+        ).pipe(
+          catchError((error) =>
+            throwError(new Error('Error while writing zip'))
+          )
+        )
       ),
 
       // unzip file inside offline folder
       delayWhen(() =>
-        from(this.zip.unzip(`${offlineZipUri}${trekId}.zip`, offlineUriLocation)).pipe(
-          tap(unzipResult => {
+        from(
+          this.zip.unzip(`${offlineZipUri}${trekId}.zip`, offlineUriLocation)
+        ).pipe(
+          tap((unzipResult) => {
             if (unzipResult === -1) {
               throw new Error('Error while unziping');
             }
           }),
-          catchError(error => throwError(new Error('Error while unziping'))),
-        ),
+          catchError((error) => throwError(new Error('Error while unziping')))
+        )
       ),
 
       // delete zip file
-      delayWhen(() => from(this.file.removeFile(offlineZipUri, `${trekId}.zip`))),
-      map(() => {}),
+      delayWhen(() =>
+        from(this.file.removeFile(offlineZipUri, `${trekId}.zip`))
+      ),
+      map(() => {})
     );
   }
 
   public removeTrek(trekId: number, withMedia: boolean): Observable<any> {
     const treks = <MinimalTreks>cloneDeep(this.treks$.value);
     const storage = this.storage;
-    treks.features = [...treks.features.filter(feature => feature.properties.id !== trekId)];
+    treks.features = [
+      ...treks.features.filter((feature) => feature.properties.id !== trekId)
+    ];
 
     // update treks
     this.treks$.next(treks);
@@ -376,33 +449,52 @@ export class OfflineTreksService implements TreksService {
 
     let stream: Observable<any> = forkJoin(
       // remove json data
-      tasks,
+      tasks
     ).pipe(map(() => true));
 
     if (this.isMobile && withMedia) {
       stream = stream.pipe(mergeMap(() => this.removeMedia(trekId)));
     }
 
-    stream = stream.pipe(mergeMap(() => from(this.storage.get(`trek-${trekId}`))));
+    stream = stream.pipe(
+      mergeMap(() => from(this.storage.get(`trek-${trekId}`)))
+    );
 
     stream = stream.pipe(
       concatMap((jsonTrek: any) => {
         const trek: Trek = JSON.parse(jsonTrek);
-        if (trek.properties.children && trek.properties.children.features.length > 0) {
+        if (
+          trek.properties.children &&
+          trek.properties.children.features.length > 0
+        ) {
           const childrenToRemove: Observable<any>[] = [];
-          trek.properties.children.features.forEach(children => {
-            childrenToRemove.push(from(storage.remove(`trek-${trekId}-${children.properties.id}`)));
-            childrenToRemove.push(from(storage.remove(`pois-trek-${trekId}-${children.properties.id}`)));
-            childrenToRemove.push(from(storage.remove(`touristicContents-trek-${trekId}-${children.properties.id}`)));
+          trek.properties.children.features.forEach((children) => {
+            childrenToRemove.push(
+              from(storage.remove(`trek-${trekId}-${children.properties.id}`))
+            );
+            childrenToRemove.push(
+              from(
+                storage.remove(`pois-trek-${trekId}-${children.properties.id}`)
+              )
+            );
+            childrenToRemove.push(
+              from(
+                storage.remove(
+                  `touristicContents-trek-${trekId}-${children.properties.id}`
+                )
+              )
+            );
           });
           return childrenToRemove;
         } else {
           return from([]);
         }
-      }),
+      })
     );
 
-    stream = stream.pipe(mergeMap(() => from(storage.remove(`trek-${trekId}`))));
+    stream = stream.pipe(
+      mergeMap(() => from(storage.remove(`trek-${trekId}`)))
+    );
     stream = stream.pipe(catchError(() => throwError(false)));
 
     return stream;
@@ -410,27 +502,38 @@ export class OfflineTreksService implements TreksService {
 
   private removeMedia(trekId: number): Observable<boolean> {
     const offlineUriLocation = `${this.getDirLocalDataLocation()}offline/`;
-    return from(this.file.removeRecursively(offlineUriLocation, `${trekId}`)).pipe(
-      map(removeResult => {
+    return from(
+      this.file.removeRecursively(offlineUriLocation, `${trekId}`)
+    ).pipe(
+      map((removeResult) => {
         if (!removeResult || !removeResult.success) {
           throw new Error('Error while deleting media');
         } else {
           return true;
         }
-      }),
+      })
     );
   }
 
   public getTrekById(trekId: number, parentId?: number): Observable<Trek> {
     if (parentId) {
-      return from(this.storage.get(`trek-${parentId}-${trekId}`)).pipe(map((jsonTrek: string) => JSON.parse(jsonTrek)));
+      return from(this.storage.get(`trek-${parentId}-${trekId}`)).pipe(
+        map((jsonTrek: string) => JSON.parse(jsonTrek))
+      );
     } else {
-      return from(this.storage.get(`trek-${trekId}`)).pipe(map((jsonTrek: string) => JSON.parse(jsonTrek)));
+      return from(this.storage.get(`trek-${trekId}`)).pipe(
+        map((jsonTrek: string) => JSON.parse(jsonTrek))
+      );
     }
   }
 
-  public getPoisForTrekById(trekId: number, parentId: number): Observable<Pois> {
-    const path = parentId ? `pois-trek-${parentId}-${trekId}` : `pois-trek-${trekId}`;
+  public getPoisForTrekById(
+    trekId: number,
+    parentId: number
+  ): Observable<Pois> {
+    const path = parentId
+      ? `pois-trek-${parentId}-${trekId}`
+      : `pois-trek-${trekId}`;
     return from(this.storage.get(path)).pipe(
       map((jsonPois: string) => {
         return JSON.parse(jsonPois) as Poi[];
@@ -439,30 +542,42 @@ export class OfflineTreksService implements TreksService {
         (pois: Poi[]) =>
           ({
             type: 'FeatureCollection',
-            features: pois ? pois : [],
-          } as Pois),
-      ),
+            features: pois ? pois : []
+          } as Pois)
+      )
     );
   }
 
-  public getTouristicContentsForTrekById(trekId: number, parentId: number): Observable<TouristicContents> {
-    const path = parentId ? `touristicContents-trek-${parentId}-${trekId}` : `touristicContents-trek-${trekId}`;
+  public getTouristicContentsForTrekById(
+    trekId: number,
+    parentId: number
+  ): Observable<TouristicContents> {
+    const path = parentId
+      ? `touristicContents-trek-${parentId}-${trekId}`
+      : `touristicContents-trek-${trekId}`;
 
-    return from(this.storage.get(path)).pipe(map((jsonTouristicContents: string) => JSON.parse(jsonTouristicContents)));
+    return from(this.storage.get(path)).pipe(
+      map((jsonTouristicContents: string) => JSON.parse(jsonTouristicContents))
+    );
   }
 
-  public getTouristicEventsForTrekById(trekId: number, parentId: number): Observable<TouristicEvents> {
-    const path = parentId ? `pois-trek-${parentId}-${trekId}` : `pois-trek-${trekId}`;
+  public getTouristicEventsForTrekById(
+    trekId: number,
+    parentId: number
+  ): Observable<TouristicEvents> {
+    const path = parentId
+      ? `pois-trek-${parentId}-${trekId}`
+      : `pois-trek-${trekId}`;
 
     return from(this.storage.get(path)).pipe(
       map((jsonPois: string) => JSON.parse(jsonPois)),
       map(
-        TouristicEventsItems =>
+        (TouristicEventsItems) =>
           ({
             type: 'FeatureCollection',
-            features: TouristicEventsItems ? TouristicEventsItems : [],
-          } as TouristicEvents),
-      ),
+            features: TouristicEventsItems ? TouristicEventsItems : []
+          } as TouristicEvents)
+      )
     );
   }
 
@@ -479,24 +594,42 @@ export class OfflineTreksService implements TreksService {
   }
 
   private getDirLocalDataLocation() {
-    return `${this.file.applicationStorageDirectory}${this.platform.is('ios') ? 'Documents/' : ''}`;
+    return `${this.file.applicationStorageDirectory}${
+      this.platform.is('ios') ? 'Documents/' : ''
+    }`;
   }
 
-  public getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions {
+  public getMapConfigForTrekById(
+    trek: Trek,
+    isOffline: boolean
+  ): MapboxOptions {
     let mapConfig: MapboxOptions;
 
     if (isOffline && this.isMobile) {
-      mapConfig = { ...cloneDeep(environment.offlineMapConfig), zoom: environment.trekZoom.zoom };
+      mapConfig = {
+        ...cloneDeep(environment.offlineMapConfig),
+        zoom: environment.trekZoom.zoom
+      };
 
-      if (mapConfig.style && typeof mapConfig.style !== 'string' && mapConfig.style.sources) {
+      if (
+        mapConfig.style &&
+        typeof mapConfig.style !== 'string' &&
+        mapConfig.style.sources
+      ) {
         (mapConfig.style as any).sources['tiles-background'].tiles[0] =
-          this.getCommonImgSrc() + (environment.offlineMapConfig.style as any).sources['tiles-background'].tiles[0];
+          this.getCommonImgSrc() +
+          (environment.offlineMapConfig.style as any).sources[
+            'tiles-background'
+          ].tiles[0];
 
         mapConfig.style.sources['tiles-background-trek'] = {
           ...mapConfig.style.sources['tiles-background'],
           tiles: [
-            this.getTilesDirectoryForTrekById(trek.properties.id, mapConfig.style.sources['tiles-background'].type),
-          ],
+            this.getTilesDirectoryForTrekById(
+              trek.properties.id,
+              mapConfig.style.sources['tiles-background'].type
+            )
+          ]
         } as any;
 
         if (mapConfig.style.layers) {
@@ -505,15 +638,23 @@ export class OfflineTreksService implements TreksService {
             type: 'raster',
             source: 'tiles-background-trek',
             minzoom: environment.trekZoom.minZoom,
-            maxzoom: environment.trekZoom.maxZoom,
+            maxzoom: environment.trekZoom.maxZoom
           });
         }
       }
     } else {
-      mapConfig = { ...cloneDeep(environment.onlineMapConfig), zoom: environment.trekZoom.zoom };
+      mapConfig = {
+        ...cloneDeep(environment.onlineMapConfig),
+        zoom: environment.trekZoom.zoom
+      };
     }
 
-    (mapConfig as any).trekBounds = trek.bbox as [number, number, number, number];
+    (mapConfig as any).trekBounds = trek.bbox as [
+      number,
+      number,
+      number,
+      number
+    ];
     mapConfig.center = undefined;
 
     return mapConfig;
@@ -521,7 +662,9 @@ export class OfflineTreksService implements TreksService {
 
   private getTilesDirectoryForTrekById(trekId: number, type: string): string {
     if (type === 'raster') {
-      return `${this.webview.convertFileSrc(this.getDirLocalDataLocation())}offline/${trekId}/tiles/{z}/{x}/{y}.png`;
+      return `${this.webview.convertFileSrc(
+        this.getDirLocalDataLocation()
+      )}offline/${trekId}/tiles/{z}/{x}/{y}.png`;
     } else {
       return `${this.getDirLocalDataLocation()}offline/${trekId}/tiles/{z}/{x}/{y}.pbf`;
     }

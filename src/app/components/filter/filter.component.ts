@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, DoCheck } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  DoCheck
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Filter, FilterValue } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
@@ -7,15 +14,19 @@ import { SelectFilterComponent } from '@app/components/select-filter/select-filt
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss'],
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, DoCheck {
   @Input() public filter: Filter;
   @Input() public commonSrc: string;
-  @Output() public valueChange = new EventEmitter<{ checked: boolean; value: FilterValue }>();
+  @Output() public valueChange = new EventEmitter<{
+    checked: boolean;
+    value: FilterValue;
+  }>();
   @Output() public selectChange = new EventEmitter<{ filter: Filter }>();
   public selectedItems = '';
-  public containsFilterShouldUseSelectAbove = environment.containsFilterShouldUseSelectAbove;
+  public containsFilterShouldUseSelectAbove =
+    environment.containsFilterShouldUseSelectAbove;
 
   constructor(private modalController: ModalController) {}
 
@@ -25,7 +36,7 @@ export class FilterComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     if (
-      !this.filter.values.find(value => {
+      !this.filter.values.find((value) => {
         return value.checked;
       })
     ) {
@@ -33,7 +44,13 @@ export class FilterComponent implements OnInit, DoCheck {
     }
   }
 
-  public valueChanged({ checked, value }: { checked: boolean; value: FilterValue }): void {
+  public valueChanged({
+    checked,
+    value
+  }: {
+    checked: boolean;
+    value: FilterValue;
+  }): void {
     this.valueChange.emit({ checked: checked, value: value });
   }
 
@@ -41,7 +58,7 @@ export class FilterComponent implements OnInit, DoCheck {
     const modal = await this.modalController.create({
       component: SelectFilterComponent,
       componentProps: { filter: this.filter, commonSrc: this.commonSrc },
-      cssClass: 'full-size',
+      cssClass: 'full-size'
     });
 
     await modal.present();

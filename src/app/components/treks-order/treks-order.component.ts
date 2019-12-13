@@ -9,7 +9,7 @@ import { Order } from '@app/interfaces/interfaces';
 @Component({
   selector: 'app-treks-order',
   templateUrl: './treks-order.component.html',
-  styleUrls: ['./treks-order.component.scss'],
+  styleUrls: ['./treks-order.component.scss']
 })
 export class TreksOrderComponent extends UnSubscribe {
   orders: any;
@@ -21,7 +21,7 @@ export class TreksOrderComponent extends UnSubscribe {
     private settings: SettingsService,
     private platform: Platform,
     private backgroundGeolocation: BackgroundGeolocation,
-    private popoverController: PopoverController,
+    private popoverController: PopoverController
   ) {
     super();
   }
@@ -30,9 +30,9 @@ export class TreksOrderComponent extends UnSubscribe {
     this.orders = this.navParams.get('orders');
 
     this.subscriptions$$.push(
-      this.settings.order$.subscribe(order => {
+      this.settings.order$.subscribe((order) => {
         this.currentOrder = order.type;
-      }),
+      })
     );
   }
 
@@ -46,16 +46,21 @@ export class TreksOrderComponent extends UnSubscribe {
         if (this.platform.is('ios') || this.platform.is('android')) {
           let startLocation;
           try {
-            startLocation = await this.backgroundGeolocation.getCurrentLocation({
-              timeout: 3000,
-              maximumAge: 10000,
-              enableHighAccuracy: true,
-            });
+            startLocation = await this.backgroundGeolocation.getCurrentLocation(
+              {
+                timeout: 3000,
+                maximumAge: 10000,
+                enableHighAccuracy: true
+              }
+            );
           } catch (catchError) {
             error = true;
           }
           if (startLocation) {
-            this.settings.saveOrderState(event.detail.value, [startLocation.longitude, startLocation.latitude]);
+            this.settings.saveOrderState(event.detail.value, [
+              startLocation.longitude,
+              startLocation.latitude
+            ]);
           } else {
             error = true;
             // If location not provided, reset default order
@@ -64,13 +69,16 @@ export class TreksOrderComponent extends UnSubscribe {
           await this.popoverController.dismiss({ error });
         } else if ('geolocation' in navigator) {
           navigator.geolocation.getCurrentPosition(
-            async position => {
-              this.settings.saveOrderState(event.detail.value, [position.coords.longitude, position.coords.latitude]);
+            async (position) => {
+              this.settings.saveOrderState(event.detail.value, [
+                position.coords.longitude,
+                position.coords.latitude
+              ]);
               await this.popoverController.dismiss();
             },
             async () => {
               await this.popoverController.dismiss({ error: true });
-            },
+            }
           );
         }
       } else {

@@ -12,19 +12,25 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { environment } from '@env/environment';
 
 @Injectable()
-export class MoreItemResolver implements Resolve<InformationItem | 'connectionError'> {
+export class MoreItemResolver
+  implements Resolve<InformationItem | 'connectionError'> {
   constructor(
     private more: MoreInformationsService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve(route: ActivatedRouteSnapshot) {
     const moreItemId = +(<string>route.paramMap.get('moreItemId'));
     return this.more.getMoreItemById(moreItemId).pipe(
-      tap(item => {
-        if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-          this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name} ${item.title}`);
+      tap((item) => {
+        if (
+          (this.platform.is('ios') || this.platform.is('android')) &&
+          environment.useFirebase
+        ) {
+          this.firebaseAnalytics.setCurrentScreen(
+            `${(route.component as any).name} ${item.title}`
+          );
         }
       }),
       catchError((error: HttpErrorResponse) => {
@@ -33,7 +39,7 @@ export class MoreItemResolver implements Resolve<InformationItem | 'connectionEr
         } else {
           return throwError(error);
         }
-      }),
+      })
     );
   }
 }

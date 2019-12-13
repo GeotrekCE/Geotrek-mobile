@@ -165,8 +165,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="266"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:266</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="272"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:272</a></div>
                 </td>
             </tr>
 
@@ -204,8 +204,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="265"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:265</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="271"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:271</a></div>
                 </td>
             </tr>
 
@@ -450,8 +450,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="259"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:259</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="262"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:262</a></div>
                 </td>
             </tr>
 
@@ -614,8 +614,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="261"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:261</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="267"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:267</a></div>
                 </td>
             </tr>
 
@@ -696,8 +696,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="262"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:262</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="268"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:268</a></div>
                 </td>
             </tr>
 
@@ -778,8 +778,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="264"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:264</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="270"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:270</a></div>
                 </td>
             </tr>
 
@@ -860,8 +860,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="263"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:263</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="269"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:269</a></div>
                 </td>
             </tr>
 
@@ -899,8 +899,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="260"
-                            class="link-to-prism">src/app/interfaces/interfaces.ts:260</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="266"
+                            class="link-to-prism">src/app/interfaces/interfaces.ts:266</a></div>
                 </td>
             </tr>
 
@@ -1269,8 +1269,14 @@ export interface TreksService {
   filteredTreks$: Observable&lt;MinimalTrek[]&gt;;
   getTrekById(id: number, parentId?: number): Observable&lt;Trek | null&gt;;
   getPoisForTrekById(id: number, parentId?: number): Observable&lt;Pois&gt;;
-  getTouristicContentsForTrekById(id: number, parentId?: number): Observable&lt;TouristicContents&gt;;
-  getTouristicEventsForTrekById(id: number, parentId?: number): Observable&lt;TouristicEvents&gt;;
+  getTouristicContentsForTrekById(
+    id: number,
+    parentId?: number
+  ): Observable&lt;TouristicContents&gt;;
+  getTouristicEventsForTrekById(
+    id: number,
+    parentId?: number
+  ): Observable&lt;TouristicEvents&gt;;
   getTreksUrl(): string;
   getTrekDetailsUrl(trekId: number, parentId?: number): string;
   getTrekImageSrc(trek: Trek, picture?: Picture): string;

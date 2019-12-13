@@ -14,13 +14,19 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     component: MorePage,
     resolve: {
-      items: MoreResolver,
-    },
-  },
+      items: MoreResolver
+    }
+  }
 ];
 
 @NgModule({
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes), SharedUiModule, TranslateModule.forChild()],
-  declarations: [MorePage],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    SharedUiModule,
+    TranslateModule.forChild()
+  ],
+  declarations: [MorePage]
 })
 export class MorePageModule {}

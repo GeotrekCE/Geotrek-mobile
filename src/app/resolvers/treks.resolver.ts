@@ -15,25 +15,32 @@ export class TreksContextResolver implements Resolve<TreksContext> {
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
     private platform: Platform,
-    private firebaseAnalytics: FirebaseAnalytics,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<TreksContext> {
     const offline = !!route.data['offline'];
-    const treksService: TreksService = offline ? this.offlineTreks : this.onlineTreks;
+    const treksService: TreksService = offline
+      ? this.offlineTreks
+      : this.onlineTreks;
     const mapConfig =
       offline && (this.platform.is('ios') || this.platform.is('android'))
         ? environment.offlineMapConfig
         : environment.onlineMapConfig;
 
-    if ((this.platform.is('ios') || this.platform.is('android')) && environment.useFirebase) {
-      this.firebaseAnalytics.setCurrentScreen(`${(route.component as any).name}`);
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      environment.useFirebase
+    ) {
+      this.firebaseAnalytics.setCurrentScreen(
+        `${(route.component as any).name}`
+      );
     }
 
     return of({
       treksTool: treksService,
       offline: offline,
-      mapConfig,
+      mapConfig
     });
   }
 }

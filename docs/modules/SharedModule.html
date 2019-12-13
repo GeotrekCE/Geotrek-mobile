@@ -238,9 +238,17 @@ import { MapTreksVizComponent } from &#x27;@app/components/map-treks-viz/map-tre
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
 
 @NgModule({
-  declarations: [MapTreksVizComponent, MapTrekVizComponent, GeolocateNotificationsComponent],
+  declarations: [
+    MapTreksVizComponent,
+    MapTrekVizComponent,
+    GeolocateNotificationsComponent
+  ],
   imports: [CommonModule, IonicModule, TranslateModule.forChild()],
-  exports: [MapTreksVizComponent, MapTrekVizComponent, GeolocateNotificationsComponent],
+  exports: [
+    MapTreksVizComponent,
+    MapTrekVizComponent,
+    GeolocateNotificationsComponent
+  ]
 })
 export class SharedModule {}
 </code></pre>

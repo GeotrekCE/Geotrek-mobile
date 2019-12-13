@@ -8,7 +8,10 @@
     <ion-title>{{ 'search.title' | translate | uppercase }}</ion-title>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar placeholder="{{ 'search.placeholder' | translate }}" (ionChange)="search($event.detail.value)">
+    <ion-searchbar
+      placeholder="{{ 'search.placeholder' | translate }}"
+      (ionChange)="search($event.detail.value)"
+    >
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -16,14 +19,21 @@
 <ion-content>
   <ng-container *ngIf="!viewIsLoad">
     <div class="loader-container">
-      <ion-progress-bar class="progress-loader" color="primary" type="indeterminate"></ion-progress-bar>
+      <ion-progress-bar
+        class="progress-loader"
+        color="primary"
+        type="indeterminate"
+      ></ion-progress-bar>
     </div>
   </ng-container>
   <ng-container *ngIf="viewIsLoad">
     <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">
       <ion-item
         class="ion-activatable"
-        *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
+        *ngFor="
+          let trek of filteredTreks | slice: 0:currentMaxTreks;
+          trackBy: trackTrek
+        "
         (click)="navigateToTrek(trek.properties.id)"
       >
         <ion-label>{{ trek.properties.name }}</ion-label>
@@ -40,7 +50,11 @@
       </ion-grid>
     </ng-template>
     <ion-infinite-scroll
-      [disabled]="!filteredTreks || this.currentMaxTreks === filteredTreks.length || filteredTreks.length < treksByStep"
+      [disabled]="
+        !filteredTreks ||
+        this.currentMaxTreks === filteredTreks.length ||
+        filteredTreks.length < treksByStep
+      "
       threshold="100px"
       (ionInfinite)="expandTreks($event)"
     >
