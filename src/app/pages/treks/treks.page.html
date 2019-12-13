@@ -5,7 +5,7 @@
   <ion-toolbar
     *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"
   >
-    <ion-grid no-padding>
+    <ion-grid class="ion-no-padding">
       <ion-row>
         <ion-col size="auto" class="vertical-center">
           <ion-button
@@ -28,7 +28,7 @@
           </ion-button>
         </ion-col>
         <ion-col
-          text-right
+          class="ion-text-right"
           [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
         >
           <ion-button
@@ -85,7 +85,7 @@
               </h1>
             </ion-text>
           </ion-row>
-          <ion-row align-items-stretch>
+          <ion-row class="ion-align-items-stretch">
             <ion-col
               [size]="colSize"
               [sizeMd]="getMdColSize()"

@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="!viewIsLoad">
+  <ng-container *ngIf="!viewIsLoad; else searchView">
     <div class="loader-container">
       <ion-progress-bar
         class="progress-loader"
@@ -26,7 +26,7 @@
       ></ion-progress-bar>
     </div>
   </ng-container>
-  <ng-container *ngIf="viewIsLoad">
+  <ng-template #searchView>
     <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">
       <ion-item
         class="ion-activatable"
@@ -60,5 +60,5 @@
     >
       <ion-infinite-scroll-content> </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </ng-container>
+  </ng-template>
 </ion-content>
