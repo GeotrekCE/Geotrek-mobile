@@ -114,9 +114,20 @@ export class MapTreksVizComponent extends UnSubscribe
           ].tiles[0];
       }
 
-      const coordinates: number[][] = this.filteredTreks.map(
-        (feature) => feature.geometry.coordinates
-      );
+      const coordinates: number[][] = [];
+
+      this.filteredTreks.forEach((feature) => {
+        if (
+          feature &&
+          feature.geometry &&
+          feature.geometry.coordinates &&
+          feature.geometry.coordinates[0] &&
+          feature.geometry.coordinates[1]
+        ) {
+          coordinates.push(feature.geometry.coordinates);
+        }
+      });
+
       const bounds: any = coordinates.reduce(
         (bounds, coord) => bounds.extend(coord),
         new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
@@ -323,10 +334,12 @@ export class MapTreksVizComponent extends UnSubscribe
               if (err) {
                 throw err;
               }
-              this.presentConfirmFeatures(featuresInCluster as Feature<
-                Geometry,
-                { [name: string]: any }
-              >[]);
+              this.presentConfirmFeatures(
+                featuresInCluster as Feature<
+                  Geometry,
+                  { [name: string]: any }
+                >[]
+              );
             }
           );
         } else {
