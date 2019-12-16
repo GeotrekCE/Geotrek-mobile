@@ -1,4 +1,4 @@
-describe('ScreenShots', () => {
+describe('Screenshots', () => {
   const devices = [
     { name: 'phone', width: 320, height: 568 },
     { name: 'tablet', width: 768, height: 1024 },
