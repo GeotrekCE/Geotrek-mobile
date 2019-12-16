@@ -71,7 +71,7 @@ App name
 You can overwrite a lot of options inside these files:  
 AppName (header of the app) , availableLanguage, api url, map options and more
 
-_environment.prod.ts will be use for development  
+_environment.ts will be use for development  
 environment.prod.ts will be use for release app_
 
 ## src/assets/i18n
