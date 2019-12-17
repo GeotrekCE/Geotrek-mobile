@@ -1,6 +1,6 @@
 describe('Screenshots', () => {
   const devices = [
-    { name: 'phone', width: 320, height: 568 },
+    { name: 'phone', width: 412, height: 732 },
     { name: 'tablet', width: 768, height: 1024 },
     { name: 'desktop', width: 1024, height: 768 }
   ];
