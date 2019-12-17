@@ -180,7 +180,10 @@ ion-fab-button {
       list-style-type: none;
       counter-increment: referencePoint;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      p {
+        margin: 0;
+      }
       &:not(:first-child) {
         margin-top: 12px;
       }
