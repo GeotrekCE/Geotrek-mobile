@@ -49,7 +49,7 @@ export class TreksOrderComponent extends UnSubscribe {
             startLocation = await this.backgroundGeolocation.getCurrentLocation(
               {
                 timeout: 3000,
-                maximumAge: 10000,
+                maximumAge: Number.MAX_SAFE_INTEGER,
                 enableHighAccuracy: true
               }
             );
