@@ -141,8 +141,9 @@ export class FilterTreksService {
       );
     } else {
       return (
-        FilterTreksService.getCheckedIdForFilter(filter).indexOf(feature
-          .properties[filter.id] as any) !== -1
+        FilterTreksService.getCheckedIdForFilter(filter).indexOf(
+          feature.properties[filter.id] as any
+        ) !== -1
       );
     }
   }
@@ -168,11 +169,11 @@ export class FilterTreksService {
   public getFilteredTreks(
     treks$: Observable<MinimalTreks | null>
   ): Observable<MinimalTrek[]> {
-    return combineLatest(
+    return combineLatest([
       treks$,
       this.settings.filters$,
       this.settings.order$
-    ).pipe(
+    ]).pipe(
       map(([treks, filters, order]) => {
         if (treks && filters && order) {
           return FilterTreksService.sort(

@@ -58,6 +58,7 @@
 </ion-header>
 <ion-content style="position : relative" #content>
   <app-loader></app-loader>
+
   <ng-container *ngIf="!offline; else treksList">
     <app-connect-error
       *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"
@@ -65,7 +66,7 @@
       [title]="'error.title' | translate"
       [content]="'error.contentTreks' | translate"
       [buttonText]="'error.buttonText' | translate"
-      (retry)="onlineTreks.loadTreks()"
+      (retry)="loadTreks()"
     >
     </app-connect-error>
   </ng-container>

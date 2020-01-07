@@ -58,6 +58,8 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
 
   ngOnInit() {
     super.ngOnInit();
+    this.checkNetwork();
+
     this.loading.begin('treks-map');
     this.subscriptions$$.push(
       this.route.data.subscribe((data) => {
@@ -83,23 +85,16 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     super.ngOnDestroy();
     this.loading.finish();
   }
-
-  ionViewWillEnter(): void {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      this.noNetwork = this.network.type === 'none';
-    }
-  }
-
   ionViewDidEnter(): void {
     this.mapIsLoaded(false);
-    this.mergeFiltersTreks$ = combineLatest(
+    this.mergeFiltersTreks$ = combineLatest([
       this.route.data.pipe(
         first(),
         map((data) => data.context),
         mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
       ),
       this.filterTreks.activeFiltersNumber$
-    ).subscribe(([filteredTreks, numberOfActiveFilters]) => {
+    ]).subscribe(([filteredTreks, numberOfActiveFilters]) => {
       this.numberOfActiveFilters =
         numberOfActiveFilters === 0 ? '' : `(${numberOfActiveFilters})`;
       this.filteredTreks = <MinimalTrek[]>filteredTreks;
@@ -145,6 +140,20 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
   public mapIsLoaded(loaded: boolean): void {
     if (loaded) {
       this.loading.finish('treks-map');
+    }
+  }
+
+  public loadTreks(): void {
+    this.checkNetwork();
+    if (!this.noNetwork) {
+      this.settings.loadSettings();
+      this.onlineTreks.loadTreks();
+    }
+  }
+
+  public checkNetwork(): void {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this.noNetwork = this.network.type === 'none';
     }
   }
 }

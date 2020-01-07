@@ -31,10 +31,9 @@ export class AppComponent {
       let defaultLanguage;
 
       if (this.platform.is('ios') || this.platform.is('android')) {
-        defaultLanguage = (await this.globalization.getPreferredLanguage()).value.slice(
-          0,
-          2
-        );
+        defaultLanguage = (
+          await this.globalization.getPreferredLanguage()
+        ).value.slice(0, 2);
         this.statusBar.styleLightContent();
         this.splashScreen.hide();
       } else {

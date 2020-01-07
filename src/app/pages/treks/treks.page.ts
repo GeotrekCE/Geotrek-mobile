@@ -68,14 +68,10 @@ export class TreksPage extends UnSubscribe implements OnInit {
     super();
   }
 
-  ionViewWillEnter() {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      this.noNetwork = this.network.type === 'none';
-    }
-  }
-
   ngOnInit(): void {
     super.ngOnInit();
+    this.checkNetwork();
+
     this.subscriptions$$.push(
       // load tools when enter route
       this.route.data.subscribe((data) => {
@@ -213,6 +209,20 @@ export class TreksPage extends UnSubscribe implements OnInit {
       });
 
       await alertLocation.present();
+    }
+  }
+
+  public loadTreks(): void {
+    this.checkNetwork();
+    if (!this.noNetwork) {
+      this.settings.loadSettings();
+      this.onlineTreks.loadTreks();
+    }
+  }
+
+  public checkNetwork(): void {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this.noNetwork = this.network.type === 'none';
     }
   }
 }
