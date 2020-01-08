@@ -59,7 +59,7 @@ export class GeolocateService {
             const startLocation = await this.backgroundGeolocation.getCurrentLocation(
               {
                 timeout: 3000,
-                maximumAge: 10000,
+                maximumAge: Number.MAX_SAFE_INTEGER,
                 enableHighAccuracy: true
               }
             );
@@ -112,7 +112,7 @@ export class GeolocateService {
     try {
       startLocation = await this.backgroundGeolocation.getCurrentLocation({
         timeout: 3000,
-        maximumAge: 60000,
+        maximumAge: Number.MAX_SAFE_INTEGER,
         enableHighAccuracy: true
       });
     } catch (error) {
