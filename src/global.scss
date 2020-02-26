@@ -61,34 +61,6 @@ ion-fab {
   }
 }
 
-// Pulse effect for geolocation
-.pulse {
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--ion-color-primary);
-  cursor: pointer;
-  box-shadow: 0 0 0 var(--ion-color-primary);
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(var(--ion-color-primary-rgb), 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(var(--ion-color-primary-rgb), 0);
-  }
-}
-
-.custom-toast-container {
-  height: calc(100% - 56px);
-}
-
 // Pulse effect for geolocation marker
 .pulse {
   display: block;
