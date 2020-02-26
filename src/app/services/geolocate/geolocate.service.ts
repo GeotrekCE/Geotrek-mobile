@@ -110,11 +110,15 @@ export class GeolocateService {
   async getCurrentPosition() {
     let startLocation;
     try {
-      startLocation = await this.backgroundGeolocation.getCurrentLocation({
-        timeout: 3000,
-        maximumAge: Number.MAX_SAFE_INTEGER,
-        enableHighAccuracy: true
-      });
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        startLocation = await this.backgroundGeolocation.getCurrentLocation({
+          timeout: 3000,
+          maximumAge: Number.MAX_SAFE_INTEGER,
+          enableHighAccuracy: true
+        });
+      } else {
+        startLocation = { longitude: 0.705824, latitude: 44.410157 };
+      }
     } catch (error) {
       startLocation = null;
     } finally {
