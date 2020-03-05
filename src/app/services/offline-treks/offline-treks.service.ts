@@ -622,17 +622,17 @@ export class OfflineTreksService implements TreksService {
             'tiles-background'
           ].tiles[0];
 
-        mapConfig.style.sources['tiles-background-trek'] = {
-          ...mapConfig.style.sources['tiles-background'],
-          tiles: [
-            this.getTilesDirectoryForTrekById(
-              trek.properties.id,
-              mapConfig.style.sources['tiles-background'].type
-            )
-          ]
-        } as any;
-
         if (mapConfig.style.layers) {
+          mapConfig.style.sources['tiles-background-trek'] = {
+            ...mapConfig.style.sources['tiles-background'],
+            tiles: [
+              this.getTilesDirectoryForTrekById(
+                trek.properties.id,
+                mapConfig.style.sources['tiles-background'].type
+              )
+            ]
+          } as any;
+
           mapConfig.style.layers.push({
             id: 'tiles-background-trek',
             type: 'raster',
@@ -640,6 +640,8 @@ export class OfflineTreksService implements TreksService {
             minzoom: environment.trekZoom.minZoom,
             maxzoom: environment.trekZoom.maxZoom
           });
+
+          mapConfig.maxZoom = environment.trekZoom.maxZoom - 1;
         }
       }
     } else {

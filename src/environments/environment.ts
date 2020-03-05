@@ -63,12 +63,12 @@ export const environment = {
       ]
     },
     minZoom: 0,
-    maxZoom: 16
+    maxZoom: 12
   },
   trekZoom: {
     // zoom config for trek layer map
     minZoom: 13,
-    maxZoom: 16,
+    maxZoom: 17,
     zoom: 13
   },
   map: {
