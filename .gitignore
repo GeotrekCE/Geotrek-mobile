@@ -36,3 +36,6 @@ UserInterfaceState.xcuserstate
 analytics/
 cypress/videos
 cypress/screenshots
+
+ios/
+android/
