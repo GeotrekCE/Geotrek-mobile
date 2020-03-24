@@ -5,6 +5,7 @@
     <author email="bastien.alvez@makina-corpus.com" href="https://makina-corpus.com">Makina Corpus</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="http://localhost:8080/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -47,9 +48,9 @@
         <resource-file src="resources/android_ic_notification/drawable-xhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xhdpi/ic_stat_panorama.png" />
         <resource-file src="resources/android_ic_notification/drawable-xxhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xxhdpi/ic_stat_panorama.png" />
         <resource-file src="resources/android_ic_notification/drawable-xxxhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_panorama.png" />
-        <resource-file src="resources/android_ic_notification/drawable-xxxhdpi/ic_stat_panorama.png" target="app/src/main/res/drawable-xxxhdpi/ic_stat_panorama.png" />
     </platform>
     <platform name="ios">
+        <preference name="WKWebViewOnly" value="true" />
         <resource-file src="analytics/GoogleService-Info.plist" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
