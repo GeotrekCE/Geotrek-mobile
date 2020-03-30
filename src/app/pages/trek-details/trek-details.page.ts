@@ -155,8 +155,21 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
 
   async downloadTrek() {
     const simpleTrek = this.onlineTreks.getMinimalTrekById(
-      this.currentTrek.properties.id
+      !this.isStage
+        ? this.currentTrek.properties.id
+        : this.parentTrek.properties.id
     );
+    const pois: any = !this.isStage
+      ? this.currentPois
+      : await this.onlineTreks
+          .getPoisForTrekById(this.parentTrek.properties.id)
+          .toPromise();
+    const touristicContents: any = !this.isStage
+      ? this.currentPois
+      : await this.onlineTreks
+          .getTouristicContentsForTrekById(this.parentTrek.properties.id)
+          .toPromise();
+
     if (!simpleTrek) {
       return;
     }
@@ -169,12 +182,15 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     });
     await modalProgress.present();
 
+    // treksService.getPoisForTrekById(currentTrekId, parentId),
+    // treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+
     this.offlineTreks
       .saveTrek(
         simpleTrek,
-        this.originalTrek,
-        this.currentPois,
-        this.touristicContents
+        !this.isStage ? this.originalTrek : this.parentTrek,
+        pois,
+        touristicContents
       )
       .subscribe(
         (saveResult) => {

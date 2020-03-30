@@ -68,7 +68,7 @@ export class TrekContextResolver
             return null;
           } else {
             const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(
-              trek,
+              isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
               offline
             );
             const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(

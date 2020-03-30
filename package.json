@@ -1,6 +1,6 @@
 {
   "name": "geotrek-mobile",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "author": "Makina Corpus",
   "homepage": "https://makina-corpus.com",
   "engines": {
@@ -102,7 +102,8 @@
     "prettier": "^1.19.1",
     "ts-node": "^8.8.1",
     "tslint": "^5.20.1",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "cordova-plugin-background-geolocation": "@mauron85/cordova-plugin-background-geolocation@~3.1.0"
   },
   "description": "A hiking app",
   "cordova": {
@@ -143,6 +144,14 @@
         "CONTENT_AUTHORITY": "$PACKAGE_NAME",
         "ALWAYS_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app always requires location tracking",
         "MOTION_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app requires motion detection"
+      },
+      "cordova-plugin-background-geolocation": {
+        "GOOGLE_PLAY_SERVICES_VERSION": "11+",
+        "ANDROID_SUPPORT_LIBRARY_VERSION": "26+",
+        "ICON": "@mipmap/icon",
+        "SMALL_ICON": "@mipmap/icon",
+        "ALWAYS_USAGE_DESCRIPTION": "App requires background tracking ",
+        "MOTION_USAGE_DESCRIPTION": "App requires motion detection"
       }
     },
     "platforms": [
