@@ -136,6 +136,11 @@ export class MapTrekVizComponent extends UnSubscribe
         })
       );
 
+      if (!environment.map.enableRotation) {
+        this.map.dragRotate.disable();
+        this.map.touchZoomRotate.disableRotation();
+      }
+
       this.geolocate.startTracking(
         this.currentTrek ? this.currentTrek.properties.name : ''
       );

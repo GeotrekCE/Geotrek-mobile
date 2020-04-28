@@ -158,6 +158,11 @@ export class MapTreksVizComponent extends UnSubscribe
         })
       );
 
+      if (!environment.map.enableRotation) {
+        this.map.dragRotate.disable();
+        this.map.touchZoomRotate.disableRotation();
+      }
+
       if (this.platform.is('ios') || this.platform.is('android')) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() => {

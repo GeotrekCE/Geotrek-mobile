@@ -81,7 +81,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.deburr": "^4.1.0",
     "lodash.throttle": "^4.1.1",
-    "mapbox-gl": "^1.9.0",
+    "mapbox-gl": "^1.10.0",
     "rxjs": "^6.5.4",
     "zone.js": "^0.10.3"
   },

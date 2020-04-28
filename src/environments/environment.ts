@@ -37,7 +37,8 @@ export const environment = {
       ]
     },
     minZoom: 0,
-    maxZoom: 16
+    maxZoom: 16,
+    maxPitch: 0
   },
   offlineMapConfig: {
     // offline map default config
@@ -63,7 +64,8 @@ export const environment = {
       ]
     },
     minZoom: 0,
-    maxZoom: 12
+    maxZoom: 12,
+    maxPitch: 0
   },
   trekZoom: {
     // zoom config for trek layer map
@@ -169,7 +171,8 @@ export const environment = {
           'circle-stroke-width': 1
         }
       }
-    }
+    },
+    enableRotation: false
   },
   treksByStep: 15, // default number of treks to display on treks list
   metersToNotify: 20, // notify poi within user position and [metersToNotify]
