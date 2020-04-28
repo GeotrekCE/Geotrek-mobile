@@ -137,8 +137,8 @@
         "ANDROID_SUPPORT_LIBRARY_VERSION": "26+",
         "ICON": "@mipmap/icon",
         "SMALL_ICON": "@mipmap/icon",
-        "ALWAYS_USAGE_DESCRIPTION": "App requires background tracking ",
-        "MOTION_USAGE_DESCRIPTION": "App requires motion detection"
+        "ALWAYS_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app always requires location tracking",
+        "MOTION_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app requires motion detection"
       }
     },
     "platforms": [
