@@ -85,7 +85,7 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
     let temporaryFilterIndex = temporaryFilters.findIndex(
       (tempFilter) => tempFilter.id === event.filter.id
     );
-    if (temporaryFilterIndex) {
+    if (temporaryFilterIndex !== -1) {
       temporaryFilters[temporaryFilterIndex] = event.filter;
       this.temporaryFilters$.next(temporaryFilters);
     }
