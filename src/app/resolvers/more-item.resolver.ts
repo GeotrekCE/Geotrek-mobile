@@ -28,9 +28,7 @@ export class MoreItemResolver
           (this.platform.is('ios') || this.platform.is('android')) &&
           environment.useFirebase
         ) {
-          this.firebaseAnalytics.setCurrentScreen(
-            `${(route.component as any).name} ${item.title}`
-          );
+          this.firebaseAnalytics.setCurrentScreen(`${item.title}`);
         }
       }),
       catchError((error: HttpErrorResponse) => {

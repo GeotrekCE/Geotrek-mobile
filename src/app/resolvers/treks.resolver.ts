@@ -32,9 +32,7 @@ export class TreksContextResolver implements Resolve<TreksContext> {
       (this.platform.is('ios') || this.platform.is('android')) &&
       environment.useFirebase
     ) {
-      this.firebaseAnalytics.setCurrentScreen(
-        `${(route.component as any).name}`
-      );
+      this.firebaseAnalytics.setCurrentScreen(`Treks`);
     }
 
     return of({

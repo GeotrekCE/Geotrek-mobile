@@ -84,7 +84,7 @@ export class TrekContextResolver
               environment.useFirebase
             ) {
               this.firebaseAnalytics.setCurrentScreen(
-                `${(route.component as any).name}  ${trek.properties.name}`
+                `${trek.properties.name}`
               );
             }
 

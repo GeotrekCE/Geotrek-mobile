@@ -27,9 +27,7 @@ export class MoreResolver
           (this.platform.is('ios') || this.platform.is('android')) &&
           environment.useFirebase
         ) {
-          this.firebaseAnalytics.setCurrentScreen(
-            `${(route.component as any).name}`
-          );
+          this.firebaseAnalytics.setCurrentScreen(`Information`);
         }
       }),
       catchError((error: HttpErrorResponse) => {
