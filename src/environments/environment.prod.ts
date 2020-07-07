@@ -64,7 +64,7 @@ export const environment = {
       ]
     },
     minZoom: 0,
-    maxZoom: 16,
+    maxZoom: 12,
     maxPitch: 0
   },
   trekZoom: {
