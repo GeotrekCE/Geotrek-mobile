@@ -33,6 +33,7 @@
     "@angular/router": "^8.2.14",
     "@ionic-native/background-geolocation": "^5.24.0",
     "@ionic-native/core": "^5.23.0",
+    "@ionic-native/device-orientation": "^5.27.0",
     "@ionic-native/file": "^5.23.0",
     "@ionic-native/firebase-analytics": "^5.23.0",
     "@ionic-native/globalization": "^5.23.0",
@@ -138,7 +139,8 @@
         "SMALL_ICON": "@mipmap/icon",
         "ALWAYS_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app always requires location tracking",
         "MOTION_USAGE_DESCRIPTION": "In order to locate or track you while hiking, this app requires motion detection"
-      }
+      },
+      "cordova-plugin-device-orientation": {}
     },
     "platforms": [
       "android",

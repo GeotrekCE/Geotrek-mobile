@@ -166,7 +166,7 @@ export class MapTreksVizComponent extends UnSubscribe
       if (this.platform.is('ios') || this.platform.is('android')) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() => {
-            // Need to delay before resize ...
+            // Need to delay before resize
             window.setTimeout(() => {
               this.map.resize();
             }, 50);
@@ -198,13 +198,15 @@ export class MapTreksVizComponent extends UnSubscribe
         );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe((coordinates) => {
+          this.geolocate.currentPosition$.subscribe(async (coordinates) => {
             if (coordinates) {
               if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates as any);
+                this.markerPosition.setLngLat(coordinates);
               } else {
                 const el = document.createElement('div');
-                el.className = 'pulse';
+                const currentHeading = await this.geolocate.checkIfCanGetCurrentHeading();
+                el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
                 this.markerPosition = new mapboxgl.Marker({
                   element: el
                 }).setLngLat(coordinates);
@@ -217,6 +219,11 @@ export class MapTreksVizComponent extends UnSubscribe
                 this.markerPosition.remove();
                 this.markerPosition = undefined;
               }
+            }
+          }),
+          this.geolocate.currentHeading$.subscribe((heading) => {
+            if (this.markerPosition && heading) {
+              (this.markerPosition as any).setRotation(heading);
             }
           }),
           loadImages.subscribe({
@@ -368,13 +375,6 @@ export class MapTreksVizComponent extends UnSubscribe
       }
     });
 
-    this.map.on('mouseenter', 'clusters-circle', () => {
-      this.map.getCanvas().style.cursor = 'pointer';
-    });
-    this.map.on('mouseleave', 'clusters-circle', () => {
-      this.map.getCanvas().style.cursor = '';
-    });
-
     this.map.on('click', 'trek-point', (e) => {
       const feature = this.map.queryRenderedFeatures(e.point, {
         layers: ['trek-point']
@@ -382,14 +382,6 @@ export class MapTreksVizComponent extends UnSubscribe
       if (!!feature.properties) {
         this.navigateToTrek.emit(feature.properties.id);
       }
-    });
-
-    this.map.on('mouseenter', 'trek-point', () => {
-      this.map.getCanvas().style.cursor = 'pointer';
-    });
-
-    this.map.on('mouseleave', 'trek-point', () => {
-      this.map.getCanvas().style.cursor = '';
     });
 
     // map instance for cypress test

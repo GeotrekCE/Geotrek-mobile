@@ -62,7 +62,9 @@ ion-fab {
 }
 
 // Pulse effect for geolocation marker
-.pulse {
+.pulse,
+.pulse-and-view {
+  position: relative;
   display: block;
   width: 16px;
   height: 16px;
@@ -71,6 +73,21 @@ ion-fab {
   cursor: pointer;
   box-shadow: 0 0 0 var(--ion-color-pulse);
   animation: pulse 1s infinite;
+  transform-style: preserve-3d;
+}
+
+.pulse-and-view:after {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  top: -32px;
+  left: -16px;
+  background-image: url(assets/map/icons/orientation-view.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  transform: translateZ(-1px);
 }
 
 @keyframes pulse {

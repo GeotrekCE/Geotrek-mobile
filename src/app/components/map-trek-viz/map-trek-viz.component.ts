@@ -212,36 +212,11 @@ export class MapTrekVizComponent extends UnSubscribe
 
       this.handleClustersInteraction();
 
-      // on browser only
-      // this.map.on('mouseenter', 'pois-icon', () => {
-      //   this.map.getCanvas().style.cursor = 'pointer';
-      // });
-
-      // this.map.on('mouseleave', 'pois-icon', () => {
-      //   this.map.getCanvas().style.cursor = '';
-      // });
-
-      // this.map.on('mouseenter', 'information-desk-icon', () => {
-      //   this.map.getCanvas().style.cursor = 'pointer';
-      // });
-
-      // this.map.on('mouseleave', 'information-desk-icon', () => {
-      //   this.map.getCanvas().style.cursor = '';
-      // });
-
-      // this.map.on('mouseenter', 'touristics-content-icon', () => {
-      //   this.map.getCanvas().style.cursor = 'pointer';
-      // });
-
-      // this.map.on('mouseleave', 'touristics-content-icon', () => {
-      //   this.map.getCanvas().style.cursor = '';
-      // });
-
       this.map.on('load', () => {
         if (this.platform.is('ios') || this.platform.is('android')) {
           this.subscriptions$$.push(
             this.screenOrientation.onChange().subscribe(() => {
-              // Need to delay before resize ...
+              // Need to delay before resize
               window.setTimeout(() => {
                 this.map.resize();
               }, 50);
@@ -344,13 +319,15 @@ export class MapTrekVizComponent extends UnSubscribe
         );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe((coordinates) => {
+          this.geolocate.currentPosition$.subscribe(async (coordinates) => {
             if (coordinates) {
               if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates as any);
+                this.markerPosition.setLngLat(coordinates);
               } else {
                 const el = document.createElement('div');
-                el.className = 'pulse';
+                const currentHeading = await this.geolocate.checkIfCanGetCurrentHeading();
+                el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
                 this.markerPosition = new mapboxgl.Marker({
                   element: el
                 }).setLngLat(coordinates);
@@ -363,6 +340,11 @@ export class MapTrekVizComponent extends UnSubscribe
                 this.markerPosition.remove();
                 this.markerPosition = undefined;
               }
+            }
+          }),
+          this.geolocate.currentHeading$.subscribe((heading) => {
+            if (this.markerPosition && heading) {
+              (this.markerPosition as any).setRotation(heading);
             }
           }),
           loadImages.subscribe({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -10,15 +10,22 @@ import {
 } from '@ionic-native/background-geolocation/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from '@env/environment';
+import {
+  DeviceOrientation,
+  DeviceOrientationCompassHeading
+} from '@ionic-native/device-orientation/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
+  public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
+  public currentHeadingSubscription: Subscription;
 
   constructor(
     public backgroundGeolocation: BackgroundGeolocation,
+    public deviceOrientation: DeviceOrientation,
     public platform: Platform,
     private translate: TranslateService
   ) {}
@@ -85,18 +92,42 @@ export class GeolocateService {
         });
 
       this.backgroundGeolocation.start();
+
+      if (this.checkIfCanGetCurrentHeading()) {
+        this.currentHeadingSubscription = this.deviceOrientation
+          .watchHeading({ frequency: 16 })
+          .subscribe((data: DeviceOrientationCompassHeading) =>
+            this.currentHeading$.next(data.trueHeading)
+          );
+      }
     } else {
       // fake position for browser dev
       this.currentPosition$.next([0.705824, 44.410157]);
     }
   }
 
+  async checkIfCanGetCurrentHeading() {
+    const currentHeading =
+      this.platform.is('ios') || this.platform.is('android')
+        ? await this.deviceOrientation.getCurrentHeading()
+        : null;
+    return (
+      currentHeading &&
+      typeof currentHeading === 'object' &&
+      currentHeading.hasOwnProperty('trueHeading')
+    );
+  }
+
   stopTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
       this.backgroundGeolocation.stop();
+      if (this.currentHeadingSubscription) {
+        this.currentHeadingSubscription.unsubscribe();
+        this.currentHeading$.next(null);
+      }
     }
 
-    this.currentPosition$.next([0, 0]);
+    this.currentPosition$.next(null);
   }
 
   showAppSettings() {
