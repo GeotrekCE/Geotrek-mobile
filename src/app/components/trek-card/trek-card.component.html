@@ -34,11 +34,17 @@
     <ion-card-content class="no-padding-top">
       <div>
         <div class="ellipsis">{{ 'treks.departure' | translate }}</div>
-        <div class="ellipsis" *ngIf="hydratedTrek.properties.departure_city">
-          {{ hydratedTrek.properties.departure_city?.name }}
-        </div>
-        <div class="ellipsis" *ngIf="showAllData">
+        <div class="ellipsis" *ngIf="hydratedTrek.properties.departure">
           {{ hydratedTrek.properties.departure }}
+        </div>
+        <div
+          class="ellipsis"
+          *ngIf="
+            !hydratedTrek.properties.departure &&
+            hydratedTrek.properties.departure_city
+          "
+        >
+          {{ hydratedTrek.properties.departure_city?.name }}
         </div>
       </div>
       <div class="extra-content-card ion-padding-top">
