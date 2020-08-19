@@ -24,7 +24,8 @@
     "zeroresult": "Nessuna escursione corrisponde a questi filtri",
     "confirmButton": "OK",
     "cancelButton": "Cancellare",
-    "selectPlaceholder": "Selezionare"
+    "selectPlaceholder": "Selezionare",
+    "searchPlaceholder": "Cercare"
   },
   "mapTreks": {
     "treksAlert": {

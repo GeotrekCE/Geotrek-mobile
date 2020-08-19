@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Filter, FilterValue } from '@app/interfaces/interfaces';
+import { deburr } from 'lodash';
 
 @Component({
   selector: 'app-select-filter',
@@ -14,6 +15,7 @@ export class SelectFilterComponent implements OnInit {
   currentMaxFilterValues = 20;
   filterValuesByStep = 20;
   temporaryFilter: Filter;
+  valuesToDisplay: FilterValue[];
 
   constructor(private modalController: ModalController) {}
 
@@ -21,6 +23,7 @@ export class SelectFilterComponent implements OnInit {
 
   ionViewDidEnter(): void {
     this.temporaryFilter = this.filter;
+    this.valuesToDisplay = [...this.filter.values];
   }
 
   public cancel(): void {
@@ -32,12 +35,12 @@ export class SelectFilterComponent implements OnInit {
   }
 
   public expandFilterValues(infiniteScroll: any): void {
-    if (this.currentMaxFilterValues < this.filter.values.length) {
+    if (this.currentMaxFilterValues < this.valuesToDisplay.length) {
       if (
         this.currentMaxFilterValues + this.filterValuesByStep >
-        this.filter.values.length
+        this.valuesToDisplay.length
       ) {
-        this.currentMaxFilterValues = this.filter.values.length;
+        this.currentMaxFilterValues = this.valuesToDisplay.length;
       } else {
         this.currentMaxFilterValues += this.filterValuesByStep;
       }
@@ -56,5 +59,40 @@ export class SelectFilterComponent implements OnInit {
     if (filterValue) {
       filterValue.checked = event.checked;
     }
+  }
+
+  public search(searchValue: string): void {
+    if (searchValue) {
+      this.valuesToDisplay = this.searchValuesInFilter(
+        this.filter,
+        searchValue
+      );
+    } else {
+      this.valuesToDisplay = [...this.filter.values];
+    }
+    this.currentMaxFilterValues = this.filterValuesByStep;
+  }
+
+  public searchValuesInFilter(
+    filter: Filter,
+    searchValue: string
+  ): FilterValue[] {
+    if (!filter) {
+      return [];
+    }
+
+    if (!!!searchValue) {
+      return filter.values.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+      });
+    }
+    searchValue = searchValue.toLowerCase();
+    return filter.values
+      .filter((value) => {
+        return deburr(value.name.toLowerCase()).startsWith(searchValue);
+      })
+      .sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+      });
   }
 }

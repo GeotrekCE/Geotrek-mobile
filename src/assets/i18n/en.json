@@ -24,7 +24,8 @@
     "zeroresult": "No trek matches those filters",
     "confirmButton": "Ok",
     "cancelButton": "Cancel",
-    "selectPlaceholder": "Select"
+    "selectPlaceholder": "Select",
+    "searchPlaceholder": "Search"
   },
   "mapTreks": {
     "treksAlert": {

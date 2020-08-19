@@ -2,12 +2,22 @@
   <ion-toolbar color="primary">
     <ion-title>{{ filter.values.length + ' ' + filter.name }}</ion-title>
   </ion-toolbar>
+  <ion-toolbar
+    *ngIf="filter.values.length > filterValuesByStep"
+    color="primary"
+  >
+    <ion-searchbar
+      placeholder="{{ 'filters.searchPlaceholder' | translate }}"
+      (ionChange)="search($event.detail.value)"
+    >
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <app-filter-value
     *ngFor="
-      let value of filter.values | slice: 0:currentMaxFilterValues;
+      let value of valuesToDisplay | slice: 0:currentMaxFilterValues;
       trackBy: trackFilterValues
     "
     [commonSrc]="commonSrc"

@@ -24,7 +24,8 @@
     "zeroresult": "Aucune randonnée ne correspond à ces filtres",
     "confirmButton": "Ok",
     "cancelButton": "Annuler",
-    "selectPlaceholder": "Sélectionner des"
+    "selectPlaceholder": "Sélectionner des",
+    "searchPlaceholder": "Rechercher"
   },
   "mapTreks": {
     "treksAlert": {
