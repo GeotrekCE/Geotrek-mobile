@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   PopoverController,
   AlertController,
@@ -48,6 +48,8 @@ export class MapTrekVizComponent extends UnSubscribe
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
   private touristicsContentCategory: DataSetting | undefined;
+  private navigateModeIsActive: boolean = false;
+  private navigate$: Subscription;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
@@ -100,6 +102,10 @@ export class MapTrekVizComponent extends UnSubscribe
   ngOnDestroy(): void {
     if (this.map) {
       this.map.remove();
+    }
+
+    if (this.navigate$) {
+      this.navigate$.unsubscribe();
     }
 
     this.geolocate.stopTracking();
@@ -1119,6 +1125,47 @@ export class MapTrekVizComponent extends UnSubscribe
       if (selectedFeature) {
         this.presentPoiDetails.emit(selectedFeature);
       }
+    }
+  }
+
+  public async handleNavigateMode() {
+    this.navigateModeIsActive = !this.navigateModeIsActive;
+
+    if (this.navigateModeIsActive) {
+      const userLocation = await this.geolocate.getCurrentPosition();
+      if (userLocation) {
+        this.map.flyTo({
+          center: [userLocation.longitude, userLocation.latitude],
+          animate: false,
+          zoom: environment.trekZoom.maxZoom
+        });
+        this.navigate$ = this.geolocate.currentPosition$.subscribe(
+          async (coordinates) => {
+            if (coordinates) {
+              this.map.panTo(coordinates);
+            }
+          }
+        );
+        this.map.dragPan.disable();
+      } else {
+        const errorTranslation: any = await this.translate
+          .get('geolocate.error')
+          .toPromise();
+        // Inform user about problem
+        const alertLocation = await this.alertController.create({
+          header: errorTranslation['header'],
+          subHeader: errorTranslation['subHeader'],
+          message: errorTranslation['message'],
+          buttons: [errorTranslation['confirmButton']]
+        });
+
+        await alertLocation.present();
+      }
+    } else {
+      if (this.navigate$) {
+        this.navigate$.unsubscribe();
+      }
+      this.map.dragPan.enable();
     }
   }
 }

@@ -2,6 +2,17 @@
 
 <div class="options-button-container">
   <ion-button
+    (click)="handleNavigateMode()"
+    shape="round"
+    size="small"
+    color="light"
+  >
+    <ion-icon
+      [color]="!navigateModeIsActive ? 'dark' : 'tertiary'"
+      name="navigate"
+    ></ion-icon>
+  </ion-button>
+  <ion-button
     (click)="flyToUserLocation()"
     shape="round"
     size="small"
