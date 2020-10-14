@@ -4,7 +4,8 @@
     "search": "Recherche",
     "orderTitle": "Trier par",
     "orderByAlphabet": "Ordre alphabétique",
-    "orderByLocation": "Proximité"
+    "orderByLocation": "Proximité",
+    "orderByRandom": "Aléatoire"
   },
   "tabbar": {
     "treks": "Randonnées",

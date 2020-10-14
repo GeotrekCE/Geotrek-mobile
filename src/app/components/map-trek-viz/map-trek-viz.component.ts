@@ -48,8 +48,8 @@ export class MapTrekVizComponent extends UnSubscribe
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
   private touristicsContentCategory: DataSetting | undefined;
-  private navigateModeIsActive: boolean = false;
   private navigate$: Subscription;
+  public navigateModeIsActive: boolean = false;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 

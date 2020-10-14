@@ -175,11 +175,15 @@ export class TreksPage extends UnSubscribe implements OnInit {
     const orders: { name: string; value: string }[] = [
       {
         name: await this.translate.get('toolbar.orderByAlphabet').toPromise(),
-        value: 'default'
+        value: 'alphabetical'
       },
       {
         name: await this.translate.get('toolbar.orderByLocation').toPromise(),
         value: 'location'
+      },
+      {
+        name: await this.translate.get('toolbar.orderByRandom').toPromise(),
+        value: 'random'
       }
     ];
 

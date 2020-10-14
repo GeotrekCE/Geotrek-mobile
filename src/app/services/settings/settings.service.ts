@@ -32,7 +32,7 @@ export class SettingsService {
     type: Order;
     value: number[] | undefined;
   }>({
-    type: 'default',
+    type: 'alphabetical',
     value: undefined
   });
   // User location, used for ordering treks by distance

@@ -36,57 +36,49 @@ export class TreksOrderComponent extends UnSubscribe {
     );
   }
 
-  public async treksOrderChange(event: any) {
+  public async treksOrderChange(orderValue: string) {
     let error = false;
-    if (!this.isFirstCheck) {
-      // disable backdrop dismiss while treksOrderChange
-      const trekOrderPopOver: any = this.popoverController.getTop();
-      trekOrderPopOver.__zone_symbol__value.backdropDismiss = false;
-      if (event.detail.value === 'location') {
-        if (this.platform.is('ios') || this.platform.is('android')) {
-          let startLocation;
-          try {
-            startLocation = await this.backgroundGeolocation.getCurrentLocation(
-              {
-                timeout: 3000,
-                maximumAge: Number.MAX_SAFE_INTEGER,
-                enableHighAccuracy: true
-              }
-            );
-          } catch (catchError) {
-            error = true;
-          }
-          if (startLocation) {
-            this.settings.saveOrderState(event.detail.value, [
-              startLocation.longitude,
-              startLocation.latitude
-            ]);
-          } else {
-            error = true;
-            // If location not provided, reset default order
-            this.settings.saveOrderState('default');
-          }
-          await this.popoverController.dismiss({ error });
-        } else if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              this.settings.saveOrderState(event.detail.value, [
-                position.coords.longitude,
-                position.coords.latitude
-              ]);
-              await this.popoverController.dismiss();
-            },
-            async () => {
-              await this.popoverController.dismiss({ error: true });
-            }
-          );
+    if (orderValue === 'location') {
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        let startLocation;
+        try {
+          startLocation = await this.backgroundGeolocation.getCurrentLocation({
+            timeout: 3000,
+            maximumAge: Number.MAX_SAFE_INTEGER,
+            enableHighAccuracy: true
+          });
+        } catch (catchError) {
+          error = true;
         }
-      } else {
-        this.settings.saveOrderState(event.detail.value);
-        await this.popoverController.dismiss();
+        if (startLocation) {
+          this.settings.saveOrderState(orderValue, [
+            startLocation.longitude,
+            startLocation.latitude
+          ]);
+        } else {
+          error = true;
+        }
+        await this.popoverController.dismiss({ error });
+      } else if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            this.settings.saveOrderState(orderValue, [
+              position.coords.longitude,
+              position.coords.latitude
+            ]);
+            await this.popoverController.dismiss();
+          },
+          async () => {
+            await this.popoverController.dismiss({ error: true });
+          }
+        );
       }
-    } else {
-      this.isFirstCheck = false;
+    } else if (orderValue === 'alphabetical') {
+      this.settings.saveOrderState(orderValue);
+      await this.popoverController.dismiss();
+    } else if (orderValue === 'random') {
+      this.settings.saveOrderState(orderValue);
+      await this.popoverController.dismiss();
     }
   }
 }

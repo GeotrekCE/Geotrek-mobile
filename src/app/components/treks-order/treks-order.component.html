@@ -6,7 +6,7 @@
     <ion-item class="no-lines" *ngFor="let order of orders">
       <ion-label>{{ order.name }}</ion-label>
       <ion-radio
-        (ionSelect)="treksOrderChange($event)"
+        (click)="treksOrderChange(order.value)"
         [checked]="order.value === currentOrder"
         [value]="order.value"
         slot="end"

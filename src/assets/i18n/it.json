@@ -4,7 +4,8 @@
     "search": "Cercare",
     "orderTitle": "Ordinare per",
     "orderByAlphabet": "A-Z",
-    "orderByLocation": "Prossimità"
+    "orderByLocation": "Prossimità",
+    "orderByRandom": "Aleatorio"
   },
   "tabbar": {
     "treks": "Escursione",

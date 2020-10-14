@@ -4,7 +4,8 @@
     "search": "Search",
     "orderTitle": "Order by",
     "orderByAlphabet": "A-Z",
-    "orderByLocation": "Proximity"
+    "orderByLocation": "Proximity",
+    "orderByRandom": "Random"
   },
   "tabbar": {
     "treks": "Treks",
