@@ -9,7 +9,10 @@
       ><ion-text> {{ currentTrek.properties.name }}</ion-text>
     </div>
     <ion-buttons slot="primary">
-      <ion-button *ngIf="!offline" (click)="presentDownloadConfirm()">
+      <ion-button
+        *ngIf="!offline && !isAvailableOffline"
+        (click)="presentDownloadConfirm()"
+      >
         <ion-icon slot="icon-only" name="download"></ion-icon>
       </ion-button>
       <ion-button (click)="shareTrek()">

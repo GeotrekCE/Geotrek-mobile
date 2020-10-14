@@ -62,6 +62,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public parentTrek: Trek;
   public previousTrek: Trek;
   public nextTrek: Trek;
+  public isAvailableOffline = false;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -84,9 +85,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     super.ngOnInit();
   }
 
-  ionViewDidEnter(): void {
+  async ionViewDidEnter() {
     this.subscriptions$$.push(
-      this.route.data.subscribe((data: Data): void => {
+      this.route.data.subscribe(async (data: Data) => {
         const context: TrekContext | null | 'connectionError' = data.context;
         if (context === 'connectionError') {
           this.connectionError = true;
@@ -112,6 +113,9 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
             this.mapLink = context.treksTool.getTrekMapUrl(
               context.trek.properties.id,
               context.parentTrek ? context.parentTrek.properties.id : undefined
+            );
+            this.isAvailableOffline = await this.offlineTreks.trekIsAvailableOffline(
+              context.trek.properties.id
             );
             this.isStage = context.isStage;
             if (context.isStage && context.parentTrek) {
@@ -151,6 +155,11 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         }
       })
     );
+    if (this.currentTrek) {
+      this.isAvailableOffline = await this.offlineTreks.trekIsAvailableOffline(
+        this.currentTrek.properties.id
+      );
+    }
   }
 
   async downloadTrek() {
@@ -182,9 +191,6 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
     });
     await modalProgress.present();
 
-    // treksService.getPoisForTrekById(currentTrekId, parentId),
-    // treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
-
     this.offlineTreks
       .saveTrek(
         simpleTrek,
@@ -193,7 +199,7 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
         touristicContents
       )
       .subscribe(
-        (saveResult) => {
+        async (saveResult) => {
           modalProgress.dismiss();
           this.presentDownloadConfirm(true, saveResult);
           if (
@@ -207,6 +213,10 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
               }
             );
           }
+          this.isAvailableOffline = await this.offlineTreks.trekIsAvailableOffline(
+            this.currentTrek.properties.id
+          );
+          this.ref.markForCheck();
         },
         (saveResult) => {
           modalProgress.dismiss();

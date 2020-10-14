@@ -1091,7 +1091,6 @@ export class MapTrekVizComponent extends UnSubscribe
           (category) => category.id === feature.properties.category
         );
       }
-      console.log(currentType);
       const poi = {
         id: feature.properties.id,
         name: feature.properties.name,

@@ -269,10 +269,7 @@ export class OfflineTreksService implements TreksService {
     ];
     const array$ = from(observables);
     const requests$ = array$.pipe(concatAll());
-    const progress$ = of(true).pipe(
-      switchMapTo(requests$),
-      share()
-    );
+    const progress$ = of(true).pipe(switchMapTo(requests$), share());
 
     const count$ = array$.pipe(count());
 
@@ -487,13 +484,15 @@ export class OfflineTreksService implements TreksService {
           });
           return childrenToRemove;
         } else {
-          return from([]);
+          return of(true);
         }
       })
     );
 
     stream = stream.pipe(
-      mergeMap(() => from(storage.remove(`trek-${trekId}`)))
+      mergeMap(() => {
+        return from(storage.remove(`trek-${trekId}`));
+      })
     );
     stream = stream.pipe(catchError(() => throwError(false)));
 
@@ -670,5 +669,9 @@ export class OfflineTreksService implements TreksService {
     } else {
       return `${this.getDirLocalDataLocation()}offline/${trekId}/tiles/{z}/{x}/{y}.pbf`;
     }
+  }
+
+  public async trekIsAvailableOffline(trekId: number) {
+    return Boolean(await this.storage.get(`trek-${trekId}`));
   }
 }
