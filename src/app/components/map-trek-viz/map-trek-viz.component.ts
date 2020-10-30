@@ -521,9 +521,7 @@ export class MapTrekVizComponent extends UnSubscribe
       type: 'symbol',
       source: 'pois',
       filter: ['has', 'point_count'],
-      paint: {
-        'text-color': '#fff'
-      },
+      paint: environment.map.clusterTextPaint,
       layout: {
         'text-field': '{point_count_abbreviated}',
         'text-font': ['Roboto Regular'],
@@ -618,9 +616,7 @@ export class MapTrekVizComponent extends UnSubscribe
       type: 'symbol',
       source: 'touristics-content',
       filter: ['has', 'point_count'],
-      paint: {
-        'text-color': '#fff'
-      },
+      paint: environment.map.clusterTextPaint,
       layout: {
         'text-field': '{point_count_abbreviated}',
         'text-font': ['Roboto Regular'],

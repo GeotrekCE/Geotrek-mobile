@@ -279,9 +279,7 @@ export class MapTreksVizComponent extends UnSubscribe
       type: 'symbol',
       source: 'treks-points',
       filter: ['has', 'point_count'],
-      paint: {
-        'text-color': '#fff'
-      },
+      paint: environment.map.clusterTextPaint,
       layout: {
         'text-field': '{point_count_abbreviated}',
         'text-font': ['Roboto Regular'],

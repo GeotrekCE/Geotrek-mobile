@@ -93,6 +93,9 @@ export const environment = {
       'circle-radius': 18,
       'circle-stroke-width': 1
     },
+    clusterTextPaint: {
+      'text-color': '#fff'
+    },
     stagePaint: {
       // style stage circle on parent map
       'circle-color': '#fff',
