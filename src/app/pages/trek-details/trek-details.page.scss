@@ -38,7 +38,7 @@ ion-header {
   margin-right: -10px;
   padding: 5px 10px 5px 10px;
   background: var(--ion-color-primary) !important;
-  color: white;
+  color: var(--ion-color-primary-contrast);
 }
 
 div[scrollx='true'] {
