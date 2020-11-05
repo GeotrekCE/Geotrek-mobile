@@ -1,0 +1,134 @@
+{
+  "toolbar": {
+    "filters": "Filter",
+    "search": "Suche",
+    "orderTitle": "Sortieren",
+    "orderByAlphabet": "Alphabetische Ordnung",
+    "orderByLocation": "Nähe",
+    "orderByRandom": "Zufällig"
+  },
+  "tabbar": {
+    "treks": "Randonnées",
+    "offline": "Offline",
+    "more": "Informationen"
+  },
+  "search": {
+    "title": "Suche",
+    "placeholder": "Reisename",
+    "noResult": "Keine Wanderungen entsprechen Ihrer Suche"
+  },
+  "filters": {
+    "title": "Filter",
+    "erase": "Alle löschen",
+    "results": "Wanderungen  {{nb}} anzeigen",
+    "oneresult": "Die Wanderung ansehen",
+    "zeroresult": "Keine Wanderungen passen zu diesen Filtern".,
+    "confirmButton": "Ok",
+    "cancelButton": "Abbrechen",
+    "selectPlaceholder": "Auswählen von",
+    "searchPlaceholder": "Suche"
+  },
+  "mapTreks": {
+    "treksAlert": {
+      "title": "Wählen Sie eine Wanderung",
+      "confirmButton": "Ok",
+      "cancelButton": "Abbrechen",
+      "informUser": "Von diesem Ausgangspunkt aus sind mehrere Wanderungen möglich"
+    }
+  },
+  "mapTrek": {
+    "enableNotification": "Benachrichtigungen aktivieren",
+    "disableNotification": "Benachrichtigungen deaktivieren",
+    "poisAlert": {
+      "confirmButton": "Ok",
+      "cancelButton": "Abbrechen"
+    }
+  },
+  "trek": {
+    "downloadAlert": {
+      "title": "Offline-Modus",
+      "contentTrek": "Laden Sie diese Wanderung herunter, um offline auf sie zuzugreifen",
+      "contentItinerancy": "Laden Sie die Wanderungen herunter, um sie offline abzurufen",
+      "confirmButton": "Herunterladen",
+      "cancelButton": "Abbrechen",
+      "success": "Die Wanderung ist offline verfügbar",
+      "error": "Beim Herunterladen ist ein Fehler aufgetreten",
+      "confirmError": "Ok",
+      "loading": "Download in Arbeit ...",
+      "storage": "Laufende Dekomprimierung der Daten..."
+    },
+    "details": {
+      "city": "Region:",
+      "departure": "Start",
+      "arrival": "Ziel",
+      "departureArrival": "Start / Ziel",
+      "practice": "Praktiken",
+      "theme": "Themen",
+      "description": "Beschreibung",
+      "rules": "Verordnung",
+      "rulesDescription": "Diese Reiseroute befindet sich im Herzen des Nationalparks, bitte beachten Sie die Vorschriften.",
+      "access": "Zufahrt",
+      "parking": "Empfohlener Parkplatz",
+      "advice": "Empfehlungen",
+      "desk": "Orte der Intelligenz",
+      "profile": "Höhenmessungsprofil",
+      "stages": "Treppe",
+      "stage": "Treppe",
+      "parents": "Reiseroute",
+      "features": "Merkmale",
+      "poi": {
+        "name": "Kulturerbe",
+        "showAllLabel": "Zeigen Sie alle Kulturerbe",
+        "hideAllLabel": "Zeigen Sie nicht alle Kulturerbe"
+      },
+      "touristicContent": {
+        "name": "In der Umgebung",
+        "showAllLabel": "Alle anzeigen",
+        "hideAllLabel": "Nicht alle anzeigen"
+      },
+      "informationDesk": { "website": "Website" },
+      "usefulInformation": "Praktische Informationen",
+      "contact": "Kontakt"
+    }
+  },
+  "treks": {
+    "numberOftreks": "Wanderung",
+    "numberOftrek": "Eine Wanderung",
+    "noOfflineResults": "Die ausgewählten Filter passen zu keiner Ihrer gespeicherten Wanderungen.",
+    "showAllTreks": "Alle aufgezeichneten Wanderungen anzeigen",
+    "emptyOfflineTreks": "Hier finden Sie Ihre verfügbaren Offline-Wanderungen",
+    "departure": "Start"
+  },
+  "geolocate": {
+    "askLocatePermission": "Sie haben die Anwendung zur Verfolgung Ihres Standorts nicht autorisiert. Möchten Sie Ihre Einstellungen öffnen?",
+    "cancel": "Abbrechen",
+    "open": "Öffnen Sie",
+    "poiNearBy": "Point of Interest in der Nähe",
+    "notificationTitle": "Georeferenzierung",
+    "error": {
+      "header": "Geolokalisierung unmöglich",
+      "subHeader": "Die Anwendung hat ein Problem, Ihre Position wiederzufinden.",
+      "message": "Bitte überprüfen Sie, ob Ihr GPS aktiv ist und ob Sie die Anwendung zur Nutzung autorisiert haben.",
+      "confirmButton": "OK"
+    }
+  },
+  "error": {
+    "title": "Verbindungsproblem",
+    "contentTreks": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Liste der nicht registrierten Wanderungen zugreifen zu können",
+    "contentMore": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf zusätzliche Informationen zugreifen zu können",
+    "contentMoreItem": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf Informationen zugreifen zu können",
+    "contentTrekMap": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die nicht heruntergeladene Wanderung zugreifen zu können",
+    "contentTreksMap": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Karte der nicht registrierten Wanderungen zuzugreifen",
+    "buttonText": "Versuchen Sie es noch einmal"
+  },
+  "trekCard": {
+    "deleteTitle": "Löschung",
+    "deleteLabel": "Löschen",
+    "askDelete": "Diese Wanderung aus dem Offline-Modus entfernen?",
+    "deletionInProgress": "Löschung im Gange",
+    "trekIsDelete": "Die Wanderung wird aus dem Offline-Modus entfernt",
+    "errorWhileDeleting": "Beim Löschen der Wanderung ist ein Fehler aufgetreten",
+    "cancelButton": "Abbrechen",
+    "confirmButton": "Ok"
+  }
+}
