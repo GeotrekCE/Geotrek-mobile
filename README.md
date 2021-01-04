@@ -18,7 +18,7 @@ _Before proceeding, make sure the latest version of [Node.js and npm](https://no
 
 # RUN THE APP IN THE BROWSER
 
-_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.ts'_ with your personal api url
+_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.ts'_ with your personal api url (the one you can create [here](https://geotrek.readthedocs.io/en/master/synchronization.html#geotrek-mobile-app-v3) and configure [here](https://github.com/GeotrekCE/Geotrek-rando/blob/master/docs/http-server.md))
 
     ionic serve
 
