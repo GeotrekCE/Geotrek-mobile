@@ -4,7 +4,8 @@ Mobile application of _Geotrek Rando_ (http://geotrek.fr).
 
 # INSTALLATION
 
-_Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_
+_Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_.
+It is usually easier to do with [NVM](https://github.com/nvm-sh/nvm)
 
     npm install -g ionic@5.4.11
 
@@ -40,9 +41,11 @@ _Need [Android environment setup](https://ionicframework.com/docs/installation/a
 
 # BUILD RELEASE APP
 
-_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.prod.ts'_ with your personal api url
-
 /!\ The `build` argument just build the apk, but don't install it on the device
+
+You will need the [android SDK](https://developer.android.com/studio#downloads) (Command line tools may be enough, to be verified). You will also need the Java Developement Kit (JDK), you can use the openjdk-8-jdk package (this version works, unsure for others) that may already be installed on your linux system (instead of the official Oracle JDK).
+
+_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.prod.ts'_ with your personal api url
 
 ## iOS
 
