@@ -19,7 +19,7 @@ It is usually easier to do with [NVM](https://github.com/nvm-sh/nvm)
 
 # RUN THE APP IN THE BROWSER
 
-_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.ts'_ with your personal api url
+_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.ts'_ with your personal api url (the one you can create [here](https://geotrek.readthedocs.io/en/master/synchronization.html#geotrek-mobile-app-v3) and configure [here](https://github.com/GeotrekCE/Geotrek-rando/blob/master/docs/http-server.md))
 
     ionic serve
 
@@ -45,7 +45,7 @@ _Need [Android environment setup](https://ionicframework.com/docs/installation/a
 
 You will need the [android SDK](https://developer.android.com/studio#downloads) (Command line tools may be enough, to be verified). You will also need the Java Developement Kit (JDK), you can use the openjdk-8-jdk package (this version works, unsure for others) that may already be installed on your linux system (instead of the official Oracle JDK).
 
-_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environments.prod.ts'_ with your personal api url
+_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.prod.ts'_ with your personal api url
 
 ## iOS
 
