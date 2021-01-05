@@ -21,6 +21,7 @@ import {
   Marker
 } from 'mapbox-gl';
 import { Observable } from 'rxjs';
+import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 
 import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
@@ -92,6 +93,11 @@ export class MapTreksVizComponent extends UnSubscribe
   }
 
   ngOnDestroy(): void {
+    if (this.markerPosition) {
+      this.markerPosition.remove();
+      this.markerPosition = undefined;
+    }
+
     if (this.map) {
       this.map.remove();
     }
@@ -198,8 +204,13 @@ export class MapTreksVizComponent extends UnSubscribe
         );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe(async (coordinates) => {
-            if (coordinates) {
+          this.geolocate.currentPosition$
+            .pipe(
+              filter((currentPosition) => currentPosition !== null),
+              distinctUntilChanged(),
+              throttleTime(environment.backgroundGeolocation.interval)
+            )
+            .subscribe(async (coordinates: any) => {
               if (this.markerPosition) {
                 this.markerPosition.setLngLat(coordinates);
               } else {
@@ -214,13 +225,7 @@ export class MapTreksVizComponent extends UnSubscribe
                   this.markerPosition.addTo(this.map);
                 }
               }
-            } else {
-              if (this.markerPosition) {
-                this.markerPosition.remove();
-                this.markerPosition = undefined;
-              }
-            }
-          }),
+            }),
           this.geolocate.currentHeading$.subscribe((heading) => {
             if (this.markerPosition && heading) {
               (this.markerPosition as any).setRotation(heading);

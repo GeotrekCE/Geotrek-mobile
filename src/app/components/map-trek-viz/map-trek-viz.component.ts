@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable, Subscription } from 'rxjs';
+import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
 import {
   PopoverController,
   AlertController,
@@ -100,6 +101,11 @@ export class MapTrekVizComponent extends UnSubscribe
   }
 
   ngOnDestroy(): void {
+    if (this.markerPosition) {
+      this.markerPosition.remove();
+      this.markerPosition = undefined;
+    }
+
     if (this.map) {
       this.map.remove();
     }
@@ -325,8 +331,13 @@ export class MapTrekVizComponent extends UnSubscribe
         );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe(async (coordinates) => {
-            if (coordinates) {
+          this.geolocate.currentPosition$
+            .pipe(
+              filter((currentPosition) => currentPosition !== null),
+              distinctUntilChanged(),
+              throttleTime(environment.backgroundGeolocation.interval)
+            )
+            .subscribe(async (coordinates) => {
               if (this.markerPosition) {
                 this.markerPosition.setLngLat(coordinates);
               } else {
@@ -341,13 +352,7 @@ export class MapTrekVizComponent extends UnSubscribe
                   this.markerPosition.addTo(this.map);
                 }
               }
-            } else {
-              if (this.markerPosition) {
-                this.markerPosition.remove();
-                this.markerPosition = undefined;
-              }
-            }
-          }),
+            }),
           this.geolocate.currentHeading$.subscribe((heading) => {
             if (this.markerPosition && heading) {
               (this.markerPosition as any).setRotation(heading);
