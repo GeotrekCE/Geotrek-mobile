@@ -33,6 +33,7 @@ import { Platform } from '@ionic/angular';
 import { FeatureCollection } from 'geojson';
 import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
+import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
 
@@ -66,6 +67,7 @@ export class MapTrekVizComponent extends UnSubscribe
   @Output() navigateToChildren = new EventEmitter<any>();
 
   constructor(
+    private settings: SettingsService,
     private screenOrientation: ScreenOrientation,
     private platform: Platform,
     private geolocate: GeolocateService,
@@ -359,8 +361,8 @@ export class MapTrekVizComponent extends UnSubscribe
             }
           }),
           loadImages.subscribe({
-            complete: () => {
-              this.initializeSources();
+            complete: async () => {
+              await this.initializeSources();
               this.initializeLayers();
               this.updateSources();
 
@@ -375,7 +377,7 @@ export class MapTrekVizComponent extends UnSubscribe
     }
   }
 
-  private initializeSources(): void {
+  private async initializeSources() {
     const data: FeatureCollection = {
       type: 'FeatureCollection',
       features: []
@@ -383,7 +385,7 @@ export class MapTrekVizComponent extends UnSubscribe
 
     this.map.addSource('zone', {
       type: 'geojson',
-      data: 'assets/map/zone/zone.geojson'
+      data: await this.settings.getZoneFromStorage()
     });
 
     this.map.addSource('trek', {

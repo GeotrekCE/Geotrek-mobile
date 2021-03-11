@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { GeoJSON } from 'geojson';
 
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Platform } from '@ionic/angular';
+import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,6 +45,8 @@ export class SettingsService {
   constructor(
     public http: HttpClient,
     public storage: Storage,
+    private platform: Platform,
+    private network: Network,
     private translate: TranslateService
   ) {}
 
@@ -53,6 +58,21 @@ export class SettingsService {
       this.filters$.next(this.getFilters(settings));
       this.data$.next(settings.data);
     });
+
+    this.getZoneFromUrl().subscribe(
+      async (zone) => {
+        await this.storage.set('zone', JSON.stringify(zone));
+      },
+      async () => {
+        if (
+          ((this.platform.is('ios') || this.platform.is('android')) &&
+            this.network.type !== 'none') ||
+          (!this.platform.is('ios') && !this.platform.is('android'))
+        ) {
+          await this.storage.remove('zone');
+        }
+      }
+    );
   }
 
   private async setOfflineSettings() {
@@ -91,6 +111,20 @@ export class SettingsService {
       })
     };
     return this.http.get<Settings>(this.apiUrl + '/settings.json', httpOptions);
+  }
+
+  public getZoneFromUrl(): Observable<GeoJSON> {
+    return this.http.get<GeoJSON>(this.apiUrl + '/contour/contour.geojson');
+  }
+
+  public async getZoneFromStorage() {
+    const zone = JSON.parse(await this.storage.get('zone'));
+    return zone
+      ? zone
+      : {
+          type: 'FeatureCollection',
+          features: []
+        };
   }
 
   public saveFiltersState(filters: Filter[]): void {

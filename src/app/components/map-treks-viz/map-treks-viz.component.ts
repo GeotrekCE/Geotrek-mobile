@@ -56,11 +56,11 @@ export class MapTreksVizComponent extends UnSubscribe
   @Output() public mapIsLoaded = new EventEmitter<boolean>();
 
   constructor(
+    private settings: SettingsService,
     private screenOrientation: ScreenOrientation,
     private platform: Platform,
     private geolocate: GeolocateService,
     private modalController: ModalController,
-    private settings: SettingsService,
     private alertController: AlertController,
     private translate: TranslateService
   ) {
@@ -242,7 +242,7 @@ export class MapTreksVizComponent extends UnSubscribe
     }
   }
 
-  addSourcesLayersEvents() {
+  async addSourcesLayersEvents() {
     this.map.addSource('treks-points', {
       type: 'geojson',
       data: {
@@ -256,7 +256,7 @@ export class MapTreksVizComponent extends UnSubscribe
 
     this.map.addSource('zone', {
       type: 'geojson',
-      data: 'assets/map/zone/zone.geojson'
+      data: await this.settings.getZoneFromStorage()
     });
 
     this.map.addLayer({
