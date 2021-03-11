@@ -403,7 +403,10 @@ export class MapTreksVizComponent extends UnSubscribe
     }[] = [];
 
     features.forEach((feature) => {
-      const hydratedTrek = this.settings.getHydratedTrek(feature as Trek);
+      const hydratedTrek = this.settings.getHydratedTrek(
+        feature as Trek,
+        this.commonSrc
+      );
       const trek = {
         id: hydratedTrek.properties.id,
         name: hydratedTrek.properties.name,

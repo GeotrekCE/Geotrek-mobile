@@ -71,10 +71,11 @@ export class TrekContextResolver
               isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
               offline
             );
-            const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(
-              trek
-            );
             const commonSrc = treksService.getCommonImgSrc();
+            const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(
+              trek,
+              commonSrc
+            );
             const touristicCategoriesWithFeatures = this.settingsService.getTouristicCategoriesWithFeatures(
               touristicContents
             );

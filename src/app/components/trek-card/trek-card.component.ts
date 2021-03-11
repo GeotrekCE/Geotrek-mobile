@@ -40,7 +40,11 @@ export class TrekCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.hydratedTrek = this.settings.getHydratedTrek(this.trek);
+    const trekService = this.offline ? this.offlineTreks : this.onlineTreks;
+    this.hydratedTrek = this.settings.getHydratedTrek(
+      this.trek,
+      trekService.getCommonImgSrc()
+    );
     if (this.offline) {
       this.imgSrc = this.offlineTreks.getTrekImageSrc(this.trek);
       if (this.hydratedTrek.properties.practice) {

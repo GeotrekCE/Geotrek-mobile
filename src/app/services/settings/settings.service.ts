@@ -134,7 +134,7 @@ export class SettingsService {
     return { id: -1, name: '' };
   }
 
-  public getHydratedTrek(trek: Trek): HydratedTrek {
+  public getHydratedTrek(trek: Trek, commonSrc: string): HydratedTrek {
     const hydratedTrek: HydratedTrek = cloneDeep(trek) as any;
 
     if (trek.properties.difficulty) {
@@ -198,6 +198,13 @@ export class SettingsService {
           information_desk.type as number
         ) as Property;
       });
+    }
+
+    if (trek.properties.description) {
+      hydratedTrek.properties.description = (trek.properties.description.toString() as any).replaceAll(
+        `src="/`,
+        `src="${commonSrc}/`
+      );
     }
 
     return hydratedTrek;
