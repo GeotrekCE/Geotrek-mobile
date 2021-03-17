@@ -97,9 +97,8 @@ export class GeolocateNotificationsComponent
         if (!(await this.geolocate.checkAuthorization())) {
           this.presentPersmissionsConfirm();
         } else {
-          if (!(await this.geolocate.checkIfTrackerIsRunning())) {
-            this.geolocate.startTracking(this.trekName);
-          }
+          this.geolocate.stopOnMapTracking(false, false);
+          this.geolocate.startNotificationsModeTracking(this.trekName);
           if (await this.localNotifications.hasPermission()) {
             this.notificationsModeIsActive = true;
             this.enableGeolocationNotification();
@@ -108,12 +107,15 @@ export class GeolocateNotificationsComponent
           }
         }
       } else {
-        this.geolocate.startTracking(this.trekName);
+        this.geolocate.stopOnMapTracking(false, false);
+        this.geolocate.startNotificationsModeTracking(this.trekName);
         this.notificationsModeIsActive = true;
         this.enableGeolocationNotification();
       }
     } else {
       this.notificationsModeIsActive = false;
+      this.geolocate.stopNotificationsModeTracking();
+      this.geolocate.startOnMapTracking();
       this.disableGeolocationNotification();
     }
   }

@@ -130,5 +130,16 @@
     "errorWhileDeleting": "Une erreur est survenue lors de la suppression de la randonnée",
     "cancelButton": "Annuler",
     "confirmButton": "Ok"
+  },
+  "inAppDisclosure": {
+    "title": "Utilisation de votre localisation",
+    "description": "Nous allons vous demander la permission d'utiliser votre localisation.",
+    "geolocateFeatures": "L'application utilise votre localisation afin de :",
+    "geolocateForMap": "Pouvoir vous repérer sur les cartes",
+    "geolocateForSort": "Trier la liste des randonnées par proximité",
+    "geolocateForNavigate": "Toujours centrer la carte d'une randonnée sur votre localisation",
+    "geolocateForNotification": "Afficher des notifications locales, lorsque vous activez l'option depuis la carte d'une randonnée, pour vous informer de la présence d'un POI aux alentours. Cette fonction utilise votre localisation même si l'application est en arrière-plan",
+    "dataUsage": "Nous ne collectons aucune donnée de localisation.",
+    "displayRequest": "Afficher la demande"
   }
 }

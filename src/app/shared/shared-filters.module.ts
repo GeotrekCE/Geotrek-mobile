@@ -7,6 +7,7 @@ import { FilterValueComponent } from '@app/components/filter-value/filter-value.
 import { SelectFilterComponent } from '@app/components/select-filter/select-filter.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchComponent } from '@app/components/search/search.component';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SearchComponent } from '@app/components/search/search.component';
     FilterComponent,
     FilterValueComponent,
     SelectFilterComponent,
-    SearchComponent
+    SearchComponent,
+    InAppDisclosureComponent
   ],
   imports: [CommonModule, TranslateModule.forChild()],
   entryComponents: [FiltersComponent, SelectFilterComponent],
@@ -23,7 +25,8 @@ import { SearchComponent } from '@app/components/search/search.component';
     FilterComponent,
     FilterValueComponent,
     SelectFilterComponent,
-    SearchComponent
+    SearchComponent,
+    InAppDisclosureComponent
   ]
 })
 export class SharedFiltersModule {}

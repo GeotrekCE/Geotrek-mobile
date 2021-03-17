@@ -18,6 +18,7 @@ import {
   ModalController
 } from '@ionic/angular';
 import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
@@ -116,12 +117,13 @@ export class MapTrekVizComponent extends UnSubscribe
       this.navigate$.unsubscribe();
     }
 
-    this.geolocate.stopTracking();
+    this.geolocate.stopNotificationsModeTracking();
+    this.geolocate.stopOnMapTracking();
 
     super.ngOnDestroy();
   }
 
-  createMap(): void {
+  async createMap() {
     if (this.mapConfig && this.mapConfig.style) {
       this.map = new Map({
         ...this.mapConfig,
@@ -154,10 +156,6 @@ export class MapTrekVizComponent extends UnSubscribe
         this.map.dragRotate.disable();
         this.map.touchZoomRotate.disableRotation();
       }
-
-      this.geolocate.startTracking(
-        this.currentTrek ? this.currentTrek.properties.name : ''
-      );
 
       this.map.on('click', 'pois-icon', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
@@ -365,6 +363,12 @@ export class MapTrekVizComponent extends UnSubscribe
               await this.initializeSources();
               this.initializeLayers();
               this.updateSources();
+
+              const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+              if (shouldShowInAppDisclosure) {
+                await this.presentInAppDisclosure();
+              }
+              this.geolocate.startOnMapTracking();
 
               // map instance for cypress test
               this.mapViz.nativeElement.mapInstance = this.map;
@@ -1169,5 +1173,17 @@ export class MapTrekVizComponent extends UnSubscribe
       }
       this.map.dragPan.enable();
     }
+  }
+
+  public async presentInAppDisclosure(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: InAppDisclosureComponent,
+      componentProps: {},
+      cssClass: 'full-size'
+    });
+
+    await modal.present();
+
+    await modal.onDidDismiss();
   }
 }

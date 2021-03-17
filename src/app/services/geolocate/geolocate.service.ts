@@ -8,6 +8,7 @@ import {
   BackgroundGeolocationEvents,
   BackgroundGeolocationLocationProvider
 } from '@ionic-native/background-geolocation/ngx';
+import { Storage } from '@ionic/storage';
 import { Platform } from '@ionic/angular';
 import { environment } from '@env/environment';
 import {
@@ -21,26 +22,77 @@ import {
 export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
-  public currentHeadingSubscription: Subscription;
+  public currentHeadingSubscription: Subscription | null = null;
+  public currentPositionInterval: number | null;
 
   constructor(
     public backgroundGeolocation: BackgroundGeolocation,
     public deviceOrientation: DeviceOrientation,
+    public storage: Storage,
     public platform: Platform,
     private translate: TranslateService
   ) {}
+
+  async shouldShowInAppDisclosure() {
+    const alreadyAskGeolocationPermission = await this.storage.get(
+      'alreadyAskGeolocationPermission'
+    );
+    return !!!alreadyAskGeolocationPermission;
+  }
 
   async checkAuthorization() {
     const status = await this.backgroundGeolocation.checkStatus();
     return status.authorization !== 0;
   }
 
-  async checkIfTrackerIsRunning() {
+  async checkIfBackgroundGeolocationIsRunning() {
     const status = await this.backgroundGeolocation.checkStatus();
     return status.isRunning;
   }
 
-  async startTracking(notificationText: string) {
+  async startOnMapTracking() {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      if (
+        this.checkIfCanGetCurrentHeading() &&
+        this.currentHeadingSubscription !== null
+      ) {
+        this.currentHeadingSubscription = this.deviceOrientation
+          .watchHeading({ frequency: 16 })
+          .subscribe((data: DeviceOrientationCompassHeading) =>
+            this.currentHeading$.next(data.trueHeading)
+          );
+      }
+    }
+
+    this.getCurrentPosition();
+    this.currentPositionInterval = window.setInterval(() => {
+      this.getCurrentPosition();
+    }, environment.backgroundGeolocation.interval);
+  }
+
+  stopOnMapTracking(
+    resetHeading: boolean = true,
+    resetPosition: boolean = true
+  ) {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      if (resetHeading && this.currentHeadingSubscription) {
+        this.currentHeadingSubscription.unsubscribe();
+        this.currentHeadingSubscription = null;
+        this.currentHeading$.next(null);
+      }
+    }
+
+    if (resetPosition) {
+      this.currentPosition$.next(null);
+    }
+
+    if (this.currentPositionInterval !== null) {
+      window.clearInterval(this.currentPositionInterval);
+      this.currentPositionInterval = null;
+    }
+  }
+
+  async startNotificationsModeTracking(notificationText: string) {
     if (this.platform.is('ios') || this.platform.is('android')) {
       const notificationTitle: string = await this.translate
         .get('geolocate.notificationTitle')
@@ -48,8 +100,8 @@ export class GeolocateService {
       const geolocationConfig: BackgroundGeolocationConfig = {
         locationProvider:
           BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
-        maxLocations: 10,
         startForeground: true,
+        maxLocations: 10,
         stopOnTerminate: true,
         debug: false,
         notificationTitle,
@@ -92,17 +144,22 @@ export class GeolocateService {
         });
 
       this.backgroundGeolocation.start();
-
-      if (this.checkIfCanGetCurrentHeading()) {
-        this.currentHeadingSubscription = this.deviceOrientation
-          .watchHeading({ frequency: 16 })
-          .subscribe((data: DeviceOrientationCompassHeading) =>
-            this.currentHeading$.next(data.trueHeading)
-          );
-      }
     } else {
-      // fake position for browser dev
-      this.currentPosition$.next([0.705824, 44.410157]);
+      navigator.geolocation.getCurrentPosition((position) =>
+        this.currentPosition$.next([
+          position.coords.longitude,
+          position.coords.latitude
+        ])
+      );
+    }
+  }
+
+  stopNotificationsModeTracking() {
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      this.checkIfBackgroundGeolocationIsRunning()
+    ) {
+      this.backgroundGeolocation.stop();
     }
   }
 
@@ -116,18 +173,6 @@ export class GeolocateService {
       typeof currentHeading === 'object' &&
       currentHeading.hasOwnProperty('trueHeading')
     );
-  }
-
-  stopTracking() {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      this.backgroundGeolocation.stop();
-      if (this.currentHeadingSubscription) {
-        this.currentHeadingSubscription.unsubscribe();
-        this.currentHeading$.next(null);
-      }
-    }
-
-    this.currentPosition$.next(null);
   }
 
   showAppSettings() {
@@ -148,7 +193,17 @@ export class GeolocateService {
           enableHighAccuracy: true
         });
       } else {
-        startLocation = { longitude: 0.705824, latitude: 44.410157 };
+        await new Promise((resolve) => {
+          navigator.geolocation.getCurrentPosition((position) => {
+            if (position) {
+              startLocation = {
+                longitude: position.coords.longitude,
+                latitude: position.coords.latitude
+              };
+            }
+            resolve();
+          });
+        });
       }
     } catch (error) {
       startLocation = null;

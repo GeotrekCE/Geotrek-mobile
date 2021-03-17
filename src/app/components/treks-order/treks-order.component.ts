@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
-import { NavParams, Platform, PopoverController } from '@ionic/angular';
+import {
+  NavParams,
+  Platform,
+  PopoverController,
+  ModalController
+} from '@ionic/angular';
 
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { SettingsService } from '@app/services/settings/settings.service';
+import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Order } from '@app/interfaces/interfaces';
 
 @Component({
@@ -21,7 +28,9 @@ export class TreksOrderComponent extends UnSubscribe {
     private settings: SettingsService,
     private platform: Platform,
     private backgroundGeolocation: BackgroundGeolocation,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private modalController: ModalController,
+    private geolocate: GeolocateService
   ) {
     super();
   }
@@ -42,11 +51,11 @@ export class TreksOrderComponent extends UnSubscribe {
       if (this.platform.is('ios') || this.platform.is('android')) {
         let startLocation;
         try {
-          startLocation = await this.backgroundGeolocation.getCurrentLocation({
-            timeout: 3000,
-            maximumAge: Number.MAX_SAFE_INTEGER,
-            enableHighAccuracy: true
-          });
+          const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+          if (shouldShowInAppDisclosure) {
+            await this.presentInAppDisclosure();
+          }
+          startLocation = await this.backgroundGeolocation.getCurrentLocation();
         } catch (catchError) {
           error = true;
         }
@@ -60,6 +69,10 @@ export class TreksOrderComponent extends UnSubscribe {
         }
         await this.popoverController.dismiss({ error });
       } else if ('geolocation' in navigator) {
+        const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+        if (shouldShowInAppDisclosure) {
+          await this.presentInAppDisclosure();
+        }
         navigator.geolocation.getCurrentPosition(
           async (position) => {
             this.settings.saveOrderState(orderValue, [
@@ -80,5 +93,17 @@ export class TreksOrderComponent extends UnSubscribe {
       this.settings.saveOrderState(orderValue);
       await this.popoverController.dismiss();
     }
+  }
+
+  public async presentInAppDisclosure(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: InAppDisclosureComponent,
+      componentProps: {},
+      cssClass: 'full-size'
+    });
+
+    await modal.present();
+
+    await modal.onDidDismiss();
   }
 }

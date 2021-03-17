@@ -130,5 +130,16 @@
     "errorWhileDeleting": "An error occurred while removing the hike",
     "cancelButton": "Cancel",
     "confirmButton": "Ok"
+  },
+  "inAppDisclosure": {
+    "title": "Use of your location",
+    "description": "We will ask your permission to use your location.",
+    "geolocateFeatures": "The application uses your location to :",
+    "geolocateForMap": "Be able to find your way on the maps",
+    "geolocateForSort": "Sort the list of hikes by proximity",
+    "geolocateForNavigate": "Always center the map of a hike on your location",
+    "geolocateForNotification": "Show local notifications, when you activate the option from the map of a hike, to inform you of the presence of a POI nearby. This feature uses your location even if the application is in the background",
+    "dataUsage": "We do not collect any location.",
+    "displayRequest": "Display the request"
   }
 }

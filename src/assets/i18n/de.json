@@ -130,5 +130,16 @@
     "errorWhileDeleting": "Beim Löschen der Wanderung ist ein Fehler aufgetreten",
     "cancelButton": "Abbrechen",
     "confirmButton": "Ok"
+  },
+  "inAppDisclosure": {
+    "title": "Verwendung Ihres Standorts",
+    "description": "Wir werden Sie um Erlaubnis bitten, Ihren Standort zu verwenden.",
+    "geolocateFeatures": "Die Anwendung verwendet Ihren Standort, um :",
+    "geolocateForMap": "Sich auf den Karten zurechtfinden können",
+    "geolocateForSort": "Sortieren Sie die Liste der Wanderungen nach Nähe",
+    "geolocateForNavigate": "Zentrieren Sie die Karte einer Wanderung immer auf Ihren Standort",
+    "geolocateForNotification": "Lokale Benachrichtigungen anzeigen, wenn Sie die Option auf der Karte einer Wanderung aktivieren, um Sie über das Vorhandensein eines POI in der Nähe zu informieren. Diese Funktion verwendet Ihren Standort, auch wenn sich die Anwendung im Hintergrund befindet",
+    "dataUsage": "Wir sammeln keinen Standort.",
+    "displayRequest": "Anzeige der Anforderung"
   }
 }

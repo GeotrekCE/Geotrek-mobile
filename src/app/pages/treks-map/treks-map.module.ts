@@ -6,6 +6,7 @@ import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { FiltersComponentModule } from '@app/components/filters/filters.module';
 
 import { TreksMapPage } from './treks-map.page';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     SharedUiModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    FiltersComponentModule
   ],
   declarations: [TreksMapPage, SelectTrekComponent]
 })

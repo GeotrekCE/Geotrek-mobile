@@ -129,5 +129,16 @@
     "errorWhileDeleting": "Si è verificato un errore durante l'eliminazione dell'escursione",
     "cancelButton": "Annullare",
     "confirmButton": "Ok"
+  },
+  "inAppDisclosure": {
+    "title": "Uso della sua posizione",
+    "description": "Ti chiederemo il permesso di usare la tua posizione.",
+    "geolocateFeatures": "L'applicazione utilizza la tua posizione per :",
+    "geolocateForMap": "Essere in grado di trovare la strada sulle mappe",
+    "geolocateForSort": "Ordina l'elenco delle escursioni per vicinanza",
+    "geolocateForNavigate": "Centra sempre la mappa di un'escursione sulla tua posizione",
+    "geolocateForNotification": "Mostra notifiche locali, quando attivi l'opzione dalla mappa di un'escursione, per informarti della presenza di un POI nelle vicinanze. Questa funzione utilizza la tua posizione anche se l'applicazione è in background",
+    "dataUsage": "Non raccogliamo alcuna posizione.",
+    "displayRequest": "Visualizzare la richiesta"
   }
 }

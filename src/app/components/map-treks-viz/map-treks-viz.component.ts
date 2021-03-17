@@ -23,6 +23,7 @@ import {
 import { Observable } from 'rxjs';
 import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 
 import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
@@ -102,7 +103,7 @@ export class MapTreksVizComponent extends UnSubscribe
       this.map.remove();
     }
 
-    this.geolocate.stopTracking();
+    this.geolocate.stopOnMapTracking();
 
     super.ngOnDestroy();
   }
@@ -232,9 +233,13 @@ export class MapTreksVizComponent extends UnSubscribe
             }
           }),
           loadImages.subscribe({
-            complete: () => {
+            complete: async () => {
               this.addSourcesLayersEvents();
-              this.geolocate.startTracking('');
+              const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+              if (shouldShowInAppDisclosure) {
+                await this.presentInAppDisclosure();
+              }
+              this.geolocate.startOnMapTracking();
             }
           })
         );
@@ -458,5 +463,17 @@ export class MapTreksVizComponent extends UnSubscribe
 
       await alertLocation.present();
     }
+  }
+
+  public async presentInAppDisclosure(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: InAppDisclosureComponent,
+      componentProps: {},
+      cssClass: 'full-size'
+    });
+
+    await modal.present();
+
+    await modal.onDidDismiss();
   }
 }
