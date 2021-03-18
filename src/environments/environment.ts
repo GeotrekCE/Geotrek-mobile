@@ -192,5 +192,6 @@ export const environment = {
   trekDetails: {
     showImgRulesIfParkCentered: true
   },
-  colSize: 12
+  colSize: 12,
+  initialOrder: 'alphabetical'
 };

@@ -14,17 +14,20 @@ import { Platform } from '@ionic/angular';
 
 import { environment } from '@env/environment';
 import { UnSubscribe } from '@app/components/abstract/unsubscribe';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
 import {
   MinimalTrek,
   TreksContext,
-  TreksService
+  TreksService,
+  Order
 } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { LoadingService } from '@app/services/loading/loading.service';
+import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TreksOrderComponent } from '@app/components/treks-order/treks-order.component';
 
@@ -56,9 +59,10 @@ export class TreksPage extends UnSubscribe implements OnInit {
     private modalController: ModalController,
     public offlineTreks: OfflineTreksService,
     public onlineTreks: OnlineTreksService,
+    private geolocate: GeolocateService,
+    private settings: SettingsService,
     private route: ActivatedRoute,
     private router: Router,
-    private settings: SettingsService,
     private network: Network,
     public platform: Platform,
     private popoverController: PopoverController,
@@ -68,10 +72,10 @@ export class TreksPage extends UnSubscribe implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     super.ngOnInit();
     this.checkNetwork();
-
+    await this.handleInitialOrder();
     this.subscriptions$$.push(
       // load tools when enter route
       this.route.data.subscribe((data) => {
@@ -112,6 +116,35 @@ export class TreksPage extends UnSubscribe implements OnInit {
         .pipe(delay(0))
         .subscribe((status) => (this.loaderStatus = status))
     );
+  }
+
+  public async handleInitialOrder() {
+    if (!this.settings.order$.value) {
+      if (environment.initialOrder === 'location') {
+        let currentPosition;
+        const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+        try {
+          if (shouldShowInAppDisclosure) {
+            await this.presentInAppDisclosure();
+          }
+          currentPosition = await this.geolocate.getCurrentPosition();
+        } finally {
+          if (currentPosition) {
+            this.settings.saveOrderState(environment.initialOrder, [
+              currentPosition.longitude,
+              currentPosition.latitude
+            ]);
+          } else {
+            if (shouldShowInAppDisclosure) {
+              await this.presentGeolocateError();
+            }
+            this.settings.saveOrderState('alphabetical');
+          }
+        }
+      } else {
+        this.settings.saveOrderState(environment.initialOrder as Order);
+      }
+    }
   }
 
   public expandTreks(infiniteScroll: any) {
@@ -200,20 +233,26 @@ export class TreksPage extends UnSubscribe implements OnInit {
     const { data } = await popover.onDidDismiss();
 
     if (data && data.error) {
-      const errorTranslation: any = await this.translate
-        .get('geolocate.error')
-        .toPromise();
-
-      // Inform user about problem
-      const alertLocation = await this.alertController.create({
-        header: errorTranslation['header'],
-        subHeader: errorTranslation['subHeader'],
-        message: errorTranslation['message'],
-        buttons: [errorTranslation['confirmButton']]
-      });
-
-      await alertLocation.present();
+      this.presentGeolocateError();
     }
+  }
+
+  public async presentGeolocateError(): Promise<void> {
+    const errorTranslation: any = await this.translate
+      .get('geolocate.error')
+      .toPromise();
+
+    // Inform user about problem
+    const alertLocation = await this.alertController.create({
+      header: errorTranslation['header'],
+      subHeader: errorTranslation['subHeader'],
+      message: errorTranslation['message'],
+      buttons: [errorTranslation['confirmButton']]
+    });
+
+    await alertLocation.present();
+
+    await alertLocation.onDidDismiss();
   }
 
   public loadTreks(): void {
@@ -228,5 +267,17 @@ export class TreksPage extends UnSubscribe implements OnInit {
     if (this.platform.is('ios') || this.platform.is('android')) {
       this.noNetwork = this.network.type === 'none';
     }
+  }
+
+  public async presentInAppDisclosure(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: InAppDisclosureComponent,
+      componentProps: {},
+      cssClass: 'full-size'
+    });
+
+    await modal.present();
+
+    await modal.onDidDismiss();
   }
 }

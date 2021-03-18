@@ -40,7 +40,7 @@ export class TreksOrderComponent extends UnSubscribe {
 
     this.subscriptions$$.push(
       this.settings.order$.subscribe((order) => {
-        this.currentOrder = order.type;
+        this.currentOrder = order!.type;
       })
     );
   }

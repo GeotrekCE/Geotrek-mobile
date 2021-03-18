@@ -34,10 +34,7 @@ export class SettingsService {
   public order$ = new BehaviorSubject<{
     type: Order;
     value: number[] | undefined;
-  }>({
-    type: 'alphabetical',
-    value: undefined
-  });
+  } | null>(null);
   // User location, used for ordering treks by distance
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);

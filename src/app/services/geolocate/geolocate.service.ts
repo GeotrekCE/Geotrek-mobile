@@ -193,16 +193,19 @@ export class GeolocateService {
           enableHighAccuracy: true
         });
       } else {
-        await new Promise((resolve) => {
-          navigator.geolocation.getCurrentPosition((position) => {
-            if (position) {
-              startLocation = {
-                longitude: position.coords.longitude,
-                latitude: position.coords.latitude
-              };
-            }
-            resolve();
-          });
+        await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              if (position) {
+                startLocation = {
+                  longitude: position.coords.longitude,
+                  latitude: position.coords.latitude
+                };
+              }
+              resolve();
+            },
+            () => reject()
+          );
         });
       }
     } catch (error) {
