@@ -360,20 +360,19 @@ export class MapTrekVizComponent extends UnSubscribe
           }),
           loadImages.subscribe({
             complete: async () => {
+              // map instance for cypress test
+              this.mapViz.nativeElement.mapInstance = this.map;
+
               await this.initializeSources();
               this.initializeLayers();
               this.updateSources();
+              this.mapIsLoaded.emit(true);
 
               const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
               if (shouldShowInAppDisclosure) {
                 await this.presentInAppDisclosure();
               }
               this.geolocate.startOnMapTracking();
-
-              // map instance for cypress test
-              this.mapViz.nativeElement.mapInstance = this.map;
-
-              this.mapIsLoaded.emit(true);
             }
           })
         );

@@ -235,6 +235,7 @@ export class MapTreksVizComponent extends UnSubscribe
           loadImages.subscribe({
             complete: async () => {
               this.addSourcesLayersEvents();
+
               const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
               if (shouldShowInAppDisclosure) {
                 await this.presentInAppDisclosure();

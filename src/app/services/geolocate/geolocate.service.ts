@@ -54,7 +54,7 @@ export class GeolocateService {
     if (this.platform.is('ios') || this.platform.is('android')) {
       if (
         this.checkIfCanGetCurrentHeading() &&
-        this.currentHeadingSubscription !== null
+        this.currentHeadingSubscription === null
       ) {
         this.currentHeadingSubscription = this.deviceOrientation
           .watchHeading({ frequency: 16 })
