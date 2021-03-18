@@ -191,5 +191,6 @@ export const environment = {
   containsFilterShouldUseSelectAbove: 7,
   trekDetails: {
     showImgRulesIfParkCentered: true
-  }
+  },
+  colSize: 12
 };

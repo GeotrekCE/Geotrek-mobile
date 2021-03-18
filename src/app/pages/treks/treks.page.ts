@@ -38,7 +38,7 @@ export class TreksPage extends UnSubscribe implements OnInit {
   public noNetwork = false;
   public appName: string = environment.appName;
   public treksByStep: number = environment.treksByStep;
-  public colSize = 12;
+  public colSize = environment.colSize;
   public filteredTreks: MinimalTrek[];
   public mapLink: string;
   public nbOfflineTreks = 0;
