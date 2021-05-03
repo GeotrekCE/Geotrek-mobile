@@ -232,8 +232,8 @@ export class SettingsService {
     }
 
     if (trek.properties.description) {
-      hydratedTrek.properties.description = (trek.properties.description.toString() as any).replaceAll(
-        `src="/`,
+      hydratedTrek.properties.description = trek.properties.description.replace(
+        /src\=\"\//gi,
         `src="${commonSrc}/`
       );
     }
