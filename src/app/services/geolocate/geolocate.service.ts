@@ -164,15 +164,21 @@ export class GeolocateService {
   }
 
   async checkIfCanGetCurrentHeading() {
-    const currentHeading =
-      this.platform.is('ios') || this.platform.is('android')
-        ? await this.deviceOrientation.getCurrentHeading()
-        : null;
-    return (
-      currentHeading &&
-      typeof currentHeading === 'object' &&
-      currentHeading.hasOwnProperty('trueHeading')
-    );
+    let currentHeading: DeviceOrientationCompassHeading | null = null;
+    try {
+      currentHeading =
+        this.platform.is('ios') || this.platform.is('android')
+          ? await this.deviceOrientation.getCurrentHeading()
+          : null;
+    } finally {
+      return (
+        currentHeading !== null &&
+        typeof currentHeading === 'object' &&
+        (currentHeading as DeviceOrientationCompassHeading).hasOwnProperty(
+          'trueHeading'
+        )
+      );
+    }
   }
 
   showAppSettings() {
