@@ -15,7 +15,7 @@ export class SearchTreksService {
         return a.properties.name.localeCompare(b.properties.name);
       });
     }
-    searchValue = searchValue.toLowerCase();
+    searchValue = deburr(searchValue.toLowerCase());
     return treks
       .filter((trek) => {
         return deburr(trek.properties.name.toLowerCase()).includes(searchValue);
