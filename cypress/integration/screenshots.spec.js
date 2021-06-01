@@ -1,8 +1,7 @@
 describe('Screenshots', () => {
   const devices = [
     { name: 'phone', width: 412, height: 732 },
-    { name: 'tablet', width: 768, height: 1024 },
-    { name: 'desktop', width: 1024, height: 768 }
+    { name: 'tablet', width: 768, height: 1024 }
   ];
 
   devices.forEach((device) => {
@@ -14,11 +13,7 @@ describe('Screenshots', () => {
       it('should screenshot treks page', () => {
         cy.visit('/app/tabs/treks');
 
-        for (let i = 1; i <= 4; i++) {
-          cy.get(
-            `:nth-child(${i}) > app-trek-card > .extand-card > .card-native > :nth-child(2) > .min-size-img`
-          ).should('exist');
-        }
+        cy.wait(10000);
 
         cy.screenshot(`${device.name}/treks-page`);
       });
@@ -27,11 +22,8 @@ describe('Screenshots', () => {
         cy.get(':nth-child(1) > app-trek-card > .extand-card').click({
           force: true
         });
-        cy.url().should('include', '/trek-details');
 
-        cy.get(
-          '[style="align-items: center; display: flex; flex-direction: column; justify-content: center;"] > .md'
-        ).should('exist');
+        cy.wait(10000);
 
         cy.screenshot(`${device.name}/trek-page`);
       });
@@ -40,41 +32,19 @@ describe('Screenshots', () => {
         cy.get(
           '.can-go-back > ion-content.md > .fab-horizontal-end > .no-outline'
         ).click({ force: true });
-        cy.url().should('include', '/map');
 
-        cy.get('.loader-container').should('exist');
-        cy.get('.loader-container').should('not.exist');
-
-        cy.get('#map-trek')
-          .then((elt) => Promise.resolve(elt[0].mapInstance))
-          .as('mapinstance');
-        cy.get('@mapinstance', { timeout: 15000 }).should((mapElt) => {
-          mapElt.resize();
-          expect(mapElt.areTilesLoaded()).to.be.true;
-        });
-
-        // delay to display cluster text
-        cy.wait(1000);
+        cy.wait(10000);
 
         cy.screenshot(`${device.name}/trek-map-page`);
       });
 
       it('should screenshot treks map page', () => {
-        cy.visit('/app/tabs/treks/treks-map');
-
-        cy.get('.loader-container').should('exist');
-        cy.get('.loader-container').should('not.exist');
-
-        cy.get('#map-treks')
-          .then((elt) => Promise.resolve(elt[0].mapInstance))
-          .as('mapinstance');
-        cy.get('@mapinstance', { timeout: 15000 }).should((mapElt) => {
-          mapElt.resize();
-          expect(mapElt.areTilesLoaded()).to.be.true;
+        cy.visit('/app/tabs/treks');
+        cy.get('ion-content.md > .fab-horizontal-end > .no-outline').click({
+          force: true
         });
 
-        // delay to display cluster text
-        cy.wait(1000);
+        cy.wait(10000);
 
         cy.screenshot(`${device.name}/treks-map-page`);
       });
