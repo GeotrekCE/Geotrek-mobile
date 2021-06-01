@@ -238,6 +238,13 @@ export class SettingsService {
       );
     }
 
+    if (trek.properties.advice) {
+      hydratedTrek.properties.advice = trek.properties.advice.replace(
+        /src\=\"\//gi,
+        `src="${commonSrc}/`
+      );
+    }
+
     return hydratedTrek;
   }
 
