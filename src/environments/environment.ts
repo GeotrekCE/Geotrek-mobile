@@ -104,13 +104,11 @@ export const environment = {
       'circle-stroke-width': 1
     },
     zoneLayerProperties: {
-      // src/assets/map/zone/zone.geojson
-      // optionnal geojson to display on map
       type: 'fill',
       paint: {
         'fill-color': primaryColor,
         'fill-outline-color': '#625b5d',
-        'fill-opacity': 0.3
+        'fill-opacity': 0
       }
     },
     zoneOutlineLayerProperties: {
@@ -118,7 +116,7 @@ export const environment = {
       paint: {
         'line-color': primaryColor,
         'line-opacity': 1,
-        'line-width': 8
+        'line-width': 4
       }
     },
     trekLineLayerProperties: {
