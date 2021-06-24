@@ -231,18 +231,18 @@ export class SettingsService {
       });
     }
 
+    const regexp = new RegExp(`src="${this.apiUrl}`, 'gi');
+
     if (trek.properties.description) {
-      hydratedTrek.properties.description = trek.properties.description.replace(
-        /src\=\"\//gi,
-        `src="${commonSrc}/`
-      );
+      hydratedTrek.properties.description = trek.properties.description
+        .replace(regexp, 'src="')
+        .replace(/src\=\"\//gi, `src="${commonSrc}/`);
     }
 
     if (trek.properties.advice) {
-      hydratedTrek.properties.advice = trek.properties.advice.replace(
-        /src\=\"\//gi,
-        `src="${commonSrc}/`
-      );
+      hydratedTrek.properties.advice = trek.properties.advice
+        .replace(regexp, 'src="')
+        .replace(/src\=\"\//gi, `src="${commonSrc}/`);
     }
 
     return hydratedTrek;
