@@ -101,7 +101,6 @@ export class GeolocateService {
         locationProvider:
           BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
         startForeground: true,
-        maxLocations: 10,
         stopOnTerminate: true,
         debug: false,
         notificationTitle,
@@ -117,8 +116,8 @@ export class GeolocateService {
           try {
             const startLocation = await this.backgroundGeolocation.getCurrentLocation(
               {
-                timeout: 3000,
-                maximumAge: Number.MAX_SAFE_INTEGER,
+                timeout: 10000,
+                maximumAge: 1000,
                 enableHighAccuracy: true
               }
             );
@@ -194,8 +193,8 @@ export class GeolocateService {
     try {
       if (this.platform.is('ios') || this.platform.is('android')) {
         startLocation = await this.backgroundGeolocation.getCurrentLocation({
-          timeout: 3000,
-          maximumAge: Number.MAX_SAFE_INTEGER,
+          timeout: 10000,
+          maximumAge: 1000,
           enableHighAccuracy: true
         });
       } else {
