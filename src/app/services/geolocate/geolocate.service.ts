@@ -53,7 +53,7 @@ export class GeolocateService {
   async startOnMapTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
       if (
-        this.checkIfCanGetCurrentHeading() &&
+        (await this.checkIfCanGetCurrentHeading()) &&
         this.currentHeadingSubscription === null
       ) {
         this.currentHeadingSubscription = this.deviceOrientation
@@ -62,12 +62,74 @@ export class GeolocateService {
             this.currentHeading$.next(data.trueHeading)
           );
       }
+
+      const notificationTitle: string = await this.translate
+        .get('geolocate.notificationTitle')
+        .toPromise();
+      const geolocationConfig: BackgroundGeolocationConfig = {
+        locationProvider:
+          BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
+        startForeground: false,
+        stopOnTerminate: true,
+        debug: false,
+        notificationTitle,
+        notificationText: 'Geolocation',
+        ...environment.backgroundGeolocation
+      };
+
+      if (await this.checkIfBackgroundGeolocationIsRunning()) {
+        this.backgroundGeolocation.stop();
+      }
+
+      await this.backgroundGeolocation.configure(geolocationConfig);
+
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.start)
+        .subscribe(async () => {
+          try {
+            const startLocation = await this.backgroundGeolocation.getCurrentLocation(
+              {
+                timeout: 10000,
+                maximumAge: 0,
+                enableHighAccuracy: true
+              }
+            );
+            this.currentPosition$.next([
+              startLocation.longitude,
+              startLocation.latitude
+            ]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error = true;
+          }
+        });
+
+      this.backgroundGeolocation
+        .on(BackgroundGeolocationEvents.location)
+        .subscribe((location) => {
+          try {
+            this.currentPosition$.next([location.longitude, location.latitude]);
+          } catch (error) {
+            this.currentPosition$.next(null);
+            error = true;
+          }
+        });
+
+      this.backgroundGeolocation.start();
+    } else {
+      navigator.geolocation.getCurrentPosition((position) =>
+        this.currentPosition$.next([
+          position.coords.longitude,
+          position.coords.latitude
+        ])
+      );
     }
 
-    this.getCurrentPosition();
-    this.currentPositionInterval = window.setInterval(() => {
-      this.getCurrentPosition();
-    }, environment.backgroundGeolocation.interval);
+    // this.getCurrentPosition();
+    // this.currentPositionInterval = window.setInterval(() => {
+    //   this.getCurrentPosition();
+    // }, environment.backgroundGeolocation.interval);
+    //
   }
 
   stopOnMapTracking(
@@ -80,16 +142,17 @@ export class GeolocateService {
         this.currentHeadingSubscription = null;
         this.currentHeading$.next(null);
       }
+      this.backgroundGeolocation.stop();
     }
 
     if (resetPosition) {
       this.currentPosition$.next(null);
     }
 
-    if (this.currentPositionInterval !== null) {
-      window.clearInterval(this.currentPositionInterval);
-      this.currentPositionInterval = null;
-    }
+    // if (this.currentPositionInterval !== null) {
+    //   window.clearInterval(this.currentPositionInterval);
+    //   this.currentPositionInterval = null;
+    // }
   }
 
   async startNotificationsModeTracking(notificationText: string) {
@@ -108,6 +171,10 @@ export class GeolocateService {
         ...environment.backgroundGeolocation
       };
 
+      if (await this.checkIfBackgroundGeolocationIsRunning()) {
+        this.backgroundGeolocation.stop();
+      }
+
       await this.backgroundGeolocation.configure(geolocationConfig);
 
       this.backgroundGeolocation
@@ -117,7 +184,7 @@ export class GeolocateService {
             const startLocation = await this.backgroundGeolocation.getCurrentLocation(
               {
                 timeout: 10000,
-                maximumAge: 1000,
+                maximumAge: 0,
                 enableHighAccuracy: true
               }
             );
@@ -194,7 +261,7 @@ export class GeolocateService {
       if (this.platform.is('ios') || this.platform.is('android')) {
         startLocation = await this.backgroundGeolocation.getCurrentLocation({
           timeout: 10000,
-          maximumAge: 1000,
+          maximumAge: 0,
           enableHighAccuracy: true
         });
       } else {
@@ -207,7 +274,7 @@ export class GeolocateService {
                   latitude: position.coords.latitude
                 };
               }
-              resolve();
+              resolve(true);
             },
             () => reject()
           );
