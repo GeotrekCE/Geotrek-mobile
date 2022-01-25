@@ -155,7 +155,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="160" class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:160</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:166</a></div>
                             </td>
                         </tr>
 
@@ -223,8 +223,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="131"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:131</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:136</a></div>
                 </td>
             </tr>
 
@@ -392,8 +392,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="150"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:150</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="156"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:156</a></div>
                 </td>
             </tr>
 
@@ -465,8 +465,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="156"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:156</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:162</a></div>
                 </td>
             </tr>
 
@@ -537,8 +537,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="168"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:168</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="174"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:174</a></div>
                 </td>
             </tr>
 
@@ -610,8 +610,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="105"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:105</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:110</a></div>
                 </td>
             </tr>
 
@@ -683,8 +683,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="117"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:117</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:122</a></div>
                 </td>
             </tr>
 
@@ -768,8 +768,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/services/filter-treks/filter-treks.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -1041,12 +1041,17 @@ export class FilterTreksService {
         }
         return 0;
       }
-      // Default order (alphabetically)
-      if (a.properties.name &lt; b.properties.name) {
-        return -1;
+      if (order &#x3D;&#x3D;&#x3D; &#x27;alphabetical&#x27;) {
+        if (a.properties.name &lt; b.properties.name) {
+          return -1;
+        }
+        if (a.properties.name &gt; b.properties.name) {
+          return 1;
+        }
+        return 0;
       }
-      if (a.properties.name &gt; b.properties.name) {
-        return 1;
+      if (order &#x3D;&#x3D;&#x3D; &#x27;random&#x27;) {
+        return 0.5 - Math.random();
       }
       return 0;
     });
@@ -1095,8 +1100,9 @@ export class FilterTreksService {
       );
     } else {
       return (
-        FilterTreksService.getCheckedIdForFilter(filter).indexOf(feature
-          .properties[filter.id] as any) !&#x3D;&#x3D; -1
+        FilterTreksService.getCheckedIdForFilter(filter).indexOf(
+          feature.properties[filter.id] as any
+        ) !&#x3D;&#x3D; -1
       );
     }
   }
@@ -1122,11 +1128,11 @@ export class FilterTreksService {
   public getFilteredTreks(
     treks$: Observable&lt;MinimalTreks | null&gt;
   ): Observable&lt;MinimalTrek[]&gt; {
-    return combineLatest(
+    return combineLatest([
       treks$,
       this.settings.filters$,
       this.settings.order$
-    ).pipe(
+    ]).pipe(
       map(([treks, filters, order]) &#x3D;&gt; {
         if (treks &amp;&amp; filters &amp;&amp; order) {
           return FilterTreksService.sort(
@@ -1175,6 +1181,7 @@ export class FilterTreksService {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
             var COMPODOC_CURRENT_PAGE_URL = 'FilterTreksService.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

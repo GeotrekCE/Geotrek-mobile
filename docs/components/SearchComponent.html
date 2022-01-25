@@ -1224,7 +1224,7 @@ export class SearchComponent extends UnSubscribe implements OnInit {
 &lt;/ion-header&gt;
 
 &lt;ion-content&gt;
-  &lt;ng-container *ngIf&#x3D;&quot;!viewIsLoad&quot;&gt;
+  &lt;ng-container *ngIf&#x3D;&quot;!viewIsLoad; else searchView&quot;&gt;
     &lt;div class&#x3D;&quot;loader-container&quot;&gt;
       &lt;ion-progress-bar
         class&#x3D;&quot;progress-loader&quot;
@@ -1233,7 +1233,7 @@ export class SearchComponent extends UnSubscribe implements OnInit {
       &gt;&lt;/ion-progress-bar&gt;
     &lt;/div&gt;
   &lt;/ng-container&gt;
-  &lt;ng-container *ngIf&#x3D;&quot;viewIsLoad&quot;&gt;
+  &lt;ng-template #searchView&gt;
     &lt;ion-list *ngIf&#x3D;&quot;filteredTreks &amp;&amp; filteredTreks.length &gt; 0; else userMsg&quot;&gt;
       &lt;ion-item
         class&#x3D;&quot;ion-activatable&quot;
@@ -1267,7 +1267,7 @@ export class SearchComponent extends UnSubscribe implements OnInit {
     &gt;
       &lt;ion-infinite-scroll-content&gt; &lt;/ion-infinite-scroll-content&gt;
     &lt;/ion-infinite-scroll&gt;
-  &lt;/ng-container&gt;
+  &lt;/ng-template&gt;
 &lt;/ion-content&gt;
 </code></pre>
     </div>
@@ -1317,8 +1317,8 @@ export class SearchComponent extends UnSubscribe implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-button (click)="close()">        <ion-icon size="large" slot="start" name="close"></ion-icon>      </ion-button>    </ion-buttons>    <ion-title>{{ \'search.title\' | translate | uppercase }}</ion-title>  </ion-toolbar>  <ion-toolbar color="primary">    <ion-searchbar      placeholder="{{ \'search.placeholder\' | translate }}"      (ionChange)="search($event.detail.value)"    >    </ion-searchbar>  </ion-toolbar></ion-header><ion-content>  <ng-container *ngIf="!viewIsLoad">    <div class="loader-container">      <ion-progress-bar        class="progress-loader"        color="primary"        type="indeterminate"      ></ion-progress-bar>    </div>  </ng-container>  <ng-container *ngIf="viewIsLoad">    <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">      <ion-item        class="ion-activatable"        *ngFor="          let trek of filteredTreks | slice: 0:currentMaxTreks;          trackBy: trackTrek        "        (click)="navigateToTrek(trek.properties.id)"      >        <ion-label>{{ trek.properties.name }}</ion-label>        <ion-icon name="arrow-round-forward" slot="end"></ion-icon>      </ion-item>    </ion-list>    <ng-template #userMsg>      <ion-grid class="flex-container" fixed>        <ion-row>          <ion-col *ngIf="currentSearchValue">            {{ \'search.noResult\' | translate }}          </ion-col>        </ion-row>      </ion-grid>    </ng-template>    <ion-infinite-scroll      [disabled]="        !filteredTreks ||        this.currentMaxTreks === filteredTreks.length ||        filteredTreks.length < treksByStep      "      threshold="100px"      (ionInfinite)="expandTreks($event)"    >      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-container></ion-content></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="primary">    <ion-buttons slot="start">      <ion-button (click)="close()">        <ion-icon size="large" slot="start" name="close"></ion-icon>      </ion-button>    </ion-buttons>    <ion-title>{{ \'search.title\' | translate | uppercase }}</ion-title>  </ion-toolbar>  <ion-toolbar color="primary">    <ion-searchbar      placeholder="{{ \'search.placeholder\' | translate }}"      (ionChange)="search($event.detail.value)"    >    </ion-searchbar>  </ion-toolbar></ion-header><ion-content>  <ng-container *ngIf="!viewIsLoad; else searchView">    <div class="loader-container">      <ion-progress-bar        class="progress-loader"        color="primary"        type="indeterminate"      ></ion-progress-bar>    </div>  </ng-container>  <ng-template #searchView>    <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">      <ion-item        class="ion-activatable"        *ngFor="          let trek of filteredTreks | slice: 0:currentMaxTreks;          trackBy: trackTrek        "        (click)="navigateToTrek(trek.properties.id)"      >        <ion-label>{{ trek.properties.name }}</ion-label>        <ion-icon name="arrow-round-forward" slot="end"></ion-icon>      </ion-item>    </ion-list>    <ng-template #userMsg>      <ion-grid class="flex-container" fixed>        <ion-row>          <ion-col *ngIf="currentSearchValue">            {{ \'search.noResult\' | translate }}          </ion-col>        </ion-row>      </ion-grid>    </ng-template>    <ion-infinite-scroll      [disabled]="        !filteredTreks ||        this.currentMaxTreks === filteredTreks.length ||        filteredTreks.length < treksByStep      "      threshold="100px"      (ionInfinite)="expandTreks($event)"    >      <ion-infinite-scroll-content> </ion-infinite-scroll-content>    </ion-infinite-scroll>  </ng-template></ion-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InAppDisclosureComponent', 'selector': 'app-in-app-disclosure'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SearchComponent'};
 </script>
@@ -1356,6 +1356,7 @@ export class SearchComponent extends UnSubscribe implements OnInit {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
             var COMPODOC_CURRENT_PAGE_URL = 'SearchComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

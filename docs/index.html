@@ -33,7 +33,8 @@
 <h1 id="geotrek-mobile">Geotrek Mobile</h1>
 <p>Mobile application of <em>Geotrek Rando</em> (<a href="http://geotrek.fr">http://geotrek.fr</a>).</p>
 <h1 id="installation">INSTALLATION</h1>
-<p><em>Before proceeding, make sure the latest version of <a href="https://nodejs.org/en/">Node.js and npm</a> are installed</em></p>
+<p><em>Before proceeding, make sure the latest version of <a href="https://nodejs.org/en/">Node.js and npm</a> are installed</em>.
+It is usually easier to do with <a href="https://github.com/nvm-sh/nvm">NVM</a></p>
 <div><pre class="line-numbers"><code class="language-none">npm install -g ionic&#64;5.4.11
 
 npm install -g cordova&#64;9.0.0
@@ -43,7 +44,7 @@ git clone git&#64;github.com:GeotrekCE/Geotrek-mobile.git
 cd Geotrek-mobile
 
 npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN THE BROWSER</h1>
-<p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environments.ts&#39;</em> with your personal api url</p>
+<p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environment.ts&#39;</em> with your personal api url (the one you can create <a href="https://geotrek.readthedocs.io/en/master/synchronization.html#geotrek-mobile-app-v3">here</a> and configure <a href="https://github.com/GeotrekCE/Geotrek-rando/blob/master/docs/http-server.md">here</a>)</p>
 <div><pre class="line-numbers"><code class="language-none">ionic serve</code></pre></div><h1 id="run-the-app-on-device">RUN THE APP ON DEVICE</h1>
 <p>/!\ The <code>run</code> argument build the apk, then install it on the device</p>
 <h2 id="ios">iOS</h2>
@@ -51,8 +52,9 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 <div><pre class="line-numbers"><code class="language-none">ionic cordova run ios</code></pre></div><h2 id="android">Android</h2>
 <p><em>Need <a href="https://ionicframework.com/docs/installation/android">Android environment setup</a> available on Windows, macOS and Linux</em></p>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova run android</code></pre></div><h1 id="build-release-app">BUILD RELEASE APP</h1>
-<p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environments.prod.ts&#39;</em> with your personal api url</p>
 <p>/!\ The <code>build</code> argument just build the apk, but don&#39;t install it on the device</p>
+<p>You will need the <a href="https://developer.android.com/studio#downloads">android SDK</a> (Command line tools may be enough, to be verified). You will also need the Java Developement Kit (JDK), you can use the openjdk-8-jdk package (this version works, unsure for others) that may already be installed on your linux system (instead of the official Oracle JDK).</p>
+<p><em>Minimum requirements : Fill in &#39;onlineBaseUrl&#39; in &#39;src/environments/environment.prod.ts&#39;</em> with your personal api url</p>
 <h2 id="ios-1">iOS</h2>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova build ios --prod --release</code></pre></div><h2 id="android-1">Android</h2>
 <div><pre class="line-numbers"><code class="language-none">ionic cordova build android --prod --release</code></pre></div><h1 id="customization-options">CUSTOMIZATION OPTIONS</h1>
@@ -62,7 +64,7 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 <div><pre class="line-numbers"><code class="language-none">&lt;widget  id=&quot;io.geotrek.starter&quot; ...&gt;</code></pre></div><p>App name</p>
 <div><pre class="line-numbers"><code class="language-none">&lt;name&gt;Geotrek Starter&lt;/name&gt;</code></pre></div><h2 id="srcenvironmentsenvironmentts--environmentprodts">src/environments/environment.ts &amp; environment.prod.ts</h2>
 <p>You can overwrite a lot of options inside these files:<br>AppName (header of the app) , availableLanguage, api url, map options and more</p>
-<p><em>environment.prod.ts will be use for development<br>environment.prod.ts will be use for release app</em></p>
+<p><em>environment.ts will be use for development<br>environment.prod.ts will be use for release app</em></p>
 <h2 id="srcassetsi18n">src/assets/i18n</h2>
 <p>You can find all the internationalization ressources here (by default Fr and En)</p>
 <h2 id="srcassetsmapicons">src/assets/map/icons/</h2>
@@ -134,7 +136,7 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
 <li>OpenSource - BSD</li>
 <li>Copyright (c) Makina Corpus - Parc National des Écrins</li>
 </ul>
-<p><a href="http://www.makina-corpus.com"><img src="http://depot.makina-corpus.org/public/logo.gif"></a>
+<p><a href="http://www.makina-corpus.com"><img src="https://geotrek.fr/assets/img/logo_makina.svg"></a>
 <a href="http://www.ecrins-parcnational.fr"><img src="http://geonature.fr/img/logo-pne.jpg"></a></p>
 
 
@@ -173,6 +175,7 @@ npm install</code></pre></div><h1 id="run-the-app-in-the-browser">RUN THE APP IN
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
             var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="./js/libs/custom-elements.min.js"></script>

@@ -473,8 +473,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="131"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:131</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="133"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:133</a></div>
                 </td>
             </tr>
 
@@ -543,8 +543,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="127"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:127</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:129</a></div>
                 </td>
             </tr>
 
@@ -582,8 +582,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="121"
-                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:121</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">src/app/components/geolocate-notifications/geolocate-notifications.component.ts:123</a></div>
                 </td>
             </tr>
 
@@ -1096,9 +1096,8 @@ export class GeolocateNotificationsComponent
         if (!(await this.geolocate.checkAuthorization())) {
           this.presentPersmissionsConfirm();
         } else {
-          if (!(await this.geolocate.checkIfTrackerIsRunning())) {
-            this.geolocate.startTracking(this.trekName);
-          }
+          this.geolocate.stopOnMapTracking(false, false);
+          this.geolocate.startNotificationsModeTracking(this.trekName);
           if (await this.localNotifications.hasPermission()) {
             this.notificationsModeIsActive &#x3D; true;
             this.enableGeolocationNotification();
@@ -1107,12 +1106,15 @@ export class GeolocateNotificationsComponent
           }
         }
       } else {
-        this.geolocate.startTracking(this.trekName);
+        this.geolocate.stopOnMapTracking(false, false);
+        this.geolocate.startNotificationsModeTracking(this.trekName);
         this.notificationsModeIsActive &#x3D; true;
         this.enableGeolocationNotification();
       }
     } else {
       this.notificationsModeIsActive &#x3D; false;
+      this.geolocate.stopNotificationsModeTracking();
+      this.geolocate.startOnMapTracking();
       this.disableGeolocationNotification();
     }
   }
@@ -1165,8 +1167,6 @@ export class GeolocateNotificationsComponent
 
             this.currentPoisToNotify.splice(notifiedIndex, 1);
           });
-        } else {
-          console.log(&#x27;Poi&#x27;, this.currentPoisToNotify[notifiedIndex]);
         }
       }
     }
@@ -1264,7 +1264,7 @@ export class GeolocateNotificationsComponent
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ion-button  *ngIf="!notificationsModeIsActive"  expand="full"  (click)="changeNotificationsMode()">  <ion-icon color="white" slot="start" name="notifications"></ion-icon>  {{ \'mapTrek.enableNotification\' | translate }}</ion-button><ion-button  *ngIf="notificationsModeIsActive"  expand="full"  (click)="changeNotificationsMode()">  <ion-icon    color="white"    *ngIf="notificationsModeIsActive"    slot="start"    name="notifications-off"  ></ion-icon>  {{ \'mapTrek.disableNotification\' | translate }}</ion-button></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InAppDisclosureComponent', 'selector': 'app-in-app-disclosure'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'GeolocateNotificationsComponent'};
 </script>
@@ -1302,6 +1302,7 @@ export class GeolocateNotificationsComponent
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
             var COMPODOC_CURRENT_PAGE_URL = 'GeolocateNotificationsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

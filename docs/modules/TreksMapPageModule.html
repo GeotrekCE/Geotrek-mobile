@@ -205,6 +205,7 @@ import { SharedUiModule } from &#x27;@app/shared/shared-ui.module&#x27;;
 import { SharedModule } from &#x27;@app/shared/shared.module&#x27;;
 import { IonicModule } from &#x27;@ionic/angular&#x27;;
 import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
+import { FiltersComponentModule } from &#x27;@app/components/filters/filters.module&#x27;;
 
 import { TreksMapPage } from &#x27;./treks-map.page&#x27;;
 import { SelectTrekComponent } from &#x27;@app/components/select-trek/select-trek.component&#x27;;
@@ -226,7 +227,8 @@ const routes: Routes &#x3D; [
     RouterModule.forChild(routes),
     SharedModule,
     SharedUiModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    FiltersComponentModule
   ],
   declarations: [TreksMapPage, SelectTrekComponent]
 })
@@ -267,6 +269,7 @@ export class TreksMapPageModule {}
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
             var COMPODOC_CURRENT_PAGE_URL = 'TreksMapPageModule.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

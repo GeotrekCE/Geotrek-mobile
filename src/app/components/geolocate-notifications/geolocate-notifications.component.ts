@@ -168,8 +168,6 @@ export class GeolocateNotificationsComponent
 
             this.currentPoisToNotify.splice(notifiedIndex, 1);
           });
-        } else {
-          console.log('Poi', this.currentPoisToNotify[notifiedIndex]);
         }
       }
     }

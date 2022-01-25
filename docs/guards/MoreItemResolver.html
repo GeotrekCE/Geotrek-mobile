@@ -276,9 +276,7 @@ export class MoreItemResolver
           (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp;
           environment.useFirebase
         ) {
-          this.firebaseAnalytics.setCurrentScreen(
-            &#x60;${(route.component as any).name} ${item.title}&#x60;
-          );
+          this.firebaseAnalytics.setCurrentScreen(&#x60;${item.title}&#x60;);
         }
       }),
       catchError((error: HttpErrorResponse) &#x3D;&gt; {
@@ -322,6 +320,7 @@ export class MoreItemResolver
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
             var COMPODOC_CURRENT_PAGE_URL = 'MoreItemResolver.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

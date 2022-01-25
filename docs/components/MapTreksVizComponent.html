@@ -168,6 +168,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#addSourcesLayersEvents">addSourcesLayersEvents</a>
                             </li>
                             <li>
@@ -187,6 +188,11 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#presentConfirmFeatures">presentConfirmFeatures</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#presentInAppDisclosure">presentInAppDisclosure</a>
                             </li>
                             <li>
                                 <a href="#ngOnDestroy">ngOnDestroy</a>
@@ -255,12 +261,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(screenOrientation: ScreenOrientation, platform: Platform, geolocate: <a href="../injectables/GeolocateService.html">GeolocateService</a>, modalController: ModalController, settings: <a href="../injectables/SettingsService.html">SettingsService</a>, alertController: AlertController, translate: TranslateService)</code>
+<code>constructor(settings: <a href="../injectables/SettingsService.html">SettingsService</a>, screenOrientation: ScreenOrientation, platform: Platform, geolocate: <a href="../injectables/GeolocateService.html">GeolocateService</a>, modalController: ModalController, alertController: AlertController, translate: TranslateService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:57</a></div>
                             </td>
                         </tr>
 
@@ -277,6 +283,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>settings</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SettingsService.html" target="_self" >SettingsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>screenOrientation</td>
                                                   
@@ -318,18 +336,6 @@
                                                   
                                                         <td>
                                                                     <code>ModalController</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>settings</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/SettingsService.html" target="_self" >SettingsService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -388,7 +394,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:51</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:53</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -409,7 +415,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:52</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -435,7 +441,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:50</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -456,7 +462,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:49</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:51</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -477,7 +483,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:52</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:54</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -501,7 +507,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:55</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:57</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -522,7 +528,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:54</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:56</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -542,6 +548,7 @@
                     <a name="addSourcesLayersEvents"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Async</span>
                             addSourcesLayersEvents
                         </b>
                         <a href="#addSourcesLayersEvents"><span class="icon ion-ios-link"></span></a>
@@ -550,15 +557,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>addSourcesLayersEvents()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addSourcesLayersEvents()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="217"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:217</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="251"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:251</a></div>
                 </td>
             </tr>
 
@@ -567,7 +575,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                 </td>
@@ -596,8 +604,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="104"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:104</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:111</a></div>
                 </td>
             </tr>
 
@@ -638,8 +646,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="423"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:423</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="445"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:445</a></div>
                 </td>
             </tr>
 
@@ -679,8 +687,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:76</a></div>
                 </td>
             </tr>
 
@@ -749,8 +757,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:96</a></div>
                 </td>
             </tr>
 
@@ -790,8 +798,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="383"
-                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:383</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="402"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:402</a></div>
                 </td>
             </tr>
 
@@ -833,6 +841,48 @@
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="presentInAppDisclosure"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            presentInAppDisclosure
+                        </b>
+                        <a href="#presentInAppDisclosure"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>presentInAppDisclosure()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="469"
+                            class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:469</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
                     </div>
                 </td>
             </tr>
@@ -955,7 +1005,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -991,7 +1041,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:46</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -1019,7 +1069,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -1047,7 +1097,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:44</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/components/map-treks-viz/map-treks-viz.component.ts:46</a></div>
                             </td>
                         </tr>
 
@@ -1118,7 +1168,9 @@ import {
   Marker
 } from &#x27;mapbox-gl&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
+import { filter, distinctUntilChanged, throttleTime } from &#x27;rxjs/operators&#x27;;
 import { SelectTrekComponent } from &#x27;@app/components/select-trek/select-trek.component&#x27;;
+import { InAppDisclosureComponent } from &#x27;@app/components/in-app-disclosure/in-app-disclosure.component&#x27;;
 
 import { MinimalTrek, DataSetting, Trek } from &#x27;@app/interfaces/interfaces&#x27;;
 import { environment } from &#x27;@env/environment&#x27;;
@@ -1152,11 +1204,11 @@ export class MapTreksVizComponent extends UnSubscribe
   @Output() public mapIsLoaded &#x3D; new EventEmitter&lt;boolean&gt;();
 
   constructor(
+    private settings: SettingsService,
     private screenOrientation: ScreenOrientation,
     private platform: Platform,
     private geolocate: GeolocateService,
     private modalController: ModalController,
-    private settings: SettingsService,
     private alertController: AlertController,
     private translate: TranslateService
   ) {
@@ -1189,11 +1241,16 @@ export class MapTreksVizComponent extends UnSubscribe
   }
 
   ngOnDestroy(): void {
+    if (this.markerPosition) {
+      this.markerPosition.remove();
+      this.markerPosition &#x3D; undefined;
+    }
+
     if (this.map) {
       this.map.remove();
     }
 
-    this.geolocate.stopTracking();
+    this.geolocate.stopOnMapTracking();
 
     super.ngOnDestroy();
   }
@@ -1211,9 +1268,20 @@ export class MapTreksVizComponent extends UnSubscribe
           ].tiles[0];
       }
 
-      const coordinates: number[][] &#x3D; this.filteredTreks.map(
-        (feature) &#x3D;&gt; feature.geometry.coordinates
-      );
+      const coordinates: number[][] &#x3D; [];
+
+      this.filteredTreks.forEach((feature) &#x3D;&gt; {
+        if (
+          feature &amp;&amp;
+          feature.geometry &amp;&amp;
+          feature.geometry.coordinates &amp;&amp;
+          feature.geometry.coordinates[0] &amp;&amp;
+          feature.geometry.coordinates[1]
+        ) {
+          coordinates.push(feature.geometry.coordinates);
+        }
+      });
+
       const bounds: any &#x3D; coordinates.reduce(
         (bounds, coord) &#x3D;&gt; bounds.extend(coord),
         new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
@@ -1244,10 +1312,15 @@ export class MapTreksVizComponent extends UnSubscribe
         })
       );
 
+      if (!environment.map.enableRotation) {
+        this.map.dragRotate.disable();
+        this.map.touchZoomRotate.disableRotation();
+      }
+
       if (this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) {
         this.subscriptions$$.push(
           this.screenOrientation.onChange().subscribe(() &#x3D;&gt; {
-            // Need to delay before resize ...
+            // Need to delay before resize
             window.setTimeout(() &#x3D;&gt; {
               this.map.resize();
             }, 50);
@@ -1279,13 +1352,20 @@ export class MapTreksVizComponent extends UnSubscribe
         );
 
         this.subscriptions$$.push(
-          this.geolocate.currentPosition$.subscribe((coordinates) &#x3D;&gt; {
-            if (coordinates) {
+          this.geolocate.currentPosition$
+            .pipe(
+              filter((currentPosition) &#x3D;&gt; currentPosition !&#x3D;&#x3D; null),
+              distinctUntilChanged(),
+              throttleTime(environment.backgroundGeolocation.interval)
+            )
+            .subscribe(async (coordinates: any) &#x3D;&gt; {
               if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates as any);
+                this.markerPosition.setLngLat(coordinates);
               } else {
                 const el &#x3D; document.createElement(&#x27;div&#x27;);
-                el.className &#x3D; &#x27;pulse&#x27;;
+                const currentHeading &#x3D; await this.geolocate.checkIfCanGetCurrentHeading();
+                el.className &#x3D; currentHeading ? &#x27;pulse-and-view&#x27; : &#x27;pulse&#x27;;
+
                 this.markerPosition &#x3D; new mapboxgl.Marker({
                   element: el
                 }).setLngLat(coordinates);
@@ -1293,17 +1373,21 @@ export class MapTreksVizComponent extends UnSubscribe
                   this.markerPosition.addTo(this.map);
                 }
               }
-            } else {
-              if (this.markerPosition) {
-                this.markerPosition.remove();
-                this.markerPosition &#x3D; undefined;
-              }
+            }),
+          this.geolocate.currentHeading$.subscribe((heading) &#x3D;&gt; {
+            if (this.markerPosition &amp;&amp; heading) {
+              (this.markerPosition as any).setRotation(heading);
             }
           }),
           loadImages.subscribe({
-            complete: () &#x3D;&gt; {
+            complete: async () &#x3D;&gt; {
               this.addSourcesLayersEvents();
-              this.geolocate.startTracking(&#x27;&#x27;);
+
+              const shouldShowInAppDisclosure &#x3D; await this.geolocate.shouldShowInAppDisclosure();
+              if (shouldShowInAppDisclosure) {
+                await this.presentInAppDisclosure();
+              }
+              this.geolocate.startOnMapTracking();
             }
           })
         );
@@ -1311,7 +1395,7 @@ export class MapTreksVizComponent extends UnSubscribe
     }
   }
 
-  addSourcesLayersEvents() {
+  async addSourcesLayersEvents() {
     this.map.addSource(&#x27;treks-points&#x27;, {
       type: &#x27;geojson&#x27;,
       data: {
@@ -1325,7 +1409,7 @@ export class MapTreksVizComponent extends UnSubscribe
 
     this.map.addSource(&#x27;zone&#x27;, {
       type: &#x27;geojson&#x27;,
-      data: &#x27;assets/map/zone/zone.geojson&#x27;
+      data: await this.settings.getZoneFromStorage()
     });
 
     this.map.addLayer({
@@ -1353,9 +1437,7 @@ export class MapTreksVizComponent extends UnSubscribe
       type: &#x27;symbol&#x27;,
       source: &#x27;treks-points&#x27;,
       filter: [&#x27;has&#x27;, &#x27;point_count&#x27;],
-      paint: {
-        &#x27;text-color&#x27;: &#x27;#fff&#x27;
-      },
+      paint: environment.map.clusterTextPaint,
       layout: {
         &#x27;text-field&#x27;: &#x27;{point_count_abbreviated}&#x27;,
         &#x27;text-font&#x27;: [&#x27;Roboto Regular&#x27;],
@@ -1420,10 +1502,12 @@ export class MapTreksVizComponent extends UnSubscribe
               if (err) {
                 throw err;
               }
-              this.presentConfirmFeatures(featuresInCluster as Feature&lt;
-                Geometry,
-                { [name: string]: any }
-              &gt;[]);
+              this.presentConfirmFeatures(
+                featuresInCluster as Feature&lt;
+                  Geometry,
+                  { [name: string]: any }
+                &gt;[]
+              );
             }
           );
         } else {
@@ -1447,13 +1531,6 @@ export class MapTreksVizComponent extends UnSubscribe
       }
     });
 
-    this.map.on(&#x27;mouseenter&#x27;, &#x27;clusters-circle&#x27;, () &#x3D;&gt; {
-      this.map.getCanvas().style.cursor &#x3D; &#x27;pointer&#x27;;
-    });
-    this.map.on(&#x27;mouseleave&#x27;, &#x27;clusters-circle&#x27;, () &#x3D;&gt; {
-      this.map.getCanvas().style.cursor &#x3D; &#x27;&#x27;;
-    });
-
     this.map.on(&#x27;click&#x27;, &#x27;trek-point&#x27;, (e) &#x3D;&gt; {
       const feature &#x3D; this.map.queryRenderedFeatures(e.point, {
         layers: [&#x27;trek-point&#x27;]
@@ -1461,14 +1538,6 @@ export class MapTreksVizComponent extends UnSubscribe
       if (!!feature.properties) {
         this.navigateToTrek.emit(feature.properties.id);
       }
-    });
-
-    this.map.on(&#x27;mouseenter&#x27;, &#x27;trek-point&#x27;, () &#x3D;&gt; {
-      this.map.getCanvas().style.cursor &#x3D; &#x27;pointer&#x27;;
-    });
-
-    this.map.on(&#x27;mouseleave&#x27;, &#x27;trek-point&#x27;, () &#x3D;&gt; {
-      this.map.getCanvas().style.cursor &#x3D; &#x27;&#x27;;
     });
 
     // map instance for cypress test
@@ -1487,7 +1556,10 @@ export class MapTreksVizComponent extends UnSubscribe
     }[] &#x3D; [];
 
     features.forEach((feature) &#x3D;&gt; {
-      const hydratedTrek &#x3D; this.settings.getHydratedTrek(feature as Trek);
+      const hydratedTrek &#x3D; this.settings.getHydratedTrek(
+        feature as Trek,
+        this.commonSrc
+      );
       const trek &#x3D; {
         id: hydratedTrek.properties.id,
         name: hydratedTrek.properties.name,
@@ -1539,6 +1611,18 @@ export class MapTreksVizComponent extends UnSubscribe
 
       await alertLocation.present();
     }
+  }
+
+  public async presentInAppDisclosure(): Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: InAppDisclosureComponent,
+      componentProps: {},
+      cssClass: &#x27;full-size&#x27;
+    });
+
+    await modal.present();
+
+    await modal.onDidDismiss();
   }
 }
 </code></pre>
@@ -1601,7 +1685,7 @@ export class MapTreksVizComponent extends UnSubscribe
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div #mapViz id="map-treks" class="map-viz"></div><div class="options-button-container">  <ion-button    (click)="flyToUserLocation()"    shape="round"    size="small"    color="light"  >    <ion-icon color="dark" name="locate"></ion-icon>  </ion-button></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CollapsibleListComponent', 'selector': 'app-collapsible-list'},{'name': 'ConnectErrorComponent', 'selector': 'app-connect-error'},{'name': 'FilterComponent', 'selector': 'app-filter'},{'name': 'FiltersComponent', 'selector': 'app-filters'},{'name': 'FilterValueComponent', 'selector': 'app-filter-value'},{'name': 'GeolocateNotificationsComponent', 'selector': 'app-geolocate-notifications'},{'name': 'InAppDisclosureComponent', 'selector': 'app-in-app-disclosure'},{'name': 'InformationDeskDetailsComponent', 'selector': 'app-information-desk-details'},{'name': 'LayersVisibilityComponent', 'selector': 'app-layers-visibility'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'MapTreksVizComponent', 'selector': 'app-map-treks-viz'},{'name': 'MapTrekVizComponent', 'selector': 'app-map-trek-viz'},{'name': 'MoreItemPage', 'selector': 'app-more-item'},{'name': 'MorePage', 'selector': 'app-more'},{'name': 'PoiComponent', 'selector': 'app-poi'},{'name': 'PoiDetailsComponent', 'selector': 'app-poi-details'},{'name': 'ProgressComponent', 'selector': 'app-progress'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'SelectFilterComponent', 'selector': 'app-select-filter'},{'name': 'SelectPoiComponent', 'selector': 'app-select-poi'},{'name': 'SelectTrekComponent', 'selector': 'app-select-trek'},{'name': 'TabsPage', 'selector': 'app-tabs'},{'name': 'TrekCardComponent', 'selector': 'app-trek-card'},{'name': 'TrekDetailsPage', 'selector': 'app-trek-details'},{'name': 'TrekMapPage', 'selector': 'app-trek-map'},{'name': 'TreksMapPage', 'selector': 'app-treks-map'},{'name': 'TreksOrderComponent', 'selector': 'app-treks-order'},{'name': 'TreksPage', 'selector': 'app-treks'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'MapTreksVizComponent'};
 </script>
@@ -1639,6 +1723,7 @@ export class MapTreksVizComponent extends UnSubscribe
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
             var COMPODOC_CURRENT_PAGE_URL = 'MapTreksVizComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

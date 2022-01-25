@@ -349,6 +349,7 @@ import { Globalization } from &#x27;@ionic-native/globalization/ngx&#x27;;
 import { SocialSharing } from &#x27;@ionic-native/social-sharing/ngx&#x27;;
 import { Network } from &#x27;@ionic-native/network/ngx&#x27;;
 import { FirebaseAnalytics } from &#x27;@ionic-native/firebase-analytics/ngx&#x27;;
+import { DeviceOrientation } from &#x27;@ionic-native/device-orientation/ngx&#x27;;
 
 import { AppRoutingModule } from &#x27;@app/app-routing.module&#x27;;
 import { AppComponent } from &#x27;@app/app.component&#x27;;
@@ -419,6 +420,7 @@ registerLocaleData(localeFr, &#x27;fr&#x27;);
     SocialSharing,
     Network,
     FirebaseAnalytics,
+    DeviceOrientation,
     MoreResolver,
     MoreItemResolver,
     TrekContextResolver,
@@ -465,6 +467,7 @@ export class AppModule {}
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
             var COMPODOC_CURRENT_PAGE_URL = 'AppModule.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

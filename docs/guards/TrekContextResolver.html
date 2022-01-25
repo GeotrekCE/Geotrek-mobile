@@ -364,13 +364,14 @@ export class TrekContextResolver
             return null;
           } else {
             const mapConfig: MapboxOptions &#x3D; treksService.getMapConfigForTrekById(
-              trek,
+              isStage &amp;&amp; parentId ? (parentTrek as Trek) : (trek as Trek),
               offline
             );
-            const hydratedTrek: HydratedTrek &#x3D; this.settingsService.getHydratedTrek(
-              trek
-            );
             const commonSrc &#x3D; treksService.getCommonImgSrc();
+            const hydratedTrek: HydratedTrek &#x3D; this.settingsService.getHydratedTrek(
+              trek,
+              commonSrc
+            );
             const touristicCategoriesWithFeatures &#x3D; this.settingsService.getTouristicCategoriesWithFeatures(
               touristicContents
             );
@@ -380,7 +381,7 @@ export class TrekContextResolver
               environment.useFirebase
             ) {
               this.firebaseAnalytics.setCurrentScreen(
-                &#x60;${(route.component as any).name}  ${trek.properties.name}&#x60;
+                &#x60;${trek.properties.name}&#x60;
               );
             }
 
@@ -448,6 +449,7 @@ export class TrekContextResolver
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
             var COMPODOC_CURRENT_PAGE_URL = 'TrekContextResolver.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

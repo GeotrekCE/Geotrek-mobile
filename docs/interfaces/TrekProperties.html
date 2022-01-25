@@ -818,7 +818,7 @@ export interface Filter {
   hideAllLabel: string;
 }
 
-export type Order &#x3D; &#x27;default&#x27; | &#x27;location&#x27; | null;
+export type Order &#x3D; &#x27;alphabetical&#x27; | &#x27;location&#x27; | &#x27;random&#x27; | null;
 
 export interface IntervalFilter extends Filter {
   id: &#x27;length&#x27;; // TODO: complete this
@@ -1012,6 +1012,7 @@ export interface TreksContext {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
             var COMPODOC_CURRENT_PAGE_URL = 'TrekProperties.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

@@ -136,6 +136,15 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getZoneFromStorage">getZoneFromStorage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getZoneFromUrl">getZoneFromUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#loadSettings">loadSettings</a>
                             </li>
                             <li>
@@ -173,7 +182,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, storage: Storage, translate: TranslateService)</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, storage: Storage, platform: Platform, network: Network, translate: TranslateService)</code>
                     </td>
                 </tr>
                         <tr>
@@ -212,6 +221,30 @@
                                                   
                                                         <td>
                                                                     <code>Storage</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>network</td>
+                                                  
+                                                        <td>
+                                                                    <code>Network</code>
                                                         </td>
                                                   
                                                     <td>
@@ -269,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:66</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:83</a></div>
                 </td>
             </tr>
 
@@ -334,15 +367,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getHydratedTrek(trek: <a href="../interfaces/Trek.html">Trek</a>)</code>
+                    <code>getHydratedTrek(trek: <a href="../interfaces/Trek.html">Trek</a>, commonSrc: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="137"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:137</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="168"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:168</a></div>
                 </td>
             </tr>
 
@@ -365,6 +398,18 @@
                                     <td>trek</td>
                                     <td>
                                                 <code><a href="../interfaces/Trek.html" target="_self" >Trek</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>commonSrc</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -413,8 +458,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:87</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:104</a></div>
                 </td>
             </tr>
 
@@ -454,8 +499,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="206"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:206</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="251"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:251</a></div>
                 </td>
             </tr>
 
@@ -526,8 +571,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="116"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:116</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="147"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:147</a></div>
                 </td>
             </tr>
 
@@ -590,6 +635,89 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getZoneFromStorage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            getZoneFromStorage
+                        </b>
+                        <a href="#getZoneFromStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getZoneFromStorage()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:117</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getZoneFromUrl"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getZoneFromUrl
+                        </b>
+                        <a href="#getZoneFromUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getZoneFromUrl()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:113</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;GeoJSON&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="loadSettings"></a>
                     <span class="name">
                         <b>
@@ -610,8 +738,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -651,8 +779,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="104"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:104</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:135</a></div>
                 </td>
             </tr>
 
@@ -692,8 +820,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:127</a></div>
                 </td>
             </tr>
 
@@ -764,8 +892,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:131</a></div>
                 </td>
             </tr>
 
@@ -849,8 +977,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/app/services/settings/settings.service.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/app/services/settings/settings.service.ts:75</a></div>
                 </td>
             </tr>
 
@@ -892,7 +1020,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/services/settings/settings.service.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/services/settings/settings.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -946,7 +1074,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/services/settings/settings.service.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/services/settings/settings.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -999,15 +1127,12 @@
                             <i>Default value : </i><code>new BehaviorSubject&lt;{
     type: Order;
     value: number[] | undefined;
-  }&gt;({
-    type: &#x27;default&#x27;,
-    value: undefined
-  })</code>
+  } | null&gt;(null)</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/services/settings/settings.service.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/services/settings/settings.service.ts:34</a></div>
                             </td>
                         </tr>
 
@@ -1076,9 +1201,12 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { GeoJSON } from &#x27;geojson&#x27;;
 
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { Storage } from &#x27;@ionic/storage&#x27;;
+import { Platform } from &#x27;@ionic/angular&#x27;;
+import { Network } from &#x27;@ionic-native/network/ngx&#x27;;
 import { BehaviorSubject, Observable } from &#x27;rxjs&#x27;;
 import { cloneDeep } from &#x27;lodash&#x27;;
 import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
@@ -1108,10 +1236,7 @@ export class SettingsService {
   public order$ &#x3D; new BehaviorSubject&lt;{
     type: Order;
     value: number[] | undefined;
-  }&gt;({
-    type: &#x27;default&#x27;,
-    value: undefined
-  });
+  } | null&gt;(null);
   // User location, used for ordering treks by distance
   public userLocation$ &#x3D; new BehaviorSubject&lt;number[]&gt;([0, 0]);
   public data$ &#x3D; new BehaviorSubject&lt;DataSetting[] | null&gt;(null);
@@ -1119,6 +1244,8 @@ export class SettingsService {
   constructor(
     public http: HttpClient,
     public storage: Storage,
+    private platform: Platform,
+    private network: Network,
     private translate: TranslateService
   ) {}
 
@@ -1130,6 +1257,21 @@ export class SettingsService {
       this.filters$.next(this.getFilters(settings));
       this.data$.next(settings.data);
     });
+
+    this.getZoneFromUrl().subscribe(
+      async (zone) &#x3D;&gt; {
+        await this.storage.set(&#x27;zone&#x27;, JSON.stringify(zone));
+      },
+      async () &#x3D;&gt; {
+        if (
+          ((this.platform.is(&#x27;ios&#x27;) || this.platform.is(&#x27;android&#x27;)) &amp;&amp;
+            this.network.type !&#x3D;&#x3D; &#x27;none&#x27;) ||
+          (!this.platform.is(&#x27;ios&#x27;) &amp;&amp; !this.platform.is(&#x27;android&#x27;))
+        ) {
+          await this.storage.remove(&#x27;zone&#x27;);
+        }
+      }
+    );
   }
 
   private async setOfflineSettings() {
@@ -1168,6 +1310,20 @@ export class SettingsService {
       })
     };
     return this.http.get&lt;Settings&gt;(this.apiUrl + &#x27;/settings.json&#x27;, httpOptions);
+  }
+
+  public getZoneFromUrl(): Observable&lt;GeoJSON&gt; {
+    return this.http.get&lt;GeoJSON&gt;(this.apiUrl + &#x27;/contour/contour.geojson&#x27;);
+  }
+
+  public async getZoneFromStorage() {
+    const zone &#x3D; JSON.parse(await this.storage.get(&#x27;zone&#x27;));
+    return zone
+      ? zone
+      : {
+          type: &#x27;FeatureCollection&#x27;,
+          features: []
+        };
   }
 
   public saveFiltersState(filters: Filter[]): void {
@@ -1211,7 +1367,7 @@ export class SettingsService {
     return { id: -1, name: &#x27;&#x27; };
   }
 
-  public getHydratedTrek(trek: Trek): HydratedTrek {
+  public getHydratedTrek(trek: Trek, commonSrc: string): HydratedTrek {
     const hydratedTrek: HydratedTrek &#x3D; cloneDeep(trek) as any;
 
     if (trek.properties.difficulty) {
@@ -1275,6 +1431,20 @@ export class SettingsService {
           information_desk.type as number
         ) as Property;
       });
+    }
+
+    const regexp &#x3D; new RegExp(&#x60;src&#x3D;&quot;${this.apiUrl}&#x60;, &#x27;gi&#x27;);
+
+    if (trek.properties.description) {
+      hydratedTrek.properties.description &#x3D; trek.properties.description
+        .replace(regexp, &#x27;src&#x3D;&quot;&#x27;)
+        .replace(/src\&#x3D;\&quot;\//gi, &#x60;src&#x3D;&quot;${commonSrc}/&#x60;);
+    }
+
+    if (trek.properties.advice) {
+      hydratedTrek.properties.advice &#x3D; trek.properties.advice
+        .replace(regexp, &#x27;src&#x3D;&quot;&#x27;)
+        .replace(/src\&#x3D;\&quot;\//gi, &#x60;src&#x3D;&quot;${commonSrc}/&#x60;);
     }
 
     return hydratedTrek;
@@ -1341,6 +1511,7 @@ export class SettingsService {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
             var COMPODOC_CURRENT_PAGE_URL = 'SettingsService.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
