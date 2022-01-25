@@ -8,15 +8,41 @@
         >{{ 'trek.details.stage' | translate }} {{ stageIndex + 1 }} -</ion-text
       ><ion-text> {{ currentTrek.properties.name }}</ion-text>
     </div>
-    <ion-buttons slot="primary">
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons *ngIf="currentTrek" class="download-container">
       <ion-button
         *ngIf="!offline && !isAvailableOffline"
         (click)="presentDownloadConfirm()"
       >
-        <ion-icon slot="icon-only" name="download"></ion-icon>
+        Hors ligne
+        <ion-icon slot="start" name="download"></ion-icon>
       </ion-button>
-      <ion-button (click)="shareTrek()">
-        <ion-icon slot="icon-only" name="share"></ion-icon>
+      <ion-button
+        [href]="apiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.pdf'"
+        [download]="currentTrek.properties.slug! + '.pdf'"
+        fill="clear"
+        expand="full"
+      >
+        PDF
+        <ion-icon slot="start" name="document"></ion-icon>
+      </ion-button>
+      <ion-button
+        [href]="apiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.gpx'"
+        [download]="currentTrek.properties.slug! + '.gpx'"
+        fill="clear"
+        expand="full"
+      >
+        GPX
+        <ion-icon slot="start" name="document"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons *ngIf="currentTrek" class="share-container">
+      <ion-button (click)="shareTrek()" expand="full">
+        Partager
+        <ion-icon name="share"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

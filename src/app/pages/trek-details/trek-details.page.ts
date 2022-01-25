@@ -63,6 +63,10 @@ export class TrekDetailsPage extends UnSubscribe implements OnInit, OnDestroy {
   public previousTrek: Trek;
   public nextTrek: Trek;
   public isAvailableOffline = false;
+  public apiUrl = `${environment.onlineBaseUrl.replace(
+    'mobile',
+    'api'
+  )}/${this.translate.getDefaultLang()}/treks`;
 
   constructor(
     private onlineTreks: OnlineTreksService,
