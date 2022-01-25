@@ -76,10 +76,10 @@
                             <a href="#environment" title="src/environments/environment.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
-                            <a href="#mapboxgl" title="src/app/components/map-treks-viz/map-treks-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-treks-viz.component.ts)</a>
+                            <a href="#mapboxgl" title="src/app/components/map-trek-viz/map-trek-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-trek-viz.component.ts)</a>
                         </li>
                         <li>
-                            <a href="#mapboxgl" title="src/app/components/map-trek-viz/map-trek-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-trek-viz.component.ts)</a>
+                            <a href="#mapboxgl" title="src/app/components/map-treks-viz/map-treks-viz.component.ts"><b>mapboxgl</b>&nbsp;&nbsp;&nbsp;(src/.../map-treks-viz.component.ts)</a>
                         </li>
                         <li>
                             <a href="#primaryColor" title="src/environments/variables.ts"><b>primaryColor</b>&nbsp;&nbsp;&nbsp;(src/.../variables.ts)</a>
@@ -210,14 +210,14 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-  appName: &#x27;Rando Millevaches&#x27;, // app name used for app header
+  appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: true,
-  useFirebase: true,
-  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
+  useFirebase: false,
+  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null // only if you use mapbox vector tiles
   },
-  onlineBaseUrl: &#x27;https://rando-millevaches.fr/mobile&#x27;, // api url for app
+  onlineBaseUrl: &#x27;https://my-rando-domain.fr/mobile&#x27;, // api url for app
   onlineMapConfig: {
     // default online map config, for this starter we use raster tiles from open topo map
     attributionControl: false,
@@ -279,7 +279,7 @@
   trekZoom: {
     // zoom config for trek layer map
     minZoom: 13,
-    maxZoom: 17,
+    maxZoom: 16,
     zoom: 13
   },
   map: {
@@ -313,13 +313,11 @@
       &#x27;circle-stroke-width&#x27;: 1
     },
     zoneLayerProperties: {
-      // src/assets/map/zone/zone.geojson
-      // optionnal geojson to display on map
       type: &#x27;fill&#x27;,
       paint: {
         &#x27;fill-color&#x27;: primaryColor,
         &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
-        &#x27;fill-opacity&#x27;: 0.3
+        &#x27;fill-opacity&#x27;: 0
       }
     },
     zoneOutlineLayerProperties: {
@@ -327,7 +325,7 @@
       paint: {
         &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
-        &#x27;line-width&#x27;: 8
+        &#x27;line-width&#x27;: 4
       }
     },
     trekLineLayerProperties: {
@@ -434,14 +432,14 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-  appName: &#x27;Rando Millevaches&#x27;, // app name used for app header
+  appName: &#x27;Geotrek Starter&#x27;, // app name used for app header
   production: false,
-  useFirebase: true,
-  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
+  useFirebase: false,
+  availableLanguage: [&#x27;fr&#x27;, &#x27;en&#x27;, &#x27;it&#x27;], // we assume that availableLanguage[0] is default language, or &#x27;fr&#x27; if array is empty
   mapbox: {
     accessToken: null // only if you use mapbox vector tiles
   },
-  onlineBaseUrl: &#x27;https://rando-millevaches.fr/mobile&#x27;, // api url for app
+  onlineBaseUrl: &#x27;https://my-rando-domain.fr/mobile&#x27;, // api url for app
   onlineMapConfig: {
     // default online map config, for this starter we use raster tiles from open topo map
     attributionControl: false,
@@ -537,13 +535,11 @@
       &#x27;circle-stroke-width&#x27;: 1
     },
     zoneLayerProperties: {
-      // src/assets/map/zone/zone.geojson
-      // optionnal geojson to display on map
       type: &#x27;fill&#x27;,
       paint: {
         &#x27;fill-color&#x27;: primaryColor,
         &#x27;fill-outline-color&#x27;: &#x27;#625b5d&#x27;,
-        &#x27;fill-opacity&#x27;: 0.3
+        &#x27;fill-opacity&#x27;: 0
       }
     },
     zoneOutlineLayerProperties: {
@@ -551,7 +547,7 @@
       paint: {
         &#x27;line-color&#x27;: primaryColor,
         &#x27;line-opacity&#x27;: 1,
-        &#x27;line-width&#x27;: 8
+        &#x27;line-width&#x27;: 4
       }
     },
     trekLineLayerProperties: {
@@ -635,7 +631,7 @@
             </tbody>
         </table>
 </section>
-    <h3>src/app/components/map-treks-viz/map-treks-viz.component.ts</h3>
+    <h3>src/app/components/map-trek-viz/map-trek-viz.component.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
@@ -659,7 +655,7 @@
             </tbody>
         </table>
 </section>
-    <h3>src/app/components/map-trek-viz/map-trek-viz.component.ts</h3>
+    <h3>src/app/components/map-treks-viz/map-treks-viz.component.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
@@ -705,7 +701,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;#898083&#x27;</code>
+                            <i>Default value : </i><code>&#x27;#3880ff&#x27;</code>
                         </td>
                     </tr>
 
