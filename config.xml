@@ -22,9 +22,9 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="Scheme" value="https" />
     <platform name="android">
+        <preference name="StatusBarOverlaysWebView" value="false" />
         <resource-file src="analytics/google-services.json" target="app/google-services.json" />
         <resource-file src="resources/android_ic_notification/drawable-hdpi/ic_stat_panorama.png" target="app/src/main/res/mipmap/icon.png" />
         <allow-intent href="market:*" />
