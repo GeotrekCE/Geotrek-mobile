@@ -281,11 +281,17 @@ export class GeolocateService {
     } catch (error) {
       startLocation = null;
     } finally {
-      this.currentPosition$.next(
-        startLocation
-          ? [startLocation.longitude, startLocation.latitude]
-          : startLocation
-      );
+      if (!startLocation) {
+        startLocation = {
+          longitude: this.currentPosition$.value[0],
+          latitude: this.currentPosition$.value[1]
+        };
+      } else {
+        this.currentPosition$.next([
+          startLocation.longitude,
+          startLocation.latitude
+        ]);
+      }
 
       return startLocation;
     }
