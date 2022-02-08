@@ -45,6 +45,8 @@
     }
   },
   "trek": {
+    "offline": "Hors ligne",
+    "share": "Partager",
     "downloadAlert": {
       "title": "Mode hors ligne",
       "contentTrek": "Télécharger cette randonnée afin d'y avoir accès hors connexion",

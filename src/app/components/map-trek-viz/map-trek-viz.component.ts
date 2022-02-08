@@ -20,7 +20,6 @@ import {
 import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import {
   Pois,
   DataSetting,
@@ -45,26 +44,28 @@ const mapboxgl = require('mapbox-gl');
   templateUrl: './map-trek-viz.component.html',
   styleUrls: ['./map-trek-viz.component.scss']
 })
-export class MapTrekVizComponent extends UnSubscribe
-  implements OnDestroy, OnChanges {
+export class MapTrekVizComponent implements OnDestroy, OnChanges {
   private map: Map;
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
   private touristicsContentCategory: DataSetting | undefined;
   private navigate$: Subscription;
   public navigateModeIsActive: boolean = false;
+  private screenOrientationSubscription: Subscription;
+  private currentPositionSubscription: Subscription;
+  private currentHeadingSubscription: Subscription;
+  private loadImagesSubscription: Subscription;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois: Pois;
   @Input() touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
-  @Input() public dataSettings: DataSetting[];
-  @Input() public mapConfig: any;
-  @Input() private commonSrc: string;
+  @Input() dataSettings: DataSetting[];
+  @Input() mapConfig: any;
+  @Input() commonSrc: string;
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
-  @Output() mapIsLoaded = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
 
   constructor(
@@ -77,7 +78,6 @@ export class MapTrekVizComponent extends UnSubscribe
     private alertController: AlertController,
     private modalController: ModalController
   ) {
-    super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
       mapboxgl.accessToken = environment.mapbox.accessToken;
     }
@@ -120,7 +120,21 @@ export class MapTrekVizComponent extends UnSubscribe
     this.geolocate.stopNotificationsModeTracking();
     this.geolocate.stopOnMapTracking();
 
-    super.ngOnDestroy();
+    if (this.screenOrientationSubscription) {
+      this.screenOrientationSubscription.unsubscribe();
+    }
+
+    if (this.currentPositionSubscription) {
+      this.currentPositionSubscription.unsubscribe();
+    }
+
+    if (this.currentHeadingSubscription) {
+      this.currentHeadingSubscription.unsubscribe();
+    }
+
+    if (this.loadImagesSubscription) {
+      this.loadImagesSubscription.unsubscribe();
+    }
   }
 
   async createMap() {
@@ -134,6 +148,7 @@ export class MapTrekVizComponent extends UnSubscribe
         this.mapConfig.trekBounds,
         environment.map.TrekfitBoundsOptions
       );
+
       this.map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
         'top-left'
@@ -183,11 +198,12 @@ export class MapTrekVizComponent extends UnSubscribe
             e.features[0].properties.id &&
             this.currentTrek
           ) {
-            const informationDesk = this.currentTrek.properties.information_desks.find(
-              (informationDeskProperty) =>
-                informationDeskProperty.id ===
-                (e as any).features[0].properties.id
-            );
+            const informationDesk =
+              this.currentTrek.properties.information_desks.find(
+                (informationDeskProperty) =>
+                  informationDeskProperty.id ===
+                  (e as any).features[0].properties.id
+              );
             this.presentInformationDeskDetails.emit(informationDesk);
           }
         }
@@ -224,158 +240,154 @@ export class MapTrekVizComponent extends UnSubscribe
 
       this.handleClustersInteraction();
 
-      this.map.on('load', () => {
-        if (this.platform.is('ios') || this.platform.is('android')) {
-          this.subscriptions$$.push(
-            this.screenOrientation.onChange().subscribe(() => {
-              // Need to delay before resize
-              window.setTimeout(() => {
-                this.map.resize();
-              }, 50);
-            })
-          );
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        this.screenOrientationSubscription = this.screenOrientation
+          .onChange()
+          .subscribe(() => {
+            // Need to delay before resize
+            window.setTimeout(() => {
+              this.map.resize();
+            }, 50);
+          });
+      }
+
+      const loadImages: Observable<any> = Observable.create((observer: any) => {
+        const imagesToLoad: any[] = [];
+        this.poisType = this.dataSettings.find(
+          (data) => data.id === 'poi_types'
+        );
+
+        if (this.poisType) {
+          this.poisType.values.forEach((poiType) => {
+            if (poiType.pictogram) {
+              imagesToLoad.push({
+                id: `pois${poiType.id}`,
+                pictogram: poiType.pictogram
+              });
+            }
+          });
         }
 
-        const loadImages: Observable<any> = Observable.create(
-          (observer: any) => {
-            const imagesToLoad: any[] = [];
-            this.poisType = this.dataSettings.find(
-              (data) => data.id === 'poi_types'
-            );
+        const typeInformationDesks: DataSetting | undefined =
+          this.dataSettings.find(
+            (data) => data.id === 'information_desk_types'
+          );
 
-            if (this.poisType) {
-              this.poisType.values.forEach((poiType) => {
-                if (poiType.pictogram) {
-                  imagesToLoad.push({
-                    id: `pois${poiType.id}`,
-                    pictogram: poiType.pictogram
-                  });
-                }
+        if (typeInformationDesks) {
+          typeInformationDesks.values.forEach((typeInformationDesk) => {
+            if (typeInformationDesk.pictogram) {
+              imagesToLoad.push({
+                id: `informationDesk${typeInformationDesk.id}`,
+                pictogram: typeInformationDesk.pictogram
               });
             }
+          });
+        }
 
-            const typeInformationDesks:
-              | DataSetting
-              | undefined = this.dataSettings.find(
-              (data) => data.id === 'information_desk_types'
-            );
+        const touristicsContent: DataSetting | undefined =
+          this.dataSettings.find(
+            (data) => data.id === 'touristiccontent_categories'
+          );
 
-            if (typeInformationDesks) {
-              typeInformationDesks.values.forEach((typeInformationDesk) => {
-                if (typeInformationDesk.pictogram) {
-                  imagesToLoad.push({
-                    id: `informationDesk${typeInformationDesk.id}`,
-                    pictogram: typeInformationDesk.pictogram
-                  });
-                }
+        if (touristicsContent) {
+          touristicsContent.values.forEach((touristicContent) => {
+            if (touristicContent.pictogram) {
+              imagesToLoad.push({
+                id: `touristicContent${touristicContent.id}`,
+                pictogram: touristicContent.pictogram
               });
             }
+          });
+        }
 
-            const touristicsContent:
-              | DataSetting
-              | undefined = this.dataSettings.find(
-              (data) => data.id === 'touristiccontent_categories'
-            );
+        imagesToLoad.push({
+          id: 'arrival',
+          pictogram: './assets/map/icons/departure.png',
+          fromAssets: true
+        });
+        imagesToLoad.push({
+          id: 'departure',
+          pictogram: './assets/map/icons/arrival.png',
+          fromAssets: true
+        });
+        imagesToLoad.push({
+          id: 'departureArrival',
+          pictogram: './assets/map/icons/departureArrival.png',
+          fromAssets: true
+        });
+        imagesToLoad.push({
+          id: 'parking',
+          pictogram: './assets/map/icons/parking.png',
+          fromAssets: true
+        });
+        imagesToLoad.push({
+          id: 'arrow',
+          pictogram: './assets/map/icons/arrow.png',
+          fromAssets: true
+        });
 
-            if (touristicsContent) {
-              touristicsContent.values.forEach((touristicContent) => {
-                if (touristicContent.pictogram) {
-                  imagesToLoad.push({
-                    id: `touristicContent${touristicContent.id}`,
-                    pictogram: touristicContent.pictogram
-                  });
-                }
-              });
+        imagesToLoad.forEach((imageToLoad: any, index: number) => {
+          this.map.loadImage(
+            imageToLoad.fromAssets
+              ? imageToLoad.pictogram
+              : `${this.commonSrc}${imageToLoad.pictogram}`,
+            (error: any, image: any) => {
+              this.map.addImage(imageToLoad.id.toString(), image);
+              if (index + 1 === imagesToLoad.length) {
+                observer.complete();
+              }
             }
+          );
+        });
+      });
 
-            imagesToLoad.push({
-              id: 'arrival',
-              pictogram: './assets/map/icons/departure.png',
-              fromAssets: true
-            });
-            imagesToLoad.push({
-              id: 'departure',
-              pictogram: './assets/map/icons/arrival.png',
-              fromAssets: true
-            });
-            imagesToLoad.push({
-              id: 'departureArrival',
-              pictogram: './assets/map/icons/departureArrival.png',
-              fromAssets: true
-            });
-            imagesToLoad.push({
-              id: 'parking',
-              pictogram: './assets/map/icons/parking.png',
-              fromAssets: true
-            });
-            imagesToLoad.push({
-              id: 'arrow',
-              pictogram: './assets/map/icons/arrow.png',
-              fromAssets: true
-            });
+      this.currentPositionSubscription = this.geolocate.currentPosition$
+        .pipe(
+          filter((currentPosition) => currentPosition !== null),
+          distinctUntilChanged(),
+          throttleTime(environment.backgroundGeolocation.interval)
+        )
+        .subscribe(async (coordinates) => {
+          if (this.markerPosition) {
+            this.markerPosition.setLngLat(coordinates);
+          } else {
+            const el = document.createElement('div');
+            const currentHeading =
+              await this.geolocate.checkIfCanGetCurrentHeading();
+            el.className = currentHeading ? 'pulse-and-view' : 'pulse';
 
-            imagesToLoad.forEach((imageToLoad: any, index: number) => {
-              this.map.loadImage(
-                imageToLoad.fromAssets
-                  ? imageToLoad.pictogram
-                  : `${this.commonSrc}${imageToLoad.pictogram}`,
-                (error: any, image: any) => {
-                  this.map.addImage(imageToLoad.id.toString(), image);
-                  if (index + 1 === imagesToLoad.length) {
-                    observer.complete();
-                  }
-                }
-              );
-            });
+            this.markerPosition = new mapboxgl.Marker({
+              element: el
+            }).setLngLat(coordinates);
+            if (this.markerPosition) {
+              this.markerPosition.addTo(this.map);
+            }
           }
-        );
+        });
 
-        this.subscriptions$$.push(
-          this.geolocate.currentPosition$
-            .pipe(
-              filter((currentPosition) => currentPosition !== null),
-              distinctUntilChanged(),
-              throttleTime(environment.backgroundGeolocation.interval)
-            )
-            .subscribe(async (coordinates) => {
-              if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates);
-              } else {
-                const el = document.createElement('div');
-                const currentHeading = await this.geolocate.checkIfCanGetCurrentHeading();
-                el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+      this.currentHeadingSubscription =
+        this.geolocate.currentHeading$.subscribe((heading) => {
+          if (this.markerPosition && heading) {
+            (this.markerPosition as any).setRotation(heading);
+          }
+        });
 
-                this.markerPosition = new mapboxgl.Marker({
-                  element: el
-                }).setLngLat(coordinates);
-                if (this.markerPosition) {
-                  this.markerPosition.addTo(this.map);
-                }
-              }
-            }),
-          this.geolocate.currentHeading$.subscribe((heading) => {
-            if (this.markerPosition && heading) {
-              (this.markerPosition as any).setRotation(heading);
-            }
-          }),
-          loadImages.subscribe({
-            complete: async () => {
-              // map instance for cypress test
-              this.mapViz.nativeElement.mapInstance = this.map;
+      this.loadImagesSubscription = loadImages.subscribe({
+        complete: async () => {
+          // map instance for cypress test
+          this.mapViz.nativeElement.mapInstance = this.map;
 
-              await this.initializeSources();
-              this.initializeLayers();
-              this.updateSources();
-              this.mapIsLoaded.emit(true);
+          await this.initializeSources();
+          this.initializeLayers();
+          this.updateSources();
 
-              const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
-              if (shouldShowInAppDisclosure) {
-                await this.presentInAppDisclosure();
-              }
-              this.geolocate.startOnMapTracking();
-            }
-          })
-        );
+          const shouldShowInAppDisclosure =
+            await this.geolocate.shouldShowInAppDisclosure();
+          if (shouldShowInAppDisclosure) {
+            await this.presentInAppDisclosure();
+          }
+          this.geolocate.startOnMapTracking();
+        }
       });
     }
   }
@@ -1011,9 +1023,9 @@ export class MapTrekVizComponent extends UnSubscribe
 
           if (this.map.getZoom() === this.mapConfig.maxZoom) {
             // no more zoom, display features inside cluster
-            (this.map.getSource(
-              clusterSource.id
-            ) as GeoJSONSource).getClusterLeaves(
+            (
+              this.map.getSource(clusterSource.id) as GeoJSONSource
+            ).getClusterLeaves(
               featureProperties.cluster_id,
               Infinity,
               0,
@@ -1035,21 +1047,18 @@ export class MapTrekVizComponent extends UnSubscribe
             );
           } else {
             // zoom to next cluster expansion
-            (this.map.getSource(
-              clusterSource.id
-            ) as GeoJSONSource).getClusterExpansionZoom(
-              clusterId,
-              (err: any, zoom: number) => {
-                if (err) {
-                  return;
-                }
-                const coordinates = (features[0].geometry as Point).coordinates;
-                this.map.easeTo({
-                  center: [coordinates[0], coordinates[1]],
-                  zoom: zoom
-                });
+            (
+              this.map.getSource(clusterSource.id) as GeoJSONSource
+            ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
+              if (err) {
+                return;
               }
-            );
+              const coordinates = (features[0].geometry as Point).coordinates;
+              this.map.easeTo({
+                center: [coordinates[0], coordinates[1]],
+                zoom: zoom
+              });
+            });
           }
         }
       });

@@ -7,7 +7,6 @@ import { SharedModule } from '@app/shared/shared.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { TrekMapPage } from './trek-map.page';
-import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 
 const routes: Routes = [
   {
@@ -29,6 +28,6 @@ const routes: Routes = [
     SharedUiModule,
     TranslateModule.forChild()
   ],
-  declarations: [TrekMapPage, SelectPoiComponent]
+  declarations: [TrekMapPage]
 })
 export class TrekMapPageModule {}

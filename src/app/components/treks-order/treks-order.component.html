@@ -1,5 +1,5 @@
 <ion-list lines="inset">
-  <ion-radio-group>
+  <ion-radio-group [value]="currentOrder">
     <ion-list-header>
       <ion-label>{{ 'toolbar.orderTitle' | translate }}</ion-label>
     </ion-list-header>
@@ -7,7 +7,6 @@
       <ion-label>{{ order.name }}</ion-label>
       <ion-radio
         (click)="treksOrderChange(order.value)"
-        [checked]="order.value === currentOrder"
         [value]="order.value"
         slot="end"
       ></ion-radio>

@@ -2,12 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeoJSON } from 'geojson';
 
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { Platform } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Globalization } from '@ionic-native/globalization/ngx';
 
 import {
   Trek,
@@ -35,7 +37,6 @@ export class SettingsService {
     type: Order;
     value: number[] | undefined;
   } | null>(null);
-  // User location, used for ordering treks by distance
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
 
@@ -44,32 +45,78 @@ export class SettingsService {
     public storage: Storage,
     private platform: Platform,
     private network: Network,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private statusBar: StatusBar,
+    private globalization: Globalization
   ) {}
 
-  public loadSettings() {
-    this.setOfflineSettings();
+  public initializeSettings(): Promise<any> {
+    return new Promise(async (resolve) => {
+      this.platform.ready().then(async () => {
+        let defaultLanguage;
 
-    this.getSettings().subscribe(async (settings) => {
-      await this.storage.set('settings', JSON.stringify(settings));
-      this.filters$.next(this.getFilters(settings));
-      this.data$.next(settings.data);
-    });
-
-    this.getZoneFromUrl().subscribe(
-      async (zone) => {
-        await this.storage.set('zone', JSON.stringify(zone));
-      },
-      async () => {
-        if (
-          ((this.platform.is('ios') || this.platform.is('android')) &&
-            this.network.type !== 'none') ||
-          (!this.platform.is('ios') && !this.platform.is('android'))
-        ) {
-          await this.storage.remove('zone');
+        if (this.platform.is('ios') || this.platform.is('android')) {
+          defaultLanguage = (
+            await this.globalization.getPreferredLanguage()
+          ).value.slice(0, 2);
+          this.statusBar.styleLightContent();
+        } else {
+          defaultLanguage = navigator.language.slice(0, 2);
         }
-      }
-    );
+
+        if (
+          environment.availableLanguage &&
+          environment.availableLanguage.length > 0
+        ) {
+          if (environment.availableLanguage.indexOf(defaultLanguage) === -1) {
+            defaultLanguage = environment.availableLanguage[0];
+          }
+        } else {
+          defaultLanguage = 'fr';
+        }
+
+        this.translate.setDefaultLang(defaultLanguage);
+
+        await this.storage.create();
+
+        await this.loadSettings();
+
+        resolve(true);
+      });
+    });
+  }
+
+  public loadSettings() {
+    return new Promise(async (resolve) => {
+      this.setOfflineSettings();
+
+      this.getSettings().subscribe({
+        next: async (value) => {
+          await this.storage.set('settings', JSON.stringify(value));
+          this.filters$.next(this.getFilters(value));
+          this.data$.next(value.data);
+          resolve(true);
+        },
+        error: () => {
+          resolve(true);
+        }
+      });
+
+      this.getZoneFromUrl().subscribe({
+        next: async (value) => {
+          await this.storage.set('zone', JSON.stringify(value));
+        },
+        error: async () => {
+          if (
+            ((this.platform.is('ios') || this.platform.is('android')) &&
+              this.network.type !== 'none') ||
+            (!this.platform.is('ios') && !this.platform.is('android'))
+          ) {
+            await this.storage.remove('zone');
+          }
+        }
+      });
+    });
   }
 
   private async setOfflineSettings() {

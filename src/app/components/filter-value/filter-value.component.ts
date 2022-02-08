@@ -18,7 +18,7 @@ export class FilterValueComponent implements OnInit {
 
   ngOnInit() {}
 
-  public valueCheckChanged($event: CustomEvent, value: FilterValue) {
+  public valueCheckChanged($event: any, value: FilterValue) {
     this.valueChange.emit({ checked: $event.detail.checked, value: value });
   }
 }

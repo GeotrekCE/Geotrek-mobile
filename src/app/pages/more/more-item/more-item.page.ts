@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { InformationItem } from '@app/interfaces/interfaces';
 
 @Component({
@@ -9,28 +9,32 @@ import { InformationItem } from '@app/interfaces/interfaces';
   templateUrl: './more-item.page.html',
   styleUrls: ['./more-item.page.scss']
 })
-export class MoreItemPage extends UnSubscribe implements OnInit, OnDestroy {
+export class MoreItemPage implements OnInit, OnDestroy {
   moreItem: InformationItem;
   moreItemId: number;
   connectionError = false;
+  private moreItemSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-    super();
-  }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    super.ngOnInit();
-    this.subscriptions$$.push(
-      this.route.data.subscribe((data: Data) => {
-        const item = data['item'] as (InformationItem | 'connectionError');
-        if (item === 'connectionError') {
-          this.connectionError = true;
-        } else {
+    this.moreItemSubscription = this.route.data.subscribe((data: Data) => {
+      const item = data['item'] as InformationItem | 'connectionError';
+      if (item === 'connectionError') {
+        this.connectionError = true;
+      } else {
+        if (!this.moreItem) {
           this.connectionError = false;
           this.moreItem = item;
         }
-      })
-    );
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.moreItemSubscription) {
+      this.moreItemSubscription.unsubscribe();
+    }
   }
 
   refresh() {

@@ -1,10 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { ModalController, Platform, PopoverController } from '@ionic/angular';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 import { MapboxOptions } from 'mapbox-gl';
 
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.component';
 import { InformationDeskDetailsComponent } from '@app/components/information-desk-details/information-desk-details.component';
 
@@ -17,7 +17,6 @@ import {
   TouristicCategoryWithFeatures,
   TreksService
 } from '@app/interfaces/interfaces';
-import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { Location } from '@angular/common';
 
@@ -26,11 +25,10 @@ import { Location } from '@angular/common';
   templateUrl: './trek-map.page.html',
   styleUrls: ['./trek-map.page.scss']
 })
-export class TrekMapPage extends UnSubscribe implements OnDestroy {
+export class TrekMapPage implements OnInit, OnDestroy {
   public currentTrek: HydratedTrek | null = null;
   public currentPois: Pois;
   public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
-  public loader = true;
   public trekUrl = '';
   public connectionError = false;
   public modalPoiDetails: HTMLIonModalElement | null;
@@ -38,9 +36,11 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
   public commonSrc: string;
   public offline = false;
   private treksTool: TreksService;
+  private dataSubscription: Subscription;
+  private backButtonSubscription: Subscription;
+  public canDisplayMap = false;
 
   constructor(
-    private loading: LoadingService,
     private modalController: ModalController,
     private route: ActivatedRoute,
     private router: Router,
@@ -48,19 +48,15 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
     private platform: Platform,
     private popoverCtrl: PopoverController,
     private location: Location
-  ) {
-    super();
-  }
+  ) {}
 
-  ionViewDidEnter(): void {
-    this.loading.begin('trek-map');
-    this.subscriptions$$.push(
-      this.route.data.subscribe((data: Data): void => {
-        const context: TrekContext | 'connectionError' = data.context;
-        if (context === 'connectionError') {
-          this.connectionError = true;
-          this.loading.finish('trek-map'); // if there is a connection error, map won't be loaded
-        } else {
+  ngOnInit(): void {
+    this.dataSubscription = this.route.data.subscribe((data: Data): void => {
+      const context: TrekContext | 'connectionError' = data.context;
+      if (context === 'connectionError') {
+        this.connectionError = true;
+      } else {
+        if (!this.currentTrek) {
           this.connectionError = false;
           this.offline = context.offline;
           this.currentTrek = context.trek;
@@ -74,13 +70,12 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
             (this.currentTrek as any).properties.id
           );
         }
-      })
-    );
+      }
+    });
 
     if (this.platform.is('android')) {
-      this.subscriptions$$.push(
+      this.backButtonSubscription =
         this.platform.backButton.subscribeWithPriority(99999, async () => {
-          // close popover
           try {
             const popover = await this.popoverCtrl.getTop();
             if (popover) {
@@ -96,14 +91,22 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
 
             this.location.back();
           } catch (error) {}
-        })
-      );
+        });
     }
   }
 
   ngOnDestroy() {
-    super.ngOnDestroy();
-    this.loading.finish();
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
+
+  ionViewWillEnter() {
+    this.canDisplayMap = true;
   }
 
   public async presentPoiDetails(poi: Poi): Promise<void> {
@@ -132,10 +135,6 @@ export class TrekMapPage extends UnSubscribe implements OnDestroy {
       componentProps: { informationDesk }
     });
     return await modal.present();
-  }
-
-  public mapIsLoaded(event: Event): void {
-    this.loading.finish('trek-map');
   }
 
   public refresh() {

@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content>
-  <app-loader></app-loader>
   <ng-container>
     <app-connect-error
       *ngIf="connectionError; else trekMap"
@@ -24,12 +23,12 @@
   </ng-container>
   <ng-template #trekMap>
     <app-map-trek-viz
+      *ngIf="canDisplayMap"
       [currentTrek]="currentTrek"
       [currentPois]="currentPois"
       [touristicCategoriesWithFeatures]="touristicCategoriesWithFeatures"
       (presentPoiDetails)="presentPoiDetails($event)"
       (presentInformationDeskDetails)="presentInformationDeskDetails($event)"
-      (mapIsLoaded)="mapIsLoaded($event)"
       [mapConfig]="mapConfig"
       [dataSettings]="settings.data$.value"
       [commonSrc]="commonSrc"

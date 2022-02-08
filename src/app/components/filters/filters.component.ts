@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { Filter, FilterValue, MinimalTreks } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
@@ -14,12 +13,15 @@ import { SettingsService } from '@app/services/settings/settings.service';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
+export class FiltersComponent implements OnInit, OnDestroy {
   public temporaryFilters$ = new BehaviorSubject<Filter[]>([]);
   public nbTemporaryFiltersTreks = 0;
   public commonSrc: string;
   public filters: Filter[];
   private filtersSubscription: Subscription;
+  private backButtonSubscription: Subscription;
+  private nbTemporaryFiltersTreksSubscription: Subscription;
+
   @Input() public isOnline: boolean;
 
   constructor(
@@ -28,15 +30,9 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
     private platform: Platform
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ionViewDidEnter(): void {
     const treks$ = this.isOnline
       ? this.onlineTreks.treks$
       : this.offlineTreks.treks$;
@@ -49,18 +45,20 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
       this.temporaryFilters$.next(filters || []);
     });
 
-    this.subscriptions$$.push(
+    this.backButtonSubscription =
       this.platform.backButton.subscribeWithPriority(99999, () => {
         this.close();
-      }),
+      });
 
-      combineLatest(treks$, this.temporaryFilters$).subscribe(
-        ([treks, temporaryFilters]: [MinimalTreks | null, Filter[]]) => {
-          this.nbTemporaryFiltersTreks = !!treks
-            ? FilterTreksService.filter(treks, temporaryFilters).length
-            : 0;
-        }
-      )
+    this.nbTemporaryFiltersTreksSubscription = combineLatest(
+      treks$,
+      this.temporaryFilters$
+    ).subscribe(
+      ([treks, temporaryFilters]: [MinimalTreks | null, Filter[]]) => {
+        this.nbTemporaryFiltersTreks = !!treks
+          ? FilterTreksService.filter(treks, temporaryFilters).length
+          : 0;
+      }
     );
   }
 
@@ -92,7 +90,6 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
   }
 
   public applyFilters(): void {
-    this.unsubscribeFilters();
     this.settings.saveFiltersState(this.temporaryFilters$.getValue());
     this.modalCtrl.dismiss(true);
   }
@@ -109,19 +106,18 @@ export class FiltersComponent extends UnSubscribe implements OnInit, OnDestroy {
     this.modalCtrl.dismiss();
   }
 
-  public trackFilters(index: number, element: Filter): string | null {
-    return element ? element.id : null;
-  }
-
-  public unsubscribeFilters(): void {
+  ngOnDestroy(): void {
     if (this.filtersSubscription) {
       this.filtersSubscription.unsubscribe();
     }
-  }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.unsubscribeFilters();
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+
+    if (this.nbTemporaryFiltersTreksSubscription) {
+      this.nbTemporaryFiltersTreksSubscription.unsubscribe();
+    }
   }
 
   public trackByFilterId(index: number, element: Filter): string | null {

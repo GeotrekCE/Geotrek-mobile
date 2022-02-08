@@ -1,7 +1,8 @@
 import {
   Component,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnInit
 } from '@angular/core';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { Subscription } from 'rxjs';
@@ -12,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.scss']
 })
-export class ProgressComponent {
+export class ProgressComponent implements OnInit {
   public currentProgress: number;
   private currentProgress$: Subscription;
 
@@ -21,13 +22,12 @@ export class ProgressComponent {
     private ref: ChangeDetectorRef
   ) {}
 
-  ionViewWillEnter(): void {
-    this.currentProgress$ = this.offlineTreks.currentProgressDownload$.subscribe(
-      (val) => {
+  ngOnInit(): void {
+    this.currentProgress$ =
+      this.offlineTreks.currentProgressDownload$.subscribe((val) => {
         this.currentProgress = val;
         this.ref.detectChanges();
-      }
-    );
+      });
   }
 
   ionViewWillLeave(): void {

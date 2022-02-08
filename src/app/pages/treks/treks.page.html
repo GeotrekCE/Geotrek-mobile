@@ -7,13 +7,12 @@
   >
     <ion-grid class="ion-no-padding">
       <ion-row>
-        <ion-col size="auto" class="vertical-center">
+        <ion-col size="auto" class="vertical-center ion-margin-start">
           <ion-button
             (click)="presentFilters()"
             color="light"
             size="small"
             class="custom-button"
-            [disabled]="loaderStatus"
           >
             {{ 'toolbar.filters' | translate }} {{ numberOfActiveFilters }}
           </ion-button>
@@ -21,33 +20,33 @@
             (click)="presentSearch()"
             color="light"
             size="small"
-            class="custom-button button-margin-left"
-            [disabled]="loaderStatus"
+            class="custom-button ion-margin-start"
           >
             {{ 'toolbar.search' | translate }}
           </ion-button>
         </ion-col>
-        <ion-col
-          class="ion-text-right"
-          [ngClass]="{ 'list-mode-card': this.colSize === 12, 'list-mode-disabled': loaderStatus }"
-        >
+        <ion-col class="ion-text-right">
           <ion-button
-            class="toolbar-button"
+            class="toolbar-icon-button"
             (click)="showTreksOrder($event)"
             fill="clear"
             color="dark"
           >
-            <ion-icon slot="icon-only" name="swap" size="large"></ion-icon>
+            <ion-icon
+              slot="icon-only"
+              name="swap-horizontal-outline"
+              size="large"
+            ></ion-icon>
           </ion-button>
 
           <ion-button
-            class="toolbar-button"
+            class="toolbar-icon-button"
             (click)="changeColSize()"
             fill="clear"
             color="dark"
           >
             <ion-icon
-              [name]="colSize === 12 ? 'apps' : 'reorder'"
+              [name]="colSize === 12 ? 'apps' : 'reorder-four-outline'"
               size="large"
             ></ion-icon>
           </ion-button>
@@ -56,52 +55,38 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-content style="position : relative" #content>
-  <app-loader></app-loader>
-
-  <ng-container *ngIf="!offline; else treksList">
-    <app-connect-error
-      *ngIf="(onlineTreks.onlineTreksError$ | async) || noNetwork; else treksList"
-      icon="wifi"
-      [title]="'error.title' | translate"
-      [content]="'error.contentTreks' | translate"
-      [buttonText]="'error.buttonText' | translate"
-      (retry)="loadTreks()"
-    >
-    </app-connect-error>
-  </ng-container>
-
-  <ng-template #treksList>
-    <div *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks">
-      <ion-list>
-        <ion-grid fixed>
-          <ion-row class="ion-padding-start" size="12">
-            <ion-text>
-              <h1 *ngIf="filteredTreks.length === 1" translate>
-                treks.numberOftrek
-              </h1>
-              <h1 *ngIf="filteredTreks.length > 1">
-                {{ filteredTreks.length }}
-                <span translate>treks.numberOftreks</span>
-              </h1>
-            </ion-text>
-          </ion-row>
-          <ion-row class="ion-align-items-stretch">
-            <ion-col
-              [size]="colSize"
-              [sizeMd]="getMdColSize()"
-              *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
-            >
-              <app-trek-card
-                [showAllData]="this.colSize === 12"
-                [trek]="trek"
-                [offline]="offline"
-              ></app-trek-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-list>
-    </div>
+<ion-content #content>
+  <ng-container
+    *ngIf="!!filteredTreks && filteredTreks.length > 0 && ((!offline && !noNetwork) || offline); else noTreks"
+  >
+    <ion-list>
+      <ion-grid fixed>
+        <ion-row class="ion-padding-start" size="12">
+          <ion-text>
+            <h1 *ngIf="filteredTreks.length === 1" translate>
+              treks.numberOftrek
+            </h1>
+            <h1 *ngIf="filteredTreks.length > 1">
+              {{ filteredTreks.length }}
+              <span translate>treks.numberOftreks</span>
+            </h1>
+          </ion-text>
+        </ion-row>
+        <ion-row class="ion-align-items-stretch">
+          <ion-col
+            [size]="colSize"
+            [sizeMd]="getMdColSize()"
+            *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks; trackBy: trackTrek"
+          >
+            <app-trek-card
+              [showAllData]="this.colSize === 12"
+              [trek]="trek"
+              [offline]="offline"
+            ></app-trek-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
 
     <ion-fab
       *ngIf="!!filteredTreks && filteredTreks.length > 0"
@@ -117,37 +102,40 @@
     <ion-infinite-scroll threshold="100px" (ionInfinite)="expandTreks($event)">
       <ion-infinite-scroll-content> </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </ng-template>
-
+  </ng-container>
   <ng-template #noTreks>
-    <ng-container *ngIf="offline">
+    <ng-container *ngIf="!offline; else noTreksOffline">
+      <app-connect-error
+        icon="wifi"
+        [title]="'error.title' | translate"
+        [content]="'error.contentTreks' | translate"
+        [buttonText]="'error.buttonText' | translate"
+        (retry)="loadTreks()"
+      >
+      </app-connect-error>
+    </ng-container>
+    <ng-template #noTreksOffline>
       <ng-container>
         <ion-grid class="flex-container" [ngSwitch]="nbOfflineTreks > 0">
           <ng-container *ngSwitchCase="true">
             <ion-row>
-              <ion-col translate>
-                treks.noOfflineResults
-              </ion-col>
+              <ion-col translate> treks.noOfflineResults </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
                 <ion-button (click)="resetFilters()" color="light">
-                  <span translate>
-                    treks.showAllTreks
-                  </span>
+                  <span translate> treks.showAllTreks </span>
                 </ion-button>
               </ion-col>
             </ion-row>
           </ng-container>
           <ion-row *ngSwitchCase="false">
             <ion-col>
-              <span translate>
-                treks.emptyOfflineTreks
-              </span>
+              <span translate> treks.emptyOfflineTreks </span>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ng-container>
-    </ng-container>
+    </ng-template>
   </ng-template>
 </ion-content>

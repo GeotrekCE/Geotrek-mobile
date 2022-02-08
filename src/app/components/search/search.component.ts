@@ -2,16 +2,16 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  OnDestroy
 } from '@angular/core';
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
-import { MinimalTrek, MinimalTreks, Trek } from '@app/interfaces/interfaces';
+import { MinimalTrek, MinimalTreks } from '@app/interfaces/interfaces';
 import { SearchTreksService } from '@app/services/search-treks/search-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
-import { ModalController, NavParams, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -20,13 +20,14 @@ import { ModalController, NavParams, Platform } from '@ionic/angular';
   providers: [SearchTreksService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent extends UnSubscribe implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   public filteredTreks: MinimalTrek[] = [];
   public currentSearchValue: string;
-  public viewIsLoad = false;
   private treks: MinimalTreks | null = null;
   public treksByStep = 30;
   public currentMaxTreks = 30;
+  private backButtonSubscription: Subscription;
+  private treksSubscription: Subscription;
 
   constructor(
     private modalCtrl: ModalController,
@@ -34,44 +35,43 @@ export class SearchComponent extends UnSubscribe implements OnInit {
     private offlineTreks: OfflineTreksService,
     private searchTreks: SearchTreksService,
     private navParams: NavParams,
-    private platform: Platform,
-    private ref: ChangeDetectorRef
-  ) {
-    super();
-  }
+    private platform: Platform
+  ) {}
 
   ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  ionViewDidEnter(): void {
     const isOnline = this.navParams.get('isOnline');
     const treksTool = isOnline ? this.onlineTreks : this.offlineTreks;
-    this.subscriptions$$.push(
+    this.backButtonSubscription =
       this.platform.backButton.subscribeWithPriority(99999, () => {
         this.close();
-      }),
-      treksTool.treks$.subscribe((treks) => {
-        this.treks = treks;
-        if (this.treks) {
-          this.filteredTreks = this.searchTreks.search(this.treks.features, '');
-        }
-        this.viewIsLoad = true;
-        this.ref.detectChanges();
-      })
-    );
+      });
+    this.treksSubscription = treksTool.treks$.subscribe((treks) => {
+      this.treks = treks;
+      if (this.treks) {
+        this.filteredTreks = this.searchTreks.search(this.treks.features, '');
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+    if (this.treksSubscription) {
+      this.treksSubscription.unsubscribe();
+    }
   }
 
   public close(): void {
     this.modalCtrl.dismiss();
   }
 
-  public search(searchValue: string): void {
-    this.currentSearchValue = searchValue;
+  public search(searchValue: any): void {
+    this.currentSearchValue = searchValue.detail.value;
     if (this.treks) {
       this.filteredTreks = this.searchTreks.search(
         this.treks.features,
-        searchValue
+        searchValue.detail.value
       );
     } else {
       this.filteredTreks = [];
@@ -80,10 +80,6 @@ export class SearchComponent extends UnSubscribe implements OnInit {
 
   public navigateToTrek(id: number) {
     this.modalCtrl.dismiss(id);
-  }
-
-  public trackTrek(index: number, element: Trek): number | null {
-    return element ? element.properties.id : null;
   }
 
   public expandTreks(infiniteScroll: any) {

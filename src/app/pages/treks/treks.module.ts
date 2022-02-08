@@ -6,8 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { SharedTreksModule } from '@app/shared/shared-treks.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 
-import { FiltersComponentModule } from '@app/components/filters/filters.module';
-
 import { RouterModule } from '@angular/router';
 import { TreksPage } from './treks.page';
 
@@ -17,7 +15,6 @@ import { TreksPage } from './treks.page';
     IonicModule,
     SharedTreksModule,
     SharedUiModule,
-    FiltersComponentModule,
     RouterModule.forChild([]),
     TranslateModule.forChild()
   ],

@@ -5,7 +5,7 @@ import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Zip } from '@ionic-native/zip/ngx';
 import { Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import {
   BehaviorSubject,
   from,
@@ -55,9 +55,8 @@ export class OfflineTreksService implements TreksService {
   public offline = false;
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
   public filteredTreks$: Observable<MinimalTrek[]>;
-  public currentProgressDownload$: BehaviorSubject<
-    number
-  > = new BehaviorSubject(0);
+  public currentProgressDownload$: BehaviorSubject<number> =
+    new BehaviorSubject(0);
 
   public mediaDownloadProgress = 0;
   public trekDownloadProgress = 0;
@@ -90,7 +89,7 @@ export class OfflineTreksService implements TreksService {
         : trek.properties.first_picture.url;
       if (this.isMobile) {
         return this.webview.convertFileSrc(
-          `${this.getDirLocalDataLocation()}offline/${imgPath}`
+          `${this.getDirLocalDataLocation()}offline${imgPath}`
         );
       } else {
         return `${environment.onlineBaseUrl}${imgPath}`;
@@ -110,23 +109,23 @@ export class OfflineTreksService implements TreksService {
   }
 
   public getTreksUrl(): string {
-    return '/app/tabs/treks-offline';
+    return '/tabs/treks-offline';
   }
 
   public getTrekDetailsUrl(trekId: number, parentId?: number): string {
     return !parentId
-      ? `/app/tabs/treks-offline/trek-details/${trekId}`
-      : `/app/tabs/treks-offline/trek-details/${parentId}/${trekId}`;
+      ? `/trek-details-offline/${trekId}`
+      : `/trek-details-offline/${parentId}/${trekId}`;
   }
 
   public getTrekMapUrl(trekId: number, parentId?: number): string {
     return !parentId
-      ? `/app/map-offline/${trekId}`
-      : `/app/map-offline/${parentId}/${trekId}`;
+      ? `/map-offline/${trekId}`
+      : `/map-offline/${parentId}/${trekId}`;
   }
 
   public getTreksMapUrl(): string {
-    return `/app/tabs/treks-offline/treks-map/`;
+    return `/treks-offline-map/`;
   }
 
   private getTreks(): Observable<MinimalTreks> {
@@ -161,16 +160,12 @@ export class OfflineTreksService implements TreksService {
     ];
     newTreks.features.push(simpleTrek);
 
-    // update treks
     this.treks$.next(newTreks);
     const storage = this.storage;
     const tasks: Observable<any>[] = [
       from(storage.set('offline-treks', JSON.stringify(newTreks))),
-      // save full trek
       from(storage.set(`trek-${trekId}`, JSON.stringify(fullTrek))),
-      // save json poi
       from(storage.set(`pois-trek-${trekId}`, JSON.stringify(pois))),
-      // save touristic contents
       from(
         storage.set(
           `touristicContents-trek-${trekId}`,
@@ -184,8 +179,6 @@ export class OfflineTreksService implements TreksService {
       fullTrek.properties.children.features &&
       fullTrek.properties.children.features.length > 0
     ) {
-      // save all json for children treks
-      // trek pois touristicContents
       fullTrek.properties.children.features.forEach((children) => {
         tasks.push(
           this.onlineTreksService
@@ -235,7 +228,6 @@ export class OfflineTreksService implements TreksService {
 
     if (this.isMobile) {
       if (this.treks$.value && this.treks$.value.features.length === 1) {
-        // download common media too if it's first downloaded trek
         tasks.push(this.saveCommonMedia());
       }
       tasks.push(this.saveMediaForTrek(trekId));
@@ -334,12 +326,10 @@ export class OfflineTreksService implements TreksService {
         return from(this.createDirIfNotExists('zip'));
       }),
 
-      // create offline folder if not exist
       delayWhen(() => {
         return from(this.createDirIfNotExists('offline'));
       }),
 
-      // write zip file inside zip folder
       delayWhen((zipFile) => {
         return from(
           this.file.writeFile(offlineZipUri, `media.zip`, zipFile, {
@@ -353,7 +343,6 @@ export class OfflineTreksService implements TreksService {
         );
       }),
 
-      // unzip file inside offline folder
       delayWhen(() => {
         return from(
           this.zip.unzip(`${offlineZipUri}media.zip`, offlineUriLocation)
@@ -367,7 +356,6 @@ export class OfflineTreksService implements TreksService {
         );
       }),
 
-      // delete zip file
       delayWhen(() => {
         return from(this.file.removeFile(offlineZipUri, `media.zip`));
       }),
@@ -388,13 +376,10 @@ export class OfflineTreksService implements TreksService {
     return this.http.request(req).pipe(
       map((event, file) => this.updateProgress(event, file, 'trek')),
       last(),
-      // create zip folder if not exist
       delayWhen(() => from(this.createDirIfNotExists('zip'))),
 
-      // create offline folder if not exist
       delayWhen(() => from(this.createDirIfNotExists('offline'))),
 
-      // write zip file inside zip folder
       delayWhen((zipFile) =>
         from(
           this.file.writeFile(offlineZipUri, `${trekId}.zip`, zipFile, {
@@ -407,7 +392,6 @@ export class OfflineTreksService implements TreksService {
         )
       ),
 
-      // unzip file inside offline folder
       delayWhen(() =>
         from(
           this.zip.unzip(`${offlineZipUri}${trekId}.zip`, offlineUriLocation)
@@ -421,7 +405,6 @@ export class OfflineTreksService implements TreksService {
         )
       ),
 
-      // delete zip file
       delayWhen(() =>
         from(this.file.removeFile(offlineZipUri, `${trekId}.zip`))
       ),
@@ -436,7 +419,6 @@ export class OfflineTreksService implements TreksService {
       ...treks.features.filter((feature) => feature.properties.id !== trekId)
     ];
 
-    // update treks
     this.treks$.next(treks);
 
     const tasks: Observable<any>[] = [];
@@ -444,10 +426,7 @@ export class OfflineTreksService implements TreksService {
     tasks.push(from(storage.remove(`pois-trek-${trekId}`)));
     tasks.push(from(storage.remove(`touristicContents-trek-${trekId}`)));
 
-    let stream: Observable<any> = forkJoin(
-      // remove json data
-      tasks
-    ).pipe(map(() => true));
+    let stream: Observable<any> = forkJoin(tasks).pipe(map(() => true));
 
     if (this.isMobile && withMedia) {
       stream = stream.pipe(mergeMap(() => this.removeMedia(trekId)));
@@ -586,7 +565,7 @@ export class OfflineTreksService implements TreksService {
     try {
       await this.file.checkDir(dirDataLocation, dirName);
     } catch (check) {
-      if (check.code === 1) {
+      if ((check as any).code === 1) {
         await this.file.createDir(dirDataLocation, dirName, false);
       }
     }

@@ -7,9 +7,9 @@ Mobile application of _Geotrek Rando_ (http://geotrek.fr).
 _Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_.
 It is usually easier to do with [NVM](https://github.com/nvm-sh/nvm)
 
-    npm install -g ionic@5.4.11
+    npm install -g @ionic/cli@6.18.1
 
-    npm install -g cordova@9.0.0
+    npm install -g cordova@11.0.0
 
     git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 
@@ -49,11 +49,11 @@ _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment
 
 ## iOS
 
-    ionic cordova build ios --prod --release
+    npm run build:ios
 
 ## Android
 
-    ionic cordova build android --prod --release
+    npm run build:android
 
 # CUSTOMIZATION OPTIONS
 
@@ -136,25 +136,14 @@ In order to build the app without Firebase you had to
 
 - Set false to useFirebase variable in environment files
 
-- Run this list of command
-  (If you add platforms previously, be sure to delete them)
+- Remove these plugins
 
 ```
-    ionic cordova platform rm android
+ionic cordova plugin rm cordova-plugin-firebase-analytics
 
-    ionic cordova platform rm ios
+ionic cordova plugin rm cordova-android-play-services-gradle-release
 
-    ionic cordova plugin rm cordova-plugin-firebase-analytics
-
-    ionic cordova plugin rm cordova-android-play-services-gradle-release
-
-    ionic cordova plugin rm cordova-support-google-services
-
-    ionic cordova plugin rm cordova-support-android-plugin
-
-    ionic cordova platform add android
-
-    ionic cordova build android
+ionic cordova plugin rm cordova-support-android-plugin
 ```
 
 ## Tests
@@ -164,13 +153,7 @@ In order to build the app without Firebase you had to
 Open cypress
 
 ```
-npm run cypress:open
-```
-
-Headless mode
-
-```
-npm run cypress:run
+npx cypress open
 ```
 
 ## Documentation

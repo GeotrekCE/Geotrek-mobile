@@ -15,7 +15,7 @@
         *ngIf="!offline && !isAvailableOffline"
         (click)="presentDownloadConfirm()"
       >
-        Hors ligne
+        {{ 'trek.offline' | translate }}
         <ion-icon slot="start" name="download"></ion-icon>
       </ion-button>
       <ion-button
@@ -41,8 +41,8 @@
   <ion-toolbar>
     <ion-buttons *ngIf="currentTrek" class="share-container">
       <ion-button (click)="shareTrek()" expand="full">
-        Partager
-        <ion-icon name="share"></ion-icon>
+        {{ 'trek.share' | translate }}
+        <ion-icon slot="start" name="share"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -77,7 +77,12 @@
       >
         <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
           <div
-            style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
           >
             <ion-img
               [src]="getPictureSrc(picture)"
@@ -119,9 +124,7 @@
         <!-- Stages -->
         <ion-row *ngIf="isStage">
           <ion-col class="no-vertical-padding">
-            <div>
-              {{ parentTrek.properties.name }}
-            </div>
+            <div>{{ parentTrek.properties.name }}</div>
             <div>
               {{ parentTrek.properties.children.features.length }} {{
               'trek.details.stages' | translate }}
@@ -233,9 +236,7 @@
                   {{ 'trek.details.city' | translate }} {{
                   currentTrek.properties.departure_city?.name }}
                 </div>
-                <div>
-                  {{ currentTrek.properties.departure }}
-                </div>
+                <div>{{ currentTrek.properties.departure }}</div>
               </div>
             </div>
           </ion-col>
@@ -262,7 +263,10 @@
               {{ currentTrek.properties.ascent }} m
             </div>
             <div *ngIf="currentTrek.properties.route" class="extra-details">
-              <ion-icon class="icon-detail" name="swap"></ion-icon>
+              <ion-icon
+                class="icon-detail"
+                name="swap-horizontal-outline"
+              ></ion-icon>
               {{ currentTrek.properties.route.name }}
             </div>
           </ion-col>
@@ -404,9 +408,7 @@
                 {{ 'trek.details.rules' | translate }}
               </h2>
             </ion-text>
-            <p>
-              {{ 'trek.details.rulesDescription' | translate }}
-            </p>
+            <p>{{ 'trek.details.rulesDescription' | translate }}</p>
             <div *ngIf="showImgRulesIfParkCentered">
               <ion-img src="assets/image/reglementation.jpg" alt="rules">
               </ion-img>

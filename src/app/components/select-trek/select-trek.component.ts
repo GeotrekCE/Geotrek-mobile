@@ -16,7 +16,9 @@ export class SelectTrekComponent implements OnInit {
 
   constructor(private modalController: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedTrekId = this.radioTreks[0].id;
+  }
 
   public cancel(): void {
     this.modalController.dismiss();

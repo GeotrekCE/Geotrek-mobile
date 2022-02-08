@@ -111,9 +111,8 @@ export class FilterTreksService {
     let numberOfActiveFilters = 0;
     if (!!filters) {
       filters.forEach((filter) => {
-        numberOfActiveFilters += FilterTreksService.getCheckedIdForFilter(
-          filter
-        ).length;
+        numberOfActiveFilters +=
+          FilterTreksService.getCheckedIdForFilter(filter).length;
       });
     }
     return numberOfActiveFilters;

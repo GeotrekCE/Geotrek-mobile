@@ -5,18 +5,12 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "es2015",
     "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "strictNullChecks": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "types": ["node"],
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
       "@app/*": ["src/app/*"],
@@ -24,6 +18,9 @@
     }
   },
   "angularCompilerOptions": {
-    "enableIvy": true
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

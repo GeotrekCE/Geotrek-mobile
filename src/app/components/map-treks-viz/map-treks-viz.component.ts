@@ -20,14 +20,13 @@ import {
   MapboxOptions,
   Marker
 } from 'mapbox-gl';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 
 import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
-import { UnSubscribe } from '../abstract/unsubscribe';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
@@ -39,11 +38,14 @@ const mapboxgl = require('mapbox-gl');
   templateUrl: './map-treks-viz.component.html',
   styleUrls: ['./map-treks-viz.component.scss']
 })
-export class MapTreksVizComponent extends UnSubscribe
-  implements OnChanges, OnDestroy {
+export class MapTreksVizComponent implements OnChanges, OnDestroy {
   private map: Map;
   private markerPosition: Marker | undefined;
   private practices: DataSetting;
+  private screenOrientationSubscription: Subscription;
+  private currentPositionSubscription: Subscription;
+  private currentHeadingSubscription: Subscription;
+  private loadImagesSubscription: Subscription;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
@@ -54,7 +56,6 @@ export class MapTreksVizComponent extends UnSubscribe
   @Input() public offline: Boolean;
 
   @Output() public navigateToTrek = new EventEmitter<any>();
-  @Output() public mapIsLoaded = new EventEmitter<boolean>();
 
   constructor(
     private settings: SettingsService,
@@ -65,7 +66,6 @@ export class MapTreksVizComponent extends UnSubscribe
     private alertController: AlertController,
     private translate: TranslateService
   ) {
-    super();
     if (environment && environment.mapbox && environment.mapbox.accessToken) {
       mapboxgl.accessToken = environment.mapbox.accessToken;
     }
@@ -75,19 +75,23 @@ export class MapTreksVizComponent extends UnSubscribe
 
   ngOnChanges(changes: SimpleChanges) {
     const changesCurrentTreks: SimpleChange = changes.filteredTreks;
-    if (
-      changesCurrentTreks.currentValue &&
-      !changesCurrentTreks.previousValue
-    ) {
-      this.createMap();
-    } else {
-      if (this.map) {
-        const treksSource = this.map.getSource('treks-points') as GeoJSONSource;
-        if (treksSource && this.filteredTreks) {
-          treksSource.setData({
-            type: 'FeatureCollection',
-            features: this.filteredTreks
-          });
+    if (changesCurrentTreks) {
+      if (
+        changesCurrentTreks.currentValue &&
+        !changesCurrentTreks.previousValue
+      ) {
+        this.createMap();
+      } else {
+        if (this.map) {
+          const treksSource = this.map.getSource(
+            'treks-points'
+          ) as GeoJSONSource;
+          if (treksSource && this.filteredTreks) {
+            treksSource.setData({
+              type: 'FeatureCollection',
+              features: this.filteredTreks
+            });
+          }
         }
       }
     }
@@ -105,7 +109,21 @@ export class MapTreksVizComponent extends UnSubscribe
 
     this.geolocate.stopOnMapTracking();
 
-    super.ngOnDestroy();
+    if (this.screenOrientationSubscription) {
+      this.screenOrientationSubscription.unsubscribe();
+    }
+
+    if (this.currentPositionSubscription) {
+      this.currentPositionSubscription.unsubscribe();
+    }
+
+    if (this.currentHeadingSubscription) {
+      this.currentHeadingSubscription.unsubscribe();
+    }
+
+    if (this.loadImagesSubscription) {
+      this.loadImagesSubscription.unsubscribe();
+    }
   }
 
   createMap() {
@@ -171,79 +189,78 @@ export class MapTreksVizComponent extends UnSubscribe
       }
 
       if (this.platform.is('ios') || this.platform.is('android')) {
-        this.subscriptions$$.push(
-          this.screenOrientation.onChange().subscribe(() => {
+        this.screenOrientationSubscription = this.screenOrientation
+          .onChange()
+          .subscribe(() => {
             // Need to delay before resize
             window.setTimeout(() => {
               this.map.resize();
             }, 50);
-          })
-        );
+          });
       }
 
-      this.map.on('load', () => {
-        const loadImages: Observable<any> = Observable.create(
-          (observer: any) => {
-            const practices: DataSetting | undefined = this.dataSettings.find(
-              (data) => data.id === 'practice'
-            );
-            if (practices) {
-              this.practices = practices;
-              practices.values.forEach((practice, index: number) => {
-                this.map.loadImage(
-                  `${this.commonSrc}${practice.pictogram}`,
-                  (error: any, image: any) => {
-                    this.map.addImage(practice.id.toString(), image);
-                    if (index + 1 === practices.values.length) {
-                      observer.complete();
-                    }
-                  }
-                );
-              });
-            }
-          }
+      const loadImages: Observable<any> = Observable.create((observer: any) => {
+        const practices: DataSetting | undefined = this.dataSettings.find(
+          (data) => data.id === 'practice'
         );
-
-        this.subscriptions$$.push(
-          this.geolocate.currentPosition$
-            .pipe(
-              filter((currentPosition) => currentPosition !== null),
-              distinctUntilChanged(),
-              throttleTime(environment.backgroundGeolocation.interval)
-            )
-            .subscribe(async (coordinates: any) => {
-              if (this.markerPosition) {
-                this.markerPosition.setLngLat(coordinates);
-              } else {
-                const el = document.createElement('div');
-                const currentHeading = await this.geolocate.checkIfCanGetCurrentHeading();
-                el.className = currentHeading ? 'pulse-and-view' : 'pulse';
-
-                this.markerPosition = new mapboxgl.Marker({
-                  element: el
-                }).setLngLat(coordinates);
-                if (this.markerPosition) {
-                  this.markerPosition.addTo(this.map);
+        if (practices) {
+          this.practices = practices;
+          practices.values.forEach((practice, index: number) => {
+            this.map.loadImage(
+              `${this.commonSrc}${practice.pictogram}`,
+              (error: any, image: any) => {
+                this.map.addImage(practice.id.toString(), image);
+                if (index + 1 === practices.values.length) {
+                  observer.complete();
                 }
               }
-            }),
-          this.geolocate.currentHeading$.subscribe((heading) => {
-            if (this.markerPosition && heading) {
-              (this.markerPosition as any).setRotation(heading);
-            }
-          }),
-          loadImages.subscribe({
-            complete: async () => {
-              this.addSourcesLayersEvents();
+            );
+          });
+        }
+      });
 
-              const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
-              if (shouldShowInAppDisclosure) {
-                await this.presentInAppDisclosure();
-              }
-              this.geolocate.startOnMapTracking();
+      this.currentPositionSubscription = this.geolocate.currentPosition$
+        .pipe(
+          filter((currentPosition) => currentPosition !== null),
+          distinctUntilChanged(),
+          throttleTime(environment.backgroundGeolocation.interval)
+        )
+        .subscribe(async (coordinates: any) => {
+          if (this.markerPosition) {
+            this.markerPosition.setLngLat(coordinates);
+          } else {
+            const el = document.createElement('div');
+            const currentHeading =
+              await this.geolocate.checkIfCanGetCurrentHeading();
+            el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
+            this.markerPosition = new mapboxgl.Marker({
+              element: el
+            }).setLngLat(coordinates);
+            if (this.markerPosition) {
+              this.markerPosition.addTo(this.map);
             }
-          })
-        );
+          }
+        });
+
+      this.currentHeadingSubscription =
+        this.geolocate.currentHeading$.subscribe((heading) => {
+          if (this.markerPosition && heading) {
+            (this.markerPosition as any).setRotation(heading);
+          }
+        });
+
+      this.loadImagesSubscription = loadImages.subscribe({
+        complete: async () => {
+          this.addSourcesLayersEvents();
+
+          const shouldShowInAppDisclosure =
+            await this.geolocate.shouldShowInAppDisclosure();
+          if (shouldShowInAppDisclosure) {
+            await this.presentInAppDisclosure();
+          }
+          this.geolocate.startOnMapTracking();
+        }
       });
     }
   }
@@ -342,9 +359,9 @@ export class MapTreksVizComponent extends UnSubscribe
 
         if (this.map.getZoom() === this.mapConfig.maxZoom) {
           // no more zoom, display features inside cluster
-          (this.map.getSource(
-            'treks-points'
-          ) as GeoJSONSource).getClusterLeaves(
+          (
+            this.map.getSource('treks-points') as GeoJSONSource
+          ).getClusterLeaves(
             featureProperties.cluster_id,
             Infinity,
             0,
@@ -365,21 +382,18 @@ export class MapTreksVizComponent extends UnSubscribe
           );
         } else {
           // zoom to next cluster expansion
-          (this.map.getSource(
-            'treks-points'
-          ) as GeoJSONSource).getClusterExpansionZoom(
-            clusterId,
-            (err: any, zoom: number) => {
-              if (err) {
-                return;
-              }
-              const coordinates = (features[0].geometry as Point).coordinates;
-              this.map.easeTo({
-                center: [coordinates[0], coordinates[1]],
-                zoom: zoom
-              });
+          (
+            this.map.getSource('treks-points') as GeoJSONSource
+          ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
+            if (err) {
+              return;
             }
-          );
+            const coordinates = (features[0].geometry as Point).coordinates;
+            this.map.easeTo({
+              center: [coordinates[0], coordinates[1]],
+              zoom: zoom
+            });
+          });
         }
       }
     });
@@ -395,8 +409,6 @@ export class MapTreksVizComponent extends UnSubscribe
 
     // map instance for cypress test
     this.mapViz.nativeElement.mapInstance = this.map;
-
-    this.mapIsLoaded.emit(true);
   }
 
   async presentConfirmFeatures(

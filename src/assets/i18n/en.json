@@ -45,6 +45,8 @@
     }
   },
   "trek": {
+    "offline": "Offline",
+    "share": "Share",
     "downloadAlert": {
       "title": "Offline",
       "contentTrek": "Download this trek for offline access",

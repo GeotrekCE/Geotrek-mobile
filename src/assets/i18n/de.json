@@ -45,6 +45,8 @@
     }
   },
   "trek": {
+    "offline": "Offline",
+    "share": "Aktie",
     "downloadAlert": {
       "title": "Offline-Modus",
       "contentTrek": "Laden Sie diese Wanderung herunter, um offline auf sie zuzugreifen",

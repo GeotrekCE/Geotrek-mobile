@@ -8,7 +8,7 @@ import {
   BackgroundGeolocationEvents,
   BackgroundGeolocationLocationProvider
 } from '@ionic-native/background-geolocation/ngx';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { Platform } from '@ionic/angular';
 import { environment } from '@env/environment';
 import {
@@ -87,13 +87,12 @@ export class GeolocateService {
         .on(BackgroundGeolocationEvents.start)
         .subscribe(async () => {
           try {
-            const startLocation = await this.backgroundGeolocation.getCurrentLocation(
-              {
+            const startLocation =
+              await this.backgroundGeolocation.getCurrentLocation({
                 timeout: 10000,
                 maximumAge: 0,
                 enableHighAccuracy: true
-              }
-            );
+              });
             this.currentPosition$.next([
               startLocation.longitude,
               startLocation.latitude
@@ -181,13 +180,12 @@ export class GeolocateService {
         .on(BackgroundGeolocationEvents.start)
         .subscribe(async () => {
           try {
-            const startLocation = await this.backgroundGeolocation.getCurrentLocation(
-              {
+            const startLocation =
+              await this.backgroundGeolocation.getCurrentLocation({
                 timeout: 10000,
                 maximumAge: 0,
                 enableHighAccuracy: true
-              }
-            );
+              });
             this.currentPosition$.next([
               startLocation.longitude,
               startLocation.latitude

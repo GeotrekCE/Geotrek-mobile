@@ -38,3 +38,7 @@ cypress/screenshots
 
 ios/
 android/
+
+.angular/
+
+config/

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { MapboxOptions } from 'mapbox-gl';
 import { environment } from '@env/environment';
-import { unsubscribe, UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
 import {
@@ -12,12 +11,11 @@ import {
   TreksService
 } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
-import { LoadingService } from '@app/services/loading/loading.service';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { ModalController, Platform } from '@ionic/angular';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { map, mergeMap, first, delay } from 'rxjs/operators';
+import { map, mergeMap, first } from 'rxjs/operators';
 import { cloneDeep } from 'lodash';
 import { Network } from '@ionic-native/network/ngx';
 
@@ -27,23 +25,21 @@ import { Network } from '@ionic-native/network/ngx';
   styleUrls: ['./treks-map.page.scss'],
   providers: [FilterTreksService]
 })
-export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
+export class TreksMapPage implements OnInit, OnDestroy {
   private mergeFiltersTreks$: Subscription;
   public filteredTreks: MinimalTrek[];
   public numberOfActiveFilters: string;
   public offline: boolean;
   private treksTool: TreksService;
-  public isInView = false;
   public treksUrl: string;
   public appName: string = environment.appName;
   public mapConfig: MapboxOptions;
   public commonSrc: string;
-  public currentPosition$: Subscription;
   public noNetwork = false;
-  public loaderStatus: Boolean;
+  private dataSubscription: Subscription;
+  public canDisplayMap = false;
 
   constructor(
-    public loading: LoadingService,
     private filterTreks: FilterTreksService,
     private modalController: ModalController,
     public onlineTreks: OnlineTreksService,
@@ -52,41 +48,20 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
     public settings: SettingsService,
     private network: Network,
     private platform: Platform
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
-    super.ngOnInit();
     this.checkNetwork();
 
-    this.loading.begin('treks-map');
-    this.subscriptions$$.push(
-      this.route.data.subscribe((data) => {
-        const context: TreksContext = data.context;
-        this.offline = context.offline;
-        this.treksTool = context.treksTool;
-        this.treksUrl = this.treksTool.getTreksUrl();
-        this.mapConfig = cloneDeep(context.mapConfig);
-        this.commonSrc = this.treksTool.getCommonImgSrc();
-      }),
-      this.onlineTreks.onlineTreksError$.subscribe((error) => {
-        if (!!error) {
-          this.loading.finish(); // if there was a connection error, map could not be loaded
-        }
-      }),
-      this.loading.status
-        .pipe(delay(0))
-        .subscribe((status) => (this.loaderStatus = status))
-    );
-  }
+    this.dataSubscription = this.route.data.subscribe((data) => {
+      const context: TreksContext = data.context;
+      this.offline = context.offline;
+      this.treksTool = context.treksTool;
+      this.treksUrl = this.treksTool.getTreksUrl();
+      this.mapConfig = cloneDeep(context.mapConfig);
+      this.commonSrc = this.treksTool.getCommonImgSrc();
+    });
 
-  ngOnDestroy() {
-    super.ngOnDestroy();
-    this.loading.finish();
-  }
-  ionViewDidEnter(): void {
-    this.mapIsLoaded(false);
     this.mergeFiltersTreks$ = combineLatest([
       this.route.data.pipe(
         first(),
@@ -98,14 +73,21 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
       this.numberOfActiveFilters =
         numberOfActiveFilters === 0 ? '' : `(${numberOfActiveFilters})`;
       this.filteredTreks = <MinimalTrek[]>filteredTreks;
-      this.isInView = true;
     });
-    this.subscriptions$$.push(this.mergeFiltersTreks$);
   }
 
-  ionViewDidLeave(): void {
-    this.isInView = false;
-    unsubscribe(this.mergeFiltersTreks$);
+  ngOnDestroy() {
+    if (this.mergeFiltersTreks$) {
+      this.mergeFiltersTreks$.unsubscribe();
+    }
+
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
+
+  ionViewWillEnter() {
+    this.canDisplayMap = true;
   }
 
   public async presentFilters(): Promise<void> {
@@ -135,12 +117,6 @@ export class TreksMapPage extends UnSubscribe implements OnInit, OnDestroy {
 
   navigateToTrek(id: number) {
     this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
-  }
-
-  public mapIsLoaded(loaded: boolean): void {
-    if (loaded) {
-      this.loading.finish('treks-map');
-    }
   }
 
   public loadTreks(): void {

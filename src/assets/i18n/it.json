@@ -45,6 +45,8 @@
     }
   },
   "trek": {
+    "offline": "Offline",
+    "share": "Azione",
     "downloadAlert": {
       "title": "Modo offline",
       "contentTrek": "Scaricare questa escursione per consultarla offline",

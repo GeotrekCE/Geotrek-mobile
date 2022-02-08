@@ -3,7 +3,7 @@ import {
   HttpClient,
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
@@ -11,7 +11,6 @@ import { MoreItemResolver } from '@app/resolvers/more-item.resolver';
 import { MoreResolver } from '@app/resolvers/more.resolver';
 import { LoadingInterceptor } from '@app/services/loading/loading.service';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { Animation } from '@ionic/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
@@ -26,10 +25,10 @@ import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Zip } from '@ionic-native/zip/ngx';
-import { IonicStorageModule } from '@ionic/storage';
 import { Globalization } from '@ionic-native/globalization/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Network } from '@ionic-native/network/ngx';
@@ -47,12 +46,13 @@ import { LayersVisibilityComponent } from '@app/components/layers-visibility/lay
 
 import { TreksOrderComponent } from './components/treks-order/treks-order.component';
 
+import { IonicStorageModule } from '@ionic/storage-angular';
+
+import { SettingsService } from '@app/services/settings/settings.service';
+import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function noAnimation(AnimationC: Animation): Promise<Animation> {
-  return Promise.resolve(new AnimationC());
 }
 
 registerLocaleData(localeFr, 'fr');
@@ -78,8 +78,7 @@ registerLocaleData(localeFr, 'fr');
     BrowserAnimationsModule,
     IonicModule.forRoot({
       mode: 'md',
-      animated: true,
-      navAnimation: noAnimation
+      animated: true
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -111,7 +110,29 @@ registerLocaleData(localeFr, 'fr');
     TrekContextResolver,
     TreksContextResolver,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory:
+        (
+          settingsService: SettingsService,
+          onlineTreksService: OnlineTreksService,
+          platform: Platform,
+          splashScreen: SplashScreen
+        ) =>
+        () => {
+          return new Promise(async (resolve) => {
+            await settingsService.initializeSettings();
+            await onlineTreksService.loadTreks();
+            if (platform.is('ios') || platform.is('android')) {
+              splashScreen.hide();
+            }
+            resolve(true);
+          });
+        },
+      deps: [SettingsService, OnlineTreksService, Platform, SplashScreen],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -19,9 +19,7 @@ export class SelectFilterComponent implements OnInit {
 
   constructor(private modalController: ModalController) {}
 
-  public ngOnInit(): void {}
-
-  ionViewDidEnter(): void {
+  public ngOnInit(): void {
     this.temporaryFilter = this.filter;
     this.valuesToDisplay = [...this.filter.values];
   }
@@ -61,11 +59,11 @@ export class SelectFilterComponent implements OnInit {
     }
   }
 
-  public search(searchValue: string): void {
-    if (searchValue) {
+  public search(searchValue: any): void {
+    if (searchValue.detail.value) {
       this.valuesToDisplay = this.searchValuesInFilter(
         this.filter,
-        searchValue
+        searchValue.detail.value
       );
     } else {
       this.valuesToDisplay = [...this.filter.values];
@@ -82,7 +80,7 @@ export class SelectFilterComponent implements OnInit {
     }
 
     if (!!!searchValue) {
-      return filter.values.sort(function(a, b) {
+      return filter.values.sort(function (a, b) {
         return a.name.localeCompare(b.name);
       });
     }
@@ -91,7 +89,7 @@ export class SelectFilterComponent implements OnInit {
       .filter((value) => {
         return deburr(value.name.toLowerCase()).startsWith(searchValue);
       })
-      .sort(function(a, b) {
+      .sort(function (a, b) {
         return a.name.localeCompare(b.name);
       });
   }

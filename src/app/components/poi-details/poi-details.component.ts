@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss']
 })
-export class PoiDetailsComponent {
+export class PoiDetailsComponent implements OnInit {
   public offline = false;
   public baseUrl = environment.onlineBaseUrl;
   public poi: Poi;
@@ -31,7 +31,7 @@ export class PoiDetailsComponent {
     public onlineTreks: OnlineTreksService
   ) {}
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.poi = this.navParams.get('poi');
     this.offline = this.navParams.get('offline');
     this.commonSrc = this.navParams.get('commonSrc');

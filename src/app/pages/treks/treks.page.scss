@@ -1,7 +1,3 @@
-.list-mode-card {
-  position: relative;
-}
-
 .list-mode-disabled {
   cursor: default;
   opacity: 0.5;
@@ -9,22 +5,8 @@
 }
 
 .custom-button {
+  width: 100px;
   text-transform: capitalize;
-}
-
-@media screen and (min-width: 340px) {
-  .custom-button {
-    width: 100px;
-  }
-}
-
-.button-margin-left {
-  margin-left: 12px;
-}
-
-.toolbar-button {
-  --padding-start: 0.5em;
-  --padding-end: 0.5em;
 }
 
 .vertical-center {

@@ -5,15 +5,10 @@ import { CollapsibleListComponent } from '@app/components/collapsible-list/colla
 import { IonicModule } from '@ionic/angular';
 
 import { ConnectErrorComponent } from '@app/components/connect-error/connect-error.component';
-import { LoaderComponent } from '@app/components/loader/loader.component';
 
 @NgModule({
-  declarations: [
-    CollapsibleListComponent,
-    ConnectErrorComponent,
-    LoaderComponent
-  ],
+  declarations: [CollapsibleListComponent, ConnectErrorComponent],
   imports: [CommonModule, IonicModule, RouterModule],
-  exports: [CollapsibleListComponent, ConnectErrorComponent, LoaderComponent]
+  exports: [CollapsibleListComponent, ConnectErrorComponent]
 })
 export class SharedUiModule {}

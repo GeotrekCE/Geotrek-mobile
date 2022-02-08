@@ -12,12 +12,15 @@ export class SelectPoiComponent implements OnInit {
     id: number;
     name: string;
     imgPoi: { src: string; color: string | undefined };
+    imgTypePoi: { src: string; color: string | undefined };
   }[];
   selectedPoiId: number;
 
   constructor(private modalController: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedPoiId = this.radioPois[0].id;
+  }
 
   public cancel(): void {
     this.modalController.dismiss();

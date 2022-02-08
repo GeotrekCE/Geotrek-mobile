@@ -19,7 +19,12 @@
 </ng-container>
 
 <ng-template #select>
-  <ion-item (click)="openSelect()" detail button detailIcon="arrow-dropdown">
+  <ion-item
+    (click)="openSelect()"
+    detail
+    button
+    detailIcon="chevron-down-outline"
+  >
     <ion-label class="select-placeholder">
       {{
         selectedItems === ''

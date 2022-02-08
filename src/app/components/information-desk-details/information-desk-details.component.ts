@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 
 import { environment } from '@env/environment';
@@ -9,14 +9,14 @@ import { InformationDesk } from '@app/interfaces/interfaces';
   templateUrl: './information-desk-details.component.html',
   styleUrls: ['./information-desk-details.component.scss']
 })
-export class InformationDeskDetailsComponent {
+export class InformationDeskDetailsComponent implements OnInit {
   baseUrl = environment.onlineBaseUrl;
   informationDesk: InformationDesk;
   informationDeskPicture = '';
 
   constructor(public modalCtrl: ModalController, public navParams: NavParams) {}
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.informationDesk = this.navParams.get('informationDesk');
     if (this.informationDesk && this.informationDesk.picture) {
       this.informationDeskPicture = `${this.baseUrl}${this.informationDesk.picture}`;

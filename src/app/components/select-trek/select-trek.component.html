@@ -6,17 +6,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-radio-group (ionChange)="selectedTrekChange($event)">
+    <ion-radio-group
+      (ionChange)="selectedTrekChange($event)"
+      [value]="selectedTrekId"
+    >
       <ion-list-header>
         {{ 'mapTreks.treksAlert.informUser' | translate }}
       </ion-list-header>
 
       <ion-item *ngFor="let trek of radioTreks; let i = index">
-        <ion-radio
-          slot="start"
-          [value]="trek.id"
-          [checked]="i === 0"
-        ></ion-radio>
+        <ion-radio slot="start" [value]="trek.id"></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
           *ngIf="trek.imgPractice.src"

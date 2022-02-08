@@ -18,21 +18,6 @@ const routes: Routes = [
             resolve: {
               context: TreksContextResolver
             }
-          },
-          {
-            path: 'trek-details/:trekId',
-            loadChildren:
-              '../trek-details/trek-details.module#TrekDetailsPageModule'
-          },
-          {
-            path: 'trek-details/:trekId/:stageId',
-            loadChildren:
-              '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { isStage: true }
-          },
-          {
-            path: 'treks-map',
-            loadChildren: '../treks-map/treks-map.module#TreksMapPageModule'
           }
         ]
       },
@@ -46,23 +31,6 @@ const routes: Routes = [
             resolve: {
               context: TreksContextResolver
             }
-          },
-          {
-            path: 'trek-details/:trekId',
-            loadChildren:
-              '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { offline: true }
-          },
-          {
-            path: 'trek-details/:trekId/:stageId',
-            loadChildren:
-              '../trek-details/trek-details.module#TrekDetailsPageModule',
-            data: { offline: true, isStage: true }
-          },
-          {
-            path: 'treks-map',
-            loadChildren: '../treks-map/treks-map.module#TreksMapPageModule',
-            data: { offline: true }
           }
         ]
       },
@@ -71,12 +39,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../more/more.module#MorePageModule'
-          },
-          {
-            path: ':moreItemId',
-            loadChildren:
-              '../more/more-item/more-item.module#MoreItemPageModule'
+            loadChildren: () =>
+              import('../more/more.module').then((m) => m.MorePageModule)
           }
         ]
       }
@@ -84,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/app/tabs/treks',
+    redirectTo: '/tabs/treks',
     pathMatch: 'full'
   }
 ];

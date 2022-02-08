@@ -4,8 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FiltersComponent } from './filters.component';
-import { FilterModule } from '../filter//filter.module';
+import { SelectFilterComponent } from './select-filter.component';
+import { FilterModule } from '../filter/filter.module';
 
 @NgModule({
   imports: [
@@ -14,6 +14,6 @@ import { FilterModule } from '../filter//filter.module';
     TranslateModule.forChild(),
     FilterModule
   ],
-  declarations: [FiltersComponent]
+  declarations: [SelectFilterComponent]
 })
-export class FiltersComponentModule {}
+export class SelectFilterModule {}

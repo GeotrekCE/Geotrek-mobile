@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from '@app/services/settings/settings.service';
 import {
@@ -7,13 +7,12 @@ import {
   PopoverController,
   AlertController
 } from '@ionic/angular';
-import { combineLatest } from 'rxjs';
-import { map, mergeMap, delay, first } from 'rxjs/operators';
+import { combineLatest, Subscription } from 'rxjs';
+import { map, mergeMap, first } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
 import { Platform } from '@ionic/angular';
 
 import { environment } from '@env/environment';
-import { UnSubscribe } from '@app/components/abstract/unsubscribe';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
@@ -37,7 +36,7 @@ import { TreksOrderComponent } from '@app/components/treks-order/treks-order.com
   styleUrls: ['treks.page.scss'],
   providers: [FilterTreksService]
 })
-export class TreksPage extends UnSubscribe implements OnInit {
+export class TreksPage implements OnInit, OnDestroy {
   public noNetwork = false;
   public appName: string = environment.appName;
   public treksByStep: number = environment.treksByStep;
@@ -48,9 +47,12 @@ export class TreksPage extends UnSubscribe implements OnInit {
   public numberOfActiveFilters: string;
   public offline = false;
   public currentMaxTreks: number = environment.treksByStep;
-  public loaderStatus: Boolean;
 
   private treksTool: TreksService;
+  private dataSubscription: Subscription;
+  private filteredTreksSubscription: Subscription;
+  private nbOfflineTreksSubscription: Subscription;
+
   @ViewChild('content', { static: true }) private content: IonContent;
 
   constructor(
@@ -68,61 +70,71 @@ export class TreksPage extends UnSubscribe implements OnInit {
     private popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController
-  ) {
-    super();
-  }
+  ) {}
 
   async ngOnInit() {
-    super.ngOnInit();
     this.checkNetwork();
+
     await this.handleInitialOrder();
-    this.subscriptions$$.push(
-      // load tools when enter route
-      this.route.data.subscribe((data) => {
+
+    this.dataSubscription = this.route.data.subscribe((data) => {
+      if (!this.treksTool) {
         const context: TreksContext = data.context;
         this.treksTool = context.treksTool;
         this.mapLink = context.treksTool.getTreksMapUrl();
         this.offline = context.offline;
-      }),
+      }
+    });
 
-      // select treks when filter change or when we enter route
-      combineLatest([
-        this.route.data.pipe(
-          first(),
-          map((data) => data.context),
-          mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
-        ),
-        this.filterTreks.activeFiltersNumber$,
-        this.settings.data$
-      ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
-        if (settings) {
-          this.numberOfActiveFilters = !!numberOfActiveFilters
-            ? `(${numberOfActiveFilters})`
-            : '';
-          this.filteredTreks = <MinimalTrek[]>[...filteredTreks];
-          this.content.scrollToTop();
-        }
-      }),
+    this.filteredTreksSubscription = combineLatest([
+      this.route.data.pipe(
+        first(),
+        map((data) => data.context),
+        mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
+      ),
+      this.filterTreks.activeFiltersNumber$,
+      this.settings.data$
+    ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
+      if (settings) {
+        this.numberOfActiveFilters = !!numberOfActiveFilters
+          ? `(${numberOfActiveFilters})`
+          : '';
+        this.filteredTreks = <MinimalTrek[]>[...filteredTreks];
+        this.content.scrollToTop();
+      }
+    });
 
-      // get number of offline treks
-      this.offlineTreks.treks$.subscribe((treks) => {
+    this.nbOfflineTreksSubscription = this.offlineTreks.treks$.subscribe(
+      (treks) => {
         if (!treks) {
           this.nbOfflineTreks = 0;
         } else {
           this.nbOfflineTreks = treks.features.length;
         }
-      }),
-      this.loading.status
-        .pipe(delay(0))
-        .subscribe((status) => (this.loaderStatus = status))
+      }
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+
+    if (this.filteredTreksSubscription) {
+      this.filteredTreksSubscription.unsubscribe();
+    }
+
+    if (this.nbOfflineTreksSubscription) {
+      this.nbOfflineTreksSubscription.unsubscribe();
+    }
   }
 
   public async handleInitialOrder() {
     if (!this.settings.order$.value) {
       if (environment.initialOrder === 'location') {
         let currentPosition;
-        const shouldShowInAppDisclosure = await this.geolocate.shouldShowInAppDisclosure();
+        const shouldShowInAppDisclosure =
+          await this.geolocate.shouldShowInAppDisclosure();
         try {
           if (shouldShowInAppDisclosure) {
             await this.presentInAppDisclosure();

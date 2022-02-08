@@ -36,20 +36,23 @@ export class OnlineTreksService implements TreksService {
     private cache: CacheService,
     private filterTreks: FilterTreksService,
     private translate: TranslateService
-  ) {
-    this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
-  }
+  ) {}
 
   public loadTreks() {
-    this.onlineTreksError$.next(null);
-    this.getTreks().subscribe(
-      (data) => {
-        this.treks$.next(data);
-      },
-      (error) => {
-        this.onlineTreksError$.next(error);
-      }
-    );
+    return new Promise(async (resolve) => {
+      this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
+      this.onlineTreksError$.next(null);
+      this.getTreks().subscribe({
+        next: (value) => {
+          this.treks$.next(value);
+          resolve(true);
+        },
+        error: (error) => {
+          this.onlineTreksError$.next(error);
+          resolve(true);
+        }
+      });
+    });
   }
 
   /* get the src of the image. if picture is not given, it returs the thumbnail */
@@ -68,21 +71,21 @@ export class OnlineTreksService implements TreksService {
   }
 
   public getTreksUrl(): string {
-    return '/app/tabs/treks';
+    return '/tabs/treks';
   }
 
   public getTrekDetailsUrl(trekId: number, parentId?: number): string {
     return !parentId
-      ? `/app/tabs/treks/trek-details/${trekId}`
-      : `/app/tabs/treks/trek-details/${parentId}/${trekId}`;
+      ? `/trek-details/${trekId}`
+      : `/treks-details/${parentId}/${trekId}`;
   }
 
   public getTrekMapUrl(trekId: number, parentId?: number): string {
-    return !parentId ? `/app/map/${trekId}` : `/app/map/${parentId}/${trekId}`;
+    return !parentId ? `/map/${trekId}` : `/map/${parentId}/${trekId}`;
   }
 
   public getTreksMapUrl(): string {
-    return `/app/tabs/treks/treks-map/`;
+    return `/treks-map/`;
   }
 
   private getTreks(): Observable<MinimalTreks> {

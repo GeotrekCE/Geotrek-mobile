@@ -1,14 +1,14 @@
-// http://ionicframework.com/docs/theming/
 @import '~@ionic/angular/css/core.css';
 @import '~@ionic/angular/css/normalize.css';
 @import '~@ionic/angular/css/structure.css';
 @import '~@ionic/angular/css/typography.css';
-
+@import '~@ionic/angular/css/display.css';
 @import '~@ionic/angular/css/padding.css';
 @import '~@ionic/angular/css/float-elements.css';
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
 @import 'mapbox-gl/dist/mapbox-gl.css';
 
 .map-viz {
@@ -48,17 +48,32 @@ ion-fab {
 
 .progress-modal {
   background-color: transparent;
-  .modal-wrapper {
+  &::part(content) {
     background-color: transparent;
     box-shadow: none;
     border: none;
-    .ion-page {
-      justify-content: center;
-      ion-card {
-        background-color: white;
-      }
+  }
+  .ion-page {
+    justify-content: center;
+    ion-card {
+      background-color: white;
     }
   }
+}
+
+.alert-wrapper.sc-ion-alert-md {
+  width: 50vw;
+}
+
+@media (max-width: 540px) {
+  .alert-wrapper.sc-ion-alert-md {
+    width: 100%;
+    margin: var(--ion-margin);
+  }
+}
+
+.sc-ion-alert-md-h {
+  --max-width: none;
 }
 
 // Pulse effect for geolocation marker

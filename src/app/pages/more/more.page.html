@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <app-loader></app-loader>
   <app-connect-error
     *ngIf="connectionError"
     icon="wifi"
@@ -22,7 +21,7 @@
         class="no-outline"
         detail="true"
         *ngFor="let moreInformationIntro of moreInformationsIntro"
-        routerLink="/app/tabs/more/{{ moreInformationIntro.id }}"
+        routerLink="/more/{{ moreInformationIntro.id }}"
       >
         <ion-label>
           <h3>{{ moreInformationIntro.title }}</h3>

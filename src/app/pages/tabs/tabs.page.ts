@@ -16,9 +16,9 @@ export class TabsPage {
     this.platform.backButton.subscribeWithPriority(9999, () => {
       const url = this.router.url;
       if (
-        url !== '/app/tabs/treks' &&
-        url !== '/app/tabs/treks-offline' &&
-        url !== '/app/tabs/more'
+        url !== '/tabs/treks' &&
+        url !== '/tabs/treks-offline' &&
+        url !== '/tabs/more'
       ) {
         this.location.back();
       }

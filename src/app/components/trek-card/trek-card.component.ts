@@ -4,7 +4,12 @@ import {
   OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { Trek, HydratedTrek, Picture } from '@app/interfaces/interfaces';
+import {
+  Trek,
+  MinimalTrek,
+  HydratedTrek,
+  Picture
+} from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -18,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrekCardComponent implements OnInit {
-  @Input() public trek: Trek;
+  @Input() public trek: Trek | MinimalTrek;
   @Input() public offline = false;
   @Input() public showAllData: boolean;
   @Input() public isStage = false;
@@ -42,11 +47,11 @@ export class TrekCardComponent implements OnInit {
   ngOnInit() {
     const trekService = this.offline ? this.offlineTreks : this.onlineTreks;
     this.hydratedTrek = this.settings.getHydratedTrek(
-      this.trek,
+      this.trek as Trek,
       trekService.getCommonImgSrc()
     );
     if (this.offline) {
-      this.imgSrc = this.offlineTreks.getTrekImageSrc(this.trek);
+      this.imgSrc = this.offlineTreks.getTrekImageSrc(this.trek as Trek);
       if (this.hydratedTrek.properties.practice) {
         this.imgPracticeSrc = this.offlineTreks.getTrekImageSrc(
           {} as Trek,
@@ -56,7 +61,7 @@ export class TrekCardComponent implements OnInit {
         );
       }
     } else {
-      this.imgSrc = this.onlineTreks.getTrekImageSrc(this.trek);
+      this.imgSrc = this.onlineTreks.getTrekImageSrc(this.trek as Trek);
       if (this.hydratedTrek.properties.practice) {
         this.imgPracticeSrc = this.onlineTreks.getTrekImageSrc(
           {} as Trek,
@@ -68,13 +73,13 @@ export class TrekCardComponent implements OnInit {
     }
 
     if (this.isStage) {
-      this.routerLink = `/app/tabs/treks${
-        this.offline ? '-offline' : ''
-      }/trek-details/${this.parentId}/${this.trek.properties.id}`;
+      this.routerLink = `/trek-details${this.offline ? '-offline' : ''}/${
+        this.parentId
+      }/${this.trek.properties.id}`;
     } else {
-      this.routerLink = `/app/tabs/treks${
-        this.offline ? '-offline' : ''
-      }/trek-details/${this.trek.properties.id}`;
+      this.routerLink = `/trek-details${this.offline ? '-offline' : ''}/${
+        this.trek.properties.id
+      }`;
     }
   }
 

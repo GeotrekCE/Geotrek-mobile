@@ -24,7 +24,8 @@ import { environment } from '@env/environment';
 
 @Injectable()
 export class TrekContextResolver
-  implements Resolve<TrekContext | null | 'connectionError'> {
+  implements Resolve<TrekContext | null | 'connectionError'>
+{
   constructor(
     private loading: LoadingService,
     private offlineTreks: OfflineTreksService,
@@ -67,18 +68,18 @@ export class TrekContextResolver
             console.error('No trek found: ', currentTrekId);
             return null;
           } else {
-            const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(
-              isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
-              offline
-            );
+            const mapConfig: MapboxOptions =
+              treksService.getMapConfigForTrekById(
+                isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
+                offline
+              );
             const commonSrc = treksService.getCommonImgSrc();
-            const hydratedTrek: HydratedTrek = this.settingsService.getHydratedTrek(
-              trek,
-              commonSrc
-            );
-            const touristicCategoriesWithFeatures = this.settingsService.getTouristicCategoriesWithFeatures(
-              touristicContents
-            );
+            const hydratedTrek: HydratedTrek =
+              this.settingsService.getHydratedTrek(trek, commonSrc);
+            const touristicCategoriesWithFeatures =
+              this.settingsService.getTouristicCategoriesWithFeatures(
+                touristicContents
+              );
 
             if (
               (this.platform.is('ios') || this.platform.is('android')) &&
@@ -88,11 +89,6 @@ export class TrekContextResolver
                 `${trek.properties.name}`
               );
             }
-
-            // get parent trek to display trek name
-            // trek stage
-            // trek previous
-            // trek next
 
             return {
               treksTool: treksService,
@@ -112,7 +108,7 @@ export class TrekContextResolver
         }
       ),
       catchError((error: HttpErrorResponse) => {
-        this.loading.finish(); // there are two requests. finish loading if one fails
+        this.loading.finish();
         if (!error.status) {
           return of('connectionError' as 'connectionError');
         } else {

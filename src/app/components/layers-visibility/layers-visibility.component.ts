@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 
 @Component({
@@ -6,13 +6,13 @@ import { NavParams } from '@ionic/angular';
   templateUrl: './layers-visibility.component.html',
   styleUrls: ['./layers-visibility.component.scss']
 })
-export class LayersVisibilityComponent {
+export class LayersVisibilityComponent implements OnInit {
   changeLayerVisibility: any;
   layers: any;
 
   constructor(private navParams: NavParams) {}
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.changeLayerVisibility = this.navParams.get('changeLayerVisibility');
     this.layers = this.navParams.get('layers');
   }
