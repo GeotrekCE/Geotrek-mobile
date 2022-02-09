@@ -4,74 +4,75 @@ Mobile application of _Geotrek Rando_ (http://geotrek.fr).
 
 # INSTALLATION
 
-_Before proceeding, make sure the latest version of [Node.js and npm](https://nodejs.org/en/) are installed_.
-It is usually easier to do with [NVM](https://github.com/nvm-sh/nvm)
+```
+npm install -g @ionic/cli@6.18.1
+npm install -g cordova@11.0.0
+npm install -g cordova-res@0.15.4
+git clone git@github.com:GeotrekCE/Geotrek-mobile.git
+cd Geotrek-mobile
+npm install
+```
 
-    npm install -g @ionic/cli@6.18.1
+[iOS environment setup](https://ionicframework.com/docs/installation/ios)\
+[Android environment setup](https://ionicframework.com/docs/installation/android)
 
-    npm install -g cordova@11.0.0
-
-    git clone git@github.com:GeotrekCE/Geotrek-mobile.git
-
-    cd Geotrek-mobile
-
-    npm install
-
-# RUN THE APP IN THE BROWSER
+# RUN THE APP
 
 _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.ts'_ with your personal api url (the one you can create [here](https://geotrek.readthedocs.io/en/master/synchronization.html#geotrek-mobile-app-v3) and configure [here](https://github.com/GeotrekCE/Geotrek-rando/blob/master/docs/http-server.md))
 
-    ionic serve
+## BROWSER
 
-# RUN THE APP ON DEVICE
-
-/!\ The `run` argument build the apk, then install it on the device
+```
+ionic serve
+```
 
 ## iOS
 
-_Need [iOS environment setup](https://ionicframework.com/docs/installation/ios) available only on macOS_
-
-    ionic cordova run ios
+```
+ionic cordova run ios
+```
 
 ## Android
 
-_Need [Android environment setup](https://ionicframework.com/docs/installation/android) available on Windows, macOS and Linux_
-
-    ionic cordova run android
+```
+ionic cordova run android
+```
 
 # BUILD RELEASE APP
-
-/!\ The `build` argument just build the apk, but don't install it on the device
-
-You will need the [android SDK](https://developer.android.com/studio#downloads) (Command line tools may be enough, to be verified). You will also need the Java Developement Kit (JDK), you can use the openjdk-8-jdk package (this version works, unsure for others) that may already be installed on your linux system (instead of the official Oracle JDK).
 
 _Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.prod.ts'_ with your personal api url
 
 ## iOS
 
-    npm run build:ios
+```
+npm run build:ios
+```
 
 ## Android
 
-    npm run build:android
+```
+npm run build:android
+```
 
 # CUSTOMIZATION OPTIONS
-
-You can find below all available options. You can easily overwrite them to customize your app.
 
 ## config.xml
 
 App id
 
-    <widget  id="io.geotrek.starter" ...>
+```
+<widget  id="io.geotrek.starter" ...>
+```
 
 App name
 
-    <name>Geotrek Starter</name>
+```
+<name>Geotrek Starter</name>
+```
 
 ## src/environments/environment.ts & environment.prod.ts
 
-You can overwrite a lot of options inside these files:  
+You can overwrite a lot of options inside these files
 AppName (header of the app) , availableLanguage, api url, map options and more
 
 _environment.ts will be use for development  
@@ -85,11 +86,6 @@ You can find all the internationalization ressources here (by default Fr and En)
 
 Local icons to display on the map, like departure or parking icon
 
-## src/assets/map/zone/zone.geojson
-
-Geosjon to display on the map  
-_Generally represents the limits of the geographical area of the application_
-
 ## src/theme/variables.scss
 
 Colors that will be used  
@@ -101,64 +97,44 @@ _The most important point here is the primary color to customize your applicatio
 
 - The source image for splash screens should ideally be at least 2732×2732px and located in resources/splash.png. For best results, the splash screen's artwork should roughly fit within a square (1200×1200px) at the center of the image.
 
-Then you just have to run
+Then you have to run
 
-    ionic cordova resources
-
-## Other resources
-
-- All others resources are provided by the api
-  _We download a global package for offline mode when user downloads his first trek_
+```
+ionic cordova resources
+```
 
 ## Firebase Analytics Configuration
 
-In order to use Firebase analytics, you had to create a Firebase App.
+To use Firebase analytics, you had to create a Firebase App
 
 - Then store google-services.json and GoogleService-Info.plist in ./Analytics/
-- In config.xml, add
-
-```
-  <platform name="android">
-    <resource-file src="analytics/google-services.json" target="app/google-services.json" />
-    ...
-  </platform>
-  <platform name="ios">
-    <resource-file src="analytics/GoogleService-Info.plist" />
-    ...
-  </platform>
-```
 
 - Set true to useFirebase variable in environment files
 
 ## Remove Firebase Analytics
 
-In order to build the app without Firebase you had to
-
-- Set false to useFirebase variable in environment files
+To build the app without Firebase you had to
 
 - Remove these plugins
 
 ```
 ionic cordova plugin rm cordova-plugin-firebase-analytics
-
 ionic cordova plugin rm cordova-android-play-services-gradle-release
-
 ionic cordova plugin rm cordova-support-android-plugin
 ```
 
-## Tests
+- In config.xml, remove these resource file lines
 
-### End-to-end testing
+```
+<resource-file src="analytics/google-services.json" target="app/google-services.json" />
+<resource-file src="analytics/GoogleService-Info.plist" />
+```
 
-Open cypress
+# End-to-end testing
 
 ```
 npx cypress open
 ```
-
-## Documentation
-
-[Access to extensive documentation](https://geotrekce.github.io/Geotrek-mobile)
 
 # LICENCE
 
