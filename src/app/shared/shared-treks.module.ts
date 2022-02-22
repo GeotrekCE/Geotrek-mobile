@@ -1,22 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PoiComponent } from '@app/components/poi/poi.component';
 import { TrekCardComponent } from '@app/components/trek-card/trek-card.component';
-import { CustomPipesModule } from './custom-pipes.module';
 
+@Pipe({ name: 'lowerRound' })
+export class LowerRoundPipe implements PipeTransform {
+  transform(value: number): number {
+    return Math.floor(value);
+  }
+}
 @NgModule({
-  declarations: [PoiComponent, TrekCardComponent],
+  declarations: [TrekCardComponent, LowerRoundPipe],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
-    TranslateModule.forChild(),
-    CustomPipesModule
+    TranslateModule.forChild()
   ],
-  exports: [PoiComponent, TrekCardComponent]
+  exports: [TrekCardComponent, LowerRoundPipe]
 })
 export class SharedTreksModule {}

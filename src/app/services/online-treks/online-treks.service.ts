@@ -14,7 +14,6 @@ import {
   TouristicContents,
   TouristicEvents
 } from '@app/interfaces/interfaces';
-import { CacheService } from '@app/services/cache/cache.service';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { environment } from '@env/environment';
 
@@ -33,7 +32,6 @@ export class OnlineTreksService implements TreksService {
 
   constructor(
     private http: HttpClient,
-    private cache: CacheService,
     private filterTreks: FilterTreksService,
     private translate: TranslateService
   ) {}
@@ -108,12 +106,12 @@ export class OnlineTreksService implements TreksService {
       })
     };
     if (parentId) {
-      return this.cache.get<Trek>(
+      return this.http.get<Trek>(
         `${this.apiUrl}/${parentId}/treks/${trekId}.geojson`,
         httpOptions
       );
     } else {
-      return this.cache.get<Trek>(
+      return this.http.get<Trek>(
         `${this.apiUrl}/${trekId}/trek.geojson`,
         httpOptions
       );
@@ -131,12 +129,12 @@ export class OnlineTreksService implements TreksService {
     };
 
     if (parentId) {
-      return this.cache.get<Pois>(
+      return this.http.get<Pois>(
         `${this.apiUrl}/${parentId}/pois/${trekId}.geojson`,
         httpOptions
       );
     } else {
-      return this.cache.get<Pois>(
+      return this.http.get<Pois>(
         `${this.apiUrl}/${trekId}/pois.geojson`,
         httpOptions
       );
@@ -153,12 +151,12 @@ export class OnlineTreksService implements TreksService {
       })
     };
     if (parentId) {
-      return this.cache.get<TouristicContents>(
+      return this.http.get<TouristicContents>(
         `${this.apiUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
         httpOptions
       );
     } else {
-      return this.cache.get<TouristicContents>(
+      return this.http.get<TouristicContents>(
         `${this.apiUrl}/${trekId}/touristic_contents.geojson`,
         httpOptions
       );
@@ -175,12 +173,12 @@ export class OnlineTreksService implements TreksService {
       })
     };
     if (parentId) {
-      return this.cache.get<TouristicEvents>(
+      return this.http.get<TouristicEvents>(
         `${this.apiUrl}/${parentId}/touristic_events/${trekId}.geojson`,
         httpOptions
       );
     } else {
-      return this.cache.get<TouristicEvents>(
+      return this.http.get<TouristicEvents>(
         `${this.apiUrl}/${trekId}/touristic_events.geojson`,
         httpOptions
       );
@@ -201,7 +199,7 @@ export class OnlineTreksService implements TreksService {
       ...cloneDeep(environment.onlineMapConfig),
       zoom: environment.trekZoom.zoom
     };
-    (mapConfig as any).trekBounds = trek.bbox as [
+    (mapConfig as any).trekBounds = (trek as any).bbox as [
       number,
       number,
       number,

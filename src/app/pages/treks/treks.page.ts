@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SettingsService } from '@app/services/settings/settings.service';
 import {
   IonContent,
   ModalController,
@@ -8,26 +7,20 @@ import {
   AlertController
 } from '@ionic/angular';
 import { combineLatest, Subscription } from 'rxjs';
-import { map, mergeMap, first } from 'rxjs/operators';
 import { Network } from '@ionic-native/network/ngx';
 import { Platform } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@env/environment';
+import { SettingsService } from '@app/services/settings/settings.service';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import {
-  MinimalTrek,
-  TreksContext,
-  TreksService,
-  Order
-} from '@app/interfaces/interfaces';
+import { MinimalTrek, TreksService, Order } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
-import { LoadingService } from '@app/services/loading/loading.service';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
-import { TranslateService } from '@ngx-translate/core';
 import { TreksOrderComponent } from '@app/components/treks-order/treks-order.component';
 
 @Component({
@@ -49,7 +42,6 @@ export class TreksPage implements OnInit, OnDestroy {
   public currentMaxTreks: number = environment.treksByStep;
 
   private treksTool: TreksService;
-  private dataSubscription: Subscription;
   private filteredTreksSubscription: Subscription;
   private nbOfflineTreksSubscription: Subscription;
 
@@ -57,7 +49,6 @@ export class TreksPage implements OnInit, OnDestroy {
 
   constructor(
     private filterTreks: FilterTreksService,
-    public loading: LoadingService,
     private modalController: ModalController,
     public offlineTreks: OfflineTreksService,
     public onlineTreks: OnlineTreksService,
@@ -77,21 +68,18 @@ export class TreksPage implements OnInit, OnDestroy {
 
     await this.handleInitialOrder();
 
-    this.dataSubscription = this.route.data.subscribe((data) => {
-      if (!this.treksTool) {
-        const context: TreksContext = data.context;
-        this.treksTool = context.treksTool;
-        this.mapLink = context.treksTool.getTreksMapUrl();
-        this.offline = context.offline;
-      }
-    });
+    if (!this.treksTool) {
+      this.offline = !!this.route.snapshot.data['offline'];
+      this.treksTool = this.offline ? this.offlineTreks : this.onlineTreks;
+      this.mapLink = this.treksTool.getTreksMapUrl();
+    }
+
+    const filteredTreks$ = this.offline
+      ? this.offlineTreks.filteredTreks$
+      : this.onlineTreks.filteredTreks$;
 
     this.filteredTreksSubscription = combineLatest([
-      this.route.data.pipe(
-        first(),
-        map((data) => data.context),
-        mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
-      ),
+      filteredTreks$,
       this.filterTreks.activeFiltersNumber$,
       this.settings.data$
     ]).subscribe(([filteredTreks, numberOfActiveFilters, settings]) => {
@@ -106,20 +94,12 @@ export class TreksPage implements OnInit, OnDestroy {
 
     this.nbOfflineTreksSubscription = this.offlineTreks.treks$.subscribe(
       (treks) => {
-        if (!treks) {
-          this.nbOfflineTreks = 0;
-        } else {
-          this.nbOfflineTreks = treks.features.length;
-        }
+        this.nbOfflineTreks = !treks ? 0 : treks.features.length;
       }
     );
   }
 
   ngOnDestroy(): void {
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
-    }
-
     if (this.filteredTreksSubscription) {
       this.filteredTreksSubscription.unsubscribe();
     }

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { InformationIntro, InformationItem } from '@app/interfaces/interfaces';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CacheService } from '@app/services/cache/cache.service';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class MoreInformationsService {
   private apiUrl = `${environment.onlineBaseUrl}`;
 
   constructor(
-    private cache: CacheService,
+    private http:HttpClient,
     private translate: TranslateService
   ) {}
 
@@ -24,7 +23,7 @@ export class MoreInformationsService {
         'Accept-Language': this.translate.getDefaultLang()
       })
     };
-    return this.cache.get<InformationIntro[]>(
+    return this.http.get<InformationIntro[]>(
       `${this.apiUrl}/flatpages.json`,
       httpOptions
     );
@@ -36,7 +35,7 @@ export class MoreInformationsService {
         'Accept-Language': this.translate.getDefaultLang()
       })
     };
-    return this.cache.get<InformationItem>(
+    return this.http.get<InformationItem>(
       `${this.apiUrl}/flatpages/${id}.json`,
       httpOptions
     );

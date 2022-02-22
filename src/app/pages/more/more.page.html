@@ -5,28 +5,42 @@
 </ion-header>
 
 <ion-content>
-  <app-connect-error
-    *ngIf="connectionError"
-    icon="wifi"
-    [title]="'error.title' | translate"
-    [content]="'error.contentMore' | translate"
-    [buttonText]="'error.buttonText' | translate"
-    (retry)="refresh()"
+  <ng-container
+    *ngIf="connectionError || !moreInformationsIntro; else moreInformationsIntroTemplate"
   >
-  </app-connect-error>
+    <ng-container *ngIf="!moreInformationsIntro; else connectError">
+      <div class="spinner-container">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
+    </ng-container>
 
-  <div *ngIf="moreInformationsIntro">
-    <ion-list>
-      <ion-item
-        class="no-outline"
-        detail="true"
-        *ngFor="let moreInformationIntro of moreInformationsIntro"
-        routerLink="/more/{{ moreInformationIntro.id }}"
+    <ng-template #connectError>
+      <app-connect-error
+        *ngIf="connectionError"
+        icon="wifi"
+        [title]="'error.title' | translate"
+        [content]="'error.contentMore' | translate"
+        [buttonText]="'error.buttonText' | translate"
+        (retry)="refresh()"
       >
-        <ion-label>
-          <h3>{{ moreInformationIntro.title }}</h3>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+      </app-connect-error>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #moreInformationsIntroTemplate>
+    <div *ngIf="moreInformationsIntro">
+      <ion-list>
+        <ion-item
+          class="no-outline"
+          detail="true"
+          *ngFor="let moreInformationIntro of moreInformationsIntro"
+          routerLink="/more/{{ moreInformationIntro.id }}"
+        >
+          <ion-label>
+            <h3>{{ moreInformationIntro.title }}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ng-template>
 </ion-content>

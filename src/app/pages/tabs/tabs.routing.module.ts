@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TreksContextResolver } from '@app/resolvers/treks.resolver';
 import { TreksPage } from '../treks/treks.page';
 import { TabsPage } from './tabs.page';
 
@@ -14,10 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: TreksPage,
-            resolve: {
-              context: TreksContextResolver
-            }
+            component: TreksPage
           }
         ]
       },
@@ -27,10 +23,7 @@ const routes: Routes = [
           {
             path: '',
             component: TreksPage,
-            data: { offline: true },
-            resolve: {
-              context: TreksContextResolver
-            }
+            data: { offline: true }
           }
         ]
       },

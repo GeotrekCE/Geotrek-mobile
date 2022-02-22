@@ -2,10 +2,9 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  OnDestroy
+  ChangeDetectorRef
 } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -15,12 +14,13 @@ import {
   Picture,
   Poi,
   Trek,
-  TrekContext,
   TreksService,
   TouristicEvent,
   TouristicCategoryWithFeatures,
   TouristicContents,
-  DataSetting
+  DataSetting,
+  Pois,
+  TouristicEvents
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -28,8 +28,8 @@ import { environment } from '@env/environment';
 import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { first } from 'rxjs/internal/operators/first';
-import { Subscription } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-trek-details',
@@ -37,7 +37,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./trek-details.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrekDetailsPage implements OnInit, OnDestroy {
+export class TrekDetailsPage implements OnInit {
   public originalTrek: Trek;
   public currentTrek: HydratedTrek;
   public offline = false;
@@ -68,7 +68,6 @@ export class TrekDetailsPage implements OnInit, OnDestroy {
     'mobile',
     'api'
   )}/${this.translate.getDefaultLang()}/treks`;
-  private dataSubscription: Subscription;
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -86,16 +85,54 @@ export class TrekDetailsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.dataSubscription = this.route.data.subscribe(async (data: Data) => {
-      const context: TrekContext | null | 'connectionError' = data.context;
-      if (context === 'connectionError') {
-        this.connectionError = true;
-      } else {
-        if (!this.currentTrek) {
+    const offline = !!this.route.snapshot.data['offline'];
+    const isStage = !!this.route.snapshot.data['isStage'];
+    const trekId = +(<string>this.route.snapshot.paramMap.get('trekId'));
+    const stageId = +(<string>this.route.snapshot.paramMap.get('stageId'));
+    const currentTrekId = isStage ? stageId : trekId;
+    const parentId: number | undefined = isStage ? trekId : undefined;
+
+    const treksService: TreksService = offline
+      ? this.offlineTreks
+      : this.onlineTreks;
+
+    forkJoin([
+      treksService.getTrekById(currentTrekId, parentId),
+      treksService.getPoisForTrekById(currentTrekId, parentId),
+      treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+      treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+      isStage && parentId ? treksService.getTrekById(parentId) : of(null)
+    ])
+      .pipe(first())
+      .subscribe(
+        async ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
+          Trek | null,
+          Pois,
+          TouristicContents,
+          TouristicEvents,
+          Trek | null
+        ]): Promise<any> => {
+          const commonSrc = treksService.getCommonImgSrc();
+          const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
+            trek,
+            commonSrc
+          );
+          const touristicCategoriesWithFeatures =
+            this.settings.getTouristicCategoriesWithFeatures(touristicContents);
+
+          if (
+            (this.platform.is('ios') || this.platform.is('android')) &&
+            environment.useFirebase
+          ) {
+            this.firebaseAnalytics.setCurrentScreen(
+              `${trek.properties.name} details`
+            );
+          }
+
           this.connectionError = false;
           this.isAvailableOffline =
             await this.offlineTreks.trekIsAvailableOffline(
-              context.trek.properties.id
+              hydratedTrek.properties.id
             );
 
           if (this.settings.data$.value) {
@@ -105,29 +142,29 @@ export class TrekDetailsPage implements OnInit, OnDestroy {
           }
 
           this.isItinerancy = !!(
-            context.trek.properties.children &&
-            context.trek.properties.children.features.length > 0
+            hydratedTrek.properties.children &&
+            hydratedTrek.properties.children.features.length > 0
           );
 
-          this.offline = context.offline;
-          this.currentTrek = context.trek;
-          this.originalTrek = context.originalTrek;
-          this.currentPois = context.pois.features;
-          this.treksTool = context.treksTool;
-          this.touristicContents = context.touristicContents;
+          this.offline = offline;
+          this.currentTrek = hydratedTrek;
+          this.originalTrek = trek;
+          this.currentPois = pois.features;
+          this.treksTool = treksService;
+          this.touristicContents = touristicContents;
           this.touristicCategoriesWithFeatures =
-            context.touristicCategoriesWithFeatures;
-          this.touristicEvents = context.touristicEvents.features;
+            touristicCategoriesWithFeatures;
+          this.touristicEvents = touristicEvents.features;
           this.treksUrl = this.treksTool.getTreksUrl();
-          this.commonSrc = context.commonSrc;
-          this.mapLink = context.treksTool.getTrekMapUrl(
-            context.trek.properties.id,
-            context.parentTrek ? context.parentTrek.properties.id : undefined
+          this.commonSrc = commonSrc;
+          this.mapLink = this.treksTool.getTrekMapUrl(
+            hydratedTrek.properties.id,
+            parentTrek ? parentTrek.properties.id : undefined
           );
 
-          this.isStage = context.isStage;
-          if (context.isStage && context.parentTrek) {
-            this.parentTrek = context.parentTrek;
+          this.isStage = isStage;
+          if (isStage && parentTrek) {
+            this.parentTrek = parentTrek;
 
             this.stageIndex =
               this.parentTrek.properties.children.features.findIndex(
@@ -154,14 +191,10 @@ export class TrekDetailsPage implements OnInit, OnDestroy {
           }
           this.ref.markForCheck();
         }
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
-    }
+      ),
+      () => {
+        this.connectionError = true;
+      };
   }
 
   async downloadTrek() {

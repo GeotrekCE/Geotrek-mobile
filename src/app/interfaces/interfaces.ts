@@ -271,26 +271,3 @@ export interface TreksService {
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
   getCommonImgSrc(): string;
 }
-
-/* Navigation contexts */
-
-export interface TrekContext {
-  offline: boolean;
-  pois: Pois;
-  originalTrek: Trek;
-  trek: HydratedTrek;
-  treksTool: TreksService;
-  mapConfig: MapboxOptions;
-  touristicContents: TouristicContents;
-  touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
-  touristicEvents: TouristicEvents;
-  commonSrc: string;
-  isStage: boolean;
-  parentTrek: Trek | null;
-}
-
-export interface TreksContext {
-  offline: boolean;
-  treksTool: TreksService;
-  mapConfig: any;
-}

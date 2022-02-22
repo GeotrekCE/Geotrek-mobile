@@ -1,23 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { MapboxOptions } from 'mapbox-gl';
+import { combineLatest } from 'rxjs';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { cloneDeep } from 'lodash';
+import { Network } from '@ionic-native/network/ngx';
+
 import { environment } from '@env/environment';
+import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import {
-  MinimalTrek,
-  TreksContext,
-  TreksService
-} from '@app/interfaces/interfaces';
+import { MinimalTrek, TreksService } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { ModalController, Platform } from '@ionic/angular';
-import { combineLatest } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { map, mergeMap, first } from 'rxjs/operators';
-import { cloneDeep } from 'lodash';
-import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-treks-map',
@@ -36,13 +33,13 @@ export class TreksMapPage implements OnInit, OnDestroy {
   public mapConfig: MapboxOptions;
   public commonSrc: string;
   public noNetwork = false;
-  private dataSubscription: Subscription;
   public canDisplayMap = false;
 
   constructor(
     private filterTreks: FilterTreksService,
     private modalController: ModalController,
     public onlineTreks: OnlineTreksService,
+    public offlineTreks: OfflineTreksService,
     private router: Router,
     private route: ActivatedRoute,
     public settings: SettingsService,
@@ -53,21 +50,25 @@ export class TreksMapPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkNetwork();
 
-    this.dataSubscription = this.route.data.subscribe((data) => {
-      const context: TreksContext = data.context;
-      this.offline = context.offline;
-      this.treksTool = context.treksTool;
+    if (!this.treksTool) {
+      this.offline = !!this.route.snapshot.data['offline'];
+      this.treksTool = this.offline ? this.offlineTreks : this.onlineTreks;
       this.treksUrl = this.treksTool.getTreksUrl();
-      this.mapConfig = cloneDeep(context.mapConfig);
+      this.mapConfig = cloneDeep(
+        (this.offline &&
+        (this.platform.is('ios') || this.platform.is('android'))
+          ? environment.offlineMapConfig
+          : environment.onlineMapConfig) as any
+      );
       this.commonSrc = this.treksTool.getCommonImgSrc();
-    });
+    }
+
+    const filteredTreks$ = this.offline
+      ? this.offlineTreks.filteredTreks$
+      : this.onlineTreks.filteredTreks$;
 
     this.mergeFiltersTreks$ = combineLatest([
-      this.route.data.pipe(
-        first(),
-        map((data) => data.context),
-        mergeMap((context: TreksContext) => context.treksTool.filteredTreks$)
-      ),
+      filteredTreks$,
       this.filterTreks.activeFiltersNumber$
     ]).subscribe(([filteredTreks, numberOfActiveFilters]) => {
       this.numberOfActiveFilters =
@@ -79,10 +80,6 @@ export class TreksMapPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.mergeFiltersTreks$) {
       this.mergeFiltersTreks$.unsubscribe();
-    }
-
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
     }
   }
 

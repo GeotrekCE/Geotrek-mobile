@@ -1,43 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { InformationIntro } from '@app/interfaces/interfaces';
+import { MoreInformationsService } from '@app/services/more-informations/more-informations.service';
 
 @Component({
   selector: 'app-more',
   templateUrl: './more.page.html',
   styleUrls: ['./more.page.scss']
 })
-export class MorePage implements OnInit, OnDestroy {
+export class MorePage implements OnInit {
+  public appName: string = environment.appName;
   moreInformationsIntro: InformationIntro[];
   connectionError = false;
-  public appName: string = environment.appName;
-  private moreInformationsIntroSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private router: Router, private more: MoreInformationsService) {}
 
   ngOnInit(): void {
-    this.moreInformationsIntroSubscription = this.route.data.subscribe(
-      (data) => {
-        const items: InformationIntro[] | 'connectionError' = data.items;
-        if (items === 'connectionError') {
+    this.more
+      .getMoreItems()
+      .pipe(first())
+      .subscribe(
+        (moreItems) => {
+          this.moreInformationsIntro = moreItems;
+        },
+        () => {
           this.connectionError = true;
-        } else {
-          if (!this.moreInformationsIntro) {
-            this.connectionError = false;
-            this.moreInformationsIntro = items;
-          }
         }
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    if (this.moreInformationsIntroSubscription) {
-      this.moreInformationsIntroSubscription.unsubscribe();
-    }
+      );
   }
 
   public refresh() {

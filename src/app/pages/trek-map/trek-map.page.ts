@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, Platform, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs/internal/Subscription';
 
@@ -12,13 +12,22 @@ import {
   HydratedTrek,
   Poi,
   Pois,
-  TrekContext,
   InformationDesk,
   TouristicCategoryWithFeatures,
-  TreksService
+  TreksService,
+  Trek,
+  TouristicContents,
+  TouristicEvents
 } from '@app/interfaces/interfaces';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { Location } from '@angular/common';
+import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { environment } from '@env/environment';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+import { first } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-trek-map',
@@ -36,7 +45,6 @@ export class TrekMapPage implements OnInit, OnDestroy {
   public commonSrc: string;
   public offline = false;
   private treksTool: TreksService;
-  private dataSubscription: Subscription;
   private backButtonSubscription: Subscription;
   public canDisplayMap = false;
 
@@ -47,31 +55,78 @@ export class TrekMapPage implements OnInit, OnDestroy {
     public settings: SettingsService,
     private platform: Platform,
     private popoverCtrl: PopoverController,
-    private location: Location
+    private location: Location,
+    private onlineTreks: OnlineTreksService,
+    private offlineTreks: OfflineTreksService,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   ngOnInit(): void {
-    this.dataSubscription = this.route.data.subscribe((data: Data): void => {
-      const context: TrekContext | 'connectionError' = data.context;
-      if (context === 'connectionError') {
-        this.connectionError = true;
-      } else {
-        if (!this.currentTrek) {
+    const offline = !!this.route.snapshot.data['offline'];
+    const isStage = !!this.route.snapshot.data['isStage'];
+    const trekId = +(<string>this.route.snapshot.paramMap.get('trekId'));
+    const stageId = +(<string>this.route.snapshot.paramMap.get('stageId'));
+    const currentTrekId = isStage ? stageId : trekId;
+    const parentId: number | undefined = isStage ? trekId : undefined;
+
+    const treksService: TreksService = offline
+      ? this.offlineTreks
+      : this.onlineTreks;
+
+    forkJoin([
+      treksService.getTrekById(currentTrekId, parentId),
+      treksService.getPoisForTrekById(currentTrekId, parentId),
+      treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+      treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+      isStage && parentId ? treksService.getTrekById(parentId) : of(null)
+    ])
+      .pipe(first())
+      .subscribe(
+        async ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
+          Trek | null,
+          Pois,
+          TouristicContents,
+          TouristicEvents,
+          Trek | null
+        ]): Promise<any> => {
+          const mapConfig: MapboxOptions = treksService.getMapConfigForTrekById(
+            isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
+            offline
+          );
+          const commonSrc = treksService.getCommonImgSrc();
+          const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
+            trek,
+            commonSrc
+          );
+          const touristicCategoriesWithFeatures =
+            this.settings.getTouristicCategoriesWithFeatures(touristicContents);
+
+          if (
+            (this.platform.is('ios') || this.platform.is('android')) &&
+            environment.useFirebase
+          ) {
+            this.firebaseAnalytics.setCurrentScreen(
+              `${trek.properties.name} map`
+            );
+          }
+
           this.connectionError = false;
-          this.offline = context.offline;
-          this.currentTrek = context.trek;
-          this.currentPois = context.pois;
+          this.offline = offline;
+          this.currentTrek = hydratedTrek;
+          this.currentPois = pois;
           this.touristicCategoriesWithFeatures =
-            context.touristicCategoriesWithFeatures;
-          this.mapConfig = context.mapConfig;
-          this.treksTool = context.treksTool;
-          this.commonSrc = context.treksTool.getCommonImgSrc();
-          this.trekUrl = context.treksTool.getTrekDetailsUrl(
+            touristicCategoriesWithFeatures;
+          this.mapConfig = mapConfig;
+          this.treksTool = treksService;
+          this.commonSrc = treksService.getCommonImgSrc();
+          this.trekUrl = treksService.getTrekDetailsUrl(
             (this.currentTrek as any).properties.id
           );
+        },
+        () => {
+          this.connectionError = true;
         }
-      }
-    });
+      );
 
     if (this.platform.is('android')) {
       this.backButtonSubscription =
@@ -96,10 +151,6 @@ export class TrekMapPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe();
-    }
-
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }

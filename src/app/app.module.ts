@@ -1,15 +1,8 @@
-import {
-  HttpClientModule,
-  HttpClient,
-  HTTP_INTERCEPTORS
-} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-import { MoreItemResolver } from '@app/resolvers/more-item.resolver';
-import { MoreResolver } from '@app/resolvers/more.resolver';
-import { LoadingInterceptor } from '@app/services/loading/loading.service';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -17,8 +10,6 @@ import localeFr from '@angular/common/locales/fr';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { TrekContextResolver } from '@app/resolvers/trek.resolver';
-import { TreksContextResolver } from '@app/resolvers/treks.resolver';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 
 import { File } from '@ionic-native/file/ngx';
@@ -105,12 +96,7 @@ registerLocaleData(localeFr, 'fr');
     Network,
     FirebaseAnalytics,
     DeviceOrientation,
-    MoreResolver,
-    MoreItemResolver,
-    TrekContextResolver,
-    TreksContextResolver,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     {
       provide: APP_INITIALIZER,
       useFactory:

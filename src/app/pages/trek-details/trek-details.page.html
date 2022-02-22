@@ -48,17 +48,29 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ng-container *ngIf="connectionError && !offline; else trekDetail">
-    <app-connect-error
-      icon="wifi"
-      [title]="'error.title' | translate"
-      [content]="'error.contentTrekMap' | translate"
-      [buttonText]="'error.buttonText' | translate"
-      (retry)="refresh()"
+  <ng-container
+    *ngIf="(connectionError && !offline) || (!connectionError && !offline && !currentTrek); else trekDetailTemplate"
+  >
+    <ng-container
+      *ngIf="!connectionError && !offline && !currentTrek; else connectError"
     >
-    </app-connect-error>
+      <div class="spinner-container">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
+    </ng-container>
+    <ng-template #connectError>
+      <app-connect-error
+        *ngIf="connectionError && !offline"
+        icon="wifi"
+        [title]="'error.title' | translate"
+        [content]="'error.contentTrekMap' | translate"
+        [buttonText]="'error.buttonText' | translate"
+        (retry)="refresh()"
+      >
+      </app-connect-error>
+    </ng-template>
   </ng-container>
-  <ng-template #trekDetail>
+  <ng-template #trekDetailTemplate>
     <ion-fab
       *ngIf="currentTrek"
       vertical="bottom"
@@ -97,14 +109,12 @@
       </ion-slides>
 
       <ion-grid fixed>
-        <!-- Teaser -->
         <ion-row *ngIf="currentTrek.properties.description_teaser">
           <ion-col class="bold">
             <div [innerHTML]="currentTrek.properties.description_teaser"></div>
           </ion-col>
         </ion-row>
 
-        <!-- Ambiance -->
         <ion-row *ngIf="currentTrek.properties.ambiance">
           <ion-col class="italic">
             <div [innerHTML]="currentTrek.properties.ambiance"></div>
@@ -121,7 +131,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Stages -->
         <ion-row *ngIf="isStage">
           <ion-col class="no-vertical-padding">
             <div>{{ parentTrek.properties.name }}</div>
@@ -179,7 +188,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Informations -->
         <ion-row
           *ngIf="currentTrek.properties.departure || currentTrek.properties.arrival"
         >
@@ -319,7 +327,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Description -->
         <ion-row>
           <ion-col>
             <div *ngIf="currentTrek.properties.description">
@@ -351,7 +358,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Children -->
         <div #stages>
           <ion-row *ngIf="isItinerancy">
             <ion-col>
@@ -382,7 +388,6 @@
           </ion-row>
         </div>
 
-        <!-- Profile -->
         <ion-row
           *ngIf="currentTrek.properties.profile && currentTrek.properties.profile !== ''"
         >
@@ -400,7 +405,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Rules -->
         <ion-row *ngIf="currentTrek.properties.is_park_centered">
           <ion-col>
             <ion-text color="primary">
@@ -416,7 +420,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Access -->
         <ion-row *ngIf="currentTrek.properties.access">
           <ion-col>
             <ion-text color="primary">
@@ -428,7 +431,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Parking -->
         <ion-row *ngIf="currentTrek.properties.advised_parking">
           <ion-col>
             <ion-text color="primary">
@@ -440,7 +442,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Recommandations -->
         <ion-row *ngIf="currentTrek.properties.advice">
           <ion-col>
             <ion-text color="primary">
@@ -452,7 +453,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Lieux de renseignement -->
         <ion-row
           *ngIf="currentTrek.properties.information_desks && currentTrek.properties.information_desks.length > 0"
         >
@@ -488,7 +488,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Pois -->
         <ion-row *ngIf="currentPois && currentPois.length > 0 && !isItinerancy">
           <ion-col>
             <ion-text color="primary">
@@ -518,7 +517,6 @@
           </ion-col>
         </ion-row>
 
-        <!-- Touristic Contens -->
         <div
           *ngIf="touristicCategoriesWithFeatures && touristicCategoriesWithFeatures.length > 0 && !isItinerancy"
         >
