@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Observable, Subscription } from 'rxjs';
-import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
 import {
   PopoverController,
   AlertController,
@@ -28,16 +28,14 @@ import {
   TouristicContent
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { Platform } from '@ionic/angular';
 import { FeatureCollection } from 'geojson';
 import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
-
-const mapboxgl = require('mapbox-gl');
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 
 @Component({
   selector: 'app-map-trek-viz',
@@ -51,7 +49,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   private touristicsContentCategory: DataSetting | undefined;
   private navigate$: Subscription;
   public navigateModeIsActive: boolean = false;
-  private screenOrientationSubscription: Subscription;
   private currentPositionSubscription: Subscription;
   private currentHeadingSubscription: Subscription;
   private loadImagesSubscription: Subscription;
@@ -64,24 +61,20 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   @Input() dataSettings: DataSetting[];
   @Input() mapConfig: any;
   @Input() commonSrc: string;
+  @Input() offline: boolean;
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
 
   constructor(
     private settings: SettingsService,
-    private screenOrientation: ScreenOrientation,
-    private platform: Platform,
     private geolocate: GeolocateService,
     public popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private offlineTreks: OfflineTreksService
   ) {
-    if (environment && environment.mapbox && environment.mapbox.accessToken) {
-      mapboxgl.accessToken = environment.mapbox.accessToken;
-    }
-
     this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
   }
 
@@ -104,25 +97,11 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    if (this.markerPosition) {
-      this.markerPosition.remove();
-      this.markerPosition = undefined;
-    }
-
-    if (this.map) {
-      this.map.remove();
-    }
-
     if (this.navigate$) {
       this.navigate$.unsubscribe();
     }
 
-    this.geolocate.stopNotificationsModeTracking();
     this.geolocate.stopOnMapTracking();
-
-    if (this.screenOrientationSubscription) {
-      this.screenOrientationSubscription.unsubscribe();
-    }
 
     if (this.currentPositionSubscription) {
       this.currentPositionSubscription.unsubscribe();
@@ -232,24 +211,12 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         if (!!e.features && e.features.length > 0) {
           const childrenTrek = { ...e.features[0] };
           if (childrenTrek.properties && childrenTrek.properties.id) {
-            // go to trek
             this.navigateToChildren.emit(childrenTrek.properties.id);
           }
         }
       });
 
       this.handleClustersInteraction();
-
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        this.screenOrientationSubscription = this.screenOrientation
-          .onChange()
-          .subscribe(() => {
-            // Need to delay before resize
-            window.setTimeout(() => {
-              this.map.resize();
-            }, 50);
-          });
-      }
 
       const loadImages: Observable<any> = Observable.create((observer: any) => {
         const imagesToLoad: any[] = [];
@@ -326,15 +293,32 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           fromAssets: true
         });
 
-        imagesToLoad.forEach((imageToLoad: any, index: number) => {
+        imagesToLoad.forEach(async (imageToLoad: any, index: number) => {
           this.map.loadImage(
             imageToLoad.fromAssets
               ? imageToLoad.pictogram
-              : `${this.commonSrc}${imageToLoad.pictogram}`,
+              : await this.offlineTreks.getTrekImageSrc(
+                  {} as any,
+                  { url: imageToLoad.pictogram } as any
+                ),
             (error: any, image: any) => {
-              this.map.addImage(imageToLoad.id.toString(), image);
-              if (index + 1 === imagesToLoad.length) {
-                observer.complete();
+              if (!error) {
+                this.map.addImage(imageToLoad.id.toString(), image);
+                if (index + 1 === imagesToLoad.length) {
+                  observer.complete();
+                }
+              } else {
+                this.map.loadImage(
+                  `${this.commonSrc}${imageToLoad.pictogram}`,
+                  (error: any, image: any) => {
+                    if (!error) {
+                      this.map.addImage(imageToLoad.id.toString(), image);
+                    }
+                    if (index + 1 === imagesToLoad.length) {
+                      observer.complete();
+                    }
+                  }
+                );
               }
             }
           );
@@ -344,10 +328,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       this.currentPositionSubscription = this.geolocate.currentPosition$
         .pipe(
           filter((currentPosition) => currentPosition !== null),
-          distinctUntilChanged(),
-          throttleTime(environment.backgroundGeolocation.interval)
+          distinctUntilChanged()
         )
-        .subscribe(async (coordinates) => {
+        .subscribe(async (location: any) => {
+          const coordinates: any = [location.longitude, location.latitude];
           if (this.markerPosition) {
             this.markerPosition.setLngLat(coordinates);
           } else {
@@ -374,7 +358,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
       this.loadImagesSubscription = loadImages.subscribe({
         complete: async () => {
-          // map instance for cypress test
           this.mapViz.nativeElement.mapInstance = this.map;
 
           await this.initializeSources();
@@ -451,7 +434,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   }
 
   private initializeLayers(): void {
-    // Itinerancy hide POIs by default
     const visibility: 'none' | 'visible' | undefined =
       this.currentTrek &&
       this.currentTrek.properties.children &&
@@ -747,7 +729,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           features: []
         };
         if (departure[0] === arrival[0] && departure[1] === arrival[1]) {
-          // same departure arrival
           departureArrivalData.features.push({
             type: 'Feature',
             geometry: { type: 'Point', coordinates: departure },
@@ -908,14 +889,27 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     }
   }
 
-  /**
-   * Fly to user location else fitbounds to trek
-   */
   public async flyToUserLocation() {
-    const userLocation = await this.geolocate.getCurrentPosition();
+    const userLocation = (await this.geolocate.getCurrentPosition()) as any;
     if (userLocation) {
+      const coordinates: any = [userLocation.longitude, userLocation.latitude];
+      if (this.markerPosition) {
+        this.markerPosition.setLngLat(coordinates);
+      } else {
+        const el = document.createElement('div');
+        const currentHeading =
+          await this.geolocate.checkIfCanGetCurrentHeading();
+        el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
+        this.markerPosition = new mapboxgl.Marker({
+          element: el
+        }).setLngLat(coordinates);
+        if (this.markerPosition) {
+          this.markerPosition.addTo(this.map);
+        }
+      }
       this.map.flyTo({
-        center: [userLocation.longitude, userLocation.latitude],
+        center: coordinates,
         animate: false,
         zoom: environment.trekZoom.zoom
       });
@@ -923,21 +917,16 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       const errorTranslation: any = await this.translate
         .get('geolocate.error')
         .toPromise();
-      // Inform user about problem
       const alertLocation = await this.alertController.create({
         header: errorTranslation['header'],
         subHeader: errorTranslation['subHeader'],
         message: errorTranslation['message'],
         buttons: [errorTranslation['confirmButton']]
       });
-
       await alertLocation.present();
     }
   }
 
-  /**
-   * Fit to trek bounds
-   */
   public FitToTrekBounds(): void {
     this.map.fitBounds(
       this.mapConfig.trekBounds,
@@ -1022,7 +1011,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           const clusterId = featureProperties.cluster_id;
 
           if (this.map.getZoom() === this.mapConfig.maxZoom) {
-            // no more zoom, display features inside cluster
             (
               this.map.getSource(clusterSource.id) as GeoJSONSource
             ).getClusterLeaves(
@@ -1046,7 +1034,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
               }
             );
           } else {
-            // zoom to next cluster expansion
             (
               this.map.getSource(clusterSource.id) as GeoJSONSource
             ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
@@ -1062,14 +1049,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           }
         }
       });
-
-      // on browser only
-      // this.map.on('mouseenter', `clusters-circle-${clusterSource.id}`, () => {
-      //   this.map.getCanvas().style.cursor = 'pointer';
-      // });
-      // this.map.on('mouseleave', `clusters-circle-${clusterSource.id}`, () => {
-      //   this.map.getCanvas().style.cursor = '';
-      // });
     });
   }
 
@@ -1112,7 +1091,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         imgTypePoi: {
           src:
             currentType && currentType.pictogram
-              ? this.commonSrc + currentType.pictogram
+              ? currentType.pictogram
               : undefined,
           color:
             currentType && currentType.color ? currentType.color : undefined
@@ -1144,9 +1123,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
   public async handleNavigateMode() {
     this.navigateModeIsActive = !this.navigateModeIsActive;
-
     if (this.navigateModeIsActive) {
-      const userLocation = await this.geolocate.getCurrentPosition();
+      const userLocation: any = await this.geolocate.getCurrentPosition();
       if (userLocation) {
         this.map.flyTo({
           center: [userLocation.longitude, userLocation.latitude],
@@ -1165,14 +1143,12 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         const errorTranslation: any = await this.translate
           .get('geolocate.error')
           .toPromise();
-        // Inform user about problem
         const alertLocation = await this.alertController.create({
           header: errorTranslation['header'],
           subHeader: errorTranslation['subHeader'],
           message: errorTranslation['message'],
           buttons: [errorTranslation['confirmButton']]
         });
-
         await alertLocation.present();
       }
     } else {

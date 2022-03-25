@@ -1,15 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { GeoJSON } from 'geojson';
-
+import { Storage } from '@capacitor/storage';
+import { Device } from '@capacitor/device';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 import { Platform } from '@ionic/angular';
-import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Globalization } from '@ionic-native/globalization/ngx';
+import { GeoJSON } from 'geojson';
+import { Network } from '@capacitor/network';
 
 import {
   Trek,
@@ -39,15 +37,12 @@ export class SettingsService {
   } | null>(null);
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
+  public settingsError$ = new BehaviorSubject<boolean | null>(null);
 
   constructor(
     public http: HttpClient,
-    public storage: Storage,
     private platform: Platform,
-    private network: Network,
-    private translate: TranslateService,
-    private statusBar: StatusBar,
-    private globalization: Globalization
+    private translate: TranslateService
   ) {}
 
   public initializeSettings(): Promise<any> {
@@ -56,10 +51,7 @@ export class SettingsService {
         let defaultLanguage;
 
         if (this.platform.is('ios') || this.platform.is('android')) {
-          defaultLanguage = (
-            await this.globalization.getPreferredLanguage()
-          ).value.slice(0, 2);
-          this.statusBar.styleLightContent();
+          defaultLanguage = await Device.getLanguageCode();
         } else {
           defaultLanguage = navigator.language.slice(0, 2);
         }
@@ -77,8 +69,6 @@ export class SettingsService {
 
         this.translate.setDefaultLang(defaultLanguage);
 
-        await this.storage.create();
-
         await this.loadSettings();
 
         resolve(true);
@@ -88,43 +78,49 @@ export class SettingsService {
 
   public loadSettings() {
     return new Promise(async (resolve) => {
-      this.setOfflineSettings();
+      this.settingsError$.next(null);
 
       this.getSettings().subscribe({
         next: async (value) => {
-          await this.storage.set('settings', JSON.stringify(value));
+          await Storage.set({ key: 'settings', value: JSON.stringify(value) });
           this.filters$.next(this.getFilters(value));
           this.data$.next(value.data);
           resolve(true);
         },
-        error: () => {
+        error: async (error) => {
+          const settings = await this.getSettingsFromStorage();
+          if (settings) {
+            this.filters$.next(this.getFilters(settings));
+            this.data$.next(settings.data);
+          } else {
+            this.settingsError$.next(error);
+          }
           resolve(true);
         }
       });
 
       this.getZoneFromUrl().subscribe({
         next: async (value) => {
-          await this.storage.set('zone', JSON.stringify(value));
+          await Storage.set({ key: 'zone', value: JSON.stringify(value) });
         },
         error: async () => {
           if (
             ((this.platform.is('ios') || this.platform.is('android')) &&
-              this.network.type !== 'none') ||
+              !(await Network.getStatus()).connected) ||
             (!this.platform.is('ios') && !this.platform.is('android'))
           ) {
-            await this.storage.remove('zone');
+            await Storage.remove({ key: 'zone' });
           }
         }
       });
     });
   }
 
-  private async setOfflineSettings() {
-    const defaultSettings = JSON.parse(await this.storage.get(`settings`));
-    if (defaultSettings) {
-      this.filters$.next(this.getFilters(defaultSettings));
-      this.data$.next(defaultSettings.data);
-    }
+  private async getSettingsFromStorage() {
+    const defaultSettings = JSON.parse(
+      (await Storage.get({ key: `settings` })).value
+    );
+    return defaultSettings;
   }
 
   private getFilters(settings: Settings) {
@@ -162,7 +158,7 @@ export class SettingsService {
   }
 
   public async getZoneFromStorage() {
-    const zone = JSON.parse(await this.storage.get('zone'));
+    const zone = JSON.parse((await Storage.get({ key: 'zone' })).value);
     return zone
       ? zone
       : {

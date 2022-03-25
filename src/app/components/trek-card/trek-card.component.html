@@ -1,23 +1,15 @@
-<ion-button
-  *ngIf="offline && !isStage"
-  (click)="clickDeleteConfirm($event)"
-  color="light"
-  fill="clear"
-  class="trash-button"
->
-  <ion-icon slot="icon-only" name="trash"></ion-icon>
-</ion-button>
-
 <ion-card
-  class="no-outline pointer extand-card  ion-activatable"
+  *ngIf="hydratedTrek"
+  class="no-outline pointer extand-card ion-activatable"
   [routerLink]="this.routerLink"
 >
   <ion-ripple-effect></ion-ripple-effect>
   <div>
     <ion-img
-      *ngIf="this.imgSrc"
+      *ngIf="this.imgSrc && !this.hideImgSrc"
       class="min-size-img"
       [src]="this.imgSrc"
+      (ionError)="onImgSrcError()"
     ></ion-img>
     <ion-card-header [ngClass]="{ 'minimize-padding-bottom': !showAllData }">
       <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">
@@ -50,10 +42,11 @@
       <div class="extra-content-card ion-padding-top">
         <div>
           <ion-img
-            *ngIf="this.imgPracticeSrc"
+            *ngIf="this.imgPracticeSrc && !this.hideImgPracticeSrc"
             class="picto-practice"
             [style.background-color]="hydratedTrek.properties.practice.color"
             [src]="imgPracticeSrc"
+            (ionError)="onImgPracticeSrcError()"
           ></ion-img>
         </div>
         <div class="ion-padding-start">

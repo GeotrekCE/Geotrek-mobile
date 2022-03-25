@@ -56,6 +56,7 @@
       "success": "L'escursione è disponibile in modo offline",
       "error": "Si è verificato un errore durante lo scaricamento",
       "confirmError": "Ok",
+      "firstDownload": "Quando viene scaricata per la prima volta, l'applicazione memorizza anche i dati globali.",
       "loading": " Scaricamento in corso ...",
       "storage": "Decompressione dei dati in corso ..."
     },
@@ -116,16 +117,17 @@
   },
   "error": {
     "title": "Problema di connessione",
-    "contentTreks": "Assicurasi di essere connesso per accedere all'elenco completo di escursioni non salvate",
+    "contentTreks": "Assicurasi di essere connesso per accedere all'elenco completo di escursioni",
     "contentMore": "Assicurasi di essere connesso per accedere a ulteriori informazioni",
     "contentMoreItem": "Assicurasi di essere connesso per accedere alle informazioni",
     "contentTrekMap": "Assicurasi di essere connesso per accedere al percorso non scaricato",
-    "contentTreksMap": "Assicurasi di essere connesso per accedere alla mappa completa delle escursioni non salvate",
+    "contentTreksMap": "Assicurasi di essere connesso per accedere alla mappa completa delle escursioni",
     "buttonText": "Riprovare"
   },
   "trekCard": {
     "deleteTitle": "Soppressione",
-    "deleteLabel": "Rimuovere questa escursione dalla modalità offline ?",
+    "deleteLabel": "Rimuovi",
+    "askDelete": "Rimuovere questa escursione dalla modalità offline?",
     "deletionInProgress": "Eliminazione in corso",
     "trekIsDelete": "L'escursione è soppressa dalla modalità offline",
     "errorWhileDeleting": "Si è verificato un errore durante l'eliminazione dell'escursione",

@@ -131,12 +131,12 @@ export interface Filter {
 export type Order = 'alphabetical' | 'location' | 'random' | null;
 
 export interface IntervalFilter extends Filter {
-  id: 'length'; // TODO: complete this
+  id: 'length';
   type: 'interval';
 }
 
 export interface ContainsFilter extends Filter {
-  id: 'difficulty' | 'themes' | 'usages' | 'accessibilities'; // TODO: complete this or change this
+  id: 'difficulty' | 'themes' | 'usages' | 'accessibilities';
   type: 'contains';
 }
 
@@ -265,9 +265,12 @@ export interface TreksService {
   ): Observable<TouristicEvents>;
   getTreksUrl(): string;
   getTrekDetailsUrl(trekId: number, parentId?: number): string;
-  getTrekImageSrc(trek: Trek, picture?: Picture): string;
+  getTrekImageSrc(trek: Trek, picture?: Picture): string | Promise<string>;
   getTreksMapUrl(): string;
   getTrekMapUrl(trekId: number, parentId?: number): string;
-  getMapConfigForTrekById(trek: Trek, isOffline: boolean): MapboxOptions;
-  getCommonImgSrc(): string;
+  getMapConfigForTrekById(
+    trek: Trek,
+    isOffline: boolean
+  ): MapboxOptions | Promise<MapboxOptions>;
+  getCommonImgSrc(): string | Promise<string>;
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 
 import { Filter, FilterValue, MinimalTreks } from '@app/interfaces/interfaces';
@@ -19,7 +19,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
   public commonSrc: string;
   public filters: Filter[];
   private filtersSubscription: Subscription;
-  private backButtonSubscription: Subscription;
   private nbTemporaryFiltersTreksSubscription: Subscription;
 
   @Input() public isOnline: boolean;
@@ -28,32 +27,26 @@ export class FiltersComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     public settings: SettingsService,
     private onlineTreks: OnlineTreksService,
-    private offlineTreks: OfflineTreksService,
-    private platform: Platform
+    private offlineTreks: OfflineTreksService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const treks$ = this.isOnline
       ? this.onlineTreks.treks$
       : this.offlineTreks.treks$;
     this.commonSrc = this.isOnline
       ? this.onlineTreks.getCommonImgSrc()
-      : this.offlineTreks.getCommonImgSrc();
+      : await this.offlineTreks.getCommonImgSrc();
 
     this.filtersSubscription = this.settings.filters$.subscribe((filters) => {
       this.filters = filters || [];
       this.temporaryFilters$.next(filters || []);
     });
 
-    this.backButtonSubscription =
-      this.platform.backButton.subscribeWithPriority(99999, () => {
-        this.close();
-      });
-
-    this.nbTemporaryFiltersTreksSubscription = combineLatest(
+    this.nbTemporaryFiltersTreksSubscription = combineLatest([
       treks$,
       this.temporaryFilters$
-    ).subscribe(
+    ]).subscribe(
       ([treks, temporaryFilters]: [MinimalTreks | null, Filter[]]) => {
         this.nbTemporaryFiltersTreks = !!treks
           ? FilterTreksService.filter(treks, temporaryFilters).length
@@ -109,10 +102,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.filtersSubscription) {
       this.filtersSubscription.unsubscribe();
-    }
-
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
     }
 
     if (this.nbTemporaryFiltersTreksSubscription) {

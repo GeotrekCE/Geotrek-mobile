@@ -8,7 +8,9 @@
   <ng-container
     *ngIf="connectionError || !moreInformationsIntro; else moreInformationsIntroTemplate"
   >
-    <ng-container *ngIf="!moreInformationsIntro; else connectError">
+    <ng-container
+      *ngIf="!moreInformationsIntro && !connectionError; else connectError"
+    >
       <div class="spinner-container">
         <ion-spinner color="primary"></ion-spinner>
       </div>

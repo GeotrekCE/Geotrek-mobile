@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
-import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { MinimalTrek, MinimalTreks } from '@app/interfaces/interfaces';
@@ -26,7 +26,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   private treks: MinimalTreks | null = null;
   public treksByStep = 30;
   public currentMaxTreks = 30;
-  private backButtonSubscription: Subscription;
   private treksSubscription: Subscription;
 
   constructor(
@@ -34,17 +33,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
     private searchTreks: SearchTreksService,
-    private navParams: NavParams,
-    private platform: Platform
+    private navParams: NavParams
   ) {}
 
   ngOnInit(): void {
     const isOnline = this.navParams.get('isOnline');
     const treksTool = isOnline ? this.onlineTreks : this.offlineTreks;
-    this.backButtonSubscription =
-      this.platform.backButton.subscribeWithPriority(99999, () => {
-        this.close();
-      });
     this.treksSubscription = treksTool.treks$.subscribe((treks) => {
       this.treks = treks;
       if (this.treks) {
@@ -54,9 +48,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
-    }
     if (this.treksSubscription) {
       this.treksSubscription.unsubscribe();
     }

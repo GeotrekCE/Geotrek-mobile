@@ -61,21 +61,12 @@ ion-fab {
   }
 }
 
-.alert-wrapper.sc-ion-alert-md {
-  width: 50vw;
+.mapboxgl-marker {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--ion-color-pulse);
 }
-
-@media (max-width: 540px) {
-  .alert-wrapper.sc-ion-alert-md {
-    width: 100%;
-    margin: var(--ion-margin);
-  }
-}
-
-.sc-ion-alert-md-h {
-  --max-width: none;
-}
-
 .pulse,
 .pulse-and-view {
   position: relative;

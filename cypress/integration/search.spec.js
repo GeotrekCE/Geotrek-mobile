@@ -1,6 +1,6 @@
 describe('Search', () => {
   it('should open search', () => {
-    cy.visit('/app/tabs/treks');
+    cy.visit('/tabs/treks');
 
     cy.get('.vertical-center > :nth-child(2)').click({
       force: true
@@ -14,19 +14,15 @@ describe('Search', () => {
 
     cy.get('.searchbar-input').should('be.visible');
 
-    cy.get('.searchbar-input').type('no-result-trek-search');
+    cy.get('.searchbar-input').type('no-result-trek-search',{force:true});
 
-    cy.get('ion-content.md > .list-md')
-      .children()
-      .should('have.length', 0);
-
-    cy.get('.searchbar-input')
-      .type('clear')
-      .clear();
+    cy.get('#ion-overlay-1 > .ion-page > .content-ltr > .list-md').should("not.exist")
+    
+    cy.get('.searchbar-input').clear();
   });
 
   it('should go to trek from search', () => {
-    cy.get('ion-content.md > .list-md > :nth-child(1)').click({
+    cy.get('#ion-overlay-1 > .ion-page > .content-ltr > .list-md > :nth-child(1)').click({
       force: true
     });
 

@@ -7,10 +7,8 @@ import {
   AlertController
 } from '@ionic/angular';
 import { combineLatest, Subscription } from 'rxjs';
-import { Network } from '@ionic-native/network/ngx';
 import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-
 import { environment } from '@env/environment';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
@@ -30,7 +28,6 @@ import { TreksOrderComponent } from '@app/components/treks-order/treks-order.com
   providers: [FilterTreksService]
 })
 export class TreksPage implements OnInit, OnDestroy {
-  public noNetwork = false;
   public appName: string = environment.appName;
   public treksByStep: number = environment.treksByStep;
   public colSize = environment.colSize;
@@ -53,10 +50,9 @@ export class TreksPage implements OnInit, OnDestroy {
     public offlineTreks: OfflineTreksService,
     public onlineTreks: OnlineTreksService,
     private geolocate: GeolocateService,
-    private settings: SettingsService,
+    public settings: SettingsService,
     private route: ActivatedRoute,
     private router: Router,
-    private network: Network,
     public platform: Platform,
     private popoverController: PopoverController,
     private translate: TranslateService,
@@ -64,8 +60,6 @@ export class TreksPage implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    this.checkNetwork();
-
     await this.handleInitialOrder();
 
     if (!this.treksTool) {
@@ -234,7 +228,6 @@ export class TreksPage implements OnInit, OnDestroy {
       .get('geolocate.error')
       .toPromise();
 
-    // Inform user about problem
     const alertLocation = await this.alertController.create({
       header: errorTranslation['header'],
       subHeader: errorTranslation['subHeader'],
@@ -248,17 +241,8 @@ export class TreksPage implements OnInit, OnDestroy {
   }
 
   public loadTreks(): void {
-    this.checkNetwork();
-    if (!this.noNetwork) {
-      this.settings.loadSettings();
-      this.onlineTreks.loadTreks();
-    }
-  }
-
-  public checkNetwork(): void {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      this.noNetwork = this.network.type === 'none';
-    }
+    this.settings.loadSettings();
+    this.onlineTreks.loadTreks();
   }
 
   public async presentInAppDisclosure(): Promise<void> {

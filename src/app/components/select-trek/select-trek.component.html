@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="this.imgPractices.length === radioTreks.length">
     <ion-radio-group
       (ionChange)="selectedTrekChange($event)"
       [value]="selectedTrekId"
@@ -18,11 +18,14 @@
         <ion-radio slot="start" [value]="trek.id"></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
-          *ngIf="trek.imgPractice.src"
+          *ngIf="
+            trek.imgPractice.src && !this.imgPractices[i].hideImgPracticeSrc
+          "
           [style.background-color]="
             trek.imgPractice.color ? trek.imgPractice.color : 'transparent'
           "
-          [src]="trek.imgPractice.src"
+          [src]="this.imgPractices[i].src"
+          (ionError)="onImgPracticeSrcError(i)"
         ></ion-img>
         <ion-label class="ion-text-wrap">{{ trek.name }}</ion-label>
       </ion-item>

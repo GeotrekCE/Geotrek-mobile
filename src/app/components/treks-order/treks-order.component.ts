@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 import {
   NavParams,
   Platform,
   PopoverController,
   ModalController
 } from '@ionic/angular';
-
+import { Subscription } from 'rxjs/internal/Subscription';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Order } from '@app/interfaces/interfaces';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-treks-order',
@@ -28,7 +26,6 @@ export class TreksOrderComponent implements OnInit, OnDestroy {
     private navParams: NavParams,
     private settings: SettingsService,
     private platform: Platform,
-    private backgroundGeolocation: BackgroundGeolocation,
     private popoverController: PopoverController,
     private modalController: ModalController,
     private geolocate: GeolocateService
@@ -59,7 +56,7 @@ export class TreksOrderComponent implements OnInit, OnDestroy {
           if (shouldShowInAppDisclosure) {
             await this.presentInAppDisclosure();
           }
-          startLocation = await this.backgroundGeolocation.getCurrentLocation();
+          startLocation = await this.geolocate.getCurrentPosition();
         } catch (catchError) {
           error = true;
         }

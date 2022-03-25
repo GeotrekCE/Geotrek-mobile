@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TreksMapPage } from './treks-map.page';
-import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 import { MapTreksVizComponent } from '@app/components/map-treks-viz/map-treks-viz.component';
 
 const routes: Routes = [
@@ -24,7 +23,7 @@ const routes: Routes = [
     SharedUiModule,
     TranslateModule.forChild()
   ],
-  declarations: [TreksMapPage, SelectTrekComponent, MapTreksVizComponent],
+  declarations: [TreksMapPage, MapTreksVizComponent],
   exports: [MapTreksVizComponent]
 })
 export class TreksMapPageModule {}

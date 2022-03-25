@@ -3,11 +3,18 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
-import { Picture, Poi, Trek, DataSetting } from '@app/interfaces/interfaces';
+import {
+  Picture,
+  Poi,
+  Trek,
+  DataSetting,
+  Property
+} from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 
 @Component({
@@ -25,20 +32,27 @@ export class PoiComponent implements OnChanges {
   public baseUrl = environment.onlineBaseUrl;
   public picture: Picture | null = null;
   public typeImgSrc: string | null = null;
+  private currentTypePoi: Property;
+  private firstTryToLoadFromOnline = true;
+  public hideImgPracticeSrc = false;
 
   constructor(
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService
+    public onlineTreks: OnlineTreksService,
+    private ref: ChangeDetectorRef
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.poi) {
+  async ngOnChanges(changes: SimpleChanges) {
+    if (changes.poi || changes.offline) {
       if (this.typePois && this.poi.properties.type) {
-        const currentTypePoi = this.typePois.values.find(
+        this.currentTypePoi = this.typePois.values.find(
           (typePoi) => typePoi.id === this.poi.properties.type
         );
-        if (currentTypePoi) {
-          this.typeImgSrc = this.commonSrc + currentTypePoi.pictogram;
+        if (this.currentTypePoi) {
+          this.typeImgSrc = await this.offlineTreks.getTrekImageSrc(
+            {} as Trek,
+            { url: this.currentTypePoi.pictogram } as Picture
+          );
         }
       }
 
@@ -47,7 +61,7 @@ export class PoiComponent implements OnChanges {
         if (this.offline) {
           this.picture = {
             ...this.poi.properties.pictures[0],
-            url: this.offlineTreks.getTrekImageSrc(
+            url: await this.offlineTreks.getTrekImageSrc(
               {} as Trek,
               this.poi.properties.pictures[0]
             )
@@ -64,6 +78,16 @@ export class PoiComponent implements OnChanges {
       } else {
         this.picture = null;
       }
+      this.ref.detectChanges();
+    }
+  }
+
+  public onImgPracticeSrcError() {
+    if (this.currentTypePoi.pictogram && this.firstTryToLoadFromOnline) {
+      this.firstTryToLoadFromOnline = false;
+      this.typeImgSrc = `${this.commonSrc}${this.currentTypePoi.pictogram}`;
+    } else {
+      this.hideImgPracticeSrc = true;
     }
   }
 }

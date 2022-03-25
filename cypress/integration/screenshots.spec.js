@@ -11,7 +11,7 @@ describe('Screenshots', () => {
       });
 
       it('should screenshot treks page', () => {
-        cy.visit('/app/tabs/treks');
+        cy.visit('/tabs/treks');
 
         cy.wait(10000);
 
@@ -39,7 +39,7 @@ describe('Screenshots', () => {
       });
 
       it('should screenshot treks map page', () => {
-        cy.visit('/app/tabs/treks');
+        cy.visit('/tabs/treks');
         cy.get('ion-content.md > .fab-horizontal-end > .no-outline').click({
           force: true
         });

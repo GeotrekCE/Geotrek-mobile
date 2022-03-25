@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FilterValue } from '@app/interfaces/interfaces';
+import { FilterValue, Picture, Trek } from '@app/interfaces/interfaces';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 
 @Component({
   selector: 'app-filter-value',
@@ -13,12 +14,31 @@ export class FilterValueComponent implements OnInit {
     checked: boolean;
     value: FilterValue;
   }>();
+  public imgPracticeSrc: string;
+  private firstTryToLoadFromOnline = true;
+  public hideImgPracticeSrc = false;
 
-  constructor() {}
+  constructor(public offlineTreks: OfflineTreksService) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.imgPracticeSrc = await this.offlineTreks.getTrekImageSrc(
+      {} as Trek,
+      {
+        url: this.value.pictogram
+      } as Picture
+    );
+  }
 
   public valueCheckChanged($event: any, value: FilterValue) {
     this.valueChange.emit({ checked: $event.detail.checked, value: value });
+  }
+
+  public onImgPracticeSrcError() {
+    if (this.value.pictogram && this.firstTryToLoadFromOnline) {
+      this.firstTryToLoadFromOnline = false;
+      this.imgPracticeSrc = this.commonSrc + this.value.pictogram;
+    } else {
+      this.hideImgPracticeSrc = true;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { InformationItem } from '@app/interfaces/interfaces';
 import { MoreInformationsService } from '@app/services/more-informations/more-informations.service';
@@ -17,20 +17,23 @@ export class MoreItemPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private more: MoreInformationsService
   ) {}
 
   ngOnInit() {
+    this.loadMoreItem();
+  }
+
+  loadMoreItem() {
     const moreItemId = +(<string>(
       this.route.snapshot.paramMap.get('moreItemId')
     ));
-
     this.more
       .getMoreItemById(moreItemId)
       .pipe(first())
       .subscribe(
         (moreItem) => {
+          this.connectionError = false;
           this.moreItem = moreItem;
         },
         () => {
@@ -40,6 +43,6 @@ export class MoreItemPage implements OnInit {
   }
 
   refresh() {
-    this.router.navigate([this.router.url]);
+    this.loadMoreItem();
   }
 }

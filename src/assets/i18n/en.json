@@ -56,6 +56,7 @@
       "success": "The trek is available offline",
       "error": "An error occurred while downloading",
       "confirmError": "Ok",
+      "firstDownload": "During the first download, the application also stores global data.",
       "loading": "Downloading ...",
       "storage": "Decompressing ..."
     },
@@ -116,11 +117,11 @@
   },
   "error": {
     "title": "Connection problem",
-    "contentTreks": "Please make sure you are logged in to access the full list of unsaved hikes",
+    "contentTreks": "Please make sure you are logged in to access the full hikes list",
     "contentMore": "Please make sure you are logged in to access additional information",
     "contentMoreItem": "Please make sure you are logged in to access the information",
     "contentTrekMap": "Please make sure you are logged in to access the undownloaded map",
-    "contentTreksMap": "Please make sure you are logged in to access the full map of unsaved hikes",
+    "contentTreksMap": "Please make sure you are logged in to access the full hikes map",
     "buttonText": "Retry"
   },
   "trekCard": {

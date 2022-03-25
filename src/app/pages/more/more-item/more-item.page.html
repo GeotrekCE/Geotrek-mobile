@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content>
   <ng-container *ngIf="connectionError || !moreItem; else moreItemTemplate">
-    <ng-container *ngIf="!moreItem; else connectError">
+    <ng-container *ngIf="!moreItem && !connectionError; else connectError">
       <div class="spinner-container">
         <ion-spinner color="primary"></ion-spinner>
       </div>
@@ -19,7 +19,7 @@
         *ngIf="connectionError"
         icon="wifi"
         [title]="'error.title' | translate"
-        [content]="'error.contentMore' | translate"
+        [content]="'error.contentMoreItem' | translate"
         [buttonText]="'error.buttonText' | translate"
         (retry)="refresh()"
       >

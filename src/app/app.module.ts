@@ -3,44 +3,30 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-
+import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
-
-import { File } from '@ionic-native/file/ngx';
-import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Zip } from '@ionic-native/zip/ngx';
-import { Globalization } from '@ionic-native/globalization/ngx';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { Network } from '@ionic-native/network/ngx';
-import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
-import { DeviceOrientation } from '@ionic-native/device-orientation/ngx';
-
+import { SplashScreen } from '@capacitor/splash-screen';
+import { DeviceOrientation } from '@awesome-cordova-plugins/device-orientation/ngx';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
-
 import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.component';
 import { InformationDeskDetailsComponent } from '@app/components/information-desk-details/information-desk-details.component';
-
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
-
-import { TreksOrderComponent } from './components/treks-order/treks-order.component';
-
-import { IonicStorageModule } from '@ionic/storage-angular';
-
+import { TreksOrderComponent } from '@app/components/treks-order/treks-order.component';
+import { FiltersComponent } from '@app/components/filters/filters.component';
+import { FilterComponent } from '@app/components/filter/filter.component';
+import { FilterValueComponent } from '@app/components/filter-value/filter-value.component';
+import { SearchComponent } from '@app/components/search/search.component';
+import { SelectFilterComponent } from '@app/components/select-filter/select-filter.component';
+import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
+import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
+import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,21 +41,21 @@ registerLocaleData(localeFr, 'fr');
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    TreksOrderComponent
-  ],
-  entryComponents: [
-    PoiDetailsComponent,
-    ProgressComponent,
-    InformationDeskDetailsComponent,
-    LayersVisibilityComponent,
-    TreksOrderComponent
+    FiltersComponent,
+    FilterComponent,
+    FilterValueComponent,
+    SearchComponent,
+    SelectFilterComponent,
+    TreksOrderComponent,
+    InAppDisclosureComponent,
+    SelectPoiComponent,
+    SelectTrekComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot({
-      mode: 'md',
-      animated: true
+      mode: 'md'
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -79,22 +65,9 @@ registerLocaleData(localeFr, 'fr');
         useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
-    }),
-    IonicStorageModule.forRoot()
+    })
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    File,
-    Zip,
-    WebView,
-    BackgroundGeolocation,
-    LocalNotifications,
-    ScreenOrientation,
-    Globalization,
-    SocialSharing,
-    Network,
-    FirebaseAnalytics,
     DeviceOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
@@ -102,21 +75,17 @@ registerLocaleData(localeFr, 'fr');
       useFactory:
         (
           settingsService: SettingsService,
-          onlineTreksService: OnlineTreksService,
-          platform: Platform,
-          splashScreen: SplashScreen
+          onlineTreksService: OnlineTreksService
         ) =>
-        () => {
+        async () => {
           return new Promise(async (resolve) => {
             await settingsService.initializeSettings();
             await onlineTreksService.loadTreks();
-            if (platform.is('ios') || platform.is('android')) {
-              splashScreen.hide();
-            }
+            SplashScreen.hide();
             resolve(true);
           });
         },
-      deps: [SettingsService, OnlineTreksService, Platform, SplashScreen],
+      deps: [SettingsService, OnlineTreksService, Platform],
       multi: true
     }
   ],

@@ -12,8 +12,7 @@ import {
   Order
 } from '@app/interfaces/interfaces';
 import { SettingsService } from '@app/services/settings/settings.service';
-
-const distance = require('@turf/distance').default;
+import distance from '@turf/distance';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +63,6 @@ export class FilterTreksService {
     userLocation?: number[]
   ): MinimalTrek[] {
     return filteredTreks.sort((a: MinimalTrek, b: MinimalTrek) => {
-      // Sort by user location
       if (order === 'location' && userLocation && userLocation !== null) {
         if (!a.geometry || !b.geometry) {
           return !a.geometry ? 1 : -1;

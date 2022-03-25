@@ -3,7 +3,7 @@
     <ion-title> {{ appName }} </ion-title>
   </ion-toolbar>
   <ion-toolbar
-    *ngIf="(!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) || (offline && nbOfflineTreks > 0)"
+    *ngIf="((!(onlineTreks.onlineTreksError$ | async) || !(settings.settingsError$ | async)) && !offline) || (offline && nbOfflineTreks > 0)"
   >
     <ion-grid class="ion-no-padding">
       <ion-row>
@@ -57,7 +57,7 @@
 </ion-header>
 <ion-content #content>
   <ng-container
-    *ngIf="!!filteredTreks && filteredTreks.length > 0 && ((!offline && !noNetwork) || offline); else noTreks"
+    *ngIf="!!filteredTreks && filteredTreks.length > 0; else noTreks"
   >
     <ion-list>
       <ion-grid fixed>
@@ -88,21 +88,17 @@
       </ion-grid>
     </ion-list>
 
-    <ion-fab
-      *ngIf="!!filteredTreks && filteredTreks.length > 0"
-      vertical="bottom"
-      horizontal="end"
-      slot="fixed"
-    >
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="expandTreks($event)">
+      <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
         <ion-icon name="globe"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="expandTreks($event)">
-      <ion-infinite-scroll-content> </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
   </ng-container>
+
   <ng-template #noTreks>
     <ng-container *ngIf="!offline; else noTreksOffline">
       <app-connect-error

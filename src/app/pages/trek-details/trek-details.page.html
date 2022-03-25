@@ -19,6 +19,13 @@
         <ion-icon slot="start" name="download"></ion-icon>
       </ion-button>
       <ion-button
+        *ngIf=" isAvailableOffline && !isStage"
+        (click)="clickDeleteConfirm($event)"
+      >
+        {{ 'trek.offline' | translate }}
+        <ion-icon slot="start" name="trash"></ion-icon>
+      </ion-button>
+      <ion-button
         [href]="apiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.pdf'"
         [download]="currentTrek.properties.slug! + '.pdf'"
         fill="clear"
@@ -87,7 +94,7 @@
         *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0"
         pager="true"
       >
-        <ion-slide *ngFor="let picture of currentTrek.properties.pictures">
+        <ion-slide *ngFor="let picture of pictures">
           <div
             style="
               display: flex;
@@ -96,10 +103,7 @@
               justify-content: center;
             "
           >
-            <ion-img
-              [src]="getPictureSrc(picture)"
-              [alt]="picture.title"
-            ></ion-img>
+            <ion-img [src]="picture.url" [alt]="picture.title"></ion-img>
             <div class="ion-padding-top legend-text">
               {{ picture!.legend }}
               <span *ngIf="!!picture.author">({{ picture!.author }})</span>
@@ -286,7 +290,7 @@
               <ion-img
                 *ngIf="currentTrek.properties.difficulty.pictogram"
                 class="icon-detail"
-                [src]="commonSrc + (currentTrek.properties.difficulty.pictogram || '')"
+                [src]="trekExtraDetails.difficulty"
               ></ion-img>
               {{ currentTrek.properties.difficulty.name }}
             </div>
@@ -300,7 +304,7 @@
                 *ngIf="currentTrek.properties.practice.pictogram"
                 [style.background-color]="currentTrek.properties.practice.color"
                 class="icon-detail"
-                [src]="commonSrc + (currentTrek.properties.practice.pictogram || '')"
+                [src]="trekExtraDetails.practice"
               ></ion-img>
               {{ currentTrek.properties.practice.name }}
             </div>
@@ -315,12 +319,12 @@
               <h5>{{ 'trek.details.theme' | translate }}</h5>
             </ion-text>
           </ion-col>
-          <ion-col size="6" *ngFor="let theme of currentTrek.properties.themes">
+          <ion-col size="6" *ngFor="let theme of trekExtraDetails.themes">
             <div>
               <ion-img
                 *ngIf="theme.pictogram"
                 class="icon-detail"
-                [src]="commonSrc + (theme.pictogram || '')"
+                [src]="theme.url"
               ></ion-img>
               {{ theme.name }}
             </div>
@@ -346,11 +350,11 @@
               <ion-text color="primary">
                 <h5 class="inline">Balisage</h5>
               </ion-text>
-              <div *ngFor="let network of currentTrek.properties.networks">
+              <div *ngFor="let network of trekExtraDetails.networks">
                 <ion-img
                   *ngIf="network.pictogram"
                   class="icon-detail"
-                  [src]="commonSrc + (network.pictogram || '')"
+                  [src]="network.url"
                 ></ion-img>
                 <span>{{ network.name }}</span>
               </div>
@@ -398,9 +402,7 @@
               </h2>
             </ion-text>
             <div>
-              <ion-img
-                [src]="getPictureSrc({ url: currentTrek.properties.profile })"
-              ></ion-img>
+              <ion-img [src]="trekExtraDetails.profile"></ion-img>
             </div>
           </ion-col>
         </ion-row>

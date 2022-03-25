@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Picture, Trek } from '@app/interfaces/interfaces';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
+import { environment } from '@env/environment';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -15,11 +18,33 @@ export class SelectPoiComponent implements OnInit {
     imgTypePoi: { src: string; color: string | undefined };
   }[];
   selectedPoiId: number;
+  imgPractices: {
+    src: string;
+    color: string | undefined;
+    firstTryToLoadFromOnline: boolean;
+    hideImgPracticeSrc: boolean;
+  }[] = [];
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private modalController: ModalController,
+    public offlineTreks: OfflineTreksService
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.selectedPoiId = this.radioPois[0].id;
+    for (const radioPoi of this.radioPois) {
+      this.imgPractices.push({
+        ...radioPoi.imgTypePoi,
+        src: await this.offlineTreks.getTrekImageSrc(
+          {} as Trek,
+          {
+            url: radioPoi.imgTypePoi.src
+          } as Picture
+        ),
+        firstTryToLoadFromOnline: true,
+        hideImgPracticeSrc: false
+      });
+    }
   }
 
   public cancel(): void {
@@ -32,5 +57,19 @@ export class SelectPoiComponent implements OnInit {
 
   public selectedPoiChange(evt: any): void {
     this.selectedPoiId = evt.detail.value;
+  }
+
+  public onImgPracticeSrcError(i: number) {
+    if (
+      this.imgPractices[i].src &&
+      this.imgPractices[i].firstTryToLoadFromOnline
+    ) {
+      this.imgPractices[i].firstTryToLoadFromOnline = false;
+      this.imgPractices[
+        i
+      ].src = `${environment.onlineBaseUrl}${this.imgPractices[i].src}`;
+    } else {
+      this.imgPractices[i].hideImgPracticeSrc = true;
+    }
   }
 }

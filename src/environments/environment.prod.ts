@@ -1,16 +1,11 @@
 import { primaryColor } from './variables';
 
 export const environment = {
-  appName: 'Geotrek Starter', // app name used for app header
+  appName: 'Geotrek mobile',
   production: true,
-  useFirebase: false,
-  availableLanguage: ['fr', 'en', 'it'], // we assume that availableLanguage[0] is default language, or 'fr' if array is empty
-  mapbox: {
-    accessToken: null // only if you use mapbox vector tiles
-  },
-  onlineBaseUrl: 'https://my-rando-domain.fr/mobile', // api url for app
+  availableLanguage: ['fr', 'en'],
+  onlineBaseUrl: '',
   onlineMapConfig: {
-    // default online map config, for this starter we use raster tiles from open topo map
     attributionControl: false,
     style: {
       version: 8,
@@ -41,7 +36,6 @@ export const environment = {
     maxPitch: 0
   },
   offlineMapConfig: {
-    // offline map default config
     attributionControl: false,
     style: {
       version: 8,
@@ -68,7 +62,6 @@ export const environment = {
     maxPitch: 0
   },
   trekZoom: {
-    // zoom config for trek layer map
     minZoom: 13,
     maxZoom: 16,
     zoom: 13
@@ -78,7 +71,7 @@ export const environment = {
       '<a href="https://openstreetmap.org/copyright">© OpenStreetMap contributors</a> | <a href="https://opentopomap.org">© OpenTopoMap </a>',
     TreksfitBoundsOptions: { animate: false, padding: 50 },
     TrekfitBoundsOptions: { animate: false, padding: 75 },
-    globalMapIconSize: 1, // check your icon size, ideally it would be 48px*48px
+    globalMapIconSize: 1,
     informationIconSize: 1,
     parkingIconSize: 0.6,
     departureArrivalIconSize: 0.8,
@@ -87,7 +80,6 @@ export const environment = {
       iconSize: 1
     },
     clusterPaint: {
-      // cluster style on map treks
       'circle-color': primaryColor,
       'circle-stroke-color': '#fff',
       'circle-radius': 18,
@@ -97,7 +89,6 @@ export const environment = {
       'text-color': '#fff'
     },
     stagePaint: {
-      // style stage circle on parent map
       'circle-color': '#fff',
       'circle-stroke-color': '#000000',
       'circle-radius': 14,
@@ -175,15 +166,8 @@ export const environment = {
     },
     enableRotation: false
   },
-  treksByStep: 15, // default number of treks to display on treks list
-  metersToNotify: 20, // notify poi within user position and [metersToNotify]
-  backgroundGeolocation: {
-    // native background geolocation options
-    desiredAccuracy: 10,
-    stationaryRadius: 3,
-    distanceFilter: 5,
-    interval: 3000
-  },
+  treksByStep: 15,
+  metersToNotify: 200,
   poiCollapseInitialSize: 5,
   touristicContentCollapseInitialSize: 5,
   containsFilterShouldUseSelectAbove: 7,

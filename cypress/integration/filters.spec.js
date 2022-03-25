@@ -1,6 +1,6 @@
 describe('Filters', () => {
   it('should open filters', () => {
-    cy.visit('/app/tabs/treks');
+    cy.visit('/tabs/treks');
 
     cy.get('.vertical-center > :nth-child(1)').click({
       force: true

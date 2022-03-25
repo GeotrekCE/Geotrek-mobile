@@ -8,7 +8,12 @@
   </div>
   <ion-card-header>
     <div class="card-header-container">
-      <img class="img-header" *ngIf="typeImgSrc" [src]="typeImgSrc" />
+      <ion-img
+        class="img-header"
+        *ngIf="typeImgSrc && !this.hideImgPracticeSrc"
+        [src]="typeImgSrc"
+        (ionError)="onImgPracticeSrcError()"
+      ></ion-img>
       <ion-card-title>
         {{ poi.properties.name }}
       </ion-card-title>

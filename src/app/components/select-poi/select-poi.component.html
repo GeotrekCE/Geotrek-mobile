@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="this.imgPractices.length === radioPois.length">
     <ion-radio-group
       (ionChange)="selectedPoiChange($event)"
       [value]="selectedPoiId"
@@ -14,11 +14,12 @@
         <ion-radio slot="start" [value]="poi.id"></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
-          *ngIf="poi.imgTypePoi.src"
+          *ngIf="poi.imgTypePoi.src && !this.imgPractices[i].hideImgPracticeSrc"
           [style.background-color]="
             poi.imgTypePoi.color ? poi.imgTypePoi.color : 'transparent'
           "
-          [src]="poi.imgTypePoi.src"
+          [src]="this.imgPractices[i].src"
+          (ionError)="onImgPracticeSrcError(i)"
         ></ion-img>
         <ion-label class="ion-text-wrap">{{ poi.name }}</ion-label>
       </ion-item>

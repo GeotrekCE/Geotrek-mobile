@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-
-import {
-  BackgroundGeolocation,
-  BackgroundGeolocationConfig,
-  BackgroundGeolocationEvents,
-  BackgroundGeolocationLocationProvider
-} from '@ionic-native/background-geolocation/ngx';
-import { Storage } from '@ionic/storage-angular';
 import { Platform } from '@ionic/angular';
-import { environment } from '@env/environment';
+import { registerPlugin } from '@capacitor/core';
+import { Storage } from '@capacitor/storage';
+import { BackgroundGeolocationPlugin } from '@capacitor-community/background-geolocation';
 import {
   DeviceOrientation,
   DeviceOrientationCompassHeading
-} from '@ionic-native/device-orientation/ngx';
+} from '@awesome-cordova-plugins/device-orientation/ngx';
+
+const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
+  'BackgroundGeolocation'
+);
 
 @Injectable({
   providedIn: 'root'
@@ -22,278 +20,94 @@ import {
 export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
-  public currentHeadingSubscription: Subscription | null = null;
-  public currentPositionInterval: number | null;
+  public currentWatchId: any = null;
+  private deviceOrientationSubscription: Subscription;
 
   constructor(
-    public backgroundGeolocation: BackgroundGeolocation,
-    public deviceOrientation: DeviceOrientation,
-    public storage: Storage,
-    public platform: Platform,
-    private translate: TranslateService
+    private platform: Platform,
+    private translate: TranslateService,
+    private deviceOrientation: DeviceOrientation
   ) {}
 
   async shouldShowInAppDisclosure() {
-    const alreadyAskGeolocationPermission = await this.storage.get(
-      'alreadyAskGeolocationPermission'
-    );
-    return !!!alreadyAskGeolocationPermission;
+    const alreadyAskGeolocationPermission = await Storage.get({
+      key: 'alreadyAskGeolocationPermission'
+    });
+    return !!!alreadyAskGeolocationPermission.value;
   }
 
-  async checkAuthorization() {
-    const status = await this.backgroundGeolocation.checkStatus();
-    return status.authorization !== 0;
-  }
-
-  async checkIfBackgroundGeolocationIsRunning() {
-    const status = await this.backgroundGeolocation.checkStatus();
-    return status.isRunning;
+  async checkIfCanGetCurrentHeading() {
+    const deviceOrientation = await new Promise((resolve) => {
+      this.deviceOrientation.getCurrentHeading().then(
+        (data) => resolve(data),
+        () => resolve(null)
+      );
+    });
+    return !!deviceOrientation;
   }
 
   async startOnMapTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      if (
-        (await this.checkIfCanGetCurrentHeading()) &&
-        this.currentHeadingSubscription === null
-      ) {
-        this.currentHeadingSubscription = this.deviceOrientation
-          .watchHeading({ frequency: 16 })
+      const notificationTitle: string = await this.translate
+        .get('geolocate.notificationTitle')
+        .toPromise();
+      BackgroundGeolocation.addWatcher(
+        {
+          backgroundTitle: notificationTitle,
+          requestPermissions: true,
+          stale: false,
+          distanceFilter: 2
+        },
+        (location) => {
+          this.currentPosition$.next(location);
+        }
+      ).then((watcher_id) => {
+        this.currentWatchId = watcher_id;
+        this.deviceOrientationSubscription = this.deviceOrientation
+          .watchHeading({ frequency: 200 })
           .subscribe((data: DeviceOrientationCompassHeading) =>
-            this.currentHeading$.next(data.trueHeading)
+            this.currentHeading$.next(data.magneticHeading)
           );
-      }
-
-      const notificationTitle: string = await this.translate
-        .get('geolocate.notificationTitle')
-        .toPromise();
-      const geolocationConfig: BackgroundGeolocationConfig = {
-        locationProvider:
-          BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
-        startForeground: false,
-        stopOnTerminate: true,
-        debug: false,
-        notificationTitle,
-        notificationText: 'Geolocation',
-        ...environment.backgroundGeolocation
-      };
-
-      if (await this.checkIfBackgroundGeolocationIsRunning()) {
-        this.backgroundGeolocation.stop();
-      }
-
-      await this.backgroundGeolocation.configure(geolocationConfig);
-
-      this.backgroundGeolocation
-        .on(BackgroundGeolocationEvents.start)
-        .subscribe(async () => {
-          try {
-            const startLocation =
-              await this.backgroundGeolocation.getCurrentLocation({
-                timeout: 10000,
-                maximumAge: 0,
-                enableHighAccuracy: true
-              });
-            this.currentPosition$.next([
-              startLocation.longitude,
-              startLocation.latitude
-            ]);
-          } catch (error) {
-            this.currentPosition$.next(null);
-            error = true;
-          }
-        });
-
-      this.backgroundGeolocation
-        .on(BackgroundGeolocationEvents.location)
-        .subscribe((location) => {
-          try {
-            this.currentPosition$.next([location.longitude, location.latitude]);
-          } catch (error) {
-            this.currentPosition$.next(null);
-            error = true;
-          }
-        });
-
-      this.backgroundGeolocation.start();
-    } else {
-      navigator.geolocation.getCurrentPosition((position) =>
-        this.currentPosition$.next([
-          position.coords.longitude,
-          position.coords.latitude
-        ])
-      );
+      });
     }
-
-    // this.getCurrentPosition();
-    // this.currentPositionInterval = window.setInterval(() => {
-    //   this.getCurrentPosition();
-    // }, environment.backgroundGeolocation.interval);
-    //
   }
 
-  stopOnMapTracking(
-    resetHeading: boolean = true,
-    resetPosition: boolean = true
-  ) {
+  stopOnMapTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      if (resetHeading && this.currentHeadingSubscription) {
-        this.currentHeadingSubscription.unsubscribe();
-        this.currentHeadingSubscription = null;
-        this.currentHeading$.next(null);
+      if (this.deviceOrientationSubscription) {
+        this.deviceOrientationSubscription.unsubscribe();
       }
-      this.backgroundGeolocation.stop();
-    }
-
-    if (resetPosition) {
-      this.currentPosition$.next(null);
-    }
-
-    // if (this.currentPositionInterval !== null) {
-    //   window.clearInterval(this.currentPositionInterval);
-    //   this.currentPositionInterval = null;
-    // }
-  }
-
-  async startNotificationsModeTracking(notificationText: string) {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      const notificationTitle: string = await this.translate
-        .get('geolocate.notificationTitle')
-        .toPromise();
-      const geolocationConfig: BackgroundGeolocationConfig = {
-        locationProvider:
-          BackgroundGeolocationLocationProvider.DISTANCE_FILTER_PROVIDER,
-        startForeground: true,
-        stopOnTerminate: true,
-        debug: false,
-        notificationTitle,
-        notificationText,
-        ...environment.backgroundGeolocation
-      };
-
-      if (await this.checkIfBackgroundGeolocationIsRunning()) {
-        this.backgroundGeolocation.stop();
+      if (this.currentWatchId) {
+        BackgroundGeolocation.removeWatcher({
+          id: this.currentWatchId
+        }).then(() => {
+          this.currentWatchId = null;
+        });
       }
-
-      await this.backgroundGeolocation.configure(geolocationConfig);
-
-      this.backgroundGeolocation
-        .on(BackgroundGeolocationEvents.start)
-        .subscribe(async () => {
-          try {
-            const startLocation =
-              await this.backgroundGeolocation.getCurrentLocation({
-                timeout: 10000,
-                maximumAge: 0,
-                enableHighAccuracy: true
-              });
-            this.currentPosition$.next([
-              startLocation.longitude,
-              startLocation.latitude
-            ]);
-          } catch (error) {
-            this.currentPosition$.next(null);
-            error = true;
-          }
-        });
-
-      this.backgroundGeolocation
-        .on(BackgroundGeolocationEvents.location)
-        .subscribe((location) => {
-          try {
-            this.currentPosition$.next([location.longitude, location.latitude]);
-          } catch (error) {
-            this.currentPosition$.next(null);
-            error = true;
-          }
-        });
-
-      this.backgroundGeolocation.start();
-    } else {
-      navigator.geolocation.getCurrentPosition((position) =>
-        this.currentPosition$.next([
-          position.coords.longitude,
-          position.coords.latitude
-        ])
-      );
     }
-  }
-
-  stopNotificationsModeTracking() {
-    if (
-      (this.platform.is('ios') || this.platform.is('android')) &&
-      this.checkIfBackgroundGeolocationIsRunning()
-    ) {
-      this.backgroundGeolocation.stop();
-    }
-  }
-
-  async checkIfCanGetCurrentHeading() {
-    let currentHeading: DeviceOrientationCompassHeading | null = null;
-    try {
-      currentHeading =
-        this.platform.is('ios') || this.platform.is('android')
-          ? await this.deviceOrientation.getCurrentHeading()
-          : null;
-    } finally {
-      return (
-        currentHeading !== null &&
-        typeof currentHeading === 'object' &&
-        (currentHeading as DeviceOrientationCompassHeading).hasOwnProperty(
-          'trueHeading'
-        )
-      );
-    }
-  }
-
-  showAppSettings() {
-    this.backgroundGeolocation.showAppSettings();
-  }
-
-  showLocationSettings() {
-    this.backgroundGeolocation.showLocationSettings();
   }
 
   async getCurrentPosition() {
-    let startLocation;
-    try {
+    return new Promise(async (resolve) => {
       if (this.platform.is('ios') || this.platform.is('android')) {
-        startLocation = await this.backgroundGeolocation.getCurrentLocation({
-          timeout: 10000,
-          maximumAge: 0,
-          enableHighAccuracy: true
+        let last_location;
+        BackgroundGeolocation.addWatcher(
+          {
+            requestPermissions: true,
+            stale: true
+          },
+          (location) => {
+            last_location = location || null;
+          }
+        ).then((id) => {
+          setTimeout(() => {
+            resolve(last_location);
+            BackgroundGeolocation.removeWatcher({ id });
+          }, 500);
         });
       } else {
-        await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              if (position) {
-                startLocation = {
-                  longitude: position.coords.longitude,
-                  latitude: position.coords.latitude
-                };
-              }
-              resolve(true);
-            },
-            () => reject()
-          );
-        });
+        resolve(null);
       }
-    } catch (error) {
-      startLocation = null;
-    } finally {
-      if (!startLocation) {
-        startLocation = {
-          longitude: this.currentPosition$.value[0],
-          latitude: this.currentPosition$.value[1]
-        };
-      } else {
-        this.currentPosition$.next([
-          startLocation.longitude,
-          startLocation.latitude
-        ]);
-      }
-
-      return startLocation;
-    }
+    });
   }
 }

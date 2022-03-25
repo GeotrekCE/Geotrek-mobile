@@ -56,6 +56,7 @@
       "success": "Die Wanderung ist offline verfügbar",
       "error": "Beim Herunterladen ist ein Fehler aufgetreten",
       "confirmError": "Ok",
+      "firstDownload": "Beim ersten Herunterladen speichert die Anwendung auch globale Daten.",
       "loading": "Download in Arbeit ...",
       "storage": "Laufende Dekomprimierung der Daten..."
     },
@@ -116,11 +117,11 @@
   },
   "error": {
     "title": "Verbindungsproblem",
-    "contentTreks": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Liste der nicht registrierten Wanderungen zugreifen zu können",
+    "contentTreks": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Liste der Wanderungen zugreifen zu können",
     "contentMore": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf zusätzliche Informationen zugreifen zu können",
     "contentMoreItem": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf Informationen zugreifen zu können",
     "contentTrekMap": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die nicht heruntergeladene Wanderung zugreifen zu können",
-    "contentTreksMap": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Karte der nicht registrierten Wanderungen zuzugreifen",
+    "contentTreksMap": "Bitte stellen Sie sicher, dass Sie angemeldet sind, um auf die vollständige Karte der Wanderungen zuzugreifen",
     "buttonText": "Versuchen Sie es noch einmal"
   },
   "trekCard": {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MapboxOptions } from 'mapbox-gl';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@capacitor/storage';
 
 import {
   MinimalTrek,
@@ -16,8 +17,7 @@ import {
 } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { environment } from '@env/environment';
-
-const cloneDeep = require('lodash.clonedeep');
+import { cloneDeep } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -41,19 +41,29 @@ export class OnlineTreksService implements TreksService {
       this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
       this.onlineTreksError$.next(null);
       this.getTreks().subscribe({
-        next: (value) => {
+        next: async (value) => {
+          await Storage.set({ key: 'treks', value: JSON.stringify(value) });
           this.treks$.next(value);
           resolve(true);
         },
-        error: (error) => {
-          this.onlineTreksError$.next(error);
+        error: async (error) => {
+          const treks = await this.getTreksFromStorage();
+          if (treks) {
+            this.treks$.next(treks);
+          } else {
+            this.onlineTreksError$.next(error);
+          }
           resolve(true);
         }
       });
     });
   }
 
-  /* get the src of the image. if picture is not given, it returs the thumbnail */
+  private async getTreksFromStorage() {
+    const treks = JSON.parse((await Storage.get({ key: `treks` })).value);
+    return treks;
+  }
+
   public getTrekImageSrc(trek: Trek, picture?: Picture): string {
     if (picture || trek.properties.first_picture) {
       return (
@@ -195,7 +205,7 @@ export class OnlineTreksService implements TreksService {
   }
 
   public getMapConfigForTrekById(trek: Trek): MapboxOptions {
-    const mapConfig: MapboxOptions = {
+    const mapConfig: any = {
       ...cloneDeep(environment.onlineMapConfig),
       zoom: environment.trekZoom.zoom
     };

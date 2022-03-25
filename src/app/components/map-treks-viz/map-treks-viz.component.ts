@@ -9,7 +9,6 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
@@ -21,17 +20,18 @@ import {
   Marker
 } from 'mapbox-gl';
 import { Observable, Subscription } from 'rxjs';
-import { filter, distinctUntilChanged, throttleTime } from 'rxjs/operators';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
-
 import { MinimalTrek, DataSetting, Trek } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
-
-const mapboxgl = require('mapbox-gl');
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import { Capacitor } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 
 @Component({
   selector: 'app-map-treks-viz',
@@ -42,7 +42,6 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
   private map: Map;
   private markerPosition: Marker | undefined;
   private practices: DataSetting;
-  private screenOrientationSubscription: Subscription;
   private currentPositionSubscription: Subscription;
   private currentHeadingSubscription: Subscription;
   private loadImagesSubscription: Subscription;
@@ -59,17 +58,13 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
 
   constructor(
     private settings: SettingsService,
-    private screenOrientation: ScreenOrientation,
     private platform: Platform,
     private geolocate: GeolocateService,
     private modalController: ModalController,
     private alertController: AlertController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private offlineTreks: OfflineTreksService
   ) {
-    if (environment && environment.mapbox && environment.mapbox.accessToken) {
-      mapboxgl.accessToken = environment.mapbox.accessToken;
-    }
-
     this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
   }
 
@@ -98,20 +93,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.markerPosition) {
-      this.markerPosition.remove();
-      this.markerPosition = undefined;
-    }
-
-    if (this.map) {
-      this.map.remove();
-    }
-
     this.geolocate.stopOnMapTracking();
-
-    if (this.screenOrientationSubscription) {
-      this.screenOrientationSubscription.unsubscribe();
-    }
 
     if (this.currentPositionSubscription) {
       this.currentPositionSubscription.unsubscribe();
@@ -126,17 +108,22 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
     }
   }
 
-  createMap() {
+  async createMap() {
     if (this.mapConfig && this.mapConfig.style && this.filteredTreks) {
       if (
         this.offline &&
         (this.platform.is('ios') || this.platform.is('android'))
       ) {
-        (this.mapConfig.style as any).sources['tiles-background'].tiles[0] =
-          this.commonSrc +
-          (environment.offlineMapConfig.style as any).sources[
-            'tiles-background'
-          ].tiles[0];
+        (this.mapConfig.style as any).sources[
+          'tiles-background'
+        ].tiles[0] = `${Capacitor.convertFileSrc(
+          (
+            await Filesystem.getUri({
+              path: 'offline',
+              directory: Directory.Data
+            })
+          ).uri
+        )}/tiles/{z}/{x}/{y}.png`;
       }
 
       const coordinates: number[][] = [];
@@ -163,7 +150,9 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         container: 'map-treks'
       });
 
-      this.map.fitBounds(bounds, environment.map.TreksfitBoundsOptions);
+      if (bounds && bounds._ne && bounds._sw) {
+        this.map.fitBounds(bounds, environment.map.TreksfitBoundsOptions);
+      }
 
       this.map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
@@ -188,30 +177,36 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         this.map.touchZoomRotate.disableRotation();
       }
 
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        this.screenOrientationSubscription = this.screenOrientation
-          .onChange()
-          .subscribe(() => {
-            // Need to delay before resize
-            window.setTimeout(() => {
-              this.map.resize();
-            }, 50);
-          });
-      }
-
       const loadImages: Observable<any> = Observable.create((observer: any) => {
         const practices: DataSetting | undefined = this.dataSettings.find(
           (data) => data.id === 'practice'
         );
         if (practices) {
           this.practices = practices;
-          practices.values.forEach((practice, index: number) => {
+          practices.values.forEach(async (practice, index: number) => {
             this.map.loadImage(
-              `${this.commonSrc}${practice.pictogram}`,
+              await this.offlineTreks.getTrekImageSrc(
+                {} as any,
+                { url: practice.pictogram } as any
+              ),
               (error: any, image: any) => {
-                this.map.addImage(practice.id.toString(), image);
-                if (index + 1 === practices.values.length) {
-                  observer.complete();
+                if (!error) {
+                  this.map.addImage(practice.id.toString(), image);
+                  if (index + 1 === practices.values.length) {
+                    observer.complete();
+                  }
+                } else {
+                  this.map.loadImage(
+                    `${this.commonSrc}${practice.pictogram}`,
+                    (error: any, image: any) => {
+                      if (!error) {
+                        this.map.addImage(practice.id.toString(), image);
+                      }
+                      if (index + 1 === practices.values.length) {
+                        observer.complete();
+                      }
+                    }
+                  );
                 }
               }
             );
@@ -222,10 +217,10 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       this.currentPositionSubscription = this.geolocate.currentPosition$
         .pipe(
           filter((currentPosition) => currentPosition !== null),
-          distinctUntilChanged(),
-          throttleTime(environment.backgroundGeolocation.interval)
+          distinctUntilChanged()
         )
-        .subscribe(async (coordinates: any) => {
+        .subscribe(async (location: any) => {
+          const coordinates: any = [location.longitude, location.latitude];
           if (this.markerPosition) {
             this.markerPosition.setLngLat(coordinates);
           } else {
@@ -358,7 +353,6 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         const clusterId = featureProperties.cluster_id;
 
         if (this.map.getZoom() === this.mapConfig.maxZoom) {
-          // no more zoom, display features inside cluster
           (
             this.map.getSource('treks-points') as GeoJSONSource
           ).getClusterLeaves(
@@ -381,7 +375,6 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
             }
           );
         } else {
-          // zoom to next cluster expansion
           (
             this.map.getSource('treks-points') as GeoJSONSource
           ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
@@ -407,7 +400,6 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       }
     });
 
-    // map instance for cypress test
     this.mapViz.nativeElement.mapInstance = this.map;
   }
 
@@ -429,7 +421,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         id: hydratedTrek.properties.id,
         name: hydratedTrek.properties.name,
         imgPractice: {
-          src: this.commonSrc + hydratedTrek.properties.practice.pictogram,
+          src: hydratedTrek.properties.practice.pictogram,
           color: hydratedTrek.properties.practice.color
         }
       };
@@ -451,14 +443,27 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
     }
   }
 
-  /**
-   * Fly to user location else fitbounds to trek
-   */
   public async flyToUserLocation() {
-    const userLocation = await this.geolocate.getCurrentPosition();
+    const userLocation = (await this.geolocate.getCurrentPosition()) as any;
     if (userLocation) {
+      const coordinates: any = [userLocation.longitude, userLocation.latitude];
+      if (this.markerPosition) {
+        this.markerPosition.setLngLat(coordinates);
+      } else {
+        const el = document.createElement('div');
+        const currentHeading =
+          await this.geolocate.checkIfCanGetCurrentHeading();
+        el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
+        this.markerPosition = new mapboxgl.Marker({
+          element: el
+        }).setLngLat(coordinates);
+        if (this.markerPosition) {
+          this.markerPosition.addTo(this.map);
+        }
+      }
       this.map.flyTo({
-        center: [userLocation.longitude, userLocation.latitude],
+        center: coordinates,
         animate: false,
         zoom: environment.trekZoom.zoom
       });
@@ -466,14 +471,12 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       const errorTranslation: any = await this.translate
         .get('geolocate.error')
         .toPromise();
-      // Inform user about problem
       const alertLocation = await this.alertController.create({
         header: errorTranslation['header'],
         subHeader: errorTranslation['subHeader'],
         message: errorTranslation['message'],
         buttons: [errorTranslation['confirmButton']]
       });
-
       await alertLocation.present();
     }
   }

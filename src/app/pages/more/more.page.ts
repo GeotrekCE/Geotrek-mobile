@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
@@ -16,14 +15,19 @@ export class MorePage implements OnInit {
   moreInformationsIntro: InformationIntro[];
   connectionError = false;
 
-  constructor(private router: Router, private more: MoreInformationsService) {}
+  constructor(private more: MoreInformationsService) {}
 
   ngOnInit(): void {
+    this.loadMoreItems();
+  }
+
+  loadMoreItems() {
     this.more
       .getMoreItems()
       .pipe(first())
       .subscribe(
         (moreItems) => {
+          this.connectionError = false;
           this.moreInformationsIntro = moreItems;
         },
         () => {
@@ -33,6 +37,6 @@ export class MorePage implements OnInit {
   }
 
   public refresh() {
-    this.router.navigate([this.router.url]);
+    this.loadMoreItems();
   }
 }

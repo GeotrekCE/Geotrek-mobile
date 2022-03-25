@@ -4,7 +4,7 @@ import { MapboxOptions } from 'mapbox-gl';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
-import { Network } from '@ionic-native/network/ngx';
+import { Network } from '@capacitor/network';
 
 import { environment } from '@env/environment';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -43,11 +43,10 @@ export class TreksMapPage implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public settings: SettingsService,
-    private network: Network,
     private platform: Platform
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.checkNetwork();
 
     if (!this.treksTool) {
@@ -60,7 +59,7 @@ export class TreksMapPage implements OnInit, OnDestroy {
           ? environment.offlineMapConfig
           : environment.onlineMapConfig) as any
       );
-      this.commonSrc = this.treksTool.getCommonImgSrc();
+      this.commonSrc = await this.treksTool.getCommonImgSrc();
     }
 
     const filteredTreks$ = this.offline
@@ -124,9 +123,9 @@ export class TreksMapPage implements OnInit, OnDestroy {
     }
   }
 
-  public checkNetwork(): void {
+  public async checkNetwork() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      this.noNetwork = this.network.type === 'none';
+      this.noNetwork = !(await Network.getStatus()).connected;
     }
   }
 }

@@ -4,7 +4,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { environment } from '@env/environment';
-import { Poi, Picture, Trek } from '@app/interfaces/interfaces';
+import { Poi, Picture, Trek, Property } from '@app/interfaces/interfaces';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { Subscription } from 'rxjs';
 
@@ -22,6 +22,9 @@ export class PoiDetailsComponent implements OnInit {
   public settingsSub: Subscription;
   public picture: Picture | null = null;
   public commonSrc: string;
+  private currentTypePoi: Property;
+  private firstTryToLoadFromOnline = true;
+  public hideImgPracticeSrc = false;
 
   constructor(
     public modalCtrl: ModalController,
@@ -31,7 +34,7 @@ export class PoiDetailsComponent implements OnInit {
     public onlineTreks: OnlineTreksService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.poi = this.navParams.get('poi');
     this.offline = this.navParams.get('offline');
     this.commonSrc = this.navParams.get('commonSrc');
@@ -47,7 +50,7 @@ export class PoiDetailsComponent implements OnInit {
       if (this.offline) {
         this.picture = {
           ...this.poi.properties.pictures[0],
-          url: this.offlineTreks.getTrekImageSrc(
+          url: await this.offlineTreks.getTrekImageSrc(
             {} as Trek,
             this.poi.properties.pictures[0]
           )
@@ -65,16 +68,19 @@ export class PoiDetailsComponent implements OnInit {
       this.picture = null;
     }
 
-    this.settingsSub = this.settings.data$.subscribe((settings) => {
+    this.settingsSub = this.settings.data$.subscribe(async (settings) => {
       if (settings) {
         const typePois = settings.find((setting) => setting.id === 'poi_types');
 
         if (typePois && this.poi.properties.type) {
-          const currentTypePoi = typePois.values.find(
+          this.currentTypePoi = typePois.values.find(
             (typePoi) => typePoi.id === this.poi.properties.type
           );
-          if (currentTypePoi) {
-            this.typeImgSrc = this.commonSrc + currentTypePoi.pictogram;
+          if (this.currentTypePoi) {
+            this.typeImgSrc = await this.offlineTreks.getTrekImageSrc(
+              {} as Trek,
+              { url: this.currentTypePoi.pictogram } as Picture
+            );
           }
         }
       }
@@ -84,5 +90,14 @@ export class PoiDetailsComponent implements OnInit {
   close(): void {
     this.settingsSub.unsubscribe();
     this.modalCtrl.dismiss();
+  }
+
+  public onImgPracticeSrcError() {
+    if (this.currentTypePoi.pictogram && this.firstTryToLoadFromOnline) {
+      this.firstTryToLoadFromOnline = false;
+      this.typeImgSrc = `${this.commonSrc}${this.currentTypePoi.pictogram}`;
+    } else {
+      this.hideImgPracticeSrc = true;
+    }
   }
 }

@@ -56,6 +56,7 @@
       "success": "La randonnée est disponible hors ligne",
       "error": "Une erreur est survenue lors du téléchargement",
       "confirmError": "Ok",
+      "firstDownload": "Lors du premier téléchargement, l'application stocke aussi des données globales.",
       "loading": "Téléchargement en cours ...",
       "storage": "Décompression des données en cours..."
     },
@@ -116,11 +117,11 @@
   },
   "error": {
     "title": "Problème de connexion",
-    "contentTreks": "Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées non enregistrées",
+    "contentTreks": "Veuillez vous assurer d’être connecté afin d’accéder à la liste complète des randonnées",
     "contentMore": "Veuillez vous assurer d’être connecté afin d’accéder aux informations supplémentaires",
     "contentMoreItem": "Veuillez vous assurer d’être connecté afin d’accéder à l'information",
     "contentTrekMap": "Veuillez vous assurer d’être connecté afin d’accéder à la randonnée non téléchargée",
-    "contentTreksMap": "Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées non enregistrées",
+    "contentTreksMap": "Veuillez vous assurer d’être connecté afin d’accéder à la carte complète des randonnées",
     "buttonText": "Réessayer"
   },
   "trekCard": {

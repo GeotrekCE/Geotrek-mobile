@@ -2,6 +2,9 @@
   <ion-card>
     <ion-card-content [ngSwitch]="currentProgress !== 1">
       <div *ngSwitchCase="true">
+        <div *ngIf="willDownloadGlobalMedia" class="ion-margin-bottom">
+          {{ 'trek.downloadAlert.firstDownload' | translate }}
+        </div>
         <div>
           {{ 'trek.downloadAlert.loading' | translate }}
         </div>
@@ -12,10 +15,10 @@
       </div>
       <div *ngSwitchCase="false">
         <div
-          style="display:flex; justify-content: center; align-items: center;"
+          style="display: flex; justify-content: center; align-items: center"
         >
           <ion-spinner name="crescent"></ion-spinner>
-          <div style="margin-left: 12px;">
+          <div style="margin-left: 12px">
             {{ 'trek.downloadAlert.storage' | translate }}
           </div>
         </div>
