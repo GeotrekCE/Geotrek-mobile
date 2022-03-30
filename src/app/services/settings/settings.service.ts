@@ -51,7 +51,7 @@ export class SettingsService {
         let defaultLanguage;
 
         if (this.platform.is('ios') || this.platform.is('android')) {
-          defaultLanguage = await Device.getLanguageCode();
+          defaultLanguage = (await Device.getLanguageCode()).value;
         } else {
           defaultLanguage = navigator.language.slice(0, 2);
         }
