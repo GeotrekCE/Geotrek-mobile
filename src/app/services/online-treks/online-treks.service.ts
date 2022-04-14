@@ -24,11 +24,11 @@ import { cloneDeep } from 'lodash';
 })
 export class OnlineTreksService implements TreksService {
   public offline = false;
-  private apiUrl = `${environment.onlineBaseUrl}`;
+  private baseUrl = environment.onlineBaseUrl;
 
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
   public filteredTreks$: Observable<MinimalTrek[]>;
-  public onlineTreksError$ = new BehaviorSubject<boolean | null>(null);
+  public onlineTreksError$ = new BehaviorSubject<boolean | null>(false);
 
   constructor(
     private http: HttpClient,
@@ -39,19 +39,20 @@ export class OnlineTreksService implements TreksService {
   public loadTreks() {
     return new Promise(async (resolve) => {
       this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
-      this.onlineTreksError$.next(null);
       this.getTreks().subscribe({
         next: async (value) => {
+          this.onlineTreksError$.next(false);
           await Storage.set({ key: 'treks', value: JSON.stringify(value) });
           this.treks$.next(value);
           resolve(true);
         },
-        error: async (error) => {
+        error: async () => {
           const treks = await this.getTreksFromStorage();
           if (treks) {
+            this.onlineTreksError$.next(false);
             this.treks$.next(treks);
           } else {
-            this.onlineTreksError$.next(error);
+            this.onlineTreksError$.next(true);
           }
           resolve(true);
         }
@@ -67,7 +68,7 @@ export class OnlineTreksService implements TreksService {
   public getTrekImageSrc(trek: Trek, picture?: Picture): string {
     if (picture || trek.properties.first_picture) {
       return (
-        environment.onlineBaseUrl +
+        this.baseUrl +
         (!!picture ? picture.url : trek.properties.first_picture.url)
       );
     }
@@ -75,7 +76,7 @@ export class OnlineTreksService implements TreksService {
   }
 
   public getCommonImgSrc(): string {
-    return `${environment.onlineBaseUrl}`;
+    return this.baseUrl;
   }
 
   public getTreksUrl(): string {
@@ -85,7 +86,7 @@ export class OnlineTreksService implements TreksService {
   public getTrekDetailsUrl(trekId: number, parentId?: number): string {
     return !parentId
       ? `/trek-details/${trekId}`
-      : `/treks-details/${parentId}/${trekId}`;
+      : `/trek-details/${parentId}/${trekId}`;
   }
 
   public getTrekMapUrl(trekId: number, parentId?: number): string {
@@ -104,7 +105,7 @@ export class OnlineTreksService implements TreksService {
     };
 
     return this.http.get<MinimalTreks>(
-      `${this.apiUrl}/treks.geojson`,
+      `${this.baseUrl}/treks.geojson`,
       httpOptions
     );
   }
@@ -117,12 +118,12 @@ export class OnlineTreksService implements TreksService {
     };
     if (parentId) {
       return this.http.get<Trek>(
-        `${this.apiUrl}/${parentId}/treks/${trekId}.geojson`,
+        `${this.baseUrl}/${parentId}/treks/${trekId}.geojson`,
         httpOptions
       );
     } else {
       return this.http.get<Trek>(
-        `${this.apiUrl}/${trekId}/trek.geojson`,
+        `${this.baseUrl}/${trekId}/trek.geojson`,
         httpOptions
       );
     }
@@ -140,12 +141,12 @@ export class OnlineTreksService implements TreksService {
 
     if (parentId) {
       return this.http.get<Pois>(
-        `${this.apiUrl}/${parentId}/pois/${trekId}.geojson`,
+        `${this.baseUrl}/${parentId}/pois/${trekId}.geojson`,
         httpOptions
       );
     } else {
       return this.http.get<Pois>(
-        `${this.apiUrl}/${trekId}/pois.geojson`,
+        `${this.baseUrl}/${trekId}/pois.geojson`,
         httpOptions
       );
     }
@@ -162,12 +163,12 @@ export class OnlineTreksService implements TreksService {
     };
     if (parentId) {
       return this.http.get<TouristicContents>(
-        `${this.apiUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
+        `${this.baseUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
         httpOptions
       );
     } else {
       return this.http.get<TouristicContents>(
-        `${this.apiUrl}/${trekId}/touristic_contents.geojson`,
+        `${this.baseUrl}/${trekId}/touristic_contents.geojson`,
         httpOptions
       );
     }
@@ -184,12 +185,12 @@ export class OnlineTreksService implements TreksService {
     };
     if (parentId) {
       return this.http.get<TouristicEvents>(
-        `${this.apiUrl}/${parentId}/touristic_events/${trekId}.geojson`,
+        `${this.baseUrl}/${parentId}/touristic_events/${trekId}.geojson`,
         httpOptions
       );
     } else {
       return this.http.get<TouristicEvents>(
-        `${this.apiUrl}/${trekId}/touristic_events.geojson`,
+        `${this.baseUrl}/${trekId}/touristic_events.geojson`,
         httpOptions
       );
     }

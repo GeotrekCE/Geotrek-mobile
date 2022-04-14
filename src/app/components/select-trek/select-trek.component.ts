@@ -15,8 +15,9 @@ export class SelectTrekComponent implements OnInit {
     name: string;
     imgPractice: { src: string; color: string | undefined };
   }[];
-  selectedTrekId: number;
-  imgPractices: {
+  public baseUrl = environment.onlineBaseUrl;
+  public selectedTrekId: number;
+  public imgPractices: {
     src: string;
     color: string | undefined;
     firstTryToLoadFromOnline: boolean;
@@ -63,9 +64,7 @@ export class SelectTrekComponent implements OnInit {
       this.imgPractices[i].firstTryToLoadFromOnline
     ) {
       this.imgPractices[i].firstTryToLoadFromOnline = false;
-      this.imgPractices[
-        i
-      ].src = `${environment.onlineBaseUrl}${this.imgPractices[i].src}`;
+      this.imgPractices[i].src = `${this.baseUrl}${this.imgPractices[i].src}`;
     } else {
       this.imgPractices[i].hideImgPracticeSrc = true;
     }

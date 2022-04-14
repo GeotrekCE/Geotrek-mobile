@@ -5,6 +5,7 @@ export const environment = {
   production: false,
   availableLanguage: ['fr', 'en'],
   onlineBaseUrl: '',
+  apiUrl: '',
   onlineMapConfig: {
     attributionControl: false,
     style: {

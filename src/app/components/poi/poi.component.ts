@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import {
@@ -20,8 +13,7 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'app-poi',
   templateUrl: './poi.component.html',
-  styleUrls: ['./poi.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./poi.component.scss']
 })
 export class PoiComponent implements OnChanges {
   @Input() public poi: Poi;
@@ -38,8 +30,7 @@ export class PoiComponent implements OnChanges {
 
   constructor(
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService,
-    private ref: ChangeDetectorRef
+    public onlineTreks: OnlineTreksService
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -78,7 +69,6 @@ export class PoiComponent implements OnChanges {
       } else {
         this.picture = null;
       }
-      this.ref.detectChanges();
     }
   }
 

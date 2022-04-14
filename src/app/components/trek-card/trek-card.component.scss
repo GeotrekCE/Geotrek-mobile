@@ -15,6 +15,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .ellipsis {
@@ -24,13 +25,21 @@
 }
 
 .minimize-title {
-  font-size: 15px;
+  font-size: 16px;
 }
 
-.minimize-padding-bottom {
-  padding-bottom: 8px;
+ion-card-header {
+  padding: 16px 16px 16px 16px;
 }
 
-.no-padding-top {
-  padding-top: 0px;
+ion-card-content {
+  padding: 0px 16px 16px 16px;
+}
+
+ion-card-header.minimize-padding {
+  padding: 8px 8px 8px 8px;
+}
+
+ion-card-content.minimize-padding {
+  padding: 0px 8px 8px 8px;
 }

@@ -7,7 +7,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoJSON } from 'geojson';
-import { Network } from '@capacitor/network';
 
 import {
   Trek,
@@ -28,7 +27,7 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class SettingsService {
-  private apiUrl = `${environment.onlineBaseUrl}`;
+  private baseUrl = environment.onlineBaseUrl;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
   public order$ = new BehaviorSubject<{
@@ -37,7 +36,7 @@ export class SettingsService {
   } | null>(null);
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
-  public settingsError$ = new BehaviorSubject<boolean | null>(null);
+  public settingsError$ = new BehaviorSubject<boolean | null>(false);
 
   constructor(
     public http: HttpClient,
@@ -78,22 +77,22 @@ export class SettingsService {
 
   public loadSettings() {
     return new Promise(async (resolve) => {
-      this.settingsError$.next(null);
-
       this.getSettings().subscribe({
         next: async (value) => {
+          this.settingsError$.next(false);
           await Storage.set({ key: 'settings', value: JSON.stringify(value) });
           this.filters$.next(this.getFilters(value));
           this.data$.next(value.data);
           resolve(true);
         },
-        error: async (error) => {
+        error: async () => {
           const settings = await this.getSettingsFromStorage();
           if (settings) {
+            this.settingsError$.next(false);
             this.filters$.next(this.getFilters(settings));
             this.data$.next(settings.data);
           } else {
-            this.settingsError$.next(error);
+            this.settingsError$.next(true);
           }
           resolve(true);
         }
@@ -103,14 +102,8 @@ export class SettingsService {
         next: async (value) => {
           await Storage.set({ key: 'zone', value: JSON.stringify(value) });
         },
-        error: async () => {
-          if (
-            ((this.platform.is('ios') || this.platform.is('android')) &&
-              !(await Network.getStatus()).connected) ||
-            (!this.platform.is('ios') && !this.platform.is('android'))
-          ) {
-            await Storage.remove({ key: 'zone' });
-          }
+        error: () => {
+          return true;
         }
       });
     });
@@ -150,11 +143,14 @@ export class SettingsService {
         'Accept-Language': this.translate.getDefaultLang()
       })
     };
-    return this.http.get<Settings>(this.apiUrl + '/settings.json', httpOptions);
+    return this.http.get<Settings>(
+      this.baseUrl + '/settings.json',
+      httpOptions
+    );
   }
 
   public getZoneFromUrl(): Observable<GeoJSON> {
-    return this.http.get<GeoJSON>(this.apiUrl + '/contour/contour.geojson');
+    return this.http.get<GeoJSON>(this.baseUrl + '/contour/contour.geojson');
   }
 
   public async getZoneFromStorage() {
@@ -274,7 +270,7 @@ export class SettingsService {
       });
     }
 
-    const regexp = new RegExp(`src="${this.apiUrl}`, 'gi');
+    const regexp = new RegExp(`src="${this.baseUrl}`, 'gi');
 
     if (trek.properties.description) {
       hydratedTrek.properties.description = trek.properties.description

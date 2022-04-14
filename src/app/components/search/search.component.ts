@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -17,8 +12,7 @@ import { OnlineTreksService } from '@app/services/online-treks/online-treks.serv
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  providers: [SearchTreksService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [SearchTreksService]
 })
 export class SearchComponent implements OnInit, OnDestroy {
   public filteredTreks: MinimalTrek[] = [];

@@ -1,10 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   AlertController,
   LoadingController,
@@ -38,8 +33,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 @Component({
   selector: 'app-trek-details',
   templateUrl: './trek-details.page.html',
-  styleUrls: ['./trek-details.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./trek-details.page.scss']
 })
 export class TrekDetailsPage implements OnInit {
   public originalTrek: Trek;
@@ -68,10 +62,9 @@ export class TrekDetailsPage implements OnInit {
   public previousTrek: Trek;
   public nextTrek: Trek;
   public isAvailableOffline = false;
-  public apiUrl = `${environment.onlineBaseUrl.replace(
-    'mobile',
-    'api'
-  )}/${this.translate.getDefaultLang()}/treks`;
+  public apiUrl = `${
+    environment.apiUrl
+  }/${this.translate.getDefaultLang()}/treks`;
   public pictures: any = [];
   public trekExtraDetails: any = {
     difficulty: '',
@@ -87,11 +80,9 @@ export class TrekDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private translate: TranslateService,
-    private router: Router,
     public modalController: ModalController,
     private platform: Platform,
     public settings: SettingsService,
-    private ref: ChangeDetectorRef,
     private loadingController: LoadingController,
     private navController: NavController
   ) {}
@@ -195,17 +186,32 @@ export class TrekDetailsPage implements OnInit {
             }
           }
 
-          this.trekExtraDetails.difficulty = await this.getPictureSrc({
-            url: this.currentTrek.properties.difficulty.pictogram
-          });
+          if (
+            this.currentTrek.properties.difficulty &&
+            this.currentTrek.properties.difficulty.pictogram
+          ) {
+            this.trekExtraDetails.difficulty = await this.getPictureSrc({
+              url: this.currentTrek.properties.difficulty.pictogram
+            });
+          }
 
-          this.trekExtraDetails.practice = await this.getPictureSrc({
-            url: this.currentTrek.properties.practice.pictogram
-          });
+          if (
+            this.currentTrek.properties.practice &&
+            this.currentTrek.properties.practice.pictogram
+          ) {
+            this.trekExtraDetails.practice = await this.getPictureSrc({
+              url: this.currentTrek.properties.practice.pictogram
+            });
+          }
 
-          this.trekExtraDetails.profile = await this.getPictureSrc({
-            url: this.currentTrek.properties.profile
-          });
+          if (
+            this.currentTrek.properties.profile &&
+            this.currentTrek.properties.profile !== ''
+          ) {
+            this.trekExtraDetails.profile = await this.getPictureSrc({
+              url: this.currentTrek.properties.profile
+            });
+          }
 
           for (const network of this.currentTrek.properties.networks) {
             this.trekExtraDetails.networks.push({
@@ -237,12 +243,9 @@ export class TrekDetailsPage implements OnInit {
               (setting) => setting.id === 'poi_types'
             );
           }
-
-          this.ref.detectChanges();
         },
         () => {
           this.connectionError = true;
-          this.ref.detectChanges();
         }
       );
   }
@@ -292,7 +295,6 @@ export class TrekDetailsPage implements OnInit {
               this.currentTrek.properties.id
             );
           this.loadTrek();
-          this.ref.detectChanges();
         },
         (saveResult) => {
           modalProgress.dismiss();
@@ -362,7 +364,7 @@ export class TrekDetailsPage implements OnInit {
   }
 
   public goToStep(stepId: number): string {
-    return `/app/trek-details${this.offline ? '-offline' : ''}/${
+    return `/trek-details${this.offline ? '-offline' : ''}/${
       this.parentTrek.properties.id
     }/${stepId}`;
   }

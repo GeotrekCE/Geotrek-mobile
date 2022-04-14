@@ -17,8 +17,9 @@ export class SelectPoiComponent implements OnInit {
     imgPoi: { src: string; color: string | undefined };
     imgTypePoi: { src: string; color: string | undefined };
   }[];
-  selectedPoiId: number;
-  imgPractices: {
+  public baseUrl = environment.onlineBaseUrl;
+  public selectedPoiId: number;
+  public imgPractices: {
     src: string;
     color: string | undefined;
     firstTryToLoadFromOnline: boolean;
@@ -65,9 +66,7 @@ export class SelectPoiComponent implements OnInit {
       this.imgPractices[i].firstTryToLoadFromOnline
     ) {
       this.imgPractices[i].firstTryToLoadFromOnline = false;
-      this.imgPractices[
-        i
-      ].src = `${environment.onlineBaseUrl}${this.imgPractices[i].src}`;
+      this.imgPractices[i].src = `${this.baseUrl}${this.imgPractices[i].src}`;
     } else {
       this.imgPractices[i].hideImgPracticeSrc = true;
     }

@@ -54,8 +54,7 @@ export class OfflineTreksService implements TreksService {
   public filteredTreks$: Observable<MinimalTrek[]>;
   public currentProgressDownload$: BehaviorSubject<number> =
     new BehaviorSubject(0);
-
-  private zipUrl = `${environment.onlineBaseUrl}`;
+  public baseUrl = environment.onlineBaseUrl;
   private isMobile: boolean;
   private commonMediaContentLength = 0;
   private trekContentLength = 0;
@@ -87,10 +86,10 @@ export class OfflineTreksService implements TreksService {
         });
         return Capacitor.convertFileSrc(imgUri.uri);
       } else {
-        return '';
+        return 'offline/';
       }
     }
-    return '';
+    return 'offline/';
   }
 
   public async getCommonImgSrc(): Promise<string> {
@@ -101,7 +100,7 @@ export class OfflineTreksService implements TreksService {
       });
       return Capacitor.convertFileSrc(imgUri.uri);
     } else {
-      return `${environment.onlineBaseUrl}`;
+      return this.baseUrl;
     }
   }
 
@@ -316,7 +315,7 @@ export class OfflineTreksService implements TreksService {
       this.updateProgress();
     });
 
-    const offlineZipDownloadUrl = `${this.zipUrl}/global.zip`;
+    const offlineZipDownloadUrl = `${this.baseUrl}/global.zip`;
     const options = {
       url: offlineZipDownloadUrl,
       filePath: `zip/global.zip`,
@@ -372,7 +371,7 @@ export class OfflineTreksService implements TreksService {
       this.updateProgress();
     });
 
-    const offlineZipDownloadUrl = `${this.zipUrl}/${trekId}.zip`;
+    const offlineZipDownloadUrl = `${this.baseUrl}/${trekId}.zip`;
     const options = {
       url: offlineZipDownloadUrl,
       filePath: `zip/${trekId}.zip`,

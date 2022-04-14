@@ -4,7 +4,7 @@
   </ion-toolbar>
   <ion-toolbar
     *ngIf="
-      (!(onlineTreks.onlineTreksError$ | async) && !offline && !noNetwork) ||
+      (!(onlineTreks.onlineTreksError$ | async) && !offline) ||
       (offline && this.filteredTreks && this.filteredTreks.length > 0)
     "
   >

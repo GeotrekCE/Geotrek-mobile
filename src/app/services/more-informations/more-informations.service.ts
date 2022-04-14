@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { InformationIntro, InformationItem } from '@app/interfaces/interfaces';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,12 +10,9 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class MoreInformationsService {
-  private apiUrl = `${environment.onlineBaseUrl}`;
+  public baseUrl = environment.onlineBaseUrl;
 
-  constructor(
-    private http:HttpClient,
-    private translate: TranslateService
-  ) {}
+  constructor(private http: HttpClient, private translate: TranslateService) {}
 
   public getMoreItems(): Observable<InformationIntro[]> {
     const httpOptions = {
@@ -24,7 +21,7 @@ export class MoreInformationsService {
       })
     };
     return this.http.get<InformationIntro[]>(
-      `${this.apiUrl}/flatpages.json`,
+      `${this.baseUrl}/flatpages.json`,
       httpOptions
     );
   }
@@ -36,7 +33,7 @@ export class MoreInformationsService {
       })
     };
     return this.http.get<InformationItem>(
-      `${this.apiUrl}/flatpages/${id}.json`,
+      `${this.baseUrl}/flatpages/${id}.json`,
       httpOptions
     );
   }

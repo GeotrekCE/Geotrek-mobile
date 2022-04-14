@@ -71,6 +71,10 @@ export class TrekCardComponent implements OnInit {
     }
   }
 
+  public onImgSrcError() {
+    this.hideImgSrc = true;
+  }
+
   public onImgPracticeSrcError() {
     if (
       this.hydratedTrek.properties.practice &&
@@ -86,9 +90,5 @@ export class TrekCardComponent implements OnInit {
     } else {
       this.hideImgPracticeSrc = true;
     }
-  }
-
-  onImgSrcError() {
-    this.hideImgSrc = true;
   }
 }

@@ -13,3 +13,7 @@
   display: flex;
   align-items: center;
 }
+
+.toolbar-icon-button::part(native) {
+  font-size: 10px;
+}

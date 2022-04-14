@@ -1,16 +1,9 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  TemplateRef,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-collapsible-list',
   templateUrl: './collapsible-list.component.html',
-  styleUrls: ['./collapsible-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./collapsible-list.component.scss']
 })
 export class CollapsibleListComponent<T> implements OnInit {
   @Input() items: T[];

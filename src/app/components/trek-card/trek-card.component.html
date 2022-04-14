@@ -11,7 +11,7 @@
       [src]="this.imgSrc"
       (ionError)="onImgSrcError()"
     ></ion-img>
-    <ion-card-header [ngClass]="{ 'minimize-padding-bottom': !showAllData }">
+    <ion-card-header [ngClass]="{ 'minimize-padding': !showAllData }">
       <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">
         {{
           isStage
@@ -23,7 +23,7 @@
     </ion-card-header>
   </div>
   <div>
-    <ion-card-content class="no-padding-top">
+    <ion-card-content [ngClass]="{ 'minimize-padding': !showAllData }">
       <div>
         <div class="ellipsis">{{ 'treks.departure' | translate }}</div>
         <div class="ellipsis" *ngIf="hydratedTrek.properties.departure">
@@ -39,7 +39,7 @@
           {{ hydratedTrek.properties.departure_city?.name }}
         </div>
       </div>
-      <div class="extra-content-card ion-padding-top">
+      <div class="extra-content-card">
         <div>
           <ion-img
             *ngIf="this.imgPracticeSrc && !this.hideImgPracticeSrc"
