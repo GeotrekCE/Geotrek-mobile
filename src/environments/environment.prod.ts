@@ -6,6 +6,7 @@ export const environment = {
   availableLanguage: ['fr', 'en'],
   onlineBaseUrl: '',
   apiUrl: '',
+  randoVersion: 3,
   onlineMapConfig: {
     attributionControl: false,
     style: {

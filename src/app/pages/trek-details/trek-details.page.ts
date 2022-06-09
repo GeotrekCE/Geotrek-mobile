@@ -346,10 +346,17 @@ export class TrekDetailsPage implements OnInit {
   public async shareTrek() {
     if (this.platform.is('ios') || this.platform.is('android')) {
       const onlineUrl = this.baseUrl.replace('mobile', '');
+      const url =
+        environment.randoVersion === 3
+          ? `${onlineUrl}${this.translate.getDefaultLang()}/trek/${
+              this.currentTrek.properties.id
+            }-${this.currentTrek.properties.slug}/`
+          : `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
+      console.log(url);
       const sharingOptions = {
         text: this.currentTrek.properties.name,
         title: environment.appName,
-        url: `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`
+        url
       };
       await Share.share(sharingOptions);
     }
