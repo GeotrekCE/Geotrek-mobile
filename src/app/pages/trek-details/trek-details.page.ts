@@ -352,7 +352,6 @@ export class TrekDetailsPage implements OnInit {
               this.currentTrek.properties.id
             }-${this.currentTrek.properties.slug}/`
           : `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
-      console.log(url);
       const sharingOptions = {
         text: this.currentTrek.properties.name,
         title: environment.appName,
