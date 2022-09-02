@@ -1,0 +1,36 @@
+platforms:
+  android:
+    versionName: 3.9.2
+    versionCode: 309020
+    manifest:
+      - file: AndroidManifest.xml
+        target: manifest/application
+        inject: <service android:name="com.equimaps.capacitor_background_geolocation.BackgroundGeolocationService" android:enabled="true" android:exported="true" android:foregroundServiceType="location" />
+
+      - file: AndroidManifest.xml
+        target: /manifest
+        merge: |
+          <manifest>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+            <uses-feature android:name="android.hardware.location.gps" />
+          </manifest>
+  ios:
+    targets:
+      App:
+        version: 3.9.2
+        buildNumber: 309020
+        plist:
+          - replace: true
+            entries:
+              - NSLocationWhenInUseUsageDescription: In order to track you while hiking, this app requires location tracking
+
+          - replace: true
+            entries:
+              - NSLocationAlwaysAndWhenInUseUsageDescription: In order to track you while hiking, this app always requires location tracking
+
+          - replace: true
+            entries:
+              - UIBackgroundModes:
+                  - location
