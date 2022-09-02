@@ -4,14 +4,18 @@ Mobile application of _Geotrek Rando_ (http://geotrek.fr).
 
 # INSTALLATION
 
+[Environment Setup](https://capacitorjs.com/docs/getting-started/environment-setup)
+
 ```
 git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 cd Geotrek-mobile
 npm install
 ```
 
-[iOS environment setup](https://ionicframework.com/docs/installation/ios)\
-[Android environment setup](https://ionicframework.com/docs/installation/android)
+# Create your own application
+
+Modify at least these files capacitor.config.ts, src/environments/environment.ts and environment.prod.ts.\
+Replace resources/icon.png (1024×1024px) and resources/splash.png (2732×2732px).
 
 # BUILD RELEASE APP
 
@@ -19,31 +23,31 @@ npm install
 npx ionic build --configuration production
 ```
 
-## iOS
+## Add iOS platform
 
 ```
 npx cap add ios
 ```
 
-## Android
+## Add Android platform
 
 ```
 npx cap add android
 ```
 
-# CUSTOMIZATION OPTIONS
+## Icons and splashscreens
 
-capacitor.config.ts
+```
+npx capacitor-resources
+```
 
-src/environments/environment.ts & environment.prod.ts
+## Native configuration
 
-src/theme/variables.scss
+```
+npx trapeze run config.yaml
+```
 
-src/assets/i18n/
-
-src/assets/map/icons/
-
-resources/
+Now you can create your release app using xCode and Android Studio.
 
 # End-to-end testing
 
@@ -56,5 +60,5 @@ npx cypress open
 - OpenSource - BSD
 - Copyright (c) Makina Corpus - Parc National des Écrins
 
-[<img src="https://geotrek.fr/assets/img/logo_makina.svg">](http://www.makina-corpus.com)
-[<img src="http://geonature.fr/img/logo-pne.jpg">](http://www.ecrins-parcnational.fr)
+[<img src="https://geotrek.fr/assets/img/logo_makina.svg">](https://www.makina-corpus.com)
+[<img src="https://geonature.fr/img/logo-pne.jpg">](https://www.ecrins-parcnational.fr)
