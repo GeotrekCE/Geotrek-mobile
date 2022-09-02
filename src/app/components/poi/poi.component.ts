@@ -21,7 +21,7 @@ export class PoiComponent implements OnChanges {
   @Input() public commonSrc: string;
   @Input() public typePois: DataSetting | undefined;
 
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   public picture: Picture | null = null;
   public typeImgSrc: string | null = null;
   private currentTypePoi: Property;

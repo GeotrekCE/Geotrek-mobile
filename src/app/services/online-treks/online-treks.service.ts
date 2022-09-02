@@ -24,7 +24,7 @@ import { cloneDeep } from 'lodash';
 })
 export class OnlineTreksService implements TreksService {
   public offline = false;
-  private baseUrl = environment.onlineBaseUrl;
+  private baseUrl = environment.mobileApiUrl;
 
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
   public filteredTreks$: Observable<MinimalTrek[]>;

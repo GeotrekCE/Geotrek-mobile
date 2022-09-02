@@ -54,7 +54,7 @@ export class OfflineTreksService implements TreksService {
   public filteredTreks$: Observable<MinimalTrek[]>;
   public currentProgressDownload$: BehaviorSubject<number> =
     new BehaviorSubject(0);
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   private isMobile: boolean;
   private commonMediaContentLength = 0;
   private trekContentLength = 0;

@@ -43,7 +43,7 @@ export class TrekDetailsPage implements OnInit {
   public touristicEvents: TouristicEvent[];
   public touristicContents: TouristicContents;
   public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
-  public baseUrl = environment.onlineBaseUrl;
+  public mobileApiUrl = environment.mobileApiUrl;
   public showImgRulesIfParkCentered =
     environment.trekDetails.showImgRulesIfParkCentered;
   public mapLink: string;
@@ -62,8 +62,8 @@ export class TrekDetailsPage implements OnInit {
   public previousTrek: Trek;
   public nextTrek: Trek;
   public isAvailableOffline = false;
-  public apiUrl = `${
-    environment.apiUrl
+  public adminApiUrl = `${
+    environment.adminApiUrl
   }/${this.translate.getDefaultLang()}/treks`;
   public pictures: any = [];
   public trekExtraDetails: any = {
@@ -345,13 +345,12 @@ export class TrekDetailsPage implements OnInit {
 
   public async shareTrek() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      const onlineUrl = this.baseUrl.replace('mobile', '');
       const url =
         environment.randoVersion === 3
-          ? `${onlineUrl}${this.translate.getDefaultLang()}/trek/${
+          ? `${environment.randoUrl}${this.translate.getDefaultLang()}/trek/${
               this.currentTrek.properties.id
             }-${this.currentTrek.properties.slug}/`
-          : `${onlineUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
+          : `${environment.randoUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
       const sharingOptions = {
         text: this.currentTrek.properties.name,
         title: environment.appName,

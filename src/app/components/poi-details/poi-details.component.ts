@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class PoiDetailsComponent implements OnInit {
   public offline = false;
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   public poi: Poi;
   public poiImg = '';
   public typeImgSrc: string | null = null;

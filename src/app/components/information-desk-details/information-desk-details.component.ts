@@ -10,7 +10,7 @@ import { InformationDesk } from '@app/interfaces/interfaces';
   styleUrls: ['./information-desk-details.component.scss']
 })
 export class InformationDeskDetailsComponent implements OnInit {
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   public informationDesk: InformationDesk;
   public informationDeskPicture = '';
 

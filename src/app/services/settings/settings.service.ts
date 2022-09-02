@@ -27,7 +27,7 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class SettingsService {
-  private baseUrl = environment.onlineBaseUrl;
+  private baseUrl = environment.mobileApiUrl;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
   public order$ = new BehaviorSubject<{

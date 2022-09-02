@@ -1,12 +1,13 @@
 import { primaryColor } from './variables';
 
 export const environment = {
-  appName: 'Geotrek mobile',
   production: false,
-  availableLanguage: ['fr', 'en'],
-  onlineBaseUrl: '',
-  apiUrl: '',
+  appName: 'Geotrek mobile',
+  mobileApiUrl: '',
+  adminApiUrl: '',
+  randoUrl: '',
   randoVersion: 3,
+  availableLanguage: ['fr', 'en'],
   onlineMapConfig: {
     attributionControl: false,
     style: {

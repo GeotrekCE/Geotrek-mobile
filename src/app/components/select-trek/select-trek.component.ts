@@ -15,7 +15,7 @@ export class SelectTrekComponent implements OnInit {
     name: string;
     imgPractice: { src: string; color: string | undefined };
   }[];
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   public selectedTrekId: number;
   public imgPractices: {
     src: string;

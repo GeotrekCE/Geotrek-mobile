@@ -15,8 +15,6 @@ npm install
 
 # BUILD RELEASE APP
 
-_Minimum requirements : Fill in 'onlineBaseUrl' in 'src/environments/environment.prod.ts'_ with your personal api url
-
 ```
 npx ionic build --configuration production
 ```

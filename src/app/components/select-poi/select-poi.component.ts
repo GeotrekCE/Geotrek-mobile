@@ -17,7 +17,7 @@ export class SelectPoiComponent implements OnInit {
     imgPoi: { src: string; color: string | undefined };
     imgTypePoi: { src: string; color: string | undefined };
   }[];
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
   public selectedPoiId: number;
   public imgPractices: {
     src: string;

@@ -10,7 +10,7 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class MoreInformationsService {
-  public baseUrl = environment.onlineBaseUrl;
+  public baseUrl = environment.mobileApiUrl;
 
   constructor(private http: HttpClient, private translate: TranslateService) {}
 

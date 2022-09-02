@@ -26,7 +26,7 @@
         <ion-icon slot="start" name="trash"></ion-icon>
       </ion-button>
       <ion-button
-        [href]="apiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.pdf'"
+        [href]="adminApiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.pdf'"
         [download]="currentTrek.properties.slug! + '.pdf'"
         fill="clear"
         expand="full"
@@ -35,7 +35,7 @@
         <ion-icon slot="start" name="document"></ion-icon>
       </ion-button>
       <ion-button
-        [href]="apiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.gpx'"
+        [href]="adminApiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.gpx'"
         [download]="currentTrek.properties.slug! + '.gpx'"
         fill="clear"
         expand="full"
@@ -471,7 +471,7 @@
               <ion-img
                 class="min-size-img"
                 *ngIf="information_desk.picture && information_desk.picture !== ''"
-                [src]="baseUrl + information_desk.picture"
+                [src]="mobileApiUrl + information_desk.picture"
               ></ion-img>
               <div [innerHTML]="information_desk.description"></div>
               <div [innerHTML]="information_desk.street"></div>
