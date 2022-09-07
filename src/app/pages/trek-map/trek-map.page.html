@@ -30,7 +30,7 @@
       (presentPoiDetails)="presentPoiDetails($event)"
       (presentInformationDeskDetails)="presentInformationDeskDetails($event)"
       [mapConfig]="mapConfig"
-      [dataSettings]="settings.data$.value"
+      [dataSettings]="settings.data$.value!"
       [commonSrc]="commonSrc"
       (navigateToChildren)="navigateToChildren($event)"
       [offline]="offline"

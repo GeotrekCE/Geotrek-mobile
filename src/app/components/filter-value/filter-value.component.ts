@@ -8,13 +8,13 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
   styleUrls: ['./filter-value.component.scss']
 })
 export class FilterValueComponent implements OnInit {
-  @Input() value: FilterValue;
-  @Input() commonSrc: string;
+  @Input() value!: FilterValue;
+  @Input() commonSrc!: string;
   @Output() public valueChange = new EventEmitter<{
     checked: boolean;
     value: FilterValue;
   }>();
-  public imgPracticeSrc: string;
+  public imgPracticeSrc!: string;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
 

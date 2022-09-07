@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { of, forkJoin } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { MapboxOptions } from 'mapbox-gl';
 import {
   HydratedTrek,
   Poi,
@@ -28,15 +27,15 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
 })
 export class TrekMapPage implements OnInit {
   public currentTrek: HydratedTrek | null = null;
-  public currentPois: Pois;
-  public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
+  public currentPois!: Pois;
+  public touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
   public trekUrl = '';
   public connectionError = false;
-  public modalPoiDetails: HTMLIonModalElement | null;
-  public mapConfig: MapboxOptions;
-  public commonSrc: string;
+  public modalPoiDetails!: HTMLIonModalElement | null;
+  public mapConfig: any;
+  public commonSrc!: string;
   public offline = false;
-  private treksTool: TreksService;
+  private treksTool!: TreksService;
   public canDisplayMap = false;
 
   constructor(
@@ -82,14 +81,14 @@ export class TrekMapPage implements OnInit {
         ]): Promise<any> => {
           this.connectionError = false;
 
-          const mapConfig: MapboxOptions =
+          const mapConfig: any =
             await treksService.getMapConfigForTrekById(
               isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
               offline
             );
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            trek,
+            trek!,
             commonSrc
           );
           const touristicCategoriesWithFeatures =

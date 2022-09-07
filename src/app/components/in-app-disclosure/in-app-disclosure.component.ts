@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-in-app-disclosure',
@@ -13,7 +13,7 @@ export class InAppDisclosureComponent implements OnInit {
   ngOnInit() {}
 
   public async close() {
-    await Storage.set({
+    await Preferences.set({
       key: 'alreadyAskGeolocationPermission',
       value: JSON.stringify(true)
     });

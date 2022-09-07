@@ -1,6 +1,5 @@
 import { Feature, FeatureCollection, MultiPoint, Point } from 'geojson';
 import { Observable } from 'rxjs/internal/Observable';
-import { MapboxOptions } from 'mapbox-gl';
 
 export interface MinimalTreks {
   type: string;
@@ -271,6 +270,6 @@ export interface TreksService {
   getMapConfigForTrekById(
     trek: Trek,
     isOffline: boolean
-  ): MapboxOptions | Promise<MapboxOptions>;
+  ): any | Promise<any>;
   getCommonImgSrc(): string | Promise<string>;
 }

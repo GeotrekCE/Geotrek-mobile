@@ -10,13 +10,13 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./select-trek.component.scss']
 })
 export class SelectTrekComponent implements OnInit {
-  @Input() public radioTreks: {
+  @Input() public radioTreks!: {
     id: number;
     name: string;
     imgPractice: { src: string; color: string | undefined };
   }[];
   public baseUrl = environment.mobileApiUrl;
-  public selectedTrekId: number;
+  public selectedTrekId!: number;
   public imgPractices: {
     src: string;
     color: string | undefined;

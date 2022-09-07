@@ -17,8 +17,8 @@ import { SelectFilterComponent } from '@app/components/select-filter/select-filt
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, DoCheck {
-  @Input() public filter: Filter;
-  @Input() public commonSrc: string;
+  @Input() public filter!: Filter;
+  @Input() public commonSrc!: string;
   @Output() public valueChange = new EventEmitter<{
     checked: boolean;
     value: FilterValue;

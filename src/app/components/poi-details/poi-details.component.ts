@@ -16,13 +16,13 @@ import { Subscription } from 'rxjs';
 export class PoiDetailsComponent implements OnInit {
   public offline = false;
   public baseUrl = environment.mobileApiUrl;
-  public poi: Poi;
+  public poi!: Poi;
   public poiImg = '';
   public typeImgSrc: string | null = null;
-  public settingsSub: Subscription;
+  public settingsSub!: Subscription;
   public picture: Picture | null = null;
-  public commonSrc: string;
-  private currentTypePoi: Property;
+  public commonSrc!: string;
+  private currentTypePoi!: Property;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
 
@@ -75,7 +75,7 @@ export class PoiDetailsComponent implements OnInit {
         if (typePois && this.poi.properties.type) {
           this.currentTypePoi = typePois.values.find(
             (typePoi) => typePoi.id === this.poi.properties.type
-          );
+          )!;
           if (this.currentTypePoi) {
             this.typeImgSrc = await this.offlineTreks.getTrekImageSrc(
               {} as Trek,

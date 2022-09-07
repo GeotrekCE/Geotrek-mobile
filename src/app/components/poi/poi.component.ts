@@ -16,15 +16,15 @@ import { environment } from '@env/environment';
   styleUrls: ['./poi.component.scss']
 })
 export class PoiComponent implements OnChanges {
-  @Input() public poi: Poi;
+  @Input() public poi!: Poi;
   @Input() public offline = false;
-  @Input() public commonSrc: string;
+  @Input() public commonSrc!: string;
   @Input() public typePois: DataSetting | undefined;
 
   public baseUrl = environment.mobileApiUrl;
   public picture: Picture | null = null;
   public typeImgSrc: string | null = null;
-  private currentTypePoi: Property;
+  private currentTypePoi!: Property;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
 
@@ -34,11 +34,11 @@ export class PoiComponent implements OnChanges {
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
-    if (changes.poi || changes.offline) {
+    if (changes["poi"] || changes["offline"]) {
       if (this.typePois && this.poi.properties.type) {
         this.currentTypePoi = this.typePois.values.find(
           (typePoi) => typePoi.id === this.poi.properties.type
-        );
+        )!;
         if (this.currentTypePoi) {
           this.typeImgSrc = await this.offlineTreks.getTrekImageSrc(
             {} as Trek,

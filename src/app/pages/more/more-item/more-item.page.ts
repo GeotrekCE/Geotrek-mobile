@@ -11,8 +11,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./more-item.page.scss']
 })
 export class MoreItemPage implements OnInit {
-  moreItem: InformationItem;
-  moreItemId: number;
+  moreItem!: InformationItem;
+  moreItemId!: number;
   connectionError = false;
 
   constructor(

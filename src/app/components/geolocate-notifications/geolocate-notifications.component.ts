@@ -30,10 +30,10 @@ export class GeolocateNotificationsComponent
 {
   currentPoisToNotify: any[] = [];
   notificationsModeIsActive = false;
-  @Input() currentPois: Pois;
-  @Input() trekName: string;
+  @Input() currentPois!: Pois;
+  @Input() trekName!: string;
   @Output() presentPoiDetails = new EventEmitter<any>();
-  private currentPosition$: Subscription;
+  private currentPosition$!: Subscription;
 
   constructor(
     public platform: Platform,
@@ -56,7 +56,7 @@ export class GeolocateNotificationsComponent
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentPois: SimpleChange = changes.currentPois;
+    const changesCurrentPois: SimpleChange = changes["currentPois"];
     if (changesCurrentPois.currentValue && !changesCurrentPois.previousValue) {
       if (this.currentPois && Array.isArray(this.currentPois.features)) {
         this.currentPoisToNotify = this.currentPois.features.map((feature) => ({

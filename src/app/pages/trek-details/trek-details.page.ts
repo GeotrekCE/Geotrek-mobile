@@ -36,31 +36,31 @@ import { SettingsService } from '@app/services/settings/settings.service';
   styleUrls: ['./trek-details.page.scss']
 })
 export class TrekDetailsPage implements OnInit {
-  public originalTrek: Trek;
-  public currentTrek: HydratedTrek;
+  public originalTrek!: Trek;
+  public currentTrek!: HydratedTrek;
   public offline = false;
-  public currentPois: Poi[];
-  public touristicEvents: TouristicEvent[];
-  public touristicContents: TouristicContents;
-  public touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
+  public currentPois!: Poi[];
+  public touristicEvents!: TouristicEvent[];
+  public touristicContents!: TouristicContents;
+  public touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
   public mobileApiUrl = environment.mobileApiUrl;
   public showImgRulesIfParkCentered =
     environment.trekDetails.showImgRulesIfParkCentered;
-  public mapLink: string;
-  public treksTool: TreksService;
+  public mapLink!: string;
+  public treksTool!: TreksService;
   public treksUrl = '';
   public connectionError = false;
-  public commonSrc: string;
+  public commonSrc!: string;
   public typePois: DataSetting | undefined;
   public poiCollapseInitialSize = environment.poiCollapseInitialSize;
   public touristicContentCollapseInitialSize =
     environment.touristicContentCollapseInitialSize;
   public isItinerancy = false;
   public isStage = false;
-  public stageIndex: number;
-  public parentTrek: Trek;
-  public previousTrek: Trek;
-  public nextTrek: Trek;
+  public stageIndex!: number;
+  public parentTrek!: Trek;
+  public previousTrek!: Trek;
+  public nextTrek!: Trek;
   public isAvailableOffline = false;
   public adminApiUrl = `${
     environment.adminApiUrl
@@ -125,7 +125,7 @@ export class TrekDetailsPage implements OnInit {
 
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            trek,
+            trek!,
             commonSrc
           );
           const touristicCategoriesWithFeatures =
@@ -144,7 +144,7 @@ export class TrekDetailsPage implements OnInit {
 
           this.offline = offline || this.isAvailableOffline;
           this.currentTrek = hydratedTrek;
-          this.originalTrek = trek;
+          this.originalTrek = trek!;
           this.currentPois = pois.features;
           this.treksTool = treksService;
           this.touristicContents = touristicContents;

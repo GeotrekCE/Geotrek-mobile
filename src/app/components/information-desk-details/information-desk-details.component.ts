@@ -11,7 +11,7 @@ import { InformationDesk } from '@app/interfaces/interfaces';
 })
 export class InformationDeskDetailsComponent implements OnInit {
   public baseUrl = environment.mobileApiUrl;
-  public informationDesk: InformationDesk;
+  public informationDesk!: InformationDesk;
   public informationDeskPicture = '';
 
   constructor(public modalCtrl: ModalController, public navParams: NavParams) {}

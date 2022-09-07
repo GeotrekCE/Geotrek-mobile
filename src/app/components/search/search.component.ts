@@ -16,11 +16,11 @@ import { OnlineTreksService } from '@app/services/online-treks/online-treks.serv
 })
 export class SearchComponent implements OnInit, OnDestroy {
   public filteredTreks: MinimalTrek[] = [];
-  public currentSearchValue: string;
+  public currentSearchValue!: string;
   private treks: MinimalTreks | null = null;
   public treksByStep = 30;
   public currentMaxTreks = 30;
-  private treksSubscription: Subscription;
+  private treksSubscription!: Subscription;
 
   constructor(
     private modalCtrl: ModalController,

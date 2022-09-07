@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { Device } from '@capacitor/device';
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
@@ -80,7 +80,7 @@ export class SettingsService {
       this.getSettings().subscribe({
         next: async (value) => {
           this.settingsError$.next(false);
-          await Storage.set({ key: 'settings', value: JSON.stringify(value) });
+          await Preferences.set({ key: 'settings', value: JSON.stringify(value) });
           this.filters$.next(this.getFilters(value));
           this.data$.next(value.data);
           resolve(true);
@@ -100,7 +100,7 @@ export class SettingsService {
 
       this.getZoneFromUrl().subscribe({
         next: async (value) => {
-          await Storage.set({ key: 'zone', value: JSON.stringify(value) });
+          await Preferences.set({ key: 'zone', value: JSON.stringify(value) });
         },
         error: () => {
           return true;
@@ -111,7 +111,7 @@ export class SettingsService {
 
   private async getSettingsFromStorage() {
     const defaultSettings = JSON.parse(
-      (await Storage.get({ key: `settings` })).value
+      (await Preferences.get({ key: `settings` })).value!
     );
     return defaultSettings;
   }
@@ -154,7 +154,7 @@ export class SettingsService {
   }
 
   public async getZoneFromStorage() {
-    const zone = JSON.parse((await Storage.get({ key: 'zone' })).value);
+    const zone = JSON.parse((await Preferences.get({ key: 'zone' })).value!);
     return zone
       ? zone
       : {

@@ -1,11 +1,10 @@
 import { Http } from '@capacitor-community/http';
 import { Injectable } from '@angular/core';
-import { MapboxOptions } from 'mapbox-gl';
 import { ZipPlugin } from 'capacitor-zip';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import {
   BehaviorSubject,
   from,
@@ -131,8 +130,8 @@ export class OfflineTreksService implements TreksService {
       features: []
     };
 
-    return from(Storage.get({ key: 'offline-treks' })).pipe(
-      map(({ value }) => JSON.parse(value)),
+    return from(Preferences.get({ key: 'offline-treks' })).pipe(
+      map(({ value }) => JSON.parse(value!)),
       map((treks: MinimalTreks) => (!!treks ? treks : emptyTreks))
     );
   }
@@ -156,7 +155,7 @@ export class OfflineTreksService implements TreksService {
     this.commonMediaBytes = 0;
     this.trekBytes = 0;
     const trekId = simpleTrek.properties.id;
-    const newTreks: MinimalTreks = cloneDeep(this.treks$.getValue());
+    const newTreks: MinimalTreks = cloneDeep(this.treks$.getValue())!;
     newTreks.features = [
       ...newTreks.features.filter((feature) => feature.properties.id !== trekId)
     ];
@@ -187,16 +186,16 @@ export class OfflineTreksService implements TreksService {
 
     tasks.push(
       from(
-        Storage.set({ key: 'offline-treks', value: JSON.stringify(newTreks) })
+        Preferences.set({ key: 'offline-treks', value: JSON.stringify(newTreks) })
       ),
       from(
-        Storage.set({ key: `trek-${trekId}`, value: JSON.stringify(fullTrek) })
+        Preferences.set({ key: `trek-${trekId}`, value: JSON.stringify(fullTrek) })
       ),
       from(
-        Storage.set({ key: `pois-trek-${trekId}`, value: JSON.stringify(pois) })
+        Preferences.set({ key: `pois-trek-${trekId}`, value: JSON.stringify(pois) })
       ),
       from(
-        Storage.set({
+        Preferences.set({
           key: `touristicContents-trek-${trekId}`,
           value: JSON.stringify(touristicContents)
         })
@@ -215,7 +214,7 @@ export class OfflineTreksService implements TreksService {
             .pipe(
               map((childrenJson) => {
                 return from(
-                  Storage.set({
+                  Preferences.set({
                     key: `trek-${trekId}-${children.properties.id}`,
                     value: JSON.stringify(childrenJson)
                   })
@@ -229,7 +228,7 @@ export class OfflineTreksService implements TreksService {
             .pipe(
               map((childrenJson) => {
                 return from(
-                  Storage.set({
+                  Preferences.set({
                     key: `pois-trek-${trekId}-${children.properties.id}`,
                     value: JSON.stringify(childrenJson)
                   })
@@ -244,7 +243,7 @@ export class OfflineTreksService implements TreksService {
             .pipe(
               map((childrenJson) => {
                 return from(
-                  Storage.set({
+                  Preferences.set({
                     key: `touristicContents-trek-${trekId}-${children.properties.id}`,
                     value: JSON.stringify(childrenJson)
                   })
@@ -343,7 +342,7 @@ export class OfflineTreksService implements TreksService {
                 source,
                 destination: destination.uri
               },
-              (progress) => {
+              (progress:any) => {
                 if (progress.completed) {
                   Filesystem.deleteFile({
                     path: `zip/global.zip`,
@@ -399,7 +398,7 @@ export class OfflineTreksService implements TreksService {
                 source,
                 destination: destination.uri
               },
-              (progress) => {
+              (progress:any) => {
                 if (progress.completed) {
                   Filesystem.deleteFile({
                     path: `zip/${trekId}.zip`,
@@ -425,17 +424,17 @@ export class OfflineTreksService implements TreksService {
 
     const tasks: Observable<any>[] = [];
     tasks.push(
-      from(Storage.set({ key: 'offline-treks', value: JSON.stringify(treks) }))
+      from(Preferences.set({ key: 'offline-treks', value: JSON.stringify(treks) }))
     );
-    tasks.push(from(Storage.remove({ key: `pois-trek-${trekId}` })));
+    tasks.push(from(Preferences.remove({ key: `pois-trek-${trekId}` })));
     tasks.push(
-      from(Storage.remove({ key: `touristicContents-trek-${trekId}` }))
+      from(Preferences.remove({ key: `touristicContents-trek-${trekId}` }))
     );
 
     let stream: Observable<any> = forkJoin(tasks).pipe(map(() => true));
 
     if (this.isMobile && withMedia) {
-      if (this.treks$.value.features.length === 0) {
+      if (this.treks$.value!.features.length === 0) {
         stream = stream.pipe(mergeMap(() => this.removeOfflineData()));
       } else {
         stream = stream.pipe(mergeMap(() => this.removeTrekMedia(trekId)));
@@ -443,7 +442,7 @@ export class OfflineTreksService implements TreksService {
     }
 
     stream = stream.pipe(
-      mergeMap(() => from(Storage.get({ key: `trek-${trekId}` })))
+      mergeMap(() => from(Preferences.get({ key: `trek-${trekId}` })))
     );
 
     stream = stream.pipe(
@@ -457,21 +456,21 @@ export class OfflineTreksService implements TreksService {
           trek.properties.children.features.forEach((children) => {
             childrenToRemove.push(
               from(
-                Storage.remove({
+                Preferences.remove({
                   key: `trek-${trekId}-${children.properties.id}`
                 })
               )
             );
             childrenToRemove.push(
               from(
-                Storage.remove({
+                Preferences.remove({
                   key: `pois-trek-${trekId}-${children.properties.id}`
                 })
               )
             );
             childrenToRemove.push(
               from(
-                Storage.remove({
+                Preferences.remove({
                   key: `touristicContents-trek-${trekId}-${children.properties.id}`
                 })
               )
@@ -486,7 +485,7 @@ export class OfflineTreksService implements TreksService {
 
     stream = stream.pipe(
       mergeMap(() => {
-        return from(Storage.remove({ key: `trek-${trekId}` }));
+        return from(Preferences.remove({ key: `trek-${trekId}` }));
       })
     );
 
@@ -517,12 +516,12 @@ export class OfflineTreksService implements TreksService {
 
   public getTrekById(trekId: number, parentId?: number): Observable<Trek> {
     if (parentId) {
-      return from(Storage.get({ key: `trek-${parentId}-${trekId}` })).pipe(
-        map(({ value }) => JSON.parse(value))
+      return from(Preferences.get({ key: `trek-${parentId}-${trekId}` })).pipe(
+        map(({ value }) => JSON.parse(value!))
       );
     } else {
-      return from(Storage.get({ key: `trek-${trekId}` })).pipe(
-        map(({ value }) => JSON.parse(value))
+      return from(Preferences.get({ key: `trek-${trekId}` })).pipe(
+        map(({ value }) => JSON.parse(value!))
       );
     }
   }
@@ -534,8 +533,8 @@ export class OfflineTreksService implements TreksService {
     const path = parentId
       ? `pois-trek-${parentId}-${trekId}`
       : `pois-trek-${trekId}`;
-    return from(Storage.get({ key: path })).pipe(
-      map(({ value }) => JSON.parse(value)),
+    return from(Preferences.get({ key: path })).pipe(
+      map(({ value }) => JSON.parse(value!)),
       map(
         (pois: Poi[]) =>
           ({
@@ -554,8 +553,8 @@ export class OfflineTreksService implements TreksService {
       ? `touristicContents-trek-${parentId}-${trekId}`
       : `touristicContents-trek-${trekId}`;
 
-    return from(Storage.get({ key: path })).pipe(
-      map(({ value }) => JSON.parse(value))
+    return from(Preferences.get({ key: path })).pipe(
+      map(({ value }) => JSON.parse(value!))
     );
   }
 
@@ -567,8 +566,8 @@ export class OfflineTreksService implements TreksService {
       ? `pois-trek-${parentId}-${trekId}`
       : `pois-trek-${trekId}`;
 
-    return from(Storage.get({ key: path })).pipe(
-      map(({ value }) => JSON.parse(value)),
+    return from(Preferences.get({ key: path })).pipe(
+      map(({ value }) => JSON.parse(value!)),
       map(
         (TouristicEventsItems) =>
           ({
@@ -582,7 +581,7 @@ export class OfflineTreksService implements TreksService {
   public async getMapConfigForTrekById(
     trek: Trek,
     isOffline: boolean
-  ): Promise<MapboxOptions> {
+  ): Promise<any> {
     let mapConfig: any;
 
     if (isOffline && this.isMobile) {
@@ -650,6 +649,6 @@ export class OfflineTreksService implements TreksService {
   }
 
   public async trekIsAvailableOffline(trekId: number) {
-    return Boolean((await Storage.get({ key: `trek-${trekId}` })).value);
+    return Boolean((await Preferences.get({ key: `trek-${trekId}` })).value);
   }
 }

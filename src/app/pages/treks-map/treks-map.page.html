@@ -53,7 +53,7 @@
       [filteredTreks]="filteredTreks"
       (navigateToTrek)="navigateToTrek($event)"
       [mapConfig]="mapConfig"
-      [dataSettings]="settings.data$.value"
+      [dataSettings]="settings.data$.value!"
       [commonSrc]="commonSrc"
     >
     </app-map-treks-viz>

@@ -18,7 +18,7 @@
             ? ('trek.details.stage' | translate) + ' ' + numStage + ' - '
             : ''
         }}
-        {{ hydratedTrek.properties?.name }}
+        {{ hydratedTrek.properties.name }}
       </ion-card-title>
     </ion-card-header>
   </div>
@@ -36,7 +36,7 @@
             hydratedTrek.properties.departure_city
           "
         >
-          {{ hydratedTrek.properties.departure_city?.name }}
+          {{ hydratedTrek.properties.departure_city.name }}
         </div>
       </div>
       <div class="extra-content-card">
@@ -49,8 +49,8 @@
             (ionError)="onImgPracticeSrcError()"
           ></ion-img>
         </div>
-        <div class="ion-padding-start">
-          {{ hydratedTrek.properties.difficulty?.name }}
+        <div class="ion-padding-start" *ngIf="hydratedTrek.properties.difficulty" >
+          {{ hydratedTrek.properties.difficulty.name }}
         </div>
         <div
           class="ion-padding-start"

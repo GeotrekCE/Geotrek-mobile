@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MapboxOptions } from 'mapbox-gl';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 
 import {
   MinimalTrek,
@@ -27,7 +26,7 @@ export class OnlineTreksService implements TreksService {
   private baseUrl = environment.mobileApiUrl;
 
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
-  public filteredTreks$: Observable<MinimalTrek[]>;
+  public filteredTreks$!: Observable<MinimalTrek[]>;
   public onlineTreksError$ = new BehaviorSubject<boolean | null>(false);
 
   constructor(
@@ -42,7 +41,7 @@ export class OnlineTreksService implements TreksService {
       this.getTreks().subscribe({
         next: async (value) => {
           this.onlineTreksError$.next(false);
-          await Storage.set({ key: 'treks', value: JSON.stringify(value) });
+          await Preferences.set({ key: 'treks', value: JSON.stringify(value) });
           this.treks$.next(value);
           resolve(true);
         },
@@ -61,7 +60,7 @@ export class OnlineTreksService implements TreksService {
   }
 
   private async getTreksFromStorage() {
-    const treks = JSON.parse((await Storage.get({ key: `treks` })).value);
+    const treks = JSON.parse((await Preferences.get({ key: `treks` })).value!);
     return treks;
   }
 
@@ -205,7 +204,7 @@ export class OnlineTreksService implements TreksService {
     }
   }
 
-  public getMapConfigForTrekById(trek: Trek): MapboxOptions {
+  public getMapConfigForTrekById(trek: Trek): any {
     const mapConfig: any = {
       ...cloneDeep(environment.onlineMapConfig),
       zoom: environment.trekZoom.zoom

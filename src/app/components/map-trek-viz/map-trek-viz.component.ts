@@ -19,7 +19,7 @@ import {
 } from '@ionic/angular';
 import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
-import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
+import { Feature, Geometry, Point } from 'geojson';
 import {
   Pois,
   DataSetting,
@@ -29,12 +29,12 @@ import {
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { FeatureCollection } from 'geojson';
-import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'mapbox-gl';
+import { GeoJSONSource, Map, MapLayerMouseEvent, Marker } from 'maplibre-gl';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import maplibregl from 'maplibre-gl/dist/maplibre-gl.js';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 
 @Component({
@@ -43,25 +43,26 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
   styleUrls: ['./map-trek-viz.component.scss']
 })
 export class MapTrekVizComponent implements OnDestroy, OnChanges {
-  private map: Map;
+  private map!: Map;
   private markerPosition: Marker | undefined;
   private poisType: DataSetting | undefined;
   private touristicsContentCategory: DataSetting | undefined;
-  private navigate$: Subscription;
+  private navigate$!: Subscription;
   public navigateModeIsActive: boolean = false;
-  private currentPositionSubscription: Subscription;
-  private currentHeadingSubscription: Subscription;
-  private loadImagesSubscription: Subscription;
+  private currentPositionSubscription!: Subscription;
+  private currentHeadingSubscription!: Subscription;
+  private loadImagesSubscription!: Subscription;
+  public flyToUserLocationThrottle:any;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() currentTrek: HydratedTrek | null = null;
-  @Input() currentPois: Pois;
-  @Input() touristicCategoriesWithFeatures: TouristicCategoryWithFeatures[];
-  @Input() dataSettings: DataSetting[];
+  @Input() currentPois!: Pois;
+  @Input() touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
+  @Input() dataSettings!: DataSetting[];
   @Input() mapConfig: any;
-  @Input() commonSrc: string;
-  @Input() offline: boolean;
+  @Input() commonSrc!: string;
+  @Input() offline!: boolean;
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
@@ -75,14 +76,14 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     private modalController: ModalController,
     private offlineTreks: OfflineTreksService
   ) {
-    this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
+    this.flyToUserLocationThrottle = throttle(this.flyToUserLocation, 3000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentTrek: SimpleChange = changes.currentTrek;
-    const changesCurrentPois: SimpleChange = changes.currentPois;
+    const changesCurrentTrek: SimpleChange = changes["currentTrek"];
+    const changesCurrentPois: SimpleChange = changes["currentPois"];
     const touristicCategoriesWithFeatures: SimpleChange =
-      changes.touristicCategoriesWithFeatures;
+      changes["touristicCategoriesWithFeatures"];
     if (
       !!this.currentTrek &&
       !!this.currentPois &&
@@ -129,18 +130,18 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       );
 
       this.map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
+        new maplibregl.NavigationControl({ showCompass: false }),
         'top-left'
       );
 
       this.map.addControl(
-        new mapboxgl.ScaleControl({
+        new maplibregl.ScaleControl({
           unit: 'metric'
         })
       );
 
       this.map.addControl(
-        new mapboxgl.AttributionControl({
+        new maplibregl.AttributionControl({
           compact: false,
           customAttribution: environment.map.attributionText
         })
@@ -154,8 +155,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       this.map.on('click', 'pois-icon', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
           const poi = { ...e.features[0] };
-          if (poi.properties && poi.properties.pictures) {
-            poi.properties.pictures = JSON.parse(poi.properties.pictures);
+          if (poi.properties && poi.properties["pictures"]) {
+            poi.properties["pictures"] = JSON.parse(poi.properties["pictures"]);
           }
           this.presentPoiDetails.emit(poi);
         }
@@ -174,7 +175,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           if (
             e.features[0] &&
             e.features[0].properties &&
-            e.features[0].properties.id &&
+            e.features[0].properties["id"] &&
             this.currentTrek
           ) {
             const informationDesk =
@@ -196,10 +197,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
             const touristicContent = { ...e.features[0] };
             if (
               touristicContent.properties &&
-              touristicContent.properties.pictures
+              touristicContent.properties["pictures"]
             ) {
-              touristicContent.properties.pictures = JSON.parse(
-                touristicContent.properties.pictures
+              touristicContent.properties["pictures"] = JSON.parse(
+                touristicContent.properties["pictures"]
               );
             }
             this.presentPoiDetails.emit(touristicContent);
@@ -210,8 +211,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       this.map.on('click', 'children-treks-circle', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
           const childrenTrek = { ...e.features[0] };
-          if (childrenTrek.properties && childrenTrek.properties.id) {
-            this.navigateToChildren.emit(childrenTrek.properties.id);
+          if (childrenTrek.properties && childrenTrek.properties["id"]) {
+            this.navigateToChildren.emit(childrenTrek.properties["id"]);
           }
         }
       });
@@ -340,7 +341,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
               await this.geolocate.checkIfCanGetCurrentHeading();
             el.className = currentHeading ? 'pulse-and-view' : 'pulse';
 
-            this.markerPosition = new mapboxgl.Marker({
+            this.markerPosition = new maplibregl.Marker({
               element: el
             }).setLngLat(coordinates);
             if (this.markerPosition) {
@@ -880,7 +881,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
         childrenTreks.features.forEach((children, index) => {
           if (children.properties) {
-            children.properties.index = index + 1;
+            children.properties["index"] = index + 1;
           }
         });
 
@@ -901,7 +902,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           await this.geolocate.checkIfCanGetCurrentHeading();
         el.className = currentHeading ? 'pulse-and-view' : 'pulse';
 
-        this.markerPosition = new mapboxgl.Marker({
+        this.markerPosition = new maplibregl.Marker({
           element: el
         }).setLngLat(coordinates);
         if (this.markerPosition) {
@@ -1008,18 +1009,18 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
         const featureProperties = features[0].properties;
         if (!!featureProperties) {
-          const clusterId = featureProperties.cluster_id;
+          const clusterId = featureProperties["cluster_id"];
 
           if (this.map.getZoom() === this.mapConfig.maxZoom) {
             (
               this.map.getSource(clusterSource.id) as GeoJSONSource
             ).getClusterLeaves(
-              featureProperties.cluster_id,
+              featureProperties["cluster_id"],
               Infinity,
               0,
               (
                 err: any,
-                featuresInCluster: Feature<Geometry, GeoJsonProperties>[]
+                featuresInCluster: any
               ) => {
                 if (err) {
                   throw err;
@@ -1036,7 +1037,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           } else {
             (
               this.map.getSource(clusterSource.id) as GeoJSONSource
-            ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
+            ).getClusterExpansionZoom(clusterId, (err: any, zoom: any) => {
               if (err) {
                 return;
               }
@@ -1070,24 +1071,24 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       let currentType;
       if (
         this.poisType &&
-        feature.properties.type &&
+        feature.properties["type"] &&
         clusterSource.id === 'pois'
       ) {
         currentType = this.poisType.values.find(
-          (poiType) => poiType.id === feature.properties.type
+          (poiType) => poiType.id === feature.properties["type"]
         );
       } else if (
         this.touristicsContentCategory &&
-        feature.properties.category &&
+        feature.properties["category"] &&
         clusterSource.id === 'touristics-content'
       ) {
         currentType = this.touristicsContentCategory.values.find(
-          (category) => category.id === feature.properties.category
+          (category) => category.id === feature.properties["category"]
         );
       }
       const poi = {
-        id: feature.properties.id,
-        name: feature.properties.name,
+        id: feature.properties["id"],
+        name: feature.properties["name"],
         imgTypePoi: {
           src:
             currentType && currentType.pictogram
@@ -1113,7 +1114,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
     if (data && data.selectedPoiId) {
       const selectedFeature = features.find(
-        (feature) => feature.properties.id === data.selectedPoiId
+        (feature) => feature.properties["id"] === data.selectedPoiId
       );
       if (selectedFeature) {
         this.presentPoiDetails.emit(selectedFeature);

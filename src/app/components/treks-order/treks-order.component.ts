@@ -18,9 +18,9 @@ import { Order } from '@app/interfaces/interfaces';
 })
 export class TreksOrderComponent implements OnInit, OnDestroy {
   orders: any;
-  currentOrder: Order;
+  currentOrder!: Order;
   isFirstCheck = true;
-  private orderSubscription: Subscription;
+  private orderSubscription!: Subscription;
 
   constructor(
     private navParams: NavParams,
@@ -49,7 +49,7 @@ export class TreksOrderComponent implements OnInit, OnDestroy {
     let error = false;
     if (orderValue === 'location') {
       if (this.platform.is('ios') || this.platform.is('android')) {
-        let startLocation;
+        let startLocation:any;
         try {
           const shouldShowInAppDisclosure =
             await this.geolocate.shouldShowInAppDisclosure();

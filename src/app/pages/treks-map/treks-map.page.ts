@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MapboxOptions } from 'mapbox-gl';
 import { combineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
@@ -22,15 +21,15 @@ import { ModalController, Platform } from '@ionic/angular';
   providers: [FilterTreksService]
 })
 export class TreksMapPage implements OnInit, OnDestroy {
-  private mergeFiltersTreks$: Subscription;
-  public filteredTreks: MinimalTrek[];
-  public numberOfActiveFilters: string;
-  public offline: boolean;
-  private treksTool: TreksService;
-  public treksUrl: string;
+  private mergeFiltersTreks$!: Subscription;
+  public filteredTreks!: MinimalTrek[];
+  public numberOfActiveFilters!: string;
+  public offline!: boolean;
+  private treksTool!: TreksService;
+  public treksUrl!: string;
   public appName: string = environment.appName;
-  public mapConfig: MapboxOptions;
-  public commonSrc: string;
+  public mapConfig: any;
+  public commonSrc!: string;
   public canDisplayMap = false;
 
   constructor(

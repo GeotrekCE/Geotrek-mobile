@@ -8,14 +8,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
-  public currentProgress: number;
-  private currentProgress$: Subscription;
+  public currentProgress!: number;
+  private currentProgress$!: Subscription;
   public willDownloadGlobalMedia = true;
 
   constructor(public offlineTreks: OfflineTreksService) {}
 
   ngOnInit(): void {
-    this.willDownloadGlobalMedia = this.offlineTreks.willDownloadCommonMedia();
+    this.willDownloadGlobalMedia = this.offlineTreks.willDownloadCommonMedia()!;
 
     this.currentProgress$ =
       this.offlineTreks.currentProgressDownload$.subscribe((val) => {

@@ -10,15 +10,15 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./select-poi.component.scss']
 })
 export class SelectPoiComponent implements OnInit {
-  @Input() public themePois: string;
-  @Input() public radioPois: {
+  @Input() public themePois!: string;
+  @Input() public radioPois!: {
     id: number;
     name: string;
     imgPoi: { src: string; color: string | undefined };
     imgTypePoi: { src: string; color: string | undefined };
   }[];
   public baseUrl = environment.mobileApiUrl;
-  public selectedPoiId: number;
+  public selectedPoiId!: number;
   public imgPractices: {
     src: string;
     color: string | undefined;

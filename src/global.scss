@@ -9,7 +9,7 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-@import 'mapbox-gl/dist/mapbox-gl.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
 
 .map-viz {
   position: absolute;
@@ -61,7 +61,7 @@ ion-fab {
   }
 }
 
-.mapboxgl-marker {
+.maplibregl-marker {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -132,15 +132,15 @@ app-trek-details {
 }
 
 app-trek-map {
-  .mapboxgl-ctrl-scale {
+  .maplibre-ctrl-scale {
     margin: 0 0 50px 10px !important;
   }
-  .mapboxgl-ctrl-attrib-inner {
+  .maplibre-ctrl-attrib-inner {
     margin: 0 10px 50px 0 !important;
   }
 }
 
-.mapboxgl-ctrl-attrib-inner a {
+.maplibre-ctrl-attrib-inner a {
   color: #0078a8 !important;
 }
 

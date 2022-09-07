@@ -11,14 +11,12 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Platform, ModalController, AlertController } from '@ionic/angular';
-import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
+import { Feature, Geometry, Point } from 'geojson';
 import {
   GeoJSONSource,
-  GeoJSONSourceRaw,
   Map,
-  MapboxOptions,
   Marker
-} from 'mapbox-gl';
+} from 'maplibre-gl';
 import { Observable, Subscription } from 'rxjs';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
@@ -28,7 +26,7 @@ import { environment } from '@env/environment';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+import maplibregl from 'maplibre-gl/dist/maplibre-gl.js';
 import { Capacitor } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
@@ -39,20 +37,21 @@ import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.s
   styleUrls: ['./map-treks-viz.component.scss']
 })
 export class MapTreksVizComponent implements OnChanges, OnDestroy {
-  private map: Map;
+  private map!: Map;
   private markerPosition: Marker | undefined;
-  private practices: DataSetting;
-  private currentPositionSubscription: Subscription;
-  private currentHeadingSubscription: Subscription;
-  private loadImagesSubscription: Subscription;
+  private practices!: DataSetting;
+  private currentPositionSubscription!: Subscription;
+  private currentHeadingSubscription!: Subscription;
+  private loadImagesSubscription!: Subscription;
+  public flyToUserLocationThrottle: any;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() public filteredTreks: MinimalTrek[] | null = null;
-  @Input() public mapConfig: MapboxOptions;
-  @Input() public dataSettings: DataSetting[];
-  @Input() public commonSrc: string;
-  @Input() public offline: Boolean;
+  @Input() public mapConfig: any;
+  @Input() public dataSettings!: DataSetting[];
+  @Input() public commonSrc!: string;
+  @Input() public offline!: Boolean;
 
   @Output() public navigateToTrek = new EventEmitter<any>();
 
@@ -65,11 +64,11 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
     private translate: TranslateService,
     private offlineTreks: OfflineTreksService
   ) {
-    this.flyToUserLocation = throttle(this.flyToUserLocation, 3000);
+    this.flyToUserLocationThrottle = throttle(this.flyToUserLocation, 3000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentTreks: SimpleChange = changes.filteredTreks;
+    const changesCurrentTreks: SimpleChange = changes["filteredTreks"];
     if (changesCurrentTreks) {
       if (
         changesCurrentTreks.currentValue &&
@@ -141,11 +140,11 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       });
 
       const bounds: any = coordinates.reduce(
-        (bounds, coord) => bounds.extend(coord),
-        new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+        (bounds, coord:any) => bounds.extend(coord),
+        new maplibregl.LngLatBounds(coordinates[0], coordinates[0])
       );
 
-      this.map = new mapboxgl.Map({
+      this.map = new maplibregl.Map({
         ...this.mapConfig,
         container: 'map-treks'
       });
@@ -155,18 +154,18 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       }
 
       this.map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
+        new maplibregl.NavigationControl({ showCompass: false }),
         'top-left'
       );
 
       this.map.addControl(
-        new mapboxgl.ScaleControl({
+        new maplibregl.ScaleControl({
           unit: 'metric'
         })
       );
 
       this.map.addControl(
-        new mapboxgl.AttributionControl({
+        new maplibregl.AttributionControl({
           compact: false,
           customAttribution: environment.map.attributionText
         })
@@ -229,7 +228,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
               await this.geolocate.checkIfCanGetCurrentHeading();
             el.className = currentHeading ? 'pulse-and-view' : 'pulse';
 
-            this.markerPosition = new mapboxgl.Marker({
+            this.markerPosition = new maplibregl.Marker({
               element: el
             }).setLngLat(coordinates);
             if (this.markerPosition) {
@@ -270,7 +269,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18,
       cluster: true,
       clusterRadius: 50
-    } as GeoJSONSourceRaw);
+    });
 
     this.map.addSource('zone', {
       type: 'geojson',
@@ -350,18 +349,18 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
 
       const featureProperties = features[0].properties;
       if (!!featureProperties) {
-        const clusterId = featureProperties.cluster_id;
+        const clusterId = featureProperties["cluster_id"];
 
         if (this.map.getZoom() === this.mapConfig.maxZoom) {
           (
             this.map.getSource('treks-points') as GeoJSONSource
           ).getClusterLeaves(
-            featureProperties.cluster_id,
+            featureProperties["cluster_id"],
             Infinity,
             0,
             (
               err: any,
-              featuresInCluster: Feature<Geometry, GeoJsonProperties>[]
+              featuresInCluster: any
             ) => {
               if (err) {
                 throw err;
@@ -377,7 +376,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         } else {
           (
             this.map.getSource('treks-points') as GeoJSONSource
-          ).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
+          ).getClusterExpansionZoom(clusterId, (err: any, zoom: any) => {
             if (err) {
               return;
             }
@@ -396,7 +395,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         layers: ['trek-point']
       })[0];
       if (!!feature.properties) {
-        this.navigateToTrek.emit(feature.properties.id);
+        this.navigateToTrek.emit(feature.properties["id"]);
       }
     });
 
@@ -421,7 +420,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         id: hydratedTrek.properties.id,
         name: hydratedTrek.properties.name,
         imgPractice: {
-          src: hydratedTrek.properties.practice.pictogram,
+          src: hydratedTrek.properties.practice.pictogram!,
           color: hydratedTrek.properties.practice.color
         }
       };
@@ -443,7 +442,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
     }
   }
 
-  public async flyToUserLocation() {
+  private async flyToUserLocation() {
     const userLocation = (await this.geolocate.getCurrentPosition()) as any;
     if (userLocation) {
       const coordinates: any = [userLocation.longitude, userLocation.latitude];
@@ -455,7 +454,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
           await this.geolocate.checkIfCanGetCurrentHeading();
         el.className = currentHeading ? 'pulse-and-view' : 'pulse';
 
-        this.markerPosition = new mapboxgl.Marker({
+        this.markerPosition = new maplibregl.Marker({
           element: el
         }).setLngLat(coordinates);
         if (this.markerPosition) {

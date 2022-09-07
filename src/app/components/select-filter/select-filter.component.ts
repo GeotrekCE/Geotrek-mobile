@@ -9,13 +9,13 @@ import { deburr } from 'lodash';
   styleUrls: ['./select-filter.component.scss']
 })
 export class SelectFilterComponent implements OnInit {
-  @Input() public filter: Filter;
-  @Input() public commonSrc: string;
-  selectedItems: any[];
+  @Input() public filter!: Filter;
+  @Input() public commonSrc!: string;
+  selectedItems!: any[];
   currentMaxFilterValues = 20;
   filterValuesByStep = 20;
-  temporaryFilter: Filter;
-  valuesToDisplay: FilterValue[];
+  temporaryFilter!: Filter;
+  valuesToDisplay!: FilterValue[];
 
   constructor(private modalController: ModalController) {}
 

@@ -6,12 +6,12 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
   styleUrls: ['./collapsible-list.component.scss']
 })
 export class CollapsibleListComponent<T> implements OnInit {
-  @Input() items: T[];
-  @Input() showAllLabel: string;
-  @Input() hideAllLabel: string;
+  @Input() items!: T[];
+  @Input() showAllLabel!: string;
+  @Input() hideAllLabel!: string;
   @Input() initialSize = 5;
   @Input() initialState: 'expanded' | 'collapsed' = 'collapsed';
-  @Input() itemTemplate: TemplateRef<any>;
+  @Input() itemTemplate!: TemplateRef<any>;
 
   public alwaysDisplayedItems: T[] = [];
   public expandableItems: T[] = [];

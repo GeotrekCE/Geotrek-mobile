@@ -213,7 +213,7 @@
                 </ion-text>
                 <div *ngIf="currentTrek.properties.departure_city">
                   {{ 'trek.details.city' | translate }} {{
-                  currentTrek.properties.departure_city?.name }}
+                  currentTrek.properties.departure_city.name }}
                 </div>
                 {{ currentTrek.properties.departure }}
               </div>
@@ -226,7 +226,7 @@
                 </ion-text>
                 <div *ngIf="currentTrek.properties.arrival_city">
                   {{ 'trek.details.city' | translate }} {{
-                  currentTrek.properties.arrival_city?.name }}
+                  currentTrek.properties.arrival_city.name }}
                 </div>
                 {{ currentTrek.properties.arrival }}
               </div>
@@ -246,7 +246,7 @@
               <div>
                 <div *ngIf="currentTrek.properties.departure_city">
                   {{ 'trek.details.city' | translate }} {{
-                  currentTrek.properties.departure_city?.name }}
+                  currentTrek.properties.departure_city.name }}
                 </div>
                 <div>{{ currentTrek.properties.departure }}</div>
               </div>

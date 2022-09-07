@@ -15,17 +15,17 @@ import { SettingsService } from '@app/services/settings/settings.service';
   styleUrls: ['./trek-card.component.scss']
 })
 export class TrekCardComponent implements OnInit {
-  @Input() public trek: Trek | MinimalTrek;
+  @Input() public trek!: Trek | MinimalTrek;
   @Input() public offline = false;
-  @Input() public showAllData: boolean;
+  @Input() public showAllData!: boolean;
   @Input() public isStage = false;
   @Input() public numStage = 0;
   @Input() public parentId: number | undefined = undefined;
 
-  public hydratedTrek: HydratedTrek;
-  public imgSrc: string;
-  public routerLink: string;
-  public imgPracticeSrc: string;
+  public hydratedTrek!: HydratedTrek;
+  public imgSrc!: string;
+  public routerLink!: string;
+  public imgPracticeSrc!: string;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
   public hideImgSrc = false;

@@ -16,12 +16,12 @@ import { SettingsService } from '@app/services/settings/settings.service';
 export class FiltersComponent implements OnInit, OnDestroy {
   public temporaryFilters$ = new BehaviorSubject<Filter[]>([]);
   public nbTemporaryFiltersTreks = 0;
-  public commonSrc: string;
-  public filters: Filter[];
-  private filtersSubscription: Subscription;
-  private nbTemporaryFiltersTreksSubscription: Subscription;
+  public commonSrc!: string;
+  public filters!: Filter[];
+  private filtersSubscription!: Subscription;
+  private nbTemporaryFiltersTreksSubscription!: Subscription;
 
-  @Input() public isOnline: boolean;
+  @Input() public isOnline!: boolean;
 
   constructor(
     private modalCtrl: ModalController,

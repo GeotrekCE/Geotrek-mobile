@@ -12,7 +12,7 @@ import { MoreInformationsService } from '@app/services/more-informations/more-in
 })
 export class MorePage implements OnInit {
   public appName: string = environment.appName;
-  moreInformationsIntro: InformationIntro[];
+  moreInformationsIntro!: InformationIntro[];
   connectionError = false;
 
   constructor(private more: MoreInformationsService) {}

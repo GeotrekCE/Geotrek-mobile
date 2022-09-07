@@ -31,18 +31,18 @@ export class TreksPage implements OnInit, OnDestroy {
   public appName: string = environment.appName;
   public treksByStep: number = environment.treksByStep;
   public colSize = environment.colSize;
-  public filteredTreks: MinimalTrek[];
-  public mapLink: string;
+  public filteredTreks!: MinimalTrek[];
+  public mapLink!: string;
   public nbOfflineTreks = 0;
-  public numberOfActiveFilters: string;
+  public numberOfActiveFilters!: string;
   public offline = false;
   public currentMaxTreks: number = environment.treksByStep;
 
-  private treksTool: TreksService;
-  private filteredTreksSubscription: Subscription;
-  private nbOfflineTreksSubscription: Subscription;
+  private treksTool!: TreksService;
+  private filteredTreksSubscription!: Subscription;
+  private nbOfflineTreksSubscription!: Subscription;
 
-  @ViewChild('content', { static: true }) private content: IonContent;
+  @ViewChild('content', { static: true }) private content!: IonContent;
 
   constructor(
     private filterTreks: FilterTreksService,
@@ -106,7 +106,7 @@ export class TreksPage implements OnInit, OnDestroy {
   public async handleInitialOrder() {
     if (!this.settings.order$.value) {
       if (environment.initialOrder === 'location') {
-        let currentPosition;
+        let currentPosition:any;
         const shouldShowInAppDisclosure =
           await this.geolocate.shouldShowInAppDisclosure();
         try {

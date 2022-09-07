@@ -11,8 +11,8 @@
 
 <ion-content>
   <ion-card>
-    <div *ngIf="picture && picture?.url !== ''">
-      <ion-img class="min-size-img" [src]="picture?.url"></ion-img>
+    <div *ngIf="picture && picture.url !== ''">
+      <ion-img class="min-size-img" [src]="picture.url"></ion-img>
       <div class="card-legend ion-padding-start ion-padding-top legend-text">
         <ion-img
           *ngIf="typeImgSrc && !this.hideImgPracticeSrc"
@@ -20,9 +20,9 @@
           [src]="typeImgSrc"
           (ionError)="onImgPracticeSrcError()"
         ></ion-img>
-        {{ poi.properties.pictures[0]?.legend }}
-        <span *ngIf="!!poi.properties.pictures[0]?.author"
-          >({{ poi.properties.pictures[0].author }})</span
+        {{ picture.legend }}
+        <span *ngIf="!!picture.author"
+          >({{ picture.author }})</span
         >
       </div>
     </div>

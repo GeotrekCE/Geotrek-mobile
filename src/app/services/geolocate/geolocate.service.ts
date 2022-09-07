@@ -3,7 +3,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from '@ionic/angular';
 import { registerPlugin } from '@capacitor/core';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { BackgroundGeolocationPlugin } from '@capacitor-community/background-geolocation';
 import {
   DeviceOrientation,
@@ -21,7 +21,7 @@ export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentWatchId: any = null;
-  private deviceOrientationSubscription: Subscription;
+  private deviceOrientationSubscription!: Subscription;
 
   constructor(
     private platform: Platform,
@@ -30,7 +30,7 @@ export class GeolocateService {
   ) {}
 
   async shouldShowInAppDisclosure() {
-    const alreadyAskGeolocationPermission = await Storage.get({
+    const alreadyAskGeolocationPermission = await Preferences.get({
       key: 'alreadyAskGeolocationPermission'
     });
     return !!!alreadyAskGeolocationPermission.value;
@@ -90,7 +90,7 @@ export class GeolocateService {
   async getCurrentPosition() {
     return new Promise(async (resolve) => {
       if (this.platform.is('ios') || this.platform.is('android')) {
-        let last_location;
+        let last_location:any;
         BackgroundGeolocation.addWatcher(
           {
             requestPermissions: true,
