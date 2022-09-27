@@ -8,6 +8,14 @@
   width: 100px;
   text-transform: capitalize;
 }
+.custom-button::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 100px;
+  height: 50px;
+  transform: translateX(-50%);
+}
 
 .vertical-center {
   display: flex;
@@ -17,3 +25,12 @@
 .toolbar-icon-button::part(native) {
   font-size: 10px;
 }
+.toolbar-icon-button::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 50px;
+  height: 50px;
+  transform: translateX(-50%);
+}
+
