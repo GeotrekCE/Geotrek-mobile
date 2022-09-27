@@ -1,0 +1,14 @@
+.tab-bar-bottom {
+	padding-bottom: 10px;
+}
+
+.tab-selected::after {
+	content: '';
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+  display: inline-block;
+	background-color: #fff;
+	top: -12px;
+	position: relative;
+}
