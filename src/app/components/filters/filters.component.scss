@@ -7,3 +7,19 @@
     font-size: 10px;
   }
 }
+.btn-close::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 40px;
+  height: 40px;
+  transform: translateX(-58%);
+}
+.btn-erase::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 130px;
+  height: 40px;
+  transform: translateX(-50%);
+}
