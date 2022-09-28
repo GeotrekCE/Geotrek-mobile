@@ -2,6 +2,8 @@
   *ngIf="hydratedTrek"
   class="no-outline pointer extand-card ion-activatable"
   [routerLink]="this.routerLink"
+  role="buton"
+  ariaLabel="{{ hydratedTrek.properties.name }}, {{ 'treks.departure' | translate }} : {{ hydratedTrek.properties.departure }}, {{ 'trek.details.category' | translate }} :  {{ hydratedTrek.properties.practice.name }}, {{ 'trek.details.difficulty' | translate }} : {{ hydratedTrek.properties.difficulty.name }}, {{ 'trek.details.duration' | translate }} : {{ hydratedTrek.properties.duration < 24 ? !minutes ? (hours | lowerRound | number: '1.0-0').concat('h') : (hours | lowerRound | number: '1.0-0').concat('h', minutes | lowerRound | number: '1.0-0','min')  : (days | number : '1.0-0') + 'j'}}, {{ 'trek.details.length' | translate }} : {{ hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr' }}km"
 >
   <ion-ripple-effect></ion-ripple-effect>
   <div>
@@ -10,6 +12,7 @@
       class="min-size-img"
       [src]="this.imgSrc"
       (ionError)="onImgSrcError()"
+      aria-hidden="true"
     ></ion-img>
     <ion-card-header [ngClass]="{ 'minimize-padding': !showAllData }">
       <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">
@@ -47,6 +50,7 @@
             [style.background-color]="hydratedTrek.properties.practice.color"
             [src]="imgPracticeSrc"
             (ionError)="onImgPracticeSrcError()"
+            alt="{{hydratedTrek.properties.practice.name}}"
           ></ion-img>
         </div>
         <div class="ion-padding-start" *ngIf="hydratedTrek.properties.difficulty" >
@@ -54,24 +58,19 @@
         </div>
         <div
           class="ion-padding-start"
-          *ngIf="hydratedTrek.properties.duration < 24 && showAllData"
+          *ngIf="showAllData"
         >
-          {{
-            hydratedTrek.properties.duration | lowerRound | number: '1.0-0'
-          }}h<span *ngIf="hydratedTrek.properties.duration % 1 > 0"
-            >{{
-              60 * (hydratedTrek.properties.duration % 1) | number: '1.0-0'
-            }}min</span
-          >
+          <div *ngIf="hydratedTrek.properties.duration < 24; else showDays">
+            {{ hours | lowerRound | number: '1.0-0'}}h         <span *ngIf="minutes">{{ minutes | number: '1.0-0'}}min
+            </span>
+          </div>
+          <ng-template #showDays>
+             {{ days | number: '1.0-0' }}j
+          </ng-template>
         </div>
-        <div
-          class="ion-padding-start"
-          *ngIf="hydratedTrek.properties.duration >= 24 && showAllData"
-        >
-          {{ hydratedTrek.properties.duration / 24 | number: '1.0-0' }}j
-        </div>
+
         <div *ngIf="showAllData" class="ion-padding-start">
-          {{ hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr' }} km
+          {{ hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr' }}km
         </div>
       </div>
     </ion-card-content>

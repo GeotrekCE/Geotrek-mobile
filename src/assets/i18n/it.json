@@ -45,6 +45,7 @@
     }
   },
   "trek": {
+    "view":"Cambia modalità di visualizzazione",
     "offline": "Offline",
     "share": "Azione",
     "downloadAlert": {
@@ -61,6 +62,12 @@
       "storage": "Decompressione dei dati in corso ..."
     },
     "details": {
+      "duration": "Durata",
+      "height":"Elevazione",
+      "parcours":"Percorso",
+      "difficulty":"Livello di difficoltà",
+      "length":"Distanza",
+      "category":"Tipo di escursione",
       "city": "Comuna :",
       "departure": "Partenza",
       "arrival": "Arrivo",

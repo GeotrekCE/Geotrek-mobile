@@ -45,6 +45,7 @@
     }
   },
   "trek": {
+    "view":"Anzeigemodus ändern",
     "offline": "Offline",
     "share": "Aktie",
     "downloadAlert": {
@@ -61,6 +62,12 @@
       "storage": "Laufende Dekomprimierung der Daten..."
     },
     "details": {
+      "duration": "Dauer",
+      "height":"Elevation",
+      "parcours":"Reise",
+      "difficulty":"Schwierigkeitsgrad",
+      "length":"Distanz",
+      "category":"Eine Art Wanderung",
       "city": "Region:",
       "departure": "Start",
       "arrival": "Ziel",

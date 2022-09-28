@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/more"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="moreItem">{{ moreItem.title }}</ion-title>
+    <h1 *ngIf="moreItem" class="custom-title">{{ moreItem.title }}</h1>
   </ion-toolbar>
 </ion-header>
 <ion-content>

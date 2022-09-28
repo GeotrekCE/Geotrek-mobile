@@ -45,6 +45,8 @@
     }
   },
   "trek": {
+    "return":"Return",
+    "view":"Change display mode",
     "offline": "Offline",
     "share": "Share",
     "downloadAlert": {
@@ -61,6 +63,12 @@
       "storage": "Decompressing ..."
     },
     "details": {
+      "duration": "Duration",
+      "height":"Elevation",
+      "parcours":"Parcours",
+      "difficulty":"Difficulty level",
+      "length":"Distance",
+      "category":"Kind of hike",
       "city": "City :",
       "departure": "Departure :",
       "arrival": "Arrival :",
