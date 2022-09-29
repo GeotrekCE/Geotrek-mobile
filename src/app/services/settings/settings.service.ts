@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Preferences } from '@capacitor/preferences';
 import { Device } from '@capacitor/device';
+import { TextZoom } from '@capacitor/text-zoom';
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -68,6 +69,11 @@ export class SettingsService {
 
         this.translate.setDefaultLang(defaultLanguage);
 
+        if (this.platform.is('ios') || this.platform.is('android')) {
+          const textZoomPreferred = await TextZoom.getPreferred();
+          await TextZoom.set({ value: textZoomPreferred.value });
+        }
+
         await this.loadSettings();
 
         resolve(true);
@@ -80,7 +86,10 @@ export class SettingsService {
       this.getSettings().subscribe({
         next: async (value) => {
           this.settingsError$.next(false);
-          await Preferences.set({ key: 'settings', value: JSON.stringify(value) });
+          await Preferences.set({
+            key: 'settings',
+            value: JSON.stringify(value)
+          });
           this.filters$.next(this.getFilters(value));
           this.data$.next(value.data);
           resolve(true);
