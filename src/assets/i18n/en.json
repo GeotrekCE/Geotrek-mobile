@@ -45,8 +45,8 @@
     }
   },
   "trek": {
-    "return":"Return",
-    "view":"Change display mode",
+    "return": "Return",
+    "view": "Change display mode",
     "offline": "Offline",
     "share": "Share",
     "downloadAlert": {
@@ -64,11 +64,11 @@
     },
     "details": {
       "duration": "Duration",
-      "height":"Elevation",
-      "parcours":"Parcours",
-      "difficulty":"Difficulty level",
-      "length":"Distance",
-      "category":"Kind of hike",
+      "height": "Elevation",
+      "parcours": "Parcours",
+      "difficulty": "Difficulty level",
+      "length": "Distance",
+      "category": "Kind of hike",
       "city": "City :",
       "departure": "Departure :",
       "arrival": "Arrival :",

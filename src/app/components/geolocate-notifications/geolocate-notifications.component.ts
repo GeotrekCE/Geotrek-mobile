@@ -56,7 +56,7 @@ export class GeolocateNotificationsComponent
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentPois: SimpleChange = changes["currentPois"];
+    const changesCurrentPois: SimpleChange = changes['currentPois'];
     if (changesCurrentPois.currentValue && !changesCurrentPois.previousValue) {
       if (this.currentPois && Array.isArray(this.currentPois.features)) {
         this.currentPoisToNotify = this.currentPois.features.map((feature) => ({

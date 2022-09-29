@@ -9,7 +9,7 @@
   text-transform: capitalize;
 }
 .custom-button::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -3px;
   width: 100px;
@@ -26,11 +26,10 @@
   font-size: 10px;
 }
 .toolbar-icon-button::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -3px;
   width: 50px;
   height: 50px;
   transform: translateX(-50%);
 }
-

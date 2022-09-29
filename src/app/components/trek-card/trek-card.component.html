@@ -3,7 +3,36 @@
   class="no-outline pointer extand-card ion-activatable"
   [routerLink]="this.routerLink"
   role="buton"
-  ariaLabel="{{ hydratedTrek.properties.name }}, {{ 'treks.departure' | translate }} : {{ hydratedTrek.properties.departure }}, {{ 'trek.details.category' | translate }} :  {{ hydratedTrek.properties.practice.name }}, {{ 'trek.details.difficulty' | translate }} : {{ hydratedTrek.properties.difficulty.name }}, {{ 'trek.details.duration' | translate }} : {{ hydratedTrek.properties.duration < 24 ? !minutes ? (hours | lowerRound | number: '1.0-0').concat('h') : (hours | lowerRound | number: '1.0-0').concat('h', minutes | lowerRound | number: '1.0-0','min')  : (days | number : '1.0-0') + 'j'}}, {{ 'trek.details.length' | translate }} : {{ hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr' }}km"
+  [attr.aria-label]="
+    hydratedTrek.properties.name.concat(
+      ' ',
+      'treks.departure' | translate,
+      ' : ',
+      hydratedTrek.properties.departure,
+      ' ',
+      'trek.details.difficulty' | translate,
+      ' : ',
+      hydratedTrek.properties.difficulty.name,
+      ' ',
+      'trek.details.duration' | translate,
+      ' : ',
+      hydratedTrek.properties.duration < 24
+        ? !minutes
+          ? (hours | lowerRound | number: '1.0-0')!.concat('h')
+          : (hours | lowerRound | number: '1.0-0')!.concat(
+              'h',
+              (minutes | lowerRound | number: '1.0-0')!,
+              'min'
+            )
+        : (days | number: '1.0-0')!.concat('j'),
+      ' ',
+      'trek.details.length' | translate,
+      ' : ',
+      (hydratedTrek.properties.length / 1000 | number: '1.1-1':'fr')!.concat(
+        'km'
+      )
+    )
+  "
 >
   <ion-ripple-effect></ion-ripple-effect>
   <div>
@@ -50,23 +79,21 @@
             [style.background-color]="hydratedTrek.properties.practice.color"
             [src]="imgPracticeSrc"
             (ionError)="onImgPracticeSrcError()"
-            alt="{{hydratedTrek.properties.practice.name}}"
+            alt="{{ hydratedTrek.properties.practice.name }}"
           ></ion-img>
-        </div>
-        <div class="ion-padding-start" *ngIf="hydratedTrek.properties.difficulty" >
-          {{ hydratedTrek.properties.difficulty.name }}
         </div>
         <div
           class="ion-padding-start"
-          *ngIf="showAllData"
+          *ngIf="hydratedTrek.properties.difficulty"
         >
+          {{ hydratedTrek.properties.difficulty.name }}
+        </div>
+        <div class="ion-padding-start" *ngIf="showAllData">
           <div *ngIf="hydratedTrek.properties.duration < 24; else showDays">
-            {{ hours | lowerRound | number: '1.0-0'}}h         <span *ngIf="minutes">{{ minutes | number: '1.0-0'}}min
-            </span>
+            {{ hours | lowerRound | number: '1.0-0' }}h
+            <span *ngIf="minutes">{{ minutes | number: '1.0-0' }}min </span>
           </div>
-          <ng-template #showDays>
-             {{ days | number: '1.0-0' }}j
-          </ng-template>
+          <ng-template #showDays> {{ days | number: '1.0-0' }}j </ng-template>
         </div>
 
         <div *ngIf="showAllData" class="ion-padding-start">

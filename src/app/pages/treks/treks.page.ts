@@ -106,7 +106,7 @@ export class TreksPage implements OnInit, OnDestroy {
   public async handleInitialOrder() {
     if (!this.settings.order$.value) {
       if (environment.initialOrder === 'location') {
-        let currentPosition:any;
+        let currentPosition: any;
         const shouldShowInAppDisclosure =
           await this.geolocate.shouldShowInAppDisclosure();
         try {

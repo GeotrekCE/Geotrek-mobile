@@ -1,6 +1,10 @@
 <ion-card>
   <div *ngIf="picture !== null">
-    <ion-img class="min-size-img" [src]="picture!.url" aria-hidden="true"></ion-img>
+    <ion-img
+      class="min-size-img"
+      [src]="picture!.url"
+      aria-hidden="true"
+    ></ion-img>
     <div class="ion-padding-start ion-padding-top legend-text">
       {{ picture!.legend }}
       <span *ngIf="!!picture.author">({{ picture!.author }})</span>
@@ -13,10 +17,10 @@
         *ngIf="typeImgSrc && !hideImgPracticeSrc"
         [src]="typeImgSrc"
         (ionError)="onImgPracticeSrcError()"
-        ariaLabel="{{currentTypePoi.label}}"
+        [attr.aria-label]="currentTypePoi.label"
       ></ion-img>
       <ion-card-title>
-       <h3 class="ion-no-margin"> {{ poi.properties.name }}</h3>
+        <h3 class="ion-no-margin">{{ poi.properties.name }}</h3>
       </ion-card-title>
     </div>
   </ion-card-header>

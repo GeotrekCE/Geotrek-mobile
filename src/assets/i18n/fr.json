@@ -45,8 +45,8 @@
     }
   },
   "trek": {
-    "return":"Retour",
-    "view":"Changer le mode d'affichage",
+    "return": "Retour",
+    "view": "Changer le mode d'affichage",
     "offline": "Hors ligne",
     "share": "Partager",
     "downloadAlert": {
@@ -64,11 +64,11 @@
     },
     "details": {
       "duration": "Durée",
-      "height":"Dénivelé",
-      "parcours":"Parcours",
-      "difficulty":"Niveau de difficulté",
-      "length":"Distance",
-      "category":"Type de randonnée",
+      "height": "Dénivelé",
+      "parcours": "Parcours",
+      "difficulty": "Niveau de difficulté",
+      "length": "Distance",
+      "category": "Type de randonnée",
       "city": "Commune :",
       "departure": "Départ",
       "arrival": "Arrivée",

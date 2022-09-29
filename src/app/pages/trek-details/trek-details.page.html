@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="treksUrl" ariaLabel="{{ 'trek.return' | translate }}"></ion-back-button>
+      <ion-back-button
+        [defaultHref]="treksUrl"
+        [attr.aria-label]="'trek.return' | translate"
+      ></ion-back-button>
     </ion-buttons>
     <h1 *ngIf="currentTrek" class="custom-title">
       <ion-text *ngIf="isStage"
@@ -103,7 +106,11 @@
               justify-content: center;
             "
           >
-            <ion-img [src]="picture.url" [alt]="picture.title" aria-hidden="true"></ion-img>
+            <ion-img
+              [src]="picture.url"
+              [alt]="picture.title"
+              aria-hidden="true"
+            ></ion-img>
             <div class="ion-padding-top legend-text">
               {{ picture!.legend }}
               <span *ngIf="!!picture.author">({{ picture!.author }})</span>
@@ -257,7 +264,11 @@
         <ion-row marginTop class="font-medium ion-margin-top">
           <ion-col size="6">
             <div *ngIf="currentTrek.properties.duration" class="extra-details">
-              <ion-icon class="icon-detail" name="hourglass" ariaLabel="{{ 'trek.details.duration' | translate }}"></ion-icon>
+              <ion-icon
+                class="icon-detail"
+                name="hourglass"
+                [attr.aria-label]="'trek.details.duration' | translate"
+              ></ion-icon>
               <span *ngIf="currentTrek.properties.duration < 24">
                 {{ currentTrek.properties.duration | lowerRound | number:
                 '1.0-0' }}h<span *ngIf="currentTrek.properties.duration % 1 > 0"
@@ -271,14 +282,18 @@
               >
             </div>
             <div *ngIf="currentTrek.properties.ascent" class="extra-details">
-              <ion-icon class="icon-detail" name="trending-up" ariaLabel="{{ 'trek.details.height' | translate }}"></ion-icon>
+              <ion-icon
+                class="icon-detail"
+                name="trending-up"
+                [attr.aria-label]="'trek.details.height' | translate"
+              ></ion-icon>
               {{ currentTrek.properties.ascent }}m
             </div>
             <div *ngIf="currentTrek.properties.route" class="extra-details">
               <ion-icon
                 class="icon-detail"
                 name="swap-horizontal-outline"
-                ariaLabel="{{ 'trek.details.parcours' | translate }}"
+                [attr.aria-label]="'trek.details.parcours' | translate"
               ></ion-icon>
               {{ currentTrek.properties.route.name }}
             </div>
@@ -297,8 +312,13 @@
               {{ currentTrek.properties.difficulty.name }}
             </div>
             <div *ngIf="currentTrek.properties.length" class="extra-details">
-              <ion-icon class="icon-detail" name="resize" ariaLabel="{{ 'trek.details.length' | translate }}"></ion-icon>
-              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr' }}km
+              <ion-icon
+                class="icon-detail"
+                name="resize"
+                [attr.aria-label]="'trek.details.length' | translate"
+              ></ion-icon>
+              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr'
+              }}km
             </div>
             <div *ngIf="currentTrek.properties.practice" class="extra-details">
               <ion-img
@@ -406,7 +426,10 @@
               </h2>
             </ion-text>
             <div>
-              <ion-img [src]="trekExtraDetails.profile" aria-hidden="true"></ion-img>
+              <ion-img
+                [src]="trekExtraDetails.profile"
+                aria-hidden="true"
+              ></ion-img>
             </div>
           </ion-col>
         </ion-row>
@@ -420,7 +443,11 @@
             </ion-text>
             <p>{{ 'trek.details.rulesDescription' | translate }}</p>
             <div *ngIf="showImgRulesIfParkCentered">
-              <ion-img src="assets/image/reglementation.jpg" alt="rules" aria-hidden="true">
+              <ion-img
+                src="assets/image/reglementation.jpg"
+                alt="rules"
+                aria-hidden="true"
+              >
               </ion-img>
             </div>
           </ion-col>

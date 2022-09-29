@@ -24,7 +24,7 @@ export class PoiComponent implements OnChanges {
   public baseUrl = environment.mobileApiUrl;
   public picture: Picture | null = null;
   public typeImgSrc: string | null = null;
-  private currentTypePoi!: Property;
+  public currentTypePoi!: Property;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
 
@@ -34,7 +34,7 @@ export class PoiComponent implements OnChanges {
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
-    if (changes["poi"] || changes["offline"]) {
+    if (changes['poi'] || changes['offline']) {
       if (this.typePois && this.poi.properties.type) {
         this.currentTypePoi = this.typePois.values.find(
           (typePoi) => typePoi.id === this.poi.properties.type

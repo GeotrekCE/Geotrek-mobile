@@ -78,8 +78,7 @@ export class TrekCardComponent implements OnInit {
         if (this.hydratedTrek.properties.duration % 1 > 0) {
           this.minutes = 60 * (this.hydratedTrek.properties.duration % 1);
         }
-      }
-      else {
+      } else {
         this.days = this.hydratedTrek.properties.duration / 24;
       }
     }

@@ -49,7 +49,7 @@ export class TreksOrderComponent implements OnInit, OnDestroy {
     let error = false;
     if (orderValue === 'location') {
       if (this.platform.is('ios') || this.platform.is('android')) {
-        let startLocation:any;
+        let startLocation: any;
         try {
           const shouldShowInAppDisclosure =
             await this.geolocate.shouldShowInAppDisclosure();

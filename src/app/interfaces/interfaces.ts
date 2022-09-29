@@ -177,6 +177,7 @@ export interface Property {
   pictogram?: string;
   color?: string;
   slug?: string;
+  label?: string;
 }
 
 export interface Pois extends FeatureCollection {
@@ -267,9 +268,6 @@ export interface TreksService {
   getTrekImageSrc(trek: Trek, picture?: Picture): string | Promise<string>;
   getTreksMapUrl(): string;
   getTrekMapUrl(trekId: number, parentId?: number): string;
-  getMapConfigForTrekById(
-    trek: Trek,
-    isOffline: boolean
-  ): any | Promise<any>;
+  getMapConfigForTrekById(trek: Trek, isOffline: boolean): any | Promise<any>;
   getCommonImgSrc(): string | Promise<string>;
 }

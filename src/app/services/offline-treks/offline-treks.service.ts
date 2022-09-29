@@ -186,13 +186,22 @@ export class OfflineTreksService implements TreksService {
 
     tasks.push(
       from(
-        Preferences.set({ key: 'offline-treks', value: JSON.stringify(newTreks) })
+        Preferences.set({
+          key: 'offline-treks',
+          value: JSON.stringify(newTreks)
+        })
       ),
       from(
-        Preferences.set({ key: `trek-${trekId}`, value: JSON.stringify(fullTrek) })
+        Preferences.set({
+          key: `trek-${trekId}`,
+          value: JSON.stringify(fullTrek)
+        })
       ),
       from(
-        Preferences.set({ key: `pois-trek-${trekId}`, value: JSON.stringify(pois) })
+        Preferences.set({
+          key: `pois-trek-${trekId}`,
+          value: JSON.stringify(pois)
+        })
       ),
       from(
         Preferences.set({
@@ -342,7 +351,7 @@ export class OfflineTreksService implements TreksService {
                 source,
                 destination: destination.uri
               },
-              (progress:any) => {
+              (progress: any) => {
                 if (progress.completed) {
                   Filesystem.deleteFile({
                     path: `zip/global.zip`,
@@ -398,7 +407,7 @@ export class OfflineTreksService implements TreksService {
                 source,
                 destination: destination.uri
               },
-              (progress:any) => {
+              (progress: any) => {
                 if (progress.completed) {
                   Filesystem.deleteFile({
                     path: `zip/${trekId}.zip`,
@@ -424,7 +433,9 @@ export class OfflineTreksService implements TreksService {
 
     const tasks: Observable<any>[] = [];
     tasks.push(
-      from(Preferences.set({ key: 'offline-treks', value: JSON.stringify(treks) }))
+      from(
+        Preferences.set({ key: 'offline-treks', value: JSON.stringify(treks) })
+      )
     );
     tasks.push(from(Preferences.remove({ key: `pois-trek-${trekId}` })));
     tasks.push(
