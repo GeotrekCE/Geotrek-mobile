@@ -9,7 +9,11 @@ import { OnlineTreksService } from '@app/services/online-treks/online-treks.serv
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import { MinimalTrek, TreksService } from '@app/interfaces/interfaces';
+import {
+  MinimalTrek,
+  TreksService,
+  TreksServiceOffline
+} from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { ModalController, Platform } from '@ionic/angular';
@@ -25,7 +29,7 @@ export class TreksMapPage implements OnInit, OnDestroy {
   public filteredTreks!: MinimalTrek[];
   public numberOfActiveFilters!: string;
   public offline!: boolean;
-  private treksTool!: TreksService;
+  private treksTool!: TreksService | TreksServiceOffline;
   public treksUrl!: string;
   public appName: string = environment.appName;
   public mapConfig: any;

@@ -1,3 +1,4 @@
+import { HttpResponse } from '@capacitor-community/http';
 import { Feature, FeatureCollection, MultiPoint, Point } from 'geojson';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -250,6 +251,29 @@ export interface Treks extends FeatureCollection {
 }
 
 export interface TreksService {
+  offline: boolean;
+  treks$: Observable<MinimalTreks | null>;
+  filteredTreks$: Observable<MinimalTrek[]>;
+  getTrekById(id: number, parentId?: number): Promise<HttpResponse>;
+  getPoisForTrekById(id: number, parentId?: number): Promise<HttpResponse>;
+  getTouristicContentsForTrekById(
+    id: number,
+    parentId?: number
+  ): Promise<HttpResponse>;
+  getTouristicEventsForTrekById(
+    id: number,
+    parentId?: number
+  ): Promise<HttpResponse>;
+  getTreksUrl(): string;
+  getTrekDetailsUrl(trekId: number, parentId?: number): string;
+  getTrekImageSrc(trek: Trek, picture?: Picture): string | Promise<string>;
+  getTreksMapUrl(): string;
+  getTrekMapUrl(trekId: number, parentId?: number): string;
+  getMapConfigForTrekById(trek: Trek, isOffline: boolean): any | Promise<any>;
+  getCommonImgSrc(): string | Promise<string>;
+}
+
+export interface TreksServiceOffline {
   offline: boolean;
   treks$: Observable<MinimalTreks | null>;
   filteredTreks$: Observable<MinimalTrek[]>;

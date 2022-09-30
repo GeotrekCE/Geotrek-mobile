@@ -39,7 +39,7 @@ import {
   Poi,
   Pois,
   Trek,
-  TreksService,
+  TreksServiceOffline,
   TouristicContents,
   TouristicEvents
 } from '@app/interfaces/interfaces';
@@ -47,7 +47,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class OfflineTreksService implements TreksService {
+export class OfflineTreksService implements TreksServiceOffline {
   public offline = false;
   public treks$ = new BehaviorSubject<MinimalTreks | null>(null);
   public filteredTreks$: Observable<MinimalTrek[]>;
@@ -218,47 +218,53 @@ export class OfflineTreksService implements TreksService {
     ) {
       fullTrek.properties.children.features.forEach((children) => {
         tasks.push(
-          this.onlineTreksService
-            .getTrekById(children.properties.id, trekId)
-            .pipe(
-              map((childrenJson) => {
-                return from(
-                  Preferences.set({
-                    key: `trek-${trekId}-${children.properties.id}`,
-                    value: JSON.stringify(childrenJson)
-                  })
-                );
-              })
-            )
+          from(
+            this.onlineTreksService.getTrekById(children.properties.id, trekId)
+          ).pipe(
+            map((childrenJson) => {
+              return from(
+                Preferences.set({
+                  key: `trek-${trekId}-${children.properties.id}`,
+                  value: JSON.stringify(childrenJson)
+                })
+              );
+            })
+          )
         );
         tasks.push(
-          this.onlineTreksService
-            .getPoisForTrekById(children.properties.id, trekId)
-            .pipe(
-              map((childrenJson) => {
-                return from(
-                  Preferences.set({
-                    key: `pois-trek-${trekId}-${children.properties.id}`,
-                    value: JSON.stringify(childrenJson)
-                  })
-                );
-              })
+          from(
+            this.onlineTreksService.getPoisForTrekById(
+              children.properties.id,
+              trekId
             )
+          ).pipe(
+            map((childrenJson) => {
+              return from(
+                Preferences.set({
+                  key: `pois-trek-${trekId}-${children.properties.id}`,
+                  value: JSON.stringify(childrenJson)
+                })
+              );
+            })
+          )
         );
 
         tasks.push(
-          this.onlineTreksService
-            .getTouristicContentsForTrekById(children.properties.id, trekId)
-            .pipe(
-              map((childrenJson) => {
-                return from(
-                  Preferences.set({
-                    key: `touristicContents-trek-${trekId}-${children.properties.id}`,
-                    value: JSON.stringify(childrenJson)
-                  })
-                );
-              })
+          from(
+            this.onlineTreksService.getTouristicContentsForTrekById(
+              children.properties.id,
+              trekId
             )
+          ).pipe(
+            map((childrenJson) => {
+              return from(
+                Preferences.set({
+                  key: `touristicContents-trek-${trekId}-${children.properties.id}`,
+                  value: JSON.stringify(childrenJson)
+                })
+              );
+            })
+          )
         );
       });
     }

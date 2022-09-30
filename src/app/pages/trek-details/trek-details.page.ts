@@ -7,7 +7,7 @@ import {
   NavController
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, from, of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Share } from '@capacitor/share';
 import {
@@ -20,8 +20,7 @@ import {
   TouristicCategoryWithFeatures,
   TouristicContents,
   DataSetting,
-  Pois,
-  TouristicEvents
+  TreksServiceOffline
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -29,6 +28,7 @@ import { environment } from '@env/environment';
 import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { SettingsService } from '@app/services/settings/settings.service';
+import { HttpResponse } from '@capacitor-community/http';
 
 @Component({
   selector: 'app-trek-details',
@@ -47,7 +47,7 @@ export class TrekDetailsPage implements OnInit {
   public showImgRulesIfParkCentered =
     environment.trekDetails.showImgRulesIfParkCentered;
   public mapLink!: string;
-  public treksTool!: TreksService;
+  public treksTool!: TreksService | TreksServiceOffline;
   public treksUrl = '';
   public connectionError = false;
   public commonSrc!: string;
@@ -102,34 +102,56 @@ export class TrekDetailsPage implements OnInit {
       trekId
     );
 
-    const treksService: TreksService =
-      offline || this.isAvailableOffline ? this.offlineTreks : this.onlineTreks;
-
-    forkJoin([
-      treksService.getTrekById(currentTrekId, parentId),
-      treksService.getPoisForTrekById(currentTrekId, parentId),
-      treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
-      treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
-      isStage && parentId ? treksService.getTrekById(parentId) : of(null)
-    ])
+    const useOfflineTreksService = offline || this.isAvailableOffline;
+    const treksService: TreksService | TreksServiceOffline =
+      useOfflineTreksService ? this.offlineTreks : this.onlineTreks;
+    const requests = useOfflineTreksService
+      ? [
+          treksService.getTrekById(currentTrekId, parentId),
+          treksService.getPoisForTrekById(currentTrekId, parentId),
+          treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
+          treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+          isStage && parentId ? treksService.getTrekById(parentId) : of(null)
+        ]
+      : [
+          from(treksService.getTrekById(currentTrekId, parentId)),
+          from(treksService.getPoisForTrekById(currentTrekId, parentId)),
+          from(
+            treksService.getTouristicContentsForTrekById(
+              currentTrekId,
+              parentId
+            )
+          ),
+          from(
+            treksService.getTouristicEventsForTrekById(currentTrekId, parentId)
+          ),
+          isStage && parentId
+            ? from(treksService.getTrekById(parentId))
+            : of(null)
+        ];
+    forkJoin(requests)
       .pipe(first())
       .subscribe(
-        async ([trek, pois, touristicContents, touristicEvents, parentTrek]: [
-          Trek | null,
-          Pois,
-          TouristicContents,
-          TouristicEvents,
-          Trek | null
+        async ([
+          trek,
+          pois,
+          touristicContents,
+          touristicEvents,
+          parentTrek
         ]): Promise<any> => {
           this.connectionError = false;
 
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            trek!,
+            useOfflineTreksService ? trek : (trek as HttpResponse).data,
             commonSrc
           );
           const touristicCategoriesWithFeatures =
-            this.settings.getTouristicCategoriesWithFeatures(touristicContents);
+            this.settings.getTouristicCategoriesWithFeatures(
+              useOfflineTreksService
+                ? touristicContents
+                : (touristicContents as HttpResponse).data
+            );
 
           if (this.settings.data$.value) {
             this.typePois = this.settings.data$.value.find(
@@ -144,23 +166,40 @@ export class TrekDetailsPage implements OnInit {
 
           this.offline = offline || this.isAvailableOffline;
           this.currentTrek = hydratedTrek;
-          this.originalTrek = trek!;
-          this.currentPois = pois.features;
+          this.originalTrek = useOfflineTreksService
+            ? trek!
+            : (trek as HttpResponse).data;
+          this.currentPois = (
+            useOfflineTreksService ? pois : (pois as HttpResponse).data
+          ).features;
           this.treksTool = treksService;
-          this.touristicContents = touristicContents;
+          this.touristicContents = useOfflineTreksService
+            ? touristicContents
+            : (touristicContents as HttpResponse).data;
           this.touristicCategoriesWithFeatures =
             touristicCategoriesWithFeatures;
-          this.touristicEvents = touristicEvents.features;
+          this.touristicEvents = (
+            useOfflineTreksService
+              ? touristicEvents!
+              : (touristicEvents as HttpResponse).data
+          ).features;
           this.treksUrl = this.treksTool.getTreksUrl();
           this.commonSrc = commonSrc;
           this.mapLink = this.treksTool.getTrekMapUrl(
             hydratedTrek.properties.id,
-            parentTrek ? parentTrek.properties.id : undefined
+            parentTrek
+              ? (useOfflineTreksService
+                  ? parentTrek!
+                  : (parentTrek as HttpResponse).data
+                ).properties.id
+              : undefined
           );
 
           this.isStage = isStage;
           if (isStage && parentTrek) {
-            this.parentTrek = parentTrek;
+            this.parentTrek = useOfflineTreksService
+              ? parentTrek!
+              : (parentTrek as HttpResponse).data;
 
             this.stageIndex =
               this.parentTrek.properties.children.features.findIndex(
@@ -258,14 +297,18 @@ export class TrekDetailsPage implements OnInit {
     );
     const pois: any = !this.isStage
       ? this.currentPois
-      : await this.onlineTreks
-          .getPoisForTrekById(this.parentTrek.properties.id)
-          .toPromise();
+      : (
+          await this.onlineTreks.getPoisForTrekById(
+            this.parentTrek.properties.id
+          )
+        ).data;
     const touristicContents: any = !this.isStage
       ? this.currentPois
-      : await this.onlineTreks
-          .getTouristicContentsForTrekById(this.parentTrek.properties.id)
-          .toPromise();
+      : (
+          await this.onlineTreks.getTouristicContentsForTrekById(
+            this.parentTrek.properties.id
+          )
+        ).data;
 
     if (!simpleTrek) {
       return;

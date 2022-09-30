@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { InformationIntro } from '@app/interfaces/interfaces';
 import { MoreInformationsService } from '@app/services/more-informations/more-informations.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-more',
@@ -22,13 +23,12 @@ export class MorePage implements OnInit {
   }
 
   loadMoreItems() {
-    this.more
-      .getMoreItems()
+    from(this.more.getMoreItems())
       .pipe(first())
       .subscribe(
         (moreItems) => {
           this.connectionError = false;
-          this.moreInformationsIntro = moreItems;
+          this.moreInformationsIntro = moreItems.data;
         },
         () => {
           this.connectionError = true;

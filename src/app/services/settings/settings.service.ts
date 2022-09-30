@@ -1,13 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, HttpResponse } from '@capacitor-community/http';
 import { Preferences } from '@capacitor/preferences';
 import { Device } from '@capacitor/device';
 import { TextZoom } from '@capacitor/text-zoom';
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
-import { GeoJSON } from 'geojson';
 
 import {
   Trek,
@@ -40,7 +39,6 @@ export class SettingsService {
   public settingsError$ = new BehaviorSubject<boolean | null>(false);
 
   constructor(
-    public http: HttpClient,
     private platform: Platform,
     private translate: TranslateService
   ) {}
@@ -83,15 +81,15 @@ export class SettingsService {
 
   public loadSettings() {
     return new Promise(async (resolve) => {
-      this.getSettings().subscribe({
+      from(this.getSettings()).subscribe({
         next: async (value) => {
           this.settingsError$.next(false);
           await Preferences.set({
             key: 'settings',
-            value: JSON.stringify(value)
+            value: JSON.stringify(value.data)
           });
-          this.filters$.next(this.getFilters(value));
-          this.data$.next(value.data);
+          this.filters$.next(this.getFilters(value.data));
+          this.data$.next(value.data.data);
           resolve(true);
         },
         error: async () => {
@@ -99,7 +97,7 @@ export class SettingsService {
           if (settings) {
             this.settingsError$.next(false);
             this.filters$.next(this.getFilters(settings));
-            this.data$.next(settings.data);
+            this.data$.next(settings.data.data);
           } else {
             this.settingsError$.next(true);
           }
@@ -107,9 +105,12 @@ export class SettingsService {
         }
       });
 
-      this.getZoneFromUrl().subscribe({
+      from(this.getZoneFromUrl()).subscribe({
         next: async (value) => {
-          await Preferences.set({ key: 'zone', value: JSON.stringify(value) });
+          await Preferences.set({
+            key: 'zone',
+            value: JSON.stringify(value.data)
+          });
         },
         error: () => {
           return true;
@@ -146,20 +147,26 @@ export class SettingsService {
     return filters;
   }
 
-  public getSettings(): Observable<Settings> {
+  public getSettings(): Promise<HttpResponse> {
     const httpOptions = {
-      headers: new HttpHeaders({
+      method: 'GET',
+      url: this.baseUrl + '/settings.json',
+      headers: {
         'Accept-Language': this.translate.getDefaultLang()
-      })
+      }
     };
-    return this.http.get<Settings>(
-      this.baseUrl + '/settings.json',
-      httpOptions
-    );
+    return Http.request(httpOptions);
   }
 
-  public getZoneFromUrl(): Observable<GeoJSON> {
-    return this.http.get<GeoJSON>(this.baseUrl + '/contour/contour.geojson');
+  public getZoneFromUrl(): Promise<HttpResponse> {
+    const httpOptions = {
+      method: 'GET',
+      url: this.baseUrl + '/contour/contour.geojson',
+      headers: {
+        'Accept-Language': this.translate.getDefaultLang()
+      }
+    };
+    return Http.request(httpOptions);
   }
 
   public async getZoneFromStorage() {

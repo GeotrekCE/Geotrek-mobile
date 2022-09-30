@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { InformationIntro, InformationItem } from '@app/interfaces/interfaces';
-import { Observable } from 'rxjs';
+import { Http, HttpResponse } from '@capacitor-community/http';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@env/environment';
@@ -12,29 +10,27 @@ import { environment } from '@env/environment';
 export class MoreInformationsService {
   public baseUrl = environment.mobileApiUrl;
 
-  constructor(private http: HttpClient, private translate: TranslateService) {}
+  constructor(private translate: TranslateService) {}
 
-  public getMoreItems(): Observable<InformationIntro[]> {
+  public getMoreItems(): Promise<HttpResponse> {
     const httpOptions = {
-      headers: new HttpHeaders({
+      method: 'GET',
+      url: `${this.baseUrl}/flatpages.json`,
+      headers: {
         'Accept-Language': this.translate.getDefaultLang()
-      })
+      }
     };
-    return this.http.get<InformationIntro[]>(
-      `${this.baseUrl}/flatpages.json`,
-      httpOptions
-    );
+    return Http.request(httpOptions);
   }
 
-  public getMoreItemById(id: number): Observable<InformationItem> {
+  public getMoreItemById(id: number): Promise<HttpResponse> {
     const httpOptions = {
-      headers: new HttpHeaders({
+      method: 'GET',
+      url: `${this.baseUrl}/flatpages/${id}.json`,
+      headers: {
         'Accept-Language': this.translate.getDefaultLang()
-      })
+      }
     };
-    return this.http.get<InformationItem>(
-      `${this.baseUrl}/flatpages/${id}.json`,
-      httpOptions
-    );
+    return Http.request(httpOptions);
   }
 }

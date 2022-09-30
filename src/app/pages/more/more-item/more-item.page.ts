@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { InformationItem } from '@app/interfaces/interfaces';
 import { MoreInformationsService } from '@app/services/more-informations/more-informations.service';
+import { from } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -28,13 +29,12 @@ export class MoreItemPage implements OnInit {
     const moreItemId = +(<string>(
       this.route.snapshot.paramMap.get('moreItemId')
     ));
-    this.more
-      .getMoreItemById(moreItemId)
+    from(this.more.getMoreItemById(moreItemId))
       .pipe(first())
       .subscribe(
         (moreItem) => {
           this.connectionError = false;
-          this.moreItem = moreItem;
+          this.moreItem = moreItem.data;
         },
         () => {
           this.connectionError = true;

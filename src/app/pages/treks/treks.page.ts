@@ -14,7 +14,12 @@ import { SettingsService } from '@app/services/settings/settings.service';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { FiltersComponent } from '@app/components/filters/filters.component';
 import { SearchComponent } from '@app/components/search/search.component';
-import { MinimalTrek, TreksService, Order } from '@app/interfaces/interfaces';
+import {
+  MinimalTrek,
+  TreksService,
+  Order,
+  TreksServiceOffline
+} from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
@@ -38,7 +43,7 @@ export class TreksPage implements OnInit, OnDestroy {
   public offline = false;
   public currentMaxTreks: number = environment.treksByStep;
 
-  private treksTool!: TreksService;
+  private treksTool!: TreksService | TreksServiceOffline;
   private filteredTreksSubscription!: Subscription;
   private nbOfflineTreksSubscription!: Subscription;
 

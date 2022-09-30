@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, HttpResponse } from '@capacitor-community/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Preferences } from '@capacitor/preferences';
 
@@ -8,11 +8,8 @@ import {
   MinimalTrek,
   MinimalTreks,
   Picture,
-  Pois,
   Trek,
-  TreksService,
-  TouristicContents,
-  TouristicEvents
+  TreksService
 } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { environment } from '@env/environment';
@@ -30,7 +27,6 @@ export class OnlineTreksService implements TreksService {
   public onlineTreksError$ = new BehaviorSubject<boolean | null>(false);
 
   constructor(
-    private http: HttpClient,
     private filterTreks: FilterTreksService,
     private translate: TranslateService
   ) {}
@@ -38,11 +34,14 @@ export class OnlineTreksService implements TreksService {
   public loadTreks() {
     return new Promise(async (resolve) => {
       this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
-      this.getTreks().subscribe({
+      from(this.getTreks()).subscribe({
         next: async (value) => {
           this.onlineTreksError$.next(false);
-          await Preferences.set({ key: 'treks', value: JSON.stringify(value) });
-          this.treks$.next(value);
+          await Preferences.set({
+            key: 'treks',
+            value: JSON.stringify(value.data)
+          });
+          this.treks$.next(value.data);
           resolve(true);
         },
         error: async () => {
@@ -96,102 +95,104 @@ export class OnlineTreksService implements TreksService {
     return `/treks-map/`;
   }
 
-  private getTreks(): Observable<MinimalTreks> {
+  private getTreks(): Promise<HttpResponse> {
     const httpOptions = {
-      headers: new HttpHeaders({
+      method: 'GET',
+      url: `${this.baseUrl}/treks.geojson`,
+      headers: {
         'Accept-Language': this.translate.getDefaultLang()
-      })
+      }
     };
 
-    return this.http.get<MinimalTreks>(
-      `${this.baseUrl}/treks.geojson`,
-      httpOptions
-    );
+    return Http.request(httpOptions);
   }
 
-  public getTrekById(trekId: number, parentId?: number): Observable<Trek> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept-Language': this.translate.getDefaultLang()
-      })
-    };
+  public getTrekById(trekId: number, parentId?: number): Promise<HttpResponse> {
     if (parentId) {
-      return this.http.get<Trek>(
-        `${this.baseUrl}/${parentId}/treks/${trekId}.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${parentId}/treks/${trekId}.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return Http.request(httpOptions);
     } else {
-      return this.http.get<Trek>(
-        `${this.baseUrl}/${trekId}/trek.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${trekId}/trek.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return Http.request(httpOptions);
     }
   }
 
   public getPoisForTrekById(
     trekId: number,
     parentId?: number
-  ): Observable<Pois> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept-Language': this.translate.getDefaultLang()
-      })
-    };
-
+  ): Promise<HttpResponse> {
     if (parentId) {
-      return this.http.get<Pois>(
-        `${this.baseUrl}/${parentId}/pois/${trekId}.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${parentId}/pois/${trekId}.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return Http.request(httpOptions);
     } else {
-      return this.http.get<Pois>(
-        `${this.baseUrl}/${trekId}/pois.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${trekId}/pois.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return Http.request(httpOptions);
     }
   }
 
   public getTouristicContentsForTrekById(
     trekId: number,
     parentId?: number
-  ): Observable<TouristicContents> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept-Language': this.translate.getDefaultLang()
-      })
-    };
+  ): Promise<HttpResponse> {
     if (parentId) {
-      return this.http.get<TouristicContents>(
-        `${this.baseUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
+        headers: { 'Accept-Language': this.translate.getDefaultLang() }
+      };
+      return Http.request(httpOptions);
     } else {
-      return this.http.get<TouristicContents>(
-        `${this.baseUrl}/${trekId}/touristic_contents.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${trekId}/touristic_contents.geojson`,
+        headers: { 'Accept-Language': this.translate.getDefaultLang() }
+      };
+      return Http.request(httpOptions);
     }
   }
 
   public getTouristicEventsForTrekById(
     trekId: number,
     parentId?: number
-  ): Observable<TouristicEvents> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept-Language': this.translate.getDefaultLang()
-      })
-    };
+  ): Promise<HttpResponse> {
     if (parentId) {
-      return this.http.get<TouristicEvents>(
-        `${this.baseUrl}/${parentId}/touristic_events/${trekId}.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${parentId}/touristic_events/${trekId}.geojson`,
+        headers: { 'Accept-Language': this.translate.getDefaultLang() }
+      };
+      return Http.request(httpOptions);
     } else {
-      return this.http.get<TouristicEvents>(
-        `${this.baseUrl}/${trekId}/touristic_events.geojson`,
-        httpOptions
-      );
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${trekId}/touristic_events.geojson`,
+        headers: { 'Accept-Language': this.translate.getDefaultLang() }
+      };
+      return Http.request(httpOptions);
     }
   }
 
