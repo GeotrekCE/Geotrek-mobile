@@ -28,6 +28,7 @@
     "@capacitor/share": "^4.0.1",
     "@capacitor/splash-screen": "^4.0.1",
     "@capacitor/status-bar": "4.0.1",
+    "@capacitor/text-zoom": "^4.0.1",
     "@ionic/angular": "^6.2.5",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",

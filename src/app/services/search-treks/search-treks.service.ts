@@ -11,7 +11,7 @@ export class SearchTreksService {
       return [];
     }
     if (!!!searchValue) {
-      return treks.sort(function(a, b) {
+      return treks.sort(function (a, b) {
         return a.properties.name.localeCompare(b.properties.name);
       });
     }
@@ -20,7 +20,7 @@ export class SearchTreksService {
       .filter((trek) => {
         return deburr(trek.properties.name.toLowerCase()).includes(searchValue);
       })
-      .sort(function(a, b) {
+      .sort(function (a, b) {
         return a.properties.name.localeCompare(b.properties.name);
       });
   }

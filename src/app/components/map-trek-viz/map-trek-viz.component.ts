@@ -52,7 +52,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   private currentPositionSubscription!: Subscription;
   private currentHeadingSubscription!: Subscription;
   private loadImagesSubscription!: Subscription;
-  public flyToUserLocationThrottle:any;
+  public flyToUserLocationThrottle: any;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
@@ -80,10 +80,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentTrek: SimpleChange = changes["currentTrek"];
-    const changesCurrentPois: SimpleChange = changes["currentPois"];
+    const changesCurrentTrek: SimpleChange = changes['currentTrek'];
+    const changesCurrentPois: SimpleChange = changes['currentPois'];
     const touristicCategoriesWithFeatures: SimpleChange =
-      changes["touristicCategoriesWithFeatures"];
+      changes['touristicCategoriesWithFeatures'];
     if (
       !!this.currentTrek &&
       !!this.currentPois &&
@@ -155,8 +155,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       this.map.on('click', 'pois-icon', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
           const poi = { ...e.features[0] };
-          if (poi.properties && poi.properties["pictures"]) {
-            poi.properties["pictures"] = JSON.parse(poi.properties["pictures"]);
+          if (poi.properties && poi.properties['pictures']) {
+            poi.properties['pictures'] = JSON.parse(poi.properties['pictures']);
           }
           this.presentPoiDetails.emit(poi);
         }
@@ -175,7 +175,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           if (
             e.features[0] &&
             e.features[0].properties &&
-            e.features[0].properties["id"] &&
+            e.features[0].properties['id'] &&
             this.currentTrek
           ) {
             const informationDesk =
@@ -197,10 +197,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
             const touristicContent = { ...e.features[0] };
             if (
               touristicContent.properties &&
-              touristicContent.properties["pictures"]
+              touristicContent.properties['pictures']
             ) {
-              touristicContent.properties["pictures"] = JSON.parse(
-                touristicContent.properties["pictures"]
+              touristicContent.properties['pictures'] = JSON.parse(
+                touristicContent.properties['pictures']
               );
             }
             this.presentPoiDetails.emit(touristicContent);
@@ -211,8 +211,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       this.map.on('click', 'children-treks-circle', (e: MapLayerMouseEvent) => {
         if (!!e.features && e.features.length > 0) {
           const childrenTrek = { ...e.features[0] };
-          if (childrenTrek.properties && childrenTrek.properties["id"]) {
-            this.navigateToChildren.emit(childrenTrek.properties["id"]);
+          if (childrenTrek.properties && childrenTrek.properties['id']) {
+            this.navigateToChildren.emit(childrenTrek.properties['id']);
           }
         }
       });
@@ -881,7 +881,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
         childrenTreks.features.forEach((children, index) => {
           if (children.properties) {
-            children.properties["index"] = index + 1;
+            children.properties['index'] = index + 1;
           }
         });
 
@@ -1009,19 +1009,16 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
         const featureProperties = features[0].properties;
         if (!!featureProperties) {
-          const clusterId = featureProperties["cluster_id"];
+          const clusterId = featureProperties['cluster_id'];
 
           if (this.map.getZoom() === this.mapConfig.maxZoom) {
             (
               this.map.getSource(clusterSource.id) as GeoJSONSource
             ).getClusterLeaves(
-              featureProperties["cluster_id"],
+              featureProperties['cluster_id'],
               Infinity,
               0,
-              (
-                err: any,
-                featuresInCluster: any
-              ) => {
+              (err: any, featuresInCluster: any) => {
                 if (err) {
                   throw err;
                 }
@@ -1071,24 +1068,24 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       let currentType;
       if (
         this.poisType &&
-        feature.properties["type"] &&
+        feature.properties['type'] &&
         clusterSource.id === 'pois'
       ) {
         currentType = this.poisType.values.find(
-          (poiType) => poiType.id === feature.properties["type"]
+          (poiType) => poiType.id === feature.properties['type']
         );
       } else if (
         this.touristicsContentCategory &&
-        feature.properties["category"] &&
+        feature.properties['category'] &&
         clusterSource.id === 'touristics-content'
       ) {
         currentType = this.touristicsContentCategory.values.find(
-          (category) => category.id === feature.properties["category"]
+          (category) => category.id === feature.properties['category']
         );
       }
       const poi = {
-        id: feature.properties["id"],
-        name: feature.properties["name"],
+        id: feature.properties['id'],
+        name: feature.properties['name'],
         imgTypePoi: {
           src:
             currentType && currentType.pictogram
@@ -1114,7 +1111,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
     if (data && data.selectedPoiId) {
       const selectedFeature = features.find(
-        (feature) => feature.properties["id"] === data.selectedPoiId
+        (feature) => feature.properties['id'] === data.selectedPoiId
       );
       if (selectedFeature) {
         this.presentPoiDetails.emit(selectedFeature);

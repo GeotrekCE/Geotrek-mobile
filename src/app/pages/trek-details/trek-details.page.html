@@ -1,13 +1,16 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="treksUrl"></ion-back-button>
+      <ion-back-button
+        [defaultHref]="treksUrl"
+        [attr.aria-label]="'trek.return' | translate"
+      ></ion-back-button>
     </ion-buttons>
-    <div *ngIf="currentTrek" class="custom-title">
+    <h1 *ngIf="currentTrek" class="custom-title">
       <ion-text *ngIf="isStage"
         >{{ 'trek.details.stage' | translate }} {{ stageIndex + 1 }} -</ion-text
       ><ion-text> {{ currentTrek.properties.name }}</ion-text>
-    </div>
+    </h1>
   </ion-toolbar>
   <ion-toolbar>
     <ion-buttons *ngIf="currentTrek" class="download-container">
@@ -16,14 +19,14 @@
         (click)="presentDownloadConfirm()"
       >
         {{ 'trek.offline' | translate }}
-        <ion-icon slot="start" name="download"></ion-icon>
+        <ion-icon slot="start" name="download" aria-hidden="true"></ion-icon>
       </ion-button>
       <ion-button
         *ngIf=" isAvailableOffline && !isStage"
         (click)="clickDeleteConfirm($event)"
       >
         {{ 'trek.offline' | translate }}
-        <ion-icon slot="start" name="trash"></ion-icon>
+        <ion-icon slot="start" name="trash" aria-hidden="true"></ion-icon>
       </ion-button>
       <ion-button
         [href]="adminApiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.pdf'"
@@ -32,7 +35,7 @@
         expand="full"
       >
         PDF
-        <ion-icon slot="start" name="document"></ion-icon>
+        <ion-icon slot="start" name="document" aria-hidden="true"></ion-icon>
       </ion-button>
       <ion-button
         [href]="adminApiUrl + '/' + currentTrek.properties.id + '/' + currentTrek.properties.slug! + '.gpx'"
@@ -41,7 +44,7 @@
         expand="full"
       >
         GPX
-        <ion-icon slot="start" name="document"></ion-icon>
+        <ion-icon slot="start" name="document" aria-hidden="true"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -49,7 +52,7 @@
     <ion-buttons *ngIf="currentTrek" class="share-container">
       <ion-button (click)="shareTrek()" expand="full">
         {{ 'trek.share' | translate }}
-        <ion-icon slot="start" name="share"></ion-icon>
+        <ion-icon slot="start" name="share" aria-hidden="true"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -103,7 +106,11 @@
               justify-content: center;
             "
           >
-            <ion-img [src]="picture.url" [alt]="picture.title"></ion-img>
+            <ion-img
+              [src]="picture.url"
+              [alt]="picture.title"
+              aria-hidden="true"
+            ></ion-img>
             <div class="ion-padding-top legend-text">
               {{ picture!.legend }}
               <span *ngIf="!!picture.author">({{ picture!.author }})</span>
@@ -207,9 +214,9 @@
                 *ngIf="currentTrek.properties.departure && currentTrek.properties.departure.length > 0"
               >
                 <ion-text color="primary">
-                  <h5 class="no-margin-top">
+                  <h3 class="no-margin-top">
                     {{ 'trek.details.departure' | translate }}
-                  </h5>
+                  </h3>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.departure_city">
                   {{ 'trek.details.city' | translate }} {{
@@ -222,7 +229,7 @@
                 *ngIf="currentTrek.properties.arrival && currentTrek.properties.arrival.length > 0"
               >
                 <ion-text color="primary">
-                  <h5>{{ 'trek.details.arrival' | translate }}</h5>
+                  <h3>{{ 'trek.details.arrival' | translate }}</h3>
                 </ion-text>
                 <div *ngIf="currentTrek.properties.arrival_city">
                   {{ 'trek.details.city' | translate }} {{
@@ -239,9 +246,9 @@
               "
             >
               <ion-text color="primary">
-                <h5 class="no-margin-top">
+                <h3 class="no-margin-top">
                   {{ 'trek.details.departureArrival' | translate }}
-                </h5>
+                </h3>
               </ion-text>
               <div>
                 <div *ngIf="currentTrek.properties.departure_city">
@@ -257,7 +264,11 @@
         <ion-row marginTop class="font-medium ion-margin-top">
           <ion-col size="6">
             <div *ngIf="currentTrek.properties.duration" class="extra-details">
-              <ion-icon class="icon-detail" name="hourglass"></ion-icon>
+              <ion-icon
+                class="icon-detail"
+                name="hourglass"
+                [attr.aria-label]="'trek.details.duration' | translate"
+              ></ion-icon>
               <span *ngIf="currentTrek.properties.duration < 24">
                 {{ currentTrek.properties.duration | lowerRound | number:
                 '1.0-0' }}h<span *ngIf="currentTrek.properties.duration % 1 > 0"
@@ -271,13 +282,18 @@
               >
             </div>
             <div *ngIf="currentTrek.properties.ascent" class="extra-details">
-              <ion-icon class="icon-detail" name="trending-up"></ion-icon>
-              {{ currentTrek.properties.ascent }} m
+              <ion-icon
+                class="icon-detail"
+                name="trending-up"
+                [attr.aria-label]="'trek.details.height' | translate"
+              ></ion-icon>
+              {{ currentTrek.properties.ascent }}m
             </div>
             <div *ngIf="currentTrek.properties.route" class="extra-details">
               <ion-icon
                 class="icon-detail"
                 name="swap-horizontal-outline"
+                [attr.aria-label]="'trek.details.parcours' | translate"
               ></ion-icon>
               {{ currentTrek.properties.route.name }}
             </div>
@@ -291,13 +307,18 @@
                 *ngIf="currentTrek.properties.difficulty.pictogram"
                 class="icon-detail"
                 [src]="trekExtraDetails.difficulty"
+                alt="{{ 'trek.details.difficulty' | translate }}"
               ></ion-img>
               {{ currentTrek.properties.difficulty.name }}
             </div>
             <div *ngIf="currentTrek.properties.length" class="extra-details">
-              <ion-icon class="icon-detail" name="resize"></ion-icon>
-              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr' }}
-              km
+              <ion-icon
+                class="icon-detail"
+                name="resize"
+                [attr.aria-label]="'trek.details.length' | translate"
+              ></ion-icon>
+              {{ currentTrek.properties.length / 1000 | number: '1.1-1':'fr'
+              }}km
             </div>
             <div *ngIf="currentTrek.properties.practice" class="extra-details">
               <ion-img
@@ -305,6 +326,7 @@
                 [style.background-color]="currentTrek.properties.practice.color"
                 class="icon-detail"
                 [src]="trekExtraDetails.practice"
+                alt="{{ 'trek.details.category' | translate }}"
               ></ion-img>
               {{ currentTrek.properties.practice.name }}
             </div>
@@ -316,7 +338,7 @@
         >
           <ion-col size="12">
             <ion-text color="primary">
-              <h5>{{ 'trek.details.theme' | translate }}</h5>
+              <h3>{{ 'trek.details.theme' | translate }}</h3>
             </ion-text>
           </ion-col>
           <ion-col size="6" *ngFor="let theme of trekExtraDetails.themes">
@@ -325,6 +347,7 @@
                 *ngIf="theme.pictogram"
                 class="icon-detail"
                 [src]="theme.url"
+                aria-hidden="true"
               ></ion-img>
               {{ theme.name }}
             </div>
@@ -348,13 +371,14 @@
               *ngIf="currentTrek.properties.networks && currentTrek.properties.networks.length > 0"
             >
               <ion-text color="primary">
-                <h5 class="inline">Balisage</h5>
+                <h3 class="inline">Balisage</h3>
               </ion-text>
               <div *ngFor="let network of trekExtraDetails.networks">
                 <ion-img
                   *ngIf="network.pictogram"
                   class="icon-detail"
                   [src]="network.url"
+                  aria-hidden="true"
                 ></ion-img>
                 <span>{{ network.name }}</span>
               </div>
@@ -402,7 +426,10 @@
               </h2>
             </ion-text>
             <div>
-              <ion-img [src]="trekExtraDetails.profile"></ion-img>
+              <ion-img
+                [src]="trekExtraDetails.profile"
+                aria-hidden="true"
+              ></ion-img>
             </div>
           </ion-col>
         </ion-row>
@@ -416,7 +443,11 @@
             </ion-text>
             <p>{{ 'trek.details.rulesDescription' | translate }}</p>
             <div *ngIf="showImgRulesIfParkCentered">
-              <ion-img src="assets/image/reglementation.jpg" alt="rules">
+              <ion-img
+                src="assets/image/reglementation.jpg"
+                alt="rules"
+                aria-hidden="true"
+              >
               </ion-img>
             </div>
           </ion-col>
@@ -472,6 +503,7 @@
                 class="min-size-img"
                 *ngIf="information_desk.picture && information_desk.picture !== ''"
                 [src]="mobileApiUrl + information_desk.picture"
+                aria-hidden="true"
               ></ion-img>
               <div [innerHTML]="information_desk.description"></div>
               <div [innerHTML]="information_desk.street"></div>

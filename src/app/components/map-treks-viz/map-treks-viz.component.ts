@@ -12,11 +12,7 @@ import {
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { Platform, ModalController, AlertController } from '@ionic/angular';
 import { Feature, Geometry, Point } from 'geojson';
-import {
-  GeoJSONSource,
-  Map,
-  Marker
-} from 'maplibre-gl';
+import { GeoJSONSource, Map, Marker } from 'maplibre-gl';
 import { Observable, Subscription } from 'rxjs';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
@@ -68,7 +64,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const changesCurrentTreks: SimpleChange = changes["filteredTreks"];
+    const changesCurrentTreks: SimpleChange = changes['filteredTreks'];
     if (changesCurrentTreks) {
       if (
         changesCurrentTreks.currentValue &&
@@ -140,7 +136,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
       });
 
       const bounds: any = coordinates.reduce(
-        (bounds, coord:any) => bounds.extend(coord),
+        (bounds, coord: any) => bounds.extend(coord),
         new maplibregl.LngLatBounds(coordinates[0], coordinates[0])
       );
 
@@ -349,19 +345,16 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
 
       const featureProperties = features[0].properties;
       if (!!featureProperties) {
-        const clusterId = featureProperties["cluster_id"];
+        const clusterId = featureProperties['cluster_id'];
 
         if (this.map.getZoom() === this.mapConfig.maxZoom) {
           (
             this.map.getSource('treks-points') as GeoJSONSource
           ).getClusterLeaves(
-            featureProperties["cluster_id"],
+            featureProperties['cluster_id'],
             Infinity,
             0,
-            (
-              err: any,
-              featuresInCluster: any
-            ) => {
+            (err: any, featuresInCluster: any) => {
               if (err) {
                 throw err;
               }
@@ -395,7 +388,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         layers: ['trek-point']
       })[0];
       if (!!feature.properties) {
-        this.navigateToTrek.emit(feature.properties["id"]);
+        this.navigateToTrek.emit(feature.properties['id']);
       }
     });
 

@@ -29,6 +29,9 @@ export class TrekCardComponent implements OnInit {
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
   public hideImgSrc = false;
+  public days!: number;
+  public hours!: number;
+  public minutes!: number;
 
   constructor(
     public offlineTreks: OfflineTreksService,
@@ -68,6 +71,16 @@ export class TrekCardComponent implements OnInit {
       this.routerLink = `/trek-details${this.offline ? '-offline' : ''}/${
         this.trek.properties.id
       }`;
+    }
+    if (this.hydratedTrek.properties.duration) {
+      if (this.hydratedTrek.properties.duration < 24) {
+        this.hours = this.hydratedTrek.properties.duration;
+        if (this.hydratedTrek.properties.duration % 1 > 0) {
+          this.minutes = 60 * (this.hydratedTrek.properties.duration % 1);
+        }
+      } else {
+        this.days = this.hydratedTrek.properties.duration / 24;
+      }
     }
   }
 

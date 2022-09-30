@@ -81,11 +81,10 @@ export class TrekMapPage implements OnInit {
         ]): Promise<any> => {
           this.connectionError = false;
 
-          const mapConfig: any =
-            await treksService.getMapConfigForTrekById(
-              isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
-              offline
-            );
+          const mapConfig: any = await treksService.getMapConfigForTrekById(
+            isStage && parentId ? (parentTrek as Trek) : (trek as Trek),
+            offline
+          );
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
             trek!,

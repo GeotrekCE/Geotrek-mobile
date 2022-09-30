@@ -90,7 +90,7 @@ export class GeolocateService {
   async getCurrentPosition() {
     return new Promise(async (resolve) => {
       if (this.platform.is('ios') || this.platform.is('android')) {
-        let last_location:any;
+        let last_location: any;
         BackgroundGeolocation.addWatcher(
           {
             requestPermissions: true,
