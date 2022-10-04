@@ -390,10 +390,10 @@ export class TrekDetailsPage implements OnInit {
     if (this.platform.is('ios') || this.platform.is('android')) {
       const url =
         environment.randoVersion === 3
-          ? `${environment.randoUrl}${this.translate.getDefaultLang()}/trek/${
+          ? `${environment.randoUrl}/${this.translate.getDefaultLang()}/trek/${
               this.currentTrek.properties.id
             }-${this.currentTrek.properties.slug}/`
-          : `${environment.randoUrl}${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
+          : `${environment.randoUrl}/${this.currentTrek.properties.practice.slug}/${this.currentTrek.properties.slug}/`;
       const sharingOptions = {
         text: this.currentTrek.properties.name,
         title: environment.appName,
