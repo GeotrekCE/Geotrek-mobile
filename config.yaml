@@ -1,7 +1,7 @@
 platforms:
   android:
-    versionName: 3.10.0
-    versionCode: 301000
+    versionName: 3.10.1
+    versionCode: 301010
     manifest:
       - file: AndroidManifest.xml
         target: manifest/application
@@ -20,8 +20,8 @@ platforms:
   ios:
     targets:
       App:
-        version: 3.10.0
-        buildNumber: 301000
+        version: 3.10.1
+        buildNumber: 301010
         plist:
           - replace: true
             entries:
