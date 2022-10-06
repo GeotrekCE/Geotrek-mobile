@@ -6,8 +6,15 @@ import { IonicModule } from '@ionic/angular';
 import { SharedTreksModule } from '@app/shared/shared-treks.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { TreksPage } from './treks.page';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: TreksPage
+  }
+];
 
 @NgModule({
   imports: [
@@ -15,7 +22,7 @@ import { TreksPage } from './treks.page';
     IonicModule,
     SharedTreksModule,
     SharedUiModule,
-    RouterModule.forChild([]),
+    RouterModule.forChild(routes),
     TranslateModule.forChild()
   ],
   declarations: [TreksPage]

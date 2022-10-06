@@ -32,6 +32,7 @@ export class TreksMapPage implements OnInit, OnDestroy {
   private treksTool!: TreksService | TreksServiceOffline;
   public treksUrl!: string;
   public appName: string = environment.appName;
+  public menuNavigation: boolean = !(environment.navigation === 'tabs');
   public mapConfig: any;
   public commonSrc!: string;
   public canDisplayMap = false;

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TreksPage } from '../treks/treks.page';
+import { RouterModule } from '@angular/router';
+import { environment } from '@env/environment';
 import { TabsPage } from './tabs.page';
 
-const routes: Routes = [
+const tabsRoutes = [
   {
     path: 'tabs',
     component: TabsPage,
@@ -13,7 +13,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: TreksPage
+            loadChildren: () =>
+              import('../treks/treks.module').then((m) => m.TreksPageModule)
           }
         ]
       },
@@ -22,7 +23,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: TreksPage,
+            loadChildren: () =>
+              import('../treks/treks.module').then((m) => m.TreksPageModule),
             data: { offline: true }
           }
         ]
@@ -38,16 +40,34 @@ const routes: Routes = [
         ]
       }
     ]
+  }
+];
+
+const menuRoutes = [
+  {
+    path: 'tabs/treks',
+    loadChildren: () =>
+      import('../treks/treks.module').then((m) => m.TreksPageModule)
   },
   {
-    path: '',
-    redirectTo: '/tabs/treks',
-    pathMatch: 'full'
+    path: 'tabs/treks-offline',
+    loadChildren: () =>
+      import('../treks/treks.module').then((m) => m.TreksPageModule),
+    data: { offline: true }
+  },
+  {
+    path: 'tabs/more',
+    loadChildren: () =>
+      import('../more/more.module').then((m) => m.MorePageModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(
+      environment.navigation === 'tabs' ? tabsRoutes : menuRoutes
+    )
+  ],
   exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

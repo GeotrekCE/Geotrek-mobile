@@ -8,6 +8,7 @@ export const environment = {
   randoUrl: '',
   randoVersion: 3,
   availableLanguage: ['fr', 'en'],
+  navigation: 'tabs',
   onlineMapConfig: {
     attributionControl: false,
     style: {

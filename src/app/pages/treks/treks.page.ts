@@ -34,6 +34,7 @@ import { TreksOrderComponent } from '@app/components/treks-order/treks-order.com
 })
 export class TreksPage implements OnInit, OnDestroy {
   public appName: string = environment.appName;
+  public menuNavigation: boolean = !(environment.navigation === 'tabs');
   public treksByStep: number = environment.treksByStep;
   public colSize = environment.colSize;
   public filteredTreks!: MinimalTrek[];

@@ -13,6 +13,7 @@ import { from } from 'rxjs';
 })
 export class MorePage implements OnInit {
   public appName: string = environment.appName;
+  public menuNavigation: boolean = !(environment.navigation === 'tabs');
   moreInformationsIntro!: InformationIntro[];
   connectionError = false;
 
