@@ -20,7 +20,9 @@
             ' : ',
             hydratedTrek.properties.duration < 24
               ? !minutes
-                ? (hours | lowerRound | number: '1.0-0')!.concat('h')
+                ? hours
+                  ? (hours | lowerRound | number: '1.0-0')!.concat('h')
+                  : ''
                 : (hours | lowerRound | number: '1.0-0')!.concat(
                     'h',
                     (minutes | lowerRound | number: '1.0-0')!,
@@ -50,7 +52,9 @@
       (ionError)="onImgSrcError()"
       aria-hidden="true"
     ></ion-img>
-    <ion-card-header [ngClass]="{ 'minimize-padding': !showAllData }">
+    <ion-card-header
+      [ngClass]="{ 'minimize-padding': !showAllData, 'ion-text-left': isStage }"
+    >
       <ion-card-title [ngClass]="{ 'minimize-title': !showAllData }">
         {{
           isStage
@@ -62,7 +66,9 @@
     </ion-card-header>
   </div>
   <div>
-    <ion-card-content [ngClass]="{ 'minimize-padding': !showAllData }">
+    <ion-card-content
+      [ngClass]="{ 'minimize-padding': !showAllData, 'ion-text-left': isStage }"
+    >
       <div *ngIf="hydratedTrek.properties.departure">
         <div class="ellipsis">{{ 'treks.departure' | translate }}</div>
         <div class="ellipsis">
@@ -100,8 +106,9 @@
           *ngIf="showAllData && hydratedTrek.properties.duration"
         >
           <div *ngIf="hydratedTrek.properties.duration < 24; else showDays">
-            {{ hours | lowerRound | number: '1.0-0' }}h
-            <span *ngIf="minutes">{{ minutes | number: '1.0-0' }}min </span>
+            {{ hours | lowerRound | number: '1.0-0' }}h<span *ngIf="minutes"
+              >{{ minutes | number: '1.0-0' }}min
+            </span>
           </div>
           <ng-template #showDays> {{ days | number: '1.0-0' }}j </ng-template>
         </div>

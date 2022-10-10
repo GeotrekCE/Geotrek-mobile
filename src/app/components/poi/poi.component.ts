@@ -9,6 +9,8 @@ import {
   Property
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
+import { PoiDetailsComponent } from '../poi-details/poi-details.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-poi',
@@ -16,7 +18,7 @@ import { environment } from '@env/environment';
   styleUrls: ['./poi.component.scss']
 })
 export class PoiComponent implements OnChanges {
-  @Input() public poi!: Poi;
+  @Input() public poi!: Poi | any;
   @Input() public offline = false;
   @Input() public commonSrc!: string;
   @Input() public typePois: DataSetting | undefined;
@@ -30,7 +32,8 @@ export class PoiComponent implements OnChanges {
 
   constructor(
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService
+    public onlineTreks: OnlineTreksService,
+    private modalController: ModalController
   ) {}
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -79,5 +82,18 @@ export class PoiComponent implements OnChanges {
     } else {
       this.hideImgPracticeSrc = true;
     }
+  }
+
+  public async presentPoiDetails(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: PoiDetailsComponent,
+      componentProps: {
+        poi: this.poi,
+        offline: this.offline,
+        commonSrc: this.commonSrc
+      }
+    });
+
+    return await modal.present();
   }
 }

@@ -93,11 +93,11 @@
     </ion-fab>
 
     <div *ngIf="currentTrek">
-      <ion-slides
+      <swiper
         *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0"
-        pager="true"
+        [pagination]="true"
       >
-        <ion-slide *ngFor="let picture of pictures">
+        <ng-template swiperSlide *ngFor="let picture of pictures">
           <div
             style="
               display: flex;
@@ -111,13 +111,13 @@
               [alt]="picture.title"
               aria-hidden="true"
             ></ion-img>
-            <div class="ion-padding-top legend-text">
-              {{ picture!.legend }}
-              <span *ngIf="!!picture.author">({{ picture!.author }})</span>
+            <div class="legend-text legend-slide-margin">
+              {{ picture.legend }}
+              <span *ngIf="picture.author">({{ picture.author }})</span>
             </div>
           </div>
-        </ion-slide>
-      </ion-slides>
+        </ng-template>
+      </swiper>
 
       <ion-grid fixed>
         <ion-row *ngIf="currentTrek.properties.description_teaser">
@@ -342,7 +342,7 @@
             </ion-text>
           </ion-col>
           <ion-col size="6" *ngFor="let theme of trekExtraDetails.themes">
-            <div>
+            <div class="theme-container">
               <ion-img
                 *ngIf="theme.pictogram"
                 class="icon-detail"
@@ -373,7 +373,10 @@
               <ion-text color="primary">
                 <h3 class="inline">Balisage</h3>
               </ion-text>
-              <div *ngFor="let network of trekExtraDetails.networks">
+              <div
+                *ngFor="let network of trekExtraDetails.networks"
+                class="network-container"
+              >
                 <ion-img
                   *ngIf="network.pictogram"
                   class="icon-detail"
@@ -397,9 +400,9 @@
                   </h2>
                 </ion-text>
               </div>
-              <div class="treks-card-container" scrollx="true">
-                <div
-                  class="scroll-trek-item"
+              <swiper [slidesPerView]="'auto'">
+                <ng-template
+                  swiperSlide
                   *ngFor="let trek of currentTrek.properties.children.features; index as indexStage"
                 >
                   <app-trek-card
@@ -410,8 +413,8 @@
                     [trek]="trek"
                     [offline]="offline"
                   ></app-trek-card>
-                </div>
-              </div>
+                </ng-template>
+              </swiper>
             </ion-col>
           </ion-row>
         </div>
@@ -492,33 +495,21 @@
           <ion-col>
             <ion-text color="primary">
               <h2 class="custom-divider">
-                {{ 'trek.details.desk' | translate }}
+                {{ 'trek.details.desk' | translate }} ({{
+                currentTrek.properties.information_desks.length }})
               </h2>
             </ion-text>
-            <div
-              *ngFor="let information_desk of currentTrek.properties.information_desks"
-            >
-              <h3 [innerHTML]="information_desk.name"></h3>
-              <ion-img
-                class="min-size-img"
-                *ngIf="information_desk.picture && information_desk.picture !== ''"
-                [src]="mobileApiUrl + information_desk.picture"
-                aria-hidden="true"
-              ></ion-img>
-              <div [innerHTML]="information_desk.description"></div>
-              <div [innerHTML]="information_desk.street"></div>
-              <p>
-                {{ information_desk.postal_code }} {{
-                information_desk.municipality }}
-              </p>
-              <p>
-                <a [href]="information_desk.website"> Site web </a> -
-                <a [href]="'mailto:' + information_desk.email"> Email </a> -
-                <a [href]="'tel:' + information_desk.phone"
-                  >{{ information_desk.phone }}</a
-                >
-              </p>
-            </div>
+            <swiper [slidesPerView]="'auto'">
+              <ng-template
+                swiperSlide
+                *ngFor="let information_desk of currentTrek.properties.information_desks"
+              >
+                <app-information-desk
+                  [informationDesk]="information_desk"
+                  [offline]="offline"
+                ></app-information-desk>
+              </ng-template>
+            </swiper>
           </ion-col>
         </ion-row>
 
@@ -531,23 +522,16 @@
               </h2>
             </ion-text>
 
-            <ng-template #poiTemplate let-poi="item">
-              <app-poi
-                [poi]="poi"
-                [commonSrc]="commonSrc"
-                [typePois]="typePois"
-                [offline]="offline"
-              ></app-poi>
-            </ng-template>
-
-            <app-collapsible-list
-              [items]="currentPois"
-              [showAllLabel]="'trek.details.poi.showAllLabel' | translate"
-              [hideAllLabel]="'trek.details.poi.hideAllLabel' | translate"
-              [itemTemplate]="poiTemplate"
-              [initialSize]="poiCollapseInitialSize"
-            >
-            </app-collapsible-list>
+            <swiper [slidesPerView]="'auto'">
+              <ng-template swiperSlide *ngFor="let currentPoi of currentPois">
+                <app-poi
+                  [poi]="currentPoi"
+                  [commonSrc]="commonSrc"
+                  [typePois]="typePois"
+                  [offline]="offline"
+                ></app-poi>
+              </ng-template>
+            </swiper>
           </ion-col>
         </ion-row>
 
@@ -565,21 +549,17 @@
                 </h2>
               </ion-text>
 
-              <ng-template
-                #touristicContentTemplate
-                let-touristicContent="item"
-              >
-                <app-poi [poi]="touristicContent" [offline]="offline"></app-poi>
-              </ng-template>
-
-              <app-collapsible-list
-                [items]="touristicCategoryWithFeatures.features"
-                [showAllLabel]="'trek.details.touristicContent.showAllLabel' | translate"
-                [hideAllLabel]="'trek.details.touristicContent.hideAllLabel' | translate"
-                [itemTemplate]="touristicContentTemplate"
-                [initialSize]="touristicContentCollapseInitialSize"
-              >
-              </app-collapsible-list>
+              <swiper [slidesPerView]="'auto'">
+                <ng-template
+                  swiperSlide
+                  *ngFor="let touristicContent of touristicCategoryWithFeatures.features"
+                >
+                  <app-poi
+                    [poi]="touristicContent"
+                    [offline]="offline"
+                  ></app-poi>
+                </ng-template>
+              </swiper>
             </ion-col>
           </ion-row>
         </div>

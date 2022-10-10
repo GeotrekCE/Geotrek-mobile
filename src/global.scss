@@ -11,6 +11,52 @@
 
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
+@import '~swiper/scss';
+@import '~@ionic/angular/css/ionic-swiper';
+@import '~swiper/scss';
+@import '~swiper/scss/autoplay';
+@import '~swiper/scss/keyboard';
+@import '~swiper/scss/pagination';
+@import '~swiper/scss/scrollbar';
+@import '~swiper/scss/zoom';
+@import '~@ionic/angular/css/ionic-swiper';
+
+app-trek-details {
+  .swiper {
+    .swiper-pagination {
+      bottom: 0px !important;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swiper-slide {
+      width: 80%;
+    }
+  }
+}
+
 .map-viz {
   position: absolute;
   top: 0;
@@ -118,15 +164,6 @@ app-trek-card {
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-    }
-  }
-}
-
-app-trek-details {
-  ion-slides {
-    .swiper-pagination {
-      position: relative;
-      margin-top: 16px;
     }
   }
 }

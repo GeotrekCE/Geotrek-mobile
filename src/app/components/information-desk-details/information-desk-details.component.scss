@@ -1,0 +1,17 @@
+ion-header {
+  ion-button {
+    height: 48px;
+  }
+  .custom-title {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
+    margin-top: 10px;
+  }
+}
+
+ion-card {
+  margin: 0px;
+  box-shadow: none;
+  border-radius: 0px;
+}

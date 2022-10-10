@@ -5,7 +5,7 @@ ion-card {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  .img-header {
+  ion-img {
     width: 100%;
     &::part(image) {
       height: 200px;
@@ -35,19 +35,8 @@ ion-card {
       --padding-end: 0px;
     }
   }
-  .legend-container {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
   .card-header-container {
     display: flex;
     align-items: center;
-    .img-type {
-      max-width: 32px;
-      max-height: 32px;
-      margin-right: 16px;
-    }
   }
 }

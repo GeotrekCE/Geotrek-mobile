@@ -33,7 +33,6 @@ export class TrekMapPage implements OnInit {
   public touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
   public trekUrl = '';
   public connectionError = false;
-  public modalPoiDetails!: HTMLIonModalElement | null;
   public mapConfig: any;
   public commonSrc!: string;
   public offline = false;
@@ -137,21 +136,12 @@ export class TrekMapPage implements OnInit {
   }
 
   public async presentPoiDetails(poi: Poi): Promise<void> {
-    if (this.modalPoiDetails) {
-      await this.modalPoiDetails.dismiss();
-    }
-
-    this.modalPoiDetails = await this.modalController.create({
+    const modal = await this.modalController.create({
       component: PoiDetailsComponent,
-      componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc },
-      cssClass: 'full-size'
+      componentProps: { poi, offline: this.offline, commonSrc: this.commonSrc }
     });
 
-    this.modalPoiDetails.onDidDismiss().then(() => {
-      this.modalPoiDetails = null;
-    });
-
-    return await this.modalPoiDetails.present();
+    return await modal.present();
   }
 
   public async presentInformationDeskDetails(
@@ -159,7 +149,7 @@ export class TrekMapPage implements OnInit {
   ): Promise<void> {
     const modal = await this.modalController.create({
       component: InformationDeskDetailsComponent,
-      componentProps: { informationDesk }
+      componentProps: { informationDesk, offline: this.offline }
     });
     return await modal.present();
   }

@@ -1,9 +1,11 @@
 <ion-card>
   <ion-img
-    *ngIf="picture && picture.url !== ''; else displayIcon"
-    [src]="picture!.url"
+    *ngIf="
+      informationDesk.picture && informationDesk.picture !== '';
+      else displayIcon
+    "
+    [src]="picture"
     aria-hidden="true"
-    class="img-header"
   ></ion-img>
   <ng-template #displayIcon>
     <div class="display-icon-container">
@@ -12,20 +14,15 @@
   </ng-template>
   <ion-card-header class="ion-text-left">
     <div class="card-header-container">
-      <ion-img
-        class="img-type"
-        *ngIf="typeImgSrc && !hideImgPracticeSrc"
-        [src]="typeImgSrc"
-        (ionError)="onImgPracticeSrcError()"
-        [attr.aria-label]="currentTypePoi.label"
-      ></ion-img>
       <ion-card-title>
-        <h3 class="ion-no-margin">{{ poi.properties.name }}</h3>
+        <h3 class="ion-no-margin">
+          {{ informationDesk.name }}
+        </h3>
       </ion-card-title>
     </div>
   </ion-card-header>
   <ion-card-content>
-    <ion-button fill="clear" (click)="presentPoiDetails()"
+    <ion-button fill="clear" (click)="presentInformationDeskDetails()"
       >Plus d'informations</ion-button
     >
   </ion-card-content>

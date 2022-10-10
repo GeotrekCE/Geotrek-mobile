@@ -29,6 +29,10 @@ import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { HttpResponse } from '@capacitor-community/http';
+import SwiperCore, { Pagination } from 'swiper';
+import { IonicSlides } from '@ionic/angular';
+
+SwiperCore.use([Pagination, IonicSlides]);
 
 @Component({
   selector: 'app-trek-details',
@@ -272,7 +276,10 @@ export class TrekDetailsPage implements OnInit {
             const url = await this.getPictureSrc(picture);
             this.pictures.push({
               picture,
-              url
+              url,
+              legend: picture.legend,
+              author: picture.author,
+              title: picture.title
             });
           }
 

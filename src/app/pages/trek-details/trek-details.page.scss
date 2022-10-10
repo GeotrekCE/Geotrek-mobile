@@ -10,7 +10,8 @@
   font-size: 18px;
 }
 
-.extra-details {
+.extra-details,
+.theme-container {
   line-height: 1.5;
   display: flex;
   justify-content: flex-start;
@@ -41,18 +42,9 @@ ion-header {
   color: var(--ion-color-primary-contrast);
 }
 
-div[scrollx='true'] {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -webkit-overflow-scrolling: touch;
-  .scroll-trek-item {
-    flex: 0 0 auto;
-    width: 320px;
-  }
+.scroll-trek-item {
+  flex: 0 0 auto;
+  width: 320px;
 }
 
 .treks-card-container {
@@ -128,4 +120,13 @@ div[scrollx='true'] {
   ion-button {
     width: 100%;
   }
+}
+
+.legend-slide-margin {
+  margin: 16px 16px 24px 16px;
+}
+
+.network-container {
+  display: flex;
+  align-items: center;
 }

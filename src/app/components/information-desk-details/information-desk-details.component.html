@@ -1,19 +1,20 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button (click)="close()">
-        <ion-icon size="large" slot="start" name="close"></ion-icon>
+      <ion-button shape="round" (click)="close()">
+        <ion-icon size="large" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ informationDesk.name }}</ion-title>
+    <h1 class="custom-title">
+      <ion-text> {{ informationDesk.name }}</ion-text>
+    </h1>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-img
-      class="min-size-img"
-      *ngIf="informationDesk.picture !== ''"
+      *ngIf="informationDesk.picture"
       [src]="informationDeskPicture"
     ></ion-img>
     <ion-card-content>

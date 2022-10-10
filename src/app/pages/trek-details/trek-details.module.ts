@@ -8,6 +8,9 @@ import { SharedTreksModule } from '@app/shared/shared-treks.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { TrekDetailsPage } from './trek-details.page';
 import { PoiComponent } from '@app/components/poi/poi.component';
+import { InformationDeskComponent } from '@app/components/information-desk/information-desk.component';
+
+import { SwiperModule } from 'swiper/angular';
 
 const routes: Routes = [
   {
@@ -23,8 +26,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedTreksModule,
     SharedUiModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    SwiperModule
   ],
-  declarations: [TrekDetailsPage, PoiComponent]
+  declarations: [TrekDetailsPage, PoiComponent, InformationDeskComponent]
 })
 export class TrekDetailsPageModule {}

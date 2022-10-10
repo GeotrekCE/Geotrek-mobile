@@ -1,28 +1,20 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button (click)="close()">
-        <ion-icon size="large" slot="start" name="close"></ion-icon>
+      <ion-button shape="round" (click)="close()">
+        <ion-icon size="large" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ poi.properties.name }}</ion-title>
+    <h1 class="custom-title">
+      <ion-text> {{ poi.properties.name }}</ion-text>
+    </h1>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <div *ngIf="picture && picture.url !== ''">
-      <ion-img class="min-size-img" [src]="picture.url"></ion-img>
-      <div class="card-legend ion-padding-start ion-padding-top legend-text">
-        <ion-img
-          *ngIf="typeImgSrc && !this.hideImgPracticeSrc"
-          class="img-legend"
-          [src]="typeImgSrc"
-          (ionError)="onImgPracticeSrcError()"
-        ></ion-img>
-        {{ picture.legend }}
-        <span *ngIf="!!picture.author">({{ picture.author }})</span>
-      </div>
+      <ion-img [src]="picture.url"></ion-img>
     </div>
 
     <ion-card-content>

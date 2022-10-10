@@ -222,7 +222,6 @@ export class SettingsService {
 
   public getHydratedTrek(trek: Trek, commonSrc: string): HydratedTrek {
     const hydratedTrek: HydratedTrek = cloneDeep(trek) as any;
-
     if (trek.properties.difficulty) {
       hydratedTrek.properties.difficulty = this.getValueForPropertyById(
         'difficulty',
