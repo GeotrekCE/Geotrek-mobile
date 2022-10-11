@@ -19,9 +19,7 @@ export const environment = {
         'tiles-background': {
           type: 'raster',
           tiles: [
-            'https://a.tile.opentopomap.org/{z}/{x}/{y}.png',
-            'https://b.tile.opentopomap.org/{z}/{x}/{y}.png',
-            'https://c.tile.opentopomap.org/{z}/{x}/{y}.png'
+            'https://wxs.ign.fr/cartes/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}'
           ],
           tileSize: 256
         }
