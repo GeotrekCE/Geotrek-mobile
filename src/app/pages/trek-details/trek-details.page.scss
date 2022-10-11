@@ -37,6 +37,7 @@ ion-header {
 .custom-divider {
   margin-left: -10px;
   margin-right: -10px;
+  margin-top: 0px;
   padding: 5px 10px 5px 10px;
   background: var(--ion-color-primary) !important;
   color: var(--ion-color-primary-contrast);
@@ -113,12 +114,9 @@ ion-header {
 }
 
 .download-container,
-.share-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.extra-toolbar-container {
   ion-button {
-    width: 100%;
+    flex-grow: 1;
   }
 }
 

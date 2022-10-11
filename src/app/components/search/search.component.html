@@ -25,12 +25,11 @@
   <ng-container>
     <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">
       <ion-item
-        class="ion-activatable"
         *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks"
         (click)="navigateToTrek(trek.properties.id)"
+        detail="true"
       >
         <ion-label>{{ trek.properties.name }}</ion-label>
-        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
       </ion-item>
     </ion-list>
     <ng-template #userMsg>

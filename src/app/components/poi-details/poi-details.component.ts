@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
 
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { Poi, Picture, Trek, Property } from '@app/interfaces/interfaces';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { Subscription } from 'rxjs';
+import { AppLauncher } from '@capacitor/app-launcher';
 
 @Component({
   selector: 'app-poi-details',
@@ -25,13 +26,15 @@ export class PoiDetailsComponent implements OnInit {
   private currentTypePoi!: Property;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
+  public showGoToPoi = environment.showGoToPoi;
 
   constructor(
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public settings: SettingsService,
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService
+    public onlineTreks: OnlineTreksService,
+    private platform: Platform
   ) {}
 
   async ngOnInit() {
@@ -98,6 +101,26 @@ export class PoiDetailsComponent implements OnInit {
       this.typeImgSrc = `${this.commonSrc}${this.currentTypePoi.pictogram}`;
     } else {
       this.hideImgPracticeSrc = true;
+    }
+  }
+
+  async goToPoi() {
+    const point = [
+      this.poi.geometry.coordinates[1],
+      this.poi.geometry.coordinates[0]
+    ].toString();
+
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      (await AppLauncher.canOpenUrl({
+        url: `google.navigation:q=${point}`
+      }))
+    ) {
+      await AppLauncher.openUrl({
+        url: `google.navigation:q=${point}`
+      });
+    } else {
+      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
     }
   }
 }

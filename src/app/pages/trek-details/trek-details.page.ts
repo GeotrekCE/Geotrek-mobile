@@ -31,6 +31,7 @@ import { SettingsService } from '@app/services/settings/settings.service';
 import { HttpResponse } from '@capacitor-community/http';
 import SwiperCore, { Pagination } from 'swiper';
 import { IonicSlides } from '@ionic/angular';
+import { AppLauncher } from '@capacitor/app-launcher';
 
 SwiperCore.use([Pagination, IonicSlides]);
 
@@ -482,5 +483,45 @@ export class TrekDetailsPage implements OnInit {
     });
 
     await deleteConfirm.present();
+  }
+
+  async GoToTrekDeparture() {
+    const point = [
+      this.currentTrek.geometry.coordinates[0][1],
+      this.currentTrek.geometry.coordinates[0][0]
+    ].toString();
+
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      (await AppLauncher.canOpenUrl({
+        url: `google.navigation:q=${point}`
+      }))
+    ) {
+      await AppLauncher.openUrl({
+        url: `google.navigation:q=${point}`
+      });
+    } else {
+      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+    }
+  }
+
+  async GoToAdvisedParking() {
+    const point = [
+      this.currentTrek.properties.parking_location[1],
+      this.currentTrek.properties.parking_location[0]
+    ].toString();
+
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      (await AppLauncher.canOpenUrl({
+        url: `google.navigation:q=${point}`
+      }))
+    ) {
+      await AppLauncher.openUrl({
+        url: `google.navigation:q=${point}`
+      });
+    } else {
+      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+    }
   }
 }

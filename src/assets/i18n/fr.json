@@ -99,7 +99,10 @@
       },
       "informationDesk": { "website": "Site web" },
       "usefulInformation": "Information pratiques",
-      "contact": "Contact"
+      "contact": "Contact",
+      "goToDeparture": "Aller au départ",
+      "goToAdvisedParking": "Aller au parking",
+      "goThere": "Y aller"
     }
   },
   "treks": {

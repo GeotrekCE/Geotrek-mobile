@@ -20,7 +20,7 @@
         [attr.aria-label]="currentTypePoi.label"
       ></ion-img>
       <ion-card-title>
-        <h3 class="ion-no-margin">{{ poi.properties.name }}</h3>
+        <h3 class="ion-no-margin" [innerHTML]="poi.properties.name"></h3>
       </ion-card-title>
     </div>
   </ion-card-header>

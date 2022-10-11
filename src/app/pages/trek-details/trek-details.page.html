@@ -49,10 +49,22 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-buttons *ngIf="currentTrek" class="share-container">
-      <ion-button (click)="shareTrek()" expand="full">
+    <ion-buttons *ngIf="currentTrek" class="extra-toolbar-container">
+      <ion-button (click)="GoToTrekDeparture()">
+        {{ 'trek.details.goToDeparture' | translate }}
+        <ion-icon
+          slot="start"
+          name="return-up-forward"
+          aria-hidden="true"
+        ></ion-icon>
+      </ion-button>
+      <ion-button (click)="shareTrek()">
         {{ 'trek.share' | translate }}
-        <ion-icon slot="start" name="share" aria-hidden="true"></ion-icon>
+        <ion-icon
+          slot="start"
+          name="share-social"
+          aria-hidden="true"
+        ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -87,7 +99,7 @@
       horizontal="end"
       slot="fixed"
     >
-      <ion-fab-button class="no-outline" [routerLink]="mapLink">
+      <ion-fab-button class="no" [routerLink]="mapLink">
         <ion-icon name="map"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -292,7 +304,7 @@
             <div *ngIf="currentTrek.properties.route" class="extra-details">
               <ion-icon
                 class="icon-detail"
-                name="swap-horizontal-outline"
+                name="swap-horizontal"
                 [attr.aria-label]="'trek.details.parcours' | translate"
               ></ion-icon>
               {{ currentTrek.properties.route.name }}
@@ -475,6 +487,18 @@
               </h2>
             </ion-text>
             <div [innerHTML]="currentTrek.properties.advised_parking"></div>
+            <ion-button
+              *ngIf="currentTrek.properties.parking_location"
+              fill="clear"
+              (click)="GoToAdvisedParking()"
+            >
+              {{ 'trek.details.goToAdvisedParking' | translate }}
+              <ion-icon
+                slot="start"
+                name="return-up-forward"
+                aria-hidden="true"
+              ></ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
 

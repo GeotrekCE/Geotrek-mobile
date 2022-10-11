@@ -9,6 +9,7 @@ export const environment = {
   randoVersion: 3,
   availableLanguage: ['fr', 'en'],
   navigation: 'tabs',
+  showGoToPoi: false,
   onlineMapConfig: {
     attributionControl: false,
     style: {
@@ -71,8 +72,7 @@ export const environment = {
     zoom: 13
   },
   map: {
-    attributionText:
-      '<a href="https://openstreetmap.org/copyright">© OpenStreetMap contributors</a> | <a href="https://opentopomap.org">© OpenTopoMap </a>',
+    attributionText: '© IGN',
     TreksfitBoundsOptions: { animate: false, padding: 50 },
     TrekfitBoundsOptions: { animate: false, padding: 75 },
     globalMapIconSize: 1,

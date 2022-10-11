@@ -98,7 +98,10 @@
       },
       "informationDesk": { "website": "Website" },
       "usefulInformation": "Praktische Informationen",
-      "contact": "Kontakt"
+      "contact": "Kontakt",
+      "goToDeparture": "Gehen Sie zur Abfahrt",
+      "goToAdvisedParking": "Gehen Sie zum Parkplatz",
+      "goThere": "Dorthin gehen"
     }
   },
   "treks": {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
 
 import { InformationDesk, Trek } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
+import { AppLauncher } from '@capacitor/app-launcher';
 
 @Component({
   selector: 'app-information-desk-details',
@@ -19,7 +20,8 @@ export class InformationDeskDetailsComponent implements OnInit {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public offlineTreks: OfflineTreksService,
-    public onlineTreks: OnlineTreksService
+    public onlineTreks: OnlineTreksService,
+    private platform: Platform
   ) {}
 
   async ngOnInit() {
@@ -44,5 +46,25 @@ export class InformationDeskDetailsComponent implements OnInit {
 
   close(): void {
     this.modalCtrl.dismiss();
+  }
+
+  async goToInformationDesk() {
+    const point = [
+      this.informationDesk.latitude,
+      this.informationDesk.longitude
+    ].toString();
+
+    if (
+      (this.platform.is('ios') || this.platform.is('android')) &&
+      (await AppLauncher.canOpenUrl({
+        url: `google.navigation:q=${point}`
+      }))
+    ) {
+      await AppLauncher.openUrl({
+        url: `google.navigation:q=${point}`
+      });
+    } else {
+      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+    }
   }
 }

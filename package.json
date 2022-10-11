@@ -18,6 +18,7 @@
     "@capacitor-community/http": "git+https://github.com/GeotrekCE/http.git#1824e80679aa68081360a841ad4f95fbc932347d",
     "@capacitor/android": "^4.3.0",
     "@capacitor/app": "4.0.1",
+    "@capacitor/app-launcher": "^4.0.1",
     "@capacitor/core": "4.3.0",
     "@capacitor/device": "^4.0.1",
     "@capacitor/filesystem": "^4.1.2",
