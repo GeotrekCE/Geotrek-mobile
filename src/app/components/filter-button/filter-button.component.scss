@@ -1,0 +1,24 @@
+.filter-button {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  border-radius: 12px;
+  margin-top: 12px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
+    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px;
+  user-select: none;
+  cursor: pointer;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  div {
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
+    text-align: center;
+  }
+}

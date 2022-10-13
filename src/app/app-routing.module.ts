@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { environment } from '@env/environment';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule)
   },
@@ -90,6 +91,12 @@ const routes: Routes = [
       import('./pages/more/more-item/more-item.module').then(
         (m) => m.MoreItemPageModule
       )
+  },
+  {
+    path: '',
+    redirectTo:
+      environment.navigation === 'tabs' ? '/tabs/treks' : '/tabs/home',
+    pathMatch: 'full'
   }
 ];
 

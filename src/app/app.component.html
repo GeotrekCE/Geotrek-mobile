@@ -7,7 +7,30 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-menu-toggle routerLink="tabs/treks" class="pointer">
+        <ion-menu-toggle
+          routerLink="tabs/home"
+          class="pointer"
+          [ngClass]="{
+            'selected-menu':
+              this.currentRoute === '/tabs/home' || this.currentRoute === '/'
+          }"
+        >
+          <ion-item>
+            <ion-icon name="home" slot="start"></ion-icon
+            ><ion-label>
+              {{ 'tabbar.home' | translate }}
+            </ion-label></ion-item
+          >
+        </ion-menu-toggle>
+        <ion-menu-toggle
+          routerLink="tabs/treks"
+          class="pointer"
+          [ngClass]="{
+            'selected-menu':
+              this.currentRoute === '/tabs/treks' ||
+              this.currentRoute === '/treks-map'
+          }"
+        >
           <ion-item>
             <ion-icon name="walk" slot="start"></ion-icon
             ><ion-label>
@@ -15,13 +38,25 @@
             </ion-label></ion-item
           >
         </ion-menu-toggle>
-        <ion-menu-toggle routerLink="tabs/treks-offline" class="pointer">
+        <ion-menu-toggle
+          routerLink="tabs/treks-offline"
+          class="pointer"
+          [ngClass]="{
+            'selected-menu':
+              this.currentRoute === '/tabs/treks-offline' ||
+              this.currentRoute === '/treks-offline-map'
+          }"
+        >
           <ion-item>
             <ion-icon name="save" slot="start"></ion-icon
             ><ion-label>{{ 'tabbar.offline' | translate }}</ion-label></ion-item
           >
         </ion-menu-toggle>
-        <ion-menu-toggle routerLink="tabs/more" class="pointer">
+        <ion-menu-toggle
+          routerLink="tabs/more"
+          class="pointer"
+          [ngClass]="{ 'selected-menu': this.currentRoute === '/tabs/more' }"
+        >
           <ion-item>
             <ion-icon name="information-circle-outline" slot="start"></ion-icon
             ><ion-label>{{ 'tabbar.more' | translate }}</ion-label></ion-item

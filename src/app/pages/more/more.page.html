@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-menu-button *ngIf="menuNavigation" slot="start"></ion-menu-button>
-    <ion-title> {{ appName }} </ion-title>
+    <ion-title
+      >{{ !menuNavigation ? appName : ('tabbar.more' | translate) }}</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 

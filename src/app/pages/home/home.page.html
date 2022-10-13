@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-menu-button *ngIf="menuNavigation" slot="start"></ion-menu-button>
+    <ion-title
+      >{{ !menuNavigation ? appName : ('tabbar.home' | translate) }}</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>{{'home.selectPractice' | translate}}</h1>
+  <div class="filter-buttons-container">
+    <ng-container *ngFor="let practiceValue of practiceValues">
+      <app-filter-button
+        [value]="practiceValue"
+        (filterAndGo)="filterAndGo($event)"
+      ></app-filter-button>
+    </ng-container>
+  </div>
+</ion-content>

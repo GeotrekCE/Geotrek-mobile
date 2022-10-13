@@ -5,7 +5,7 @@ import { TabsPage } from './tabs.page';
 
 const tabsRoutes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -45,18 +45,23 @@ const tabsRoutes = [
 
 const menuRoutes = [
   {
-    path: 'tabs/treks',
+    path: 'home',
+    loadChildren: () =>
+      import('../home/home.module').then((m) => m.HomePageModule)
+  },
+  {
+    path: 'treks',
     loadChildren: () =>
       import('../treks/treks.module').then((m) => m.TreksPageModule)
   },
   {
-    path: 'tabs/treks-offline',
+    path: 'treks-offline',
     loadChildren: () =>
       import('../treks/treks.module').then((m) => m.TreksPageModule),
     data: { offline: true }
   },
   {
-    path: 'tabs/more',
+    path: 'more',
     loadChildren: () =>
       import('../more/more.module').then((m) => m.MorePageModule)
   }
@@ -65,7 +70,7 @@ const menuRoutes = [
 @NgModule({
   imports: [
     RouterModule.forChild(
-      environment.navigation === 'tabs' ? tabsRoutes : menuRoutes
+      (environment.navigation === 'tabs' ? tabsRoutes : menuRoutes) as any
     )
   ],
   exports: [RouterModule]

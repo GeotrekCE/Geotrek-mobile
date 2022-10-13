@@ -8,9 +8,13 @@
     "orderByRandom": "Zufällig"
   },
   "tabbar": {
+    "home": "Home",
     "treks": "Randonnées",
     "offline": "Offline",
     "more": "Informationen"
+  },
+  "home": {
+    "selectPractice": "Wählen Sie eine Praxis"
   },
   "search": {
     "title": "Suche",

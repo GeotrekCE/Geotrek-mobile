@@ -242,3 +242,10 @@ ion-fab-button {
   width: 100%;
   height: 100%;
 }
+
+.selected-menu {
+  ion-icon,
+  ion-item {
+    color: var(--ion-color-primary);
+  }
+}

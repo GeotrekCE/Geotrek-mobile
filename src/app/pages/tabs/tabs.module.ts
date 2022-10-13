@@ -7,16 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { TabsPage } from './tabs.page';
 import { TabsPageRoutingModule } from './tabs.routing.module';
-import { TreksPageModule } from '../treks/treks.module';
-import { MorePageModule } from '../more/more.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     TabsPageRoutingModule,
-    TreksPageModule,
-    MorePageModule,
     TranslateModule.forChild(),
     SharedUiModule
   ],
