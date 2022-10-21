@@ -10,7 +10,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
-import { Observable, Subscription } from 'rxjs';
+import { BackgroundGeolocateService } from '@app/services/geolocate/background-geolocate.service';
+import { Observable, Subscription, forkJoin } from 'rxjs';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import {
   PopoverController,
@@ -63,6 +64,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   @Input() mapConfig: any;
   @Input() commonSrc!: string;
   @Input() offline!: boolean;
+  @Input() notificationsModeIsActive!: boolean;
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
@@ -70,6 +72,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   constructor(
     private settings: SettingsService,
     private geolocate: GeolocateService,
+    private backgroundGeolocate: BackgroundGeolocateService,
     public popoverController: PopoverController,
     private translate: TranslateService,
     private alertController: AlertController,
@@ -84,6 +87,9 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     const changesCurrentPois: SimpleChange = changes['currentPois'];
     const touristicCategoriesWithFeatures: SimpleChange =
       changes['touristicCategoriesWithFeatures'];
+    const notificationsModeIsActive: SimpleChange =
+      changes['notificationsModeIsActive'];
+
     if (
       !!this.currentTrek &&
       !!this.currentPois &&
@@ -95,6 +101,14 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     ) {
       this.createMap();
     }
+    if (
+      notificationsModeIsActive &&
+      notificationsModeIsActive.previousValue !== undefined &&
+      notificationsModeIsActive.previousValue !==
+        notificationsModeIsActive.currentValue
+    ) {
+      this.geolocationServiceSwitch(notificationsModeIsActive.currentValue);
+    }
   }
 
   ngOnDestroy(): void {
@@ -103,6 +117,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     }
 
     this.geolocate.stopOnMapTracking();
+    this.geolocate.stopOrientationTracking();
+    this.backgroundGeolocate.stopOnMapTracking();
 
     if (this.currentPositionSubscription) {
       this.currentPositionSubscription.unsubscribe();
@@ -371,6 +387,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
             await this.presentInAppDisclosure();
           }
           this.geolocate.startOnMapTracking();
+          this.geolocate.startOrientationTracking();
         }
       });
     }
@@ -891,7 +908,11 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   }
 
   public async flyToUserLocation() {
-    const userLocation = (await this.geolocate.getCurrentPosition()) as any;
+    const userLocation: any = !this.notificationsModeIsActive
+      ? await this.geolocate.getCurrentPosition()
+      : this.backgroundGeolocate.currentPosition$.getValue()
+      ? this.backgroundGeolocate.currentPosition$.getValue()
+      : await this.geolocate.getCurrentPosition();
     if (userLocation) {
       const coordinates: any = [userLocation.longitude, userLocation.latitude];
       if (this.markerPosition) {
@@ -1122,20 +1143,27 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   public async handleNavigateMode() {
     this.navigateModeIsActive = !this.navigateModeIsActive;
     if (this.navigateModeIsActive) {
-      const userLocation: any = await this.geolocate.getCurrentPosition();
+      const userLocation: any = !this.notificationsModeIsActive
+        ? await this.geolocate.getCurrentPosition()
+        : this.backgroundGeolocate.currentPosition$.getValue()
+        ? this.backgroundGeolocate.currentPosition$.getValue()
+        : await this.geolocate.getCurrentPosition();
       if (userLocation) {
         this.map.flyTo({
           center: [userLocation.longitude, userLocation.latitude],
           animate: false,
           zoom: environment.trekZoom.maxZoom
         });
-        this.navigate$ = this.geolocate.currentPosition$.subscribe(
-          async (coordinates) => {
-            if (coordinates) {
-              this.map.panTo(coordinates);
-            }
+        this.navigate$ = forkJoin([
+          this.geolocate.currentPosition$,
+          this.backgroundGeolocate.currentPosition$
+        ]).subscribe(async ([coordinates, backgroundCoordinates]) => {
+          if (!this.notificationsModeIsActive && coordinates) {
+            this.map.panTo(coordinates);
+          } else if (this.notificationsModeIsActive && backgroundCoordinates) {
+            this.map.panTo(backgroundCoordinates);
           }
-        );
+        });
         this.map.dragPan.disable();
       } else {
         const errorTranslation: any = await this.translate
@@ -1167,5 +1195,64 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     await modal.present();
 
     await modal.onDidDismiss();
+  }
+
+  private geolocationServiceSwitch(useBackgroundService: boolean) {
+    if (useBackgroundService) {
+      this.geolocate.stopOnMapTracking();
+      this.backgroundGeolocate.startOnMapTracking();
+      this.currentPositionSubscription.unsubscribe();
+      this.currentPositionSubscription =
+        this.backgroundGeolocate.currentPosition$
+          .pipe(
+            filter((currentPosition) => currentPosition !== null),
+            distinctUntilChanged()
+          )
+          .subscribe(async (location: any) => {
+            const coordinates: any = [location.longitude, location.latitude];
+            if (this.markerPosition) {
+              this.markerPosition.setLngLat(coordinates);
+            } else {
+              const el = document.createElement('div');
+              const currentHeading =
+                await this.geolocate.checkIfCanGetCurrentHeading();
+              el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
+              this.markerPosition = new maplibregl.Marker({
+                element: el
+              }).setLngLat(coordinates);
+              if (this.markerPosition) {
+                this.markerPosition.addTo(this.map);
+              }
+            }
+          });
+    } else {
+      this.geolocate.startOnMapTracking();
+      this.backgroundGeolocate.stopOnMapTracking();
+      this.currentPositionSubscription.unsubscribe();
+      this.currentPositionSubscription = this.geolocate.currentPosition$
+        .pipe(
+          filter((currentPosition) => currentPosition !== null),
+          distinctUntilChanged()
+        )
+        .subscribe(async (location: any) => {
+          const coordinates: any = [location.longitude, location.latitude];
+          if (this.markerPosition) {
+            this.markerPosition.setLngLat(coordinates);
+          } else {
+            const el = document.createElement('div');
+            const currentHeading =
+              await this.geolocate.checkIfCanGetCurrentHeading();
+            el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+
+            this.markerPosition = new maplibregl.Marker({
+              element: el
+            }).setLngLat(coordinates);
+            if (this.markerPosition) {
+              this.markerPosition.addTo(this.map);
+            }
+          }
+        });
+    }
   }
 }

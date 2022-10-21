@@ -34,6 +34,7 @@
       [commonSrc]="commonSrc"
       (navigateToChildren)="navigateToChildren($event)"
       [offline]="offline"
+      [notificationsModeIsActive]="notificationsModeIsActive"
     >
     </app-map-trek-viz>
     <div class="bottom-container">
@@ -41,6 +42,7 @@
         [trekName]="currentTrek ? currentTrek!.properties.name : ''"
         [currentPois]="currentPois"
         (presentPoiDetails)="presentPoiDetails($event)"
+        (notificationModeChange)="notificationModeChange($event)"
       >
       </app-geolocate-notifications>
     </div>

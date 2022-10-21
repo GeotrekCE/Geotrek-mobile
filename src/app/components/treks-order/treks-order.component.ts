@@ -48,46 +48,26 @@ export class TreksOrderComponent implements OnInit, OnDestroy {
   public async treksOrderChange(orderValue: string) {
     let error = false;
     if (orderValue === 'location') {
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        let startLocation: any;
-        try {
-          const shouldShowInAppDisclosure =
-            await this.geolocate.shouldShowInAppDisclosure();
-          if (shouldShowInAppDisclosure) {
-            await this.presentInAppDisclosure();
-          }
-          startLocation = await this.geolocate.getCurrentPosition();
-        } catch (catchError) {
-          error = true;
-        }
-        if (startLocation) {
-          this.settings.saveOrderState(orderValue, [
-            startLocation.longitude,
-            startLocation.latitude
-          ]);
-        } else {
-          error = true;
-        }
-        await this.popoverController.dismiss({ error });
-      } else if ('geolocation' in navigator) {
+      let startLocation: any;
+      try {
         const shouldShowInAppDisclosure =
           await this.geolocate.shouldShowInAppDisclosure();
         if (shouldShowInAppDisclosure) {
           await this.presentInAppDisclosure();
         }
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            this.settings.saveOrderState(orderValue, [
-              position.coords.longitude,
-              position.coords.latitude
-            ]);
-            await this.popoverController.dismiss();
-          },
-          async () => {
-            await this.popoverController.dismiss({ error: true });
-          }
-        );
+        startLocation = await this.geolocate.getCurrentPosition();
+      } catch (catchError) {
+        error = true;
       }
+      if (startLocation) {
+        this.settings.saveOrderState(orderValue, [
+          startLocation.longitude,
+          startLocation.latitude
+        ]);
+      } else {
+        error = true;
+      }
+      await this.popoverController.dismiss({ error });
     } else if (orderValue === 'alphabetical') {
       this.settings.saveOrderState(orderValue);
       await this.popoverController.dismiss();

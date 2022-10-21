@@ -9,7 +9,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { GeolocateService } from '@app/services/geolocate/geolocate.service';
+import { BackgroundGeolocateService } from '@app/services/geolocate/background-geolocate.service';
 import { Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -33,12 +33,13 @@ export class GeolocateNotificationsComponent
   @Input() currentPois!: Pois;
   @Input() trekName!: string;
   @Output() presentPoiDetails = new EventEmitter<any>();
+  @Output() notificationModeChange = new EventEmitter<any>();
   private currentPosition$!: Subscription;
 
   constructor(
     public platform: Platform,
     public alertController: AlertController,
-    private geolocate: GeolocateService,
+    private backgroundGeolocate: BackgroundGeolocateService,
     private translate: TranslateService
   ) {}
 
@@ -77,11 +78,12 @@ export class GeolocateNotificationsComponent
 
   async changeNotificationsMode() {
     if (!this.notificationsModeIsActive) {
+      this.notificationsModeIsActive = true;
+      this.notificationModeChange.emit(this.notificationsModeIsActive);
       if (this.platform.is('ios') || this.platform.is('android')) {
         if (
           (await LocalNotifications.checkPermissions()).display === 'granted'
         ) {
-          this.notificationsModeIsActive = true;
           this.enableGeolocationNotification();
         } else {
           await LocalNotifications.requestPermissions();
@@ -89,12 +91,15 @@ export class GeolocateNotificationsComponent
       }
     } else {
       this.notificationsModeIsActive = false;
-      this.disableGeolocationNotification();
+      this.notificationModeChange.emit(this.notificationsModeIsActive);
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        this.disableGeolocationNotification();
+      }
     }
   }
 
   enableGeolocationNotification(): void {
-    this.currentPosition$ = this.geolocate.currentPosition$.subscribe(
+    this.currentPosition$ = this.backgroundGeolocate.currentPosition$.subscribe(
       (location) => this.checkToNotify([location.longitude, location.latitude])
     );
   }

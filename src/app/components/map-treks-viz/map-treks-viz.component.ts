@@ -436,7 +436,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
   }
 
   private async flyToUserLocation() {
-    const userLocation = (await this.geolocate.getCurrentPosition()) as any;
+    const userLocation = this.geolocate.currentPosition$.getValue();
     if (userLocation) {
       const coordinates: any = [userLocation.longitude, userLocation.latitude];
       if (this.markerPosition) {

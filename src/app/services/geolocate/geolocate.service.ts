@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 import { Platform } from '@ionic/angular';
-import { registerPlugin } from '@capacitor/core';
+import { Geolocation, Position } from '@capacitor/geolocation';
 import { Preferences } from '@capacitor/preferences';
-import { BackgroundGeolocationPlugin } from '@capacitor-community/background-geolocation';
 import {
   DeviceOrientation,
   DeviceOrientationCompassHeading
 } from '@awesome-cordova-plugins/device-orientation/ngx';
-
-const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
-  'BackgroundGeolocation'
-);
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +14,11 @@ const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
 export class GeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
-  public currentWatchId: any = null;
+  public currentWatchId: string | null = null;
   private deviceOrientationSubscription!: Subscription;
 
   constructor(
     private platform: Platform,
-    private translate: TranslateService,
     private deviceOrientation: DeviceOrientation
   ) {}
 
@@ -36,78 +29,86 @@ export class GeolocateService {
     return !!!alreadyAskGeolocationPermission.value;
   }
 
-  async checkIfCanGetCurrentHeading() {
-    const deviceOrientation = await new Promise((resolve) => {
-      this.deviceOrientation.getCurrentHeading().then(
-        (data) => resolve(data),
-        () => resolve(null)
-      );
-    });
-    return !!deviceOrientation;
+  async checkIfCanGetCurrentHeading(): Promise<boolean> {
+    let deviceOrientation = false;
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      deviceOrientation = await new Promise((resolve) => {
+        this.deviceOrientation.getCurrentHeading().then(
+          (data) => resolve(!!data),
+          () => resolve(false)
+        );
+      });
+    }
+    return deviceOrientation;
   }
 
-  async startOnMapTracking() {
-    if (this.platform.is('ios') || this.platform.is('android')) {
-      const notificationTitle: string = await this.translate
-        .get('geolocate.notificationTitle')
-        .toPromise();
-      BackgroundGeolocation.addWatcher(
-        {
-          backgroundTitle: notificationTitle,
-          requestPermissions: true,
-          stale: false,
-          distanceFilter: 2
-        },
-        (location) => {
-          this.currentPosition$.next(location);
+  async startOnMapTracking(): Promise<void> {
+    this.currentWatchId = await Geolocation.watchPosition(
+      {
+        enableHighAccuracy: true
+      },
+      (position) => {
+        if (position) {
+          this.currentPosition$.next({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+          });
         }
-      ).then((watcher_id) => {
-        this.currentWatchId = watcher_id;
-        this.deviceOrientationSubscription = this.deviceOrientation
-          .watchHeading({ frequency: 200 })
-          .subscribe((data: DeviceOrientationCompassHeading) =>
-            this.currentHeading$.next(data.magneticHeading)
-          );
-      });
+      }
+    );
+  }
+
+  startOrientationTracking() {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this.deviceOrientationSubscription = this.deviceOrientation
+        .watchHeading({ frequency: 200 })
+        .subscribe((data: DeviceOrientationCompassHeading) =>
+          this.currentHeading$.next(data.magneticHeading)
+        );
     }
   }
 
   stopOnMapTracking() {
+    if (this.currentWatchId) {
+      Geolocation.clearWatch({ id: this.currentWatchId });
+      this.currentWatchId = null;
+      this.currentPosition$.next(null);
+    }
+  }
+
+  stopOrientationTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
       if (this.deviceOrientationSubscription) {
         this.deviceOrientationSubscription.unsubscribe();
-      }
-      if (this.currentWatchId) {
-        BackgroundGeolocation.removeWatcher({
-          id: this.currentWatchId
-        }).then(() => {
-          this.currentWatchId = null;
-        });
+        this.currentPosition$.next(null);
       }
     }
   }
 
-  async getCurrentPosition() {
-    return new Promise(async (resolve) => {
-      if (this.platform.is('ios') || this.platform.is('android')) {
-        let last_location: any;
-        BackgroundGeolocation.addWatcher(
-          {
-            requestPermissions: true,
-            stale: true
-          },
-          (location) => {
-            last_location = location || null;
-          }
-        ).then((id) => {
-          setTimeout(() => {
-            resolve(last_location);
-            BackgroundGeolocation.removeWatcher({ id });
-          }, 500);
-        });
+  async getCurrentPosition(): Promise<{
+    longitude: number;
+    latitude: number;
+  } | null> {
+    let position: {
+      longitude: number;
+      latitude: number;
+    } | null = null;
+    try {
+      if (this.currentPosition$.getValue()) {
+        position = this.currentPosition$.getValue();
       } else {
-        resolve(null);
+        const currentPosition = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true
+        });
+        position = {
+          longitude: currentPosition.coords.longitude,
+          latitude: currentPosition.coords.latitude
+        };
       }
-    });
+    } catch (error) {
+      position = null;
+    } finally {
+      return position;
+    }
   }
 }

@@ -10,9 +10,6 @@ import {
   InformationDesk,
   TouristicCategoryWithFeatures,
   TreksService,
-  Trek,
-  TouristicContents,
-  TouristicEvents,
   TreksServiceOffline
 } from '@app/interfaces/interfaces';
 import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.component';
@@ -38,6 +35,7 @@ export class TrekMapPage implements OnInit {
   public offline = false;
   private treksTool!: TreksService | TreksServiceOffline;
   public canDisplayMap = false;
+  public notificationsModeIsActive = false;
 
   constructor(
     private modalController: ModalController,
@@ -164,5 +162,9 @@ export class TrekMapPage implements OnInit {
         this.treksTool.getTrekDetailsUrl(id, this.currentTrek.properties.id)
       ]);
     }
+  }
+
+  public notificationModeChange(event: any) {
+    this.notificationsModeIsActive = event;
   }
 }
