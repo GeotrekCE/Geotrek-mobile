@@ -7,6 +7,7 @@ export const environment = {
   adminApiUrl: '',
   randoUrl: '',
   randoVersion: 3,
+  emergencyNumber: '112',
   availableLanguage: ['fr', 'en'],
   navigation: 'tabs',
   showGoToPoi: false,

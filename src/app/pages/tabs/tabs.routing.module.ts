@@ -64,6 +64,11 @@ const menuRoutes = [
     path: 'more',
     loadChildren: () =>
       import('../more/more.module').then((m) => m.MorePageModule)
+  },
+  {
+    path: 'emergency',
+    loadChildren: () =>
+      import('../emergency/emergency.module').then((m) => m.EmergencyPageModule)
   }
 ];
 

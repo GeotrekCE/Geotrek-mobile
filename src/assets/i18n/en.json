@@ -11,7 +11,8 @@
     "home": "Home",
     "treks": "Treks",
     "offline": "Offline",
-    "more": "Informations"
+    "more": "Informations",
+    "emergency": "Emergency"
   },
   "home": {
     "selectPractice": "Select a practice"
@@ -159,5 +160,11 @@
     "geolocateForNotification": "Show local notifications, when you activate the option from the map of a hike, to inform you of the presence of a POI nearby. This feature uses your location even if the application is in the background",
     "dataUsage": "We do not collect any location.",
     "displayRequest": "Display the request"
+  },
+  "emergency": {
+    "showMyPosition": "Show my geographical position",
+    "callThe": "Call the",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
   }
 }

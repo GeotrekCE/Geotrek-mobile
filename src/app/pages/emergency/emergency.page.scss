@@ -1,0 +1,28 @@
+.current-position-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  .current-position {
+    position: absolute;
+    bottom: 16px;
+  }
+}
+
+.emergency-number-container {
+  width: 100%;
+  height: 56px;
+  text-align: center;
+  font-size: 24px;
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--ion-color-primary);
+    text-decoration: none;
+  }
+}

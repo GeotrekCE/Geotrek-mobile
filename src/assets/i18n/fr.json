@@ -11,7 +11,8 @@
     "home": "Accueil",
     "treks": "Randonnées",
     "offline": "Hors ligne",
-    "more": "Informations"
+    "more": "Informations",
+    "emergency": "Emergency"
   },
   "home": {
     "selectPractice": "Sélectionner une pratique"
@@ -159,5 +160,11 @@
     "geolocateForNotification": "Afficher des notifications locales, lorsque vous activez l'option depuis la carte d'une randonnée, pour vous informer de la présence d'un POI aux alentours. Cette fonction utilise votre localisation même si l'application est en arrière-plan",
     "dataUsage": "Nous ne collectons aucune donnée de localisation.",
     "displayRequest": "Afficher la demande"
+  },
+  "emergency": {
+    "showMyPosition": "Voir ma position géographique",
+    "callThe": "Appeler le",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
   }
 }

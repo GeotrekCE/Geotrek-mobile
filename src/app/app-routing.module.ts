@@ -97,6 +97,10 @@ const routes: Routes = [
     redirectTo:
       environment.navigation === 'tabs' ? '/tabs/treks' : '/tabs/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'emergency',
+    loadChildren: () => import('./pages/emergency/emergency.module').then( m => m.EmergencyPageModule)
   }
 ];
 

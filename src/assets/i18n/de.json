@@ -11,7 +11,8 @@
     "home": "Home",
     "treks": "Randonnées",
     "offline": "Offline",
-    "more": "Informationen"
+    "more": "Informationen",
+    "emergency": "Emergency"
   },
   "home": {
     "selectPractice": "Wählen Sie eine Praxis"
@@ -158,5 +159,11 @@
     "geolocateForNotification": "Lokale Benachrichtigungen anzeigen, wenn Sie die Option auf der Karte einer Wanderung aktivieren, um Sie über das Vorhandensein eines POI in der Nähe zu informieren. Diese Funktion verwendet Ihren Standort, auch wenn sich die Anwendung im Hintergrund befindet",
     "dataUsage": "Wir sammeln keinen Standort.",
     "displayRequest": "Anzeige der Anforderung"
+  },
+  "emergency": {
+    "showMyPosition": "Meine geografische Position anzeigen",
+    "callThe": "Rufen Sie die",
+    "latitude": "Breitengrad",
+    "longitude": "Längengrad"
   }
 }

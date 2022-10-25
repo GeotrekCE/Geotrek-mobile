@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { EmergencyPage } from './emergency.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { FilterButtonComponent } from '@app/components/filter-button/filter-button.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: EmergencyPage
   }
 ];
 
@@ -21,6 +20,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild()
   ],
-  declarations: [HomePage, FilterButtonComponent]
+  declarations: [EmergencyPage]
 })
-export class HomePageModule {}
+export class EmergencyPageModule {}

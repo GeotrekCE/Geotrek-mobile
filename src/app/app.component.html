@@ -11,8 +11,7 @@
           routerLink="tabs/home"
           class="pointer"
           [ngClass]="{
-            'selected-menu':
-              this.currentRoute === '/tabs/home' || this.currentRoute === '/'
+            'selected-menu': this.currentRoute === '/tabs/home'
           }"
         >
           <ion-item>
@@ -60,6 +59,20 @@
           <ion-item>
             <ion-icon name="information-circle-outline" slot="start"></ion-icon
             ><ion-label>{{ 'tabbar.more' | translate }}</ion-label></ion-item
+          >
+        </ion-menu-toggle>
+        <ion-menu-toggle
+          routerLink="tabs/emergency"
+          class="pointer"
+          [ngClass]="{
+            'selected-menu': this.currentRoute === '/tabs/emergency'
+          }"
+        >
+          <ion-item>
+            <ion-icon name="medical-outline" slot="start"></ion-icon
+            ><ion-label>{{
+              'tabbar.emergency' | translate
+            }}</ion-label></ion-item
           >
         </ion-menu-toggle>
       </ion-list>

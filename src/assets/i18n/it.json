@@ -11,7 +11,8 @@
     "home": "Home",
     "treks": "Escursione",
     "offline": "Offline",
-    "more": "Informazioni"
+    "more": "Informazioni",
+    "emergency": "Emergency"
   },
   "home": {
     "selectPractice": "Selezionare una pratica"
@@ -158,5 +159,11 @@
     "geolocateForNotification": "Mostra notifiche locali, quando attivi l'opzione dalla mappa di un'escursione, per informarti della presenza di un POI nelle vicinanze. Questa funzione utilizza la tua posizione anche se l'applicazione è in background",
     "dataUsage": "Non raccogliamo alcuna posizione.",
     "displayRequest": "Visualizzare la richiesta"
+  },
+  "emergency": {
+    "showMyPosition": "Mostra la mia posizione geografica",
+    "callThe": "Chiamare il",
+    "latitude": "Latitudine",
+    "longitude": "Longitudine"
   }
 }
