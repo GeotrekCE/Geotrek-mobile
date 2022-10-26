@@ -114,7 +114,7 @@
     "numberOftreks": "Randonnées",
     "numberOftrek": "Une randonnée",
     "noOfflineResults": "Les filtres sélectionnés ne correspondent à aucune de vos randonnées enregistrées.",
-    "showAllTreks": "Afficher toutes les randonnées enregistrées",
+    "eraseFilters": "Effacer tous les filtres",
     "emptyOfflineTreks": "Ici, vous retrouverez vos randonnées disponibles hors ligne",
     "departure": "Départ"
   },

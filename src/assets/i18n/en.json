@@ -114,7 +114,7 @@
     "numberOftreks": "treks",
     "numberOftrek": "One trek",
     "noOfflineResults": "The selected filters do not match any of your recorded hikes.",
-    "showAllTreks": "View all recorded hikes",
+    "eraseFilters": "Erase all filters",
     "emptyOfflineTreks": "You will find your offline hikes here",
     "departure": "Departure"
   },

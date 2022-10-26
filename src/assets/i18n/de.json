@@ -113,7 +113,7 @@
     "numberOftreks": "Wanderung",
     "numberOftrek": "Eine Wanderung",
     "noOfflineResults": "Die ausgewählten Filter passen zu keiner Ihrer gespeicherten Wanderungen.",
-    "showAllTreks": "Alle aufgezeichneten Wanderungen anzeigen",
+    "eraseFilters": "Alle Filter löschen",
     "emptyOfflineTreks": "Hier finden Sie Ihre verfügbaren Offline-Wanderungen",
     "departure": "Start"
   },

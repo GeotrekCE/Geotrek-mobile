@@ -113,7 +113,7 @@
     "numberOftreks": "escursioni",
     "numberOftrek": "Un'escursione",
     "noOfflineResults": "I filtri selezionati non corrispondono a nessuna delle sue escursioni registrate.",
-    "showAllTreks": "Visualizza tutte le escursioni registrate",
+    "eraseFilters": "Cancellare tutti i filtri",
     "emptyOfflineTreks": "Qui, troverà le sue escursioni disponibili offline",
     "departure": "Partenza"
   },
