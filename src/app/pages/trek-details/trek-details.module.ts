@@ -4,13 +4,13 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SharedTreksModule } from '@app/shared/shared-treks.module';
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { TrekDetailsPage } from './trek-details.page';
 import { PoiComponent } from '@app/components/poi/poi.component';
 import { InformationDeskComponent } from '@app/components/information-desk/information-desk.component';
 
 import { SwiperModule } from 'swiper/angular';
+import { SharedTrekModule } from '@app/shared/shared-trek.module';
 
 const routes: Routes = [
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedTreksModule,
+    SharedTrekModule,
     SharedUiModule,
     TranslateModule.forChild(),
     SwiperModule

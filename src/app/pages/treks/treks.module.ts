@@ -8,6 +8,7 @@ import { SharedUiModule } from '@app/shared/shared-ui.module';
 
 import { RouterModule, Routes } from '@angular/router';
 import { TreksPage } from './treks.page';
+import { SharedTrekModule } from '@app/shared/shared-trek.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     SharedTreksModule,
+    SharedTrekModule,
     SharedUiModule,
     RouterModule.forChild(routes),
     TranslateModule.forChild()

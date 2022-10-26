@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { TreksMapPage } from './treks-map.page';
 import { MapTreksVizComponent } from '@app/components/map-treks-viz/map-treks-viz.component';
+import { SharedTreksModule } from '@app/shared/shared-treks.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     IonicModule,
+    SharedTreksModule,
     RouterModule.forChild(routes),
     SharedUiModule,
     TranslateModule.forChild()

@@ -249,3 +249,10 @@ ion-fab-button {
     color: var(--ion-color-primary);
   }
 }
+
+app-filters,
+app-search {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

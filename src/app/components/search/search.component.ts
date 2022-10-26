@@ -1,5 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { MinimalTrek, MinimalTreks } from '@app/interfaces/interfaces';
@@ -21,18 +28,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   public treksByStep = 30;
   public currentMaxTreks = 30;
   private treksSubscription!: Subscription;
+  @Input() public isOnline!: boolean;
+  @Output() public navigateToTrek = new EventEmitter<any>();
 
   constructor(
     private modalCtrl: ModalController,
     private onlineTreks: OnlineTreksService,
     private offlineTreks: OfflineTreksService,
-    private searchTreks: SearchTreksService,
-    private navParams: NavParams
+    private searchTreks: SearchTreksService
   ) {}
 
   ngOnInit(): void {
-    const isOnline = this.navParams.get('isOnline');
-    const treksTool = isOnline ? this.onlineTreks : this.offlineTreks;
+    const treksTool = this.isOnline ? this.onlineTreks : this.offlineTreks;
     this.treksSubscription = treksTool.treks$.subscribe((treks) => {
       this.treks = treks;
       if (this.treks) {
@@ -63,7 +70,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  public navigateToTrek(id: number) {
+  public closeAndNavigateToTrek(id: number) {
+    this.navigateToTrek.emit(id);
     this.modalCtrl.dismiss(id);
   }
 

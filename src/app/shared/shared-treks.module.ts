@@ -4,22 +4,24 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { TrekCardComponent } from '@app/components/trek-card/trek-card.component';
+import { FiltersComponent } from '@app/components/filters/filters.component';
+import { FilterComponent } from '@app/components/filter/filter.component';
+import { FilterValueComponent } from '@app/components/filter-value/filter-value.component';
+import { SearchComponent } from '@app/components/search/search.component';
 
-@Pipe({ name: 'lowerRound' })
-export class LowerRoundPipe implements PipeTransform {
-  transform(value: number): number {
-    return Math.floor(value);
-  }
-}
 @NgModule({
-  declarations: [TrekCardComponent, LowerRoundPipe],
+  declarations: [
+    FiltersComponent,
+    FilterComponent,
+    FilterValueComponent,
+    SearchComponent
+  ],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
     TranslateModule.forChild()
   ],
-  exports: [TrekCardComponent, LowerRoundPipe]
+  exports: [FiltersComponent, SearchComponent]
 })
 export class SharedTreksModule {}

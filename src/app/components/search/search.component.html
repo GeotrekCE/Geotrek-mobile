@@ -26,7 +26,7 @@
     <ion-list *ngIf="filteredTreks && filteredTreks.length > 0; else userMsg">
       <ion-item
         *ngFor="let trek of filteredTreks | slice: 0:currentMaxTreks"
-        (click)="navigateToTrek(trek.properties.id)"
+        (click)="closeAndNavigateToTrek(trek.properties.id)"
         detail="true"
       >
         <ion-label>{{ trek.properties.name }}</ion-label>

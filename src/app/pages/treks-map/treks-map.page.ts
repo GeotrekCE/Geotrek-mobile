@@ -7,8 +7,6 @@ import { cloneDeep } from 'lodash';
 import { environment } from '@env/environment';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
-import { FiltersComponent } from '@app/components/filters/filters.component';
-import { SearchComponent } from '@app/components/search/search.component';
 import {
   MinimalTrek,
   TreksService,
@@ -16,7 +14,7 @@ import {
 } from '@app/interfaces/interfaces';
 import { FilterTreksService } from '@app/services/filter-treks/filter-treks.service';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { ModalController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-treks-map',
@@ -39,7 +37,6 @@ export class TreksMapPage implements OnInit, OnDestroy {
 
   constructor(
     private filterTreks: FilterTreksService,
-    private modalController: ModalController,
     public onlineTreks: OnlineTreksService,
     public offlineTreks: OfflineTreksService,
     private router: Router,
@@ -84,31 +81,6 @@ export class TreksMapPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.canDisplayMap = true;
-  }
-
-  public async presentFilters(): Promise<void> {
-    const modal = await this.modalController.create({
-      component: FiltersComponent,
-      componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size'
-    });
-    await modal.present();
-  }
-
-  public async presentSearch(): Promise<void> {
-    const modal = await this.modalController.create({
-      component: SearchComponent,
-      componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size'
-    });
-
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
-
-    if (data) {
-      this.navigateToTrek(data);
-    }
   }
 
   navigateToTrek(id: number) {

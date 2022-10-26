@@ -159,32 +159,7 @@ export class TreksPage implements OnInit, OnDestroy {
     return this.colSize / 2;
   }
 
-  public async presentFilters(): Promise<void> {
-    const modal = await this.modalController.create({
-      component: FiltersComponent,
-      componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size'
-    });
-    await modal.present();
-  }
-
-  public async presentSearch(): Promise<void> {
-    const modal = await this.modalController.create({
-      component: SearchComponent,
-      componentProps: { isOnline: !this.offline },
-      cssClass: 'full-size'
-    });
-
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
-
-    if (data) {
-      this.navigateToTrek(data);
-    }
-  }
-
-  private navigateToTrek(id: number) {
+  public navigateToTrek(id: number) {
     this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
   }
 
