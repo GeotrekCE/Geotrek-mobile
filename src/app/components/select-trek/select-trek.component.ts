@@ -64,7 +64,7 @@ export class SelectTrekComponent implements OnInit {
       this.imgPractices[i].firstTryToLoadFromOnline
     ) {
       this.imgPractices[i].firstTryToLoadFromOnline = false;
-      this.imgPractices[i].src = `${this.baseUrl}${this.imgPractices[i].src}`;
+      this.imgPractices[i].src = `${this.baseUrl}/${this.imgPractices[i].src}`;
     } else {
       this.imgPractices[i].hideImgPracticeSrc = true;
     }

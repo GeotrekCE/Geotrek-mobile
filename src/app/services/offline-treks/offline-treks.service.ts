@@ -85,7 +85,7 @@ export class OfflineTreksService implements TreksServiceOffline {
         });
         return Capacitor.convertFileSrc(imgUri.uri);
       } else {
-        return 'offline/';
+        return imgPath;
       }
     }
     return 'offline/';
