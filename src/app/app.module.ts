@@ -17,7 +17,6 @@ import { InformationDeskDetailsComponent } from '@app/components/information-des
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { LayersVisibilityComponent } from '@app/components/layers-visibility/layers-visibility.component';
 import { TreksOrderComponent } from '@app/components/treks-order/treks-order.component';
-import { SelectFilterComponent } from '@app/components/select-filter/select-filter.component';
 import { SelectPoiComponent } from '@app/components/select-poi/select-poi.component';
 import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-app-disclosure.component';
 import { SettingsService } from '@app/services/settings/settings.service';
@@ -37,7 +36,6 @@ registerLocaleData(localeFr, 'fr');
     ProgressComponent,
     InformationDeskDetailsComponent,
     LayersVisibilityComponent,
-    SelectFilterComponent,
     TreksOrderComponent,
     InAppDisclosureComponent,
     SelectPoiComponent,
