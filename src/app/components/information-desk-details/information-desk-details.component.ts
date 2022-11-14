@@ -54,17 +54,22 @@ export class InformationDeskDetailsComponent implements OnInit {
       this.informationDesk.longitude
     ].toString();
 
-    if (
-      (this.platform.is('ios') || this.platform.is('android')) &&
-      (await AppLauncher.canOpenUrl({
-        url: `google.navigation:q=${point}`
-      }))
-    ) {
+    if (this.platform.is('android')) {
+      if (
+        await AppLauncher.canOpenUrl({
+          url: `google.navigation:q=${point}`
+        })
+      ) {
+        await AppLauncher.openUrl({
+          url: `google.navigation:q=${point}`
+        });
+      } else {
+        window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+      }
+    } else if (this.platform.is('ios')) {
       await AppLauncher.openUrl({
-        url: `google.navigation:q=${point}`
+        url: `https://maps.apple.com/?daddr=${point}`
       });
-    } else {
-      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
     }
   }
 }
