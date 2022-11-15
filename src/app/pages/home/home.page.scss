@@ -1,9 +1,13 @@
 h1 {
-  margin: 0px;
+  margin-bottom: 0px;
 }
 
 .filter-buttons-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.content-header {
+  margin: -16px;
 }
