@@ -7,15 +7,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="content-header"><img src="assets/content-header.png" /></div>
-  <h1>{{'home.selectPractice' | translate}}</h1>
-  <div class="filter-buttons-container">
-    <ng-container *ngFor="let practiceValue of practiceValues">
-      <app-filter-button
-        [value]="practiceValue"
-        (filterAndGo)="filterAndGo($event)"
-      ></app-filter-button>
-    </ng-container>
+<ion-content>
+  <div class="select-option-container">
+    <h1>{{'home.text' | translate}}</h1>
+  </div>
+  <div class="options-container">
+    <app-filter-button
+      *ngFor="let practiceValue of practiceValues"
+      [value]="practiceValue"
+      (filterAndGo)="filterAndGo($event)"
+    ></app-filter-button>
+    <app-filter-button
+      [value]="{id: 99, name: ('tabbar.emergency' | translate), checked: false, pictogram: 'assets/medical-outline.svg', color: 'rgba(255,255,255,0.7)', textColor:'#FF0000'}"
+      (filterAndGo)="goToEmergency()"
+    ></app-filter-button>
   </div>
 </ion-content>

@@ -12,10 +12,10 @@
     "treks": "Randonnées",
     "offline": "Hors ligne",
     "more": "Informations",
-    "emergency": "Emergency"
+    "emergency": "Contacter les secours"
   },
   "home": {
-    "selectPractice": "Sélectionner une pratique"
+    "text": "Texte"
   },
   "search": {
     "title": "Recherche",

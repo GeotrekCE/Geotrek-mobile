@@ -147,6 +147,7 @@ export interface FilterValue {
   interval?: [number, number];
   pictogram?: string;
   color?: string;
+  textColor?: string;
 }
 
 export interface InformationIntro {

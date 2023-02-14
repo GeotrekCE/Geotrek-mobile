@@ -1,8 +1,12 @@
 <div
+  [style.color]="value.textColor ? value.textColor : '#FFFFFF'"
   class="filter-button ion-activatable"
-  [style.background-color]="value.color ? value.color : 'transparent'"
   (click)="onfilterAndGo()"
 >
+  <div
+    [style.background-color]="value.color ? value.color : 'transparent'"
+    class="filter-button-background"
+  ></div>
   <ion-img
     style="width: 32px; height: 32px"
     *ngIf="value.pictogram && !this.hideImgPracticeSrc"

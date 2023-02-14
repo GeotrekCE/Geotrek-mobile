@@ -40,4 +40,8 @@ export class HomePage implements OnInit, OnDestroy {
     this.settings.saveFiltersState(this.filters!);
     this.router.navigate(['/tabs/treks']);
   }
+
+  public goToEmergency() {
+    this.router.navigate(['/tabs/emergency']);
+  }
 }
