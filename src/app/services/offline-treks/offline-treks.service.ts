@@ -78,7 +78,7 @@ export class OfflineTreksService implements TreksServiceOffline {
         ? picture.url
         : trek.properties.first_picture.url;
 
-      if (this.isMobile) {
+      if (this.isMobile && !imgPath.startsWith('assets')) {
         const imgUri = await Filesystem.getUri({
           directory: Directory.Data,
           path: `offline/${imgPath}`
