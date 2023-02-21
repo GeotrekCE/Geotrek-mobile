@@ -131,7 +131,7 @@
         </ng-template>
       </swiper>
 
-      <ion-grid fixed>
+      <ion-grid>
         <ion-row *ngIf="currentTrek.properties.description_teaser">
           <ion-col class="bold">
             <div [innerHTML]="currentTrek.properties.description_teaser"></div>
@@ -412,12 +412,17 @@
                   </h2>
                 </ion-text>
               </div>
-              <swiper [slidesPerView]="'auto'">
+              <swiper
+                [breakpoints]="breakpoints"
+                [centeredSlides]="true"
+                style="margin-left: -10px; padding-left: 40px"
+              >
                 <ng-template
                   swiperSlide
                   *ngFor="let trek of currentTrek.properties.children.features; index as indexStage"
                 >
                   <app-trek-card
+                    style="width: 300px"
                     [isStage]="true"
                     [numStage]="indexStage + 1"
                     [parentId]="this.currentTrek.properties.id"
@@ -523,7 +528,11 @@
                 currentTrek.properties.information_desks.length }})
               </h2>
             </ion-text>
-            <swiper [slidesPerView]="'auto'">
+            <swiper
+              [breakpoints]="breakpoints"
+              [centeredSlides]="true"
+              style="margin-left: -10px; padding-left: 40px"
+            >
               <ng-template
                 swiperSlide
                 *ngFor="let information_desk of currentTrek.properties.information_desks"
@@ -546,7 +555,11 @@
               </h2>
             </ion-text>
 
-            <swiper [slidesPerView]="'auto'">
+            <swiper
+              [breakpoints]="breakpoints"
+              [centeredSlides]="true"
+              style="margin-left: -10px; padding-left: 40px"
+            >
               <ng-template swiperSlide *ngFor="let currentPoi of currentPois">
                 <app-poi
                   [poi]="currentPoi"
@@ -573,7 +586,11 @@
                 </h2>
               </ion-text>
 
-              <swiper [slidesPerView]="'auto'">
+              <swiper
+                [breakpoints]="breakpoints"
+                [centeredSlides]="true"
+                style="margin-left: -10px; padding-left: 40px"
+              >
                 <ng-template
                   swiperSlide
                   *ngFor="let touristicContent of touristicCategoryWithFeatures.features"

@@ -78,6 +78,21 @@ export class TrekDetailsPage implements OnInit {
     networks: [],
     profile: ''
   };
+  public breakpoints = {
+    375: { slidesPerView: 1.2 },
+    400: {
+      slidesPerView: 1.3
+    },
+    500: {
+      slidesPerView: 1.6
+    },
+    600: {
+      slidesPerView: 1.9
+    },
+    700: {
+      slidesPerView: 2.2
+    }
+  };
 
   constructor(
     private onlineTreks: OnlineTreksService,

@@ -28,7 +28,7 @@
   </ng-container>
 
   <ng-template #moreItemTemplate>
-    <ion-grid fixed *ngIf="!!moreItem">
+    <ion-grid *ngIf="!!moreItem">
       <ion-row>
         <ion-col>
           <div *ngIf="moreItem.content" [innerHTML]="moreItem.content"></div>
