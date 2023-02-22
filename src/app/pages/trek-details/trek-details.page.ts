@@ -519,9 +519,17 @@ export class TrekDetailsPage implements OnInit {
         window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
       }
     } else if (this.platform.is('ios')) {
-      await AppLauncher.openUrl({
-        url: `https://maps.apple.com/?daddr=${point}`
-      });
+      if (
+        await AppLauncher.canOpenUrl({
+          url: `maps://?daddr=${point}`
+        })
+      ) {
+        await AppLauncher.openUrl({
+          url: `maps://?daddr=${point}`
+        });
+      } else {
+        window.open(`https://maps.apple.com/?daddr=${point}`, '_blank');
+      }
     }
   }
 
@@ -531,17 +539,30 @@ export class TrekDetailsPage implements OnInit {
       this.currentTrek.properties.parking_location[0]
     ].toString();
 
-    if (
-      (this.platform.is('ios') || this.platform.is('android')) &&
-      (await AppLauncher.canOpenUrl({
-        url: `google.navigation:q=${point}`
-      }))
-    ) {
-      await AppLauncher.openUrl({
-        url: `google.navigation:q=${point}`
-      });
-    } else {
-      window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+    if (this.platform.is('android')) {
+      if (
+        await AppLauncher.canOpenUrl({
+          url: `google.navigation:q=${point}`
+        })
+      ) {
+        await AppLauncher.openUrl({
+          url: `google.navigation:q=${point}`
+        });
+      } else {
+        window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
+      }
+    } else if (this.platform.is('ios')) {
+      if (
+        await AppLauncher.canOpenUrl({
+          url: `maps://?daddr=${point}`
+        })
+      ) {
+        await AppLauncher.openUrl({
+          url: `maps://?daddr=${point}`
+        });
+      } else {
+        window.open(`https://maps.apple.com/?daddr=${point}`, '_blank');
+      }
     }
   }
 }

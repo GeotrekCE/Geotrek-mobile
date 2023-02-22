@@ -123,9 +123,17 @@ export class PoiDetailsComponent implements OnInit {
         window.open(`https://www.google.fr/maps/dir//${point}`, '_blank');
       }
     } else if (this.platform.is('ios')) {
-      await AppLauncher.openUrl({
-        url: `https://maps.apple.com/?daddr=${point}`
-      });
+      if (
+        await AppLauncher.canOpenUrl({
+          url: `maps://?daddr=${point}`
+        })
+      ) {
+        await AppLauncher.openUrl({
+          url: `maps://?daddr=${point}`
+        });
+      } else {
+        window.open(`https://maps.apple.com/?daddr=${point}`, '_blank');
+      }
     }
   }
 }
