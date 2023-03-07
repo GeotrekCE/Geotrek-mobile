@@ -56,9 +56,11 @@ export class InformationDeskDetailsComponent implements OnInit {
 
     if (this.platform.is('android')) {
       if (
-        await AppLauncher.canOpenUrl({
-          url: `google.navigation:q=${point}`
-        })
+        (
+          await AppLauncher.canOpenUrl({
+            url: `google.navigation:q=${point}`
+          })
+        ).value
       ) {
         await AppLauncher.openUrl({
           url: `google.navigation:q=${point}`
@@ -68,9 +70,11 @@ export class InformationDeskDetailsComponent implements OnInit {
       }
     } else if (this.platform.is('ios')) {
       if (
-        await AppLauncher.canOpenUrl({
-          url: `maps://?daddr=${point}`
-        })
+        (
+          await AppLauncher.canOpenUrl({
+            url: `maps://?daddr=${point}`
+          })
+        ).value
       ) {
         await AppLauncher.openUrl({
           url: `maps://?daddr=${point}`

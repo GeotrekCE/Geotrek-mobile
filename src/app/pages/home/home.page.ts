@@ -54,9 +54,11 @@ export class HomePage implements OnInit, OnDestroy {
   public async goToReport() {
     if (this.platform.is('android')) {
       if (
-        await AppLauncher.canOpenUrl({
-          url: `com.suricate`
-        })
+        (
+          await AppLauncher.canOpenUrl({
+            url: `com.suricate`
+          })
+        ).value
       ) {
         await AppLauncher.openUrl({
           url: `com.suricate`
