@@ -143,7 +143,7 @@ export interface ContainsFilter extends Filter {
 export interface FilterValue {
   id: number;
   name: string;
-  checked: boolean;
+  checked?: boolean;
   interval?: [number, number];
   pictogram?: string;
   color?: string;
