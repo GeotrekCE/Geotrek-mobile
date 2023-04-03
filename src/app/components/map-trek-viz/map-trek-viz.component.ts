@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { GeolocateService } from '@app/services/geolocate/geolocate.service';
 import { BackgroundGeolocateService } from '@app/services/geolocate/background-geolocate.service';
-import { Observable, Subscription, forkJoin } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import {
   PopoverController,
@@ -68,7 +68,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
-
+  a = 0;
   constructor(
     private settings: SettingsService,
     private geolocate: GeolocateService,
@@ -1148,20 +1148,24 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         : this.backgroundGeolocate.currentPosition$.getValue()
         ? this.backgroundGeolocate.currentPosition$.getValue()
         : await this.geolocate.getCurrentPosition();
+      this.map.panTo([userLocation.longitude, userLocation.latitude]);
       if (userLocation) {
         this.map.flyTo({
           center: [userLocation.longitude, userLocation.latitude],
           animate: false,
           zoom: environment.trekZoom.maxZoom
         });
-        this.navigate$ = forkJoin([
+        this.navigate$ = combineLatest([
           this.geolocate.currentPosition$,
           this.backgroundGeolocate.currentPosition$
         ]).subscribe(async ([coordinates, backgroundCoordinates]) => {
           if (!this.notificationsModeIsActive && coordinates) {
-            this.map.panTo(coordinates);
+            this.map.panTo([coordinates.longitude, coordinates.latitude]);
           } else if (this.notificationsModeIsActive && backgroundCoordinates) {
-            this.map.panTo(backgroundCoordinates);
+            this.map.panTo([
+              backgroundCoordinates.longitude,
+              backgroundCoordinates.latitude
+            ]);
           }
         });
         this.map.dragPan.disable();
