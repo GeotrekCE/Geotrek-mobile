@@ -342,6 +342,16 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         });
       });
 
+      const el = document.createElement('div');
+      const currentHeading = await this.geolocate.checkIfCanGetCurrentHeading();
+      el.className = currentHeading ? 'pulse-and-view' : 'pulse';
+      el['style'].display = 'none';
+
+      this.markerPosition = new maplibregl.Marker({
+        element: el
+      }).setLngLat([0, 0]);
+      this.markerPosition.addTo(this.map);
+
       this.currentPositionSubscription = this.geolocate.currentPosition$
         .pipe(
           filter((currentPosition) => currentPosition !== null),
@@ -349,27 +359,14 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         )
         .subscribe(async (location: any) => {
           const coordinates: any = [location.longitude, location.latitude];
-          if (this.markerPosition) {
-            this.markerPosition.setLngLat(coordinates);
-          } else {
-            const el = document.createElement('div');
-            const currentHeading =
-              await this.geolocate.checkIfCanGetCurrentHeading();
-            el.className = currentHeading ? 'pulse-and-view' : 'pulse';
-
-            this.markerPosition = new maplibregl.Marker({
-              element: el
-            }).setLngLat(coordinates);
-            if (this.markerPosition) {
-              this.markerPosition.addTo(this.map);
-            }
-          }
+          this.markerPosition!.getElement()['style'].display = 'block';
+          this.markerPosition!.setLngLat(coordinates);
         });
 
       this.currentHeadingSubscription =
         this.geolocate.currentHeading$.subscribe((heading) => {
-          if (this.markerPosition && heading) {
-            (this.markerPosition as any).setRotation(heading);
+          if (heading) {
+            this.markerPosition!.setRotation(heading);
           }
         });
 
@@ -915,21 +912,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       : await this.geolocate.getCurrentPosition();
     if (userLocation) {
       const coordinates: any = [userLocation.longitude, userLocation.latitude];
-      if (this.markerPosition) {
-        this.markerPosition.setLngLat(coordinates);
-      } else {
-        const el = document.createElement('div');
-        const currentHeading =
-          await this.geolocate.checkIfCanGetCurrentHeading();
-        el.className = currentHeading ? 'pulse-and-view' : 'pulse';
-
-        this.markerPosition = new maplibregl.Marker({
-          element: el
-        }).setLngLat(coordinates);
-        if (this.markerPosition) {
-          this.markerPosition.addTo(this.map);
-        }
-      }
+      this.markerPosition!.setLngLat(coordinates);
       this.map.flyTo({
         center: coordinates,
         animate: false,
@@ -1214,25 +1197,11 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           )
           .subscribe(async (location: any) => {
             const coordinates: any = [location.longitude, location.latitude];
-            if (this.markerPosition) {
-              this.markerPosition.setLngLat(coordinates);
-            } else {
-              const el = document.createElement('div');
-              const currentHeading =
-                await this.geolocate.checkIfCanGetCurrentHeading();
-              el.className = currentHeading ? 'pulse-and-view' : 'pulse';
-
-              this.markerPosition = new maplibregl.Marker({
-                element: el
-              }).setLngLat(coordinates);
-              if (this.markerPosition) {
-                this.markerPosition.addTo(this.map);
-              }
-            }
+            this.markerPosition!.setLngLat(coordinates);
           });
     } else {
-      this.geolocate.startOnMapTracking();
       this.backgroundGeolocate.stopOnMapTracking();
+      this.geolocate.startOnMapTracking();
       this.currentPositionSubscription.unsubscribe();
       this.currentPositionSubscription = this.geolocate.currentPosition$
         .pipe(
@@ -1241,21 +1210,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         )
         .subscribe(async (location: any) => {
           const coordinates: any = [location.longitude, location.latitude];
-          if (this.markerPosition) {
-            this.markerPosition.setLngLat(coordinates);
-          } else {
-            const el = document.createElement('div');
-            const currentHeading =
-              await this.geolocate.checkIfCanGetCurrentHeading();
-            el.className = currentHeading ? 'pulse-and-view' : 'pulse';
-
-            this.markerPosition = new maplibregl.Marker({
-              element: el
-            }).setLngLat(coordinates);
-            if (this.markerPosition) {
-              this.markerPosition.addTo(this.map);
-            }
-          }
+          this.markerPosition!.setLngLat(coordinates);
         });
     }
   }

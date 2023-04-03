@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Platform } from '@ionic/angular';
-import { Geolocation, Position } from '@capacitor/geolocation';
+import { Geolocation } from '@capacitor/geolocation';
 import { Preferences } from '@capacitor/preferences';
 import {
   DeviceOrientation,
@@ -80,7 +80,6 @@ export class GeolocateService {
     if (this.platform.is('ios') || this.platform.is('android')) {
       if (this.deviceOrientationSubscription) {
         this.deviceOrientationSubscription.unsubscribe();
-        this.currentPosition$.next(null);
       }
     }
   }

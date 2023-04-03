@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from '@ionic/angular';
 import { registerPlugin } from '@capacitor/core';
@@ -17,7 +17,6 @@ export class BackgroundGeolocateService {
   public currentPosition$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentHeading$: BehaviorSubject<any> = new BehaviorSubject(null);
   public currentWatchId: any = null;
-  private deviceOrientationSubscription!: Subscription;
 
   constructor(
     private platform: Platform,
@@ -54,9 +53,6 @@ export class BackgroundGeolocateService {
 
   stopOnMapTracking() {
     if (this.platform.is('ios') || this.platform.is('android')) {
-      if (this.deviceOrientationSubscription) {
-        this.deviceOrientationSubscription.unsubscribe();
-      }
       if (this.currentWatchId) {
         BackgroundGeolocation.removeWatcher({
           id: this.currentWatchId
