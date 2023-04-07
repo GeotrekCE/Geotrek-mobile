@@ -41,14 +41,12 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
   private loadImagesSubscription!: Subscription;
   public flyToUserLocationThrottle: any;
 
-  @ViewChild('mapViz', { static: false }) mapViz: any;
-
   @Input() public filteredTreks: MinimalTrek[] | null = null;
   @Input() public mapConfig: any;
   @Input() public dataSettings!: DataSetting[];
   @Input() public commonSrc!: string;
   @Input() public offline!: Boolean;
-
+  @Input() public trackResize = true;
   @Output() public navigateToTrek = new EventEmitter<any>();
 
   constructor(
@@ -84,6 +82,10 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
           }
         }
       }
+    }
+
+    if (changes['trackResize'].currentValue) {
+      this.map._trackResize = changes['trackResize'].currentValue;
     }
   }
 
@@ -385,11 +387,10 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         layers: ['trek-point']
       })[0];
       if (!!feature.properties) {
+        this.map._trackResize = false;
         this.navigateToTrek.emit(feature.properties['id']);
       }
     });
-
-    this.mapViz.nativeElement.mapInstance = this.map;
   }
 
   async presentConfirmFeatures(
@@ -428,6 +429,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
     const { data } = await modal.onDidDismiss();
 
     if (data && data.selectedTrekId) {
+      this.map._trackResize = false;
       this.navigateToTrek.emit(data.selectedTrekId);
     }
   }

@@ -15,7 +15,12 @@
       </ion-list-header>
 
       <ion-item *ngFor="let trek of radioTreks; let i = index">
-        <ion-radio slot="start" [value]="trek.id"></ion-radio>
+        <ion-radio
+          [legacy]="true"
+          [attr.aria-label]="trek.id"
+          [value]="trek.id"
+          slot="start"
+        ></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
           *ngIf="

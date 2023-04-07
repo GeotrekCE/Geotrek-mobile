@@ -3,13 +3,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { SharedUiModule } from '@app/shared/shared-ui.module';
 import { TrekDetailsPage } from './trek-details.page';
 import { PoiComponent } from '@app/components/poi/poi.component';
 import { InformationDeskComponent } from '@app/components/information-desk/information-desk.component';
 
-import { SwiperModule } from 'swiper/angular';
 import { SharedTrekModule } from '@app/shared/shared-trek.module';
 
 const routes: Routes = [
@@ -26,9 +26,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedTrekModule,
     SharedUiModule,
-    TranslateModule.forChild(),
-    SwiperModule
+    TranslateModule.forChild()
   ],
-  declarations: [TrekDetailsPage, PoiComponent, InformationDeskComponent]
+  declarations: [TrekDetailsPage, PoiComponent, InformationDeskComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TrekDetailsPageModule {}

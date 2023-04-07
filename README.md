@@ -38,7 +38,7 @@ npx cap add android
 ## Icons and splashscreens
 
 ```
-npx capacitor-resources
+npx @capacitor/assets generate --android --ios
 ```
 
 ## Native configuration

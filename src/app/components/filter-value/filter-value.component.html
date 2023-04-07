@@ -1,15 +1,21 @@
 <ion-item class="no-lines">
-  <ion-img
-    style="width: 24px; height: 24px; margin-right: 12px"
-    *ngIf="value.pictogram && !this.hideImgPracticeSrc"
-    [style.background-color]="value.color ? value.color : 'transparent'"
-    [src]="imgPracticeSrc"
-    (ionError)="onImgPracticeSrcError()"
-  ></ion-img>
-  <ion-label>{{ value.name }}</ion-label>
   <ion-checkbox
+    [attr.aria-label]="value.name"
     (ionChange)="valueCheckChanged($event, value)"
     [checked]="value.checked"
-    slot="start"
-  ></ion-checkbox>
+    labelPlacement="end"
+    justify="start"
+    class="checkbox-container"
+  >
+    <div>
+      <ion-img
+        style="width: 24px; height: 24px; margin-right: 12px"
+        *ngIf="value.pictogram && !this.hideImgPracticeSrc"
+        [style.background-color]="value.color ? value.color : 'transparent'"
+        [src]="imgPracticeSrc"
+        (ionError)="onImgPracticeSrcError()"
+      ></ion-img
+      >{{ value.name }}
+    </div>
+  </ion-checkbox>
 </ion-item>

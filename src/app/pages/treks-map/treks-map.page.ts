@@ -34,6 +34,7 @@ export class TreksMapPage implements OnInit, OnDestroy {
   public mapConfig: any;
   public commonSrc!: string;
   public canDisplayMap = false;
+  public trackResize = true;
 
   constructor(
     private filterTreks: FilterTreksService,
@@ -80,10 +81,12 @@ export class TreksMapPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
+    this.trackResize = true;
     this.canDisplayMap = true;
   }
 
   navigateToTrek(id: number) {
+    this.trackResize = false;
     this.router.navigate([this.treksTool.getTrekDetailsUrl(id)]);
   }
 

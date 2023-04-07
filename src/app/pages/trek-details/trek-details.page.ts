@@ -29,11 +29,9 @@ import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { SettingsService } from '@app/services/settings/settings.service';
 import { HttpResponse } from '@capacitor-community/http';
-import SwiperCore, { Pagination } from 'swiper';
+import { Pagination } from 'swiper';
 import { IonicSlides } from '@ionic/angular';
 import { AppLauncher } from '@capacitor/app-launcher';
-
-SwiperCore.use([Pagination, IonicSlides]);
 
 @Component({
   selector: 'app-trek-details',
@@ -67,9 +65,7 @@ export class TrekDetailsPage implements OnInit {
   public previousTrek!: Trek;
   public nextTrek!: Trek;
   public isAvailableOffline = false;
-  public adminApiUrl = `${
-    environment.adminApiUrl
-  }/${this.translate.getDefaultLang()}/treks`;
+  public adminApiUrl = '';
   public pictures: any = [];
   public trekExtraDetails: any = {
     difficulty: '',
@@ -93,6 +89,7 @@ export class TrekDetailsPage implements OnInit {
       slidesPerView: 2.2
     }
   };
+  swiperModules = [Pagination, IonicSlides];
 
   constructor(
     private onlineTreks: OnlineTreksService,
@@ -108,6 +105,9 @@ export class TrekDetailsPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.adminApiUrl = `${
+      environment.adminApiUrl
+    }/${this.translate.getDefaultLang()}/treks`;
     this.loadTrek();
   }
 

@@ -11,7 +11,12 @@
       [value]="selectedPoiId"
     >
       <ion-item *ngFor="let poi of radioPois; let i = index">
-        <ion-radio slot="start" [value]="poi.id"></ion-radio>
+        <ion-radio
+          [legacy]="true"
+          [attr.aria-label]="poi.id"
+          [value]="poi.id"
+          slot="start"
+        ></ion-radio>
         <ion-img
           style="width: 24px; height: 24px; margin-right: 12px"
           *ngIf="poi.imgTypePoi.src && !this.imgPractices[i].hideImgPracticeSrc"

@@ -105,11 +105,12 @@
     </ion-fab>
 
     <div *ngIf="currentTrek">
-      <swiper
+      <swiper-container
+        [modules]="swiperModules"
         *ngIf="currentTrek.properties.pictures && currentTrek.properties.pictures.length > 0"
         [pagination]="true"
       >
-        <ng-template swiperSlide *ngFor="let picture of pictures">
+        <swiper-slide *ngFor="let picture of pictures">
           <div
             style="
               display: flex;
@@ -128,8 +129,8 @@
               <span *ngIf="picture.author">({{ picture.author }})</span>
             </div>
           </div>
-        </ng-template>
-      </swiper>
+        </swiper-slide>
+      </swiper-container>
 
       <ion-grid>
         <ion-row *ngIf="currentTrek.properties.description_teaser">
@@ -412,13 +413,13 @@
                   </h2>
                 </ion-text>
               </div>
-              <swiper
+              <swiper-container
+                [modules]="swiperModules"
                 [breakpoints]="breakpoints"
                 [centeredSlides]="true"
                 style="margin-left: -10px; padding-left: 40px"
               >
-                <ng-template
-                  swiperSlide
+                <swiper-slide
                   *ngFor="let trek of currentTrek.properties.children.features; index as indexStage"
                 >
                   <app-trek-card
@@ -430,8 +431,8 @@
                     [trek]="trek"
                     [offline]="offline"
                   ></app-trek-card>
-                </ng-template>
-              </swiper>
+                </swiper-slide>
+              </swiper-container>
             </ion-col>
           </ion-row>
         </div>
@@ -528,21 +529,21 @@
                 currentTrek.properties.information_desks.length }})
               </h2>
             </ion-text>
-            <swiper
+            <swiper-container
+              [modules]="swiperModules"
               [breakpoints]="breakpoints"
               [centeredSlides]="true"
               style="margin-left: -10px; padding-left: 40px"
             >
-              <ng-template
-                swiperSlide
+              <swiper-slide
                 *ngFor="let information_desk of currentTrek.properties.information_desks"
               >
                 <app-information-desk
                   [informationDesk]="information_desk"
                   [offline]="offline"
                 ></app-information-desk>
-              </ng-template>
-            </swiper>
+              </swiper-slide>
+            </swiper-container>
           </ion-col>
         </ion-row>
 
@@ -555,20 +556,21 @@
               </h2>
             </ion-text>
 
-            <swiper
+            <swiper-container
+              [modules]="swiperModules"
               [breakpoints]="breakpoints"
               [centeredSlides]="true"
               style="margin-left: -10px; padding-left: 40px"
             >
-              <ng-template swiperSlide *ngFor="let currentPoi of currentPois">
+              <swiper-slide *ngFor="let currentPoi of currentPois">
                 <app-poi
                   [poi]="currentPoi"
                   [commonSrc]="commonSrc"
                   [typePois]="typePois"
                   [offline]="offline"
                 ></app-poi>
-              </ng-template>
-            </swiper>
+              </swiper-slide>
+            </swiper-container>
           </ion-col>
         </ion-row>
 
@@ -586,21 +588,21 @@
                 </h2>
               </ion-text>
 
-              <swiper
+              <swiper-container
+                [modules]="swiperModules"
                 [breakpoints]="breakpoints"
                 [centeredSlides]="true"
                 style="margin-left: -10px; padding-left: 40px"
               >
-                <ng-template
-                  swiperSlide
+                <swiper-slide
                   *ngFor="let touristicContent of touristicCategoryWithFeatures.features"
                 >
                   <app-poi
                     [poi]="touristicContent"
                     [offline]="offline"
                   ></app-poi>
-                </ng-template>
-              </swiper>
+                </swiper-slide>
+              </swiper-container>
             </ion-col>
           </ion-row>
         </div>

@@ -1,15 +1,14 @@
-<ion-list lines="inset">
-  <ion-radio-group [value]="currentOrder">
-    <ion-list-header>
-      <ion-label>{{ 'toolbar.orderTitle' | translate }}</ion-label>
-    </ion-list-header>
-    <ion-item class="no-lines" *ngFor="let order of orders">
-      <ion-label>{{ order.name }}</ion-label>
-      <ion-radio
-        (click)="treksOrderChange(order.value)"
-        [value]="order.value"
-        slot="end"
-      ></ion-radio>
-    </ion-item>
-  </ion-radio-group>
-</ion-list>
+<ion-radio-group [value]="currentOrder" (ionChange)="treksOrderChange($event)">
+  <ion-list-header>
+    <ion-label>{{ 'toolbar.orderTitle' | translate }}</ion-label>
+  </ion-list-header>
+  <ion-item class="no-lines" *ngFor="let order of orders">
+    <ion-label>{{ order.name }}</ion-label>
+    <ion-radio
+      [legacy]="true"
+      [attr.aria-label]="order.name"
+      [value]="order.value"
+      slot="start"
+    ></ion-radio>
+  </ion-item>
+</ion-radio-group>

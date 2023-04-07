@@ -68,7 +68,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   @Output() presentPoiDetails = new EventEmitter<any>();
   @Output() presentInformationDeskDetails = new EventEmitter<any>();
   @Output() navigateToChildren = new EventEmitter<any>();
-  a = 0;
+
   constructor(
     private settings: SettingsService,
     private geolocate: GeolocateService,

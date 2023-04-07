@@ -140,17 +140,20 @@
       </ng-container>
     </ng-template>
   </ng-template>
-  <ion-modal [trigger]="'open-treks-filters'.concat(offline.toString())">
-    <ng-template>
-      <app-filters [isOnline]="!offline"></app-filters>
-    </ng-template>
-  </ion-modal>
-  <ion-modal [trigger]="'open-treks-search'.concat(offline.toString())">
-    <ng-template>
-      <app-search
-        [isOnline]="!offline"
-        (navigateToTrek)="navigateToTrek($event)"
-      ></app-search>
-    </ng-template>
-  </ion-modal>
+  <ng-container
+    *ngIf="((!(onlineTreks.onlineTreksError$ | async) || !(settings.settingsError$ | async)) && !offline) || (offline && nbOfflineTreks > 0)"
+  >
+    <ion-modal [trigger]="'open-treks-filters'.concat(offline.toString())">
+      <ng-template>
+        <app-filters [isOnline]="!offline"></app-filters>
+      </ng-template>
+    </ion-modal>
+    <ion-modal [trigger]="'open-treks-search'.concat(offline.toString())">
+      <ng-template>
+        <app-search
+          [isOnline]="!offline"
+          (navigateToTrek)="navigateToTrek($event)"
+        ></app-search>
+      </ng-template> </ion-modal
+  ></ng-container>
 </ion-content>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '@env/environment';
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
   selector: 'app-root',
