@@ -1,11 +1,10 @@
 <ion-item class="no-lines" *ngFor="let layer of layers">
+  <ion-label>{{ layer.name }}</ion-label>
   <ion-checkbox
-    [attr.aria-label]="layer.name"
     (ionChange)="layerVisibilityChange($event)"
     [checked]="layer.visibility"
     [value]="layer.layersName"
-    labelPlacement="end"
-    justify="start"
-    >{{ layer.name }}</ion-checkbox
-  >
+    slot="end"
+    [legacy]="true"
+  ></ion-checkbox>
 </ion-item>
