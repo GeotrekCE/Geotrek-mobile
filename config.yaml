@@ -29,11 +29,11 @@ platforms:
         plist:
           - replace: true
             entries:
-              - NSLocationWhenInUseUsageDescription: In order to track you while hiking, this app requires location tracking
+              - NSLocationWhenInUseUsageDescription: In order to track you while hiking and notify you about a near point of interest, this app always requires location tracking
 
           - replace: true
             entries:
-              - NSLocationAlwaysAndWhenInUseUsageDescription: In order to track you while hiking, this app always requires location tracking
+              - NSLocationAlwaysAndWhenInUseUsageDescription: In order to track you while hiking and notify you about a near point of interest, this app always requires location tracking
 
           - replace: true
             entries:
