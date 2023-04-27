@@ -47,30 +47,37 @@ export class SettingsService {
     return new Promise(async (resolve) => {
       this.platform.ready().then(async () => {
         let defaultLanguage;
-
-        if (this.platform.is('ios') || this.platform.is('android')) {
-          defaultLanguage = (await Device.getLanguageCode()).value;
-        } else {
-          defaultLanguage = navigator.language.slice(0, 2);
-        }
-
-        if (
-          environment.availableLanguage &&
-          environment.availableLanguage.length > 0
-        ) {
-          if (environment.availableLanguage.indexOf(defaultLanguage) === -1) {
-            defaultLanguage = environment.availableLanguage[0];
+        try {
+          if (this.platform.is('ios') || this.platform.is('android')) {
+            defaultLanguage = (await Device.getLanguageCode()).value;
+          } else {
+            defaultLanguage = navigator.language.slice(0, 2);
           }
-        } else {
+
+          if (
+            environment.availableLanguage &&
+            environment.availableLanguage.length > 0
+          ) {
+            if (environment.availableLanguage.indexOf(defaultLanguage) === -1) {
+              defaultLanguage = environment.availableLanguage[0];
+            }
+          } else {
+            defaultLanguage = 'fr';
+          }
+        } catch (error) {
           defaultLanguage = 'fr';
         }
 
-        this.translate.setDefaultLang(defaultLanguage);
-
-        if (this.platform.is('ios') || this.platform.is('android')) {
-          const textZoomPreferred = await TextZoom.getPreferred();
-          await TextZoom.set({ value: textZoomPreferred.value });
+        try {
+          if (this.platform.is('ios') || this.platform.is('android')) {
+            const textZoomPreferred = await TextZoom.getPreferred();
+            await TextZoom.set({ value: textZoomPreferred.value });
+          }
+        } catch (error) {
+          await TextZoom.set({ value: 1 });
         }
+
+        this.translate.setDefaultLang(defaultLanguage);
 
         await this.loadSettings();
 
