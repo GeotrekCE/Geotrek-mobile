@@ -147,6 +147,10 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         container: 'map-treks'
       });
 
+      if (!environment.production) {
+        (window as any).treksMap = this.map;
+      }
+
       if (bounds && bounds._ne && bounds._sw) {
         this.map.fitBounds(bounds, environment.map.TreksfitBoundsOptions);
       }
