@@ -40,7 +40,8 @@
       "confirmButton": "Ok",
       "cancelButton": "Annuler",
       "informUser": "Plusieurs randonnées sont disponibles depuis ce point de départ"
-    }
+    },
+    "showList": "Voir la liste"
   },
   "mapTrek": {
     "enableNotification": "Activer les notifications",
@@ -109,7 +110,8 @@
       "goToDeparture": "Aller au départ",
       "goToAdvisedParking": "Aller au parking",
       "goThere": "Y aller"
-    }
+    },
+    "showMap": "Voir la carte"
   },
   "treks": {
     "numberOftreks": "Randonnées",
@@ -117,7 +119,8 @@
     "noOfflineResults": "Les filtres sélectionnés ne correspondent à aucune de vos randonnées enregistrées.",
     "eraseFilters": "Effacer tous les filtres",
     "emptyOfflineTreks": "Ici, vous retrouverez vos randonnées disponibles hors ligne",
-    "departure": "Départ"
+    "departure": "Départ",
+    "showMap": "Voir la carte"
   },
   "geolocate": {
     "askLocatePermission": "Vous n'avez pas autorisé l'application à suivre votre localisation. Voulez vous ouvrir vos paramètres ?",

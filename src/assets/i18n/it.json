@@ -40,7 +40,8 @@
       "confirmButton": "OK",
       "cancelButton": "Cancellare",
       "informUser": "Da questo punto di partenza sono disponibili diverse escursioni"
-    }
+    },
+    "showList": "Mostra l'elenco"
   },
   "mapTrek": {
     "enableNotification": "Attivare le notifiche",
@@ -51,6 +52,7 @@
     }
   },
   "trek": {
+    "return": "Ritorno",
     "view": "Cambia modalità di visualizzazione",
     "offline": "Offline",
     "share": "Azione",
@@ -108,7 +110,8 @@
       "goToDeparture": "Vai alla partenza",
       "goToAdvisedParking": "Vai al parcheggio",
       "goThere": "Vai lì"
-    }
+    },
+    "showMap": "Mostra la mappa"
   },
   "treks": {
     "numberOftreks": "escursioni",
@@ -116,7 +119,8 @@
     "noOfflineResults": "I filtri selezionati non corrispondono a nessuna delle sue escursioni registrate.",
     "eraseFilters": "Cancellare tutti i filtri",
     "emptyOfflineTreks": "Qui, troverà le sue escursioni disponibili offline",
-    "departure": "Partenza"
+    "departure": "Partenza",
+    "showMap": "Mostra la mappa"
   },
   "geolocate": {
     "askLocatePermission": "L’app non è autorizzata a geolocalizzarla. Vuole modificare i suoi parametri ?",

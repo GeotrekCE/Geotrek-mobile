@@ -99,8 +99,13 @@
     </ion-infinite-scroll>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button class="no-outline" [routerLink]="[mapLink]">
+      <ion-fab-button
+        color="secondary"
+        class="no-outline"
+        [routerLink]="[mapLink]"
+      >
         <ion-icon name="globe"></ion-icon>
+        <div>{{ 'treks.showMap' | translate }}</div>
       </ion-fab-button>
     </ion-fab>
   </ng-container>

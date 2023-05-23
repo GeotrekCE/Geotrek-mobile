@@ -40,7 +40,8 @@
       "confirmButton": "Ok",
       "cancelButton": "Cancel",
       "informUser": "Several hikes are available from this starting point"
-    }
+    },
+    "showList": "Show the list"
   },
   "mapTrek": {
     "enableNotification": "Enable notifications",
@@ -109,7 +110,8 @@
       "goToDeparture": "Go to the departure",
       "goToAdvisedParking": "Go to the parking",
       "goThere": "Go there"
-    }
+    },
+    "showMap": "Show the map"
   },
   "treks": {
     "numberOftreks": "treks",
@@ -117,7 +119,8 @@
     "noOfflineResults": "The selected filters do not match any of your recorded hikes.",
     "eraseFilters": "Erase all filters",
     "emptyOfflineTreks": "You will find your offline hikes here",
-    "departure": "Departure"
+    "departure": "Departure",
+    "showMap": "Show the map"
   },
   "geolocate": {
     "askLocatePermission": "You didn't allow the application to locate you. Do you want to open settings ?",

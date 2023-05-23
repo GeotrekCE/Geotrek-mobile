@@ -60,8 +60,13 @@
     >
     </app-map-treks-viz>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button class="no-outline" [routerLink]="treksUrl">
+      <ion-fab-button
+        color="secondary"
+        class="no-outline"
+        [routerLink]="treksUrl"
+      >
         <ion-icon name="reorder-four-outline"></ion-icon>
+        <div>{{ 'mapTreks.showList' | translate }}</div>
       </ion-fab-button>
     </ion-fab>
   </ng-template>

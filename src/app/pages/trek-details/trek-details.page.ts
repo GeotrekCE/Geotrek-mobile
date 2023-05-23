@@ -385,8 +385,7 @@ export class TrekDetailsPage implements OnInit {
           : [
               {
                 text: trad.cancelButton,
-                role: 'cancel',
-                cssClass: 'secondary'
+                role: 'cancel'
               },
               {
                 text: trad.confirmButton,
@@ -485,8 +484,7 @@ export class TrekDetailsPage implements OnInit {
         : [
             {
               text: translationTrekCard.cancelButton,
-              role: 'cancel',
-              cssClass: 'secondary'
+              role: 'cancel'
             },
             {
               text: translationTrekCard.deleteLabel,

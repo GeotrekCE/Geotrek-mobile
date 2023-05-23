@@ -40,7 +40,8 @@
       "confirmButton": "Ok",
       "cancelButton": "Abbrechen",
       "informUser": "Von diesem Ausgangspunkt aus sind mehrere Wanderungen möglich"
-    }
+    },
+    "showList": "Liste anzeigen"
   },
   "mapTrek": {
     "enableNotification": "Benachrichtigungen aktivieren",
@@ -51,6 +52,7 @@
     }
   },
   "trek": {
+    "return": "Zurückkehren",
     "view": "Anzeigemodus ändern",
     "offline": "Offline",
     "share": "Aktie",
@@ -108,7 +110,8 @@
       "goToDeparture": "Gehen Sie zur Abfahrt",
       "goToAdvisedParking": "Gehen Sie zum Parkplatz",
       "goThere": "Dorthin gehen"
-    }
+    },
+    "showMap": "Karte anzeigen"
   },
   "treks": {
     "numberOftreks": "Wanderung",
@@ -116,7 +119,8 @@
     "noOfflineResults": "Die ausgewählten Filter passen zu keiner Ihrer gespeicherten Wanderungen.",
     "eraseFilters": "Alle Filter löschen",
     "emptyOfflineTreks": "Hier finden Sie Ihre verfügbaren Offline-Wanderungen",
-    "departure": "Start"
+    "departure": "Start",
+    "showMap": "Karte anzeigen"
   },
   "geolocate": {
     "askLocatePermission": "Sie haben die Anwendung zur Verfolgung Ihres Standorts nicht autorisiert. Möchten Sie Ihre Einstellungen öffnen?",

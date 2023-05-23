@@ -155,7 +155,15 @@ app-trek-map {
 }
 
 ion-fab-button {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
+  width: 170px;
+  height: 48px;
+  --border-radius: 24px;
+  text-transform: uppercase;
+  font-weight: 500;
+  ion-icon {
+    margin-right: 8px;
+  }
 }
 
 .full-size {
