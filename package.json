@@ -38,7 +38,7 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@turf/distance": "^6.5.0",
     "@turf/helpers": "^6.5.0",
-    "capacitor-zip": "git+https://github.com/GeotrekCE/capacitor-zip.git#af6014aba944f6f0ad20edb53b6070647c4f078b",
+    "capacitor-zip": "git+https://github.com/GeotrekCE/capacitor-zip.git#c89a5e419e8e42e62fba038596b3d1ed152ffecf",
     "cordova-plugin-device-orientation": "^2.0.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.deburr": "^4.1.0",
