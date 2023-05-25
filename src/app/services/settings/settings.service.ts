@@ -1,4 +1,4 @@
-import { Http, HttpResponse } from '@capacitor-community/http';
+import { CapacitorHttp, HttpResponse } from '@capacitor/core';
 import { Preferences } from '@capacitor/preferences';
 import { Device } from '@capacitor/device';
 import { TextZoom } from '@capacitor/text-zoom';
@@ -104,7 +104,7 @@ export class SettingsService {
           if (settings) {
             this.settingsError$.next(false);
             this.filters$.next(this.getFilters(settings));
-            this.data$.next(settings.data.data);
+            this.data$.next(settings.data);
           } else {
             this.settingsError$.next(true);
           }
@@ -162,7 +162,7 @@ export class SettingsService {
         'Accept-Language': this.translate.getDefaultLang()
       }
     };
-    return Http.request(httpOptions);
+    return CapacitorHttp.request(httpOptions);
   }
 
   public getZoneFromUrl(): Promise<HttpResponse> {
@@ -173,7 +173,7 @@ export class SettingsService {
         'Accept-Language': this.translate.getDefaultLang()
       }
     };
-    return Http.request(httpOptions);
+    return CapacitorHttp.request(httpOptions);
   }
 
   public async getZoneFromStorage() {

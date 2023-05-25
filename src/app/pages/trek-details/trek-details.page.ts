@@ -28,7 +28,7 @@ import { environment } from '@env/environment';
 import { ModalController } from '@ionic/angular';
 import { ProgressComponent } from '@app/components/progress/progress.component';
 import { SettingsService } from '@app/services/settings/settings.service';
-import { HttpResponse } from '@capacitor-community/http';
+import { HttpResponse } from '@capacitor/core';
 import { Pagination } from 'swiper';
 import { IonicSlides } from '@ionic/angular';
 import { AppLauncher } from '@capacitor/app-launcher';

@@ -1,4 +1,4 @@
-import { Http, HttpResponse } from '@capacitor-community/http';
+import { CapacitorHttp, HttpResponse } from '@capacitor/core';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -104,7 +104,7 @@ export class OnlineTreksService implements TreksService {
       }
     };
 
-    return Http.request(httpOptions);
+    return CapacitorHttp.request(httpOptions);
   }
 
   public getTrekById(trekId: number, parentId?: number): Promise<HttpResponse> {
@@ -116,7 +116,7 @@ export class OnlineTreksService implements TreksService {
           'Accept-Language': this.translate.getDefaultLang()
         }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     } else {
       const httpOptions = {
         method: 'GET',
@@ -125,7 +125,7 @@ export class OnlineTreksService implements TreksService {
           'Accept-Language': this.translate.getDefaultLang()
         }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     }
   }
 
@@ -141,7 +141,7 @@ export class OnlineTreksService implements TreksService {
           'Accept-Language': this.translate.getDefaultLang()
         }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     } else {
       const httpOptions = {
         method: 'GET',
@@ -150,7 +150,7 @@ export class OnlineTreksService implements TreksService {
           'Accept-Language': this.translate.getDefaultLang()
         }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     }
   }
 
@@ -164,14 +164,14 @@ export class OnlineTreksService implements TreksService {
         url: `${this.baseUrl}/${parentId}/touristic_contents/${trekId}.geojson`,
         headers: { 'Accept-Language': this.translate.getDefaultLang() }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     } else {
       const httpOptions = {
         method: 'GET',
         url: `${this.baseUrl}/${trekId}/touristic_contents.geojson`,
         headers: { 'Accept-Language': this.translate.getDefaultLang() }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     }
   }
 
@@ -185,14 +185,14 @@ export class OnlineTreksService implements TreksService {
         url: `${this.baseUrl}/${parentId}/touristic_events/${trekId}.geojson`,
         headers: { 'Accept-Language': this.translate.getDefaultLang() }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     } else {
       const httpOptions = {
         method: 'GET',
         url: `${this.baseUrl}/${trekId}/touristic_events.geojson`,
         headers: { 'Accept-Language': this.translate.getDefaultLang() }
       };
-      return Http.request(httpOptions);
+      return CapacitorHttp.request(httpOptions);
     }
   }
 

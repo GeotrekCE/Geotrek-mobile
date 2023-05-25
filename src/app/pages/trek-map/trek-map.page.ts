@@ -17,7 +17,7 @@ import { InformationDeskDetailsComponent } from '@app/components/information-des
 import { SettingsService } from '@app/services/settings/settings.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
-import { HttpResponse } from '@capacitor-community/http';
+import { HttpResponse } from '@capacitor/core';
 
 @Component({
   selector: 'app-trek-map',

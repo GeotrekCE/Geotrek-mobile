@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpResponse } from '@capacitor-community/http';
+import { CapacitorHttp, HttpResponse } from '@capacitor/core';
+
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@env/environment';
@@ -20,7 +21,7 @@ export class MoreInformationsService {
         'Accept-Language': this.translate.getDefaultLang()
       }
     };
-    return Http.request(httpOptions);
+    return CapacitorHttp.request(httpOptions);
   }
 
   public getMoreItemById(id: number): Promise<HttpResponse> {
@@ -31,6 +32,6 @@ export class MoreInformationsService {
         'Accept-Language': this.translate.getDefaultLang()
       }
     };
-    return Http.request(httpOptions);
+    return CapacitorHttp.request(httpOptions);
   }
 }

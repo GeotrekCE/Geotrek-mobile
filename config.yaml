@@ -21,6 +21,12 @@ platforms:
               <package android:name="com.suricate" />
             </queries>
           </manifest>
+
+      - file: AndroidManifest.xml
+        target: manifest/application
+        attrs:
+          android:usesCleartextTraffic: true
+
   ios:
     targets:
       App:
@@ -39,3 +45,8 @@ platforms:
             entries:
               - UIBackgroundModes:
                   - location
+
+          - replace: true
+            entries:
+              - NSAppTransportSecurity:
+                  - NSAllowsArbitraryLoads: true

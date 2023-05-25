@@ -1,4 +1,4 @@
-import { HttpResponse } from '@capacitor-community/http';
+import { HttpResponse } from '@capacitor/core';
 import { Feature, FeatureCollection, MultiPoint, Point } from 'geojson';
 import { Observable } from 'rxjs/internal/Observable';
 

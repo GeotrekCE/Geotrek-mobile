@@ -1,9 +1,8 @@
-import { Http } from '@capacitor-community/http';
 import { Injectable } from '@angular/core';
 import { ZipPlugin } from 'capacitor-zip';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 import {
   BehaviorSubject,
@@ -25,7 +24,8 @@ import {
   count,
   scan,
   withLatestFrom,
-  concatMap
+  concatMap,
+  last
 } from 'rxjs/operators';
 import { cloneDeep } from 'lodash';
 
@@ -43,6 +43,8 @@ import {
   TouristicContents,
   TouristicEvents
 } from '@app/interfaces/interfaces';
+import { HttpClient, HttpRequest } from '@angular/common/http';
+import write_blob from 'capacitor-blob-writer';
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +65,8 @@ export class OfflineTreksService implements TreksServiceOffline {
   constructor(
     private platform: Platform,
     private filterTreks: FilterTreksService,
-    private onlineTreksService: OnlineTreksService
+    private onlineTreksService: OnlineTreksService,
+    private http: HttpClient
   ) {
     this.isMobile = this.platform.is('ios') || this.platform.is('android');
     this.filteredTreks$ = this.filterTreks.getFilteredTreks(this.treks$);
@@ -77,8 +80,11 @@ export class OfflineTreksService implements TreksServiceOffline {
       const imgPath = !!picture
         ? picture.url
         : trek.properties.first_picture.url;
-
-      if (this.isMobile && !imgPath.startsWith('assets')) {
+      if (
+        this.isMobile &&
+        ((Array.isArray(imgPath) && !imgPath[0].startsWith('assets')) ||
+          !imgPath.startsWith('assets'))
+      ) {
         const imgUri = await Filesystem.getUri({
           directory: Directory.Data,
           path: `offline/${imgPath}`
@@ -175,14 +181,10 @@ export class OfflineTreksService implements TreksServiceOffline {
       )
     ];
 
-    if (this.isMobile) {
-      if (this.treks$.value && this.treks$.value.features.length === 1) {
-        tasks.push(this.saveCommonMedia());
-      }
-      tasks.push(this.saveMediaForTrek(trekId));
-    } else {
-      tasks.push(this.fakeMediaDl());
+    if (this.treks$.value && this.treks$.value.features.length === 1) {
+      tasks.push(this.saveCommonMedia());
     }
+    tasks.push(this.saveMediaForTrek(trekId));
 
     tasks.push(
       from(
@@ -280,39 +282,6 @@ export class OfflineTreksService implements TreksServiceOffline {
     );
   }
 
-  fakeMediaDl() {
-    const requestOne = of(1).pipe(delay(1000));
-    const requestTwo = of(2).pipe(delay(1000));
-    const requestThree = of(3).pipe(delay(1000));
-    const requestFour = of(4).pipe(delay(1000));
-    const requestFive = of(5).pipe(delay(1000));
-    const observables: Array<Observable<number>> = [
-      requestOne,
-      requestTwo,
-      requestThree,
-      requestFour,
-      requestFive
-    ];
-    const array$ = from(observables);
-    const requests$ = array$.pipe(concatAll());
-    const progress$ = of(true).pipe(switchMapTo(requests$), share());
-
-    const count$ = array$.pipe(count());
-
-    const ratio$ = progress$.pipe(
-      scan((current) => current + 1, 0),
-      withLatestFrom(count$, (current, nb) => current / nb)
-    );
-
-    of(true)
-      .pipe(switchMapTo(ratio$))
-      .subscribe((currentProgress) => {
-        this.currentProgressDownload$.next(currentProgress);
-      });
-
-    return of(true).pipe(delay(6000));
-  }
-
   private updateProgress() {
     const currentProgress =
       (this.commonMediaBytes + this.trekBytes) /
@@ -321,110 +290,133 @@ export class OfflineTreksService implements TreksServiceOffline {
   }
 
   private saveCommonMedia() {
-    Http.addListener('progress', (e) => {
-      if (!this.commonMediaContentLength) {
-        this.commonMediaContentLength = e.contentLength;
-      }
-      this.commonMediaBytes = e.bytes;
-      this.updateProgress();
-    });
-
     const offlineZipDownloadUrl = `${this.baseUrl}/global.zip`;
-    const options = {
-      url: offlineZipDownloadUrl,
-      filePath: `zip/global.zip`,
-      fileDirectory: Directory.Data,
-      method: 'GET',
-      progress: true
-    };
+    const zipDestination = 'zip/global.zip';
 
-    let source: any;
-
-    return from(Http.downloadFile(options)).pipe(
-      tap((result) => {
-        source = result.path;
-      }),
-      mergeMap(() => {
-        return from(
-          Filesystem.getUri({ path: 'offline', directory: Directory.Data })
-        );
-      }),
-      mergeMap((destination) => {
-        return new Promise((resolve) => {
-          from(
-            ZipPlugin.unZip(
-              {
-                source,
-                destination: destination.uri
-              },
-              (progress: any) => {
-                if (progress.completed) {
-                  Filesystem.deleteFile({
-                    path: `zip/global.zip`,
-                    directory: Directory.Data
-                  });
-                  resolve(true);
-                }
-              }
-            )
-          );
-        });
+    return this.http
+      .request('GET', offlineZipDownloadUrl, {
+        reportProgress: true,
+        responseType: 'blob',
+        observe: 'events'
       })
-    );
+      .pipe(
+        tap((event: any) => {
+          if (!this.commonMediaContentLength) {
+            this.commonMediaContentLength = event.total;
+          }
+          this.commonMediaBytes = event.loaded;
+          this.updateProgress();
+        }),
+        last(),
+        mergeMap((response) => {
+          return from(
+            write_blob({
+              path: zipDestination,
+              blob: response.body,
+              directory: Directory.Data
+            })
+          );
+        }),
+        mergeMap(async () => {
+          if (this.isMobile) {
+            const source = await Filesystem.getUri({
+              path: zipDestination,
+              directory: Directory.Data
+            });
+            const destination = await Filesystem.getUri({
+              path: 'offline',
+              directory: Directory.Data
+            });
+            return new Promise((resolve) => {
+              from(
+                ZipPlugin.unZip(
+                  {
+                    source: source.uri,
+                    destination: destination.uri
+                  },
+                  (progress: any) => {
+                    if (progress.completed) {
+                      Filesystem.deleteFile({
+                        path: `zip/global.zip`,
+                        directory: Directory.Data
+                      });
+                      resolve(true);
+                    }
+                  }
+                )
+              );
+            });
+          } else {
+            return new Promise((resolve) => {
+              resolve(true);
+            });
+          }
+        })
+      );
   }
 
   private saveMediaForTrek(trekId: number) {
-    if (this.treks$.value && this.treks$.value.features.length === 1) {
-      Http.removeAllListeners();
-    }
-    Http.addListener('progress', (e) => {
-      if (!this.trekContentLength) {
-        this.trekContentLength = e.contentLength;
-      }
-      this.trekBytes = e.bytes;
-      this.updateProgress();
-    });
-
     const offlineZipDownloadUrl = `${this.baseUrl}/${trekId}.zip`;
-    const options = {
-      url: offlineZipDownloadUrl,
-      filePath: `zip/${trekId}.zip`,
-      fileDirectory: Directory.Data,
-      method: 'GET',
-      progress: true
-    };
+    const zipDestination = `zip/${trekId}.zip`;
 
-    let source: any;
-
-    return from(Http.downloadFile(options)).pipe(
-      tap((result) => {
-        source = result.path;
+    return from(
+      this.http.request('GET', offlineZipDownloadUrl, {
+        reportProgress: true,
+        responseType: 'blob',
+        observe: 'events'
+      })
+    ).pipe(
+      tap((event: any) => {
+        if (!this.trekContentLength) {
+          this.trekContentLength = event.total;
+        }
+        this.trekBytes = event.loaded;
+        this.updateProgress();
       }),
-      mergeMap(() => {
+      last(),
+      mergeMap((response) => {
         return from(
-          Filesystem.getUri({ path: 'offline', directory: Directory.Data })
+          write_blob({
+            path: zipDestination,
+            blob: response.body,
+            directory: Directory.Data
+          })
         );
       }),
-      mergeMap((destination) => {
-        return new Promise((resolve) => {
-          from(
-            ZipPlugin.unZip(
-              {
-                source,
-                destination: destination.uri
-              },
-              (progress: any) => {
-                if (progress.completed) {
-                  Filesystem.deleteFile({
-                    path: `zip/${trekId}.zip`,
-                    directory: Directory.Data
-                  });
-                  resolve(true);
+      mergeMap(async () => {
+        if (this.isMobile) {
+          const source = await Filesystem.getUri({
+            path: zipDestination,
+            directory: Directory.Data
+          });
+          const destination = await Filesystem.getUri({
+            path: 'offline',
+            directory: Directory.Data
+          });
+          return new Promise((resolve) => {
+            from(
+              ZipPlugin.unZip(
+                {
+                  source: source.uri,
+                  destination: destination.uri
+                },
+                (progress: any) => {
+                  if (progress.completed) {
+                    Filesystem.deleteFile({
+                      path: zipDestination,
+                      directory: Directory.Data
+                    });
+                    resolve(true);
+                  }
                 }
-              }
-            )
-          );
-        });
+              )
+            );
+          });
+        } else {
+          return new Promise((resolve) => {
+            resolve(true);
+          });
+        }
       })
     );
   }
