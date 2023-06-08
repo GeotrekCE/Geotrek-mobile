@@ -226,3 +226,8 @@ app-search {
   flex-direction: column;
   height: 100%;
 }
+
+.img-responsive {
+  object-fit: contain;
+  height: auto;
+}
