@@ -49,12 +49,6 @@ npx trapeze run config.yaml
 
 Now you can create your release app using xCode and Android Studio.
 
-# End-to-end testing
-
-```
-npx cypress open
-```
-
 # LICENCE
 
 - OpenSource - BSD
