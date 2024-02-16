@@ -26,6 +26,7 @@ import maplibregl from 'maplibre-gl/dist/maplibre-gl.js';
 import { Capacitor } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
+import cloneDeep from 'lodash.clonedeep';
 
 @Component({
   selector: 'app-map-treks-viz',
@@ -111,6 +112,9 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
         this.offline &&
         (this.platform.is('ios') || this.platform.is('android'))
       ) {
+        const mapConfig = {
+          ...cloneDeep(environment.offlineMapConfig)
+        };
         (this.mapConfig.style as any).sources[
           'tiles-background'
         ].tiles[0] = `${Capacitor.convertFileSrc(
@@ -120,7 +124,7 @@ export class MapTreksVizComponent implements OnChanges, OnDestroy {
               directory: Directory.Data
             })
           ).uri
-        )}/tiles/{z}/{x}/{y}.png`;
+        )}${(mapConfig.style as any).sources['tiles-background'].tiles}`;
       }
 
       const coordinates: number[][] = [];

@@ -549,7 +549,7 @@ export class OfflineTreksService implements TreksServiceOffline {
           ({
             type: 'FeatureCollection',
             features: pois ? pois : []
-          } as Pois)
+          }) as Pois
       )
     );
   }
@@ -582,7 +582,7 @@ export class OfflineTreksService implements TreksServiceOffline {
           ({
             type: 'FeatureCollection',
             features: TouristicEventsItems ? TouristicEventsItems : []
-          } as TouristicEvents)
+          }) as TouristicEvents
       )
     );
   }
@@ -613,12 +613,17 @@ export class OfflineTreksService implements TreksServiceOffline {
               directory: Directory.Data
             })
           ).uri
-        )}/tiles/{z}/{x}/{y}.png`;
+        )}${(mapConfig.style as any).sources['tiles-background'].tiles}`;
 
         if (mapConfig.style.layers) {
           mapConfig.style.sources['tiles-background-trek'] = {
             ...mapConfig.style.sources['tiles-background'],
-            tiles: [await this.getTilesDirectoryForTrekById(trek.properties.id)]
+            tiles: [
+              await this.getTilesDirectoryForTrekById(
+                trek.properties.id,
+                (mapConfig.style as any).sources['tiles-background'].tiles
+              )
+            ]
           } as any;
 
           mapConfig.style.layers.push({
@@ -650,11 +655,14 @@ export class OfflineTreksService implements TreksServiceOffline {
     return mapConfig;
   }
 
-  private async getTilesDirectoryForTrekById(trekId: number): Promise<string> {
+  private async getTilesDirectoryForTrekById(
+    trekId: number,
+    tiles: string
+  ): Promise<string> {
     return `${Capacitor.convertFileSrc(
       (await Filesystem.getUri({ path: 'offline', directory: Directory.Data }))
         .uri
-    )}/${trekId}/tiles/{z}/{x}/{y}.png`;
+    )}/${trekId}${tiles}`;
   }
 
   public async trekIsAvailableOffline(trekId: number) {
