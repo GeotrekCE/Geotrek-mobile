@@ -86,13 +86,10 @@ export class FilterTreksService {
         return 0;
       }
       if (order === 'alphabetical') {
-        if (a.properties.name < b.properties.name) {
-          return -1;
-        }
-        if (a.properties.name > b.properties.name) {
-          return 1;
-        }
-        return 0;
+        return a.properties.name.localeCompare(b.properties.name, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        });
       }
       if (order === 'random') {
         return 0.5 - Math.random();
