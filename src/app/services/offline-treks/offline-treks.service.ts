@@ -613,7 +613,10 @@ export class OfflineTreksService implements TreksServiceOffline {
               directory: Directory.Data
             })
           ).uri
-        )}${(mapConfig.style as any).sources['tiles-background'].tiles}`;
+        )}${
+          environment.offlineMapConfig.style.sources['tiles-background']
+            .tiles[0]
+        }`;
 
         if (mapConfig.style.layers) {
           mapConfig.style.sources['tiles-background-trek'] = {
@@ -621,7 +624,8 @@ export class OfflineTreksService implements TreksServiceOffline {
             tiles: [
               await this.getTilesDirectoryForTrekById(
                 trek.properties.id,
-                (mapConfig.style as any).sources['tiles-background'].tiles
+                environment.offlineMapConfig.style.sources['tiles-background']
+                  .tiles[0]
               )
             ]
           } as any;
@@ -662,7 +666,7 @@ export class OfflineTreksService implements TreksServiceOffline {
     return `${Capacitor.convertFileSrc(
       (await Filesystem.getUri({ path: 'offline', directory: Directory.Data }))
         .uri
-    )}/${trekId}${tiles}`;
+    )}/${trekId}/${tiles}`;
   }
 
   public async trekIsAvailableOffline(trekId: number) {
