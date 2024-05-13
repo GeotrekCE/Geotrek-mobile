@@ -326,7 +326,7 @@ export class TrekDetailsPage implements OnInit {
           )
         ).data;
     const touristicContents: any = !this.isStage
-      ? this.currentPois
+      ? this.touristicContents
       : (
           await this.onlineTreks.getTouristicContentsForTrekById(
             this.parentTrek.properties.id
