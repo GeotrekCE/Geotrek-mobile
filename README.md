@@ -54,5 +54,5 @@ Now you can create your release app using xCode and Android Studio.
 - OpenSource - BSD
 - Copyright (c) Makina Corpus - Parc National des Écrins
 
-[<img src="https://geotrek.fr/assets/img/logo_makina.svg">](https://territoires.makina-corpus.com/)
+<a href="https://territoires.makina-corpus.com/"><img src="https://geotrek.fr/assets/img/logo_makina.svg" alt="Logo MCT" width="125"></a>
 [<img src="https://geonature.fr/img/logo-pne.jpg">](https://www.ecrins-parcnational.fr)
