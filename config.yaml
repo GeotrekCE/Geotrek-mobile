@@ -18,7 +18,6 @@ platforms:
             <uses-feature android:name="android.hardware.location.gps" />
             <queries>
               <package android:name="com.google.android.apps.maps" />
-              <package android:name="com.suricate" />
             </queries>
           </manifest>
 
