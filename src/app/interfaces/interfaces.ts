@@ -1,5 +1,11 @@
 import { HttpResponse } from '@capacitor/core';
-import { Feature, FeatureCollection, MultiPoint, Point } from 'geojson';
+import {
+  Feature,
+  FeatureCollection,
+  Geometry,
+  MultiPoint,
+  Point
+} from 'geojson';
 import { Observable } from 'rxjs/internal/Observable';
 
 export interface MinimalTreks {
@@ -272,6 +278,10 @@ export interface TreksService {
   getTrekMapUrl(trekId: number, parentId?: number): string;
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): any | Promise<any>;
   getCommonImgSrc(): string | Promise<string>;
+  getSensitiveAreasForTrekById(
+    id: number,
+    parentId?: number
+  ): Promise<HttpResponse>;
 }
 
 export interface TreksServiceOffline {
@@ -295,4 +305,27 @@ export interface TreksServiceOffline {
   getTrekMapUrl(trekId: number, parentId?: number): string;
   getMapConfigForTrekById(trek: Trek, isOffline: boolean): any | Promise<any>;
   getCommonImgSrc(): string | Promise<string>;
+  getSensitiveAreasForTrekById(
+    id: number,
+    parentId?: number
+  ): Observable<SensitiveAreas>;
+}
+
+export interface SensitiveAreas extends FeatureCollection {
+  type: 'FeatureCollection';
+  features: SensitiveArea[];
+}
+
+export interface SensitiveArea extends Feature<Geometry> {
+  type: 'Feature';
+  geometry: Geometry;
+  properties: {
+    id: number;
+    name: string;
+    description: string;
+    contact: string;
+    info_url: string;
+    period: boolean[];
+    practices: number[];
+  };
 }

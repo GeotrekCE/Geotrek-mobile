@@ -10,7 +10,8 @@ import {
   InformationDesk,
   TouristicCategoryWithFeatures,
   TreksService,
-  TreksServiceOffline
+  TreksServiceOffline,
+  SensitiveAreas
 } from '@app/interfaces/interfaces';
 import { PoiDetailsComponent } from '@app/components/poi-details/poi-details.component';
 import { InformationDeskDetailsComponent } from '@app/components/information-desk-details/information-desk-details.component';
@@ -27,6 +28,7 @@ import { HttpResponse } from '@capacitor/core';
 export class TrekMapPage implements OnInit {
   public currentTrek: HydratedTrek | null = null;
   public currentPois!: Pois;
+  public currentSensitiveAreas!: SensitiveAreas;
   public touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
   public trekUrl = '';
   public connectionError = false;
@@ -66,7 +68,7 @@ export class TrekMapPage implements OnInit {
           treksService.getTrekById(currentTrekId, parentId),
           treksService.getPoisForTrekById(currentTrekId, parentId),
           treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
-          treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+          treksService.getSensitiveAreasForTrekById(currentTrekId, parentId),
           isStage && parentId ? treksService.getTrekById(parentId) : of(null)
         ]
       : [
@@ -78,6 +80,9 @@ export class TrekMapPage implements OnInit {
               parentId
             )
           ),
+          from(
+            treksService.getSensitiveAreasForTrekById(currentTrekId, parentId)
+          ),
           isStage && parentId
             ? from(treksService.getTrekById(parentId))
             : of(null)
@@ -86,7 +91,13 @@ export class TrekMapPage implements OnInit {
     forkJoin(requests)
       .pipe(first())
       .subscribe(
-        async ([trek, pois, touristicContents, parentTrek]): Promise<any> => {
+        async ([
+          trek,
+          pois,
+          touristicContents,
+          sensitiveAreas,
+          parentTrek
+        ]): Promise<any> => {
           this.connectionError = false;
 
           const mapConfig: any = await treksService.getMapConfigForTrekById(
@@ -95,8 +106,8 @@ export class TrekMapPage implements OnInit {
                 ? parentTrek
                 : (parentTrek as HttpResponse).data
               : offline
-              ? trek
-              : (trek as HttpResponse).data,
+                ? trek
+                : (trek as HttpResponse).data,
             offline
           );
           const commonSrc = await treksService.getCommonImgSrc();
@@ -114,6 +125,17 @@ export class TrekMapPage implements OnInit {
           this.offline = offline;
           this.currentTrek = hydratedTrek;
           this.currentPois = offline ? pois! : (pois as HttpResponse).data;
+
+          if (
+            (sensitiveAreas &&
+              (sensitiveAreas as HttpResponse).status === 200) ||
+            (offline && sensitiveAreas)
+          ) {
+            this.currentSensitiveAreas = offline
+              ? sensitiveAreas
+              : (sensitiveAreas as HttpResponse).data;
+          }
+
           this.touristicCategoriesWithFeatures =
             touristicCategoriesWithFeatures;
           this.mapConfig = mapConfig;

@@ -108,7 +108,9 @@
       "contact": "Contact",
       "goToDeparture": "Go to the departure",
       "goToAdvisedParking": "Go to the parking",
-      "goThere": "Go there"
+      "goThere": "Go there",
+      "environmentalSensitiveAreas": "Areas of environmental sensitivity",
+      "sensitiveAreasDescription": "Along your trek, you will go through sensitive areas related to the presence of a specific species or environment. In these areas, an appropriate behaviour allows to contribute to their preservation. For detailed information, specific forms are accessible for each area."
     },
     "showMap": "Show the map"
   },
@@ -169,5 +171,11 @@
     "callThe": "Call the",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "sensitiveArea": {
+    "domain": "Relevant activity areas",
+    "period": "Sensitivity periods",
+    "contact": "Contact",
+    "learnMore": "Learn more"
   }
 }

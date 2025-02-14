@@ -1,0 +1,59 @@
+.sensitive-area-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sensitive-area-title-container {
+  display: flex;
+  align-items: center;
+  color: var(--sensitive-area-color);
+  .sensitive-area-color-container {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 1px solid var(--sensitive-area-color);
+    position: relative;
+    &:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-color: var(--sensitive-area-color);
+      opacity: 0.2;
+      position: absolute;
+    }
+  }
+  .sensitive-area-title {
+    font-size: 20px;
+    line-height: 28px;
+    padding: 12px 0px;
+    font-weight: 600;
+  }
+}
+
+.sensitive-area-description {
+  font-size: 16px;
+  line-height: 24px;
+  p:first-child {
+    margin-top: 0;
+  }
+}
+
+.sensitive-area-period-container,
+.sensitive-area-practice-container,
+.sensitive-area-contact-container,
+.sensitive-area-info-url-container {
+  padding: 12px 0px;
+
+  .sensitive-area-period-title,
+  .sensitive-area-practice-title,
+  .sensitive-area-contact-title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+  .sensitive-area-periods,
+  .sensitive-area-practices {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -1,4 +1,4 @@
-import { primaryColor } from './variables';
+import { primaryColor, sensitiveAreaColors } from './variables';
 
 export const environment = {
   production: true,
@@ -20,7 +20,7 @@ export const environment = {
         'tiles-background': {
           type: 'raster',
           tiles: [
-            'https://wxs.ign.fr/cartes/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}'
+            'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}'
           ],
           tileSize: 256
         }
@@ -111,6 +111,37 @@ export const environment = {
         'line-color': primaryColor,
         'line-opacity': 1,
         'line-width': 4
+      }
+    },
+    sensitiveAreasLayersProperties: {
+      type: 'fill',
+      paint: {
+        'fill-color': [
+          'step',
+          ['%', ['get', 'id'], sensitiveAreaColors.length],
+          sensitiveAreaColors[0],
+          ...sensitiveAreaColors.map((color, index) => [index, color]).flat()
+        ],
+        'fill-opacity': 0.2
+      },
+      layout: {
+        visibility: 'visible'
+      }
+    },
+    sensitiveAreasOutlineLayersProperties: {
+      type: 'line',
+      paint: {
+        'line-color': [
+          'step',
+          ['%', ['get', 'id'], sensitiveAreaColors.length],
+          sensitiveAreaColors[0],
+          ...sensitiveAreaColors.map((color, index) => [index, color]).flat()
+        ],
+        'line-opacity': 1,
+        'line-width': 4
+      },
+      layout: {
+        visibility: 'visible'
       }
     },
     trekLineLayerProperties: {

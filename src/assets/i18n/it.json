@@ -108,7 +108,9 @@
       "contact": "contatto",
       "goToDeparture": "Vai alla partenza",
       "goToAdvisedParking": "Vai al parcheggio",
-      "goThere": "Vai lì"
+      "goThere": "Vai lì",
+      "environmentalSensitiveAreas": "Zones de sensibilité environnementale",
+      "sensitiveAreasDescription": "Le long de votre itinéraire, vous allez traverser des zones de sensibilité liées à la présence d'une espèce ou d'un milieu particulier. Dans ces zones, un comportement adapté permet de contribuer à leur préservation. Pour plus d'informations détaillées, des fiches spécifiques sont accessibles pour chaque zone."
     },
     "showMap": "Mostra la mappa"
   },
@@ -169,5 +171,11 @@
     "callThe": "Chiamare il",
     "latitude": "Latitudine",
     "longitude": "Longitudine"
+  },
+  "sensitiveArea": {
+    "domain": "Aree di attività interessate",
+    "period": "Periodi di sensibilità",
+    "contact": "Contatto",
+    "learnMore": "Ulteriori informazioni"
   }
 }

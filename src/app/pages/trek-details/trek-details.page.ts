@@ -20,7 +20,8 @@ import {
   TouristicCategoryWithFeatures,
   TouristicContents,
   DataSetting,
-  TreksServiceOffline
+  TreksServiceOffline,
+  SensitiveArea
 } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
@@ -43,6 +44,8 @@ export class TrekDetailsPage implements OnInit {
   public currentTrek!: HydratedTrek;
   public offline = false;
   public currentPois!: Poi[];
+  public currentSensitiveAreas!: SensitiveArea[];
+
   public touristicEvents!: TouristicEvent[];
   public touristicContents!: TouristicContents;
   public touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
@@ -55,6 +58,7 @@ export class TrekDetailsPage implements OnInit {
   public connectionError = false;
   public commonSrc!: string;
   public typePois: DataSetting | undefined;
+  public sensitiveAreaPractices: DataSetting | undefined;
   public poiCollapseInitialSize = environment.poiCollapseInitialSize;
   public touristicContentCollapseInitialSize =
     environment.touristicContentCollapseInitialSize;
@@ -118,9 +122,8 @@ export class TrekDetailsPage implements OnInit {
     const stageId = +(<string>this.route.snapshot.paramMap.get('stageId'));
     const currentTrekId = isStage ? stageId : trekId;
     const parentId: number | undefined = isStage ? trekId : undefined;
-    this.isAvailableOffline = await this.offlineTreks.trekIsAvailableOffline(
-      trekId
-    );
+    this.isAvailableOffline =
+      await this.offlineTreks.trekIsAvailableOffline(trekId);
 
     const useOfflineTreksService = offline || this.isAvailableOffline;
     const treksService: TreksService | TreksServiceOffline =
@@ -131,6 +134,7 @@ export class TrekDetailsPage implements OnInit {
           treksService.getPoisForTrekById(currentTrekId, parentId),
           treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
           treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
+          treksService.getSensitiveAreasForTrekById(currentTrekId, parentId),
           isStage && parentId ? treksService.getTrekById(parentId) : of(null)
         ]
       : [
@@ -145,6 +149,9 @@ export class TrekDetailsPage implements OnInit {
           from(
             treksService.getTouristicEventsForTrekById(currentTrekId, parentId)
           ),
+          from(
+            treksService.getSensitiveAreasForTrekById(currentTrekId, parentId)
+          ),
           isStage && parentId
             ? from(treksService.getTrekById(parentId))
             : of(null)
@@ -157,6 +164,7 @@ export class TrekDetailsPage implements OnInit {
           pois,
           touristicContents,
           touristicEvents,
+          sensitiveAreas,
           parentTrek
         ]): Promise<any> => {
           this.connectionError = false;
@@ -173,12 +181,6 @@ export class TrekDetailsPage implements OnInit {
                 : (touristicContents as HttpResponse).data
             );
 
-          if (this.settings.data$.value) {
-            this.typePois = this.settings.data$.value.find(
-              (setting) => setting.id === 'poi_types'
-            );
-          }
-
           this.isItinerancy = !!(
             hydratedTrek.properties.children &&
             hydratedTrek.properties.children.features.length > 0
@@ -192,6 +194,19 @@ export class TrekDetailsPage implements OnInit {
           this.currentPois = (
             useOfflineTreksService ? pois : (pois as HttpResponse).data
           ).features;
+
+          if (
+            (sensitiveAreas &&
+              (sensitiveAreas as HttpResponse).status === 200) ||
+            (useOfflineTreksService && sensitiveAreas)
+          ) {
+            this.currentSensitiveAreas = (
+              useOfflineTreksService
+                ? sensitiveAreas
+                : (sensitiveAreas as HttpResponse).data
+            ).features;
+          }
+
           this.treksTool = treksService;
           this.touristicContents = useOfflineTreksService
             ? touristicContents
@@ -304,6 +319,9 @@ export class TrekDetailsPage implements OnInit {
             this.typePois = settings.find(
               (setting) => setting.id === 'poi_types'
             );
+            this.sensitiveAreaPractices = settings.find(
+              (setting) => setting.id === 'sensitive_area_practices'
+            );
           }
         },
         () => {
@@ -333,6 +351,13 @@ export class TrekDetailsPage implements OnInit {
           )
         ).data;
 
+    const sensitiveAreas: any = !this.isStage
+      ? this.currentSensitiveAreas
+      : (
+          await this.onlineTreks.getSensitiveAreasForTrekById(
+            this.parentTrek.properties.id
+          )
+        ).data;
     if (!simpleTrek) {
       return;
     }
@@ -350,7 +375,8 @@ export class TrekDetailsPage implements OnInit {
         simpleTrek,
         !this.isStage ? this.originalTrek : this.parentTrek,
         pois,
-        touristicContents
+        touristicContents,
+        sensitiveAreas
       )
       .subscribe(
         async (saveResult) => {
@@ -378,8 +404,8 @@ export class TrekDetailsPage implements OnInit {
             ? trad.success
             : trad.error
           : !this.isItinerancy && !this.isStage
-          ? trad.contentTrek
-          : trad.contentItinerancy,
+            ? trad.contentTrek
+            : trad.contentItinerancy,
         buttons: isAlert
           ? [trad.confirmError]
           : [

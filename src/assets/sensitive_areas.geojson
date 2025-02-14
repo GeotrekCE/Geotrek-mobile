@@ -1,0 +1,122 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": 1,
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2.0479202, 45.6373271],
+            [2.0846558, 45.6231624],
+            [2.0623398, 45.6130768],
+            [2.0479202, 45.6373271]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Espèce 1",
+        "description": "Description de la zone esp&egrave;ce",
+        "practices": [1],
+        "contact": "2 rue des trucs",
+        "info_url": "http://azerty.fr",
+        "period": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [1.9548798, 45.5900172],
+            [1.9658661, 45.5582949],
+            [2.0043182, 45.5751196],
+            [1.9500732, 45.6169191],
+            [1.9500732, 45.6169191],
+            [1.9500732, 45.6169191],
+            [1.9500732, 45.6169191],
+            [1.9500732, 45.6169191],
+            [1.9500732, 45.6169191],
+            [1.9548798, 45.5900172]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "Zone régulatoire 1",
+        "description": "Description de la zone r&eacute;gulatoire",
+        "practices": [1],
+        "contact": "",
+        "info_url": "",
+        "period": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2.0599365, 45.5775227],
+            [1.9995117, 45.6658859],
+            [2.0022583, 45.6140374],
+            [2.0599365, 45.5775227]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "Zone régulatoire 2",
+        "description": "Description Zone r&eacute;gulatoire 2",
+        "practices": [2, 1],
+        "contact": "truc@gmail.com",
+        "info_url": "http://truc.com",
+        "period": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true,
+          false,
+          false
+        ]
+      }
+    }
+  ]
+}

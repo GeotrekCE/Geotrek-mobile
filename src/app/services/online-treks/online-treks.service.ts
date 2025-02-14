@@ -220,4 +220,29 @@ export class OnlineTreksService implements TreksService {
 
     return mapConfig;
   }
+
+  public getSensitiveAreasForTrekById(
+    trekId: number,
+    parentId?: number
+  ): Promise<HttpResponse> {
+    if (parentId) {
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${parentId}/sensitive_areas/${trekId}.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return CapacitorHttp.request(httpOptions);
+    } else {
+      const httpOptions = {
+        method: 'GET',
+        url: `${this.baseUrl}/${trekId}/sensitive_areas.geojson`,
+        headers: {
+          'Accept-Language': this.translate.getDefaultLang()
+        }
+      };
+      return CapacitorHttp.request(httpOptions);
+    }
+  }
 }

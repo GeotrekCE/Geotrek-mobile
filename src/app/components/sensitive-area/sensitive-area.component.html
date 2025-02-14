@@ -1,0 +1,91 @@
+<div
+  class="sensitive-area-container"
+  [style.--sensitive-area-color]="getSensitiveAreaColor()"
+>
+  <div class="sensitive-area-title-container">
+    <div class="sensitive-area-color-container"></div>
+    <div class="sensitive-area-title">
+      {{ sensitiveArea.properties.name }}
+    </div>
+  </div>
+
+  <div
+    class="sensitive-area-description"
+    [innerHTML]="sensitiveArea.properties.description"
+  ></div>
+  <div
+    *ngIf="
+      sensitiveArea.properties.practices &&
+      sensitiveArea.properties.practices.length > 0 &&
+      sensitiveAreaPractices
+    "
+    class="sensitive-area-practice-container"
+  >
+    <div class="sensitive-area-practice-title">
+      {{ 'sensitiveArea.domain' | translate }}
+    </div>
+    <div class="sensitive-area-practices">
+      <div
+        *ngFor="let practice of sensitiveArea.properties.practices"
+        class="sensitive-area-practice"
+        [innerHTML]="getSensitiveAreaPracticeName(practice)"
+      ></div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      sensitiveArea.properties.period &&
+      sensitiveArea.properties.period.length > 0
+    "
+    class="sensitive-area-period-container"
+  >
+    <div class="sensitive-area-period-title">
+      {{ 'sensitiveArea.period' | translate }}
+    </div>
+    <div class="sensitive-area-periods">
+      <ng-container
+        *ngFor="let month of sensitiveArea.properties.period; let i = index"
+      >
+        <div
+          *ngIf="month"
+          class="sensitive-area-period"
+          [innerHTML]="getSensitiveAreaPeriod(i)"
+        ></div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      sensitiveArea.properties.contact &&
+      sensitiveArea.properties.contact !== ''
+    "
+    class="sensitive-area-contact-container"
+  >
+    <div class="sensitive-area-contact-title">
+      {{ 'sensitiveArea.contact' | translate }}
+    </div>
+    <div
+      class="sensitive-area-contact-value"
+      [innerHTML]="sensitiveArea.properties.contact"
+    ></div>
+  </div>
+
+  <div
+    *ngIf="
+      sensitiveArea.properties.info_url &&
+      sensitiveArea.properties.info_url !== ''
+    "
+    class="sensitive-area-info-url-container"
+  >
+    <a
+      class="sensitive-area-info-url-value"
+      [href]="sensitiveArea.properties.info_url"
+      target="_blank"
+    >
+      {{ 'sensitiveArea.learnMore' | translate }}
+      ></a
+    >
+  </div>
+</div>

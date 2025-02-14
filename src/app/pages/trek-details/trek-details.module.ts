@@ -11,6 +11,7 @@ import { PoiComponent } from '@app/components/poi/poi.component';
 import { InformationDeskComponent } from '@app/components/information-desk/information-desk.component';
 
 import { SharedTrekModule } from '@app/shared/shared-trek.module';
+import { SensitiveAreaComponent } from '@app/components/sensitive-area/sensitive-area.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,12 @@ const routes: Routes = [
     SharedUiModule,
     TranslateModule.forChild()
   ],
-  declarations: [TrekDetailsPage, PoiComponent, InformationDeskComponent],
+  declarations: [
+    TrekDetailsPage,
+    PoiComponent,
+    SensitiveAreaComponent,
+    InformationDeskComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TrekDetailsPageModule {}

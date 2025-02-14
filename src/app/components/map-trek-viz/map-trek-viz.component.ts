@@ -26,7 +26,8 @@ import {
   DataSetting,
   HydratedTrek,
   TouristicCategoryWithFeatures,
-  TouristicContent
+  TouristicContent,
+  SensitiveAreas
 } from '@app/interfaces/interfaces';
 import { environment } from '@env/environment';
 import { FeatureCollection } from 'geojson';
@@ -37,6 +38,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { throttle } from 'lodash';
 import maplibregl from 'maplibre-gl/dist/maplibre-gl.js';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
+import { Popup } from 'maplibre-gl';
 
 @Component({
   selector: 'app-map-trek-viz',
@@ -54,11 +56,14 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   private currentHeadingSubscription!: Subscription;
   private loadImagesSubscription!: Subscription;
   public flyToUserLocationThrottle: any;
+  private sensitiveAreaPopup: Popup | undefined;
 
   @ViewChild('mapViz', { static: false }) mapViz: any;
 
   @Input() currentTrek: HydratedTrek | null = null;
   @Input() currentPois!: Pois;
+  @Input() currentSensitiveAreas!: SensitiveAreas;
+
   @Input() touristicCategoriesWithFeatures!: TouristicCategoryWithFeatures[];
   @Input() dataSettings!: DataSetting[];
   @Input() mapConfig: any;
@@ -85,6 +90,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     const changesCurrentTrek: SimpleChange = changes['currentTrek'];
     const changesCurrentPois: SimpleChange = changes['currentPois'];
+    const changesCurrentSensitiveAreas: SimpleChange =
+      changes['currentSensitiveAreas'];
     const touristicCategoriesWithFeatures: SimpleChange =
       changes['touristicCategoriesWithFeatures'];
     const notificationsModeIsActive: SimpleChange =
@@ -96,6 +103,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       !!this.touristicCategoriesWithFeatures &&
       ((changesCurrentTrek && !changesCurrentTrek.previousValue) ||
         (changesCurrentPois && !changesCurrentPois.previousValue) ||
+        (changesCurrentSensitiveAreas &&
+          !changesCurrentSensitiveAreas.previousValue) ||
         (touristicCategoriesWithFeatures &&
           !touristicCategoriesWithFeatures.previousValue))
     ) {
@@ -130,6 +139,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
 
     if (this.loadImagesSubscription) {
       this.loadImagesSubscription.unsubscribe();
+    }
+
+    if (this.sensitiveAreaPopup) {
+      this.sensitiveAreaPopup.remove();
     }
   }
 
@@ -423,6 +436,12 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       clusterRadius: 50
     });
 
+    this.map.addSource('sensitive-areas', {
+      type: 'geojson',
+      data,
+      maxzoom: this.mapConfig.maxZoom ? this.mapConfig.maxZoom + 1 : 18
+    });
+
     this.map.addSource('touristics-content', {
       type: 'geojson',
       data,
@@ -562,13 +581,28 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       }
     });
 
+    this.map.addLayer({
+      id: 'sensitive-areas',
+      source: 'sensitive-areas',
+      ...(environment.map.sensitiveAreasLayersProperties as any)
+    });
+
+    this.map.addLayer({
+      id: 'sensitive-areas-outline',
+      source: 'sensitive-areas',
+      ...(environment.map.sensitiveAreasOutlineLayersProperties as any)
+    });
+
     this.touristicsContentCategory = this.dataSettings.find(
       (data) => data.id === 'touristiccontent_categories'
     );
 
     const circleColorExpression: any[] = [];
 
-    if (this.touristicsContentCategory) {
+    if (
+      this.touristicsContentCategory &&
+      this.touristicsContentCategory.values.length > 0
+    ) {
       circleColorExpression.push('match');
       circleColorExpression.push(['get', 'category']);
       this.touristicsContentCategory.values.forEach((category) => {
@@ -585,9 +619,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       filter: ['!', ['has', 'point_count']],
       paint: {
         ...environment.map.touristicContentLayersProperties.circle.paint,
-        'circle-color': this.touristicsContentCategory
-          ? (circleColorExpression as any)
-          : '#000000'
+        'circle-color':
+          circleColorExpression.length > 0
+            ? (circleColorExpression as any)
+            : '#000000'
       },
       layout: {
         visibility:
@@ -723,6 +758,32 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         'text-ignore-placement': true
       }
     });
+
+    this.map.on('click', 'sensitive-areas', (e: MapLayerMouseEvent) => {
+      if (e.features && e.features.length > 0) {
+        const feature = e.features[0];
+        const name = feature.properties!['name'];
+
+        if (name) {
+          if (this.sensitiveAreaPopup) {
+            this.sensitiveAreaPopup.remove();
+          }
+
+          this.sensitiveAreaPopup = new Popup({ closeOnClick: false })
+            .setLngLat(e.lngLat)
+            .setHTML(`<b>${name}</b>`)
+            .addTo(this.map);
+        }
+      }
+    });
+
+    this.map.on('mouseenter', 'sensitive-areas', () => {
+      this.map.getCanvas().style.cursor = 'pointer';
+    });
+
+    this.map.on('mouseleave', 'sensitive-areas', () => {
+      this.map.getCanvas().style.cursor = '';
+    });
   }
 
   private updateSources(): void {
@@ -776,6 +837,13 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       const poisSource = this.map.getSource('pois') as GeoJSONSource;
       if (poisSource) {
         poisSource.setData(this.currentPois);
+      }
+
+      const sensitiveAreasSource = this.map.getSource(
+        'sensitive-areas'
+      ) as GeoJSONSource;
+      if (sensitiveAreasSource) {
+        sensitiveAreasSource.setData(this.currentSensitiveAreas);
       }
 
       const touristicsContent = this.map.getSource(
@@ -912,8 +980,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     const userLocation: any = !this.notificationsModeIsActive
       ? await this.geolocate.getCurrentPosition()
       : this.backgroundGeolocate.currentPosition$.getValue()
-      ? this.backgroundGeolocate.currentPosition$.getValue()
-      : await this.geolocate.getCurrentPosition();
+        ? this.backgroundGeolocate.currentPosition$.getValue()
+        : await this.geolocate.getCurrentPosition();
     if (userLocation) {
       const coordinates: any = [userLocation.longitude, userLocation.latitude];
       this.markerPosition!.setLngLat(coordinates);
@@ -976,6 +1044,21 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
         ].toString()
       }
     ];
+
+    if (
+      this.currentSensitiveAreas &&
+      this.currentSensitiveAreas.features.length > 0
+    ) {
+      layers.push({
+        name: await this.translate
+          .get('trek.details.environmentalSensitiveAreas')
+          .toPromise(),
+        visibility:
+          this.map.getLayoutProperty('sensitive-areas', 'visibility') ===
+          'visible',
+        layersName: ['sensitive-areas', 'sensitive-areas-outline'].toString()
+      });
+    }
 
     const popover = await this.popoverController.create({
       component: LayersVisibilityComponent,
@@ -1133,8 +1216,8 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       const userLocation: any = !this.notificationsModeIsActive
         ? await this.geolocate.getCurrentPosition()
         : this.backgroundGeolocate.currentPosition$.getValue()
-        ? this.backgroundGeolocate.currentPosition$.getValue()
-        : await this.geolocate.getCurrentPosition();
+          ? this.backgroundGeolocate.currentPosition$.getValue()
+          : await this.geolocate.getCurrentPosition();
       this.map.panTo([userLocation.longitude, userLocation.latitude]);
       if (userLocation) {
         this.map.flyTo({

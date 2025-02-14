@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ZipPlugin } from 'capacitor-zip';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 import {
   BehaviorSubject,
@@ -17,13 +17,6 @@ import {
   map,
   mergeMap,
   tap,
-  delay,
-  concatAll,
-  switchMapTo,
-  share,
-  count,
-  scan,
-  withLatestFrom,
   concatMap,
   last
 } from 'rxjs/operators';
@@ -41,9 +34,11 @@ import {
   Trek,
   TreksServiceOffline,
   TouristicContents,
-  TouristicEvents
+  TouristicEvents,
+  SensitiveAreas,
+  SensitiveArea
 } from '@app/interfaces/interfaces';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import write_blob from 'capacitor-blob-writer';
 
 @Injectable({
@@ -154,7 +149,8 @@ export class OfflineTreksService implements TreksServiceOffline {
     simpleTrek: MinimalTrek,
     fullTrek: Trek,
     pois: Poi[],
-    touristicContents: TouristicContents
+    touristicContents: TouristicContents,
+    sensitiveAreas: SensitiveArea[]
   ): Observable<boolean> {
     this.commonMediaContentLength = 0;
     this.trekContentLength = 0;
@@ -207,6 +203,12 @@ export class OfflineTreksService implements TreksServiceOffline {
       ),
       from(
         Preferences.set({
+          key: `sensitive-areas-trek-${trekId}`,
+          value: JSON.stringify(sensitiveAreas)
+        })
+      ),
+      from(
+        Preferences.set({
           key: `touristicContents-trek-${trekId}`,
           value: JSON.stringify(touristicContents)
         })
@@ -244,6 +246,24 @@ export class OfflineTreksService implements TreksServiceOffline {
               return from(
                 Preferences.set({
                   key: `pois-trek-${trekId}-${children.properties.id}`,
+                  value: JSON.stringify(childrenJson)
+                })
+              );
+            })
+          )
+        );
+
+        tasks.push(
+          from(
+            this.onlineTreksService.getSensitiveAreasForTrekById(
+              children.properties.id,
+              trekId
+            )
+          ).pipe(
+            map((childrenJson) => {
+              return from(
+                Preferences.set({
+                  key: `sensitive-areas-trek-${trekId}-${children.properties.id}`,
                   value: JSON.stringify(childrenJson)
                 })
               );
@@ -437,6 +457,9 @@ export class OfflineTreksService implements TreksServiceOffline {
     );
     tasks.push(from(Preferences.remove({ key: `pois-trek-${trekId}` })));
     tasks.push(
+      from(Preferences.remove({ key: `sensitive-areas-trek-${trekId}` }))
+    );
+    tasks.push(
       from(Preferences.remove({ key: `touristicContents-trek-${trekId}` }))
     );
 
@@ -474,6 +497,13 @@ export class OfflineTreksService implements TreksServiceOffline {
               from(
                 Preferences.remove({
                   key: `pois-trek-${trekId}-${children.properties.id}`
+                })
+              )
+            );
+            childrenToRemove.push(
+              from(
+                Preferences.remove({
+                  key: `sensitive-areas-trek-${trekId}-${children.properties.id}`
                 })
               )
             );
@@ -572,8 +602,8 @@ export class OfflineTreksService implements TreksServiceOffline {
     parentId: number
   ): Observable<TouristicEvents> {
     const path = parentId
-      ? `pois-trek-${parentId}-${trekId}`
-      : `pois-trek-${trekId}`;
+      ? `touristicEvents-trek-${parentId}-${trekId}`
+      : `touristicEvents-trek-${trekId}`;
 
     return from(Preferences.get({ key: path })).pipe(
       map(({ value }) => JSON.parse(value!)),
@@ -604,19 +634,18 @@ export class OfflineTreksService implements TreksServiceOffline {
         typeof mapConfig.style !== 'string' &&
         mapConfig.style.sources
       ) {
-        (mapConfig.style as any).sources[
-          'tiles-background'
-        ].tiles[0] = `${Capacitor.convertFileSrc(
-          (
-            await Filesystem.getUri({
-              path: 'offline',
-              directory: Directory.Data
-            })
-          ).uri
-        )}${
-          environment.offlineMapConfig.style.sources['tiles-background']
-            .tiles[0]
-        }`;
+        (mapConfig.style as any).sources['tiles-background'].tiles[0] =
+          `${Capacitor.convertFileSrc(
+            (
+              await Filesystem.getUri({
+                path: 'offline',
+                directory: Directory.Data
+              })
+            ).uri
+          )}${
+            environment.offlineMapConfig.style.sources['tiles-background']
+              .tiles[0]
+          }`;
 
         if (mapConfig.style.layers) {
           mapConfig.style.sources['tiles-background-trek'] = {
@@ -671,5 +700,24 @@ export class OfflineTreksService implements TreksServiceOffline {
 
   public async trekIsAvailableOffline(trekId: number) {
     return Boolean((await Preferences.get({ key: `trek-${trekId}` })).value);
+  }
+
+  public getSensitiveAreasForTrekById(
+    trekId: number,
+    parentId: number
+  ): Observable<SensitiveAreas> {
+    const path = parentId
+      ? `sensitive-areas-trek-${parentId}-${trekId}`
+      : `sensitive-areas-trek-${trekId}`;
+    return from(Preferences.get({ key: path })).pipe(
+      map(({ value }) => JSON.parse(value!)),
+      map(
+        (sensitiveAreas: SensitiveArea[]) =>
+          ({
+            type: 'FeatureCollection',
+            features: sensitiveAreas ? sensitiveAreas : []
+          }) as SensitiveAreas
+      )
+    );
   }
 }

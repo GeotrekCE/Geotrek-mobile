@@ -521,6 +521,26 @@
         </ion-row>
 
         <ion-row
+          *ngIf="currentSensitiveAreas && currentSensitiveAreas.length > 0 && !isItinerancy"
+        >
+          <ion-col>
+            <ion-text color="primary">
+              <h2 class="custom-divider">
+                {{ 'trek.details.environmentalSensitiveAreas' | translate }}
+              </h2>
+            </ion-text>
+            <div>
+              {{ 'trek.details.sensitiveAreasDescription' | translate }}
+            </div>
+            <app-sensitive-area
+              *ngFor="let currentSensitiveArea of currentSensitiveAreas"
+              [sensitiveArea]="currentSensitiveArea"
+              [sensitiveAreaPractices]="sensitiveAreaPractices"
+            ></app-sensitive-area>
+          </ion-col>
+        </ion-row>
+
+        <ion-row
           *ngIf="currentTrek.properties.information_desks && currentTrek.properties.information_desks.length > 0"
         >
           <ion-col>
