@@ -11,14 +11,16 @@ export class SensitiveAreaComponent {
   @Input() public sensitiveArea!: SensitiveArea | any;
   @Input() public sensitiveAreaPractices!: DataSetting | undefined;
 
-  getSensitiveAreaPracticeName(id: number): string {
-    return this.sensitiveAreaPractices!.values.find(
-      (sensitiveAreaPractice) => sensitiveAreaPractice.id === id
-    )!.name;
+  getSensitiveAreaPracticeName(id: number, index: number): string {
+    return `${
+      this.sensitiveAreaPractices!.values.find(
+        (sensitiveAreaPractice) => sensitiveAreaPractice.id === id
+      )!.name
+    }${!(index + 1 === this.sensitiveArea.properties.practices.length) ? ' -&nbsp;' : ''}`;
   }
 
   getSensitiveAreaPeriod(index: number): string {
-    return `${new Date(0, index + 1, 0).toLocaleDateString('fr', { month: 'long' }).toUpperCase()}${
+    return `${new Date(0, index + 1, 0).toLocaleDateString('fr', { month: 'long' })}${
       this.sensitiveArea.properties.period
         .slice(index + 1)
         .find((month: boolean) => month)

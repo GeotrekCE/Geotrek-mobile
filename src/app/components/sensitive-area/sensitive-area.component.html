@@ -26,9 +26,12 @@
     </div>
     <div class="sensitive-area-practices">
       <div
-        *ngFor="let practice of sensitiveArea.properties.practices"
+        *ngFor="
+          let practice of sensitiveArea.properties.practices;
+          let i = index
+        "
         class="sensitive-area-practice"
-        [innerHTML]="getSensitiveAreaPracticeName(practice)"
+        [innerHTML]="getSensitiveAreaPracticeName(practice, i)"
       ></div>
     </div>
   </div>
