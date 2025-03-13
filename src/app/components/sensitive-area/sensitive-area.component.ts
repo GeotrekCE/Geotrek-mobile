@@ -34,4 +34,8 @@ export class SensitiveAreaComponent {
       this.sensitiveArea.properties.id % sensitiveAreaColors.length
     ];
   }
+
+  shouldDisplayPeriod(period: boolean[] | null) {
+    return period && period.some((month) => month);
+  }
 }

@@ -492,6 +492,18 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     });
 
     this.map.addLayer({
+      id: 'sensitive-areas',
+      source: 'sensitive-areas',
+      ...(environment.map.sensitiveAreasLayersProperties as any)
+    });
+
+    this.map.addLayer({
+      id: 'sensitive-areas-outline',
+      source: 'sensitive-areas',
+      ...(environment.map.sensitiveAreasOutlineLayersProperties as any)
+    });
+
+    this.map.addLayer({
       id: 'trek-line',
       type: 'line',
       source: 'trek',
@@ -579,18 +591,6 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
                 | undefined)
             : visibility
       }
-    });
-
-    this.map.addLayer({
-      id: 'sensitive-areas',
-      source: 'sensitive-areas',
-      ...(environment.map.sensitiveAreasLayersProperties as any)
-    });
-
-    this.map.addLayer({
-      id: 'sensitive-areas-outline',
-      source: 'sensitive-areas',
-      ...(environment.map.sensitiveAreasOutlineLayersProperties as any)
     });
 
     this.touristicsContentCategory = this.dataSettings.find(

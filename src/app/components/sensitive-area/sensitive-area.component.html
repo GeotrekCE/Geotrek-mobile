@@ -37,10 +37,7 @@
   </div>
 
   <div
-    *ngIf="
-      sensitiveArea.properties.period &&
-      sensitiveArea.properties.period.length > 0
-    "
+    *ngIf="shouldDisplayPeriod(sensitiveArea.properties.period)"
     class="sensitive-area-period-container"
   >
     <div class="sensitive-area-period-title">
