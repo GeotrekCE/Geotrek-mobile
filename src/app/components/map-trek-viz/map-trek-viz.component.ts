@@ -760,19 +760,29 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
     });
 
     this.map.on('click', 'sensitive-areas', (e: MapLayerMouseEvent) => {
-      if (e.features && e.features.length > 0) {
-        const feature = e.features[0];
-        const name = feature.properties!['name'];
+      const features: any = this.map
+        .queryRenderedFeatures(e.point)
+        .filter((feature: any) => {
+          return feature.source !== 'sensitive-areas';
+        });
+      if (!features || !(features.length > 0)) {
+        if (e.features && e.features.length > 0) {
+          const feature = e.features[0];
+          const name = feature.properties!['name'];
 
-        if (name) {
-          if (this.sensitiveAreaPopup) {
-            this.sensitiveAreaPopup.remove();
+          if (name) {
+            if (this.sensitiveAreaPopup) {
+              this.sensitiveAreaPopup.remove();
+            }
+
+            this.sensitiveAreaPopup = new Popup({
+              closeOnClick: false,
+              className: 'sensitive-area-popup'
+            })
+              .setLngLat(e.lngLat)
+              .setHTML(`<b>${name}</b>`)
+              .addTo(this.map);
           }
-
-          this.sensitiveAreaPopup = new Popup({ closeOnClick: false })
-            .setLngLat(e.lngLat)
-            .setHTML(`<b>${name}</b>`)
-            .addTo(this.map);
         }
       }
     });
@@ -1083,6 +1093,9 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           checked ? 'visible' : 'none'
         )
       );
+    if (layersName === 'sensitive-areas' && this.sensitiveAreaPopup) {
+      this.sensitiveAreaPopup.remove();
+    }
   }
 
   public handleClustersInteraction(): void {

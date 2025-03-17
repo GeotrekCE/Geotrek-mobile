@@ -231,3 +231,13 @@ app-search {
   object-fit: contain;
   height: auto;
 }
+
+.sensitive-area-popup {
+  .maplibregl-popup-content {
+    padding-top: 32px;
+  }
+  .maplibregl-popup-close-button {
+    font-size: 32px;
+    padding-right: 0px 6px 0px 6px;
+  }
+}
