@@ -1093,7 +1093,10 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
           checked ? 'visible' : 'none'
         )
       );
-    if (layersName === 'sensitive-areas' && this.sensitiveAreaPopup) {
+    if (
+      layersName === 'sensitive-areas,sensitive-areas-outline' &&
+      this.sensitiveAreaPopup
+    ) {
       this.sensitiveAreaPopup.remove();
     }
   }
