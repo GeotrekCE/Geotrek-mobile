@@ -177,5 +177,11 @@
     "period": "Périodes de sensibilité",
     "contact": "Contact",
     "learnMore": "En savoir plus"
+  },
+  "outdoorPractice": {
+    "title": "Confirmation",
+    "message": "Cette pratique outdoor n'est pas disponible dans l'application, vous allez être redirigé vers notre site web.",
+    "cancel": "Annuler",
+    "confirm": "Continuer"
   }
 }

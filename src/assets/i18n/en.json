@@ -177,5 +177,11 @@
     "period": "Sensitivity periods",
     "contact": "Contact",
     "learnMore": "Learn more"
+  },
+  "outdoorPractice": {
+    "title": "Confirm",
+    "message": "Diese Outdoor-Aktivität ist in der App nicht verfügbar, Sie werden auf unsere Website weitergeleitet.",
+    "cancel": "Cancel",
+    "confirm": "Continue"
   }
 }

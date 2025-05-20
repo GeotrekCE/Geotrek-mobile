@@ -30,6 +30,7 @@ export class SettingsService {
   private baseUrl = environment.mobileApiUrl;
 
   public filters$ = new BehaviorSubject<Filter[] | null>(null);
+  public outdoorPractices$ = new BehaviorSubject<Filter[] | null>(null);
   public order$ = new BehaviorSubject<{
     type: Order;
     value: number[] | undefined;
@@ -334,5 +335,46 @@ export class SettingsService {
     }
 
     return touristicCategoriesWithFeatures;
+  }
+
+  public loadOutdoorPractices(): Promise<any> {
+    return new Promise(async (resolve) => {
+      from(this.getOutdoorPractices()).subscribe({
+        next: async (value) => {
+          await Preferences.set({
+            key: 'outdoorPractices',
+            value: JSON.stringify(value.data.results)
+          });
+          this.outdoorPractices$.next(value.data.results);
+          resolve(true);
+        },
+        error: async () => {
+          const outdoorPractices = await this.getOutdoorPracticesFromStorage();
+          if (outdoorPractices) {
+            this.outdoorPractices$.next(outdoorPractices);
+          }
+          resolve(true);
+        }
+      });
+    });
+  }
+
+  public getOutdoorPractices(): Promise<HttpResponse> {
+    const httpOptions = {
+      method: 'GET',
+      url: `${environment.adminApiUrl}/v2/outdoor_practice/?language=fr${environment.enableOutdoorPracticesShortcuts && (environment.enableOutdoorPracticesShortcuts as any).portals.length > 0 ? `&portals=${(environment.enableOutdoorPracticesShortcuts as any).portals.join(',')}` : ''}&page_size=999`,
+      headers: {
+        'Accept-Language': this.translate.getDefaultLang()
+      }
+    };
+
+    return CapacitorHttp.request(httpOptions);
+  }
+
+  private async getOutdoorPracticesFromStorage() {
+    const treks = JSON.parse(
+      (await Preferences.get({ key: `outdoorPractices` })).value!
+    );
+    return treks;
   }
 }

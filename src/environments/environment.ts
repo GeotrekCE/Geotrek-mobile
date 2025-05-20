@@ -11,6 +11,7 @@ export const environment = {
   availableLanguage: ['fr', 'en'],
   navigation: 'tabs',
   showGoToPoi: false,
+  enableOutdoorPracticesShortcuts: false,
   onlineMapConfig: {
     attributionControl: false,
     style: {

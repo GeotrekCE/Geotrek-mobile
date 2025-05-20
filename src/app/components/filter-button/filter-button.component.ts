@@ -10,6 +10,7 @@ import { environment } from '@env/environment';
 })
 export class FilterButtonComponent implements OnInit {
   @Input() value!: FilterValue;
+  @Input() baseUrl: string = environment.mobileApiUrl;
   @Output() public filterAndGo = new EventEmitter<FilterValue>();
 
   public imgPracticeSrc!: string;
@@ -30,7 +31,7 @@ export class FilterButtonComponent implements OnInit {
   public onImgPracticeSrcError() {
     if (this.value.pictogram && this.firstTryToLoadFromOnline) {
       this.firstTryToLoadFromOnline = false;
-      this.imgPracticeSrc = environment.mobileApiUrl + this.value.pictogram;
+      this.imgPracticeSrc = this.baseUrl + this.value.pictogram;
     } else {
       this.hideImgPracticeSrc = true;
     }

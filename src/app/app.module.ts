@@ -22,6 +22,7 @@ import { InAppDisclosureComponent } from '@app/components/in-app-disclosure/in-a
 import { SettingsService } from '@app/services/settings/settings.service';
 import { OnlineTreksService } from '@app/services/online-treks/online-treks.service';
 import { SelectTrekComponent } from '@app/components/select-trek/select-trek.component';
+import { environment } from '@env/environment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -71,6 +72,9 @@ registerLocaleData(localeFr, 'fr');
           return new Promise(async (resolve) => {
             await settingsService.initializeSettings();
             await onlineTreksService.loadTreks();
+            if (environment.enableOutdoorPracticesShortcuts) {
+              await settingsService.loadOutdoorPractices();
+            }
             SplashScreen.hide();
             resolve(true);
           });

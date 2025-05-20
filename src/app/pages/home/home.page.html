@@ -18,6 +18,12 @@
       (filterAndGo)="filterAndGo($event)"
     ></app-filter-button>
     <app-filter-button
+      *ngFor="let outdoorPractice of outdoorPractices"
+      [value]="outdoorPractice"
+      [baseUrl]="''"
+      (filterAndGo)="GoToOutdoorPractice($event)"
+    ></app-filter-button>
+    <app-filter-button
       [value]="{id: 99, name: ('tabbar.emergency' | translate), pictogram: 'assets/medical-outline.svg', color: '#FFFFFF', textColor:'#FF0000'}"
       (filterAndGo)="goToEmergency()"
     ></app-filter-button>
