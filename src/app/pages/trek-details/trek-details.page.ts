@@ -171,7 +171,7 @@ export class TrekDetailsPage implements OnInit {
 
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            useOfflineTreksService ? trek : (trek as HttpResponse).data,
+            useOfflineTreksService && !isStage ? trek : (trek as HttpResponse).data,
             commonSrc
           );
           const touristicCategoriesWithFeatures =

@@ -103,7 +103,9 @@ export class TrekMapPage implements OnInit {
           const mapConfig: any = await treksService.getMapConfigForTrekById(
             isStage && parentId
               ? offline
-                ? parentTrek
+                ? !isStage
+                  ? parentTrek
+                  : (trek as HttpResponse).data
                 : (parentTrek as HttpResponse).data
               : offline
                 ? trek
@@ -112,7 +114,7 @@ export class TrekMapPage implements OnInit {
           );
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            offline ? trek : (trek as HttpResponse).data,
+            offline && !isStage ? trek : (trek as HttpResponse).data,
             commonSrc
           );
           const touristicCategoriesWithFeatures =
