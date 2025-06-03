@@ -11,3 +11,7 @@ export const sensitiveAreaColors = [
   '#469990',
   '#928974'
 ];
+export const filterHomeButtonColors = {
+  text: '#FFFFFF',
+  background: '#444444'
+};

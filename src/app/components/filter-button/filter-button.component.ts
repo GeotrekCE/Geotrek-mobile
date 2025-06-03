@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterValue, Picture, Trek } from '@app/interfaces/interfaces';
 import { OfflineTreksService } from '@app/services/offline-treks/offline-treks.service';
 import { environment } from '@env/environment';
+import { filterHomeButtonColors } from '@env/variables';
 
 @Component({
   selector: 'app-filter-button',
@@ -16,6 +17,8 @@ export class FilterButtonComponent implements OnInit {
   public imgPracticeSrc!: string;
   private firstTryToLoadFromOnline = true;
   public hideImgPracticeSrc = false;
+  public defaultTextColor = filterHomeButtonColors.text;
+  public defaultBackgroundColor = filterHomeButtonColors.background;
 
   constructor(private offlineTreks: OfflineTreksService) {}
 

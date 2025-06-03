@@ -1,10 +1,12 @@
 <div
-  [style.color]="value.textColor ? value.textColor : '#FFFFFF'"
+  [style.color]="value.textColor ? value.textColor : defaultTextColor"
   class="filter-button ion-activatable"
   (click)="onfilterAndGo()"
 >
   <div
-    [style.background-color]="value.color ? value.color : '#282828'"
+    [style.background-color]="
+      value.color ? value.color : defaultBackgroundColor
+    "
     class="filter-button-background"
   ></div>
   <ion-img
