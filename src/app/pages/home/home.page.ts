@@ -31,15 +31,19 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.filtersSubscription = this.settings.filters$.subscribe((filters) => {
-      this.filters = cloneDeep(filters!);
-      this.practiceValues = filters!.find(
-        (filter) => filter.id === 'practice'
-      )!.values;
+      if (filters) {
+        this.filters = cloneDeep(filters!);
+        this.practiceValues = filters!.find(
+          (filter) => filter.id === 'practice'
+        )!.values;
+      }
     });
 
     this.outdoorPracticesSubscription =
       this.settings.outdoorPractices$.subscribe((outdoorPractices) => {
-        this.outdoorPractices = cloneDeep(outdoorPractices!);
+        if (outdoorPractices) {
+          this.outdoorPractices = cloneDeep(outdoorPractices!);
+        }
       });
   }
 

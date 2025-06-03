@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { of, forkJoin, from } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, catchError } from 'rxjs/operators';
 import {
   HydratedTrek,
   Poi,
@@ -63,12 +63,24 @@ export class TrekMapPage implements OnInit {
     const treksService: TreksService | TreksServiceOffline = offline
       ? this.offlineTreks
       : this.onlineTreks;
+
+    const sensitiveAreasRequest$ = from(
+      treksService.getSensitiveAreasForTrekById(
+        currentTrekId,
+        parentId
+      ) as Promise<HttpResponse | SensitiveAreas | undefined>
+    ).pipe(
+      catchError(() => {
+        return of(null);
+      })
+    );
+
     const requests = offline
       ? [
           treksService.getTrekById(currentTrekId, parentId),
           treksService.getPoisForTrekById(currentTrekId, parentId),
           treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
-          treksService.getSensitiveAreasForTrekById(currentTrekId, parentId),
+          sensitiveAreasRequest$,
           isStage && parentId ? treksService.getTrekById(parentId) : of(null)
         ]
       : [
@@ -80,14 +92,11 @@ export class TrekMapPage implements OnInit {
               parentId
             )
           ),
-          from(
-            treksService.getSensitiveAreasForTrekById(currentTrekId, parentId)
-          ),
+          sensitiveAreasRequest$,
           isStage && parentId
             ? from(treksService.getTrekById(parentId))
             : of(null)
         ];
-
     forkJoin(requests)
       .pipe(first())
       .subscribe(
@@ -108,8 +117,8 @@ export class TrekMapPage implements OnInit {
                   : (trek as HttpResponse).data
                 : (parentTrek as HttpResponse).data
               : offline
-                ? trek
-                : (trek as HttpResponse).data,
+              ? trek
+              : (trek as HttpResponse).data,
             offline
           );
           const commonSrc = await treksService.getCommonImgSrc();

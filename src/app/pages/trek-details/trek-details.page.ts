@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, from, of } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, catchError } from 'rxjs/operators';
 import { Share } from '@capacitor/share';
 import {
   HydratedTrek,
@@ -128,13 +128,25 @@ export class TrekDetailsPage implements OnInit {
     const useOfflineTreksService = offline || this.isAvailableOffline;
     const treksService: TreksService | TreksServiceOffline =
       useOfflineTreksService ? this.offlineTreks : this.onlineTreks;
+
+    const sensitiveAreasRequest$ = from(
+      treksService.getSensitiveAreasForTrekById(
+        currentTrekId,
+        parentId
+      ) as Promise<HttpResponse | SensitiveArea[] | undefined>
+    ).pipe(
+      catchError(() => {
+        return of(null);
+      })
+    );
+
     const requests = useOfflineTreksService
       ? [
           treksService.getTrekById(currentTrekId, parentId),
           treksService.getPoisForTrekById(currentTrekId, parentId),
           treksService.getTouristicContentsForTrekById(currentTrekId, parentId),
           treksService.getTouristicEventsForTrekById(currentTrekId, parentId),
-          treksService.getSensitiveAreasForTrekById(currentTrekId, parentId),
+          sensitiveAreasRequest$,
           isStage && parentId ? treksService.getTrekById(parentId) : of(null)
         ]
       : [
@@ -149,9 +161,7 @@ export class TrekDetailsPage implements OnInit {
           from(
             treksService.getTouristicEventsForTrekById(currentTrekId, parentId)
           ),
-          from(
-            treksService.getSensitiveAreasForTrekById(currentTrekId, parentId)
-          ),
+          sensitiveAreasRequest$,
           isStage && parentId
             ? from(treksService.getTrekById(parentId))
             : of(null)
@@ -171,7 +181,9 @@ export class TrekDetailsPage implements OnInit {
 
           const commonSrc = await treksService.getCommonImgSrc();
           const hydratedTrek: HydratedTrek = this.settings.getHydratedTrek(
-            useOfflineTreksService && !isStage ? trek : (trek as HttpResponse).data,
+            useOfflineTreksService && !isStage
+              ? trek
+              : (trek as HttpResponse).data,
             commonSrc
           );
           const touristicCategoriesWithFeatures =
@@ -197,6 +209,7 @@ export class TrekDetailsPage implements OnInit {
 
           if (
             (sensitiveAreas &&
+              !useOfflineTreksService &&
               (sensitiveAreas as HttpResponse).status === 200) ||
             (useOfflineTreksService && sensitiveAreas)
           ) {
@@ -205,6 +218,8 @@ export class TrekDetailsPage implements OnInit {
                 ? sensitiveAreas
                 : (sensitiveAreas as HttpResponse).data
             ).features;
+          } else if (sensitiveAreas === null) {
+            this.currentSensitiveAreas = [];
           }
 
           this.treksTool = treksService;

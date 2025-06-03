@@ -852,7 +852,7 @@ export class MapTrekVizComponent implements OnDestroy, OnChanges {
       const sensitiveAreasSource = this.map.getSource(
         'sensitive-areas'
       ) as GeoJSONSource;
-      if (sensitiveAreasSource) {
+      if (sensitiveAreasSource && this.currentSensitiveAreas) {
         sensitiveAreasSource.setData(this.currentSensitiveAreas);
       }
 
