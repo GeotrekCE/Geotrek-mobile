@@ -88,4 +88,26 @@ export class HomePage implements OnInit, OnDestroy {
 
     await alert.present();
   }
+
+  public async goToReport() {
+    const alert = await this.alertController.create({
+      header: await this.translate.get('report.title').toPromise(),
+      message: await this.translate.get('report.message').toPromise(),
+      buttons: [
+        {
+          text: await this.translate.get('report.cancel').toPromise(),
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: await this.translate.get('report.confirm').toPromise(),
+          handler: () => {
+            window.open(`https://sentinelles.sportsdenature.fr`, '_blank');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

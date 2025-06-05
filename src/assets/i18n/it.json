@@ -12,7 +12,8 @@
     "treks": "Escursione",
     "offline": "Offline",
     "more": "Informazioni",
-    "emergency": "Emergency"
+    "emergency": "Emergency",
+    "report": "Segnala un problema"
   },
   "home": {
     "text": "Testo"
@@ -181,6 +182,12 @@
   "outdoorPractice": {
     "title": "Confermare",
     "message": "Questa attività all'aperto non è disponibile nell'app, verrai reindirizzato al nostro sito web.",
+    "cancel": "Cancellare",
+    "confirm": "Continuatore"
+  },
+  "report": {
+    "title": "Confermare",
+    "message": "Verrai reindirizzato al sito web di Suricate, dove potrai segnalare un problema.",
     "cancel": "Cancellare",
     "confirm": "Continuatore"
   }

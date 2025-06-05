@@ -12,7 +12,8 @@
     "treks": "Treks",
     "offline": "Offline",
     "more": "Informations",
-    "emergency": "Emergency"
+    "emergency": "Emergency",
+    "report": "Report a problem"
   },
   "home": {
     "text": "Text"
@@ -180,7 +181,13 @@
   },
   "outdoorPractice": {
     "title": "Confirm",
-    "message": "Diese Outdoor-Aktivität ist in der App nicht verfügbar, Sie werden auf unsere Website weitergeleitet.",
+    "message": "This outdoor activity is not available in the app, you will be redirected to our website.",
+    "cancel": "Cancel",
+    "confirm": "Continue"
+  },
+  "report": {
+    "title": "Confirm",
+    "message": "You will be redirected to the Suricate website, allowing you to report a problem.",
     "cancel": "Cancel",
     "confirm": "Continue"
   }

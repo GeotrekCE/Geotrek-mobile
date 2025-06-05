@@ -12,7 +12,8 @@
     "treks": "Randonnées",
     "offline": "Hors ligne",
     "more": "Informations",
-    "emergency": "Contacter les secours"
+    "emergency": "Contacter les secours",
+    "report": "Signaler un problème"
   },
   "home": {
     "text": "Texte"
@@ -181,6 +182,12 @@
   "outdoorPractice": {
     "title": "Confirmation",
     "message": "Cette pratique outdoor n'est pas disponible dans l'application, vous allez être redirigé vers notre site web.",
+    "cancel": "Annuler",
+    "confirm": "Continuer"
+  },
+  "report": {
+    "title": "Confirmation",
+    "message": "Vous allez être redirigé vers le site web de Suricate, vous permettant de signaler un problème.",
     "cancel": "Annuler",
     "confirm": "Continuer"
   }
