@@ -8,7 +8,7 @@
   >
     <ion-searchbar
       placeholder="{{ 'filters.searchPlaceholder' | translate }}"
-      (ionChange)="search($event)"
+      (ionInput)="search($event)"
     >
     </ion-searchbar>
   </ion-toolbar>
@@ -17,7 +17,7 @@
 <ion-content>
   <app-filter-value
     *ngFor="
-      let value of valuesToDisplay | slice: 0:currentMaxFilterValues;
+      let value of valuesToDisplay | slice: 0 : currentMaxFilterValues;
       trackBy: trackFilterValues
     "
     [commonSrc]="commonSrc"
