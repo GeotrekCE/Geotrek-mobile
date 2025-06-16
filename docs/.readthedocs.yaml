@@ -1,0 +1,13 @@
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+build:
+  os: ubuntu-22.04
+  tools:
+    nodejs: "20"
+  commands:
+    - mkdir --parents $READTHEDOCS_OUTPUT/html/
+    - npm ci
+    - npm run docs:build -- --base "/$READTHEDOCS_VERSION/"
+    - cp --recursive docs/.vitepress/dist/* $READTHEDOCS_OUTPUT/html/
