@@ -9,14 +9,45 @@ L’application **Geotrek-mobile** est personnalisable aux couleurs de la charte
 * la couleur principale de l’interface,
 * le **nom de l’application** affiché sur l’écran d’accueil et l’icône du smartphone ou de la tablette.
 
+## Page d'accueil de l'application
+
+Si cette option est activée, une page d’accueil personnalisée peut être affichée dans l'application. Elle peut contenir les éléments suivants :
+
+- Une photo de fond.
+- Des vignettes de pratiques pour accéder rapidement aux itinéraires et contenus outdoor disponibles.
+- Un bouton “Signaler un problème”, qui redirige l’utilisateur vers le site Suricate pour signaler un problème rencontré sur le terrain.
+- Un bouton “Contacter les secours”, permettant de se géolocaliser et de lancer un appel d’urgence vers le 112.
+
+<center>
+  <a title="Accueil"><img src="/features/accueil.jpeg" alt="Accueil" style="max-width: 70%; height: auto;"></a>
+</center>
+
+::: info
+Les contenus outdoor ne sont pas encore entièrement intégrés dans l'application mobile. Lorsqu’un utilisateur clique sur une vignette liée à une pratique outdoor, il est redirigé vers la liste des objets correspondants dans l’application Rando.
+:::
+
+
 ## Écran principal de l’application
 
 L’écran d’accueil donne accès aux principales fonctionnalités de découverte des itinéraires.
 
+::: info
+Si la page d'accueil n'est pas activée, les itinéraires s'affichent directement au démarrage de l'application via l'écran d'accueil.
+:::
+
 ### Modes d’affichage
 
-* **Par liste**
-* **Par vignettes** (2 par ligne)
+* **Itinéraires par liste**
+* **Itinéraires par vignettes** (2 par ligne)
+
+<div style="display: flex;">
+  <a title="Liste">
+    <img src="/features/liste.jpeg" alt="Liste" style="max-width: 80%; height: auto;">
+  </a>
+  <a title="Vignette">
+    <img src="/features/vignette.jpeg" alt="Vignette" style="max-width: 80%; height: auto;">
+  </a>
+</div>
 
 ### Classement des itinéraires
 
@@ -32,6 +63,11 @@ L’écran d’accueil donne accès aux principales fonctionnalités de découve
 * Un pictogramme indiquant la **pratique associée** (randonnée pédestre, VTT, etc.)
 * Le **niveau de difficulté**, la **durée**, la **distance**
 * Un bouton permettant de revenir à la liste complète des itinéraires
+
+<center>
+  <a title="Fiche détail"><img src="/features/fichedetail.jpeg" alt="Fiche détail" style="max-width: 70%; height: auto;"></a>
+</center>
+
 
 ## Accès aux cartes et aux fonctionnalités principales
 
@@ -49,6 +85,10 @@ L’application propose une **carte interactive** permettant une exploration int
 * **Zoom/dézoom**, **échelle**, et mentions légales des cartes
 * **Localisation GPS** de l’utilisateur avec cône d’orientation
 * Bouton pour **revenir à la liste des randonnées**
+
+<center>
+  <a title="Carte"><img src="/features/carte.jpeg" alt="Carte" style="max-width: 70%; height: auto;"></a>
+</center>
 
 ## Fiche détail d’un itinéraire
 
@@ -94,6 +134,7 @@ Depuis une fiche détail, il est possible d’accéder à la carte du parcours. 
 * Les **éléments touristiques** (pictos spécifiques)
 
   * Possibilité de regrouper sous forme de cluster
+* Les **zones sensibles** (règlementaires et espèces)
 * Fonction **zoom/dézoom**
 * Bouton **GPS / géolocalisation en direct**
 
@@ -103,6 +144,11 @@ Depuis une fiche détail, il est possible d’accéder à la carte du parcours. 
 * **Cône d’orientation** de l’appareil
 * **Notifications** activables
 * Possibilité de revenir à tout moment à la fiche détail de l’itinéraire.
+
+
+<center>
+  <a title="Carte détail"><img src="/features/carte-detail.jpeg" alt="Carte détail" style="max-width: 70%; height: auto;"></a>
+</center>
 
 ## Filtres et recherche
 

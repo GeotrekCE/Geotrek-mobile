@@ -43,7 +43,7 @@ L’application propose une **carte interactive** permettant une exploration int
 
   * OpenStreetMap
   * OpenTopoMap
-  * IGN 
+  * IGN (si la structure dispose d’un accès spécifique)
 * **Pictogrammes** localisant les randonnées
 * **Clusters** (regroupement d’itinéraires proches)
 * **Zoom/dézoom**, **échelle**, et mentions légales des cartes

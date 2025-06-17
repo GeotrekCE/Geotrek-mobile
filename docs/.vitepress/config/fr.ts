@@ -1,17 +1,10 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type DefaultTheme } from 'vitepress'
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
-  title: "Geotrek-mobile documentation",
-  description: "A VitePress Site",
+export const fr = defineConfig({
+  lang: 'fr',
   themeConfig: {
-
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Introduction', link: '/documentation/introduction/overview' }
-    ],
-
+    nav: nav(),
+    sidebar: sidebar(),
     docFooter: { prev: 'Page précédente', next: 'Page suivante' },
     darkModeSwitchLabel: 'Apparence',
     lightModeSwitchTitle: "Passer au thème clair",
@@ -23,9 +16,19 @@ export default defineConfig({
       linkLabel: "retour à l'accueil.",
       linkText: "Retourner à l'accueil",
       code: "404"
-    },
+    }
+  }
+})
 
-    sidebar: [
+function nav(): DefaultTheme.NavItem[] {
+  return [
+    { text: 'Home', link: '/' },
+    { text: 'Introduction', link: '/documentation/introduction/overview' }
+  ]
+}
+
+function sidebar(): DefaultTheme.SidebarItem[] {
+  return [
       {
         text: 'Introduction',
         items: [
@@ -36,8 +39,8 @@ export default defineConfig({
       {
         text: 'Fonctionnalités',
         items: [
-          { text: 'Online', link: '/documentation/fonctionnalites/online' },
-          { text: 'Offline', link: '/documentation/fonctionnalites/offline' }
+          { text: 'Online', link: '/documentation/features/online' },
+          { text: 'Offline', link: '/documentation/features/offline' }
         ]
       },
       {
@@ -58,17 +61,13 @@ export default defineConfig({
         items: [
           {
             text: 'Geotrek',
-            link: '/documentation/apropos/geotrek/what-is-geotrek',
+            link: '/documentation/about/geotrek/what-is-geotrek',
             items: [
-              { text: "Qu'est-ce que Geotrek ?", link: '/documentation/apropos/geotrek/what-is-geotrek', items: [] },
-              { text: 'Les projets', link: '/documentation/apropos/geotrek/projects', items: [] },
+              { text: "Qu'est-ce que Geotrek ?", link: '/documentation/about/geotrek/what-is-geotrek', items: [] },
+              { text: 'Les projets', link: '/documentation/about/geotrek/projects', items: [] },
             ],
           },
         ]
       }
-    ],
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/GeotrekCE/Geotrek-mobile' }
     ]
   }
-})
