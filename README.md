@@ -1,16 +1,12 @@
 <h1 align="center">Geotrek-mobile</h1>
 
-<p align="center"><img alt="geotrek mobile image" src="/docs/public/assets/geotrek-mobile.svg"></p>
+<p align="center"><img alt="geotrek mobile image" src="/docs/public/assets/geotrek-mobile.png"></p>
 
 <p align="center">
 <a href="https://geotrek-mobile.readthedocs.io/stable/en/documentation/introduction/overview.html" rel="nofollow"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-green.svg" style="max-width:100%;"></a>
 <a href="https://matrix.to/#/%23geotrek:matrix.org" rel="nofollow"><img alt="Chat Matrix" src="https://img.shields.io/badge/Chat-blue.svg" style="max-width:100%;"></a>
 <a href="https://groups.google.com/g/geotrek-fr" rel="nofollow"><img alt="Forum Google Group" src="https://img.shields.io/badge/Forum-brightgreen.svg" style="max-width:100%;"></a>
 <a href="https://github.com/GeotrekCE/Geotrek-mobile/releases/latest" rel="nofollow"><img alt="Release" src="https://img.shields.io/github/release/GeotrekCE/Geotrek-mobile.svg" style="max-width:100%;"></a>
-</p>
-
-<p align="center">
-<a href="https://github.com/GeotrekCE/Geotrek-mobile/actions/workflows/ci.yml" rel="nofollow"><img alt="Release" src="https://github.com/GeotrekCE/Geotrek-mobile/actions/workflows/ci.yml/badge.svg" style="max-width:100%;"></a>
 </p>
 
 <p align="center">
@@ -25,8 +21,6 @@
     <a href="#thanks-to-all-contributors-"><b>Contributors</b></a>  •  
     <a href="#license"><b>License</b></a>  • 
 </p>
-
-![Search](/docs/public/introduction/geotrek-mobile.jpg)
 
 ## Mobile
 
@@ -57,7 +51,7 @@ Available for free on [Google Play](https://play.google.com) and the [App Store]
   - [Android](https://play.google.com/store/apps/details?id=io.geotrek.tarnpleinenature)
   - [iOS](https://apps.apple.com/fr/app/tarn-pleine-nature/id1627448361)
 
-![Examples](/docs/public/introduction/geotrek-mobile.jpg)
+![Examples](/docs/public/introduction/geotrek-mobile.png)
 
 ## Features
 
