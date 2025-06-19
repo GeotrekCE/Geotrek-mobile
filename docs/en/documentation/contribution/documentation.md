@@ -1,72 +1,154 @@
 # Documentation
 
-## Installation en mode développement
+## Development mode installation
 
-### Prérequis
+### Prerequisites
 
-**1. Cloner le dépot**
+**1. Clone the repository**
 
 ```bash
 git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 ```
 
-**2. Installer les modules npm**
+**2. Install npm modules**
 
 ```bash
 npm install
 ```
 
-### Démarrer l'application
+### Start the application
 
-Démarrer le serveur en mode développement en lançant cette commande :
+Start the development server by running the following command:
 
 ```bash
 npm run docs:dev
 ```
 
-Rendez vous ensuite sur cette URL :
+Then open your browser and go to this URL:
 
 ```bash
 http://localhost:5173/
 ```
 
-## Contribuer
+# Contributing
 
-**1. Contribuer les fichiers existants**
+**1. Contribute to existing files**
 
-Vous pouvez commencer à contribuer la documentation de Geotrek-rando-widget en mettant à jour les fichiers markdown présents dans le dossier `docs/documentation` :
+You can start contributing to the Geotrek-mobile documentation by editing the markdown files located in the `docs/documentation` folder:
 
 ```bash
 cd /docs/documentation
 ```
 
-Chaque sous-dossier présent dans /docs concerne une section de la documentation (Introduction, Thème, Composants, etc.).
+Each subfolder in `/docs` corresponds to a section of the documentation (Introduction, Theme, Components, etc.).
 
-**2. Ajouter de nouvelles sections**
+**2. Add new sections**
 
-Pour ajouter une nouvelle section, il faut créer un nouveau dossier ainsi que les fichiers markdown `docs/.vitepress/config.mts` :
+To add a new section, create a new folder and update the markdown structure in `docs/.vitepress/config/fr.ts`:
 
 ```bash
-cd /docs/.vitepress/config.mts
+cd /docs/.vitepress/config/fr.ts
 ```
 
-Exemple de création de nouvelle section :
+Example of creating a new section:
 
 ```js
-    {
-        text: 'Nouvelle Section',
-        items: [
-          { text: 'Partie 1', link: '/documentation/newsection/partie1' },
-          { text: 'Partie 2', link: '/documentation/newsection/partie2' },
-        ],
-      }
+{
+  text: 'New Section',
+  collapsed: true,
+  items: [
+    { text: 'Part 1', link: '/documentation/newsection/partie1' },
+    { text: 'Part 2', link: '/documentation/newsection/partie2' },
+  ],
+}
 ```
 
-## Traduire la documentation
+# Translating the documentation
 
-Traduire une documentation utilisateur dans une autre langue que le français offre plusieurs avantages :
+Translating user documentation into a language other than French offers several advantages:
 
-- **Améliorer l'accessibilité** : en traduisant la documentation de Geotrek-mobile, vous contribuez à rendre le produit accessible à un public plus large à travers le monde
-- **Améliorer l'expérience utilisateur** : la traduction de la documentation dans la langue des utilisateurs permet de faciliter la compréhension et l'utilisation et donc d'améliorer leur expérience globale du produit
-- **Faciliter la collaboration** : si Geotrek-mobile est utilisé par une équipe internationale, avoir une documentation en anglais facilite la collaboration, le support et la communication
+* **Improved accessibility**: translating the Geotrek-mobile documentation helps make the product accessible to a wider audience worldwide.
+* **Better user experience**: providing documentation in users' native language improves understanding and usability, enhancing the overall product experience.
+* **Facilitated collaboration**: if Geotrek-mobile is used by an international team, having English documentation simplifies collaboration, support, and communication.
 
+## Adding english content
+
+To translate existing documentation content, update the markdown files in the `/docs/en/documentation/` folder.
+
+## Adding a menu section in english
+
+When creating a new menu entry in the documentation, you need to:
+
+**1. Create the markdown file**
+
+Example: `/docs/en/documentation/features/new-file.md`
+
+::: info
+For consistency, it's best to keep the same folder structure as the original language (French).
+
+All markdown documentation files are located in `/docs/**en**/documentation/`.
+:::
+
+**2. Update the index**
+
+In this example, update the `/docs/.vitepress/config/en.ts` file by adding the highlighted line:
+
+```js
+{
+  text: 'Features',
+  items: [
+    { text: 'Online', link: '/en/documentation/features/online' },
+    { text: 'Offline', link: '/en/documentation/features/offline' },
+    { text: 'New file', link: '/en/documentation/features/new-file' }, // [!code focus]
+  ]
+},
+```
+
+## Adding a new language
+
+To add support for a new language (e.g., *Italian*), follow these steps:
+
+**1. Create the folder `/docs/it/documentation/`**
+
+**2. Create all necessary subfolders and markdown files**
+
+For simplicity, the folder and file names do not need to be translated:
+
+* `/docs/it/documentation/features`
+
+  * online.md
+  * offline.md
+  * new-file.md
+* etc.
+
+**3. Create the `it.ts` file in `/docs/.vitepress/config/`**
+
+This file defines the menu structure in the new language. Menu labels also need to be translated.
+
+::: tip
+For convenience, you can copy the content of `en.ts` and adapt it to the new language.
+:::
+
+**4. Include the new language in `/docs/.vitepress/config/index.ts`**
+
+The final step is to include the new language in the `index.ts` file:
+
+```js
+export default defineConfig({
+  ...shared,
+  locales: {
+    root: {
+      label: 'Français',
+      ...fr,
+    },
+    en: {
+      label: 'English',
+      ...en,
+    },
+    it: {
+      label: 'Italiano', // [!code focus]
+      ...it,
+    },
+  },
+});
+```

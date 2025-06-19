@@ -4,45 +4,45 @@
   <a title="Geotrek-mobile"><img src="/introduction/geotrek-mobile.png" alt="Geotrek-mobile"></a>
 </center>
 
-## Présentation générale
+## General overview
 
-**Geotrek-mobile** est une application mobile gratuite dédiée à la valorisation des activités de pleine nature. Elle permet aux usagers de découvrir, directement depuis leur smartphone ou leur tablette, l’ensemble des itinéraires de randonnée et d’activités de plein air disponibles sur un territoire donné.
+**Geotrek-mobile** is a free mobile application designed to promote outdoor activities. It allows users to discover, directly from their smartphone or tablet, all trekking and outdoor routes available in a given area.
 
-Les activités proposées incluent :
+The activities offered include:
 
-* la randonnée pédestre, équestre, à vélo, en VTT, en trail ou en marche nordique,
-* ainsi que d’autres pratiques de pleine nature comme l’escalade, la plongée, les activités nautiques, etc.
+* hiking (on foot, horseback, by bike, mountain bike, trail running, or Nordic walking),
+* as well as other outdoor activities like climbing, diving, water sports, and more.
 
-L’application est disponible gratuitement sur les stores :
+The app is freely available on:
 
 * [Google Play](https://play.google.com/store/apps/developer?id=Makina-Corpus) (Android)
 * [App Store](https://apps.apple.com/fr/developer/makina-corpus/id353487759) (iOS)
 
-## Fonctionnement de l'application
+## How the app works
 
-Les contenus proposés dans Geotrek-mobile (itinéraires, outdoor, informations pratiques, médias, etc.) sont issus de l’outil de gestion métier **Geotrek-admin**, qui permet aux structures gestionnaires de saisir et de mettre à jour leurs données.
+The content provided in Geotrek-mobile (routes, outdoor activities, practical information, media, etc.) comes from the **Geotrek-admin** management tool, which allows managers to enter and update their data.
 
-## Fonctionnalités principales
+## Key features
 
-* **Accès aux itinéraires** via une carte interactive ou une liste
-* **Accès aux contenus outdoor** via une redirection sur l'application rando
-* **Filtres multicritères** pour affiner la recherche selon le type d’activité, la durée, la difficulté, etc.
-* **Fonction de recherche** par mot-clé
-* **Fiches détaillées** pour chaque itinéraire, avec description, photos, carte, profil altimétrique, etc.
-* **Utilisation du GPS et des notifications** du smartphone ou de la tablette
-* **Mode connecté ou déconnecté (offline)** : les données peuvent être téléchargées à l’avance pour une utilisation sans réseau
-* **Application multilingue** : disponible en français, anglais, italien et allemand
+* **Access to treks** via an interactive map or a list
+* **Access to outdoor content** through redirection to the rando application
+* **Multi-criteria filters** to refine searches by activity type, duration, difficulty, etc.
+* **Keyword search function**
+* **Detailed trek sheets**, with description, photos, map, elevation profile, etc.
+* **Use of GPS and notifications** on smartphones or tablets
+* **Online and offline modes**: data can be downloaded in advance for offline use
+* **Multilingual application**: available in French, English, Italian, and German
 
-## Déploiement et personnalisation
+## Deployment and customization
 
-L’application est accessible via une icône dédiée sur le bureau du smartphone ou de la tablette. Cette icône peut être personnalisée par la structure utilisatrice avant la diffusion.
+The app is accessible via a dedicated icon on the home screen of a smartphone or tablet. This icon can be customized by the organization before publication.
 
-Lors du premier lancement, un message d’information est affiché à l’attention des utilisateurs pour expliquer l’usage de la géolocalisation.
+When launching the app for the first time, an informational message is displayed to users to explain the use of geolocation.
 
-## Licence
+## License
 
-* Logiciel **Open Source** sous licence **BSD**
-* © Makina Corpus Territoires – Parc national des Écrins
+* **Open Source** software under the **BSD license**
+* © Makina Corpus Territoires – Écrins National Park
 
 <a href="https://territoires.makina-corpus.com/"><img src="https://geotrek.fr/assets/img/logo_makina.svg" alt="Logo MCT" width="125"></a>
 [<img src="https://geonature.fr/img/logo-pne.jpg">](https://www.ecrins-parcnational.fr)

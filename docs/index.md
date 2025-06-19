@@ -35,6 +35,6 @@ features:
     icon:
       light: /assets/features.svg
       dark: /assets/features.svg
-    link: /documentation/fonctionnalites/online
+    link: /documentation/features/online
 ---
 

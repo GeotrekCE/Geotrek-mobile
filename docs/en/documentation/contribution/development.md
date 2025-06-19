@@ -1,32 +1,22 @@
-# Installation en mode développement
+# Development mode installation
 
-## Prérequis
+## Prerequisites
 
-**1. Cloner le dépot**
+Clone the repository:
 
 ```bash
 git clone git@github.com:GeotrekCE/Geotrek-mobile.git
 ```
 
-**2. Installer les modules npm**
+## Start the application
 
-```bash
-npm install
-```
-
-## Mise en place du composant à modifier
-
-Éditer le fichier index.html en y ajoutant le composant que vous souhaitez modifier.
-
-## Démarrer l'application
-
-Démarrer le serveur en mode développement en lançant cette commande :
+Start the development server by running the following command:
 
 ```bash
 npm start
 ```
 
-Rendez vous ensuite sur cette URL :
+Then open your browser and go to the following URL:
 
 ```bash
 http://localhost:3333/

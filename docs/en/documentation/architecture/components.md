@@ -1,23 +1,23 @@
-## Architecture technique de l’application
+## Technical architecture
 
-L’application **Geotrek-mobile** repose sur une architecture moderne et modulaire, conçue pour être performante, maintenable et compatible avec la plupart des appareils mobiles.
+The **Geotrek-mobile** application is built on a modern, modular architecture designed to be high-performing, maintainable, and compatible with most mobile devices.
 
-### Composants techniques principaux
+### Main technical components
 
-* **Frameworks** :
+* **Frameworks**:
 
-  * Développement basé sur **Angular**, associé à **Ionic** pour la gestion de l’interface mobile
-  * Utilisation de **Cordova** pour l’encapsulation de l’application dans un environnement natif (Android / iOS)
+  * Development is based on **[Angular](https://angular.dev/)**, combined with **[Ionic](https://ionicframework.com/)** for managing the mobile interface
+  * **[Capacitor](https://capacitorjs.com/)** is used to package the application into a native environment (Android / iOS)
 
-* **Langage** :
+* **Language**:
 
-  * Code écrit en **TypeScript**, permettant une meilleure **maintenabilité** et une réduction des risques de bugs grâce au typage statique
-  * Pour plus d’informations : [Makina Corpus – Les nouveautés de TypeScript 3.0](https://makina-corpus.com/blog/metier/2018/les-nouveautes-de-typescript-3.0)
+  * The code is written in **[TypeScript](https://www.typescriptlang.org/)**, allowing for better **maintainability** and reduced risk of bugs thanks to static typing
 
-* **Gestion cartographique** :
+* **Mapping**:
 
-  * Cartes intégrées à l’aide de **Mapbox GL JS**, permettant un affichage fluide, interactif et vectoriel des données géographiques
+  * Maps are integrated using **[Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/)**, enabling smooth, interactive, and vector-based rendering of geographic data
 
-* **Fonds de carte** :
+* **Basemaps**:
 
-  * Par défaut, l’application utilise les fonds **OpenStreetMap** (OSM), mais peut aussi intégrer d’autres fonds selon les droits et les préférences du territoire (OpenTopoMap, IGN…)
+  * By default, the app uses **[OpenStreetMap](https://www.openstreetmap.org/about)** (OSM) basemaps, but other basemaps can be integrated depending on the territory's rights and preferences (OpenTopoMap, IGN, etc.)
+

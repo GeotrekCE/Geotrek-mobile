@@ -6,18 +6,16 @@ L’application **Geotrek-mobile** repose sur une architecture moderne et modula
 
 * **Frameworks** :
 
-  * Développement basé sur **Angular**, associé à **Ionic** pour la gestion de l’interface mobile
-  * Utilisation de **Cordova** pour l’encapsulation de l’application dans un environnement natif (Android / iOS)
+  * Développement basé sur **[Angular](https://angular.dev/)**, associé à **[Ionic](https://ionicframework.com/)** pour la gestion de l’interface mobile
+  * Utilisation de **[Capacitor](https://capacitorjs.com/)** pour l’encapsulation de l’application dans un environnement natif (Android / iOS)
 
 * **Langage** :
 
-  * Code écrit en **TypeScript**, permettant une meilleure **maintenabilité** et une réduction des risques de bugs grâce au typage statique
-  * Pour plus d’informations : [Makina Corpus – Les nouveautés de TypeScript 3.0](https://makina-corpus.com/blog/metier/2018/les-nouveautes-de-typescript-3.0)
-
+  * Code écrit en **[TypeScript](https://www.typescriptlang.org/)**, permettant une meilleure **maintenabilité** et une réduction des risques de bugs grâce au typage statique. P
 * **Gestion cartographique** :
 
-  * Cartes intégrées à l’aide de **Mapbox GL JS**, permettant un affichage fluide, interactif et vectoriel des données géographiques
+  * Cartes intégrées à l’aide de **[Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/)**, permettant un affichage fluide, interactif et vectoriel des données géographiques
 
 * **Fonds de carte** :
 
-  * Par défaut, l’application utilise les fonds **OpenStreetMap** (OSM), mais peut aussi intégrer d’autres fonds selon les droits et les préférences du territoire (OpenTopoMap, IGN…)
+  * Par défaut, l’application utilise les fonds **[OpenStreetMap](https://www.openstreetmap.org/about)** (OSM), mais peut aussi intégrer d’autres fonds selon les droits et les préférences du territoire (OpenTopoMap, IGN…)

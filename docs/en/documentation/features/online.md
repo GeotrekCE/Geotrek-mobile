@@ -1,140 +1,165 @@
-# Fonctionnalités
+# Features
 
-## Interface graphique et ergonomie
+## User interface and ergonomics
 
-### Personnalisation
+### Customization
 
-L’application **Geotrek-mobile** est personnalisable aux couleurs de la charte graphique de la structure gestionnaire. Cela inclut notamment :
+The **Geotrek-mobile** app can be customized to match the visual identity of the managing organization. This includes:
 
-* la couleur principale de l’interface,
-* le **nom de l’application** affiché sur l’écran d’accueil et l’icône du smartphone ou de la tablette.
+* the primary interface color,
+* the **app name** displayed on the home screen and as the icon on the smartphone or tablet.
 
-## Écran principal de l’application
+## Main screen of the app
 
-L’écran d’accueil donne accès aux principales fonctionnalités de découverte des itinéraires.
+The home screen provides access to the main features for discovering treks.
 
-### Modes d’affichage
+### Display modes
 
-* **Par liste**
-* **Par vignettes** (2 par ligne)
+* **List view**
+* **Card view** (2 cards per row)
 
-### Classement des itinéraires
+### Trek sorting options
 
-* Par **ordre alphabétique** (par défaut)
-* Par **proximité** (en fonction de la position GPS de l’utilisateur)
-* En **ordre aléatoire**
+* By **alphabetical order** (default)
+* By **proximity** (based on the user’s GPS location)
+* In **random order**
 
-### Informations affichées pour chaque itinéraire
+### Information displayed for each trek
 
-* Une photo représentative
-* Le **titre de la randonnée**
-* La **commune de départ** et, si différente, celle d’arrivée
-* Un pictogramme indiquant la **pratique associée** (randonnée pédestre, VTT, etc.)
-* Le **niveau de difficulté**, la **durée**, la **distance**
-* Un bouton permettant de revenir à la liste complète des itinéraires
+* A representative photo
+* The **title of the trek**
+* The **starting municipality**, and if different, the arrival one
+* An icon indicating the **activity type** (trekking, MTB, etc.)
+* The **difficulty level**, **duration**, and **distance**
+* A button to return to the full list of treks
 
-## Accès aux cartes et aux fonctionnalités principales
+## Access to maps and main features
 
-L’application propose une **carte interactive** permettant une exploration intuitive des itinéraires.
+The application provides an **interactive map** for intuitive exploration of trekking track.
 
-### Carte principale
+### Main map
 
-* **Fonds de carte** disponibles :
+* **Available basemaps**:
 
   * OpenStreetMap
   * OpenTopoMap
-  * IGN (si la structure dispose d’un accès spécifique)
-* **Pictogrammes** localisant les randonnées
-* **Clusters** (regroupement d’itinéraires proches)
-* **Zoom/dézoom**, **échelle**, et mentions légales des cartes
-* **Localisation GPS** de l’utilisateur avec cône d’orientation
-* Bouton pour **revenir à la liste des randonnées**
+  * IGN (if the organization has specific access)
 
-## Fiche détail d’un itinéraire
+* **Icons** locating each trek
 
-En sélectionnant une randonnée (depuis la liste ou la carte), l’utilisateur accède à une fiche complète incluant :
+* **Clusters** to group nearby treks
 
-### Contenus disponibles
+* **Zoom in/out**, **scale**, and legal map attributions
 
-* **Nom de la randonnée**
-* **Photos** (une ou plusieurs)
+* User’s **GPS location** with orientation cone
+
+* Button to **return to the list of treks**
+
+## Trek detail sheet
+
+By selecting a trek (from the list or the map), the user accesses a detailed trek sheet that includes:
+
+### Available content
+
+* **Trek name**
+
+* **Photos** (one or more)
+
 * **Description**
-* **Partage** de l’URL
-* **Téléchargement** de la fiche pour une utilisation en mode déconnecté
-* **Caractéristiques** :
 
-  * Départ / Arrivée
-  * Communes concernées
-  * Durée
+* **Share** the URL
+
+* **Download** the trek sheet for offline use
+
+* **Key details**:
+
+  * Start / End point
+  * Involved municipalities
+  * Duration
   * Distance
-  * Dénivelé
-  * Difficulté
-  * Type de parcours
-  * Pratique(s) recommandée(s)
-* **Thématique(s)** (si renseignée)
-* **Description pas à pas** (étapes de l’itinéraire)
+  * Elevation gain
+  * Difficulty
+  * Trek type
+  * Recommended activities
 
-  * Possibilité d’indiquer le balisage
-* **Profil altimétrique**
-* Informations touristiques :
+* **Themes** (if provided)
 
-  * **Parking conseillé**
-  * **Recommandations**
-  * **Lieux de renseignement**
-  * **Hébergement, restauration, patrimoine à proximité**
+* **Step-by-step description** of the trek
 
-## Carte de l’itinéraire sélectionné
+  * Optional signage information
 
-Depuis une fiche détail, il est possible d’accéder à la carte du parcours. Celle-ci affiche :
+* **Elevation profile**
 
-* Le **tracé complet** de la randonnée
-* Les **étapes** correspondant au descriptif pas à pas
-* Le **point de départ** et **d’arrivée** (visuels distinctifs)
-* Le **sens de parcours** (flèches directionnelles)
-* Les **éléments touristiques** (pictos spécifiques)
+* Tourist information:
 
-  * Possibilité de regrouper sous forme de cluster
-* Fonction **zoom/dézoom**
-* Bouton **GPS / géolocalisation en direct**
+  * **Recommended parking**
+  * **Tips and safety recommendations**
+  * **Information centers**
+  * **Nearby lodging, restaurants, and heritage sites**
 
-  * Mode de suivi : recentrage automatique sur l’utilisateur
-* Bouton pour **revenir au tracé complet**
-* Bouton pour **afficher/masquer les éléments de patrimoine**
-* **Cône d’orientation** de l’appareil
-* **Notifications** activables
-* Possibilité de revenir à tout moment à la fiche détail de l’itinéraire.
+## Trek map
 
-## Filtres et recherche
+From the detail sheet, users can access the trek map. It displays:
 
-### Filtres
+* The **complete track** of the trek
 
-Les filtres disponibles sont configurés en amont dans **Geotrek-Admin**. Ils permettent de restreindre l’affichage des randonnées sur la liste **et sur la carte** :
+* The **steps** corresponding to the step-by-step description
 
-Filtres possibles :
+* The **start and end points** (with distinct visuals)
 
-* Par **pratique**
-* Par **difficulté**
-* Par **dénivelé**
-* Par **thématique**
-* Par **type de parcours**
-* Par **commune**
-* **Accessibilité** (présence d’aménagements spécifiques)
+* The **travel direction** (directional arrows)
 
-Fonctionnalités associées :
+* **Tourist points of interest** (specific icons)
 
-* Possibilité de **réinitialiser** tous les filtres ("Effacer tout")
+  * Option to group them into clusters
 
-### Recherche
+* **Zoom in/out** function
 
-La recherche permet d’accéder rapidement à une randonnée par son **nom**.
-Elle dispose d’un système **d’auto-complétion** : les résultats s’affinent à chaque lettre saisie.
+* **Live GPS / geolocation** button
 
-## Cas de l’itinérance (randonnées sur plusieurs jours)
+  * Tracking mode: automatic recentering on the user
 
-Les randonnées en itinérance sont présentées comme des itinéraires classiques, mais indiquent :
+* Button to **return to the full track**
 
-* Le **nombre d’étapes** dans les caractéristiques
-* Une **liste des étapes**, accessible dans la fiche détail
+* Button to **show/hide heritage elements**
 
-Chaque étape dispose de sa propre fiche, avec les mêmes fonctionnalités qu’un itinéraire standard.
+* **Device orientation cone**
+
+* **Notifications** can be enabled
+
+* Users can return to the trek detail sheet at any time
+
+## Filters and search
+
+### Filters
+
+Available filters are configured beforehand in **Geotrek-admin**. They allow users to narrow down the treks displayed both **in the list and on the map**.
+
+Possible filters:
+
+* By **activity type**
+* By **difficulty**
+* By **elevation gain**
+* By **theme**
+* By **trek type**
+* By **municipality**
+* **Accessibility** (presence of specific amenities)
+
+Associated features:
+
+* Option to **reset all filters** (“Clear all”)
+
+### Search
+
+The search feature allows quick access to a trek by its **name**.
+It includes an **auto-complete** system: results refine as each letter is typed.
+
+## Case of multi-day trek (Itinerant trekking)
+
+Itinerant treks are presented like standard treks but include:
+
+* The **number of stages** in the key characteristics
+* A **list of stages**, accessible in the trek detail sheet
+
+Each stage has its own sheet, with the same features as a standard trek.
 

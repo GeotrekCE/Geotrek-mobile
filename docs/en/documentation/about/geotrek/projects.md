@@ -1,51 +1,52 @@
-# Les quatre briques
+# The four components
 
-La suite logicielle Geotrek dispose de quatre briques à la fois distinctes et complémentaires :
+The Geotrek software suite consists of four distinct yet complementary components:
 
-* [Geotrek-admin](https://geotrek.readthedocs.io/en/latest/): outil de gestion et de saisie de l’ensemble des informations, intégrant les données des Systèmes d’Informations Touristiques (SIT) et pouvant être connecté à votre SIG ou à des systèmes d’information transport
-* [Geotrek-rando](https://geotrek-rando-v3.readthedocs.io/stable/) : site web, reprenant les informations saisies dans Geotrek-admin, à destination des internautes grand public
-* [Geotrek-mobile](/documentation/introduction/overview.html) : application mobile fonctionnant sous Android et iOS, reprenant des informations saisies dans Geotrek-admin et optimisées pour l’usage mobile (volume, impact sur la batterie, hors-ligne, géolocalisation…)
-* [Geotrek-rando-widget](https://geotrek-rando-widget.readthedocs.io/) : nouveau composant web permettant de valoriser une offre de contenus touristiques et de randonnées auprès des usagers du territoire, en l'intégrant dans un site internet existant.
+* [Geotrek-admin](https://geotrek.readthedocs.io/en/latest/): a management and data entry tool for all information, integrating data from Tourist Information Systems (SIT), and capable of being connected to your GIS or transportation information systems.
+* [Geotrek-rando](https://geotrek-rando-v3.readthedocs.io/stable/): a website that displays the data entered in Geotrek-admin, aimed at the general public.
+* [Geotrek-mobile](/en/documentation/introduction/overview.html): a mobile application available on Android and iOS, which uses data from Geotrek-admin, optimized for mobile use (storage, battery impact, offline access, geolocation…).
+* [Geotrek-rando-widget](https://geotrek-rando-widget.readthedocs.io/): a new web component that promotes a selection of tourist and hiking content to local users by integrating it into an existing website.
 
 ::: info
-Cette documentation ne traite que de **Geotrek-mobile**, chaque brique ayant sa propre documentation.
+This documentation only covers **Geotrek-mobile**. Each component has its own documentation.
 :::
 
-## Utilisateurs
+## Users
 
+The Geotrek application, **designed for two types of users**, is a web solution that offers:
 
-L’application Geotrek, **destinée à deux types de public**, est une solution web qui apporte :
+* management features for information (routes, outdoor sites, points of interest, descriptions, interpretation, media…) and infrastructure (signage, facilities, works, regulations…) for users managing a territory (**Geotrek-admin**)
+* simple and user-friendly tools to search and browse routes for website visitors and mobile users (**Geotrek-rando V3**, **Geotrek-mobile**, and **Geotrek-rando-widget**).
 
-* des fonctionnalités de gestion des informations (itinéraires, sites outdoor, points d’intérêts, description, interprétation, médias…) et de gestion des infrastructures (signalétique, aménagements, travaux, réglementation…) pour les utilisateurs gérant un territoire (**Geotrek-admin**) 
-* des fonctionnalités simples et ludiques de recherche et de consultation d’itinéraires pour les internautes et les mobinautes (**Geotrek-rando V3**, **Geotrek-mobile** et **Geotrek-rando-widget**).
+To learn more about the Geotrek suite, visit [https://geotrek.fr](https://geotrek.fr)
 
-Pour retrouver plus d'informations sur la suite applicative Geotrek, rendez-vous sur [https://geotrek.fr](https://geotrek.fr)
+## Open components
 
-## Composants libres
-
-L’application Geotrek utilise les technologies open source suivantes :
+The Geotrek application is built using the following open-source technologies:
 
 ### Geotrek-admin
 
-* **Python / Django**, l'épine dorsale de l'application qui prend en charge les principales fonctionnalités comme le module de configuration, l'exploitation de la base de données, la gestion des utilisateurs et de leurs droits ou l'intégration avec les bibliothèques cartographiques. La richesse de son écosystème permet de concevoir des applications aux possibilités infinies, en favorisant la production d'applications sécurisées, solides (tests automatiques) et robustes (Python).
-* **PostgreSQL / PostGIS** pour la base de données. La totalité des données de l'application est stockée dans une instance PostgreSQL avec l'extension spatiale PostGIS :
+* **Python / Django**: the backbone of the application, handling key features such as the configuration module, database management, user and permission management, and integration with mapping libraries. Its rich ecosystem enables the creation of powerful applications with strong security, reliability (automatic testing), and robustness (Python).
+* **PostgreSQL / PostGIS** for the database. All application data is stored in a PostgreSQL instance with the PostGIS spatial extension:
 
-  * attributs, comptes utilisateurs…,
-  * géométries,
-  * raster (Modèle Numérique Terrain).
+  * attributes, user accounts, etc.
+  * geometries,
+  * raster data (Digital Elevation Models).
 
 ### Geotrek-rando
-* **Next.js** (*React, Typescript*), 
-* **Leaflet**, utilisé comme librairie cartographique
+
+* **Next.js** (*React, Typescript*)
+* **Leaflet**, used as the mapping library
 
 ### Geotrek-rando-widget
 
-* **Stencil**, framework permettant de créer des composants web personnalisables et légers.
-* **Leaflet**, utilisé comme librairie cartographique
+* **Stencil**, a framework for building lightweight and customizable web components
+* **Leaflet**, used as the mapping library
 
 ### Geotrek-mobile
 
-* **Angular**, framework utilisé pour l'application Geotrek-mobile.
-* **Ionic**, composant UI
-* **Capacitor**, boîte à outils nécessaires à la création d'applications mobiles
-* **MapLibre**, utilisé comme librairie cartographique 
+* **Angular**, the framework used for the Geotrek-mobile app
+* **Ionic**, UI components
+* **Capacitor**, the toolkit used to build mobile applications
+* **MapLibre**, used as the mapping library
+

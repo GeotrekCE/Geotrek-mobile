@@ -1,10 +1,10 @@
 # Installation
 
-## Préparation de l’environnement
+## Preparing the environment
 
-Suivez les instructions officielles pour configurer votre environnement de développement : [Guide d’installation de Capacitor](https://capacitorjs.com/docs/getting-started/environment-setup)
+Follow the official instructions to set up your development environment: [Capacitor Installation Guide](https://capacitorjs.com/docs/getting-started/environment-setup)
 
-### Cloner le dépôt et installer les dépendances :
+### Clone the repository and install dependencies:
 
 ```bash
 git clone git@github.com:GeotrekCE/Geotrek-mobile.git
@@ -12,28 +12,28 @@ cd Geotrek-mobile
 npm install
 ```
 
-# Créer votre propre application
+# Create your own application
 
-Pour personnaliser l’application à votre territoire, il est nécessaire de modifier au minimum les fichiers suivants :
+To customize the application for your territory, you need to modify at least the following files:
 
 * `capacitor.config.ts`
 * `src/environments/environment.ts`
 * `src/environments/environment.prod.ts`
 
-Remplacez également les ressources graphiques par vos propres fichiers :
+Also replace the graphic resources with your own files:
 
 * `resources/icon.png` (1024×1024 px)
 * `resources/splash.png` (2732×2732 px)
 
-# Génération d’une version de production
+# Building a production version
 
-### Construction de l’application en mode production
+### Build the application in production mode
 
 ```bash
 npx ionic build --configuration production
 ```
 
-## Ajouter une plateforme mobile
+## Add a mobile platform
 
 ### iOS
 
@@ -47,18 +47,17 @@ npx cap add ios
 npx cap add android
 ```
 
-
-## Génération des icônes et écrans de lancement
+## Generate icons and splash screens
 
 ```bash
 npx @capacitor/assets generate --android --ios
 ```
 
-## Configuration native
+## Native configuration
 
 ```bash
 npx trapeze run config.yaml
 ```
 
-Une fois la configuration appliquée, vous pouvez générer l'application finale via **Xcode** (iOS) et **Android Studio** (Android).
+Once the configuration is applied, you can generate the final application using **Xcode** (iOS) and **Android Studio** (Android).
 

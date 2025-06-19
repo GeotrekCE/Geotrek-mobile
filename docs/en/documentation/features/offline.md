@@ -1,18 +1,18 @@
-# Fonctionnalités
+# Features
 
-## Utilisation en mode hors ligne
+## Offline use
 
-L’application **Geotrek-mobile** permet un usage complet même sans connexion Internet, grâce à la possibilité de télécharger les randonnées sur son appareil.
+The **Geotrek-mobile** app offers full functionality even without an Internet connection, thanks to the ability to download hikes directly to the device.
 
-### Téléchargement et consultation d’une randonnée
+### Downloading and viewing a trek
 
-Une fois un itinéraire téléchargé sur le smartphone ou la tablette, l’utilisateur peut :
+Once a trek has been downloaded to the smartphone or tablet, the user can:
 
-* Accéder à **l’ensemble des informations** comme en mode connecté (fiches détail, cartes, photos, profil altimétrique, etc.)
-* **Consulter la carte** du parcours et se repérer sur le tracé
-* **Utiliser le GPS** de l’appareil pour se localiser et suivre l’itinéraire
-* Recevoir les **notifications** à l'approche d'un POI (si activées au préalable)
-* Bénéficier de **toutes les fonctionnalités** de l’application, à l’exception du **partage d’URL**, qui nécessite une connexion
+* Access **all information** just like in online mode (detailed sheets, maps, photos, elevation profile, etc.)
+* **View the trek map** and navigate along the track
+* **Use the device’s GPS** to locate themselves and follow the trek
+* Receive **notifications** when approaching a point of interest (if previously enabled)
+* Enjoy **all app features**, except for **URL sharing**, which requires an Internet connection
 
-Ce mode est particulièrement utile pour les zones peu couvertes en réseau ou les randonnées en milieu isolé.
+This mode is especially useful in areas with limited network coverage or when trekking in remote locations.
 
