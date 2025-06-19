@@ -22,6 +22,8 @@
     <a href="#license"><b>License</b></a>  • 
 </p>
 
+![Examples](/docs/public/introduction/geotrek-mobile.png)
+
 ## Mobile
 
 **Geotrek-mobile** is a free mobile application in the Geotrek suite designed to promote treks and outdoor activities directly from smartphones and tablets. Ideal for natural parks, tourist offices, and local authorities, it helps visitors and residents explore trekking and outdoor routes in their area—on foot, horseback, bike, or even through activities like climbing or water sports.
@@ -50,8 +52,6 @@ Available for free on [Google Play](https://play.google.com) and the [App Store]
 - Tarn Pleine Nature
   - [Android](https://play.google.com/store/apps/details?id=io.geotrek.tarnpleinenature)
   - [iOS](https://apps.apple.com/fr/app/tarn-pleine-nature/id1627448361)
-
-![Examples](/docs/public/introduction/geotrek-mobile.png)
 
 ## Features
 
