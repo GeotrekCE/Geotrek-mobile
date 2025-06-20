@@ -31,3 +31,5 @@ npm-debug.log*
 /playwright-report/
 /playwright/.cache/
 /screenshots/
+docs/.vitepress/dist
+docs/.vitepress/cache

@@ -1,0 +1,20 @@
+:root {
+  --vp-c-brand-1: #710acb;
+  --vp-c-brand-2: #9d6bc9;
+  --vp-button-brand-bg: #710acb;
+}
+
+.dark {
+  --vp-c-brand-1: #710acb;
+  --vp-c-brand-2: #9d6bc9;
+  --vp-button-brand-bg: #710acb;
+}
+
+#advanced-customization-result-container {
+  grw-treks-list::part(trek-card) {
+    background-color: #FFFFFF;
+  }
+  grw-trek-detail::part(trek-name) {
+    color: #000000;
+  }
+}
