@@ -37,7 +37,7 @@ enableOutdoorPracticesShortcuts: { portals: ['2,5'] },
 
 ## Choisir le tri initial des itinéraires
 
-L’ordre d’affichage des contenus peut être défini par l’une des options suivantes :
+L’ordre d’affichage initial des contenus peut être défini par l’une des options suivantes :
 
 * `alphabetical` (ordre alphabétique, par défaut)
 * `random` (ordre aléatoire)
@@ -82,8 +82,11 @@ sources: {
 ```
 
 **À noter** :
-Il est possible d’utiliser d’autres fonds de carte compatibles avec Mapbox GL JS (raster ou vectoriel), en adaptant l’URL et les paramètres `sources` et `layers`.
+- Il est possible d’utiliser d’autres fonds de carte compatibles avec Mapbox GL JS (raster ou vectoriel), en adaptant l’URL et les paramètres `sources` et `layers`.
+- Les tuiles pour le mode hors lignes sont à configurer côté Geotrek-admin (voir le paramètre `MOBILE_TILES_URL` dans le fichier [geotrek/settings/base.py](https://github.com/GeotrekCE/Geotrek-admin/blob/master/geotrek/settings/base.py))
 
-# Paramètres de confonfigurations possibles
+# Paramètres de configuration disponibles
 
-Vous pouvez retrouver l'ensemble des paramètres disponibles pour la surcharge de configuration mobile ici : [/main/src/environments/environment.prod.ts](https://github.com/GeotrekCE/Geotrek-mobile/blob/main/src/environments/environment.prod.ts)
+Vous pouvez consulter l’ensemble des paramètres configurables pour la personnalisation de l’application mobile dans le fichier suivant : [/main/src/environments/environment.prod.ts](https://github.com/GeotrekCE/Geotrek-mobile/blob/main/src/environments/environment.prod.ts)
+
+

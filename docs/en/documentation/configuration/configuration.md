@@ -1,73 +1,73 @@
-# Principales options de configuration
+# Main configuration options
 
-Cette page présente les principales options de configuration à modifier dans le fichier :
+This page presents the main configuration options that can be modified in the following file:
 
 `mobile/config/src/environments/environment.prod.ts`
 
-## Activer la page d'accueil
+## Enable the home page
 
-Par défaut, l’application présente un affichage des itinéraires par liste ou par vignette. Pour afficher une **page d'accueil** avec un menu :
+By default, the application displays treks in a list or grid view. To display a **home page** with a menu:
 
-Modifier la ligne suivante :
+Edit the following line:
 
 ```diff
 - navigation: 'tabs',
 + navigation: 'menu',
 ```
 
-## Afficher les vignettes vers les pratiques outdoor
+## Display shortcuts to outdoor practices
 
-Pour activer l’affichage des **pratiques outdoor** (via ferrata, escalade, parapente, etc.) en page d’accueil :
+To enable the display of **outdoor practices** (via ferrata, climbing, paragliding, etc.) on the home page:
 
-Modifier la ligne suivante :
+Edit the following line:
 
 ```diff
 - enableOutdoorPracticesShortcuts: false,
 + enableOutdoorPracticesShortcuts: { portals: [] },
 ```
 
-**Astuce** :
-Si vous souhaitez activer cette fonctionnalité uniquement pour certains portails, ajoutez leurs identifiants dans le tableau `portals`.
+**Tip**:
+If you want to enable this feature only for certain portals, add their IDs to the `portals` array.
 
-Exemple :
+Example:
 
 ```ts
 enableOutdoorPracticesShortcuts: { portals: ['2,5'] },
 ```
 
-## Choisir le tri initial des itinéraires
+## Set the initial treks sorting order
 
-L’ordre d’affichage des contenus peut être défini par l’une des options suivantes :
+The default display order of treks can be set to one of the following options:
 
-* `alphabetical` (ordre alphabétique, par défaut)
-* `random` (ordre aléatoire)
-* `location` (par proximité géographique)
+* `alphabetical` (alphabetical order, default)
+* `random` (random order)
+* `location` (by geographical proximity)
 
-Exemple pour un tri par **proximité géographique** :
+Example for sorting by **geographical proximity**:
 
 ```ts
 initialOrder: 'location',
 ```
 
-## Définir la distance de déclenchement des notifications POI
+## Set the notification distance for POIs
 
-L’application peut notifier l’utilisateur à l’approche d’un point d’intérêt (POI).
+The app can notify users when approaching a Point of Interest (POI).
 
-Pour modifier la distance à partir de laquelle la notification s’affiche (en mètres) :
+To change the distance (in meters) at which the notification is triggered:
 
 ```ts
 metersToNotify: 200,
 ```
 
-Exemple : pour notifier à 300 mètres :
+Example: to trigger the notification at 300 meters:
 
 ```ts
 metersToNotify: 300,
 ```
 
-## Modifier le fond de carte
+## Change the map background
 
-Voici un exemple de configuration pour afficher le fond de carte **Plan IGN V2** :
+Here is an example configuration to display the **IGN Plan V2** map background:
 
 ```ts
 sources: {
@@ -81,9 +81,12 @@ sources: {
 }
 ```
 
-**À noter** :
-Il est possible d’utiliser d’autres fonds de carte compatibles avec Mapbox GL JS (raster ou vectoriel), en adaptant l’URL et les paramètres `sources` et `layers`.
+**Note**:
 
-# Paramètres de confonfigurations possibles
+* You can use other raster or vector tile sources compatible with Mapbox GL JS by adapting the `sources` and `layers` parameters.
+* Offline map tiles must be configured in Geotrek-admin (see the `MOBILE_TILES_URL` setting in the [geotrek/settings/base.py](https://github.com/GeotrekCE/Geotrek-admin/blob/master/geotrek/settings/base.py) file).
 
-Vous pouvez retrouver l'ensemble des paramètres disponibles pour la surcharge de configuration mobile ici : [/main/src/environments/environment.prod.ts](https://github.com/GeotrekCE/Geotrek-mobile/blob/main/src/environments/environment.prod.ts)
+# Available Configuration Parameters
+
+You can find all available parameters for customizing the mobile app in the following file: [/main/src/environments/environment.prod.ts](https://github.com/GeotrekCE/Geotrek-mobile/blob/main/src/environments/environment.prod.ts)
+
