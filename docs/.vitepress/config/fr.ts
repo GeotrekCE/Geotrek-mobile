@@ -44,6 +44,12 @@ function sidebar(): DefaultTheme.SidebarItem[] {
         ]
       },
       {
+        text: 'Configuration',
+        items: [
+          { text: 'Configuration', link: '/documentation/configuration/configuration' }
+        ]
+      },
+      {
         text: 'Architecture',
         items: [
           { text: 'Composants', link: '/documentation/architecture/composants' },
