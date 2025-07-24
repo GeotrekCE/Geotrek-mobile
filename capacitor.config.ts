@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: 'io.starter.geotrek',
   appName: 'Geotrek mobile',
   webDir: 'www',
-  bundledWebRuntime: false,
   plugins: {
     CapacitorHttp: {
       enabled: false
