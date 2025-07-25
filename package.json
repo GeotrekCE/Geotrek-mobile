@@ -42,7 +42,7 @@
     "@turf/distance": "^6.5.0",
     "@turf/helpers": "^6.5.0",
     "capacitor-blob-writer": "^1.1.10",
-    "capacitor-zip": "git+https://github.com/GeotrekCE/capacitor-zip.git#7540615d26fb435450e5c804cc8602f2ffb98ad4",
+    "capacitor-zip": "git+https://github.com/GeotrekCE/capacitor-zip.git#3d91cbbd7ea95398935e8e500cc010403e15c881",
     "cordova-plugin-device-orientation": "^3.0.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.deburr": "^4.1.0",
