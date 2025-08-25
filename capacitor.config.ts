@@ -4,6 +4,9 @@ const config: CapacitorConfig = {
   appId: 'io.starter.geotrek',
   appName: 'Geotrek mobile',
   webDir: 'www',
+  android: {
+    adjustMarginsForEdgeToEdge: 'auto'
+  },
   plugins: {
     CapacitorHttp: {
       enabled: false
