@@ -32,4 +32,14 @@
       (filterAndGo)="goToEmergency()"
     ></app-filter-button>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button
+      color="secondary"
+      class="no-outline"
+      [routerLink]="[mapLink]"
+    >
+      <ion-icon name="globe"></ion-icon>
+      <div>{{ 'treks.showMap' | translate }}</div>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

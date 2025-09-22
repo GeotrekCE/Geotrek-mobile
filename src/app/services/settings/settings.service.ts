@@ -34,7 +34,7 @@ export class SettingsService {
   public order$ = new BehaviorSubject<{
     type: Order;
     value: number[] | undefined;
-  } | null>(null);
+  } | null>({ type: 'alphabetical', value: [] });
   public userLocation$ = new BehaviorSubject<number[]>([0, 0]);
   public data$ = new BehaviorSubject<DataSetting[] | null>(null);
   public settingsError$ = new BehaviorSubject<boolean | null>(false);
