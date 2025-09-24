@@ -110,32 +110,30 @@ export class TreksPage implements OnInit, OnDestroy {
   }
 
   public async handleInitialOrder() {
-    if (!this.settings.order$.value) {
-      if (environment.initialOrder === 'location') {
-        let currentPosition: any;
-        const shouldShowInAppDisclosure =
-          await this.geolocate.shouldShowInAppDisclosure();
-        try {
-          if (shouldShowInAppDisclosure) {
-            await this.presentInAppDisclosure();
-          }
-          currentPosition = await this.geolocate.getCurrentPosition();
-        } finally {
-          if (currentPosition) {
-            this.settings.saveOrderState(environment.initialOrder, [
-              currentPosition.longitude,
-              currentPosition.latitude
-            ]);
-          } else {
-            if (shouldShowInAppDisclosure) {
-              await this.presentGeolocateError();
-            }
-            this.settings.saveOrderState('alphabetical');
-          }
+    if (environment.initialOrder === 'location') {
+      let currentPosition: any;
+      const shouldShowInAppDisclosure =
+        await this.geolocate.shouldShowInAppDisclosure();
+      try {
+        if (shouldShowInAppDisclosure) {
+          await this.presentInAppDisclosure();
         }
-      } else {
-        this.settings.saveOrderState(environment.initialOrder as Order);
+        currentPosition = await this.geolocate.getCurrentPosition();
+      } finally {
+        if (currentPosition) {
+          this.settings.saveOrderState(environment.initialOrder, [
+            currentPosition.longitude,
+            currentPosition.latitude
+          ]);
+        } else {
+          if (shouldShowInAppDisclosure) {
+            await this.presentGeolocateError();
+          }
+          this.settings.saveOrderState('alphabetical');
+        }
       }
+    } else {
+      this.settings.saveOrderState(environment.initialOrder as Order);
     }
   }
 
