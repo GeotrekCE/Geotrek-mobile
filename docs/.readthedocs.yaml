@@ -1,5 +1,6 @@
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 
+# .readthedocs.yaml
 version: 2
 
 build:
@@ -7,7 +8,18 @@ build:
   tools:
     nodejs: "20"
   commands:
+    # Dossier de sortie HTML pour RTD
     - mkdir --parents $READTHEDOCS_OUTPUT/html/
+
+    # Installe les dépendances à partir du package-lock
     - npm ci
+
+    # ⚠️ Workaround du bug npm sur les optionalDependencies de Rollup
+    # On installe explicitement le binaire Linux attendu par VitePress/Rollup
+    - npm install @rollup/rollup-linux-x64-gnu --no-save || true
+
+    # Build de la doc VitePress
     - npm run docs:build -- --base "/$READTHEDOCS_VERSION/"
+
+    # Copie du résultat dans le dossier attendu par RTD
     - cp --recursive docs/.vitepress/dist/* $READTHEDOCS_OUTPUT/html/
