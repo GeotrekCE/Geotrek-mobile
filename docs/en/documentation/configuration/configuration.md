@@ -49,6 +49,17 @@ Example for sorting by **geographical proximity**:
 initialOrder: 'location',
 ```
 
+## Display map button on home page
+
+To display a button that redirects to the map on the home page:
+
+Edit the following line:
+
+```diff
+- showMapButtonOnHome: false,
++ showMapButtonOnHome: true,
+```
+
 ## Set the notification distance for POIs
 
 The app can notify users when approaching a Point of Interest (POI).

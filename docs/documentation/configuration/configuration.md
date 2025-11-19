@@ -49,6 +49,17 @@ Exemple pour un tri par **proximité géographique** :
 initialOrder: 'location',
 ```
 
+## Afficher le bouton carte sur la page d'accueil
+
+Pour afficher un bouton qui redirige vers la carte sur la page d'accueil :
+
+Modifier la ligne suivante :
+
+```diff
+- showMapButtonOnHome: false,
++ showMapButtonOnHome: true,
+```
+
 ## Définir la distance de déclenchement des notifications POI
 
 L’application peut notifier l’utilisateur à l’approche d’un point d’intérêt (POI).
