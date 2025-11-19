@@ -32,7 +32,7 @@
       (filterAndGo)="goToEmergency()"
     ></app-filter-button>
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="showMapButtonOnHome" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button
       color="secondary"
       class="no-outline"

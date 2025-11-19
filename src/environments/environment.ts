@@ -12,6 +12,7 @@ export const environment = {
   navigation: 'tabs',
   showGoToPoi: false,
   enableOutdoorPracticesShortcuts: false,
+  showMapButtonOnHome: false,
   onlineMapConfig: {
     attributionControl: false,
     style: {

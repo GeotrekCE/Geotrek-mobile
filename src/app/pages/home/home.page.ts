@@ -22,6 +22,8 @@ export class HomePage implements OnInit, OnDestroy {
   public outdoorPractices!: any[] | undefined;
   private outdoorPracticesSubscription!: Subscription;
   public mapLink: string = '/treks-map';
+  public showMapButtonOnHome: boolean =
+    (environment as any).showMapButtonOnHome ?? false;
 
   constructor(
     private settings: SettingsService,
