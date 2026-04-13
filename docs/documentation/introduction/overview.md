@@ -25,7 +25,7 @@ Les contenus proposés dans Geotrek-mobile (itinéraires, outdoor, informations 
 ## Fonctionnalités principales
 
 * **Accès aux itinéraires** via une carte interactive ou une liste
-* **Accès aux contenus outdoor** via une redirection sur l'application rando
+* **Accès aux contenus outdoor** via une redirection sur l'application Geotrek-rando
 * **Filtres multicritères** pour affiner la recherche selon le type d’activité, la durée, la difficulté, etc.
 * **Fonction de recherche** par mot-clé
 * **Fiches détaillées** pour chaque itinéraire, avec description, photos, carte, profil altimétrique, etc.
@@ -38,6 +38,26 @@ Les contenus proposés dans Geotrek-mobile (itinéraires, outdoor, informations 
 L’application est accessible via une icône dédiée sur le bureau du smartphone ou de la tablette. Cette icône peut être personnalisée par la structure utilisatrice avant la diffusion.
 
 Lors du premier lancement, un message d’information est affiché à l’attention des utilisateurs pour expliquer l’usage de la géolocalisation.
+
+## Exemples d'applications
+
+Plusieurs territoires utilisent Geotrek-mobile pour proposer des applications de découverte outdoor. 
+
+Voici quelques exemples disponibles sur les stores :
+
+- Tarn Pleine Nature
+  - [Apple store](https://apps.apple.com/fr/app/tarn-pleine-nature/id1627448361)
+  - [Play store](https://play.google.com/store/apps/details?id=io.geotrek.tarnpleinenature&hl=fr)
+
+- Explore Doubs
+  - [Apple store](https://apps.apple.com/fr/app/exploredoubs/id6503300810)
+  - [Play store](https://play.google.com/store/apps/details?id=io.geotrek.doubs&hl=fr)
+
+- Alès Agglo Évasion
+  - [Apple store](https://apps.apple.com/fr/app/al%C3%A8s-agglo-%C3%A9vasion/id1671988491)
+  - [Play store](https://play.google.com/store/apps/details?id=io.ales.geotrek&hl=fr)
+
+Ces applications illustrent différentes déclinaisons possibles de Geotrek-mobile selon les territoires : personnalisation graphique, choix des contenus, et stratégies de valorisation touristique.
 
 ## Licence
 
