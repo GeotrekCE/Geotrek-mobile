@@ -12,7 +12,6 @@
     >
       <ion-item *ngFor="let poi of radioPois; let i = index">
         <ion-radio
-          [legacy]="true"
           [attr.aria-label]="poi.id"
           [value]="poi.id"
           slot="start"

@@ -5,7 +5,6 @@
   <ion-item class="no-lines" *ngFor="let order of orders">
     <ion-label>{{ order.name }}</ion-label>
     <ion-radio
-      [legacy]="true"
       [attr.aria-label]="order.name"
       [value]="order.value"
       slot="start"

@@ -16,7 +16,6 @@
 
       <ion-item *ngFor="let trek of radioTreks; let i = index">
         <ion-radio
-          [legacy]="true"
           [attr.aria-label]="trek.id"
           [value]="trek.id"
           slot="start"
