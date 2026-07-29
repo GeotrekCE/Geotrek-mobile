@@ -1,7 +1,7 @@
 platforms:
   android:
-    versionName: 3.18.0
-    versionCode: 400080
+    versionName: 3.18.1
+    versionCode: 400081
     manifest:
       - file: AndroidManifest.xml
         target: /manifest/application
@@ -34,8 +34,8 @@ platforms:
   ios:
     targets:
       App:
-        version: 3.18.0
-        buildNumber: 400080
+        version: 3.18.1
+        buildNumber: 400081
         plist:
           - replace: true
             entries:
