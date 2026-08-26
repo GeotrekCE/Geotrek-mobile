@@ -46,6 +46,11 @@
   font-weight: bold;
 }
 
+ion-app {
+  bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) !important;
+  height: auto !important;
+}
+
 ion-fab {
   z-index: 8;
 }
