@@ -70,13 +70,18 @@ registerLocaleData(localeFr, 'fr');
         ) =>
         async () => {
           return new Promise(async (resolve) => {
-            await settingsService.initializeSettings();
-            await onlineTreksService.loadTreks();
-            if (environment.enableOutdoorPracticesShortcuts) {
-              await settingsService.loadOutdoorPractices();
+            try {
+              await settingsService.initializeSettings();
+              await onlineTreksService.loadTreks();
+              if (environment.enableOutdoorPracticesShortcuts) {
+                await settingsService.loadOutdoorPractices();
+              }
+            } catch (error) {
+              console.error('Initialization error:', error);
+            } finally {
+              SplashScreen.hide();
+              resolve(true);
             }
-            SplashScreen.hide();
-            resolve(true);
           });
         },
       deps: [SettingsService, OnlineTreksService, Platform],
