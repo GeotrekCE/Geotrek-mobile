@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ZipPlugin } from 'capacitor-zip';
+import { CapacitorZip } from '@capgo/capacitor-zip';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
@@ -347,29 +347,18 @@ export class OfflineTreksService implements TreksServiceOffline {
               path: 'offline',
               directory: Directory.Data
             });
-            return new Promise((resolve) => {
-              from(
-                ZipPlugin.unZip(
-                  {
-                    source: source.uri,
-                    destination: destination.uri
-                  },
-                  (progress: any) => {
-                    if (progress.completed) {
-                      Filesystem.deleteFile({
-                        path: `zip/global.zip`,
-                        directory: Directory.Data
-                      });
-                      resolve(true);
-                    }
-                  }
-                )
-              );
+            await CapacitorZip.unzip({
+              source: source.uri.replace(/^file:\/\//, ''),
+              destination: destination.uri.replace(/^file:\/\//, ''),
+              password: 'geotrek'
             });
+            await Filesystem.deleteFile({
+              path: `zip/global.zip`,
+              directory: Directory.Data
+            });
+            return true;
           } else {
-            return new Promise((resolve) => {
-              resolve(true);
-            });
+            return true;
           }
         })
       );
@@ -413,29 +402,18 @@ export class OfflineTreksService implements TreksServiceOffline {
             path: 'offline',
             directory: Directory.Data
           });
-          return new Promise((resolve) => {
-            from(
-              ZipPlugin.unZip(
-                {
-                  source: source.uri,
-                  destination: destination.uri
-                },
-                (progress: any) => {
-                  if (progress.completed) {
-                    Filesystem.deleteFile({
-                      path: zipDestination,
-                      directory: Directory.Data
-                    });
-                    resolve(true);
-                  }
-                }
-              )
-            );
+          await CapacitorZip.unzip({
+            source: source.uri.replace(/^file:\/\//, ''),
+            destination: destination.uri.replace(/^file:\/\//, ''),
+            password: 'geotrek'
           });
+          await Filesystem.deleteFile({
+            path: zipDestination,
+            directory: Directory.Data
+          });
+          return true;
         } else {
-          return new Promise((resolve) => {
-            resolve(true);
-          });
+          return true;
         }
       })
     );
